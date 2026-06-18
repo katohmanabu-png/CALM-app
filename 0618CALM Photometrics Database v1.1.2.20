@@ -1,0 +1,2166 @@
+# CALM Photometrics Database - Non-DMX Mode Only
+# Format: Manufacturer,Model,Operating_Mode,CCT_K,Distance_m,Accessory,Lux,Footcandles,Beam_Angle_deg,Notes
+# Version: 2.0 | Updated from v1.1.2.18 | Existing high-detail rows preserved
+# Total fixtures: 204 | Total data rows: 2042
+Manufacturer,Model,Operating_Mode,CCT_K,Distance_m,Accessory,Lux,Footcandles,Beam_Angle_deg,Notes
+# ============================================================
+# SECTION 1: Detailed photometric data (from original CSV)
+# ============================================================
+Aputure,ElectroStorm XT26,Normal,2700,2,Bare Bulb,13070,1214,,
+Aputure,ElectroStorm XT26,Normal,3200,2,Bare Bulb,15880,1475,,
+Aputure,ElectroStorm XT26,Normal,4300,2,Bare Bulb,19030,1768,,
+Aputure,ElectroStorm XT26,Normal,5600,2,Bare Bulb,21150,1965,,
+Aputure,ElectroStorm XT26,Normal,6500,2,Bare Bulb,19530,1814,,
+Aputure,ElectroStorm XT26,Normal,2700,2,Standard Reflector 50deg,42500,3949,50,
+Aputure,ElectroStorm XT26,Normal,3200,2,Standard Reflector 50deg,51400,4777,50,
+Aputure,ElectroStorm XT26,Normal,4300,2,Standard Reflector 50deg,62100,5772,50,
+Aputure,ElectroStorm XT26,Normal,5600,2,Standard Reflector 50deg,68900,6404,50,
+Aputure,ElectroStorm XT26,Normal,6500,2,Standard Reflector 50deg,63600,5909,50,
+Aputure,ElectroStorm XT26,Normal,2700,2,Standard Reflector 35deg,83300,7741,35,
+Aputure,ElectroStorm XT26,Normal,3200,2,Standard Reflector 35deg,100700,9357,35,
+Aputure,ElectroStorm XT26,Normal,4300,2,Standard Reflector 35deg,121600,11300,35,
+Aputure,ElectroStorm XT26,Normal,5600,2,Standard Reflector 35deg,135200,12563,35,
+Aputure,ElectroStorm XT26,Normal,6500,2,Standard Reflector 35deg,125000,11612,35,
+Aputure,ElectroStorm XT26,Normal,2700,2,Motorized Fresnel 18deg,103500,9617,18,
+Aputure,ElectroStorm XT26,Normal,3200,2,Motorized Fresnel 18deg,124300,11552,18,
+Aputure,ElectroStorm XT26,Normal,4300,2,Motorized Fresnel 18deg,150800,14011,18,
+Aputure,ElectroStorm XT26,Normal,5600,2,Motorized Fresnel 18deg,167800,15592,18,
+Aputure,ElectroStorm XT26,Normal,6500,2,Motorized Fresnel 18deg,155400,14434,18,
+Aputure,ElectroStorm XT26,Normal,2700,2,Motorized Fresnel 50deg,24840,2308,50,
+Aputure,ElectroStorm XT26,Normal,3200,2,Motorized Fresnel 50deg,29800,2769,50,
+Aputure,ElectroStorm XT26,Normal,4300,2,Motorized Fresnel 50deg,36300,3373,50,
+Aputure,ElectroStorm XT26,Normal,5600,2,Motorized Fresnel 50deg,40600,3772,50,
+Aputure,ElectroStorm XT26,Normal,6500,2,Motorized Fresnel 50deg,37800,3512,50,
+Aputure,ElectroStorm XT26,Normal,2700,2,Spotlight 50deg,5520,513,50,
+Aputure,ElectroStorm XT26,Normal,3200,2,Spotlight 50deg,6650,618,50,
+Aputure,ElectroStorm XT26,Normal,4300,2,Spotlight 50deg,7980,741,50,
+Aputure,ElectroStorm XT26,Normal,5600,2,Spotlight 50deg,8890,826,50,
+Aputure,ElectroStorm XT26,Normal,6500,2,Spotlight 50deg,8200,762,50,
+Aputure,ElectroStorm XT26,Normal,2700,2,Spotlight 36deg,12130,1127,36,
+Aputure,ElectroStorm XT26,Normal,3200,2,Spotlight 36deg,14430,1341,36,
+Aputure,ElectroStorm XT26,Normal,4300,2,Spotlight 36deg,17590,1634,36,
+Aputure,ElectroStorm XT26,Normal,5600,2,Spotlight 36deg,19560,1817,36,
+Aputure,ElectroStorm XT26,Normal,6500,2,Spotlight 36deg,18130,1685,36,
+Aputure,ElectroStorm XT26,Normal,2700,2,Spotlight 19deg,23370,2171,19,
+Aputure,ElectroStorm XT26,Normal,3200,2,Spotlight 19deg,28190,2619,19,
+Aputure,ElectroStorm XT26,Normal,4300,2,Spotlight 19deg,33500,3113,19,
+Aputure,ElectroStorm XT26,Normal,5600,2,Spotlight 19deg,37400,3474,19,
+Aputure,ElectroStorm XT26,Normal,6500,2,Spotlight 19deg,34700,3224,19,
+Aputure,ElectroStorm XT26,Normal,2700,3,Bare Bulb,6210,577,,
+Aputure,ElectroStorm XT26,Normal,3200,3,Bare Bulb,7460,693,,
+Aputure,ElectroStorm XT26,Normal,4300,3,Bare Bulb,8960,832,,
+Aputure,ElectroStorm XT26,Normal,5600,3,Bare Bulb,10040,933,,
+Aputure,ElectroStorm XT26,Normal,6500,3,Bare Bulb,9130,848,,
+Aputure,ElectroStorm XT26,Normal,2700,3,Standard Reflector 50deg,18720,1739,50,
+Aputure,ElectroStorm XT26,Normal,3200,3,Standard Reflector 50deg,22350,2077,50,
+Aputure,ElectroStorm XT26,Normal,4300,3,Standard Reflector 50deg,27380,2544,50,
+Aputure,ElectroStorm XT26,Normal,5600,3,Standard Reflector 50deg,30500,2834,50,
+Aputure,ElectroStorm XT26,Normal,6500,3,Standard Reflector 50deg,28100,2611,50,
+Aputure,ElectroStorm XT26,Normal,2700,3,Standard Reflector 35deg,36300,3373,35,
+Aputure,ElectroStorm XT26,Normal,3200,3,Standard Reflector 35deg,44100,4097,35,
+Aputure,ElectroStorm XT26,Normal,4300,3,Standard Reflector 35deg,52800,4906,35,
+Aputure,ElectroStorm XT26,Normal,5600,3,Standard Reflector 35deg,58600,5446,35,
+Aputure,ElectroStorm XT26,Normal,6500,3,Standard Reflector 35deg,54300,5046,35,
+Aputure,ElectroStorm XT26,Normal,2700,3,Standard Reflector 20deg,107300,9969,20,
+Aputure,ElectroStorm XT26,Normal,3200,3,Standard Reflector 20deg,129800,12062,20,
+Aputure,ElectroStorm XT26,Normal,4300,3,Standard Reflector 20deg,156300,14523,20,
+Aputure,ElectroStorm XT26,Normal,5600,3,Standard Reflector 20deg,173900,16159,20,
+Aputure,ElectroStorm XT26,Normal,6500,3,Standard Reflector 20deg,159800,14848,20,
+Aputure,ElectroStorm XT26,Normal,2700,3,Motorized Fresnel 18deg,52100,4841,18,
+Aputure,ElectroStorm XT26,Normal,3200,3,Motorized Fresnel 18deg,62900,5845,18,
+Aputure,ElectroStorm XT26,Normal,4300,3,Motorized Fresnel 18deg,75900,7054,18,
+Aputure,ElectroStorm XT26,Normal,5600,3,Motorized Fresnel 18deg,84400,7843,18,
+Aputure,ElectroStorm XT26,Normal,6500,3,Motorized Fresnel 18deg,78000,7247,18,
+Aputure,ElectroStorm XT26,Normal,2700,3,Motorized Fresnel 50deg,12520,1163,50,
+Aputure,ElectroStorm XT26,Normal,3200,3,Motorized Fresnel 50deg,15130,1406,50,
+Aputure,ElectroStorm XT26,Normal,4300,3,Motorized Fresnel 50deg,18280,1699,50,
+Aputure,ElectroStorm XT26,Normal,5600,3,Motorized Fresnel 50deg,20460,1901,50,
+Aputure,ElectroStorm XT26,Normal,6500,3,Motorized Fresnel 50deg,18950,1761,50,
+Aputure,ElectroStorm XT26,Normal,2700,3,Spotlight 50deg,2630,244,50,
+Aputure,ElectroStorm XT26,Normal,3200,3,Spotlight 50deg,3150,293,50,
+Aputure,ElectroStorm XT26,Normal,4300,3,Spotlight 50deg,3730,347,50,
+Aputure,ElectroStorm XT26,Normal,5600,3,Spotlight 50deg,4210,391,50,
+Aputure,ElectroStorm XT26,Normal,6500,3,Spotlight 50deg,3870,360,50,
+Aputure,ElectroStorm XT26,Normal,2700,3,Spotlight 36deg,5820,541,36,
+Aputure,ElectroStorm XT26,Normal,3200,3,Spotlight 36deg,7050,655,36,
+Aputure,ElectroStorm XT26,Normal,4300,3,Spotlight 36deg,8460,786,36,
+Aputure,ElectroStorm XT26,Normal,5600,3,Spotlight 36deg,9380,871,36,
+Aputure,ElectroStorm XT26,Normal,6500,3,Spotlight 36deg,8520,792,36,
+Aputure,ElectroStorm XT26,Normal,2700,3,Spotlight 19deg,11420,1061,19,
+Aputure,ElectroStorm XT26,Normal,3200,3,Spotlight 19deg,13320,1238,19,
+Aputure,ElectroStorm XT26,Normal,4300,3,Spotlight 19deg,16470,1530,19,
+Aputure,ElectroStorm XT26,Normal,5600,3,Spotlight 19deg,18270,1698,19,
+Aputure,ElectroStorm XT26,Normal,6500,3,Spotlight 19deg,16960,1576,19,
+Aputure,ElectroStorm XT26,Normal,2700,5,Bare Bulb,2552,237,,
+Aputure,ElectroStorm XT26,Normal,3200,5,Bare Bulb,3080,286,,
+Aputure,ElectroStorm XT26,Normal,4300,5,Bare Bulb,3710,345,,
+Aputure,ElectroStorm XT26,Normal,5600,5,Bare Bulb,4110,382,,
+Aputure,ElectroStorm XT26,Normal,6500,5,Bare Bulb,3770,350,,
+Aputure,ElectroStorm XT26,Normal,2700,5,Standard Reflector 50deg,7070,657,50,
+Aputure,ElectroStorm XT26,Normal,3200,5,Standard Reflector 50deg,8360,777,50,
+Aputure,ElectroStorm XT26,Normal,4300,5,Standard Reflector 50deg,10260,953,50,
+Aputure,ElectroStorm XT26,Normal,5600,5,Standard Reflector 50deg,11170,1038,50,
+Aputure,ElectroStorm XT26,Normal,6500,5,Standard Reflector 50deg,10500,976,50,
+Aputure,ElectroStorm XT26,Normal,2700,5,Standard Reflector 35deg,12720,1182,35,
+Aputure,ElectroStorm XT26,Normal,3200,5,Standard Reflector 35deg,15360,1427,35,
+Aputure,ElectroStorm XT26,Normal,4300,5,Standard Reflector 35deg,18390,1709,35,
+Aputure,ElectroStorm XT26,Normal,5600,5,Standard Reflector 35deg,20530,1908,35,
+Aputure,ElectroStorm XT26,Normal,6500,5,Standard Reflector 35deg,19080,1773,35,
+Aputure,ElectroStorm XT26,Normal,2700,5,Standard Reflector 20deg,36200,3363,20,
+Aputure,ElectroStorm XT26,Normal,3200,5,Standard Reflector 20deg,43600,4051,20,
+Aputure,ElectroStorm XT26,Normal,4300,5,Standard Reflector 20deg,52600,4888,20,
+Aputure,ElectroStorm XT26,Normal,5600,5,Standard Reflector 20deg,58000,5390,20,
+Aputure,ElectroStorm XT26,Normal,6500,5,Standard Reflector 20deg,54000,5018,20,
+Aputure,ElectroStorm XT26,Normal,2700,5,Motorized Fresnel 18deg,20450,1900,18,
+Aputure,ElectroStorm XT26,Normal,3200,5,Motorized Fresnel 18deg,24720,2297,18,
+Aputure,ElectroStorm XT26,Normal,4300,5,Motorized Fresnel 18deg,29630,2754,18,
+Aputure,ElectroStorm XT26,Normal,5600,5,Motorized Fresnel 18deg,33000,3067,18,
+Aputure,ElectroStorm XT26,Normal,6500,5,Motorized Fresnel 18deg,30500,2834,18,
+Aputure,ElectroStorm XT26,Normal,2700,5,Motorized Fresnel 50deg,5080,472,50,
+Aputure,ElectroStorm XT26,Normal,3200,5,Motorized Fresnel 50deg,6160,572,50,
+Aputure,ElectroStorm XT26,Normal,4300,5,Motorized Fresnel 50deg,7440,691,50,
+Aputure,ElectroStorm XT26,Normal,5600,5,Motorized Fresnel 50deg,8330,774,50,
+Aputure,ElectroStorm XT26,Normal,6500,5,Motorized Fresnel 50deg,7720,717,50,
+Aputure,ElectroStorm XT26,Normal,2700,5,Spotlight 50deg,1030,96,50,
+Aputure,ElectroStorm XT26,Normal,3200,5,Spotlight 50deg,1238,115,50,
+Aputure,ElectroStorm XT26,Normal,4300,5,Spotlight 50deg,1489,138,50,
+Aputure,ElectroStorm XT26,Normal,5600,5,Spotlight 50deg,1644,153,50,
+Aputure,ElectroStorm XT26,Normal,6500,5,Spotlight 50deg,1511,140,50,
+Aputure,ElectroStorm XT26,Normal,2700,5,Spotlight 36deg,2178,202,36,
+Aputure,ElectroStorm XT26,Normal,3200,5,Spotlight 36deg,2632,244,36,
+Aputure,ElectroStorm XT26,Normal,4300,5,Spotlight 36deg,3150,293,36,
+Aputure,ElectroStorm XT26,Normal,5600,5,Spotlight 36deg,3500,325,36,
+Aputure,ElectroStorm XT26,Normal,6500,5,Spotlight 36deg,3220,299,36,
+Aputure,ElectroStorm XT26,Normal,2700,5,Spotlight 19deg,4150,386,19,
+Aputure,ElectroStorm XT26,Normal,3200,5,Spotlight 19deg,5010,466,19,
+Aputure,ElectroStorm XT26,Normal,4300,5,Spotlight 19deg,5980,556,19,
+Aputure,ElectroStorm XT26,Normal,5600,5,Spotlight 19deg,6670,620,19,
+Aputure,ElectroStorm XT26,Normal,6500,5,Spotlight 19deg,6040,561,19,
+Aputure,ElectroStorm XT26,Normal,2700,7,Bare Bulb,822,76,,
+Aputure,ElectroStorm XT26,Normal,3200,7,Bare Bulb,1086,101,,
+Aputure,ElectroStorm XT26,Normal,4300,7,Bare Bulb,1456,135,,
+Aputure,ElectroStorm XT26,Normal,5600,7,Bare Bulb,1770,164,,
+Aputure,ElectroStorm XT26,Normal,6500,7,Bare Bulb,1715,159,,
+Aputure,ElectroStorm XT26,Normal,2700,7,Standard Reflector 50deg,3360,312,50,
+Aputure,ElectroStorm XT26,Normal,3200,7,Standard Reflector 50deg,4050,376,50,
+Aputure,ElectroStorm XT26,Normal,4300,7,Standard Reflector 50deg,4880,453,50,
+Aputure,ElectroStorm XT26,Normal,5600,7,Standard Reflector 50deg,5460,507,50,
+Aputure,ElectroStorm XT26,Normal,6500,7,Standard Reflector 50deg,5060,470,50,
+Aputure,ElectroStorm XT26,Normal,2700,7,Standard Reflector 35deg,6210,577,35,
+Aputure,ElectroStorm XT26,Normal,3200,7,Standard Reflector 35deg,7530,699,35,
+Aputure,ElectroStorm XT26,Normal,4300,7,Standard Reflector 35deg,9050,841,35,
+Aputure,ElectroStorm XT26,Normal,5600,7,Standard Reflector 35deg,10020,931,35,
+Aputure,ElectroStorm XT26,Normal,6500,7,Standard Reflector 35deg,9270,861,35,
+Aputure,ElectroStorm XT26,Normal,2700,7,Standard Reflector 20deg,17930,1666,20,
+Aputure,ElectroStorm XT26,Normal,3200,7,Standard Reflector 20deg,21630,2010,20,
+Aputure,ElectroStorm XT26,Normal,4300,7,Standard Reflector 20deg,26040,2419,20,
+Aputure,ElectroStorm XT26,Normal,5600,7,Standard Reflector 20deg,29320,2725,20,
+Aputure,ElectroStorm XT26,Normal,6500,7,Standard Reflector 20deg,27010,2509,20,
+Aputure,ElectroStorm XT26,Normal,2700,7,Motorized Fresnel 18deg,10660,990,18,
+Aputure,ElectroStorm XT26,Normal,3200,7,Motorized Fresnel 18deg,12900,1199,18,
+Aputure,ElectroStorm XT26,Normal,4300,7,Motorized Fresnel 18deg,15480,1438,18,
+Aputure,ElectroStorm XT26,Normal,5600,7,Motorized Fresnel 18deg,17250,1603,18,
+Aputure,ElectroStorm XT26,Normal,6500,7,Motorized Fresnel 18deg,15960,1483,18,
+Aputure,ElectroStorm XT26,Normal,2700,7,Motorized Fresnel 50deg,2750,256,50,
+Aputure,ElectroStorm XT26,Normal,3200,7,Motorized Fresnel 50deg,3340,310,50,
+Aputure,ElectroStorm XT26,Normal,4300,7,Motorized Fresnel 50deg,4020,373,50,
+Aputure,ElectroStorm XT26,Normal,5600,7,Motorized Fresnel 50deg,4500,418,50,
+Aputure,ElectroStorm XT26,Normal,6500,7,Motorized Fresnel 50deg,4180,388,50,
+Aputure,ElectroStorm XT26,Normal,2700,7,Spotlight 50deg,467,43,50,
+Aputure,ElectroStorm XT26,Normal,3200,7,Spotlight 50deg,556,52,50,
+Aputure,ElectroStorm XT26,Normal,4300,7,Spotlight 50deg,680,63,50,
+Aputure,ElectroStorm XT26,Normal,5600,7,Spotlight 50deg,756,70,50,
+Aputure,ElectroStorm XT26,Normal,6500,7,Spotlight 50deg,700,65,50,
+Aputure,ElectroStorm XT26,Normal,2700,7,Spotlight 36deg,1152,107,36,
+Aputure,ElectroStorm XT26,Normal,3200,7,Spotlight 36deg,1399,130,36,
+Aputure,ElectroStorm XT26,Normal,4300,7,Spotlight 36deg,1675,156,36,
+Aputure,ElectroStorm XT26,Normal,5600,7,Spotlight 36deg,1885,175,36,
+Aputure,ElectroStorm XT26,Normal,6500,7,Spotlight 36deg,1767,164,36,
+Aputure,ElectroStorm XT26,Normal,2700,7,Spotlight 19deg,2157,200,19,
+Aputure,ElectroStorm XT26,Normal,3200,7,Spotlight 19deg,2610,243,19,
+Aputure,ElectroStorm XT26,Normal,4300,7,Spotlight 19deg,3120,290,19,
+Aputure,ElectroStorm XT26,Normal,5600,7,Spotlight 19deg,3460,321,19,
+Aputure,ElectroStorm XT26,Normal,6500,7,Spotlight 19deg,3200,297,19,
+Aputure,ElectroStorm XT26,HighSpeed,2700,2,Bare Bulb,13080,1215,,
+Aputure,ElectroStorm XT26,HighSpeed,3200,2,Bare Bulb,16520,1535,,
+Aputure,ElectroStorm XT26,HighSpeed,4300,2,Bare Bulb,22060,2050,,
+Aputure,ElectroStorm XT26,HighSpeed,5600,2,Bare Bulb,23430,2178,,
+Aputure,ElectroStorm XT26,HighSpeed,6500,2,Bare Bulb,20150,1872,,
+Aputure,ElectroStorm XT26,HighSpeed,2700,2,Standard Reflector 50deg,42800,3977,50,
+Aputure,ElectroStorm XT26,HighSpeed,3200,2,Standard Reflector 50deg,54000,5018,50,
+Aputure,ElectroStorm XT26,HighSpeed,4300,2,Standard Reflector 50deg,72000,6691,50,
+Aputure,ElectroStorm XT26,HighSpeed,5600,2,Standard Reflector 50deg,76500,7109,50,
+Aputure,ElectroStorm XT26,HighSpeed,6500,2,Standard Reflector 50deg,65800,6114,50,
+Aputure,ElectroStorm XT26,HighSpeed,2700,2,Standard Reflector 35deg,83700,7778,35,
+Aputure,ElectroStorm XT26,HighSpeed,3200,2,Standard Reflector 35deg,105600,9812,35,
+Aputure,ElectroStorm XT26,HighSpeed,4300,2,Standard Reflector 35deg,140900,13094,35,
+Aputure,ElectroStorm XT26,HighSpeed,5600,2,Standard Reflector 35deg,149800,13921,35,
+Aputure,ElectroStorm XT26,HighSpeed,6500,2,Standard Reflector 35deg,128700,11960,35,
+Aputure,ElectroStorm XT26,HighSpeed,2700,2,Motorized Fresnel 18deg,102900,9562,18,
+Aputure,ElectroStorm XT26,HighSpeed,3200,2,Motorized Fresnel 18deg,130500,12126,18,
+Aputure,ElectroStorm XT26,HighSpeed,4300,2,Motorized Fresnel 18deg,174000,16170,18,
+Aputure,ElectroStorm XT26,HighSpeed,5600,2,Motorized Fresnel 18deg,184900,17187,18,
+Aputure,ElectroStorm XT26,HighSpeed,6500,2,Motorized Fresnel 18deg,159400,14811,18,
+Aputure,ElectroStorm XT26,HighSpeed,2700,2,Motorized Fresnel 50deg,25600,2379,50,
+Aputure,ElectroStorm XT26,HighSpeed,3200,2,Motorized Fresnel 50deg,31800,2955,50,
+Aputure,ElectroStorm XT26,HighSpeed,4300,2,Motorized Fresnel 50deg,42500,3949,50,
+Aputure,ElectroStorm XT26,HighSpeed,5600,2,Motorized Fresnel 50deg,45500,4228,50,
+Aputure,ElectroStorm XT26,HighSpeed,6500,2,Motorized Fresnel 50deg,39300,3652,50,
+Aputure,ElectroStorm XT26,HighSpeed,2700,2,Spotlight 50deg,5530,514,50,
+Aputure,ElectroStorm XT26,HighSpeed,3200,2,Spotlight 50deg,6980,649,50,
+Aputure,ElectroStorm XT26,HighSpeed,4300,2,Spotlight 50deg,9260,860,50,
+Aputure,ElectroStorm XT26,HighSpeed,5600,2,Spotlight 50deg,9820,913,50,
+Aputure,ElectroStorm XT26,HighSpeed,6500,2,Spotlight 50deg,8440,784,50,
+Aputure,ElectroStorm XT26,HighSpeed,2700,2,Spotlight 36deg,12100,1124,36,
+Aputure,ElectroStorm XT26,HighSpeed,3200,2,Spotlight 36deg,15260,1418,36,
+Aputure,ElectroStorm XT26,HighSpeed,4300,2,Spotlight 36deg,20360,1892,36,
+Aputure,ElectroStorm XT26,HighSpeed,5600,2,Spotlight 36deg,21610,2008,36,
+Aputure,ElectroStorm XT26,HighSpeed,6500,2,Spotlight 36deg,18630,1731,36,
+Aputure,ElectroStorm XT26,HighSpeed,2700,2,Spotlight 19deg,23200,2155,19,
+Aputure,ElectroStorm XT26,HighSpeed,3200,2,Spotlight 19deg,29120,2706,19,
+Aputure,ElectroStorm XT26,HighSpeed,4300,2,Spotlight 19deg,38700,3596,19,
+Aputure,ElectroStorm XT26,HighSpeed,5600,2,Spotlight 19deg,41100,3819,19,
+Aputure,ElectroStorm XT26,HighSpeed,6500,2,Spotlight 19deg,35400,3290,19,
+Aputure,Electro Storm CS15,Normal,5600,1,Standard Reflector Medium,F64.2,,35,CLM_LightingDatabase reference
+Aputure,Electro Storm CS15,Normal,5600,2,Standard Reflector Medium,F34.4,,35,CLM_LightingDatabase reference
+Aputure,Electro Storm CS15,Normal,5600,3,Standard Reflector Medium,F22.2,,35,CLM_LightingDatabase reference
+Aputure,Electro Storm CS15,Normal,5600,5,Standard Reflector Medium,F16,,35,CLM_LightingDatabase reference
+Aputure,Electro Storm CS15,Normal,5600,8,Standard Reflector Medium,F8.9,,35,CLM_LightingDatabase reference
+Aputure,STORM 80c,Normal,1800,1,Bare Bulb,4485,417,,
+Aputure,STORM 80c,Normal,1800,2,Bare Bulb,1162,108,,
+Aputure,STORM 80c,Normal,1800,3,Bare Bulb,500,46,,
+Aputure,STORM 80c,Normal,1800,1,Hyper Reflector,13030,1211,,
+Aputure,STORM 80c,Normal,1800,2,Hyper Reflector,3354,312,,
+Aputure,STORM 80c,Normal,1800,3,Hyper Reflector,1366,127,,
+Aputure,STORM 80c,Normal,1800,1,Mini Diffuser,878,82,,
+Aputure,STORM 80c,Normal,1800,2,Mini Diffuser,223,21,,
+Aputure,STORM 80c,Normal,1800,3,Mini Diffuser,96,9,,
+Aputure,STORM 80c,Normal,1800,1,CF4 Fresnel 15deg,24995,2311,15,
+Aputure,STORM 80c,Normal,1800,2,CF4 Fresnel 15deg,5833,535,15,
+Aputure,STORM 80c,Normal,1800,3,CF4 Fresnel 15deg,2418,236,15,
+Aputure,STORM 80c,Normal,1800,1,CF4 Fresnel 40deg,8666,806,40,
+Aputure,STORM 80c,Normal,1800,2,CF4 Fresnel 40deg,2322,203,40,
+Aputure,STORM 80c,Normal,1800,3,CF4 Fresnel 40deg,998,93,40,
+Aputure,STORM 80c,Normal,1800,1,LightDome40 Stop1,1640,152,,
+Aputure,STORM 80c,Normal,1800,2,LightDome40 Stop1,383,36,,
+Aputure,STORM 80c,Normal,1800,3,LightDome40 Stop1,164,15,,
+Aputure,STORM 80c,Normal,1800,1,LightDome40 Stop2,1190,111,,
+Aputure,STORM 80c,Normal,1800,2,LightDome40 Stop2,263,24,,
+Aputure,STORM 80c,Normal,1800,3,LightDome40 Stop2,113,11,,
+Aputure,STORM 80c,Normal,1800,1,Lantern30,686,64,,
+Aputure,STORM 80c,Normal,1800,2,Lantern30,151,14,,
+Aputure,STORM 80c,Normal,1800,3,Lantern30,65,6,,
+Aputure,STORM 80c,Normal,3200,1,Bare Bulb,6300,586,,
+Aputure,STORM 80c,Normal,3200,2,Bare Bulb,1619,150,,
+Aputure,STORM 80c,Normal,3200,3,Bare Bulb,696,65,,
+Aputure,STORM 80c,Normal,3200,1,Hyper Reflector,19090,1774,,
+Aputure,STORM 80c,Normal,3200,2,Hyper Reflector,4682,435,,
+Aputure,STORM 80c,Normal,3200,3,Hyper Reflector,1911,178,,
+Aputure,STORM 80c,Normal,3200,1,Mini Diffuser,1220,113,,
+Aputure,STORM 80c,Normal,3200,2,Mini Diffuser,308,29,,
+Aputure,STORM 80c,Normal,3200,3,Mini Diffuser,133,12,,
+Aputure,STORM 80c,Normal,3200,1,CF4 Fresnel 15deg,34625,3215,15,
+Aputure,STORM 80c,Normal,3200,2,CF4 Fresnel 15deg,7766,744,15,
+Aputure,STORM 80c,Normal,3200,3,CF4 Fresnel 15deg,2417,328,15,
+Aputure,STORM 80c,Normal,3200,1,CF4 Fresnel 40deg,11981,1122,40,
+Aputure,STORM 80c,Normal,3200,2,CF4 Fresnel 40deg,3256,283,40,
+Aputure,STORM 80c,Normal,3200,3,CF4 Fresnel 40deg,1399,129,40,
+Aputure,STORM 80c,Normal,3200,1,LightDome40 Stop1,2302,214,,
+Aputure,STORM 80c,Normal,3200,2,LightDome40 Stop1,534,50,,
+Aputure,STORM 80c,Normal,3200,3,LightDome40 Stop1,230,21,,
+Aputure,STORM 80c,Normal,3200,1,LightDome40 Stop2,1666,155,,
+Aputure,STORM 80c,Normal,3200,2,LightDome40 Stop2,366,34,,
+Aputure,STORM 80c,Normal,3200,3,LightDome40 Stop2,158,15,,
+Aputure,STORM 80c,Normal,3200,1,Lantern30,964,90,,
+Aputure,STORM 80c,Normal,3200,2,Lantern30,212,20,,
+Aputure,STORM 80c,Normal,3200,3,Lantern30,91,8,,
+Aputure,STORM 80c,Normal,5600,1,Bare Bulb,6500,604,,
+Aputure,STORM 80c,Normal,5600,2,Bare Bulb,1681,156,,
+Aputure,STORM 80c,Normal,5600,3,Bare Bulb,725,67,,
+Aputure,STORM 80c,Normal,5600,1,Hyper Reflector,19850,1845,,
+Aputure,STORM 80c,Normal,5600,2,Hyper Reflector,4859,452,,
+Aputure,STORM 80c,Normal,5600,3,Hyper Reflector,1987,185,,
+Aputure,STORM 80c,Normal,5600,1,Mini Diffuser,1261,117,,
+Aputure,STORM 80c,Normal,5600,2,Mini Diffuser,326,30,,
+Aputure,STORM 80c,Normal,5600,3,Mini Diffuser,138,13,,
+Aputure,STORM 80c,Normal,5600,1,CF4 Fresnel 15deg,36000,3197,15,
+Aputure,STORM 80c,Normal,5600,2,CF4 Fresnel 15deg,7840,738,15,
+Aputure,STORM 80c,Normal,5600,3,CF4 Fresnel 15deg,3512,324,15,
+Aputure,STORM 80c,Normal,5600,1,CF4 Fresnel 40deg,12500,1110,40,
+Aputure,STORM 80c,Normal,5600,2,CF4 Fresnel 40deg,3305,279,40,
+Aputure,STORM 80c,Normal,5600,3,CF4 Fresnel 40deg,1459,135,40,
+Aputure,STORM 80c,Normal,5600,1,LightDome40 Stop1,2398,223,,
+Aputure,STORM 80c,Normal,5600,2,LightDome40 Stop1,562,52,,
+Aputure,STORM 80c,Normal,5600,3,LightDome40 Stop1,241,22,,
+Aputure,STORM 80c,Normal,5600,1,LightDome40 Stop2,1734,161,,
+Aputure,STORM 80c,Normal,5600,2,LightDome40 Stop2,385,36,,
+Aputure,STORM 80c,Normal,5600,3,LightDome40 Stop2,166,15,,
+Aputure,STORM 80c,Normal,5600,1,Lantern30,1001,93,,
+Aputure,STORM 80c,Normal,5600,2,Lantern30,222,21,,
+Aputure,STORM 80c,Normal,5600,3,Lantern30,94,9,,
+Aputure,STORM 80c,Normal,10000,1,Bare Bulb,5981,556,,
+Aputure,STORM 80c,Normal,10000,2,Bare Bulb,1541,143,,
+Aputure,STORM 80c,Normal,10000,3,Bare Bulb,666,62,,
+Aputure,STORM 80c,Normal,10000,1,Hyper Reflector,17720,1647,,
+Aputure,STORM 80c,Normal,10000,2,Hyper Reflector,4466,415,,
+Aputure,STORM 80c,Normal,10000,3,Hyper Reflector,1825,170,,
+Aputure,STORM 80c,Normal,10000,1,CF4 Fresnel 15deg,32264,2925,15,
+Aputure,STORM 80c,Normal,10000,2,CF4 Fresnel 15deg,6905,673,15,
+Aputure,STORM 80c,Normal,10000,3,CF4 Fresnel 15deg,3197,296,15,
+Aputure,STORM 80c,Normal,10000,1,CF4 Fresnel 40deg,11558,1009,40,
+Aputure,STORM 80c,Normal,10000,2,CF4 Fresnel 40deg,3030,255,40,
+Aputure,STORM 80c,Normal,10000,3,CF4 Fresnel 40deg,1340,116,40,
+Aputure,STORM 400x,Normal,2500,1,Bare Bulb,20590,1913,,
+Aputure,STORM 400x,Normal,2500,1,Hyper Reflector 35deg,49200,4571,35,
+Aputure,STORM 400x,Normal,2500,1,Hyper Reflector 30deg,70800,6577,30,
+Aputure,STORM 400x,Normal,2500,1,CF7 Fresnel 15deg,179800,16703,15,
+Aputure,STORM 400x,Normal,2500,1,CF7 Fresnel 40deg,40600,3772,40,
+Aputure,STORM 400x,Normal,2500,3,Bare Bulb,2361,219,,
+Aputure,STORM 400x,Normal,2500,3,Hyper Reflector 35deg,3850,358,35,
+Aputure,STORM 400x,Normal,2500,3,Hyper Reflector 30deg,7180,667,30,
+Aputure,STORM 400x,Normal,2500,3,CF7 Fresnel 15deg,17700,1644,15,
+Aputure,STORM 400x,Normal,2500,3,CF7 Fresnel 40deg,4780,444,40,
+Aputure,STORM 400x,Normal,2500,5,Bare Bulb,880,82,,
+Aputure,STORM 400x,Normal,2500,5,Hyper Reflector 35deg,1334,124,35,
+Aputure,STORM 400x,Normal,2500,5,Hyper Reflector 30deg,2510,233,30,
+Aputure,STORM 400x,Normal,2500,5,CF7 Fresnel 15deg,6270,582,15,
+Aputure,STORM 400x,Normal,2500,5,CF7 Fresnel 40deg,1773,165,40,
+Aputure,STORM 400x,Normal,3200,1,Bare Bulb,25600,2378,,
+Aputure,STORM 400x,Normal,3200,1,Hyper Reflector 35deg,61600,5723,35,
+Aputure,STORM 400x,Normal,3200,1,Hyper Reflector 30deg,89000,8268,30,
+Aputure,STORM 400x,Normal,3200,1,CF7 Fresnel 15deg,225200,20921,15,
+Aputure,STORM 400x,Normal,3200,1,CF7 Fresnel 40deg,51000,4738,40,
+Aputure,STORM 400x,Normal,3200,3,Bare Bulb,2964,275,,
+Aputure,STORM 400x,Normal,3200,3,Hyper Reflector 35deg,4850,451,35,
+Aputure,STORM 400x,Normal,3200,3,Hyper Reflector 30deg,8990,835,30,
+Aputure,STORM 400x,Normal,3200,3,CF7 Fresnel 15deg,22210,2063,15,
+Aputure,STORM 400x,Normal,3200,3,CF7 Fresnel 40deg,6020,559,40,
+Aputure,STORM 400x,Normal,3200,5,Bare Bulb,1105,103,,
+Aputure,STORM 400x,Normal,3200,5,Hyper Reflector 35deg,1677,156,35,
+Aputure,STORM 400x,Normal,3200,5,Hyper Reflector 30deg,3150,293,30,
+Aputure,STORM 400x,Normal,3200,5,CF7 Fresnel 15deg,7860,730,15,
+Aputure,STORM 400x,Normal,3200,5,CF7 Fresnel 40deg,2232,207,40,
+Aputure,STORM 400x,Normal,5600,1,Bare Bulb,27100,2518,,
+Aputure,STORM 400x,Normal,5600,1,Hyper Reflector 35deg,64600,6001,35,
+Aputure,STORM 400x,Normal,5600,1,Hyper Reflector 30deg,93000,8640,30,
+Aputure,STORM 400x,Normal,5600,1,CF7 Fresnel 15deg,236700,21989,15,
+Aputure,STORM 400x,Normal,5600,1,CF7 Fresnel 40deg,53900,5007,40,
+Aputure,STORM 400x,Normal,5600,3,Bare Bulb,3110,289,,
+Aputure,STORM 400x,Normal,5600,3,Hyper Reflector 35deg,5090,473,35,
+Aputure,STORM 400x,Normal,5600,3,Hyper Reflector 30deg,9430,876,30,
+Aputure,STORM 400x,Normal,5600,3,CF7 Fresnel 15deg,23260,2161,15,
+Aputure,STORM 400x,Normal,5600,3,CF7 Fresnel 40deg,6380,593,40,
+Aputure,STORM 400x,Normal,5600,5,Bare Bulb,1161,108,,
+Aputure,STORM 400x,Normal,5600,5,Hyper Reflector 35deg,1769,164,35,
+Aputure,STORM 400x,Normal,5600,5,Hyper Reflector 30deg,3310,307,30,
+Aputure,STORM 400x,Normal,5600,5,CF7 Fresnel 15deg,8220,764,15,
+Aputure,STORM 400x,Normal,5600,5,CF7 Fresnel 40deg,2367,220,40,
+Aputure,STORM 400x,Normal,6500,1,Bare Bulb,26500,2462,,
+Aputure,STORM 400x,Normal,6500,1,Hyper Reflector 35deg,63300,5881,35,
+Aputure,STORM 400x,Normal,6500,1,Hyper Reflector 30deg,90800,8435,30,
+Aputure,STORM 400x,Normal,6500,1,CF7 Fresnel 15deg,228700,21246,15,
+Aputure,STORM 400x,Normal,6500,1,CF7 Fresnel 40deg,52700,4896,40,
+Aputure,STORM 400x,Normal,6500,3,Bare Bulb,3040,282,,
+Aputure,STORM 400x,Normal,6500,3,Hyper Reflector 35deg,4970,462,35,
+Aputure,STORM 400x,Normal,6500,3,Hyper Reflector 30deg,9200,855,30,
+Aputure,STORM 400x,Normal,6500,3,CF7 Fresnel 15deg,22690,2108,15,
+Aputure,STORM 400x,Normal,6500,3,CF7 Fresnel 40deg,6240,580,40,
+Aputure,STORM 400x,Normal,6500,5,Bare Bulb,1134,105,,
+Aputure,STORM 400x,Normal,6500,5,Hyper Reflector 35deg,1729,161,35,
+Aputure,STORM 400x,Normal,6500,5,Hyper Reflector 30deg,3230,300,30,
+Aputure,STORM 400x,Normal,6500,5,CF7 Fresnel 15deg,8020,745,15,
+Aputure,STORM 400x,Normal,6500,5,CF7 Fresnel 40deg,2317,215,40,
+Aputure,STORM 400x,Normal,10000,1,Bare Bulb,24160,2244,,
+Aputure,STORM 400x,Normal,10000,1,Hyper Reflector 35deg,57800,5370,35,
+Aputure,STORM 400x,Normal,10000,1,Hyper Reflector 30deg,83100,7720,30,
+Aputure,STORM 400x,Normal,10000,1,CF7 Fresnel 15deg,212600,19751,15,
+Aputure,STORM 400x,Normal,10000,1,CF7 Fresnel 40deg,48500,4506,40,
+Aputure,STORM 400x,Normal,10000,3,Bare Bulb,2790,259,,
+Aputure,STORM 400x,Normal,10000,3,Hyper Reflector 35deg,4550,423,35,
+Aputure,STORM 400x,Normal,10000,3,Hyper Reflector 30deg,8420,782,30,
+Aputure,STORM 400x,Normal,10000,3,CF7 Fresnel 15deg,20760,1929,15,
+Aputure,STORM 400x,Normal,10000,3,CF7 Fresnel 40deg,5740,533,40,
+Aputure,STORM 400x,Normal,10000,5,Bare Bulb,1038,96,,
+Aputure,STORM 400x,Normal,10000,5,Hyper Reflector 35deg,1585,147,35,
+Aputure,STORM 400x,Normal,10000,5,Hyper Reflector 30deg,2950,274,30,
+Aputure,STORM 400x,Normal,10000,5,CF7 Fresnel 15deg,7330,681,15,
+Aputure,STORM 400x,Normal,10000,5,CF7 Fresnel 40deg,2131,198,40,
+Aputure,STORM 1000c,Normal,1800,2,Bare Bulb,7800,725,,
+Aputure,STORM 1000c,Normal,1800,2,BM7815 Reflector,87500,8132,,15
+Aputure,STORM 1000c,Normal,1800,2,BM7830 Reflector,43500,4043,,30
+Aputure,STORM 1000c,Normal,1800,2,BM7845 Reflector,18500,1719,,45
+Aputure,STORM 1000c,Normal,1800,2,CF12 Fresnel 15deg,75500,7017,15,
+Aputure,STORM 1000c,Normal,1800,2,CF12 Fresnel 45deg,15100,1403,45,
+Aputure,STORM 1000c,Normal,1800,3,Bare Bulb,3500,325,,
+Aputure,STORM 1000c,Normal,1800,3,BM7815 Reflector,39000,3625,,15
+Aputure,STORM 1000c,Normal,1800,3,BM7830 Reflector,16800,1561,,30
+Aputure,STORM 1000c,Normal,1800,3,BM7845 Reflector,7900,734,,45
+Aputure,STORM 1000c,Normal,1800,3,CF12 Fresnel 15deg,32500,3020,15,
+Aputure,STORM 1000c,Normal,1800,3,CF12 Fresnel 45deg,6800,632,45,
+Aputure,STORM 1000c,Normal,1800,5,Bare Bulb,1350,125,,
+Aputure,STORM 1000c,Normal,1800,5,BM7815 Reflector,13300,1236,,15
+Aputure,STORM 1000c,Normal,1800,5,BM7830 Reflector,5500,511,,30
+Aputure,STORM 1000c,Normal,1800,5,BM7845 Reflector,2700,251,,45
+Aputure,STORM 1000c,Normal,1800,5,CF12 Fresnel 15deg,11200,1041,15,
+Aputure,STORM 1000c,Normal,1800,5,CF12 Fresnel 45deg,2500,232,45,
+Aputure,STORM 1000c,Normal,1800,7,Bare Bulb,700,65,,
+Aputure,STORM 1000c,Normal,1800,7,BM7815 Reflector,6600,613,,15
+Aputure,STORM 1000c,Normal,1800,7,BM7830 Reflector,2750,256,,30
+Aputure,STORM 1000c,Normal,1800,7,BM7845 Reflector,1450,135,,45
+Aputure,STORM 1000c,Normal,1800,7,CF12 Fresnel 15deg,5600,520,15,
+Aputure,STORM 1000c,Normal,1800,7,CF12 Fresnel 45deg,1300,121,45,
+Aputure,STORM 1000c,Normal,3200,2,Bare Bulb,14500,1348,,
+Aputure,STORM 1000c,Normal,3200,2,BM7815 Reflector,160000,14870,,15
+Aputure,STORM 1000c,Normal,3200,2,BM7830 Reflector,80000,7435,,30
+Aputure,STORM 1000c,Normal,3200,2,BM7845 Reflector,34000,3160,,45
+Aputure,STORM 1000c,Normal,3200,2,CF12 Fresnel 15deg,139000,12918,15,
+Aputure,STORM 1000c,Normal,3200,2,CF12 Fresnel 45deg,28000,2602,45,
+Aputure,STORM 1000c,Normal,3200,3,Bare Bulb,6500,604,,
+Aputure,STORM 1000c,Normal,3200,3,BM7815 Reflector,72000,6691,,15
+Aputure,STORM 1000c,Normal,3200,3,BM7830 Reflector,31000,2881,,30
+Aputure,STORM 1000c,Normal,3200,3,BM7845 Reflector,14500,1348,,45
+Aputure,STORM 1000c,Normal,3200,3,CF12 Fresnel 15deg,60000,5576,15,
+Aputure,STORM 1000c,Normal,3200,3,CF12 Fresnel 45deg,12500,1162,45,
+Aputure,STORM 1000c,Normal,3200,5,Bare Bulb,2500,232,,
+Aputure,STORM 1000c,Normal,3200,5,BM7815 Reflector,24500,2277,,15
+Aputure,STORM 1000c,Normal,3200,5,BM7830 Reflector,10000,929,,30
+Aputure,STORM 1000c,Normal,3200,5,BM7845 Reflector,5100,474,,45
+Aputure,STORM 1000c,Normal,3200,5,CF12 Fresnel 15deg,20500,1905,15,
+Aputure,STORM 1000c,Normal,3200,5,CF12 Fresnel 45deg,4600,428,45,
+Aputure,STORM 1000c,Normal,3200,7,Bare Bulb,1300,121,,
+Aputure,STORM 1000c,Normal,3200,7,BM7815 Reflector,12200,1134,,15
+Aputure,STORM 1000c,Normal,3200,7,BM7830 Reflector,5100,474,,30
+Aputure,STORM 1000c,Normal,3200,7,BM7845 Reflector,2700,251,,45
+Aputure,STORM 1000c,Normal,3200,7,CF12 Fresnel 15deg,10300,957,15,
+Aputure,STORM 1000c,Normal,3200,7,CF12 Fresnel 45deg,2450,228,45,
+Aputure,STORM 1000c,Normal,5600,2,Bare Bulb,14000,1301,,
+Aputure,STORM 1000c,Normal,5600,2,BM7815 Reflector,158000,14684,,15
+Aputure,STORM 1000c,Normal,5600,2,BM7830 Reflector,79000,7342,,30
+Aputure,STORM 1000c,Normal,5600,2,BM7845 Reflector,33500,3113,,45
+Aputure,STORM 1000c,Normal,5600,2,CF12 Fresnel 15deg,137000,12732,15,
+Aputure,STORM 1000c,Normal,5600,2,CF12 Fresnel 45deg,27500,2556,45,
+Aputure,STORM 1000c,Normal,5600,3,Bare Bulb,6300,586,,
+Aputure,STORM 1000c,Normal,5600,3,BM7815 Reflector,70000,6506,,15
+Aputure,STORM 1000c,Normal,5600,3,BM7830 Reflector,31000,2881,,30
+Aputure,STORM 1000c,Normal,5600,3,BM7845 Reflector,14200,1320,,45
+Aputure,STORM 1000c,Normal,5600,3,CF12 Fresnel 15deg,58500,5437,15,
+Aputure,STORM 1000c,Normal,5600,3,CF12 Fresnel 45deg,12500,1162,45,
+Aputure,STORM 1000c,Normal,5600,5,Bare Bulb,2450,228,,
+Aputure,STORM 1000c,Normal,5600,5,BM7815 Reflector,24000,2230,,15
+Aputure,STORM 1000c,Normal,5600,5,BM7830 Reflector,10000,929,,30
+Aputure,STORM 1000c,Normal,5600,5,BM7845 Reflector,5000,465,,45
+Aputure,STORM 1000c,Normal,5600,5,CF12 Fresnel 15deg,20000,1859,15,
+Aputure,STORM 1000c,Normal,5600,5,CF12 Fresnel 45deg,4500,418,45,
+Aputure,STORM 1000c,Normal,5600,7,Bare Bulb,1300,121,,
+Aputure,STORM 1000c,Normal,5600,7,BM7815 Reflector,12000,1115,,15
+Aputure,STORM 1000c,Normal,5600,7,BM7830 Reflector,5000,465,,30
+Aputure,STORM 1000c,Normal,5600,7,BM7845 Reflector,2600,242,,45
+Aputure,STORM 1000c,Normal,5600,7,CF12 Fresnel 15deg,10000,929,15,
+Aputure,STORM 1000c,Normal,5600,7,CF12 Fresnel 45deg,2400,223,45,
+Aputure,STORM 1000c,Normal,10000,2,Bare Bulb,11500,1069,,
+Aputure,STORM 1000c,Normal,10000,2,BM7815 Reflector,130000,12082,,15
+Aputure,STORM 1000c,Normal,10000,2,BM7830 Reflector,64000,5948,,30
+Aputure,STORM 1000c,Normal,10000,2,BM7845 Reflector,27000,2509,,45
+Aputure,STORM 1000c,Normal,10000,2,CF12 Fresnel 15deg,110000,10223,15,
+Aputure,STORM 1000c,Normal,10000,2,CF12 Fresnel 45deg,22000,2045,45,
+Aputure,STORM 1000c,HighSpeed,1800,2,Bare Bulb,9000,836,,
+Aputure,STORM 1000c,HighSpeed,1800,2,BM7815 Reflector,100000,9294,,15
+Aputure,STORM 1000c,HighSpeed,1800,2,BM7830 Reflector,50000,4647,,30
+Aputure,STORM 1000c,HighSpeed,1800,2,BM7845 Reflector,21500,1998,,45
+Aputure,STORM 1000c,HighSpeed,1800,2,CF12 Fresnel 15deg,87000,8086,15,
+Aputure,STORM 1000c,HighSpeed,1800,2,CF12 Fresnel 45deg,17500,1626,45,
+Aputure,STORM 1000c,HighSpeed,3200,2,Bare Bulb,16000,1487,,
+Aputure,STORM 1000c,HighSpeed,3200,2,BM7815 Reflector,175000,16264,,15
+Aputure,STORM 1000c,HighSpeed,3200,2,BM7830 Reflector,86000,7993,,30
+Aputure,STORM 1000c,HighSpeed,3200,2,BM7845 Reflector,37000,3439,,45
+Aputure,STORM 1000c,HighSpeed,3200,2,CF12 Fresnel 15deg,152000,14126,15,
+Aputure,STORM 1000c,HighSpeed,3200,2,CF12 Fresnel 45deg,30000,2788,45,
+Aputure,STORM 1000c,HighSpeed,3200,5,Bare Bulb,2700,251,,
+Aputure,STORM 1000c,HighSpeed,3200,5,BM7815 Reflector,27000,2509,,15
+Aputure,STORM 1000c,HighSpeed,3200,5,BM7830 Reflector,11000,1022,,30
+Aputure,STORM 1000c,HighSpeed,3200,5,CF12 Fresnel 15deg,22000,2045,15,
+Aputure,STORM 1000c,HighSpeed,5600,2,Bare Bulb,16500,1533,,
+Aputure,STORM 1000c,HighSpeed,5600,2,BM7815 Reflector,185000,17193,,15
+Aputure,STORM 1000c,HighSpeed,5600,2,BM7830 Reflector,90000,8364,,30
+Aputure,STORM 1000c,HighSpeed,5600,2,BM7845 Reflector,39000,3625,,45
+Aputure,STORM 1000c,HighSpeed,5600,2,CF12 Fresnel 15deg,155000,14405,15,
+Aputure,STORM 1000c,HighSpeed,5600,2,CF12 Fresnel 45deg,31000,2881,45,
+Aputure,STORM 1000c,HighSpeed,5600,3,Bare Bulb,7400,688,,
+Aputure,STORM 1000c,HighSpeed,5600,3,BM7815 Reflector,82000,7621,,15
+Aputure,STORM 1000c,HighSpeed,5600,3,BM7830 Reflector,35000,3253,,30
+Aputure,STORM 1000c,HighSpeed,5600,3,CF12 Fresnel 15deg,68000,6320,15,
+Aputure,STORM 1000c,HighSpeed,5600,5,Bare Bulb,2850,265,,
+Aputure,STORM 1000c,HighSpeed,5600,5,BM7815 Reflector,28000,2602,,15
+Aputure,STORM 1000c,HighSpeed,5600,5,BM7830 Reflector,11500,1069,,30
+Aputure,STORM 1000c,HighSpeed,5600,5,CF12 Fresnel 15deg,23000,2138,15,
+Aputure,STORM 1000c,HighSpeed,5600,7,Bare Bulb,1500,139,,
+Aputure,STORM 1000c,HighSpeed,5600,7,BM7815 Reflector,14000,1301,,15
+Aputure,STORM 1000c,HighSpeed,5600,7,CF12 Fresnel 15deg,11800,1097,15,
+Aputure,STORM 1000c,HighSpeed,10000,2,Bare Bulb,12500,1162,,
+Aputure,STORM 1000c,HighSpeed,10000,2,BM7815 Reflector,127000,11803,,15
+Aputure,STORM 1000c,HighSpeed,10000,2,CF12 Fresnel 15deg,110000,10223,15,
+Aputure,STORM 1200x,Normal,2500,2,Bare Bulb,14600,1357,,
+Aputure,STORM 1200x,Normal,2500,2,BM7815 Reflector,162000,15056,,15
+Aputure,STORM 1200x,Normal,2500,2,BM7830 Reflector,80000,7435,,30
+Aputure,STORM 1200x,Normal,2500,2,BM7845 Reflector,35500,3299,,45
+Aputure,STORM 1200x,Normal,2500,2,CF12 Fresnel 15deg,145000,13476,15,
+Aputure,STORM 1200x,Normal,2500,2,CF12 Fresnel 45deg,28000,2602,45,
+Aputure,STORM 1200x,Normal,2500,3,Bare Bulb,6570,611,,
+Aputure,STORM 1200x,Normal,2500,3,BM7815 Reflector,74000,6877,,15
+Aputure,STORM 1200x,Normal,2500,3,BM7830 Reflector,32200,2993,,30
+Aputure,STORM 1200x,Normal,2500,3,CF12 Fresnel 15deg,64300,5976,15,
+Aputure,STORM 1200x,Normal,2500,5,Bare Bulb,2510,233,,
+Aputure,STORM 1200x,Normal,2500,5,BM7815 Reflector,25600,2379,,15
+Aputure,STORM 1200x,Normal,2500,5,BM7830 Reflector,10900,1013,,30
+Aputure,STORM 1200x,Normal,2500,5,CF12 Fresnel 15deg,22400,2082,15,
+Aputure,STORM 1200x,Normal,3200,2,Bare Bulb,18700,1738,,
+Aputure,STORM 1200x,Normal,3200,2,BM7815 Reflector,206000,19145,,15
+Aputure,STORM 1200x,Normal,3200,2,BM7830 Reflector,102000,9480,,30
+Aputure,STORM 1200x,Normal,3200,2,BM7845 Reflector,45400,4219,,45
+Aputure,STORM 1200x,Normal,3200,2,CF12 Fresnel 15deg,185000,17193,15,
+Aputure,STORM 1200x,Normal,3200,2,CF12 Fresnel 45deg,35800,3327,45,
+Aputure,STORM 1200x,Normal,3200,3,Bare Bulb,8370,778,,
+Aputure,STORM 1200x,Normal,3200,3,BM7815 Reflector,94600,8792,,15
+Aputure,STORM 1200x,Normal,3200,3,BM7830 Reflector,41100,3820,,30
+Aputure,STORM 1200x,Normal,3200,3,CF12 Fresnel 15deg,82500,7667,15,
+Aputure,STORM 1200x,Normal,3200,5,Bare Bulb,3170,295,,
+Aputure,STORM 1200x,Normal,3200,5,BM7815 Reflector,30900,2872,,15
+Aputure,STORM 1200x,Normal,3200,5,BM7830 Reflector,13800,1283,,30
+Aputure,STORM 1200x,Normal,3200,5,CF12 Fresnel 15deg,28600,2658,15,
+Aputure,STORM 1200x,Normal,3200,7,Bare Bulb,1610,150,,
+Aputure,STORM 1200x,Normal,3200,7,BM7815 Reflector,16300,1515,,15
+Aputure,STORM 1200x,Normal,3200,7,CF12 Fresnel 15deg,14500,1348,15,
+Aputure,STORM 1200x,Normal,5600,2,Bare Bulb,18900,1757,,
+Aputure,STORM 1200x,Normal,5600,2,BM7815 Reflector,209000,19424,,15
+Aputure,STORM 1200x,Normal,5600,2,BM7830 Reflector,104000,9665,,30
+Aputure,STORM 1200x,Normal,5600,2,BM7845 Reflector,46000,4275,,45
+Aputure,STORM 1200x,Normal,5600,2,CF12 Fresnel 15deg,190000,17658,15,
+Aputure,STORM 1200x,Normal,5600,2,CF12 Fresnel 45deg,36500,3392,45,
+Aputure,STORM 1200x,Normal,5600,3,Bare Bulb,8490,789,,
+Aputure,STORM 1200x,Normal,5600,3,BM7815 Reflector,96100,8931,,15
+Aputure,STORM 1200x,Normal,5600,3,CF12 Fresnel 15deg,84400,7844,15,
+Aputure,STORM 1200x,Normal,5600,5,Bare Bulb,3230,300,,
+Aputure,STORM 1200x,Normal,5600,5,BM7815 Reflector,33300,3095,,15
+Aputure,STORM 1200x,Normal,5600,5,CF12 Fresnel 15deg,29300,2723,15,
+Aputure,STORM 1200x,Normal,5600,7,Bare Bulb,1640,152,,
+Aputure,STORM 1200x,Normal,5600,7,BM7815 Reflector,16600,1543,,15
+Aputure,STORM 1200x,Normal,5600,7,CF12 Fresnel 15deg,14800,1375,15,
+Aputure,STORM 1200x,Normal,10000,2,Bare Bulb,17400,1617,,
+Aputure,STORM 1200x,Normal,10000,2,BM7815 Reflector,192000,17844,,15
+Aputure,STORM 1200x,Normal,10000,2,CF12 Fresnel 15deg,175000,16264,15,
+Aputure,STORM 1200x,Normal,10000,3,Bare Bulb,7790,724,,
+Aputure,STORM 1200x,Normal,10000,3,BM7815 Reflector,87900,8169,,15
+Aputure,STORM 1200x,Normal,10000,5,Bare Bulb,2960,275,,
+Aputure,STORM 1200x,Normal,10000,5,BM7815 Reflector,30400,2825,,15
+Aputure,STORM 1200x,Normal,10000,7,Bare Bulb,1510,140,,
+Aputure,STORM 1200x,Normal,10000,7,BM7815 Reflector,15200,1413,,15
+Aputure,NOVA II 2x1,Normal,5600,1,No Accessory,,,,CLM_LightingDatabase reference F-stop data
+Aputure,NOVA II 2x1,Normal,5600,2,No Accessory,,,,CLM_LightingDatabase reference
+Aputure,NOVA II 1x1,Normal,1800,1,No Accessory,51600,4794,,
+Aputure,NOVA II 1x1,Normal,1800,1,Flat Diffuser,9710,902,,
+Aputure,NOVA II 1x1,Normal,1800,3,No Accessory,6320,587,,
+Aputure,NOVA II 1x1,Normal,1800,3,Flat Diffuser,1187,110,,
+Aputure,NOVA II 1x1,Normal,1800,5,No Accessory,2340,217,,
+Aputure,NOVA II 1x1,Normal,1800,5,Flat Diffuser,453,42,,
+Aputure,NOVA II 1x1,Normal,2500,1,No Accessory,95000,8826,,
+Aputure,NOVA II 1x1,Normal,2500,1,Flat Diffuser,17850,1658,,
+Aputure,NOVA II 1x1,Normal,2500,3,No Accessory,11670,1084,,
+Aputure,NOVA II 1x1,Normal,2500,3,Flat Diffuser,2186,203,,
+Aputure,NOVA II 1x1,Normal,2500,5,No Accessory,4320,401,,
+Aputure,NOVA II 1x1,Normal,2500,5,Flat Diffuser,834,77,,
+Aputure,NOVA II 1x1,Normal,3200,1,No Accessory,107100,9950,,
+Aputure,NOVA II 1x1,Normal,3200,1,Flat Diffuser,20040,1862,,
+Aputure,NOVA II 1x1,Normal,3200,3,No Accessory,13160,1223,,
+Aputure,NOVA II 1x1,Normal,3200,3,Flat Diffuser,2457,228,,
+Aputure,NOVA II 1x1,Normal,3200,5,No Accessory,4870,452,,
+Aputure,NOVA II 1x1,Normal,3200,5,Flat Diffuser,938,87,,
+Aputure,NOVA II 1x1,Normal,4300,1,No Accessory,110100,10228,,
+Aputure,NOVA II 1x1,Normal,4300,1,Flat Diffuser,20500,1904,,
+Aputure,NOVA II 1x1,Normal,4300,3,No Accessory,13530,1257,,
+Aputure,NOVA II 1x1,Normal,4300,3,Flat Diffuser,2516,234,,
+Aputure,NOVA II 1x1,Normal,4300,5,No Accessory,5010,465,,
+Aputure,NOVA II 1x1,Normal,4300,5,Flat Diffuser,960,89,,
+Aputure,NOVA II 1x1,Normal,5600,1,No Accessory,108200,10052,,
+Aputure,NOVA II 1x1,Normal,5600,1,Flat Diffuser,20080,1865,,
+Aputure,NOVA II 1x1,Normal,5600,3,No Accessory,13300,1236,,
+Aputure,NOVA II 1x1,Normal,5600,3,Flat Diffuser,2466,229,,
+Aputure,NOVA II 1x1,Normal,5600,5,No Accessory,4920,457,,
+Aputure,NOVA II 1x1,Normal,5600,5,Flat Diffuser,941,87,,
+Aputure,NOVA II 1x1,Normal,6500,1,No Accessory,106500,9894,,
+Aputure,NOVA II 1x1,Normal,6500,1,Flat Diffuser,19730,1833,,
+Aputure,NOVA II 1x1,Normal,6500,3,No Accessory,13100,1217,,
+Aputure,NOVA II 1x1,Normal,6500,3,Flat Diffuser,2424,225,,
+Aputure,NOVA II 1x1,Normal,6500,5,No Accessory,4840,450,,
+Aputure,NOVA II 1x1,Normal,6500,5,Flat Diffuser,925,86,,
+Aputure,NOVA II 1x1,Normal,10000,1,No Accessory,97100,9021,,
+Aputure,NOVA II 1x1,Normal,10000,1,Flat Diffuser,17930,1666,,
+Aputure,NOVA II 1x1,Normal,10000,3,No Accessory,11950,1110,,
+Aputure,NOVA II 1x1,Normal,10000,3,Flat Diffuser,2208,205,,
+Aputure,NOVA II 1x1,Normal,10000,5,No Accessory,4430,411,,
+Aputure,NOVA II 1x1,Normal,10000,5,Flat Diffuser,847,79,,
+Lightstar,LUXED-9,Normal,3200,4,No Accessory,13200,1226,,3x3 panel array
+Lightstar,LUXED-9,Normal,3200,5,No Accessory,8500,790,,3x3 panel array
+Lightstar,LUXED-9,Normal,3200,6,No Accessory,6200,576,,3x3 panel array
+Lightstar,LUXED-9,Normal,5600,4,No Accessory,13200,1226,,3x3 panel array
+Lightstar,LUXED-9,Normal,5600,5,No Accessory,8500,790,,3x3 panel array
+Lightstar,LUXED-9,Normal,5600,6,No Accessory,6200,576,,3x3 panel array
+Aputure,STORM XT52,Normal,2500,3,Bare Light,15950,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,3,AM81125 Medium Reflector,151200,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,3,AM81135 Wide Reflector,90900,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,3,AM81150 Reflector,47800,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,5,Bare Light,5990,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,5,AM81120 Narrow Reflector,93200,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,5,AM81125 Medium Reflector,52500,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,5,AM81135 Wide Reflector,31300,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,5,AM81150 Reflector,17500,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,10,Bare Light,1524,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,10,AM81120 Narrow Reflector,20990,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,10,AM81125 Medium Reflector,13000,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,10,AM81135 Wide Reflector,7490,,,Blackbody std
+Aputure,STORM XT52,Normal,2500,10,AM81150 Reflector,4250,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,3,Bare Light,19170,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,3,AM81125 Medium Reflector,182300,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,3,AM81135 Wide Reflector,109900,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,3,AM81150 Reflector,57800,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,5,Bare Light,7200,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,5,AM81120 Narrow Reflector,112300,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,5,AM81125 Medium Reflector,63400,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,5,AM81135 Wide Reflector,37800,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,5,AM81150 Reflector,21140,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,10,Bare Light,1834,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,10,AM81120 Narrow Reflector,25280,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,10,AM81125 Medium Reflector,15680,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,10,AM81135 Wide Reflector,9010,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,10,AM81150 Reflector,5130,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,3,Bare Light,22830,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,3,AM81125 Medium Reflector,218800,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,3,AM81135 Wide Reflector,131300,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,3,AM81150 Reflector,69300,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,5,Bare Light,8620,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,5,AM81120 Narrow Reflector,134500,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,5,AM81125 Medium Reflector,75900,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,5,AM81135 Wide Reflector,45300,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,5,AM81150 Reflector,25340,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,10,Bare Light,2198,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,10,AM81120 Narrow Reflector,30300,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,10,AM81125 Medium Reflector,18790,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,10,AM81135 Wide Reflector,10810,,,Blackbody std
+Aputure,STORM XT52,Normal,4300,10,AM81150 Reflector,6140,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,3,Bare Light,22530,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,3,AM81125 Medium Reflector,214600,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,3,AM81135 Wide Reflector,129400,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,3,AM81150 Reflector,68200,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,5,Bare Light,8460,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,5,AM81120 Narrow Reflector,132300,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,5,AM81125 Medium Reflector,74700,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,5,AM81135 Wide Reflector,44600,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,5,AM81150 Reflector,24900,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,10,Bare Light,2157,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,10,AM81120 Narrow Reflector,29700,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,10,AM81125 Medium Reflector,18460,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,10,AM81135 Wide Reflector,10610,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,10,AM81150 Reflector,6030,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,3,Bare Light,22020,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,3,AM81125 Medium Reflector,210000,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,3,AM81135 Wide Reflector,126700,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,3,AM81150 Reflector,66800,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,5,Bare Light,8280,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,5,AM81120 Narrow Reflector,129500,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,5,AM81125 Medium Reflector,73000,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,5,AM81135 Wide Reflector,43600,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,5,AM81150 Reflector,24410,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,10,Bare Light,2112,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,10,AM81120 Narrow Reflector,29100,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,10,AM81125 Medium Reflector,18090,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,10,AM81135 Wide Reflector,10400,,,Blackbody std
+Aputure,STORM XT52,Normal,6500,10,AM81150 Reflector,5900,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,3,Bare Light,20910,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,3,AM81125 Medium Reflector,199200,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,3,AM81135 Wide Reflector,120200,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,3,AM81150 Reflector,63300,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,5,Bare Light,7850,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,5,AM81120 Narrow Reflector,122700,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,5,AM81125 Medium Reflector,69100,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,5,AM81135 Wide Reflector,41400,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,5,AM81150 Reflector,23110,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,10,Bare Light,1992,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,10,AM81120 Narrow Reflector,27600,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,10,AM81125 Medium Reflector,17150,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,10,AM81135 Wide Reflector,9850,,,Blackbody std
+Aputure,STORM XT52,Normal,7500,10,AM81150 Reflector,5590,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,3,Bare Light,17140,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,3,AM81125 Medium Reflector,163000,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,3,AM81135 Wide Reflector,98600,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,3,AM81150 Reflector,51900,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,5,Bare Light,6420,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,5,AM81120 Narrow Reflector,100600,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,5,AM81125 Medium Reflector,56800,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,5,AM81135 Wide Reflector,33900,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,5,AM81150 Reflector,18970,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,10,Bare Light,1627,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,10,AM81120 Narrow Reflector,22530,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,10,AM81125 Medium Reflector,14020,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,10,AM81135 Wide Reflector,8060,,,Blackbody std
+Aputure,STORM XT52,Normal,10000,10,AM81150 Reflector,4560,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,3,CF16 Fresnel Spot 18deg,151000,,18,Blackbody std
+Aputure,STORM XT52,Normal,3200,3,CF16 Fresnel Flood 50deg,26760,,50,Blackbody std
+Aputure,STORM XT52,Normal,3200,5,CF16 Fresnel Spot 18deg,56000,,18,Blackbody std
+Aputure,STORM XT52,Normal,3200,5,CF16 Fresnel Flood 50deg,10310,,50,Blackbody std
+Aputure,STORM XT52,Normal,3200,5,Parallel Beam 70,77100,,,Blackbody std
+Aputure,STORM XT52,Normal,3200,10,CF16 Fresnel Spot 18deg,14280,,18,Blackbody std
+Aputure,STORM XT52,Normal,3200,10,CF16 Fresnel Flood 50deg,2750,,50,Blackbody std
+Aputure,STORM XT52,Normal,3200,10,Parallel Beam 70,36200,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,3,CF16 Fresnel Spot 18deg,177500,,18,Blackbody std
+Aputure,STORM XT52,Normal,5600,3,CF16 Fresnel Flood 50deg,31700,,50,Blackbody std
+Aputure,STORM XT52,Normal,5600,5,CF16 Fresnel Spot 18deg,65900,,18,Blackbody std
+Aputure,STORM XT52,Normal,5600,5,CF16 Fresnel Flood 50deg,12170,,50,Blackbody std
+Aputure,STORM XT52,Normal,5600,5,Parallel Beam 70,91000,,,Blackbody std
+Aputure,STORM XT52,Normal,5600,10,CF16 Fresnel Spot 18deg,16770,,18,Blackbody std
+Aputure,STORM XT52,Normal,5600,10,CF16 Fresnel Flood 50deg,3230,,50,Blackbody std
+Aputure,STORM XT52,Normal,5600,10,Parallel Beam 70,42700,,,Blackbody std
+Aputure,NOVA 9deg 2x1,Normal,1800,5,nova9_flood ~25deg,19590,,25,
+Aputure,NOVA 9deg 2x1,Normal,1800,10,nova9_flood ~25deg,5030,,25,
+Aputure,NOVA 9deg 2x1,Normal,1800,20,nova9_flood ~25deg,1329,,25,
+Aputure,NOVA 9deg 2x1,Normal,2500,5,nova9_flood ~25deg,25410,,25,
+Aputure,NOVA 9deg 2x1,Normal,2500,10,nova9_flood ~25deg,7090,,25,
+Aputure,NOVA 9deg 2x1,Normal,2500,20,nova9_flood ~25deg,1881,,25,
+Aputure,NOVA 9deg 2x1,Normal,3200,5,nova9_flood ~25deg,28090,,25,
+Aputure,NOVA 9deg 2x1,Normal,3200,10,nova9_flood ~25deg,7660,,25,
+Aputure,NOVA 9deg 2x1,Normal,3200,20,nova9_flood ~25deg,2040,,25,
+Aputure,NOVA 9deg 2x1,Normal,4300,5,nova9_flood ~25deg,29980,,25,
+Aputure,NOVA 9deg 2x1,Normal,4300,10,nova9_flood ~25deg,8340,,25,
+Aputure,NOVA 9deg 2x1,Normal,4300,20,nova9_flood ~25deg,2229,,25,
+Aputure,NOVA 9deg 2x1,Normal,5600,5,nova9_flood ~25deg,29730,,25,
+Aputure,NOVA 9deg 2x1,Normal,5600,10,nova9_flood ~25deg,8320,,25,
+Aputure,NOVA 9deg 2x1,Normal,5600,20,nova9_flood ~25deg,2229,,25,
+Aputure,NOVA 9deg 2x1,Normal,6500,5,nova9_flood ~25deg,29270,,25,
+Aputure,NOVA 9deg 2x1,Normal,6500,10,nova9_flood ~25deg,8220,,25,
+Aputure,NOVA 9deg 2x1,Normal,6500,20,nova9_flood ~25deg,2203,,25,
+Aputure,NOVA 9deg 2x1,Normal,7500,5,nova9_flood ~25deg,28610,,25,
+Aputure,NOVA 9deg 2x1,Normal,7500,10,nova9_flood ~25deg,8070,,25,
+Aputure,NOVA 9deg 2x1,Normal,7500,20,nova9_flood ~25deg,2171,,25,
+Aputure,NOVA 9deg 2x1,Normal,10000,5,nova9_flood ~25deg,27150,,25,
+Aputure,NOVA 9deg 2x1,Normal,10000,10,nova9_flood ~25deg,7660,,25,
+Aputure,NOVA 9deg 2x1,Normal,10000,20,nova9_flood ~25deg,2064,,25,
+Aputure,NOVA 9deg 2x1,Normal,20000,5,nova9_flood ~25deg,24210,,25,
+Aputure,NOVA 9deg 2x1,Normal,20000,10,nova9_flood ~25deg,6920,,25,
+Aputure,NOVA 9deg 2x1,Normal,20000,20,nova9_flood ~25deg,1863,,25,
+Aputure,NOVA 9deg 2x1,Normal,1800,1,nova9_diffuser ~60deg,13280,,60,
+Aputure,NOVA 9deg 2x1,Normal,1800,3,nova9_diffuser ~60deg,1594,,60,
+Aputure,NOVA 9deg 2x1,Normal,1800,5,nova9_diffuser ~60deg,615,,60,
+Aputure,NOVA 9deg 2x1,Normal,2500,1,nova9_diffuser ~60deg,17130,,60,
+Aputure,NOVA 9deg 2x1,Normal,2500,3,nova9_diffuser ~60deg,2057,,60,
+Aputure,NOVA 9deg 2x1,Normal,2500,5,nova9_diffuser ~60deg,794,,60,
+Aputure,NOVA 9deg 2x1,Normal,3200,1,nova9_diffuser ~60deg,18970,,60,
+Aputure,NOVA 9deg 2x1,Normal,3200,3,nova9_diffuser ~60deg,2278,,60,
+Aputure,NOVA 9deg 2x1,Normal,3200,5,nova9_diffuser ~60deg,879,,60,
+Aputure,NOVA 9deg 2x1,Normal,4300,1,nova9_diffuser ~60deg,20290,,60,
+Aputure,NOVA 9deg 2x1,Normal,4300,3,nova9_diffuser ~60deg,2436,,60,
+Aputure,NOVA 9deg 2x1,Normal,4300,5,nova9_diffuser ~60deg,940,,60,
+Aputure,NOVA 9deg 2x1,Normal,5600,1,nova9_diffuser ~60deg,20160,,60,
+Aputure,NOVA 9deg 2x1,Normal,5600,3,nova9_diffuser ~60deg,2423,,60,
+Aputure,NOVA 9deg 2x1,Normal,5600,5,nova9_diffuser ~60deg,935,,60,
+Aputure,NOVA 9deg 2x1,Normal,6500,1,nova9_diffuser ~60deg,19890,,60,
+Aputure,NOVA 9deg 2x1,Normal,6500,3,nova9_diffuser ~60deg,2390,,60,
+Aputure,NOVA 9deg 2x1,Normal,6500,5,nova9_diffuser ~60deg,924,,60,
+Aputure,NOVA 9deg 2x1,Normal,7500,1,nova9_diffuser ~60deg,19480,,60,
+Aputure,NOVA 9deg 2x1,Normal,7500,3,nova9_diffuser ~60deg,2341,,60,
+Aputure,NOVA 9deg 2x1,Normal,7500,5,nova9_diffuser ~60deg,903,,60,
+Aputure,NOVA 9deg 2x1,Normal,10000,1,nova9_diffuser ~60deg,18530,,60,
+Aputure,NOVA 9deg 2x1,Normal,10000,3,nova9_diffuser ~60deg,2227,,60,
+Aputure,NOVA 9deg 2x1,Normal,10000,5,nova9_diffuser ~60deg,859,,60,
+Aputure,NOVA 9deg 2x1,Normal,20000,1,nova9_diffuser ~60deg,16580,,60,
+Aputure,NOVA 9deg 2x1,Normal,20000,3,nova9_diffuser ~60deg,1992,,60,
+Aputure,NOVA 9deg 2x1,Normal,20000,5,nova9_diffuser ~60deg,769,,60,
+# ============================================================
+# SECTION 2: Additional fixtures from CALMv1.1.2.18.html
+# ============================================================
+# --- ARRI ---
+# ARRI 12kW Compact HMI
+ARRI,ARRI 12kW Compact HMI,Normal,5600,3,flat,37969,3527.4,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,3,spot,614400,57079.7,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,3,clear,9600,891.9,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,5,flat,19200,1783.7,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,5,spot,303750,28219.3,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,5,clear,3601,334.5,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,8,flat,9600,891.9,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,8,spot,76800,7135.0,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,8,clear,1482,137.7,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,12,flat,4538,421.6,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,12,spot,37969,3527.4,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,12,clear,756,70.2,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,15,flat,2400,223.0,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,15,spot,38400,3567.5,,src:arri_12k
+ARRI,ARRI 12kW Compact HMI,Normal,5600,15,clear,300,27.9,,src:arri_12k
+# ARRI 12kW Double End
+ARRI,ARRI 12kW Double End,Normal,5600,3,flat,75938,7054.9,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,3,spot,607500,56438.7,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,3,clear,14406,1338.4,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,5,flat,19200,1783.7,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,5,spot,307200,28539.8,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,5,clear,4800,445.9,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,8,flat,9600,891.9,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,8,spot,153600,14269.9,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,8,clear,3024,280.9,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,12,flat,4538,421.6,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,12,spot,75938,7054.9,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,12,clear,1176,109.3,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,15,flat,2269,210.8,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,15,spot,37969,3527.4,,src:arri_12k_de
+ARRI,ARRI 12kW Double End,Normal,5600,15,clear,588,54.6,,src:arri_12k_de
+# ARRI 18kW HMI
+ARRI,ARRI 18kW HMI,Normal,5600,3,flat,76800,7135.0,,src:arri_18k
+ARRI,ARRI 18kW HMI,Normal,5600,3,spot,607500,56438.7,,src:arri_18k
+ARRI,ARRI 18kW HMI,Normal,5600,3,clear,38400,3567.5,,src:arri_18k
+ARRI,ARRI 18kW HMI,Normal,5600,5,flat,38400,3567.5,,src:arri_18k
+ARRI,ARRI 18kW HMI,Normal,5600,5,spot,303750,28219.3,,src:arri_18k
+ARRI,ARRI 18kW HMI,Normal,5600,5,clear,9075,843.1,,src:arri_18k
+ARRI,ARRI 18kW HMI,Normal,5600,8,flat,18150,1686.2,,src:arri_18k
+ARRI,ARRI 18kW HMI,Normal,5600,8,spot,153600,14269.9,,src:arri_18k
+ARRI,ARRI 18kW HMI,Normal,5600,8,clear,5717,531.1,,src:arri_18k
+# ARRI 18kW MAME HMI
+ARRI,ARRI 18kW MAME HMI,Normal,5600,3,flat,76800,7134.9,,src:arri_18k_mame
+ARRI,ARRI 18kW MAME HMI,Normal,5600,3,spot,307200,28539.6,,src:arri_18k_mame
+ARRI,ARRI 18kW MAME HMI,Normal,5600,5,flat,38400,3567.4,,src:arri_18k_mame
+ARRI,ARRI 18kW MAME HMI,Normal,5600,5,spot,303750,28219.1,,src:arri_18k_mame
+ARRI,ARRI 18kW MAME HMI,Normal,5600,8,flat,18150,1686.2,,src:arri_18k_mame
+ARRI,ARRI 18kW MAME HMI,Normal,5600,8,spot,76800,7134.9,,src:arri_18k_mame
+ARRI,ARRI 18kW MAME HMI,Normal,5600,12,flat,4800,445.9,,src:arri_18k_mame
+ARRI,ARRI 18kW MAME HMI,Normal,5600,12,spot,37969,3527.4,,src:arri_18k_mame
+ARRI,ARRI 18kW MAME HMI,Normal,5600,15,flat,4538,421.6,,src:arri_18k_mame
+ARRI,ARRI 18kW MAME HMI,Normal,5600,15,spot,38400,3567.4,,src:arri_18k_mame
+# ARRI 200W Compact HMI
+ARRI,ARRI 200W Compact HMI,Normal,5600,1,flat,9600,891.9,,src:arri_200
+ARRI,ARRI 200W Compact HMI,Normal,5600,1,spot,75938,7054.8,,src:arri_200
+ARRI,ARRI 200W Compact HMI,Normal,5600,2,flat,2400,223.0,,src:arri_200
+ARRI,ARRI 200W Compact HMI,Normal,5600,2,spot,19200,1783.7,,src:arri_200
+ARRI,ARRI 200W Compact HMI,Normal,5600,3,flat,1176,109.3,,src:arri_200
+ARRI,ARRI 200W Compact HMI,Normal,5600,3,spot,9075,843.1,,src:arri_200
+ARRI,ARRI 200W Compact HMI,Normal,5600,5,flat,300,27.9,,src:arri_200
+ARRI,ARRI 200W Compact HMI,Normal,5600,5,spot,4538,421.6,,src:arri_200
+# ARRI 6kW Compact HMI
+ARRI,ARRI 6kW Compact HMI,Normal,5600,3,flat,9600,891.9,,src:arri_6k
+ARRI,ARRI 6kW Compact HMI,Normal,5600,3,spot,14406,1338.4,,src:arri_6k
+ARRI,ARRI 6kW Compact HMI,Normal,5600,5,flat,3601,334.5,,src:arri_6k
+ARRI,ARRI 6kW Compact HMI,Normal,5600,5,spot,4800,445.9,,src:arri_6k
+ARRI,ARRI 6kW Compact HMI,Normal,5600,8,flat,1482,137.7,,src:arri_6k
+ARRI,ARRI 6kW Compact HMI,Normal,5600,8,spot,3024,280.9,,src:arri_6k
+ARRI,ARRI 6kW Compact HMI,Normal,5600,12,flat,756,70.2,,src:arri_6k
+ARRI,ARRI 6kW Compact HMI,Normal,5600,12,spot,1176,109.3,,src:arri_6k
+ARRI,ARRI 6kW Compact HMI,Normal,5600,15,flat,300,27.9,,src:arri_6k
+ARRI,ARRI 6kW Compact HMI,Normal,5600,15,spot,588,54.6,,src:arri_6k
+# ARRI M18
+ARRI,ARRI M18,Normal,5600,2,spot,76800,7134.9,,src:arri_m18
+ARRI,ARRI M18,Normal,5600,2,flood,15360,1427.0,,src:arri_m18
+ARRI,ARRI M18,Normal,5600,3,spot,37969,3527.4,,src:arri_m18
+ARRI,ARRI M18,Normal,5600,3,flood,7593,705.4,,src:arri_m18
+ARRI,ARRI M18,Normal,5600,5,spot,9492,881.8,,src:arri_m18
+ARRI,ARRI M18,Normal,5600,5,flood,1898,176.3,,src:arri_m18
+ARRI,ARRI M18,Normal,5600,8,spot,4800,445.9,,src:arri_m18
+ARRI,ARRI M18,Normal,5600,8,flood,960,89.2,,src:arri_m18
+ARRI,ARRI M18,Normal,5600,12,spot,2269,210.8,,src:arri_m18
+ARRI,ARRI M18,Normal,5600,12,flood,453,42.1,,src:arri_m18
+# ARRI M40
+ARRI,ARRI M40,Normal,5600,2,spot,307200,28539.6,,src:arri_m40
+ARRI,ARRI M40,Normal,5600,2,flood,61440,5707.9,,src:arri_m40
+ARRI,ARRI M40,Normal,5600,3,spot,151875,14109.5,,src:arri_m40
+ARRI,ARRI M40,Normal,5600,3,flood,30375,2821.9,,src:arri_m40
+ARRI,ARRI M40,Normal,5600,5,spot,76800,7134.9,,src:arri_m40
+ARRI,ARRI M40,Normal,5600,5,flood,15360,1427.0,,src:arri_m40
+ARRI,ARRI M40,Normal,5600,8,spot,19200,1783.7,,src:arri_m40
+ARRI,ARRI M40,Normal,5600,8,flood,3840,356.7,,src:arri_m40
+ARRI,ARRI M40,Normal,5600,12,spot,9075,843.1,,src:arri_m40
+ARRI,ARRI M40,Normal,5600,12,flood,1815,168.6,,src:arri_m40
+# ARRI M90
+ARRI,ARRI M90,Normal,5600,3,spot,607500,56438.1,,src:arri_m90
+ARRI,ARRI M90,Normal,5600,3,flood,121500,11287.6,,src:arri_m90
+ARRI,ARRI M90,Normal,5600,5,spot,151875,14109.5,,src:arri_m90
+ARRI,ARRI M90,Normal,5600,5,flood,30375,2821.9,,src:arri_m90
+ARRI,ARRI M90,Normal,5600,8,spot,76800,7134.9,,src:arri_m90
+ARRI,ARRI M90,Normal,5600,8,flood,15360,1427.0,,src:arri_m90
+ARRI,ARRI M90,Normal,5600,12,spot,37969,3527.4,,src:arri_m90
+ARRI,ARRI M90,Normal,5600,12,flood,7593,705.4,,src:arri_m90
+ARRI,ARRI M90,Normal,5600,15,spot,19200,1783.7,,src:arri_m90
+ARRI,ARRI M90,Normal,5600,15,flood,3840,356.7,,src:arri_m90
+# ARRI SUN 1.2kW HMI
+ARRI,ARRI SUN 1.2kW HMI,Normal,5600,3,spot,153600,14269.8,,src:arri_sun_1200
+ARRI,ARRI SUN 1.2kW HMI,Normal,5600,5,spot,75938,7054.8,,src:arri_sun_1200
+ARRI,ARRI SUN 1.2kW HMI,Normal,5600,8,spot,19200,1783.7,,src:arri_sun_1200
+ARRI,ARRI SUN 1.2kW HMI,Normal,5600,12,spot,9075,843.1,,src:arri_sun_1200
+ARRI,ARRI SUN 1.2kW HMI,Normal,5600,15,spot,9600,891.9,,src:arri_sun_1200
+# ARRI SUN 12kW HMI
+ARRI,ARRI SUN 12kW HMI,Normal,5600,5,spot,1215000,112876.3,,src:arri_sun_12k
+ARRI,ARRI SUN 12kW HMI,Normal,5600,8,spot,307200,28539.6,,src:arri_sun_12k
+ARRI,ARRI SUN 12kW HMI,Normal,5600,12,spot,153600,14269.8,,src:arri_sun_12k
+ARRI,ARRI SUN 12kW HMI,Normal,5600,15,spot,76800,7134.9,,src:arri_sun_12k
+# ARRI SUN 2.5kW HMI
+ARRI,ARRI SUN 2.5kW HMI,Normal,5600,3,spot,153600,14269.8,,src:arri_sun_2500
+ARRI,ARRI SUN 2.5kW HMI,Normal,5600,5,spot,75938,7054.8,,src:arri_sun_2500
+ARRI,ARRI SUN 2.5kW HMI,Normal,5600,8,spot,38400,3567.4,,src:arri_sun_2500
+ARRI,ARRI SUN 2.5kW HMI,Normal,5600,12,spot,18150,1686.2,,src:arri_sun_2500
+ARRI,ARRI SUN 2.5kW HMI,Normal,5600,15,spot,9600,891.9,,src:arri_sun_2500
+# ARRI SUN 200W HMI
+ARRI,ARRI SUN 200W HMI,Normal,5600,1,spot,303750,28219.1,,src:arri_sun_200
+ARRI,ARRI SUN 200W HMI,Normal,5600,2,spot,76800,7134.9,,src:arri_sun_200
+ARRI,ARRI SUN 200W HMI,Normal,5600,3,spot,38400,3567.4,,src:arri_sun_200
+ARRI,ARRI SUN 200W HMI,Normal,5600,5,spot,18150,1686.2,,src:arri_sun_200
+ARRI,ARRI SUN 200W HMI,Normal,5600,8,spot,4800,445.9,,src:arri_sun_200
+# ARRI SUN 4kW HMI
+ARRI,ARRI SUN 4kW HMI,Normal,5600,3,spot,307200,28539.6,,src:arri_sun_4k
+ARRI,ARRI SUN 4kW HMI,Normal,5600,3,flood,76800,7134.9,,src:arri_sun_4k
+ARRI,ARRI SUN 4kW HMI,Normal,5600,5,spot,153600,14269.8,,src:arri_sun_4k
+ARRI,ARRI SUN 4kW HMI,Normal,5600,5,flood,38400,3567.4,,src:arri_sun_4k
+ARRI,ARRI SUN 4kW HMI,Normal,5600,8,spot,75938,7054.8,,src:arri_sun_4k
+ARRI,ARRI SUN 4kW HMI,Normal,5600,8,flood,18990,1764.2,,src:arri_sun_4k
+ARRI,ARRI SUN 4kW HMI,Normal,5600,12,spot,38400,3567.4,,src:arri_sun_4k
+ARRI,ARRI SUN 4kW HMI,Normal,5600,12,flood,9600,891.9,,src:arri_sun_4k
+ARRI,ARRI SUN 4kW HMI,Normal,5600,15,spot,18150,1686.2,,src:arri_sun_4k
+ARRI,ARRI SUN 4kW HMI,Normal,5600,15,flood,4538,421.6,,src:arri_sun_4k
+# ARRI SUN 575W HMI
+ARRI,ARRI SUN 575W HMI,Normal,5600,2,spot,151875,14109.5,,src:arri_sun_575
+ARRI,ARRI SUN 575W HMI,Normal,5600,2,flood,37969,3527.4,,src:arri_sun_575
+ARRI,ARRI SUN 575W HMI,Normal,5600,3,spot,76800,7134.9,,src:arri_sun_575
+ARRI,ARRI SUN 575W HMI,Normal,5600,3,flood,19200,1783.7,,src:arri_sun_575
+ARRI,ARRI SUN 575W HMI,Normal,5600,5,spot,38400,3567.4,,src:arri_sun_575
+ARRI,ARRI SUN 575W HMI,Normal,5600,5,flood,9600,891.9,,src:arri_sun_575
+ARRI,ARRI SUN 575W HMI,Normal,5600,8,spot,18150,1686.2,,src:arri_sun_575
+ARRI,ARRI SUN 575W HMI,Normal,5600,8,flood,4538,421.6,,src:arri_sun_575
+ARRI,ARRI SUN 575W HMI,Normal,5600,12,spot,4800,445.9,,src:arri_sun_575
+ARRI,ARRI SUN 575W HMI,Normal,5600,12,flood,1200,111.5,,src:arri_sun_575
+# ARRI SUN 6kW HMI
+ARRI,ARRI SUN 6kW HMI,Normal,5600,3,spot,614400,57079.2,,src:arri_sun_6k
+ARRI,ARRI SUN 6kW HMI,Normal,5600,3,flood,153600,14269.8,,src:arri_sun_6k
+ARRI,ARRI SUN 6kW HMI,Normal,5600,5,spot,303750,28219.1,,src:arri_sun_6k
+ARRI,ARRI SUN 6kW HMI,Normal,5600,5,flood,75938,7054.8,,src:arri_sun_6k
+ARRI,ARRI SUN 6kW HMI,Normal,5600,8,spot,153600,14269.8,,src:arri_sun_6k
+ARRI,ARRI SUN 6kW HMI,Normal,5600,8,flood,38400,3567.4,,src:arri_sun_6k
+ARRI,ARRI SUN 6kW HMI,Normal,5600,12,spot,75938,7054.8,,src:arri_sun_6k
+ARRI,ARRI SUN 6kW HMI,Normal,5600,12,flood,18990,1764.2,,src:arri_sun_6k
+ARRI,ARRI SUN 6kW HMI,Normal,5600,15,spot,38400,3567.4,,src:arri_sun_6k
+ARRI,ARRI SUN 6kW HMI,Normal,5600,15,flood,9600,891.9,,src:arri_sun_6k
+# ARRI TRUE BLUE D40
+ARRI,ARRI TRUE BLUE D40,Normal,5600,2,flood,60272,5599.4,,src:true_blue_d40
+ARRI,ARRI TRUE BLUE D40,Normal,5600,2,spot,9075,843.1,,src:true_blue_d40
+ARRI,ARRI TRUE BLUE D40,Normal,5600,3,flood,30478,2831.5,,src:true_blue_d40
+ARRI,ARRI TRUE BLUE D40,Normal,5600,3,spot,7620,707.9,,src:true_blue_d40
+ARRI,ARRI TRUE BLUE D40,Normal,5600,5,flood,12095,1123.7,,src:true_blue_d40
+ARRI,ARRI TRUE BLUE D40,Normal,5600,5,spot,3024,280.9,,src:true_blue_d40
+ARRI,ARRI TRUE BLUE D40,Normal,5600,8,flood,4538,421.6,,src:true_blue_d40
+ARRI,ARRI TRUE BLUE D40,Normal,5600,8,spot,1176,109.3,,src:true_blue_d40
+ARRI,ARRI TRUE BLUE D40,Normal,5600,12,flood,2400,223.0,,src:true_blue_d40
+ARRI,ARRI TRUE BLUE D40,Normal,5600,12,spot,476,44.2,,src:true_blue_d40
+# ARRI X 1.2kW HMI
+ARRI,ARRI X 1.2kW HMI,Normal,5600,2,spot,4538,421.6,,src:arri_x_1200
+ARRI,ARRI X 1.2kW HMI,Normal,5600,2,flood,1134,105.4,,src:arri_x_1200
+ARRI,ARRI X 1.2kW HMI,Normal,5600,3,spot,2400,223.0,,src:arri_x_1200
+ARRI,ARRI X 1.2kW HMI,Normal,5600,3,flood,600,55.7,,src:arri_x_1200
+ARRI,ARRI X 1.2kW HMI,Normal,5600,5,spot,588,54.6,,src:arri_x_1200
+ARRI,ARRI X 1.2kW HMI,Normal,5600,5,flood,147,13.7,,src:arri_x_1200
+ARRI,ARRI X 1.2kW HMI,Normal,5600,8,spot,300,27.9,,src:arri_x_1200
+ARRI,ARRI X 1.2kW HMI,Normal,5600,8,flood,75,7.0,,src:arri_x_1200
+ARRI,ARRI X 1.2kW HMI,Normal,5600,12,spot,150,13.9,,src:arri_x_1200
+# ARRI X 4kW HMI
+ARRI,ARRI X 4kW HMI,Normal,5600,2,spot,307200,28539.6,,src:arri_x_4k
+ARRI,ARRI X 4kW HMI,Normal,5600,3,spot,151875,14109.5,,src:arri_x_4k
+ARRI,ARRI X 4kW HMI,Normal,5600,5,spot,76800,7134.9,,src:arri_x_4k
+ARRI,ARRI X 4kW HMI,Normal,5600,8,spot,19200,1783.7,,src:arri_x_4k
+ARRI,ARRI X 4kW HMI,Normal,5600,12,spot,9075,843.1,,src:arri_x_4k
+# ARRI X 575W HMI
+ARRI,ARRI X 575W HMI,Normal,5600,2,spot,1200,111.5,,src:arri_x_575
+ARRI,ARRI X 575W HMI,Normal,5600,3,spot,588,54.6,,src:arri_x_575
+ARRI,ARRI X 575W HMI,Normal,5600,5,spot,300,27.9,,src:arri_x_575
+ARRI,ARRI X 575W HMI,Normal,5600,8,spot,150,13.9,,src:arri_x_575
+# Omnibar 2
+ARRI,Omnibar 2,Normal,3200,1,flat_diff,377,35.0,,src:omnibar2
+ARRI,Omnibar 2,Normal,3200,1,intensifier,751,69.8,,src:omnibar2
+ARRI,Omnibar 2,Normal,3200,1,open,710,66.0,,src:omnibar2
+ARRI,Omnibar 2,Normal,3200,1,round_diff,431,40.0,,src:omnibar2
+ARRI,Omnibar 2,Normal,3200,3,intensifier,95,8.8,,src:omnibar2
+ARRI,Omnibar 2,Normal,3200,3,open,87,8.1,,src:omnibar2
+ARRI,Omnibar 2,Normal,3200,3,round_diff,51,4.7,,src:omnibar2
+ARRI,Omnibar 2,Normal,5600,1,flat_diff,419,38.9,,src:omnibar2
+ARRI,Omnibar 2,Normal,5600,1,intensifier,834,77.5,,src:omnibar2
+ARRI,Omnibar 2,Normal,5600,1,open,784,72.8,,src:omnibar2
+ARRI,Omnibar 2,Normal,5600,1,round_diff,473,43.9,,src:omnibar2
+ARRI,Omnibar 2,Normal,5600,3,intensifier,105,9.8,,src:omnibar2
+ARRI,Omnibar 2,Normal,5600,3,open,96,8.9,,src:omnibar2
+ARRI,Omnibar 2,Normal,5600,3,round_diff,56,5.2,,src:omnibar2
+# Omnibar 4
+ARRI,Omnibar 4,Normal,3200,1,flat_diff,663,61.6,,src:omnibar4
+ARRI,Omnibar 4,Normal,3200,1,intensifier,1168,108.5,,src:omnibar4
+ARRI,Omnibar 4,Normal,3200,1,open,1339,124.4,,src:omnibar4
+ARRI,Omnibar 4,Normal,3200,1,round_diff,752,69.9,,src:omnibar4
+ARRI,Omnibar 4,Normal,3200,3,flat_diff,90,8.4,,src:omnibar4
+ARRI,Omnibar 4,Normal,3200,3,intensifier,182,16.9,,src:omnibar4
+ARRI,Omnibar 4,Normal,3200,3,open,177,16.4,,src:omnibar4
+ARRI,Omnibar 4,Normal,3200,3,round_diff,104,9.7,,src:omnibar4
+ARRI,Omnibar 4,Normal,3200,5,intensifier,69,6.4,,src:omnibar4
+ARRI,Omnibar 4,Normal,3200,5,open,65,6.0,,src:omnibar4
+ARRI,Omnibar 4,Normal,5600,1,flat_diff,737,68.5,,src:omnibar4
+ARRI,Omnibar 4,Normal,5600,1,intensifier,1287,119.6,,src:omnibar4
+ARRI,Omnibar 4,Normal,5600,1,open,1475,137.0,,src:omnibar4
+ARRI,Omnibar 4,Normal,5600,1,round_diff,832,77.3,,src:omnibar4
+ARRI,Omnibar 4,Normal,5600,3,flat_diff,100,9.3,,src:omnibar4
+ARRI,Omnibar 4,Normal,5600,3,intensifier,200,18.6,,src:omnibar4
+ARRI,Omnibar 4,Normal,5600,3,open,195,18.1,,src:omnibar4
+ARRI,Omnibar 4,Normal,5600,3,round_diff,115,10.7,,src:omnibar4
+ARRI,Omnibar 4,Normal,5600,5,intensifier,76,7.1,,src:omnibar4
+ARRI,Omnibar 4,Normal,5600,5,open,72,6.7,,src:omnibar4
+# Pocket Par 125W
+ARRI,Pocket Par 125W,Normal,5600,1,spot,303750,28219.1,,src:pp_125
+ARRI,Pocket Par 125W,Normal,5600,2,spot,76800,7134.9,,src:pp_125
+ARRI,Pocket Par 125W,Normal,5600,3,spot,38400,3567.4,,src:pp_125
+ARRI,Pocket Par 125W,Normal,5600,5,spot,18150,1686.2,,src:pp_125
+ARRI,Pocket Par 125W,Normal,5600,8,spot,4800,445.9,,src:pp_125
+# Pocket Par 125W Cyl
+ARRI,Pocket Par 125W Cyl,Normal,5600,0.5,flat,2400,223.0,,src:pp_125_cyl
+ARRI,Pocket Par 125W Cyl,Normal,5600,1,flat,588,54.6,,src:pp_125_cyl
+ARRI,Pocket Par 125W Cyl,Normal,5600,2,flat,150,13.9,,src:pp_125_cyl
+# Pocket Par 200W
+ARRI,Pocket Par 200W,Normal,5600,1,spot,307200,28539.6,,src:pp_200
+ARRI,Pocket Par 200W,Normal,5600,2,spot,76800,7134.9,,src:pp_200
+ARRI,Pocket Par 200W,Normal,5600,3,spot,37969,3527.4,,src:pp_200
+ARRI,Pocket Par 200W,Normal,5600,5,spot,9075,843.1,,src:pp_200
+ARRI,Pocket Par 200W,Normal,5600,8,spot,4800,445.9,,src:pp_200
+# Pocket Par 200W Cyl
+ARRI,Pocket Par 200W Cyl,Normal,5600,0.5,flat,2269,210.8,,src:pp_200_cyl
+ARRI,Pocket Par 200W Cyl,Normal,5600,1,flat,1176,109.3,,src:pp_200_cyl
+ARRI,Pocket Par 200W Cyl,Normal,5600,2,flat,294,27.3,,src:pp_200_cyl
+ARRI,Pocket Par 200W Cyl,Normal,5600,3,flat,150,13.9,,src:pp_200_cyl
+# Pocket Par 400W
+ARRI,Pocket Par 400W,Normal,5600,1,spot,151875,14109.5,,src:pp_400
+ARRI,Pocket Par 400W,Normal,5600,1,sf400,75938,7054.8,,src:pp_400
+ARRI,Pocket Par 400W,Normal,5600,2,spot,76800,7134.9,,src:pp_400
+ARRI,Pocket Par 400W,Normal,5600,2,sf400,18150,1686.2,,src:pp_400
+ARRI,Pocket Par 400W,Normal,5600,3,spot,38400,3567.4,,src:pp_400
+ARRI,Pocket Par 400W,Normal,5600,3,sf400,4800,445.9,,src:pp_400
+ARRI,Pocket Par 400W,Normal,5600,5,spot,18150,1686.2,,src:pp_400
+ARRI,Pocket Par 400W,Normal,5600,5,sf400,2400,223.0,,src:pp_400
+ARRI,Pocket Par 400W,Normal,5600,8,spot,4800,445.9,,src:pp_400
+ARRI,Pocket Par 400W,Normal,5600,8,sf400,588,54.6,,src:pp_400
+# Pocket Par 400W Cyl
+ARRI,Pocket Par 400W Cyl,Normal,5600,0.5,flat,2400,223.0,,src:pp_400_cyl
+ARRI,Pocket Par 400W Cyl,Normal,5600,1,flat,1176,109.3,,src:pp_400_cyl
+ARRI,Pocket Par 400W Cyl,Normal,5600,2,flat,294,27.3,,src:pp_400_cyl
+ARRI,Pocket Par 400W Cyl,Normal,5600,3,flat,75,7.0,,src:pp_400_cyl
+# --- Aputure ---
+# LS 1200d Pro
+Aputure,LS 1200d Pro,Normal,5600,15,Standard,196000,18208.8,,src:ls_1200d_pro
+Aputure,LS 1200d Pro,Normal,5600,30,Standard,88000,8175.4,,src:ls_1200d_pro
+Aputure,LS 1200d Pro,Normal,5600,45,Standard,40000,3716.1,,src:ls_1200d_pro
+# LS 120D II
+Aputure,LS 120D II,Normal,5600,15,Standard,62000,5759.9,,src:ls120d_ii
+Aputure,LS 120D II,Normal,5600,30,Standard,26500,2461.9,,src:ls120d_ii
+Aputure,LS 120D II,Normal,5600,45,Standard,11800,1096.2,,src:ls120d_ii
+# LS 300X
+Aputure,LS 300X,Normal,3200,15,Standard,82000,7618.0,,src:ls300x
+Aputure,LS 300X,Normal,3200,30,Standard,36000,3344.5,,src:ls300x
+Aputure,LS 300X,Normal,3200,45,Standard,16500,1532.9,,src:ls300x
+Aputure,LS 300X,Normal,5600,15,Standard,86000,7989.6,,src:ls300x
+Aputure,LS 300X,Normal,5600,30,Standard,38000,3530.3,,src:ls300x
+Aputure,LS 300X,Normal,5600,45,Standard,17500,1625.8,,src:ls300x
+# LS 600X Pro
+Aputure,LS 600X Pro,Normal,5600,2,hyper,12095,1123.7,,src:ls600x
+Aputure,LS 600X Pro,Normal,5600,3,hyper,4538,421.6,,src:ls600x
+Aputure,LS 600X Pro,Normal,5600,5,hyper,1905,177.0,,src:ls600x
+Aputure,LS 600X Pro,Normal,5600,8,hyper,588,54.6,,src:ls600x
+Aputure,LS 600X Pro,Normal,5600,12,hyper,370,34.4,,src:ls600x
+# LS 600c Pro
+Aputure,LS 600c Pro,Normal,5600,15,Standard,148000,13749.5,,src:ls600c
+Aputure,LS 600c Pro,Normal,5600,30,Standard,65000,6038.6,,src:ls600c
+Aputure,LS 600c Pro,Normal,5600,45,Standard,30000,2787.1,,src:ls600c
+# LS 600c Pro II
+Aputure,LS 600c Pro II,Normal,5600,2,hyper,44110,4097.9,,src:ls600c_ii
+Aputure,LS 600c Pro II,Normal,5600,3,hyper,9075,843.1,,src:ls600c_ii
+Aputure,LS 600c Pro II,Normal,5600,5,hyper,4800,445.9,,src:ls600c_ii
+Aputure,LS 600c Pro II,Normal,5600,8,hyper,4538,421.6,,src:ls600c_ii
+Aputure,LS 600c Pro II,Normal,5600,12,hyper,909,84.4,,src:ls600c_ii
+# LS 600d Pro
+Aputure,LS 600d Pro,Normal,5600,15,Standard,168000,15607.6,,src:ls600d_pro
+Aputure,LS 600d Pro,Normal,5600,30,Standard,74000,6874.8,,src:ls600d_pro
+Aputure,LS 600d Pro,Normal,5600,45,Standard,34000,3158.7,,src:ls600d_pro
+# LS C300d II
+Aputure,LS C300d II,Normal,5600,15,Standard,76000,7060.6,,src:ls_c300d_ii
+Aputure,LS C300d II,Normal,5600,30,Standard,34000,3158.7,,src:ls_c300d_ii
+Aputure,LS C300d II,Normal,5600,45,Standard,15500,1440.0,,src:ls_c300d_ii
+# NOVA 9° 2×1
+Aputure,NOVA 9° 2×1,Normal,1800,1,nova9_diffuser,13280,1233.7,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,1800,3,nova9_diffuser,1594,148.1,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,1800,5,nova9_diffuser,615,57.1,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,1800,5,nova9_flood,19590,1820.0,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,1800,10,nova9_flood,5030,467.3,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,1800,20,nova9_flood,1329,123.5,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,2500,1,nova9_diffuser,17130,1591.4,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,2500,3,nova9_diffuser,2057,191.1,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,2500,5,nova9_diffuser,794,73.8,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,2500,5,nova9_flood,25410,2360.6,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,2500,10,nova9_flood,7090,658.7,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,2500,20,nova9_flood,1881,174.7,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,3200,1,nova9_diffuser,18970,1762.4,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,3200,3,nova9_diffuser,2278,211.6,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,3200,5,nova9_diffuser,879,81.7,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,3200,5,nova9_flood,28090,2609.6,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,3200,10,nova9_flood,7660,711.6,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,3200,20,nova9_flood,2040,189.5,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,4300,1,nova9_diffuser,20290,1885.0,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,4300,3,nova9_diffuser,2436,226.3,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,4300,5,nova9_diffuser,940,87.3,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,4300,5,nova9_flood,29980,2785.2,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,4300,10,nova9_flood,8340,774.8,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,4300,20,nova9_flood,2229,207.1,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,5600,1,nova9_diffuser,20160,1872.9,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,5600,3,nova9_diffuser,2423,225.1,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,5600,5,nova9_diffuser,935,86.9,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,5600,5,nova9_flood,29730,2762.0,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,5600,10,nova9_flood,8320,772.9,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,5600,20,nova9_flood,2229,207.1,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,6500,1,nova9_diffuser,19890,1847.8,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,6500,3,nova9_diffuser,2390,222.0,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,6500,5,nova9_diffuser,924,85.8,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,6500,5,nova9_flood,29270,2719.2,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,6500,10,nova9_flood,8220,763.7,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,6500,20,nova9_flood,2203,204.7,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,7500,1,nova9_diffuser,19480,1809.7,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,7500,3,nova9_diffuser,2341,217.5,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,7500,5,nova9_diffuser,903,83.9,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,7500,5,nova9_flood,28610,2657.9,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,7500,10,nova9_flood,8070,749.7,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,7500,20,nova9_flood,2171,201.7,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,10000,1,nova9_diffuser,18530,1721.5,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,10000,3,nova9_diffuser,2227,206.9,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,10000,5,nova9_diffuser,859,79.8,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,10000,5,nova9_flood,27150,2522.3,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,10000,10,nova9_flood,7660,711.6,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,10000,20,nova9_flood,2064,191.8,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,20000,1,nova9_diffuser,16580,1540.3,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,20000,3,nova9_diffuser,1992,185.1,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,20000,5,nova9_diffuser,769,71.4,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,20000,5,nova9_flood,24210,2249.2,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,20000,10,nova9_flood,6920,642.9,,src:nova9_2x1
+Aputure,NOVA 9° 2×1,Normal,20000,20,nova9_flood,1863,173.1,,src:nova9_2x1
+# Nova2 1×1
+Aputure,Nova2 1×1,Normal,1800,1,diffuser,9710,902.1,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,1800,1,flood,51600,4793.8,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,1800,3,diffuser,1187,110.3,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,1800,3,flood,6320,587.1,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,1800,5,diffuser,453,42.1,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,1800,5,flood,2340,217.4,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,1800,5,spot9,19590,1820.0,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,1800,10,spot9,5030,467.3,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,1800,20,spot9,1329,123.5,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,2500,1,diffuser,17850,1658.3,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,2500,1,flood,95000,8825.7,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,2500,3,diffuser,2186,203.1,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,2500,3,flood,11670,1084.2,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,2500,5,diffuser,834,77.5,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,2500,5,flood,4320,401.3,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,2500,5,spot9,25410,2360.6,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,2500,10,spot9,7090,658.7,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,2500,20,spot9,1881,174.7,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,3200,1,diffuser,20040,1861.8,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,3200,1,flood,107100,9949.8,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,3200,3,diffuser,2457,228.3,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,3200,3,flood,13160,1222.6,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,3200,5,diffuser,938,87.1,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,3200,5,flood,4870,452.4,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,3200,5,spot9,28090,2609.6,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,3200,10,spot9,7660,711.6,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,3200,20,spot9,2040,189.5,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,4300,1,diffuser,20500,1904.5,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,4300,1,flood,110100,10228.5,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,4300,3,diffuser,2516,233.7,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,4300,3,flood,13530,1257.0,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,4300,5,diffuser,960,89.2,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,4300,5,flood,5010,465.4,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,4300,5,spot9,29980,2785.2,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,4300,10,spot9,8340,774.8,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,4300,20,spot9,2229,207.1,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,5600,1,diffuser,20080,1865.5,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,5600,1,flood,108200,10052.0,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,5600,3,diffuser,2466,229.1,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,5600,3,flood,13300,1235.6,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,5600,5,diffuser,941,87.4,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,5600,5,flood,4920,457.1,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,5600,5,spot9,29730,2762.0,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,5600,10,spot9,8320,772.9,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,5600,20,spot9,2229,207.1,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,6500,1,diffuser,19730,1833.0,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,6500,1,flood,106500,9894.1,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,6500,3,diffuser,2424,225.2,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,6500,3,flood,13100,1217.0,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,6500,5,diffuser,925,85.9,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,6500,5,flood,4840,449.6,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,6500,5,spot9,29270,2719.2,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,6500,10,spot9,8220,763.7,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,6500,20,spot9,2203,204.7,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,7500,5,spot9,28610,2657.9,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,7500,10,spot9,8070,749.7,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,7500,20,spot9,2171,201.7,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,10000,1,diffuser,17930,1665.7,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,10000,1,flood,97100,9020.8,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,10000,3,diffuser,2204,204.8,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,10000,3,flood,11950,1110.2,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,10000,5,diffuser,842,78.2,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,10000,5,flood,4420,410.6,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,10000,5,spot9,27150,2522.3,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,10000,10,spot9,7660,711.6,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,10000,20,spot9,2064,191.8,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,20000,1,diffuser,15820,1469.7,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,20000,1,flood,86000,7989.6,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,20000,3,diffuser,1947,180.9,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,20000,3,flood,10580,982.9,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,20000,5,diffuser,744,69.1,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,20000,5,flood,3910,363.2,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,20000,5,spot9,24210,2249.2,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,20000,10,spot9,6920,642.9,,src:nova_p2_1x1
+Aputure,Nova2 1×1,Normal,20000,20,spot9,1863,173.1,,src:nova_p2_1x1
+# Nova2 2×1
+Aputure,Nova2 2×1,Normal,1800,1,diffuser,9710,902.1,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,1800,1,flood,51600,4793.8,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,1800,3,diffuser,1187,110.3,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,1800,3,flood,6320,587.1,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,1800,5,diffuser,453,42.1,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,1800,5,flood,2340,217.4,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,1800,5,spot9,19590,1820.0,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,1800,10,spot9,5030,467.3,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,1800,20,spot9,1329,123.5,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,2500,1,diffuser,17850,1658.3,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,2500,1,flood,95000,8825.7,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,2500,3,diffuser,2186,203.1,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,2500,3,flood,11670,1084.2,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,2500,5,diffuser,834,77.5,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,2500,5,flood,4320,401.3,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,2500,5,spot9,25410,2360.6,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,2500,10,spot9,7090,658.7,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,2500,20,spot9,1881,174.7,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,3200,1,diffuser,20040,1861.8,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,3200,1,flood,107100,9949.8,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,3200,3,diffuser,2457,228.3,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,3200,3,flood,13160,1222.6,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,3200,5,diffuser,938,87.1,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,3200,5,flood,4870,452.4,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,3200,5,spot9,28090,2609.6,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,3200,10,spot9,7660,711.6,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,3200,20,spot9,2040,189.5,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,4300,1,diffuser,20500,1904.5,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,4300,1,flood,110100,10228.5,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,4300,3,diffuser,2516,233.7,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,4300,3,flood,13530,1257.0,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,4300,5,diffuser,960,89.2,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,4300,5,flood,5010,465.4,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,4300,5,spot9,29980,2785.2,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,4300,10,spot9,8340,774.8,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,4300,20,spot9,2229,207.1,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,5600,1,diffuser,20080,1865.5,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,5600,1,flood,108200,10052.0,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,5600,3,diffuser,2466,229.1,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,5600,3,flood,13300,1235.6,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,5600,5,diffuser,941,87.4,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,5600,5,flood,4920,457.1,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,5600,5,spot9,29730,2762.0,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,5600,10,spot9,8320,772.9,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,5600,20,spot9,2229,207.1,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,6500,1,diffuser,19730,1833.0,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,6500,1,flood,106500,9894.1,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,6500,3,diffuser,2424,225.2,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,6500,3,flood,13100,1217.0,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,6500,5,diffuser,925,85.9,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,6500,5,flood,4840,449.6,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,6500,5,spot9,29270,2719.2,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,6500,10,spot9,8220,763.7,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,6500,20,spot9,2203,204.7,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,7500,5,spot9,28610,2657.9,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,7500,10,spot9,8070,749.7,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,7500,20,spot9,2171,201.7,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,10000,1,diffuser,17930,1665.7,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,10000,1,flood,97100,9020.8,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,10000,3,diffuser,2204,204.8,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,10000,3,flood,11950,1110.2,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,10000,5,diffuser,842,78.2,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,10000,5,flood,4420,410.6,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,10000,5,spot9,27150,2522.3,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,10000,10,spot9,7660,711.6,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,10000,20,spot9,2064,191.8,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,20000,1,diffuser,15820,1469.7,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,20000,1,flood,86000,7989.6,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,20000,3,diffuser,1947,180.9,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,20000,3,flood,10580,982.9,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,20000,5,diffuser,744,69.1,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,20000,5,flood,3910,363.2,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,20000,5,spot9,24210,2249.2,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,20000,10,spot9,6920,642.9,,src:nova_p2_2x1
+Aputure,Nova2 2×1,Normal,20000,20,spot9,1863,173.1,,src:nova_p2_2x1
+# STORM 400X
+Aputure,STORM 400X,Normal,2500,1.0,bare,20590,1912.9,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,1.0,cf7_15,179800,16703.8,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,1.0,cf7_40,40600,3771.8,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,1.0,hyper30,70800,6577.5,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,1.0,hyper35,49200,4570.8,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,3.0,bare,2361,219.3,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,3.0,cf7_15,17700,1644.4,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,3.0,cf7_40,4780,444.1,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,3.0,hyper30,7180,667.0,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,3.0,hyper35,3850,357.7,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,5.0,bare,880,81.8,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,5.0,cf7_15,6270,582.5,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,5.0,cf7_40,1773,164.7,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,5.0,hyper30,2510,233.2,,src:storm_400x
+Aputure,STORM 400X,Normal,2500,5.0,hyper35,1334,123.9,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,1.0,bare,25600,2378.3,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,1.0,cf7_15,225200,20921.6,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,1.0,cf7_40,51000,4738.0,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,1.0,hyper30,89000,8268.3,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,1.0,hyper35,61600,5722.8,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,3.0,bare,2964,275.4,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,3.0,cf7_15,22210,2063.4,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,3.0,cf7_40,6020,559.3,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,3.0,hyper30,8990,835.2,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,3.0,hyper35,4850,450.6,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,5.0,bare,1105,102.7,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,5.0,cf7_15,7860,730.2,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,5.0,cf7_40,2232,207.4,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,5.0,hyper30,3150,292.6,,src:storm_400x
+Aputure,STORM 400X,Normal,3200,5.0,hyper35,1677,155.8,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,1.0,bare,27350,2540.9,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,1.0,cf7_15,237300,22045.7,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,1.0,cf7_40,53900,5007.4,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,1.0,hyper30,93600,8695.7,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,1.0,hyper35,65400,6075.8,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,3.0,bare,3140,291.7,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,3.0,cf7_15,23470,2180.4,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,3.0,cf7_40,6400,594.6,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,3.0,hyper30,9510,883.5,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,3.0,hyper35,5120,475.7,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,5.0,bare,1170,108.7,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,5.0,cf7_15,8310,772.0,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,5.0,cf7_40,2376,220.7,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,5.0,hyper30,3340,310.3,,src:storm_400x
+Aputure,STORM 400X,Normal,4300,5.0,hyper35,1780,165.4,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,1.0,bare,27100,2517.7,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,1.0,cf7_15,236700,21990.0,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,1.0,cf7_40,53900,5007.4,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,1.0,hyper30,93000,8639.9,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,1.0,hyper35,64600,6001.5,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,3.0,bare,3110,288.9,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,3.0,cf7_15,23260,2160.9,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,3.0,cf7_40,6380,592.7,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,3.0,hyper30,9430,876.1,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,3.0,hyper35,5090,472.9,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,5.0,bare,1161,107.9,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,5.0,cf7_15,8220,763.7,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,5.0,cf7_40,2367,219.9,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,5.0,hyper30,3310,307.5,,src:storm_400x
+Aputure,STORM 400X,Normal,5600,5.0,hyper35,1769,164.3,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,1.0,bare,26500,2461.9,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,1.0,cf7_15,228700,21246.7,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,1.0,cf7_40,52700,4895.9,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,1.0,hyper30,90800,8435.5,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,1.0,hyper35,63300,5880.7,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,3.0,bare,3040,282.4,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,3.0,cf7_15,22690,2108.0,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,3.0,cf7_40,6240,579.7,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,3.0,hyper30,9200,854.7,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,3.0,hyper35,4970,461.7,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,5.0,bare,1134,105.4,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,5.0,cf7_15,8020,745.1,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,5.0,cf7_40,2317,215.3,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,5.0,hyper30,3230,300.1,,src:storm_400x
+Aputure,STORM 400X,Normal,6500,5.0,hyper35,1729,160.6,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,1.0,bare,25700,2387.6,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,1.0,cf7_15,225200,20921.6,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,1.0,cf7_40,51500,4784.5,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,1.0,hyper30,88400,8212.6,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,1.0,hyper35,61600,5722.8,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,3.0,bare,2960,275.0,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,3.0,cf7_15,22110,2054.1,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,3.0,cf7_40,6100,566.7,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,3.0,hyper30,8970,833.3,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,3.0,hyper35,4840,449.6,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,5.0,bare,1105,102.7,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,5.0,cf7_15,7810,725.6,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,5.0,cf7_40,2262,210.1,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,5.0,hyper30,3140,291.7,,src:storm_400x
+Aputure,STORM 400X,Normal,7500,5.0,hyper35,1685,156.5,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,1.0,bare,24160,2244.5,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,1.0,cf7_15,212600,19751.0,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,1.0,cf7_40,48500,4505.8,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,1.0,hyper30,83100,7720.2,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,1.0,hyper35,57800,5369.8,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,3.0,bare,2790,259.2,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,3.0,cf7_15,20760,1928.7,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,3.0,cf7_40,5740,533.3,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,3.0,hyper30,8420,782.2,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,3.0,hyper35,4550,422.7,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,5.0,bare,1038,96.4,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,5.0,cf7_15,7330,681.0,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,5.0,cf7_40,2131,198.0,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,5.0,hyper30,2950,274.1,,src:storm_400x
+Aputure,STORM 400X,Normal,10000,5.0,hyper35,1585,147.3,,src:storm_400x
+# STORM 700X
+Aputure,STORM 700X,Normal,2500,1.0,bare,36700,3409.5,,src:storm_700x
+Aputure,STORM 700X,Normal,2500,1.0,cf10_40,71000,6596.1,,src:storm_700x
+Aputure,STORM 700X,Normal,2500,3.0,bare,4200,390.2,,src:storm_700x
+Aputure,STORM 700X,Normal,2500,3.0,cf10_15,37400,3474.5,,src:storm_700x
+Aputure,STORM 700X,Normal,2500,3.0,cf10_40,7850,729.3,,src:storm_700x
+Aputure,STORM 700X,Normal,2500,3.0,hyper25,18120,1683.4,,src:storm_700x
+Aputure,STORM 700X,Normal,2500,3.0,hyper35,12480,1159.4,,src:storm_700x
+Aputure,STORM 700X,Normal,2500,5.0,bare,1588,147.5,,src:storm_700x
+Aputure,STORM 700X,Normal,2500,5.0,cf10_15,13020,1209.6,,src:storm_700x
+Aputure,STORM 700X,Normal,2500,5.0,cf10_40,3030,281.5,,src:storm_700x
+Aputure,STORM 700X,Normal,2500,5.0,hyper25,6040,561.1,,src:storm_700x
+Aputure,STORM 700X,Normal,2500,5.0,hyper35,4100,380.9,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,1.0,bare,42400,3939.1,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,1.0,cf10_40,82300,7645.9,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,3.0,bare,4870,452.4,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,3.0,cf10_15,43300,4022.7,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,3.0,cf10_40,9990,928.1,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,3.0,hyper25,20950,1946.3,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,3.0,hyper35,14430,1340.6,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,5.0,bare,1839,170.8,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,5.0,cf10_15,15050,1398.2,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,5.0,cf10_40,3510,326.1,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,5.0,hyper25,5880,546.3,,src:storm_700x
+Aputure,STORM 700X,Normal,3200,5.0,hyper35,3930,365.1,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,1.0,bare,53700,4988.9,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,1.0,cf10_40,104100,9671.1,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,3.0,bare,6210,576.9,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,3.0,cf10_15,54700,5081.8,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,3.0,cf10_40,11590,1076.7,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,3.0,hyper25,26430,2455.4,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,3.0,hyper35,18120,1683.4,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,5.0,bare,2330,216.5,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,5.0,cf10_15,19000,1765.1,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,5.0,cf10_40,4440,412.5,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,5.0,hyper25,7560,702.3,,src:storm_700x
+Aputure,STORM 700X,Normal,4300,5.0,hyper35,5040,468.2,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,1.0,bare,54900,5100.3,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,1.0,cf10_40,107500,9987.0,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,3.0,bare,6370,591.8,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,3.0,cf10_15,56200,5221.1,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,3.0,cf10_40,11900,1105.5,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,3.0,hyper25,27190,2526.0,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,3.0,hyper35,18670,1734.5,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,5.0,bare,2394,222.4,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,5.0,cf10_15,19550,1816.2,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,5.0,cf10_40,4570,424.6,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,5.0,hyper25,7950,738.6,,src:storm_700x
+Aputure,STORM 700X,Normal,5600,5.0,hyper35,5320,494.2,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,1.0,bare,53600,4979.6,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,1.0,cf10_40,104700,9726.9,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,3.0,bare,6190,575.1,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,3.0,cf10_15,54700,5081.8,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,3.0,cf10_40,11570,1074.9,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,3.0,hyper25,26520,2463.8,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,3.0,hyper35,18250,1695.5,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,5.0,bare,2333,216.7,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,5.0,cf10_15,19050,1769.8,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,5.0,cf10_40,4460,414.3,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,5.0,hyper25,8060,748.8,,src:storm_700x
+Aputure,STORM 700X,Normal,6500,5.0,hyper35,5380,499.8,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,1.0,bare,49200,4570.8,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,1.0,cf10_40,96100,8927.9,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,3.0,bare,5660,525.8,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,3.0,cf10_15,50100,4654.4,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,3.0,cf10_40,10610,985.7,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,3.0,hyper25,24300,2257.5,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,3.0,hyper35,16760,1557.0,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,5.0,bare,2136,198.4,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,5.0,cf10_15,17470,1623.0,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,5.0,cf10_40,4080,379.0,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,5.0,hyper25,7810,725.6,,src:storm_700x
+Aputure,STORM 700X,Normal,7500,5.0,hyper35,5240,486.8,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,1.0,bare,40900,3799.7,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,1.0,cf10_40,80000,7432.2,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,3.0,bare,4720,438.5,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,3.0,cf10_15,41700,3874.0,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,3.0,cf10_40,8850,822.2,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,3.0,hyper25,20200,1876.6,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,3.0,hyper35,13930,1294.1,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,5.0,bare,1778,165.2,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,5.0,cf10_15,14520,1348.9,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,5.0,cf10_40,3400,315.9,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,5.0,hyper25,6960,646.6,,src:storm_700x
+Aputure,STORM 700X,Normal,10000,5.0,hyper35,4650,432.0,,src:storm_700x
+# Storm 1200X
+Aputure,Storm 1200X,Normal,2500,2.0,bare,14800,1375.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,2.0,bm15,165000,15328.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,2.0,bm30,81500,7571.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,2.0,bm45,36200,3363.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,2.0,cf12_15,148000,13749.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,2.0,cf12_45,28500,2647.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,3.0,bare,6690,621.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,3.0,bm15,75800,7042.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,3.0,bm30,32900,3056.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,3.0,bm45,15600,1449.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,3.0,cf12_15,65500,6085.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,3.0,cf12_45,13200,1226.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,5.0,bare,2550,236.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,5.0,bm15,26100,2424.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,5.0,bm30,11100,1031.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,5.0,bm45,5550,515.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,5.0,cf12_15,22800,2118.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,5.0,cf12_45,4840,449.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,7.0,bare,1290,119.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,7.0,bm15,13000,1207.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,7.0,bm30,5530,513.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,7.0,bm45,2820,262.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,7.0,cf12_15,11500,1068.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,2500,7.0,cf12_45,2500,232.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,2.0,bare,19000,1765.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,2.0,bm15,211000,19602.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,2.0,bm30,104000,9661.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,2.0,bm45,46200,4292.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,2.0,cf12_15,190000,17651.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,2.0,cf12_45,36700,3409.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,3.0,bare,8570,796.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,3.0,bm15,97100,9020.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,3.0,bm30,42100,3911.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,3.0,bm45,19900,1848.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,3.0,cf12_15,84500,7850.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,3.0,cf12_45,17000,1579.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,5.0,bare,3260,302.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,5.0,bm15,31500,2926.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,5.0,bm30,14200,1319.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,5.0,bm45,7100,659.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,5.0,cf12_15,29200,2712.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,5.0,cf12_45,6300,585.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,7.0,bare,1640,152.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,7.0,bm15,15800,1467.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,7.0,bm30,7100,659.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,7.0,bm45,3600,334.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,7.0,cf12_15,14700,1365.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,3200,7.0,cf12_45,3200,297.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,2.0,bare,14700,1365.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,2.0,bm15,164000,15236.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,2.0,bm30,82000,7618.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,2.0,bm45,35000,3251.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,2.0,cf12_15,142000,13192.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,2.0,cf12_45,29000,2694.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,3.0,bare,6600,613.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,3.0,bm15,73000,6781.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,3.0,bm30,31000,2880.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,3.0,bm45,14700,1365.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,3.0,cf12_15,61000,5667.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,3.0,cf12_45,13000,1207.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,5.0,bare,2550,236.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,5.0,bm15,25000,2322.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,5.0,bm30,10500,975.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,5.0,bm45,5200,483.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,5.0,cf12_15,21000,1950.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,5.0,cf12_45,4700,436.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,7.0,bare,1350,125.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,7.0,bm15,12500,1161.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,7.0,bm30,5200,483.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,7.0,bm45,2700,250.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,7.0,cf12_15,10500,975.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,4300,7.0,cf12_45,2500,232.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,2.0,bare,14000,1300.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,2.0,bm15,158000,14678.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,2.0,bm30,79000,7339.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,2.0,bm45,33500,3112.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,2.0,cf12_15,137000,12727.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,2.0,cf12_45,27500,2554.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,3.0,bare,6300,585.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,3.0,bm15,70000,6503.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,3.0,bm30,31000,2880.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,3.0,bm45,14200,1319.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,3.0,cf12_15,58500,5434.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,3.0,cf12_45,12500,1161.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,5.0,bare,2450,227.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,5.0,bm15,24000,2229.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,5.0,bm30,10000,929.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,5.0,bm45,5000,464.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,5.0,cf12_15,20000,1858.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,5.0,cf12_45,4500,418.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,7.0,bare,1300,120.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,7.0,bm15,12000,1114.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,7.0,bm30,5000,464.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,7.0,bm45,2600,241.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,7.0,cf12_15,10000,929.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,5600,7.0,cf12_45,2400,223.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,2.0,bare,13700,1272.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,2.0,bm15,152000,14121.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,2.0,bm30,75000,6967.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,2.0,bm45,32500,3019.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,2.0,cf12_15,132000,12263.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,2.0,cf12_45,26500,2461.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,3.0,bare,6200,576.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,3.0,bm15,68000,6317.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,3.0,bm30,30000,2787.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,3.0,bm45,13700,1272.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,3.0,cf12_15,57000,5295.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,3.0,cf12_45,12000,1114.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,5.0,bare,2400,223.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,5.0,bm15,23000,2136.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,5.0,bm30,9700,901.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,5.0,bm45,4850,450.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,5.0,cf12_15,19500,1811.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,5.0,cf12_45,4300,399.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,7.0,bare,1250,116.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,7.0,bm15,11500,1068.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,7.0,bm30,4850,450.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,7.0,bm45,2500,232.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,7.0,cf12_15,9800,910.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,6500,7.0,cf12_45,2300,213.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,2.0,bare,20800,1932.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,2.0,bm15,230000,21367.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,2.0,bm30,114000,10590.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,2.0,bm45,50600,4700.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,2.0,cf12_15,209000,19416.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,2.0,cf12_45,40300,3744.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,3.0,bare,9320,865.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,3.0,bm15,106000,9847.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,3.0,bm30,46000,4273.5,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,3.0,bm45,21700,2016.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,3.0,cf12_15,93300,8667.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,3.0,cf12_45,18600,1728.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,5.0,bare,3550,329.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,5.0,bm15,36400,3381.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,5.0,bm30,15500,1440.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,5.0,bm45,7730,718.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,5.0,cf12_15,32300,3000.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,5.0,cf12_45,6820,633.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,7.0,bare,1800,167.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,7.0,bm15,18200,1690.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,7.0,bm30,7740,719.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,7.0,bm45,3930,365.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,7.0,cf12_15,16300,1514.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,7500,7.0,cf12_45,3530,327.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,2.0,bare,17800,1653.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,2.0,bm15,197000,18301.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,2.0,bm30,98000,9104.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,2.0,bm45,43500,4041.2,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,2.0,cf12_15,180000,16722.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,2.0,cf12_45,35000,3251.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,3.0,bare,8010,744.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,3.0,bm15,90900,8444.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,3.0,bm30,39400,3660.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,3.0,bm45,18700,1737.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,3.0,cf12_15,80400,7469.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,3.0,cf12_45,16000,1486.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,5.0,bare,3050,283.4,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,5.0,bm15,31200,2898.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,5.0,bm30,13300,1235.6,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,5.0,bm45,6660,618.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,5.0,cf12_15,27800,2582.7,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,5.0,cf12_45,5870,545.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,7.0,bare,1550,144.0,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,7.0,bm15,15600,1449.3,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,7.0,bm30,6650,617.8,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,7.0,bm45,3370,313.1,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,7.0,cf12_15,14100,1309.9,,src:storm1200x
+Aputure,Storm 1200X,Normal,10000,7.0,cf12_45,3030,281.5,,src:storm1200x
+# --- Astera ---
+# LeoFresnel
+Astera,LeoFresnel,Normal,5600,1,zoom_max,6639,616.8,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,1,zoom_mid,18191,1690.0,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,1,zoom_min,57737,5363.9,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,2,zoom_max,1659,154.1,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,2,zoom_mid,4547,422.4,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,2,zoom_min,14434,1341.0,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,3,zoom_max,737,68.5,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,3,zoom_mid,2021,187.8,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,3,zoom_min,6415,596.0,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,5,zoom_max,265,24.6,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,5,zoom_mid,727,67.5,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,5,zoom_min,2309,214.5,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,8,zoom_max,103,9.6,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,8,zoom_mid,284,26.4,,src:leo_fresnel
+Astera,LeoFresnel,Normal,5600,8,zoom_min,902,83.8,,src:leo_fresnel
+# PlutoFresnel
+Astera,PlutoFresnel,Normal,5600,1,zoom_max,2872,266.8,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,1,zoom_mid,10028,931.6,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,1,zoom_min,38167,3545.8,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,2,zoom_max,718,66.7,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,2,zoom_mid,2507,232.9,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,2,zoom_min,9541,886.4,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,3,zoom_max,319,29.6,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,3,zoom_mid,1114,103.5,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,3,zoom_min,4240,393.9,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,5,zoom_max,114,10.6,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,5,zoom_mid,401,37.3,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,5,zoom_min,1526,141.8,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,8,zoom_mid,156,14.5,,src:pluto_fresnel
+Astera,PlutoFresnel,Normal,5600,8,zoom_min,596,55.4,,src:pluto_fresnel
+# QuikBeam
+Astera,QuikBeam,Normal,5600,1,zoom_max,2064,191.8,,src:quik_beam
+Astera,QuikBeam,Normal,5600,1,zoom_mid,6193,575.3,,src:quik_beam
+Astera,QuikBeam,Normal,5600,1,zoom_min,20646,1918.1,,src:quik_beam
+Astera,QuikBeam,Normal,5600,2,zoom_max,516,47.9,,src:quik_beam
+Astera,QuikBeam,Normal,5600,2,zoom_mid,1548,143.8,,src:quik_beam
+Astera,QuikBeam,Normal,5600,2,zoom_min,5161,479.5,,src:quik_beam
+Astera,QuikBeam,Normal,5600,3,zoom_max,229,21.3,,src:quik_beam
+Astera,QuikBeam,Normal,5600,3,zoom_mid,688,63.9,,src:quik_beam
+Astera,QuikBeam,Normal,5600,3,zoom_min,2294,213.1,,src:quik_beam
+Astera,QuikBeam,Normal,5600,5,zoom_max,82,7.6,,src:quik_beam
+Astera,QuikBeam,Normal,5600,5,zoom_mid,247,22.9,,src:quik_beam
+Astera,QuikBeam,Normal,5600,5,zoom_min,825,76.6,,src:quik_beam
+Astera,QuikBeam,Normal,5600,8,zoom_mid,96,8.9,,src:quik_beam
+Astera,QuikBeam,Normal,5600,8,zoom_min,322,29.9,,src:quik_beam
+# QuikPunch
+Astera,QuikPunch,Normal,5600,1,zoom_max,4713,437.8,,src:quik_punch
+Astera,QuikPunch,Normal,5600,1,zoom_mid,14729,1368.4,,src:quik_punch
+Astera,QuikPunch,Normal,5600,1,zoom_min,58918,5473.6,,src:quik_punch
+Astera,QuikPunch,Normal,5600,2,zoom_max,1178,109.4,,src:quik_punch
+Astera,QuikPunch,Normal,5600,2,zoom_mid,3682,342.1,,src:quik_punch
+Astera,QuikPunch,Normal,5600,2,zoom_min,14729,1368.4,,src:quik_punch
+Astera,QuikPunch,Normal,5600,3,zoom_max,523,48.6,,src:quik_punch
+Astera,QuikPunch,Normal,5600,3,zoom_mid,1636,152.0,,src:quik_punch
+Astera,QuikPunch,Normal,5600,3,zoom_min,6546,608.1,,src:quik_punch
+Astera,QuikPunch,Normal,5600,5,zoom_max,188,17.5,,src:quik_punch
+Astera,QuikPunch,Normal,5600,5,zoom_mid,589,54.7,,src:quik_punch
+Astera,QuikPunch,Normal,5600,5,zoom_min,2356,218.9,,src:quik_punch
+Astera,QuikPunch,Normal,5600,8,zoom_max,73,6.8,,src:quik_punch
+Astera,QuikPunch,Normal,5600,8,zoom_mid,230,21.4,,src:quik_punch
+Astera,QuikPunch,Normal,5600,8,zoom_min,920,85.5,,src:quik_punch
+# SolaBulb
+Astera,SolaBulb,Normal,5600,1,flood,615,57.1,,src:sola_bulb
+Astera,SolaBulb,Normal,5600,1,med,1652,153.5,,src:sola_bulb
+Astera,SolaBulb,Normal,5600,1,spot,5228,485.7,,src:sola_bulb
+Astera,SolaBulb,Normal,5600,2,flood,153,14.2,,src:sola_bulb
+Astera,SolaBulb,Normal,5600,2,med,413,38.4,,src:sola_bulb
+Astera,SolaBulb,Normal,5600,2,spot,1307,121.4,,src:sola_bulb
+Astera,SolaBulb,Normal,5600,3,flood,68,6.3,,src:sola_bulb
+Astera,SolaBulb,Normal,5600,3,med,183,17.0,,src:sola_bulb
+Astera,SolaBulb,Normal,5600,3,spot,580,53.9,,src:sola_bulb
+Astera,SolaBulb,Normal,5600,5,med,66,6.1,,src:sola_bulb
+Astera,SolaBulb,Normal,5600,5,spot,209,19.4,,src:sola_bulb
+Astera,SolaBulb,Normal,5600,8,spot,81,7.5,,src:sola_bulb
+# --- Creamsource ---
+# Vortex4
+Creamsource,Vortex4,Normal,3200,20,Standard,35000,3251.6,,src:vortex4
+Creamsource,Vortex4,Normal,5600,20,Standard,38000,3530.3,,src:vortex4
+# Vortex8
+Creamsource,Vortex8,Normal,3200,20,Standard,68200,6335.9,,src:vortex8
+Creamsource,Vortex8,Normal,5600,20,Standard,73500,6828.3,,src:vortex8
+# --- Dedolight ---
+# Dedolight 1200W HMI
+Dedolight,Dedolight 1200W HMI,Normal,5600,3,spot,151875,14109.5,,src:dedo_1200
+Dedolight,Dedolight 1200W HMI,Normal,5600,5,spot,153600,14269.8,,src:dedo_1200
+Dedolight,Dedolight 1200W HMI,Normal,5600,8,spot,75938,7054.8,,src:dedo_1200
+Dedolight,Dedolight 1200W HMI,Normal,5600,12,spot,48381,4494.7,,src:dedo_1200
+Dedolight,Dedolight 1200W HMI,Normal,5600,15,spot,19200,1783.7,,src:dedo_1200
+# Dedolight 200W HMI
+Dedolight,Dedolight 200W HMI,Normal,5600,2,flat,9600,891.9,,src:dedo_200
+Dedolight,Dedolight 200W HMI,Normal,5600,2,spot,153600,14269.8,,src:dedo_200
+Dedolight,Dedolight 200W HMI,Normal,5600,3,flat,2400,223.0,,src:dedo_200
+Dedolight,Dedolight 200W HMI,Normal,5600,3,spot,37969,3527.4,,src:dedo_200
+Dedolight,Dedolight 200W HMI,Normal,5600,5,flat,1176,109.3,,src:dedo_200
+Dedolight,Dedolight 200W HMI,Normal,5600,5,spot,19200,1783.7,,src:dedo_200
+Dedolight,Dedolight 200W HMI,Normal,5600,8,flat,300,27.9,,src:dedo_200
+Dedolight,Dedolight 200W HMI,Normal,5600,8,spot,9600,891.9,,src:dedo_200
+Dedolight,Dedolight 200W HMI,Normal,5600,12,flat,147,13.7,,src:dedo_200
+Dedolight,Dedolight 200W HMI,Normal,5600,12,spot,2269,210.8,,src:dedo_200
+# Dedolight 400W HMI
+Dedolight,Dedolight 400W HMI,Normal,5600,2,flat,9600,891.9,,src:dedo_400
+Dedolight,Dedolight 400W HMI,Normal,5600,2,spot,151875,14109.5,,src:dedo_400
+Dedolight,Dedolight 400W HMI,Normal,5600,3,flat,2269,210.8,,src:dedo_400
+Dedolight,Dedolight 400W HMI,Normal,5600,3,spot,75938,7054.8,,src:dedo_400
+Dedolight,Dedolight 400W HMI,Normal,5600,5,flat,1176,109.3,,src:dedo_400
+Dedolight,Dedolight 400W HMI,Normal,5600,5,spot,38400,3567.4,,src:dedo_400
+Dedolight,Dedolight 400W HMI,Normal,5600,8,flat,600,55.7,,src:dedo_400
+Dedolight,Dedolight 400W HMI,Normal,5600,8,spot,9600,891.9,,src:dedo_400
+Dedolight,Dedolight 400W HMI,Normal,5600,12,flat,294,27.3,,src:dedo_400
+Dedolight,Dedolight 400W HMI,Normal,5600,12,spot,2269,210.8,,src:dedo_400
+# --- ETC ---
+# ETC WarpZoom 575W
+ETC,ETC WarpZoom 575W,Normal,5600,1,flat,76800,7134.9,,src:etc_warp575
+ETC,ETC WarpZoom 575W,Normal,5600,2,flat,38400,3567.4,,src:etc_warp575
+ETC,ETC WarpZoom 575W,Normal,5600,3,flat,18150,1686.2,,src:etc_warp575
+ETC,ETC WarpZoom 575W,Normal,5600,5,flat,4800,445.9,,src:etc_warp575
+ETC,ETC WarpZoom 575W,Normal,5600,8,flat,2269,210.8,,src:etc_warp575
+# --- K5600 ---
+# Alpha 12kW HMI
+K5600,Alpha 12kW HMI,Normal,5600,3,spot,153600,14269.9,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,3,flat,75938,7054.9,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,3,clear_spot,18150,1686.2,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,3,clear_flat,9075,843.1,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,5,spot,37969,3527.4,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,5,flat,19200,1783.7,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,5,clear_spot,4800,445.9,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,5,clear_flat,4538,421.6,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,8,spot,19200,1783.7,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,8,flat,9600,891.9,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,8,clear_spot,2269,210.8,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,8,clear_flat,2400,223.0,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,12,spot,9075,843.1,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,12,flat,4538,421.6,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,12,clear_spot,1176,109.3,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,12,clear_flat,588,54.6,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,15,spot,4800,445.9,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,15,flat,2400,223.0,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,15,clear_spot,300,27.9,,src:alpha_12k
+K5600,Alpha 12kW HMI,Normal,5600,15,clear_flat,294,27.3,,src:alpha_12k
+# Alpha 4kW HMI
+K5600,Alpha 4kW HMI,Normal,5600,2,flat,38400,3567.4,,src:alpha_4k
+K5600,Alpha 4kW HMI,Normal,5600,2,spot,75938,7054.8,,src:alpha_4k
+K5600,Alpha 4kW HMI,Normal,5600,3,flat,18150,1686.2,,src:alpha_4k
+K5600,Alpha 4kW HMI,Normal,5600,3,spot,38400,3567.4,,src:alpha_4k
+K5600,Alpha 4kW HMI,Normal,5600,5,flat,4800,445.9,,src:alpha_4k
+K5600,Alpha 4kW HMI,Normal,5600,5,spot,18150,1686.2,,src:alpha_4k
+K5600,Alpha 4kW HMI,Normal,5600,8,flat,2269,210.8,,src:alpha_4k
+K5600,Alpha 4kW HMI,Normal,5600,8,spot,4800,445.9,,src:alpha_4k
+K5600,Alpha 4kW HMI,Normal,5600,12,flat,1200,111.5,,src:alpha_4k
+K5600,Alpha 4kW HMI,Normal,5600,12,spot,2269,210.8,,src:alpha_4k
+# Joker 200
+K5600,Joker 200,Normal,5600,0.5,soft_tube,2269,210.8,,src:joker_200
+K5600,Joker 200,Normal,5600,1,soft_tube,1176,109.3,,src:joker_200
+K5600,Joker 200,Normal,5600,2,soft_tube,294,27.3,,src:joker_200
+K5600,Joker 200,Normal,5600,3,spot,22000,2043.8,,src:joker_200
+K5600,Joker 200,Normal,5600,3,flood,4400,408.8,,src:joker_200
+K5600,Joker 200,Normal,5600,3,soft_tube,150,13.9,,src:joker_200
+K5600,Joker 200,Normal,5600,5,spot,7920,735.8,,src:joker_200
+K5600,Joker 200,Normal,5600,5,flood,1584,147.2,,src:joker_200
+K5600,Joker 200,Normal,5600,10,spot,1980,183.9,,src:joker_200
+K5600,Joker 200,Normal,5600,10,flood,396,36.8,,src:joker_200
+# Joker 400
+K5600,Joker 400,Normal,5600,0.5,soft_tube,2269,210.8,,src:joker_400
+K5600,Joker 400,Normal,5600,1,soft_tube,1176,109.3,,src:joker_400
+K5600,Joker 400,Normal,5600,2,soft_tube,294,27.3,,src:joker_400
+K5600,Joker 400,Normal,5600,3,spot,47000,4366.4,,src:joker_400
+K5600,Joker 400,Normal,5600,3,flood,9400,873.3,,src:joker_400
+K5600,Joker 400,Normal,5600,3,soft_tube,150,13.9,,src:joker_400
+K5600,Joker 400,Normal,5600,5,spot,16900,1570.0,,src:joker_400
+K5600,Joker 400,Normal,5600,5,flood,3380,314.0,,src:joker_400
+K5600,Joker 400,Normal,5600,10,spot,4230,393.0,,src:joker_400
+K5600,Joker 400,Normal,5600,10,flood,845,78.5,,src:joker_400
+# Joker2 1600
+K5600,Joker2 1600,Normal,5600,2,bb10,38477,3574.6,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,2,bb19,152889,14203.7,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,2,bb26,19562,1817.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,2,lens1_vn,38477,3574.6,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,2,lens2_n,152889,14203.7,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,2,lens3_m,19562,1817.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,2,lens4_w,19805,1839.9,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,2,open,310569,28852.6,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,3,bb10,19562,1817.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,3,bb19,39159,3638.0,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,3,bb26,9075,843.1,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,3,lens1_vn,19562,1817.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,3,lens2_n,39159,3638.0,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,3,lens3_m,9075,843.1,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,3,lens4_w,9324,866.2,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,3,open,154247,14329.9,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,5,bb10,5229,485.8,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,5,bb19,19562,1817.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,5,bb26,2480,230.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,5,lens1_vn,5229,485.8,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,5,lens2_n,19562,1817.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,5,lens3_m,2480,230.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,5,lens4_w,2567,238.5,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,5,open,78005,7246.8,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,8,bb10,2480,230.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,8,bb19,9075,843.1,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,8,bb26,1292,120.0,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,8,lens1_vn,2480,230.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,8,lens2_n,9075,843.1,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,8,lens3_m,1292,120.0,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,8,lens4_w,1355,125.9,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,8,open,37969,3527.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,15,bb10,414,38.5,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,15,bb19,2269,210.8,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,15,bb26,414,38.5,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,15,lens1_vn,2269,210.8,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,15,lens2_n,2480,230.4,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,15,lens3_m,414,38.5,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,15,lens4_w,414,38.5,,src:joker_1600
+K5600,Joker2 1600,Normal,5600,15,open,9324,866.2,,src:joker_1600
+# Joker2 800
+K5600,Joker2 800,Normal,5600,1,sf_lens,151875,14109.5,,src:joker_800
+K5600,Joker2 800,Normal,5600,2,frost,78005,7246.8,,src:joker_800
+K5600,Joker2 800,Normal,5600,2,frost_l1,19562,1817.4,,src:joker_800
+K5600,Joker2 800,Normal,5600,2,frost_l2,20049,1862.6,,src:joker_800
+K5600,Joker2 800,Normal,5600,2,frost_l3,5105,474.3,,src:joker_800
+K5600,Joker2 800,Normal,5600,2,frost_l4,2480,230.4,,src:joker_800
+K5600,Joker2 800,Normal,5600,2,lens1_vn,20049,1862.6,,src:joker_800
+K5600,Joker2 800,Normal,5600,2,lens2_n,38477,3574.6,,src:joker_800
+K5600,Joker2 800,Normal,5600,2,lens3_m,9075,843.1,,src:joker_800
+K5600,Joker2 800,Normal,5600,2,lens4_w,2480,230.4,,src:joker_800
+K5600,Joker2 800,Normal,5600,2,open,310569,28852.6,,src:joker_800
+K5600,Joker2 800,Normal,5600,2,sf_lens,38817,3606.2,,src:joker_800
+K5600,Joker2 800,Normal,5600,3,frost,38817,3606.2,,src:joker_800
+K5600,Joker2 800,Normal,5600,3,frost_l1,5229,485.8,,src:joker_800
+K5600,Joker2 800,Normal,5600,3,frost_l2,9492,881.8,,src:joker_800
+K5600,Joker2 800,Normal,5600,3,frost_l3,2480,230.4,,src:joker_800
+K5600,Joker2 800,Normal,5600,3,frost_l4,1355,125.9,,src:joker_800
+K5600,Joker2 800,Normal,5600,3,lens1_vn,9492,881.8,,src:joker_800
+K5600,Joker2 800,Normal,5600,3,lens2_n,19805,1839.9,,src:joker_800
+K5600,Joker2 800,Normal,5600,3,lens3_m,2567,238.5,,src:joker_800
+K5600,Joker2 800,Normal,5600,3,lens4_w,1292,120.0,,src:joker_800
+K5600,Joker2 800,Normal,5600,3,open,154247,14329.9,,src:joker_800
+K5600,Joker2 800,Normal,5600,3,sf_lens,19562,1817.4,,src:joker_800
+K5600,Joker2 800,Normal,5600,5,frost,9492,881.8,,src:joker_800
+K5600,Joker2 800,Normal,5600,5,frost_l1,2480,230.4,,src:joker_800
+K5600,Joker2 800,Normal,5600,5,frost_l2,4982,462.8,,src:joker_800
+K5600,Joker2 800,Normal,5600,5,frost_l3,1292,120.0,,src:joker_800
+K5600,Joker2 800,Normal,5600,5,frost_l4,588,54.6,,src:joker_800
+K5600,Joker2 800,Normal,5600,5,lens1_vn,4982,462.8,,src:joker_800
+K5600,Joker2 800,Normal,5600,5,lens2_n,9075,843.1,,src:joker_800
+K5600,Joker2 800,Normal,5600,5,lens3_m,1355,125.9,,src:joker_800
+K5600,Joker2 800,Normal,5600,5,lens4_w,588,54.6,,src:joker_800
+K5600,Joker2 800,Normal,5600,5,open,77522,7202.0,,src:joker_800
+K5600,Joker2 800,Normal,5600,5,sf_lens,5229,485.8,,src:joker_800
+K5600,Joker2 800,Normal,5600,8,frost,4982,462.8,,src:joker_800
+K5600,Joker2 800,Normal,5600,8,frost_l1,1292,120.0,,src:joker_800
+K5600,Joker2 800,Normal,5600,8,frost_l2,1419,131.8,,src:joker_800
+K5600,Joker2 800,Normal,5600,8,frost_l3,414,38.5,,src:joker_800
+K5600,Joker2 800,Normal,5600,8,frost_l4,147,13.7,,src:joker_800
+K5600,Joker2 800,Normal,5600,8,lens1_vn,2269,210.8,,src:joker_800
+K5600,Joker2 800,Normal,5600,8,lens2_n,2480,230.4,,src:joker_800
+K5600,Joker2 800,Normal,5600,8,lens3_m,588,54.6,,src:joker_800
+K5600,Joker2 800,Normal,5600,8,lens4_w,347,32.2,,src:joker_800
+K5600,Joker2 800,Normal,5600,8,open,20049,1862.6,,src:joker_800
+K5600,Joker2 800,Normal,5600,8,sf_lens,2480,230.4,,src:joker_800
+# --- NANLUX ---
+# Evoke 1200
+NANLUX,Evoke 1200,Normal,5600,1,flat,75938,7054.8,,src:evoke1200
+NANLUX,Evoke 1200,Normal,5600,1,spot,303750,28219.1,,src:evoke1200
+NANLUX,Evoke 1200,Normal,5600,2,flat,22868,2124.5,,src:evoke1200
+NANLUX,Evoke 1200,Normal,5600,2,spot,95675,8888.4,,src:evoke1200
+NANLUX,Evoke 1200,Normal,5600,3,flat,12095,1123.7,,src:evoke1200
+NANLUX,Evoke 1200,Normal,5600,3,spot,48381,4494.7,,src:evoke1200
+NANLUX,Evoke 1200,Normal,5600,5,flat,3601,334.5,,src:evoke1200
+NANLUX,Evoke 1200,Normal,5600,5,spot,14406,1338.4,,src:evoke1200
+NANLUX,Evoke 1200,Normal,5600,8,flat,1200,111.5,,src:evoke1200
+NANLUX,Evoke 1200,Normal,5600,8,spot,5717,531.1,,src:evoke1200
+NANLUX,Evoke 1200,Normal,5600,12,flat,588,54.6,,src:evoke1200
+NANLUX,Evoke 1200,Normal,5600,12,spot,3024,280.9,,src:evoke1200
+# Evoke 1200B
+NANLUX,Evoke 1200B,Normal,3200,15,Standard,48000,4459.3,,src:evoke1200b
+NANLUX,Evoke 1200B,Normal,3200,30,Standard,22000,2043.8,,src:evoke1200b
+NANLUX,Evoke 1200B,Normal,3200,45,Standard,9800,910.4,,src:evoke1200b
+NANLUX,Evoke 1200B,Normal,5600,15,Standard,51000,4738.0,,src:evoke1200b
+NANLUX,Evoke 1200B,Normal,5600,30,Standard,24000,2229.7,,src:evoke1200b
+NANLUX,Evoke 1200B,Normal,5600,45,Standard,10500,975.5,,src:evoke1200b
+# Evoke 2400B
+NANLUX,Evoke 2400B,Normal,3200,15,Standard,49000,4552.2,,src:evoke_2400b
+NANLUX,Evoke 2400B,Normal,3200,30,Standard,22500,2090.3,,src:evoke_2400b
+NANLUX,Evoke 2400B,Normal,3200,45,Standard,9800,910.4,,src:evoke_2400b
+NANLUX,Evoke 2400B,Normal,3200,60,Standard,6500,603.9,,src:evoke_2400b
+NANLUX,Evoke 2400B,Normal,5600,15,Standard,52000,4830.9,,src:evoke_2400b
+NANLUX,Evoke 2400B,Normal,5600,30,Standard,24000,2229.7,,src:evoke_2400b
+NANLUX,Evoke 2400B,Normal,5600,45,Standard,10400,966.2,,src:evoke_2400b
+NANLUX,Evoke 2400B,Normal,5600,60,Standard,6900,641.0,,src:evoke_2400b
+# Evoke 5000B
+NANLUX,Evoke 5000B,Normal,2700,5,nlpb,124185,11537.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,5,none,6562,609.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,5,r15,100895,9373.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,5,r30,48450,4501.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,5,r45,20417,1896.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,5,r60,13719,1274.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,10,nlpb,29325,2724.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,10,none,1816,168.7,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,10,r15,24820,2305.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,10,r30,11798,1096.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,10,r45,5287,491.2,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,10,r60,3706,344.3,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,15,nlpb,12317,1144.3,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,15,none,661,61.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,15,r15,10226,950.0,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,15,r30,4624,429.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,15,r45,1998,185.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,15,r60,1344,124.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,20,nlpb,6894,640.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,20,none,371,34.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,20,r15,5780,537.0,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,20,r30,2559,237.7,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,20,r45,1107,102.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,2700,20,r60,740,68.7,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,5,nlpb,138795,12894.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,5,none,7334,681.3,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,5,r15,112765,10476.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,5,r30,54150,5030.7,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,5,r45,22819,2119.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,5,r60,15333,1424.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,10,nlpb,32775,3044.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,10,none,2030,188.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,10,r15,27740,2577.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,10,r30,13186,1225.0,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,10,r45,5909,549.0,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,10,r60,4142,384.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,15,nlpb,13766,1278.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,15,none,739,68.7,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,15,r15,11429,1061.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,15,r30,5168,480.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,15,r45,2233,207.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,15,r60,1502,139.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,20,nlpb,7705,715.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,20,none,415,38.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,20,r15,6460,600.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,20,r30,2860,265.7,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,20,r45,1237,114.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,3200,20,r60,827,76.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,5,nlpb,146100,13573.0,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,5,none,7720,717.2,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,5,r15,118700,11027.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,5,r30,57000,5295.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,5,r45,24020,2231.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,5,r60,16140,1499.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,10,nlpb,34500,3205.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,10,none,2137,198.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,10,r15,29200,2712.7,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,10,r30,13880,1289.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,10,r45,6220,577.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,10,r60,4360,405.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,15,nlpb,14490,1346.2,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,15,none,778,72.3,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,15,r15,12030,1117.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,15,r30,5440,505.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,15,r45,2351,218.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,15,r60,1581,146.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,20,nlpb,8110,753.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,20,none,437,40.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,20,r15,6800,631.7,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,20,r30,3010,279.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,20,r45,1302,121.0,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,4300,20,r60,870,80.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,5,nlpb,146100,13573.0,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,5,none,7720,717.2,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,5,r15,118700,11027.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,5,r30,57000,5295.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,5,r45,24020,2231.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,5,r60,16140,1499.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,10,nlpb,34500,3205.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,10,none,2137,198.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,10,r15,29200,2712.7,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,10,r30,13880,1289.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,10,r45,6220,577.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,10,r60,4360,405.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,15,nlpb,14490,1346.2,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,15,none,778,72.3,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,15,r15,12030,1117.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,15,r30,5440,505.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,15,r45,2351,218.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,15,r60,1581,146.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,20,nlpb,8110,753.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,20,none,437,40.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,20,r15,6800,631.7,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,20,r30,3010,279.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,20,r45,1302,121.0,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,5600,20,r60,870,80.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,5,nlpb,143178,13301.6,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,5,none,7565,702.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,5,r15,116326,10806.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,5,r30,55860,5189.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,5,r45,23540,2186.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,5,r60,15817,1469.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,10,nlpb,33810,3141.0,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,10,none,2094,194.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,10,r15,28616,2658.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,10,r30,13602,1263.7,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,10,r45,6096,566.3,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,10,r60,4273,397.0,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,15,nlpb,14200,1319.2,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,15,none,762,70.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,15,r15,11789,1095.2,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,15,r30,5331,495.3,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,15,r45,2304,214.0,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,15,r60,1549,143.9,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,20,nlpb,7948,738.4,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,20,none,428,39.8,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,20,r15,6664,619.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,20,r30,2950,274.1,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,20,r45,1276,118.5,,src:evoke5000b
+NANLUX,Evoke 5000B,Normal,6500,20,r60,853,79.2,,src:evoke5000b
+# Evoke 900c
+NANLUX,Evoke 900c,Normal,3200,15,Standard,52000,4830.9,,src:evoke_900c
+NANLUX,Evoke 900c,Normal,3200,30,Standard,24000,2229.7,,src:evoke_900c
+NANLUX,Evoke 900c,Normal,3200,45,Standard,10500,975.5,,src:evoke_900c
+NANLUX,Evoke 900c,Normal,5600,15,Standard,56000,5202.5,,src:evoke_900c
+NANLUX,Evoke 900c,Normal,5600,30,Standard,26000,2415.5,,src:evoke_900c
+NANLUX,Evoke 900c,Normal,5600,45,Standard,11400,1059.1,,src:evoke_900c
+# Forza 300B II
+NANLUX,Forza 300B II,Normal,3200,15,Standard,44000,4087.7,,src:forza_300b
+NANLUX,Forza 300B II,Normal,3200,30,Standard,19500,1811.6,,src:forza_300b
+NANLUX,Forza 300B II,Normal,3200,45,Standard,8800,817.5,,src:forza_300b
+NANLUX,Forza 300B II,Normal,5600,15,Standard,48000,4459.3,,src:forza_300b
+NANLUX,Forza 300B II,Normal,5600,30,Standard,21000,1950.9,,src:forza_300b
+NANLUX,Forza 300B II,Normal,5600,45,Standard,9500,882.6,,src:forza_300b
+# Forza 500B II
+NANLUX,Forza 500B II,Normal,3200,15,Standard,72000,6689.0,,src:forza_500b
+NANLUX,Forza 500B II,Normal,3200,30,Standard,32000,2972.9,,src:forza_500b
+NANLUX,Forza 500B II,Normal,3200,45,Standard,14500,1347.1,,src:forza_500b
+NANLUX,Forza 500B II,Normal,5600,15,Standard,78000,7246.4,,src:forza_500b
+NANLUX,Forza 500B II,Normal,5600,30,Standard,35000,3251.6,,src:forza_500b
+NANLUX,Forza 500B II,Normal,5600,45,Standard,16000,1486.4,,src:forza_500b
+# Forza 60C
+NANLUX,Forza 60C,Normal,3200,15,Standard,21500,1997.4,,src:forza_60c
+NANLUX,Forza 60C,Normal,3200,30,Standard,9600,891.9,,src:forza_60c
+NANLUX,Forza 60C,Normal,3200,45,Standard,4300,399.5,,src:forza_60c
+NANLUX,Forza 60C,Normal,5600,15,Standard,24000,2229.7,,src:forza_60c
+NANLUX,Forza 60C,Normal,5600,30,Standard,10800,1003.3,,src:forza_60c
+NANLUX,Forza 60C,Normal,5600,45,Standard,4900,455.2,,src:forza_60c
+# --- Optex ---
+# OPTEX Aura Soft 1.2kW
+Optex,OPTEX Aura Soft 1.2kW,Normal,5600,2,flat,2269,210.8,,src:optex_1200
+Optex,OPTEX Aura Soft 1.2kW,Normal,5600,3,flat,1200,111.5,,src:optex_1200
+Optex,OPTEX Aura Soft 1.2kW,Normal,5600,5,flat,600,55.7,,src:optex_1200
+Optex,OPTEX Aura Soft 1.2kW,Normal,5600,8,flat,294,27.3,,src:optex_1200
+# OPTEX Aura Soft 2.5kW
+Optex,OPTEX Aura Soft 2.5kW,Normal,5600,2,flat,4800,445.9,,src:optex_2500
+Optex,OPTEX Aura Soft 2.5kW,Normal,5600,3,flat,2269,210.8,,src:optex_2500
+Optex,OPTEX Aura Soft 2.5kW,Normal,5600,5,flat,1176,109.3,,src:optex_2500
+Optex,OPTEX Aura Soft 2.5kW,Normal,5600,8,flat,300,27.9,,src:optex_2500
+# --- RDS ---
+# RDS 575W Unifocus
+RDS,RDS 575W Unifocus,Normal,5600,2,flat,2269,210.8,,src:rds_575
+RDS,RDS 575W Unifocus,Normal,5600,2,spot,18150,1686.2,,src:rds_575
+RDS,RDS 575W Unifocus,Normal,5600,3,flat,1200,111.5,,src:rds_575
+RDS,RDS 575W Unifocus,Normal,5600,3,spot,4800,445.9,,src:rds_575
+RDS,RDS 575W Unifocus,Normal,5600,5,flat,600,55.7,,src:rds_575
+RDS,RDS 575W Unifocus,Normal,5600,5,spot,2269,210.8,,src:rds_575
+RDS,RDS 575W Unifocus,Normal,5600,8,flat,294,27.3,,src:rds_575
+RDS,RDS 575W Unifocus,Normal,5600,8,spot,1176,109.3,,src:rds_575
+RDS,RDS 575W Unifocus,Normal,5600,12,flat,75,7.0,,src:rds_575
+RDS,RDS 575W Unifocus,Normal,5600,12,spot,600,55.7,,src:rds_575
+# --- Tungsten/HMI ---
+# ARRI Studio T12
+Tungsten/HMI,ARRI Studio T12,Normal,3200,2,flat,39159,3638.0,,src:arri_studio_t12
+Tungsten/HMI,ARRI Studio T12,Normal,3200,2,spot,307200,28539.6,,src:arri_studio_t12
+Tungsten/HMI,ARRI Studio T12,Normal,3200,3,flat,20049,1862.6,,src:arri_studio_t12
+Tungsten/HMI,ARRI Studio T12,Normal,3200,3,spot,151875,14109.5,,src:arri_studio_t12
+Tungsten/HMI,ARRI Studio T12,Normal,3200,5,flat,9075,843.1,,src:arri_studio_t12
+Tungsten/HMI,ARRI Studio T12,Normal,3200,5,spot,76800,7134.9,,src:arri_studio_t12
+Tungsten/HMI,ARRI Studio T12,Normal,3200,8,flat,4800,445.9,,src:arri_studio_t12
+Tungsten/HMI,ARRI Studio T12,Normal,3200,8,spot,19200,1783.7,,src:arri_studio_t12
+Tungsten/HMI,ARRI Studio T12,Normal,3200,12,flat,1200,111.5,,src:arri_studio_t12
+Tungsten/HMI,ARRI Studio T12,Normal,3200,12,spot,9075,843.1,,src:arri_studio_t12
+# ARRI True Blue ST5
+Tungsten/HMI,ARRI True Blue ST5,Normal,3200,2,flat,19200,1783.7,,src:arri_true_blue_st5
+Tungsten/HMI,ARRI True Blue ST5,Normal,3200,2,spot,151875,14109.5,,src:arri_true_blue_st5
+Tungsten/HMI,ARRI True Blue ST5,Normal,3200,3,flat,9075,843.1,,src:arri_true_blue_st5
+Tungsten/HMI,ARRI True Blue ST5,Normal,3200,3,spot,76800,7134.9,,src:arri_true_blue_st5
+Tungsten/HMI,ARRI True Blue ST5,Normal,3200,5,flat,2480,230.4,,src:arri_true_blue_st5
+Tungsten/HMI,ARRI True Blue ST5,Normal,3200,5,spot,19805,1839.9,,src:arri_true_blue_st5
+Tungsten/HMI,ARRI True Blue ST5,Normal,3200,8,flat,1355,125.9,,src:arri_true_blue_st5
+Tungsten/HMI,ARRI True Blue ST5,Normal,3200,8,spot,9075,843.1,,src:arri_true_blue_st5
+Tungsten/HMI,ARRI True Blue ST5,Normal,3200,12,flat,588,54.6,,src:arri_true_blue_st5
+Tungsten/HMI,ARRI True Blue ST5,Normal,3200,12,spot,2480,230.4,,src:arri_true_blue_st5
+# Dino Light 16
+Tungsten/HMI,Dino Light 16,Normal,3200,300,Standard,21600,2006.7,,src:dino_16
+Tungsten/HMI,Dino Light 16,Normal,3200,300,Standard,90000,8361.2,,src:dino_16
+Tungsten/HMI,Dino Light 16,Normal,3200,500,Standard,36000,3344.5,,src:dino_16
+Tungsten/HMI,Dino Light 16,Normal,3200,500,Standard,150000,13935.3,,src:dino_16
+# Dino Light 24
+Tungsten/HMI,Dino Light 24,Normal,3200,300,Standard,33000,3065.8,,src:dino_24
+Tungsten/HMI,Dino Light 24,Normal,3200,300,Standard,138000,12820.5,,src:dino_24
+Tungsten/HMI,Dino Light 24,Normal,3200,500,Standard,55000,5109.6,,src:dino_24
+Tungsten/HMI,Dino Light 24,Normal,3200,500,Standard,230000,21367.5,,src:dino_24
+# Dino Light 9
+Tungsten/HMI,Dino Light 9,Normal,3200,300,Standard,12300,1142.7,,src:dino_9
+Tungsten/HMI,Dino Light 9,Normal,3200,300,Standard,51000,4738.0,,src:dino_9
+Tungsten/HMI,Dino Light 9,Normal,3200,500,Standard,20500,1904.5,,src:dino_9
+Tungsten/HMI,Dino Light 9,Normal,3200,500,Standard,85000,7896.7,,src:dino_9
+# Dino Light Straight 6
+Tungsten/HMI,Dino Light Straight 6,Normal,3200,300,Standard,5400,501.7,,src:dino_straight_6
+Tungsten/HMI,Dino Light Straight 6,Normal,3200,300,Standard,22200,2062.4,,src:dino_straight_6
+Tungsten/HMI,Dino Light Straight 6,Normal,3200,500,Standard,9000,836.1,,src:dino_straight_6
+Tungsten/HMI,Dino Light Straight 6,Normal,3200,500,Standard,37000,3437.4,,src:dino_straight_6
+# ETC Source Four Zoom 25-50°
+Tungsten/HMI,ETC Source Four Zoom 25-50°,Normal,3200,25,Standard,6338,588.8,,src:etc_sf_zoom_25_50
+Tungsten/HMI,ETC Source Four Zoom 25-50°,Normal,3200,50,Standard,3038,282.2,,src:etc_sf_zoom_25_50
+# Mini Brute 9
+Tungsten/HMI,Mini Brute 9,Normal,3200,300,Standard,10800,1003.3,,src:mini_brute_9
+Tungsten/HMI,Mini Brute 9,Normal,3200,300,Standard,43200,4013.4,,src:mini_brute_9
+Tungsten/HMI,Mini Brute 9,Normal,3200,500,Standard,18000,1672.2,,src:mini_brute_9
+Tungsten/HMI,Mini Brute 9,Normal,3200,500,Standard,72000,6689.0,,src:mini_brute_9

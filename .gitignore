@@ -1,0 +1,28 @@
+# PDFs
+*.pdf
+
+# Old HTML versions (keep only latest)
+CALMv1.0*.html
+CALMv1.1.0*.html
+CALMv1.1.1*.html
+CALMv1.1.2.18.html
+CALMv1.1.2.18_backup.html
+CALMv1.1.2.19.html
+CALM?.html
+CALM_*.html
+CALM_crash.html
+CALM_v1.0.0.0.html
+
+# Old databases
+0616*.csv
+0617*.csv
+CALM\ Photometrics\ Database\ clean0614.csv
+CALM\ v1062\ LightDatabase.csv.csv
+CLM\ LightingDatabase.csv
+Lightstar*.csv
+
+# macOS
+.DS_Store
+
+# Temp
+*.tmp
