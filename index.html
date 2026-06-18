@@ -8124,6 +8124,7 @@ function renderMixList() {
     list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:13px;">Tap + Add Light</div>';
     return;
   }
+  // makeSlValEditable は innerHTML 再生成後に再バインドが必要なので後で呼ぶ
   list.innerHTML = mixLights.map(function(m, i) {
     var light = LIGHTS[m.makerKey] && LIGHTS[m.makerKey][m.modelKey];
     if (!light) return '';
@@ -8243,6 +8244,25 @@ function renderMixList() {
       '</div>'
     );
   }).join('');
+
+  if (S_mixPerLightDist && mixLights.length > 1) {
+    mixLights.forEach(function(m, i) {
+      makeSlValEditable(
+        'mxdv-' + i,
+        'mxdsl-' + i,
+        function(){ return S.imperial ? 1.6 : 0.5; },
+        function(){ return S.imperial ? 328 : 100; },
+        0.1,
+        function(v) {
+          var distM = S.imperial ? parseFloat(v) / 3.28084 : parseFloat(v);
+          distM = Math.round(distM * 10) / 10;
+          var sl = document.getElementById('mxdsl-' + i);
+          if (sl) sl.value = S.imperial ? Math.round(distM * 3.28084 * 10) / 10 : distM;
+          window._mxdist(i, S.imperial ? Math.round(distM * 3.28084 * 10) / 10 : distM);
+        }
+      );
+    });
+  }
 }
 window._mxtogglePerLight=function(){S_mixPerLightDist=!S_mixPerLightDist;renderMixList();calcMix();};
 window._mxdel=function(i){mixLights.splice(i,1);renderMixList();calcMix();};
