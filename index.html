@@ -3122,9 +3122,15 @@ var LIGHTS = {
     },
     arrimax_4k: {
       name:'ARRIMAX 4/2.5kW HMI', group:'HMI', desc:'4000W HMI Fresnel Open', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"43\"/><circle cx=\"75\" cy=\"84\" r=\"11\"/><path d=\"M75 41 C58 54 48 68 43 84 C49 101 59 115 75 127\"/><path d=\"M75 41 C92 54 102 68 107 84 C101 101 91 115 75 127\"/><path d=\"M38 58 C58 67 90 67 112 58\"/><path d=\"M38 110 C58 101 90 101 112 110\"/><path d=\"M48 48 L103 119\"/><path d=\"M103 48 L48 119\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:4000,
-      weight:'22 kg', size:'480×480×500 mm', ccts:[5600], accessories:['spot','flood','sun_6k'],
+      weight:'22 kg', size:'480×480×500 mm', ccts:[5600], accessories:['spot','flood'],
       dmx:{led:'HMI',power:'4000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{5600:{5:{spot:336000,flood:67200},8:{spot:131250,flood:26250},10:{spot:84000,flood:16800},15:{spot:37333,flood:7467},20:{spot:21000,flood:4200},20:{spot:47000,flood:9400,sun_spot:47000,sun_flood:9400}}}
+      refData:{5600:{
+        3: {spot:108619, flood:27146},
+        5: {spot:37969,  flood:9075},
+        8: {spot:19200,  flood:3208},
+        12:{spot:9075,   flood:1696},
+        15:{spot:4800,   flood:1200}
+      }}
     },
     arrimax_18k: {
       name:'ARRIMAX 18kW HMI', group:'HMI', desc:'18000W HMI Fresnel Open', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"43\"/><circle cx=\"75\" cy=\"84\" r=\"11\"/><path d=\"M75 41 C58 54 48 68 43 84 C49 101 59 115 75 127\"/><path d=\"M75 41 C92 54 102 68 107 84 C101 101 91 115 75 127\"/><path d=\"M38 58 C58 67 90 67 112 58\"/><path d=\"M38 110 C58 101 90 101 112 110\"/><path d=\"M48 48 L103 119\"/><path d=\"M103 48 L48 119\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:18000,
@@ -3141,9 +3147,16 @@ var LIGHTS = {
     },
     arrimax_12k: {
       name:'ARRIMAX 12kW HMI', group:'HMI', desc:'12000W HMI Fresnel Open', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"43\"/><circle cx=\"75\" cy=\"84\" r=\"11\"/><path d=\"M75 41 C58 54 48 68 43 84 C49 101 59 115 75 127\"/><path d=\"M75 41 C92 54 102 68 107 84 C101 101 91 115 75 127\"/><path d=\"M38 58 C58 67 90 67 112 58\"/><path d=\"M38 110 C58 101 90 101 112 110\"/><path d=\"M48 48 L103 119\"/><path d=\"M103 48 L48 119\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:12000,
-      weight:'52 kg', size:'580×580×560 mm', ccts:[5600], accessories:['spot','flood','sun_12k'],
+      weight:'52 kg', size:'580×580×560 mm', ccts:[5600], accessories:['spot','flood'],
       dmx:{led:'HMI',power:'12000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{5600:{15:{spot:380000,flood:76000,sun_spot:380000,sun_flood:76000},20:{spot:213750,flood:42750,sun_spot:213750,sun_flood:42750},30:{spot:95000,flood:19000,sun_spot:95000,sun_flood:19000}}}
+      refData:{5600:{
+        3: {spot:405000, flood:51200},
+        5: {spot:143333, flood:6050},
+        8: {spot:72400,  flood:3200},
+        12:{spot:35787,  flood:1513},
+        15:{spot:25313,  flood:1131},
+        20:{spot:12800,  flood:800}
+      }}
     },
     arrimax_9k: {
       name:'ARRIMAX 9kW HMI', group:'HMI', desc:'9000W HMI Fresnel (AD100A) Open', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"43\"/><circle cx=\"75\" cy=\"84\" r=\"11\"/><path d=\"M75 41 C58 54 48 68 43 84 C49 101 59 115 75 127\"/><path d=\"M75 41 C92 54 102 68 107 84 C101 101 91 115 75 127\"/><path d=\"M38 58 C58 67 90 67 112 58\"/><path d=\"M38 110 C58 101 90 101 112 110\"/><path d=\"M48 48 L103 119\"/><path d=\"M103 48 L48 119\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:9000,
@@ -3151,11 +3164,12 @@ var LIGHTS = {
       dmx:{led:'HMI',power:'9000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50–100%',effects:[]},
       refData:{5600:{
-        5: {flood:338400, spot:1692000},
-        8: {flood:132187, spot:660937},
-        10:{flood:84600,  spot:423000},
-        15:{flood:37600,  spot:188000},
-        20:{flood:21150,  spot:105750}
+        3: {spot:607500, flood:151875},
+        5: {spot:151875, flood:27143},
+        8: {spot:76800,  flood:12838},
+        12:{spot:27143,  flood:6791},
+        15:{spot:19200,  flood:3207},
+        20:{spot:12838,  flood:2269}
       }}
     },
     arrimax_6k: {
@@ -3164,18 +3178,25 @@ var LIGHTS = {
       dmx:{led:'HMI',power:'6000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50–100%',effects:[]},
       refData:{5600:{
-        5: {flood:225600, spot:1128000},
-        8: {flood:88125,  spot:440625},
-        10:{flood:56400,  spot:282000},
-        15:{flood:25067,  spot:125333},
-        20:{flood:14100,  spot:70500}
+        3: {spot:405000, flood:101250},
+        5: {spot:101250, flood:18100},
+        8: {spot:51200,  flood:8560},
+        12:{spot:18100,  flood:4530},
+        15:{spot:12800,  flood:2140},
+        20:{spot:8560,   flood:1510}
       }}
     },
     arrimax_1800: {
       name:'ARRIMAX 1.8/1.2kW HMI', group:'HMI', desc:'1800W HMI Fresnel Open', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"43\"/><circle cx=\"75\" cy=\"84\" r=\"11\"/><path d=\"M75 41 C58 54 48 68 43 84 C49 101 59 115 75 127\"/><path d=\"M75 41 C92 54 102 68 107 84 C101 101 91 115 75 127\"/><path d=\"M38 58 C58 67 90 67 112 58\"/><path d=\"M38 110 C58 101 90 101 112 110\"/><path d=\"M48 48 L103 119\"/><path d=\"M103 48 L48 119\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:1800,
-      weight:'14 kg', size:'390×390×430 mm', ccts:[5600], accessories:['spot','flood','sun_1200'],
+      weight:'14 kg', size:'390×390×430 mm', ccts:[5600], accessories:['spot','flood'],
       dmx:{led:'HMI',power:'1800W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{5600:{5:{spot:210000,flood:42000,sun_spot:130000,sun_flood:26000},10:{spot:52500,flood:10500,sun_spot:32500,sun_flood:6500},15:{spot:23300,flood:4660,sun_spot:130000,sun_flood:26000}}}
+      refData:{5600:{
+        3: {spot:76800, flood:19200},
+        5: {spot:27146, flood:6790},
+        8: {spot:12843, flood:2269},
+        12:{spot:4800,  flood:1200},
+        15:{spot:2269,  flood:832}
+      }}
     },
     arrimax_800: {
       name:'ARRIMAX 800W HMI', group:'HMI', desc:'800W HMI Fresnel Open', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"43\"/><circle cx=\"75\" cy=\"84\" r=\"11\"/><path d=\"M75 41 C58 54 48 68 43 84 C49 101 59 115 75 127\"/><path d=\"M75 41 C92 54 102 68 107 84 C101 101 91 115 75 127\"/><path d=\"M38 58 C58 67 90 67 112 58\"/><path d=\"M38 110 C58 101 90 101 112 110\"/><path d=\"M48 48 L103 119\"/><path d=\"M103 48 L48 119\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:800,
