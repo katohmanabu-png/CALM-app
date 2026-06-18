@@ -6585,6 +6585,7 @@ window.addEventListener('DOMContentLoaded', function() {
         sl.value = Math.max(0.5, Math.min(100, distM < 0.75 ? 0.5 : Math.round(distM)));
       }
     }
+    syncMixPerLightDists();
     updateMixDistDisplay(); calcMix();
   });
   // Finderタブ メイン距離
@@ -8132,22 +8133,23 @@ function renderMixList() {
     var cct = ccts[cctIdx];
 
     // Distance row (only shown when S_mixPerLightDist and 2+ lights)
-    var mxDistArr=[0.5,1,1.5,2,2.5,3,4,5,6,7,8,9,10,12,14,15,16,18,20,24,25,30,35,40];
     var globalDistM = getMixDistM ? getMixDistM() : 5;
     var curDist = (m.dist != null ? m.dist : globalDistM);
-    var distIdx = 0;
-    for (var di=0; di<mxDistArr.length; di++) { if (Math.abs(mxDistArr[di]-curDist) < Math.abs(mxDistArr[distIdx]-curDist)) distIdx=di; }
+    var slMin = S.imperial ? 1.6 : 0.5;
+    var slMax = S.imperial ? 328 : 100;
+    var slStep = S.imperial ? 1 : 0.5;
+    var slVal = S.imperial ? Math.round(curDist * 3.28084) : curDist;
     var dispDist = S.imperial ? (Math.round(curDist*3.28084*10)/10) + "'" : curDist + 'm';
     var diffM = Math.round((curDist - globalDistM) * 10) / 10;
-    var diffChip = '';
-    if (S_mixPerLightDist && Math.abs(diffM) >= 0.1) {
-      var diffSign = diffM > 0 ? '+' : '';
-      var diffVal = S.imperial ? (Math.round(diffM*3.28084*10)/10) + "'" : diffM + 'm';
-      var diffColor = diffM > 0 ? '#64b5f6' : '#ef9a9a';
-      diffChip = '<span style="font-size:10px;font-weight:800;color:' + diffColor + ';padding:1px 5px;' +
-                 'background:rgba(255,255,255,0.08);border-radius:6px;margin-left:2px;">' +
-                 diffSign + diffVal + '</span>';
-    }
+    var diffChip = (function(){
+      var show = S_mixPerLightDist && Math.abs(diffM) >= 0.1;
+      var sign = diffM > 0 ? '+' : '';
+      var dval = S.imperial ? (Math.round(diffM*3.28084*10)/10) + "'" : diffM + 'm';
+      var col  = diffM > 0 ? '#64b5f6' : '#ef9a9a';
+      return '<span id="mxdc-' + i + '" style="font-size:10px;font-weight:800;color:' + col + ';padding:1px 5px;' +
+             'background:rgba(255,255,255,0.08);border-radius:6px;margin-left:2px;' +
+             (show ? '' : 'display:none;') + '">' + (show ? sign + dval : '') + '</span>';
+    })();
     var distRow = S_mixPerLightDist && mixLights.length > 1 ?
       '<div style="display:flex;align-items:center;gap:8px;margin-top:6px;">' +
         '<span style="font-size:10px;color:var(--text-dim);min-width:28px;">Dist</span>' +
@@ -8159,7 +8161,7 @@ function renderMixList() {
         '<button onclick="window._mxdists(' + i + ',1)"' +
           ' style="width:28px;height:28px;border-radius:50%;border:1.5px solid var(--accent);' +
                   'background:transparent;color:var(--accent);font-size:18px;cursor:pointer;line-height:1;">+</button>' +
-        '<input type="range" min="0" max="' + (mxDistArr.length-1) + '" step="1" value="' + distIdx + '"' +
+        '<input type="range" min="' + slMin + '" max="' + slMax + '" step="' + slStep + '" value="' + slVal + '"' +
           ' id="mxdsl-' + i + '"' +
           ' oninput="window._mxdist(' + i + ',this.value)"' +
           ' style="flex:1;height:4px;">' +
@@ -8245,9 +8247,35 @@ function renderMixList() {
 window._mxtogglePerLight=function(){S_mixPerLightDist=!S_mixPerLightDist;renderMixList();calcMix();};
 window._mxdel=function(i){mixLights.splice(i,1);renderMixList();calcMix();};
 window._mxadd=function(mk,lk){var light=LIGHTS[mk]&&LIGHTS[mk][lk];if(!light)return;var _ccts=light.ccts||[5600];var _defCCT=_ccts.reduce(function(best,c){return Math.abs(c-5600)<Math.abs(best-5600)?c:best;},_ccts[0]);var _defDist=getMixDistM?getMixDistM():5;mixLights.push({makerKey:mk,modelKey:lk,units:1,cct:_defCCT,dist:_defDist});if(mixLights.length>=2)S_mixPerLightDist=true;var m=document.getElementById('mix-modal');if(m)m.remove();renderMixList();calcMix();};
-var MX_DISTS=[0.5,1,1.5,2,2.5,3,4,5,6,7,8,9,10,12,14,15,16,18,20,24,25,30,35,40];
-window._mxdist=function(i,v){mixLights[i].dist=MX_DISTS[Math.max(0,Math.min(MX_DISTS.length-1,parseInt(v)))];var d=document.getElementById('mxdv-'+i);if(d)d.textContent=S.imperial?Math.round(mixLights[i].dist*3.28084*10)/10+"'":(mixLights[i].dist)+'m';calcMix();};
-window._mxdists=function(i,delta){var cur=mixLights[i].dist||5;var idx=MX_DISTS.indexOf(cur);if(idx<0){idx=MX_DISTS.reduce(function(bi,v,j){return Math.abs(v-cur)<Math.abs(MX_DISTS[bi]-cur)?j:bi;},0);}idx=Math.max(0,Math.min(MX_DISTS.length-1,idx+delta));window._mxdist(i,idx);var sl=document.getElementById('mxdsl-'+i);if(sl)sl.value=idx;};
+window._mxdist=function(i,v){
+  var distM=S.imperial?parseFloat(v)/3.28084:parseFloat(v);
+  distM=Math.round(distM*10)/10;
+  mixLights[i].dist=distM;
+  var d=document.getElementById('mxdv-'+i);
+  if(d)d.textContent=S.imperial?Math.round(distM*3.28084*10)/10+"'":distM+'m';
+  var dc=document.getElementById('mxdc-'+i);
+  if(dc){var g=getMixDistM?getMixDistM():5;var diff=Math.round((distM-g)*10)/10;
+    if(Math.abs(diff)>=0.1){var sign=diff>0?'+':'';var col=diff>0?'#64b5f6':'#ef9a9a';
+      dc.textContent=sign+(S.imperial?Math.round(diff*3.28084*10)/10+"'":diff+'m');dc.style.color=col;dc.style.display='';}
+    else{dc.style.display='none';}}
+  calcMix();
+};
+window._mxdists=function(i,delta){
+  var cur=mixLights[i].dist||5;
+  var step=S.imperial?1/3.28084:0.5;
+  var nv=Math.round(Math.max(0.5,Math.min(100,cur+delta*step))*10)/10;
+  mixLights[i].dist=nv;
+  var sl=document.getElementById('mxdsl-'+i);
+  if(sl)sl.value=S.imperial?Math.round(nv*3.28084):nv;
+  var d=document.getElementById('mxdv-'+i);
+  if(d)d.textContent=S.imperial?Math.round(nv*3.28084*10)/10+"'":nv+'m';
+  var dc=document.getElementById('mxdc-'+i);
+  if(dc){var g=getMixDistM?getMixDistM():5;var diff=Math.round((nv-g)*10)/10;
+    if(Math.abs(diff)>=0.1){var sign=diff>0?'+':'';var col=diff>0?'#64b5f6':'#ef9a9a';
+      dc.textContent=sign+(S.imperial?Math.round(diff*3.28084*10)/10+"'":diff+'m');dc.style.color=col;dc.style.display='';}
+    else{dc.style.display='none';}}
+  calcMix();
+};
 function calcMix() {
   var distM = getMixDistM ? getMixDistM() : (getMixDist ? getMixDist() : 5);
   var total = 0;
@@ -9152,7 +9180,20 @@ function onMixDistChange() {
   S_mixManualDist = null;  // スライダー操作時は直接入力をクリア
   var inp = el('mix-dist-direct'); if (inp) inp.value = '';
   snapDistSlider(el('mix-dist-sl'), S.imperial);
+  syncMixPerLightDists();
   updateMixDistDisplay(); calcMix();
+}
+function syncMixPerLightDists() {
+  if (!S_mixPerLightDist) return;
+  var gDist = getMixDistM();
+  mixLights.forEach(function(m) { m.dist = gDist; });
+  // update displayed values
+  mixLights.forEach(function(m, i) {
+    var dv = el('mxdv-' + i);
+    if (dv) dv.textContent = S.imperial ? (Math.round(m.dist*3.28084*10)/10)+"'" : m.dist+'m';
+    var sl = el('mxdsl-' + i);
+    if (sl) sl.value = S.imperial ? Math.round(m.dist*3.28084) : m.dist;
+  });
 }
 function updateMixDistDisplay() {
   var sl = el('mix-dist-sl'); if (!sl) return;
