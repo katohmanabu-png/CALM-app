@@ -886,6 +886,7 @@ body {
           <button class="step-btn" onclick="stepSl('dist-sl',1,onDistChange)">›</button>
         </div>
         <div class="sl-labs" id="dist-labs"></div>
+        <div id="factor-wrap-calc" style="margin-top:6px;"></div>
         <div class="tri-active" id="tri-active-note" style="display:none">
           <span id="tri-active-text">📐</span>
           <button class="tri-clear" onclick="clearTriDist()" id="lbl-tri-clear">✕ 解除</button>
@@ -1536,6 +1537,7 @@ body {
           <button class="step-btn" onclick="stepSl('finder-dist-sl',1,onFinderDistChange);onFinderDistChange();">›</button>
         </div>
         <div class="sl-labs" id="finder-dist-labs"></div>
+        <div id="factor-wrap-finder" style="margin-top:6px;"></div>
         <!-- Tri active note -->
         <div class="tri-active" id="finder-tri-active-note" style="display:none;">
           <span id="finder-tri-active-text">📐</span>
@@ -6401,6 +6403,8 @@ function calculate() {
   var multiSl = el('multi-sl');
   var units = multiSl ? (parseInt(multiSl.value) || 1) : 1;
   var lux = r.lux * units;
+  var _calcFactor = getTotalFactorStops(S_calcFactors);
+  if (_calcFactor > 0) lux = lux / Math.pow(2, _calcFactor);
 
   var iso    = S.customISO   || ISO_V[S.iso];
   var fps    = S.customFPS   || S.fps;
@@ -6687,6 +6691,11 @@ window.addEventListener('DOMContentLoaded', function() {
     if (el('cct-val')) el('cct-val').textContent = v + 'K';
     updateCCTDisplay(); calculate();
   });
+
+  // Initialize Factor sections
+  renderFactorSection('calc');
+  renderFactorSection('finder');
+  renderFactorSection('alt');
 });
 
 function openDrawer() {
@@ -7555,7 +7564,11 @@ function renderFinderResults() {
 
       // ── F値計算(1台) ──
       var fNum1 = 0;
-      try { fNum1 = luxToFstopCamera(bestLux); } catch(e) {}
+      try {
+        var _ff = getTotalFactorStops(S_finderFactors);
+        var _fl = _ff > 0 ? bestLux / Math.pow(2, _ff) : bestLux;
+        fNum1 = luxToFstopCamera(_fl);
+      } catch(e) {}
       if (!fNum1 || fNum1 <= 0 || !isFinite(fNum1)) continue;
 
       // ── 複数台計算: targetFvalに最も近い台数を求める ──
@@ -7809,6 +7822,8 @@ function runAlternativeFinder() {
   // カメラ設定を完全反映 — 基準ライトの lux/F値
   var r = luxForCCTAndDist(light.refData, cct, acc, dist);
   var srcLux = r ? r.lux : 0;
+  var _af = getTotalFactorStops(S_altFactors);
+  if (_af > 0 && srcLux > 0) srcLux = srcLux / Math.pow(2, _af);
   var srcF = srcLux > 0 ? luxToFstopCamera(srcLux) : 0;
 
   var out = el('alt-results');
@@ -8096,6 +8111,168 @@ function runAlternativeFinder() {
     });
   }
 }
+// ── Light Factor globals ──────────────────────────────────────────────────
+var S_calcFactors = [];
+var S_finderFactors = [];
+var S_altFactors = [];
+var S_factorOpen = {};
+
+function getTotalFactorStops(factors) {
+  if (!factors || !factors.length) return 0;
+  var s = 0;
+  for (var _i = 0; _i < factors.length; _i++) s += (parseFloat(factors[_i].stops) || 0);
+  return s;
+}
+
+function getFactorArray(prefix) {
+  if (prefix === 'calc') return S_calcFactors;
+  if (prefix === 'finder') return S_finderFactors;
+  if (prefix === 'alt') return S_altFactors;
+  var m = prefix.match(/^mix-(\d+)$/);
+  if (m) {
+    var idx = parseInt(m[1]);
+    if (!mixLights[idx].factors) mixLights[idx].factors = [];
+    return mixLights[idx].factors;
+  }
+  return [];
+}
+
+function buildFactorSection(prefix) {
+  var factors = getFactorArray(prefix);
+  var total = getTotalFactorStops(factors);
+  var open = !!S_factorOpen[prefix];
+  var totalStr = (total > 0 ? '+' : '') + total.toFixed(1) + ' stop';
+  var headerHtml =
+    '<div onclick="window._factorToggle(\'' + prefix + '\')" style="display:flex;align-items:center;justify-content:space-between;' +
+    'padding:6px 10px;background:var(--bg);border-radius:' + (open ? '10px 10px 0 0' : '10px') + ';cursor:pointer;user-select:none;">' +
+      '<span style="font-size:11px;font-weight:700;color:var(--text-dim);">Factor</span>' +
+      '<div style="display:flex;align-items:center;gap:6px;">' +
+        '<span id="factor-total-' + prefix + '" style="font-size:12px;font-weight:800;color:var(--accent);font-family:\'JetBrains Mono\',monospace;">' + totalStr + '</span>' +
+        '<span style="font-size:11px;color:var(--text-dim);">' + (open ? '▲' : '▼') + '</span>' +
+      '</div>' +
+    '</div>';
+
+  var rowsHtml = '';
+  for (var fi = 0; fi < factors.length; fi++) {
+    var f = factors[fi];
+    var fStops = parseFloat(f.stops) || 0;
+    var fStopStr = (fStops >= 0 ? '+' : '') + fStops.toFixed(1);
+    var typeNone = f.type === 'none' || !f.type;
+    var typeBounce = f.type === 'bounce';
+    var typeDiffuse = f.type === 'diffuse';
+    rowsHtml +=
+      '<div style="padding:8px 10px;border-top:1px solid rgba(255,255,255,0.05);">' +
+        // Type tabs
+        '<div style="display:flex;gap:4px;margin-bottom:6px;">' +
+          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'none\')" style="padding:2px 8px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeNone ? 'var(--accent)' : 'transparent') + ';color:' + (typeNone ? 'white' : 'var(--accent)') + ';">None</button>' +
+          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'bounce\')" style="padding:2px 8px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeBounce ? 'var(--accent)' : 'transparent') + ';color:' + (typeBounce ? 'white' : 'var(--accent)') + ';">Bounce</button>' +
+          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'diffuse\')" style="padding:2px 8px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeDiffuse ? 'var(--accent)' : 'transparent') + ';color:' + (typeDiffuse ? 'white' : 'var(--accent)') + ';">Diffuse</button>' +
+          '<div style="flex:1;"></div>' +
+          '<button onclick="window._factorDel(\'' + prefix + '\',' + fi + ')" style="background:none;border:none;color:#f44;font-size:14px;cursor:pointer;padding:0 2px;">✕</button>' +
+        '</div>' +
+        // Memo
+        '<div style="margin-bottom:6px;">' +
+          '<input type="text" value="' + (f.memo || '').replace(/"/g, '&quot;') + '" placeholder="e.g. UltraBounce"' +
+            ' oninput="window._factorSetMemo(\'' + prefix + '\',' + fi + ',this.value)"' +
+            ' style="width:100%;box-sizing:border-box;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:var(--bg);color:var(--text);font-size:11px;">' +
+        '</div>' +
+        // Stop controls
+        '<div style="display:flex;align-items:center;gap:6px;">' +
+          '<span id="fv-' + prefix + '-' + fi + '" style="font-size:14px;font-weight:800;color:var(--accent);font-family:\'JetBrains Mono\',monospace;min-width:60px;cursor:pointer;">' + fStopStr + '</span>' +
+          '<button class="step-btn" onclick="window._factorStep(\'' + prefix + '\',' + fi + ',-0.1)">‹</button>' +
+          '<input type="range" min="0" max="10" step="0.1" value="' + fStops + '"' +
+            ' id="fsl-' + prefix + '-' + fi + '"' +
+            ' oninput="window._factorSetStops(\'' + prefix + '\',' + fi + ',this.value)"' +
+            ' style="flex:1;height:4px;">' +
+          '<button class="step-btn" onclick="window._factorStep(\'' + prefix + '\',' + fi + ',0.1)">›</button>' +
+          '<button onclick="window._factorReset(\'' + prefix + '\',' + fi + ')" style="background:none;border:1px solid var(--text-dim);border-radius:6px;color:var(--text-dim);font-size:10px;padding:2px 6px;cursor:pointer;">Reset</button>' +
+        '</div>' +
+      '</div>';
+  }
+
+  var bodyHtml = open ?
+    '<div id="factor-body-' + prefix + '" style="background:var(--card);border-radius:0 0 10px 10px;padding-bottom:4px;">' +
+      rowsHtml +
+      '<div style="display:flex;gap:6px;padding:6px 10px;">' +
+        '<button onclick="window._factorAdd(\'' + prefix + '\')" style="flex:1;padding:5px 8px;border-radius:8px;border:1px dashed var(--accent);background:transparent;color:var(--accent);font-size:11px;font-weight:700;cursor:pointer;">* Add Factor</button>' +
+        (factors.length > 0 ? '<button onclick="window._factorResetAll(\'' + prefix + '\')" style="padding:5px 8px;border-radius:8px;border:1px solid var(--text-dim);background:transparent;color:var(--text-dim);font-size:10px;cursor:pointer;">Reset All</button>' : '') +
+      '</div>' +
+    '</div>'
+    :
+    '<div id="factor-body-' + prefix + '" style="display:none;"></div>';
+
+  return '<div style="margin-top:6px;">' + headerHtml + bodyHtml + '</div>';
+}
+
+function renderFactorSection(prefix) {
+  var wrap = document.getElementById('factor-wrap-' + prefix);
+  if (!wrap) return;
+  wrap.innerHTML = buildFactorSection(prefix);
+}
+
+function _factorRecalc(prefix) {
+  if (prefix === 'calc') { try { calculate(); } catch(e) {} }
+  else if (prefix === 'finder') { try { renderFinderResults(); } catch(e) {} }
+  else if (prefix === 'alt') { try { runAlternativeFinder(); } catch(e) {} }
+  else if (/^mix-/.test(prefix)) { try { calcMix(); } catch(e) {} }
+}
+
+window._factorToggle = function(prefix) {
+  S_factorOpen[prefix] = !S_factorOpen[prefix];
+  renderFactorSection(prefix);
+};
+window._factorAdd = function(prefix) {
+  getFactorArray(prefix).push({stops:0, type:'none', memo:''});
+  S_factorOpen[prefix] = true;
+  renderFactorSection(prefix);
+  _factorRecalc(prefix);
+};
+window._factorDel = function(prefix, i) {
+  getFactorArray(prefix).splice(i, 1);
+  S_factorOpen[prefix] = true;
+  renderFactorSection(prefix);
+  _factorRecalc(prefix);
+};
+window._factorSetStops = function(prefix, i, v) {
+  var arr = getFactorArray(prefix);
+  var val = Math.max(0, Math.min(10, Math.round(parseFloat(v) * 10) / 10));
+  arr[i].stops = val;
+  // Update display without full re-render
+  var disp = document.getElementById('fv-' + prefix + '-' + i);
+  if (disp) disp.textContent = (val >= 0 ? '+' : '') + val.toFixed(1);
+  var sl = document.getElementById('fsl-' + prefix + '-' + i);
+  if (sl) sl.value = val;
+  var totEl = document.getElementById('factor-total-' + prefix);
+  if (totEl) { var t = getTotalFactorStops(arr); totEl.textContent = (t >= 0 ? '+' : '') + t.toFixed(1) + ' stop'; }
+  _factorRecalc(prefix);
+};
+window._factorSetType = function(prefix, i, type) {
+  getFactorArray(prefix)[i].type = type;
+  S_factorOpen[prefix] = true;
+  renderFactorSection(prefix);
+};
+window._factorSetMemo = function(prefix, i, val) {
+  getFactorArray(prefix)[i].memo = val;
+};
+window._factorReset = function(prefix, i) {
+  getFactorArray(prefix)[i].stops = 0;
+  window._factorSetStops(prefix, i, 0);
+};
+window._factorResetAll = function(prefix) {
+  var arr = getFactorArray(prefix);
+  for (var _i = 0; _i < arr.length; _i++) arr[_i].stops = 0;
+  S_factorOpen[prefix] = true;
+  renderFactorSection(prefix);
+  _factorRecalc(prefix);
+};
+window._factorStep = function(prefix, i, delta) {
+  var arr = getFactorArray(prefix);
+  var val = Math.round((parseFloat(arr[i].stops || 0) + delta) * 10) / 10;
+  val = Math.max(0, Math.min(10, val));
+  window._factorSetStops(prefix, i, val);
+};
+// ── End Light Factor globals ──────────────────────────────────────────────
+
 var mixLights=[];
 var S_mixPerLightDist = false;
 function getMixDist() {
@@ -8241,6 +8418,7 @@ function renderMixList() {
         distRow +
         cctRow +
         accRow +
+        buildFactorSection('mix-' + i) +
       '</div>'
     );
   }).join('');
@@ -8313,6 +8491,8 @@ function calcMix() {
     var r = luxForCCTAndDist(light.refData, cct, acc, lightDist);
     if (!r || !r.lux) return;
     var subtotal = r.lux * units;
+    var _mf = getTotalFactorStops(m.factors || []);
+    if (_mf > 0) subtotal = subtotal / Math.pow(2, _mf);
     total += subtotal;
     cctLuxSum  += cct * subtotal;
     cctTotalLux += subtotal;
@@ -9458,6 +9638,7 @@ function selectMakerModel(mk, lk) {
             <button class="step-btn" onclick="stepSl('alt-dist-sl',1,onAltDistChange)">›</button>
           </div>
           <div class="sl-labs" id="alt-dist-labs"></div>
+          <div id="factor-wrap-alt" style="margin-top:6px;"></div>
           <!-- 直接入力 -->
           <div class="sl-inline">
             <span class="sl-unit" id="lbl-alt-direct">直接入力:</span>
