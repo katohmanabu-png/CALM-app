@@ -8120,7 +8120,10 @@ var S_factorOpen = {};
 function getTotalFactorStops(factors) {
   if (!factors || !factors.length) return 0;
   var s = 0;
-  for (var _i = 0; _i < factors.length; _i++) s += (parseFloat(factors[_i].stops) || 0);
+  for (var _i = 0; _i < factors.length; _i++) {
+    if (factors[_i].enabled === false) continue;
+    s += (parseFloat(factors[_i].stops) || 0);
+  }
   return s;
 }
 
@@ -8160,14 +8163,20 @@ function buildFactorSection(prefix) {
     var typeNone = f.type === 'none' || !f.type;
     var typeBounce = f.type === 'bounce';
     var typeDiffuse = f.type === 'diffuse';
+    var fEnabled = f.enabled !== false;
+    var rowOpacity = fEnabled ? '1' : '0.4';
+    var toggleBg = fEnabled ? 'var(--accent)' : 'transparent';
+    var toggleColor = fEnabled ? 'white' : 'var(--accent)';
+    var toggleLabel = fEnabled ? 'ON' : 'OFF';
     rowsHtml +=
-      '<div style="padding:8px 10px;border-top:1px solid rgba(255,255,255,0.05);">' +
-        // Type tabs
-        '<div style="display:flex;gap:4px;margin-bottom:6px;">' +
+      '<div style="padding:8px 10px;border-top:1px solid rgba(255,255,255,0.05);opacity:' + rowOpacity + ';">' +
+        // Type tabs + ON/OFF toggle + delete
+        '<div style="display:flex;gap:4px;margin-bottom:6px;align-items:center;">' +
           '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'none\')" style="padding:2px 8px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeNone ? 'var(--accent)' : 'transparent') + ';color:' + (typeNone ? 'white' : 'var(--accent)') + ';">None</button>' +
           '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'bounce\')" style="padding:2px 8px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeBounce ? 'var(--accent)' : 'transparent') + ';color:' + (typeBounce ? 'white' : 'var(--accent)') + ';">Bounce</button>' +
           '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'diffuse\')" style="padding:2px 8px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeDiffuse ? 'var(--accent)' : 'transparent') + ';color:' + (typeDiffuse ? 'white' : 'var(--accent)') + ';">Diffuse</button>' +
           '<div style="flex:1;"></div>' +
+          '<button onclick="window._factorToggleEnabled(\'' + prefix + '\',' + fi + ')" style="padding:2px 7px;border-radius:8px;border:1.5px solid var(--accent);font-size:10px;font-weight:800;cursor:pointer;background:' + toggleBg + ';color:' + toggleColor + ';">' + toggleLabel + '</button>' +
           '<button onclick="window._factorDel(\'' + prefix + '\',' + fi + ')" style="background:none;border:none;color:#f44;font-size:14px;cursor:pointer;padding:0 2px;">✕</button>' +
         '</div>' +
         // Memo
@@ -8178,7 +8187,7 @@ function buildFactorSection(prefix) {
         '</div>' +
         // Stop controls
         '<div style="display:flex;align-items:center;gap:6px;">' +
-          '<span id="fv-' + prefix + '-' + fi + '" style="font-size:14px;font-weight:800;color:var(--accent);font-family:\'JetBrains Mono\',monospace;min-width:60px;cursor:pointer;">' + fStopStr + '</span>' +
+          '<span id="fv-' + prefix + '-' + fi + '" style="font-size:14px;font-weight:800;color:var(--accent);font-family:\'JetBrains Mono\',monospace;min-width:60px;cursor:pointer;" title="ダブルタップで直接入力">' + fStopStr + '</span>' +
           '<button class="step-btn" onclick="window._factorStep(\'' + prefix + '\',' + fi + ',-0.1)">‹</button>' +
           '<input type="range" min="0" max="10" step="0.1" value="' + fStops + '"' +
             ' id="fsl-' + prefix + '-' + fi + '"' +
@@ -8208,6 +8217,15 @@ function renderFactorSection(prefix) {
   var wrap = document.getElementById('factor-wrap-' + prefix);
   if (!wrap) return;
   wrap.innerHTML = buildFactorSection(prefix);
+  var factors = getFactorArray(prefix);
+  factors.forEach(function(f, fi) {
+    makeSlValEditable(
+      'fv-' + prefix + '-' + fi,
+      'fsl-' + prefix + '-' + fi,
+      0, 10, 0.1,
+      function(v) { window._factorSetStops(prefix, fi, v); }
+    );
+  });
 }
 
 function _factorRecalc(prefix) {
@@ -8257,6 +8275,13 @@ window._factorSetMemo = function(prefix, i, val) {
 window._factorReset = function(prefix, i) {
   getFactorArray(prefix)[i].stops = 0;
   window._factorSetStops(prefix, i, 0);
+};
+window._factorToggleEnabled = function(prefix, i) {
+  var arr = getFactorArray(prefix);
+  arr[i].enabled = arr[i].enabled === false ? true : false;
+  S_factorOpen[prefix] = true;
+  renderFactorSection(prefix);
+  _factorRecalc(prefix);
 };
 window._factorResetAll = function(prefix) {
   var arr = getFactorArray(prefix);
