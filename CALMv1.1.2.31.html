@@ -8329,11 +8329,11 @@ function calcMix() {
   // badge 更新
   var badge = el('mix-result-badge');
   if (badge) {
-  if (badge) {
     badge.style.display = 'flex';
     badge.style.flexWrap = 'wrap';
     badge.style.gap = '4px';
     badge.innerHTML = buildCamInfoHtml();
+  }
 
   // ─ stopバー生成 ─
   var lightPos = Math.round(stopDiff * 2) / 2;
