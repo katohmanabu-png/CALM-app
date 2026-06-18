@@ -6416,7 +6416,7 @@ function calculate() {
     var diff = Math.abs(Math.log2(FSTOPS13[i]) - Math.log2(calcF));
     if (diff < minD) { minD=diff; nearIdx=i; }
   }
-  var stopDiff = Math.log2(calcF) - Math.log2(baseF);
+  var stopDiff = 2 * (Math.log2(calcF) - Math.log2(baseF));
   var stopR = Math.round(stopDiff * 10) / 10;  // 0.1stop単位
   var stopLabel, multLabel;
   if (Math.abs(stopR)<0.1) { stopLabel=t('normalLabel'); multLabel='× 1.0'; }
@@ -7615,23 +7615,23 @@ function renderFinderResults() {
         }
         if (_sD1 >= 0.15) _snap1 = fNum1;
       }
-      var stopDiff1 = targetFval > 0 ? Math.log2(_snap1 / targetFval) : 0;
-      var stopDiffU = targetFval > 0 ? Math.log2(_snapF / targetFval) : 0;
+      var stopDiff1 = targetFval > 0 ? 2 * Math.log2(_snap1 / targetFval) : 0;
+      var stopDiffU = targetFval > 0 ? 2 * Math.log2(_snapF / targetFval) : 0;
       var absDiff1 = Math.abs(stopDiff1);
       var absDiffU = Math.abs(stopDiffU);
 
       // ── プライオリティ計算 ──
-      // 1: 1台 ±0.5stop以内
-      // 2: 複数台 ±0.5stop以内
-      // 3: 1台 ±1stop以内
-      // 4: 複数台 ±1stop以内
-      // 5: ±1stop超（参考: 距離調整で対応可能なもの）
+      // 1: 1台 ±1stop以内
+      // 2: 複数台 ±1stop以内
+      // 3: 1台 ±2stop以内
+      // 4: 複数台 ±2stop以内
+      // 5: ±2stop超（参考: 距離調整で対応可能なもの）
       var priority = 5;
       if (targetFval > 0) {
-        if (bestUnits === 1 && absDiff1 < 0.501) priority = 1;
-        else if (bestUnits > 1 && absDiffU < 0.501) priority = 2;
-        else if (bestUnits === 1 && absDiff1 < 1.001) priority = 3;
-        else if (bestUnits > 1 && absDiffU < 1.001) priority = 4;
+        if (bestUnits === 1 && absDiff1 < 1.001) priority = 1;
+        else if (bestUnits > 1 && absDiffU < 1.001) priority = 2;
+        else if (bestUnits === 1 && absDiff1 < 2.001) priority = 3;
+        else if (bestUnits > 1 && absDiffU < 2.001) priority = 4;
         // priority 5: ±1stop超のものも参考として残す（除外しない）
       }
 
@@ -7653,7 +7653,7 @@ function renderFinderResults() {
   // 色順キー: 緑(0)=ぴったり → 青(1)=明るすぎ → 赤(2)=暗すぎ
   for (var ci = 0; ci < results.length; ci++) {
     var sd = results[ci].stopDiff;
-    results[ci].colorKey = (Math.abs(sd) < 0.15) ? 0 : (sd > 0 ? 1 : 2);
+    results[ci].colorKey = (Math.abs(sd) < 0.3) ? 0 : (sd > 0 ? 1 : 2);
   }
   results.sort(function(a, b) {
     if (a.priority !== b.priority) return a.priority - b.priority;
@@ -7861,7 +7861,7 @@ function runAlternativeFinder() {
 
       // 1台のF値
       var rF1 = luxToFstopCamera(bestLux);
-      var stopDiffSigned1 = Math.log2(rF1 / srcF);
+      var stopDiffSigned1 = 2 * Math.log2(rF1 / srcF);
       var absDiff1 = Math.abs(stopDiffSigned1);
 
       // 複数台計算: 1〜8台全て評価し、srcFに最も近い台数を選ぶ
@@ -7872,34 +7872,33 @@ function runAlternativeFinder() {
         var fU = 0;
         try { fU = luxToFstopCamera(bestLux * u); } catch(e) {}
         if (!fU || !isFinite(fU)) break;
-        var diffU = Math.abs(Math.log2(fU / srcF));
+        var diffU = Math.abs(2 * Math.log2(fU / srcF));
         if (diffU < bestDiffAll) {
           bestDiffAll = diffU; bestFnum = fU; bestUnits = u;
-          bestSigned = Math.log2(fU / srcF);
+          bestSigned = 2 * Math.log2(fU / srcF);
         }
-        // ±2stop超えたら終了（青方向に行き過ぎ防止）
-        if (diffU > 2.0 && fU > srcF) break;
+        // ±4stop超えたら終了（青方向に行き過ぎ防止）
+        if (diffU > 4.0 && fU > srcF) break;
       }
 
       var absDiffU = Math.abs(bestSigned);
 
       // プライオリティ: Finderと同じ
-      // 1: 1台 ±0.5stop以内
-      // 2: 複数台 ±0.5stop以内
-      // 3: 1台 ±1stop以内
-      // 4: 複数台 ±1stop以内
-      // ±1stop超は除外
+      // 1: 1台 ±1stop以内
+      // 2: 複数台 ±1stop以内
+      // 3: 1台 ±2stop以内
+      // 4: 複数台 ±2stop以内
+      // ±2stop超は除外
       var priority;
-      // マイナス方向(暗い)は -0.5stop まで、プラス方向(明るい)は +1stop まで
       var signedDiff = bestUnits === 1 ? stopDiffSigned1 : bestSigned;
-      if (bestUnits === 1 && absDiff1 < 0.501) priority = 1;
-      else if (bestUnits > 1 && absDiffU < 0.501) priority = 2;
-      else if (bestUnits === 1 && absDiff1 < 1.001 && signedDiff > 0) priority = 3;  // +側のみ
-      else if (bestUnits > 1 && absDiffU < 1.001 && signedDiff > 0) priority = 4;    // +側のみ
-      else continue;  // マイナス0.5stop超 or プラス1stop超は除外
+      if (bestUnits === 1 && absDiff1 < 1.001) priority = 1;
+      else if (bestUnits > 1 && absDiffU < 1.001) priority = 2;
+      else if (bestUnits === 1 && absDiff1 < 2.001 && signedDiff > 0) priority = 3;  // +側のみ
+      else if (bestUnits > 1 && absDiffU < 2.001 && signedDiff > 0) priority = 4;    // +側のみ
+      else continue;  // マイナス1stop超 or プラス2stop超は除外
 
       // 色キー: 緑→青→赤
-      var colorKey = Math.abs(bestSigned) < 0.15 ? 0 : bestSigned > 0 ? 1 : 2;
+      var colorKey = Math.abs(bestSigned) < 0.3 ? 0 : bestSigned > 0 ? 1 : 2;
       var factor = Math.round(srcLux / (bestLux * bestUnits) * 10) / 10;
 
       results.push({
@@ -8601,7 +8600,7 @@ function calcMix() {
     }
     if (_bestD < 0.15) fvalForStop = _bestF;  // 標準値に近ければ標準値を使用
   }
-  var stopDiff = camFstop && baseF ? (Math.log2(fvalForStop) - Math.log2(baseF)) : 0;
+  var stopDiff = camFstop && baseF ? 2 * (Math.log2(fvalForStop) - Math.log2(baseF)) : 0;
   var stopDiffStr = '';
   if (Math.abs(stopDiff) > 0.1) {
     stopDiffStr = (stopDiff > 0 ? '+' : '') + (Math.round(stopDiff * 10) / 10).toFixed(1) + ' stop';
