@@ -8275,6 +8275,60 @@ function getFactorArray(prefix) {
   return [];
 }
 
+var FACTOR_DEFAULT_NAMES = ['Grid','Bounce','Diffuse','Silk','Chimera','CTB','CTO','ND 0.3','ND 0.6','ND 0.9','Fresnel','Egg Crate','Barn Doors','Snoot','Gel','UltraBounce','Showcard','Magic Cloth'];
+function getFactorNamePresets() {
+  try { return JSON.parse(localStorage.getItem('calm_factor_names') || '[]'); } catch(e) { return []; }
+}
+function saveFactorNamePreset(name) {
+  if (!name || !name.trim()) return;
+  var list = getFactorNamePresets();
+  name = name.trim();
+  if (FACTOR_DEFAULT_NAMES.indexOf(name) >= 0) return; // already in defaults
+  if (list.indexOf(name) >= 0) return; // already saved
+  list.unshift(name);
+  try { localStorage.setItem('calm_factor_names', JSON.stringify(list)); } catch(e) {}
+}
+function deleteFactorNamePreset(name) {
+  var list = getFactorNamePresets().filter(function(n){ return n !== name; });
+  try { localStorage.setItem('calm_factor_names', JSON.stringify(list)); } catch(e) {}
+}
+window._factorSaveName = function(prefix, fi) {
+  var input = document.getElementById('fn-inp-' + prefix + '-' + fi);
+  if (!input || !input.value.trim()) return;
+  saveFactorNamePreset(input.value.trim());
+  // ★ボタンをフラッシュ
+  var btn = document.getElementById('fn-star-' + prefix + '-' + fi);
+  if (btn) { btn.textContent = '✓'; setTimeout(function(){ btn.textContent = '★'; }, 1000); }
+  // datalist更新
+  var dl = document.getElementById('fn-list-' + prefix + '-' + fi);
+  if (dl) dl.innerHTML = _factorNameOptions();
+  // 保存名リスト再描画
+  _renderSavedNames(prefix);
+};
+window._factorDelName = function(name, prefix) {
+  deleteFactorNamePreset(name);
+  _renderSavedNames(prefix);
+};
+function _factorNameOptions() {
+  var saved = getFactorNamePresets();
+  var all = saved.concat(FACTOR_DEFAULT_NAMES.filter(function(n){ return saved.indexOf(n) < 0; }));
+  return all.map(function(n){ return '<option value="' + n.replace(/"/g,'&quot;') + '">'; }).join('');
+}
+function _renderSavedNames(prefix) {
+  var saved = getFactorNamePresets();
+  var container = document.getElementById('factor-saved-names-' + prefix);
+  if (!container) return;
+  if (!saved.length) { container.innerHTML = ''; return; }
+  container.innerHTML =
+    '<div style="padding:4px 10px 6px;display:flex;flex-wrap:wrap;gap:4px;">' +
+      saved.map(function(n){
+        return '<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:10px;background:rgba(255,255,255,0.08);font-size:10px;font-weight:700;color:var(--text-dim);">' +
+          n +
+          '<button onclick="window._factorDelName(\'' + n.replace(/'/g,"\\'") + '\',\'' + prefix + '\')" style="background:none;border:none;color:#f44;font-size:11px;cursor:pointer;padding:0 1px;line-height:1;">✕</button>' +
+        '</span>';
+      }).join('') +
+    '</div>';
+}
 function buildFactorSection(prefix) {
   var factors = getFactorArray(prefix);
   var total = getTotalFactorStops(factors);
@@ -8305,20 +8359,16 @@ function buildFactorSection(prefix) {
     var toggleLabel = fEnabled ? 'ON' : 'OFF';
     rowsHtml +=
       '<div style="padding:8px 10px;border-top:1px solid rgba(255,255,255,0.05);opacity:' + rowOpacity + ';">' +
-        // Type tabs + ON/OFF toggle + delete
+        // Name input + star save + ON/OFF + delete
         '<div style="display:flex;gap:4px;margin-bottom:6px;align-items:center;">' +
-          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'none\')" style="padding:2px 8px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeNone ? 'var(--accent)' : 'transparent') + ';color:' + (typeNone ? 'white' : 'var(--accent)') + ';">None</button>' +
-          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'bounce\')" style="padding:2px 8px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeBounce ? 'var(--accent)' : 'transparent') + ';color:' + (typeBounce ? 'white' : 'var(--accent)') + ';">Bounce</button>' +
-          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'diffuse\')" style="padding:2px 8px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeDiffuse ? 'var(--accent)' : 'transparent') + ';color:' + (typeDiffuse ? 'white' : 'var(--accent)') + ';">Diffuse</button>' +
-          '<div style="flex:1;"></div>' +
+          '<input type="text" id="fn-inp-' + prefix + '-' + fi + '" list="fn-list-' + prefix + '-' + fi + '"' +
+            ' value="' + (f.memo || '').replace(/"/g, '&quot;') + '" placeholder="Factor name..."' +
+            ' oninput="window._factorSetMemo(\'' + prefix + '\',' + fi + ',this.value)"' +
+            ' style="flex:1;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:var(--bg);color:var(--text);font-size:11px;">' +
+          '<datalist id="fn-list-' + prefix + '-' + fi + '">' + _factorNameOptions() + '</datalist>' +
+          '<button id="fn-star-' + prefix + '-' + fi + '" onclick="window._factorSaveName(\'' + prefix + '\',' + fi + ')" title="Save name" style="background:none;border:none;color:#f5a623;font-size:16px;cursor:pointer;padding:0 2px;line-height:1;">★</button>' +
           '<button onclick="window._factorToggleEnabled(\'' + prefix + '\',' + fi + ')" style="padding:2px 7px;border-radius:8px;border:1.5px solid var(--accent);font-size:10px;font-weight:800;cursor:pointer;background:' + toggleBg + ';color:' + toggleColor + ';">' + toggleLabel + '</button>' +
           '<button onclick="window._factorDel(\'' + prefix + '\',' + fi + ')" style="background:none;border:none;color:#f44;font-size:14px;cursor:pointer;padding:0 2px;">✕</button>' +
-        '</div>' +
-        // Memo
-        '<div style="margin-bottom:6px;">' +
-          '<input type="text" value="' + (f.memo || '').replace(/"/g, '&quot;') + '" placeholder="e.g. UltraBounce"' +
-            ' oninput="window._factorSetMemo(\'' + prefix + '\',' + fi + ',this.value)"' +
-            ' style="width:100%;box-sizing:border-box;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:var(--bg);color:var(--text);font-size:11px;">' +
         '</div>' +
         // Stop controls
         '<div style="display:flex;align-items:center;gap:6px;">' +
@@ -8341,6 +8391,7 @@ function buildFactorSection(prefix) {
         '<button onclick="window._factorAdd(\'' + prefix + '\')" style="flex:1;padding:5px 8px;border-radius:8px;border:1px dashed var(--accent);background:transparent;color:var(--accent);font-size:11px;font-weight:700;cursor:pointer;">* Add Factor</button>' +
         (factors.length > 0 ? '<button onclick="window._factorResetAll(\'' + prefix + '\')" style="padding:5px 8px;border-radius:8px;border:1px solid var(--text-dim);background:transparent;color:var(--text-dim);font-size:10px;cursor:pointer;">Reset All</button>' : '') +
       '</div>' +
+      '<div id="factor-saved-names-' + prefix + '"></div>' +
     '</div>'
     :
     '<div id="factor-body-' + prefix + '" style="display:none;"></div>';
@@ -8352,6 +8403,7 @@ function renderFactorSection(prefix) {
   var wrap = document.getElementById('factor-wrap-' + prefix);
   if (!wrap) return;
   wrap.innerHTML = buildFactorSection(prefix);
+  try { _renderSavedNames(prefix); } catch(e) {}
   var factors = getFactorArray(prefix);
   factors.forEach(function(f, fi) {
     makeSlValEditable(
