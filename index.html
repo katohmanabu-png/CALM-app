@@ -8552,13 +8552,28 @@ function renderMixList() {
         '</div>';
     }
 
+    var slotColors = ['#4fc3f7','#81c784','#ffb74d','#e57373','#ce93d8','#80cbc4'];
+    var slotColor = slotColors[i % slotColors.length];
+    var isEnabled = m.enabled !== false;
     return (
-      '<div style="background:var(--bg);border-radius:12px;padding:10px 12px;margin-bottom:6px;">' +
-        // Header: name + delete
+      '<div style="background:var(--bg);border-radius:12px;padding:10px 12px;margin-bottom:6px;' +
+           'border-left:4px solid ' + slotColor + ';opacity:' + (isEnabled ? '1' : '0.45') + ';">' +
+        // Header: name + toggle + delete
         '<div style="display:flex;align-items:center;justify-content:space-between;">' +
-          '<div style="font-size:13px;font-weight:700;color:var(--text)">' + light.name + '</div>' +
-          '<button onclick="window._mxdel(' + i + ')"' +
-            ' style="background:none;border:none;color:#f44;font-size:16px;cursor:pointer;padding:0 2px;">✕</button>' +
+          '<div style="display:flex;align-items:center;gap:8px;">' +
+            '<div style="width:10px;height:10px;border-radius:50%;background:' + slotColor + ';flex-shrink:0;"></div>' +
+            '<div style="font-size:13px;font-weight:700;color:var(--text)">' + light.name + '</div>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;gap:6px;">' +
+            '<button onclick="window._mxtoggle(' + i + ')"' +
+              ' style="font-size:10px;font-weight:800;padding:3px 8px;border-radius:12px;cursor:pointer;' +
+                      'border:1.5px solid ' + slotColor + ';' +
+                      (isEnabled ? 'background:' + slotColor + ';color:#000;' : 'background:transparent;color:' + slotColor + ';') + '">' +
+              (isEnabled ? 'ON' : 'OFF') +
+            '</button>' +
+            '<button onclick="window._mxdel(' + i + ')"' +
+              ' style="background:none;border:none;color:#f44;font-size:16px;cursor:pointer;padding:0 2px;">✕</button>' +
+          '</div>' +
         '</div>' +
         // Units row
         '<div style="display:flex;align-items:center;gap:8px;margin-top:8px;">' +
@@ -8606,8 +8621,9 @@ function renderMixList() {
   }
 }
 window._mxtogglePerLight=function(){S_mixPerLightDist=!S_mixPerLightDist;renderMixList();calcMix();};
+window._mxtoggle=function(i){mixLights[i].enabled=mixLights[i].enabled===false?true:false;renderMixList();calcMix();};
 window._mxdel=function(i){mixLights.splice(i,1);renderMixList();calcMix();};
-window._mxadd=function(mk,lk){var light=LIGHTS[mk]&&LIGHTS[mk][lk];if(!light)return;var _ccts=light.ccts||[5600];var _defCCT=_ccts.reduce(function(best,c){return Math.abs(c-5600)<Math.abs(best-5600)?c:best;},_ccts[0]);var _defDist=getMixDistM?getMixDistM():5;mixLights.push({makerKey:mk,modelKey:lk,units:1,cct:_defCCT,dist:_defDist});if(mixLights.length>=2)S_mixPerLightDist=true;var m=document.getElementById('mix-modal');if(m)m.remove();renderMixList();calcMix();};
+window._mxadd=function(mk,lk){var light=LIGHTS[mk]&&LIGHTS[mk][lk];if(!light)return;var _ccts=light.ccts||[5600];var _defCCT=_ccts.reduce(function(best,c){return Math.abs(c-5600)<Math.abs(best-5600)?c:best;},_ccts[0]);var _defDist=getMixDistM?getMixDistM():5;mixLights.push({makerKey:mk,modelKey:lk,units:1,cct:_defCCT,dist:_defDist,enabled:true});if(mixLights.length>=2)S_mixPerLightDist=true;var m=document.getElementById('mix-modal');if(m)m.remove();renderMixList();calcMix();};
 window._mxdist=function(i,v){
   var distM=S.imperial?parseFloat(v)/3.28084:parseFloat(v);
   distM=Math.round(distM*10)/10;
@@ -8644,6 +8660,7 @@ function calcMix() {
   var cctLuxSum = 0, cctTotalLux = 0;
 
   mixLights.forEach(function(m) {
+    if (m.enabled === false) return;
     var light = LIGHTS[m.makerKey] && LIGHTS[m.makerKey][m.modelKey];
     if (!light || !light.refData) return;
     var units = m.units || 1;
