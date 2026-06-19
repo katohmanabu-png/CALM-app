@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.84</title>
+<title>CALM v1.1.2.85</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.84</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.85</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -6932,7 +6932,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.84';
+  var ver = 'v1.1.2.85';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -8849,7 +8849,7 @@ function renderMixList() {
           '<input type="range" min="1" max="50" step="1" value="' + (m.units||1) + '"' +
             ' oninput="window._mxusl(' + i + ',this.value)"' +
             ' style="flex:1;height:4px;">' +
-          '<span style="font-size:10px;color:var(--text-dim);min-width:28px;">' + (m.units||1) + (t('mixUnitSuffix')||'') + '</span>' +
+          '<span style="font-size:10px;color:var(--text-dim);min-width:28px;">×' + (m.units||1) + '</span>' +
         '</div>' +
         distRow +
         cctRow +
@@ -9175,7 +9175,7 @@ function calcMix() {
         entries.map(function(e2) {
           var pct = Math.round(e2.subtotal / cctTotalLux * 100);
           return '<span style="font-weight:700;color:var(--text)">' + e2.cct + 'K</span>' +
-                 ' × ' + e2.units + (t('mixUnitSuffix')||'') + ' = ' + pct + '%';
+                 ' × ' + e2.units + ' = ' + pct + '%';
         }).join('<br>') +
       '</div>';
   }
@@ -10102,7 +10102,7 @@ function useMixTriDist() {
 }
 
 window._mxu   = function(i,d){ mixLights[i].units=Math.max(1,Math.min(50,(mixLights[i].units||1)+d)); renderMixList(); calcMix(); };
-window._mxusl = function(i,v){ mixLights[i].units=parseInt(v)||1; var u=document.getElementById('mx-u-'+i); var ul=document.getElementById('mx-ul-'+i); if(u) u.textContent=mixLights[i].units; if(ul) ul.textContent=mixLights[i].units+(t('mixUnitSuffix')||''); calcMix(); };
+window._mxusl = function(i,v){ mixLights[i].units=parseInt(v)||1; var u=document.getElementById('mx-u-'+i); var ul=document.getElementById('mx-ul-'+i); if(u) u.textContent=mixLights[i].units; if(ul) ul.textContent='×'+mixLights[i].units; calcMix(); };
 window._mxdel = function(i){ mixLights.splice(i,1); renderMixList(); calcMix(); };
 window._mxcct  = function(i,v,minC){ mixLights[i].cct=(parseInt(minC)||2700)+parseInt(v)*100; var el2=document.getElementById('mxcv-'+i); if(el2)el2.textContent=mixLights[i].cct+'K'; calcMix(); };
 window._mxccts = function(i,d,minC,maxSteps){ var sl=document.getElementById('mxcsl-'+i); if(!sl) return; var v=Math.max(0,Math.min(maxSteps,parseInt(sl.value)+d)); sl.value=v; window._mxcct(i,v,minC); };
@@ -10611,7 +10611,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.84</div>
+  <div class="drawer-footer">CALM v1.1.2.85</div>
 </div>
 
 </body>
