@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.10</title>
+<title>CALM v1.1.3.11</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -734,7 +734,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.10</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.11</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -7029,7 +7029,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.10';
+  var ver = 'v1.1.3.11';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10245,7 +10245,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.10 =====
+// ===== DRAFT ENGINE v1.1.3.11 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -10704,22 +10704,31 @@ function _dftDrawObj(ctx, o) {
   ctx.textAlign = 'center'; ctx.textBaseline = 'top';
   ctx.fillText(o.label || '', sx, sy + R + 3);
 
-  // selection ring + rotation handle
+  // Rotation handle — always shown for all objects; bigger+red when selected
+  var _RCHT = {image:1,diffuser:1,bounce:1,flag:1};
+  var _rha  = (o.rot||0) - Math.PI/2;
+  var _rHalfH = _RCHT[o.type] ? (o.hm||o.h||1)/_dft.scale*_dft.zoom/2 : R;
+  var _rhDist = _rHalfH + 20;
+  var _rhx = sx + Math.cos(_rha)*_rhDist;
+  var _rhy = sy + Math.sin(_rha)*_rhDist;
+  if (sel) {
+    ctx.fillStyle='#e53500'; ctx.strokeStyle='rgba(255,255,255,0.9)'; ctx.lineWidth=1.8;
+    ctx.beginPath(); ctx.arc(_rhx,_rhy,11,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle='#fff'; ctx.font='bold 14px Arial';
+    ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('↻',_rhx,_rhy);
+  } else {
+    ctx.fillStyle='rgba(50,50,50,0.38)'; ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.2;
+    ctx.beginPath(); ctx.arc(_rhx,_rhy,8,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.font='bold 10px Arial';
+    ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('↻',_rhx,_rhy);
+  }
+
+  // selection ring + other handles
   if (sel) {
     ctx.strokeStyle = '#e53500'; ctx.lineWidth = 2;
     ctx.setLineDash([5, 3]);
     ctx.beginPath(); ctx.arc(sx, sy, R+7, 0, Math.PI*2); ctx.stroke();
     ctx.setLineDash([]);
-    // rotation handle (at top when rot=0)
-    var rha = (o.rot || 0) - Math.PI/2;
-    var rhx = sx + Math.cos(rha) * (R+20);
-    var rhy = sy + Math.sin(rha) * (R+20);
-    ctx.fillStyle = '#e53500';
-    ctx.beginPath(); ctx.arc(rhx, rhy, 8, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = '#fff';
-    ctx.font = 'bold 11px Arial';
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText('↻', rhx, rhy);
     // resize handle for images (bottom-right corner)
     if (o.type === 'image') {
       var _iw = o.wm/_dft.scale*_dft.zoom, _ih = o.hm/_dft.scale*_dft.zoom;
@@ -10893,22 +10902,33 @@ function _dftMD(e) {
     return;
   }
 
-  // rotation + beam-angle handle check (select mode)
+  // rotation handle — check ALL visible active-layer objects (not just selected)
+  {
+    var _RHT = {image:1,diffuser:1,bounce:1,flag:1};
+    for (var _ri = _dft.objects.length-1; _ri >= 0; _ri--) {
+      var _ro = _dft.objects[_ri];
+      if ((_ro.layer||1) !== _dft.activeLayer) continue;
+      var _roL = _dft.layers.find(function(l){return l.id===(_ro.layer||1);});
+      if (!_roL || !_roL.visible) continue;
+      var _rsp = _dftW2S(_ro.wx, _ro.wy);
+      var _rha2 = (_ro.rot||0) - Math.PI/2;
+      var _rHalf = _RHT[_ro.type] ? ((_ro.hm||_ro.h||1)/_dft.scale*_dft.zoom/2) : 18;
+      var _rhx2 = _rsp.x + Math.cos(_rha2)*(_rHalf+20);
+      var _rhy2 = _rsp.y + Math.sin(_rha2)*(_rHalf+20);
+      if (Math.hypot(mx-_rhx2, my-_rhy2) < 16) {
+        _dftPushHistory();
+        _dft.selected = _ro.id; _dft.rotActive = true; _dft.rotObj = _ro;
+        _dft.rotStartAngle = Math.atan2(my-_rsp.y, mx-_rsp.x);
+        _dft.rotObjStartRot = _ro.rot||0;
+        _dftUpdateInfoBar(); dftRender(); return;
+      }
+    }
+  }
+  // resize + beam handles — selected object only
   if (_dft.selected) {
     var so = _dft.objects.find(function(o){ return o.id === _dft.selected; });
     if (so) {
       var ssp = _dftW2S(so.wx, so.wy);
-      // rotation handle
-      var rha = (so.rot||0) - Math.PI/2;
-      var rhx = ssp.x + Math.cos(rha)*(18+20);
-      var rhy = ssp.y + Math.sin(rha)*(18+20);
-      if (Math.sqrt((mx-rhx)*(mx-rhx)+(my-rhy)*(my-rhy)) < 14) {
-        _dftPushHistory();
-        _dft.rotActive = true; _dft.rotObj = so;
-        _dft.rotStartAngle = Math.atan2(my-ssp.y, mx-ssp.x);
-        _dft.rotObjStartRot = so.rot || 0;
-        return;
-      }
       // resize handle (images only)
       if (so.type === 'image') {
         var _iw2=so.wm/_dft.scale*_dft.zoom, _ih2=so.hm/_dft.scale*_dft.zoom;
@@ -12052,7 +12072,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.10</div>
+  <div class="drawer-footer">CALM v1.1.3.11</div>
 </div>
 
 </body>
