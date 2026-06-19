@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.69</title>
+<title>CALM v1.1.2.70</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.69</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.70</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -4409,6 +4409,17 @@ var FRESNEL_ACC_KEYS = {
   fresnel18:1,fresnel50:1,fl16:1,fl50:1,spot:1,flat:1
 };
 function isFresnel(accKey) { return !!FRESNEL_ACC_KEYS[accKey]; }
+function defaultWidestAcc(light) {
+  if (!light || !light.accessories || !light.accessories.length) return 'none';
+  var best = light.accessories[0];
+  var bestAngle = (ACC_INFO[best] && ACC_INFO[best].angle) || 0;
+  for (var i = 1; i < light.accessories.length; i++) {
+    var k = light.accessories[i];
+    var a = (ACC_INFO[k] && ACC_INFO[k].angle) || 0;
+    if (a > bestAngle) { bestAngle = a; best = k; }
+  }
+  return best;
+}
 function getBeamAngles(light) {
   if (!light) return null;
   // HMI_BEAM lookup by name
@@ -4767,7 +4778,7 @@ function selectMaker(k) {
   var models = Object.keys(LIGHTS[k] || {});
   S.model = models[0] || null;
   var light = LIGHTS[k] && LIGHTS[k][S.model];
-  S.accKey = (light && light.accessories && light.accessories[0]) || 'none';
+  S.accKey = defaultWidestAcc(light);
   S.beaker = 'none'; S.accGroup = null;
   S.cctIdx = cctIdxFor5600(light); S.manualDist = null; S.useTriDist = false; S.beamPct = 50; S.useBeam = false;
   saveCalcState();
@@ -5036,7 +5047,7 @@ function renderModels() {
 function selectModel(k) {
   S.model = k;
   var light = LIGHTS[S.maker] && LIGHTS[S.maker][k];
-  S.accKey = (light && light.accessories && light.accessories[0]) || 'none';
+  S.accKey = defaultWidestAcc(light);
   S.cctIdx = cctIdxFor5600(light); S.beaker = 'none'; S.accGroup = null;
   S.manualDist = null; S.useTriDist = false;
   S.beamPct = 50; S.useBeam = false;
@@ -6538,7 +6549,7 @@ function delFav(idx) {
 function loadFav(maker, model) {
   S.maker = maker; applyTheme(maker); S.model = model;
   var light = LIGHTS[maker] && LIGHTS[maker][model];
-  S.accKey = (light&&light.accessories&&light.accessories[0]) || 'none';
+  S.accKey = defaultWidestAcc(light);
   S.cctIdx = cctIdxFor5600(light); S.manualDist = null; S.useTriDist = false;
   initMakers(); renderModels(); closeFavPanel();
   showToast('💡 ' + (light ? light.name : model));
@@ -6829,7 +6840,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.69';
+  var ver = 'v1.1.2.70';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -9486,14 +9497,12 @@ function loadCalcState() {
       if (savedAcc && lgt2 && lgt2.accessories && lgt2.accessories.indexOf(savedAcc) >= 0) {
         S.accKey = savedAcc;
       } else {
-        if (lgt2 && lgt2.accessories && lgt2.accessories.length > 0) {
-          S.accKey = lgt2.accessories[0];
-        }
+        S.accKey = defaultWidestAcc(lgt2);
       }
     } else {
       // 初回起動 / バージョン不一致
       var lgt = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
-      if (lgt && lgt.accessories && lgt.accessories.length > 0) S.accKey = lgt.accessories[0];
+      S.accKey = defaultWidestAcc(lgt);
       if (!localStorage.getItem('calm_cctIdx')) S.cctIdx = cctIdxFor5600(lgt);
     }
   } catch(e) {}
@@ -9986,7 +9995,7 @@ function selectMakerModel(mk, lk) {
     S.model = lk;
   }
   var light = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
-  S.accKey = (light && light.accessories && light.accessories[0]) || 'none';
+  S.accKey = defaultWidestAcc(light);
   S.cctIdx = cctIdxFor5600(light); S.beaker = 'none'; S.accGroup = null;
   S.manualDist = null; S.useTriDist = false; S.beamPct = 50; S.useBeam = false;
   saveCalcState();
@@ -10435,7 +10444,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.69</div>
+  <div class="drawer-footer">CALM v1.1.2.70</div>
 </div>
 
 </body>
