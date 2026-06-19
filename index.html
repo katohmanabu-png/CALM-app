@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.9</title>
+<title>CALM v1.1.3.10</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -734,7 +734,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.9</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.10</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -1946,7 +1946,25 @@ var LANGS = {
     distInputBtn:'📷 距離を入力', searchBtn:'🔍 検索',
     mxSearchBtn:'検索', mxSearchPlaceholder:'ライト名を入力...',
     indivDistOff:'個別距離 OFF', indivDistOn:'個別距離 ON',
-    cmDistTitle:'📷 距離を入力'
+    cmDistTitle:'📷 距離を入力',
+    pageDraftTitle:'ドラフト', pageDraftSub:'2Dライティングプラン',
+    dftBtnSelect:'↖ 選択', dftBtnDelete:'🗑 削除', dftBtnRotate:'🔄 回転', dftBtnUndo:'↩ 元に戻す',
+    dftBtnPeople:'🧍 人', dftBtnCamera:'🎥 Cam', dftBtnLight:'💡 ライト',
+    dftBtnDiff:'⬜ ディフ', dftBtnBnc:'🔲 バウンス', dftBtnFlag:'▬ フラッグ',
+    dftBtnPdf:'📄 PDF', dftBtnPhoto:'🖼 写真', dftBtnScale:'📐 スケール',
+    dftBtnSave:'💾 保存', dftBtnLoad:'📂 読込', dftBtnNew:'＋ 新規',
+    dftSelectLight:'💡 ライト選択', dftSearchPlaceholder:'検索...',
+    dftCancel:'キャンセル', dftClose:'閉じる', dftApply:'適用',
+    dftPeopleTitle:'🧍 人を配置', dftManLabel:'男性', dftWomanLabel:'女性',
+    dftSavePrompt:'名前を付けて保存:', dftSaved:'💾 保存: ',
+    dftNewConfirm:'新しいドラフトを開始しますか？未保存の変更は失われます。',
+    dftDraftsList:'📂 ドラフト一覧', dftObjects:'個のオブジェクト',
+    dftScaleTitle:'📐 スケール設定', dftScaleOr:'— または — フロアプランで2点タップ',
+    dftCalibBtn:'📍 2点キャリブレーション', dftCalibStep1:'📍 1点目をタップ...',
+    dftCalibDist:'2点間の実際の距離（m）:',
+    dftScaleSet:'スケール設定完了 · ', dftPxPerM:'px / m',
+    dftStatusDefault:'ツール選択で配置 · ドラッグでパン · ピンチでズーム',
+    dftAddLayer:'レイヤーを追加', dftNoSavedDrafts:'保存済みドラフトがありません。'
   },
   en: {
     navCalc:'Calc', navMix:'Mix', navFinder:'Finder', navAlt:'Alt', navCamera:'Camera', pageCalcTitle:'Light Calculator', pageCalcSub:'Exposure & F-stop Calculator', pageMixTitle:'Mix', pageMixSub:'Combine multiple lights — calculate total exposure & mixed CCT', pageFinderTitle:'Light Finder', pageFinderSub:'Find the right fixture', pageAltTitle:'Alternative Finder', pageAltSub:'Find the best replacement', pageCameraTitle:'Camera', pageCameraSub:'Digital / Film / Photograph',
@@ -2016,7 +2034,25 @@ var LANGS = {
     dmxPower:'Power', dmxCCT:'CCT', dmxDimming:'Dimming', dmxIP:'IP Rating', dmxControl:'Control', dmxEffects:'Effects',
     cmCtxCalc:'Calc tab', cmCtxFinder:'Finder tab', cmCtxAlt:'Alt tab', cmCtxMix:'Mix tab',
     dblTapHint:'Double-tap to enter directly',
-    pairSectionLabel:'2-Light Combo', pairLabel:'📦 2-Light Set', pairTotalW:'W total'
+    pairSectionLabel:'2-Light Combo', pairLabel:'📦 2-Light Set', pairTotalW:'W total',
+    pageDraftTitle:'Draft', pageDraftSub:'2D Lighting Plan',
+    dftBtnSelect:'↖ Select', dftBtnDelete:'🗑 Del', dftBtnRotate:'🔄 Rot', dftBtnUndo:'↩ Undo',
+    dftBtnPeople:'🧍 People', dftBtnCamera:'🎥 Cam', dftBtnLight:'💡 Light',
+    dftBtnDiff:'⬜ Diff', dftBtnBnc:'🔲 Bnc', dftBtnFlag:'▬ Flag',
+    dftBtnPdf:'📄 PDF', dftBtnPhoto:'🖼 Photo', dftBtnScale:'📐 Scale',
+    dftBtnSave:'💾 Save', dftBtnLoad:'📂 Load', dftBtnNew:'＋ New',
+    dftSelectLight:'💡 Select Light', dftSearchPlaceholder:'Search...',
+    dftCancel:'Cancel', dftClose:'Close', dftApply:'Apply',
+    dftPeopleTitle:'🧍 People', dftManLabel:'Man', dftWomanLabel:'Woman',
+    dftSavePrompt:'Save as:', dftSaved:'💾 Saved: ',
+    dftNewConfirm:'Start new draft? Unsaved changes will be lost.',
+    dftDraftsList:'📂 Drafts', dftObjects:' objects',
+    dftScaleTitle:'📐 Set Scale', dftScaleOr:'— or — tap 2 points on the floor plan',
+    dftCalibBtn:'📍 2-Point Calibration', dftCalibStep1:'📍 Tap point 1 on canvas...',
+    dftCalibDist:'Real distance between the 2 tapped points (meters):',
+    dftScaleSet:'Scale set · ', dftPxPerM:'px/m',
+    dftStatusDefault:'Tap toolbar to place · Drag to pan · Pinch to zoom',
+    dftAddLayer:'Add layer', dftNoSavedDrafts:'No saved drafts yet.'
   },
   es: {
     navCalc:'Calc', navMix:'Mix', navFinder:'Buscador', navAlt:'Alt', navCamera:'Cámara', pageCalcTitle:'Calculadora de Iluminación', pageCalcSub:'Calculadora de Exposición', pageMixTitle:'Mix', pageMixSub:'Combina múltiples luces — calcula exposición total y CCT mezclado', pageFinderTitle:'Buscador de Equipos', pageFinderSub:'Encuentra el equipo ideal', pageAltTitle:'Buscar Equipo Equivalente', pageAltSub:'Encuentra la mejor alternativa', pageCameraTitle:'Cámara', pageCameraSub:'Digital / Film / Fotografía',
@@ -2083,7 +2119,25 @@ var LANGS = {
     dmxPower:'Potencia', dmxCCT:'CCT', dmxDimming:'Regulación', dmxIP:'Grado IP', dmxControl:'Control', dmxEffects:'Efectos',
     cmCtxCalc:'Tab Calc', cmCtxFinder:'Tab Buscador', cmCtxAlt:'Tab Alt', cmCtxMix:'Tab Mix',
     dblTapHint:'Toque doble para ingresar',
-    pairSectionLabel:'Combinación 2 luces', pairLabel:'📦 Juego 2 luces', pairTotalW:'W total'
+    pairSectionLabel:'Combinación 2 luces', pairLabel:'📦 Juego 2 luces', pairTotalW:'W total',
+    pageDraftTitle:'Plano', pageDraftSub:'Plan de Iluminación 2D',
+    dftBtnSelect:'↖ Selec.', dftBtnDelete:'🗑 Elim.', dftBtnRotate:'🔄 Girar', dftBtnUndo:'↩ Deshacer',
+    dftBtnPeople:'🧍 Personas', dftBtnCamera:'🎥 Cám', dftBtnLight:'💡 Luz',
+    dftBtnDiff:'⬜ Difusor', dftBtnBnc:'🔲 Rebote', dftBtnFlag:'▬ Bandera',
+    dftBtnPdf:'📄 PDF', dftBtnPhoto:'🖼 Foto', dftBtnScale:'📐 Escala',
+    dftBtnSave:'💾 Guardar', dftBtnLoad:'📂 Cargar', dftBtnNew:'＋ Nuevo',
+    dftSelectLight:'💡 Seleccionar Luz', dftSearchPlaceholder:'Buscar...',
+    dftCancel:'Cancelar', dftClose:'Cerrar', dftApply:'Aplicar',
+    dftPeopleTitle:'🧍 Personas', dftManLabel:'Hombre', dftWomanLabel:'Mujer',
+    dftSavePrompt:'Guardar como:', dftSaved:'💾 Guardado: ',
+    dftNewConfirm:'¿Iniciar nuevo plano? Los cambios sin guardar se perderán.',
+    dftDraftsList:'📂 Planos', dftObjects:' objetos',
+    dftScaleTitle:'📐 Configurar Escala', dftScaleOr:'— o — toca 2 puntos en el plano',
+    dftCalibBtn:'📍 Calibración de 2 Puntos', dftCalibStep1:'📍 Toca el punto 1...',
+    dftCalibDist:'Distancia real entre los 2 puntos (metros):',
+    dftScaleSet:'Escala configurada · ', dftPxPerM:'px/m',
+    dftStatusDefault:'Toca para colocar · Arrastra para mover · Pellizca para zoom',
+    dftAddLayer:'Agregar capa', dftNoSavedDrafts:'No hay planos guardados.'
   }
 };
 var LANG = 'en';
@@ -2149,6 +2203,16 @@ function applyI18n() {
   s('lbl-mix-dist','mixDistLabel');
   // Alt Finder i18n
   s('alt-finder-title','altFinderTitle');
+  // Draft page i18n
+  s('dft-btn-select','dftBtnSelect'); s('dft-btn-delete','dftBtnDelete');
+  s('dft-btn-rotate','dftBtnRotate'); s('dft-btn-undo','dftBtnUndo');
+  s('dft-btn-people','dftBtnPeople'); s('dft-btn-camera','dftBtnCamera');
+  s('dft-btn-light','dftBtnLight'); s('dft-btn-diffuser','dftBtnDiff');
+  s('dft-btn-bounce','dftBtnBnc'); s('dft-btn-flag','dftBtnFlag');
+  s('dft-btn-pdf','dftBtnPdf'); s('dft-btn-photo','dftBtnPhoto');
+  s('dft-btn-scale','dftBtnScale'); s('dft-btn-save','dftBtnSave');
+  s('dft-btn-load','dftBtnLoad'); s('dft-btn-new','dftBtnNew');
+  (function(){ var el=document.getElementById('dft-status'); if(el&&el.getAttribute('data-default')==='1') el.textContent=t('dftStatusDefault'); })();
   // Feedback page i18n
   s('lbl-fb-type','fbTypeLabel'); s('lbl-fb-title','fbTitleLabel'); s('lbl-fb-desc','fbDescLabel');
   s('lbl-fb-attach','fbAttachLabel'); s('lbl-fb-attach-hint','fbAttachHint');
@@ -6965,7 +7029,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.9';
+  var ver = 'v1.1.3.10';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10181,7 +10245,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.9 =====
+// ===== DRAFT ENGINE v1.1.3.10 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -11102,12 +11166,12 @@ function _dftShowLightPicker(wx, wy) {
   var html = '<div id="_dft_lp" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);z-index:9999;display:flex;align-items:flex-end;">' +
     '<div style="background:#111;border-radius:20px 20px 0 0;width:100%;max-height:72vh;overflow:hidden;display:flex;flex-direction:column;">' +
     '<div style="padding:14px 16px 0;flex-shrink:0;">' +
-    '<div style="font-size:14px;font-weight:800;color:#fff;margin-bottom:10px;">💡 Select Light</div>' +
-    '<input id="_dft_lpq" type="text" placeholder="Search..." oninput="_dftLPFilter(this.value)" style="width:100%;box-sizing:border-box;padding:8px 12px;border:none;border-radius:8px;font-size:13px;background:#1a1a1a;color:#fff;outline:none;margin-bottom:8px;">' +
+    '<div style="font-size:14px;font-weight:800;color:#fff;margin-bottom:10px;">'+t('dftSelectLight')+'</div>' +
+    '<input id="_dft_lpq" type="text" placeholder="'+t('dftSearchPlaceholder')+'" oninput="_dftLPFilter(this.value)" style="width:100%;box-sizing:border-box;padding:8px 12px;border:none;border-radius:8px;font-size:13px;background:#1a1a1a;color:#fff;outline:none;margin-bottom:8px;">' +
     '</div>' +
     '<div id="_dft_lpl" style="overflow-y:auto;padding:0 16px 8px;flex:1;-webkit-overflow-scrolling:touch;"></div>' +
     '<div style="padding:8px 16px 24px;flex-shrink:0;">' +
-    '<button onclick="document.getElementById(\'_dft_lp\').remove()" style="width:100%;padding:10px;background:#2a2a2a;color:#aaa;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">Cancel</button>' +
+    '<button onclick="document.getElementById(\'_dft_lp\').remove()" style="width:100%;padding:10px;background:#2a2a2a;color:#aaa;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
     '</div></div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
   setTimeout(function(){ _dftLPFilter(''); }, 10);
@@ -11160,12 +11224,12 @@ function _dftShowPeoplePicker(wx, wy) {
   _dft.pendingPeopleWx = wx; _dft.pendingPeopleWy = wy;
   var html = '<div id="_dft_pp" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_pp\').remove()">' +
     '<div style="background:var(--bg,#fff);border-radius:20px 20px 0 0;width:100%;padding:20px 20px 36px;">' +
-    '<div style="font-size:14px;font-weight:800;margin-bottom:16px;">🧍 People</div>' +
+    '<div style="font-size:14px;font-weight:800;margin-bottom:16px;">'+t('dftPeopleTitle')+'</div>' +
     '<div style="display:flex;gap:12px;">' +
-    '<button onclick="_dftPeopleSelect(\'male\')" style="flex:1;padding:18px 0;font-size:32px;border:2px solid #1976d2;border-radius:14px;background:#e3f2fd;cursor:pointer;">👨<div style="font-size:11px;font-weight:800;color:#1976d2;margin-top:4px;">Man</div></button>' +
-    '<button onclick="_dftPeopleSelect(\'female\')" style="flex:1;padding:18px 0;font-size:32px;border:2px solid #c2185b;border-radius:14px;background:#fce4ec;cursor:pointer;">👩<div style="font-size:11px;font-weight:800;color:#c2185b;margin-top:4px;">Woman</div></button>' +
+    '<button onclick="_dftPeopleSelect(\'male\')" style="flex:1;padding:18px 0;font-size:32px;border:2px solid #1976d2;border-radius:14px;background:#e3f2fd;cursor:pointer;">👨<div style="font-size:11px;font-weight:800;color:#1976d2;margin-top:4px;">'+t('dftManLabel')+'</div></button>' +
+    '<button onclick="_dftPeopleSelect(\'female\')" style="flex:1;padding:18px 0;font-size:32px;border:2px solid #c2185b;border-radius:14px;background:#fce4ec;cursor:pointer;">👩<div style="font-size:11px;font-weight:800;color:#c2185b;margin-top:4px;">'+t('dftWomanLabel')+'</div></button>' +
     '</div>' +
-    '<button onclick="document.getElementById(\'_dft_pp\').remove()" style="margin-top:12px;width:100%;padding:10px;background:var(--bg-secondary,#eee);border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">Cancel</button>' +
+    '<button onclick="document.getElementById(\'_dft_pp\').remove()" style="margin-top:12px;width:100%;padding:10px;background:var(--bg-secondary,#eee);border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
     '</div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
 }
@@ -11282,24 +11346,24 @@ function dftSetScaleUI() {
   var pxPerM = (_dft.zoom / _dft.scale).toFixed(1);
   var html = '<div id="_dft_sc" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sc\').remove()">' +
     '<div style="background:var(--bg,#fff);border-radius:16px;padding:18px;width:88%;max-width:310px;" onclick="event.stopPropagation()">' +
-    '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">📐 Set Scale</div>' +
-    '<div style="font-size:12px;color:#888;margin-bottom:8px;">Manual: pixels per meter at current zoom</div>' +
+    '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">'+t('dftScaleTitle')+'</div>' +
+    '<div style="font-size:12px;color:#888;margin-bottom:8px;">1m = ? px</div>' +
     '<div style="display:flex;gap:6px;align-items:center;margin-bottom:12px;">' +
     '<span style="font-size:13px;font-weight:700;">1m =</span>' +
     '<input id="_sc_v" type="number" step="1" min="1" value="'+pxPerM+'" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:14px;background:var(--bg);color:var(--text);">' +
     '<span style="font-size:13px;font-weight:700;">px</span>' +
     '</div>' +
-    '<button onclick="var v=+document.getElementById(\'_sc_v\').value;if(v>0){_dft.scale=_dft.zoom/v;dftRender();}document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">Apply</button>' +
-    '<div style="font-size:12px;color:#888;margin-bottom:8px;">— or — tap 2 points on the floor plan</div>' +
-    '<button onclick="document.getElementById(\'_dft_sc\').remove();_dftStartCalib();" style="width:100%;padding:9px;background:#1565c0;color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">📍 2-Point Calibration</button>' +
-    '<button onclick="document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--bg-secondary,#eee);border:none;border-radius:9px;font-weight:700;cursor:pointer;">Cancel</button>' +
+    '<button onclick="var v=+document.getElementById(\'_sc_v\').value;if(v>0){_dft.scale=_dft.zoom/v;dftRender();}document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">'+t('dftApply')+'</button>' +
+    '<div style="font-size:12px;color:#888;margin-bottom:8px;">'+t('dftScaleOr')+'</div>' +
+    '<button onclick="document.getElementById(\'_dft_sc\').remove();_dftStartCalib();" style="width:100%;padding:9px;background:#1565c0;color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">'+t('dftCalibBtn')+'</button>' +
+    '<button onclick="document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--bg-secondary,#eee);border:none;border-radius:9px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
     '</div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
 }
 
 function _dftStartCalib() {
   _dft.calibMode = true; _dft.calibPts = [];
-  _dftSetStatus('📍 Tap point 1 on canvas...');
+  _dftSetStatus(t('dftCalibStep1'));
   dftRender();
 }
 
@@ -11309,11 +11373,11 @@ function _dftCalibFinish() {
   // pixel distance between the 2 world points
   var pxDist = Math.hypot(p1.x-p0.x, p1.y-p0.y) / _dft.scale;
   _dft.calibPts = [];
-  var realM = parseFloat(prompt('Real distance between the 2 tapped points (meters):', '5'));
+  var realM = parseFloat(prompt(t('dftCalibDist'), '5'));
   if (!realM || isNaN(realM) || realM <= 0) { dftRender(); return; }
   _dft.scale = realM / pxDist;
   dftRender();
-  _dftSetStatus('Scale set · ' + (_dft.zoom/_dft.scale).toFixed(0) + 'px per meter');
+  _dftSetStatus(t('dftScaleSet') + (_dft.zoom/_dft.scale).toFixed(0) + t('dftPxPerM'));
 }
 
 // ── UNIT ──────────────────────────────────────────────────
@@ -11326,7 +11390,7 @@ function dftToggleUnit() {
 
 // ── SAVE / LOAD ───────────────────────────────────────────
 function dftSave() {
-  var name = prompt('Save as:', _dft.draftName);
+  var name = prompt(t('dftSavePrompt'), _dft.draftName);
   if (name === null) return;
   if (name.trim()) _dft.draftName = name.trim();
   var id = _dft.draftId || ('dft_' + Date.now());
@@ -11345,24 +11409,24 @@ function dftSave() {
     localStorage.setItem('calm_drafts', JSON.stringify(_dft.drafts));
     localStorage.setItem('calm_draft_active', id);
   } catch(e) {}
-  _dftSetStatus('💾 Saved: ' + _dft.draftName);
+  _dftSetStatus(t('dftSaved') + _dft.draftName);
 }
 
 function dftLoadMenu() {
-  if (!_dft.drafts.length) { alert('No saved drafts yet.'); return; }
+  if (!_dft.drafts.length) { alert(t('dftNoSavedDrafts')); return; }
   var html = '<div id="_dft_lm" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_lm\').remove()">' +
     '<div style="background:var(--bg,#fff);border-radius:16px;padding:18px;width:88%;max-width:340px;max-height:70vh;overflow-y:auto;" onclick="event.stopPropagation()">' +
-    '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">📂 Drafts</div>' +
+    '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">'+t('dftDraftsList')+'</div>' +
     _dft.drafts.slice().reverse().map(function(d) {
       return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:10px;border:1.5px solid var(--border,#eee);border-radius:10px;">' +
         '<div style="flex:1;cursor:pointer;" onclick="_dftLoadById(\''+d.id+'\');document.getElementById(\'_dft_lm\').remove()">' +
         '<div style="font-weight:700;font-size:13px;">'+d.name+'</div>' +
-        '<div style="font-size:10px;color:#888;">'+(d.objects||[]).length+' objects · '+(d.savedAt||'').slice(0,10)+'</div>' +
+        '<div style="font-size:10px;color:#888;">'+(d.objects||[]).length+t('dftObjects')+' · '+(d.savedAt||'').slice(0,10)+'</div>' +
         '</div>' +
         '<button onclick="_dftDelDraft(\''+d.id+'\');document.getElementById(\'_dft_lm\').remove();dftLoadMenu();" style="padding:4px 8px;background:#e53935;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;">🗑</button>' +
         '</div>';
     }).join('') +
-    '<button onclick="document.getElementById(\'_dft_lm\').remove()" style="width:100%;padding:9px;background:var(--bg-secondary,#eee);border:none;border-radius:9px;font-weight:700;cursor:pointer;margin-top:4px;">Close</button>' +
+    '<button onclick="document.getElementById(\'_dft_lm\').remove()" style="width:100%;padding:9px;background:var(--bg-secondary,#eee);border:none;border-radius:9px;font-weight:700;cursor:pointer;margin-top:4px;">'+t('dftClose')+'</button>' +
     '</div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
 }
@@ -11396,7 +11460,7 @@ function _dftDelDraft(id) {
 }
 
 function dftNew() {
-  if (_dft.objects.length && !confirm('Start new draft? Unsaved changes will be lost.')) return;
+  if (_dft.objects.length && !confirm(t('dftNewConfirm'))) return;
   _dft.objects=[]; _dft.draftId=null; _dft.draftName='Draft '+(_dft.drafts.length+1);
   _dft.nextId=1; _dft.pdfImg=null; _dft.selected=null;
   _dft.layers=[{id:1,name:'L1',visible:true}]; _dft.activeLayer=1;
@@ -11793,14 +11857,14 @@ function dftResetView() {
       <button class="draft-tool-btn" id="dft-btn-flag" onclick="dftMode('flag')">▬ Flag</button>
       <!-- Row 2: utility tools (flex-wrap pushes here) -->
       <div style="flex-basis:100%;height:0;"></div>
-      <button class="draft-tool-btn" onclick="dftImportPDF()">📄 PDF</button>
-      <button class="draft-tool-btn" onclick="dftImportPhoto()">🖼 Photo</button>
-      <button class="draft-tool-btn" onclick="dftSetScaleUI()">📐 Scale</button>
+      <button class="draft-tool-btn" id="dft-btn-pdf" onclick="dftImportPDF()">📄 PDF</button>
+      <button class="draft-tool-btn" id="dft-btn-photo" onclick="dftImportPhoto()">🖼 Photo</button>
+      <button class="draft-tool-btn" id="dft-btn-scale" onclick="dftSetScaleUI()">📐 Scale</button>
       <button class="draft-tool-btn" onclick="dftToggleUnit()" id="dft-btn-unit">m</button>
       <div class="draft-tool-sep"></div>
-      <button class="draft-tool-btn" onclick="dftSave()">💾 Save</button>
-      <button class="draft-tool-btn" onclick="dftLoadMenu()">📂 Load</button>
-      <button class="draft-tool-btn" onclick="dftNew()">＋ New</button>
+      <button class="draft-tool-btn" id="dft-btn-save" onclick="dftSave()">💾 Save</button>
+      <button class="draft-tool-btn" id="dft-btn-load" onclick="dftLoadMenu()">📂 Load</button>
+      <button class="draft-tool-btn" id="dft-btn-new" onclick="dftNew()">＋ New</button>
     </div>
     <!-- Layer bar -->
     <div class="draft-layerbar" id="dft-layerbar"></div>
@@ -11820,7 +11884,7 @@ function dftResetView() {
       </div>
       <div class="draft-infobar">
         <span class="draft-scale-pill" id="dft-scale-pill">1m=20px</span>
-        <span class="draft-status" id="dft-status">Tap toolbar to place · Drag to pan · Pinch to zoom</span>
+        <span class="draft-status" id="dft-status" data-default="1">Tap toolbar to place · Drag to pan · Pinch to zoom</span>
       </div>
     </div>
   </div>
@@ -11988,7 +12052,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.9</div>
+  <div class="drawer-footer">CALM v1.1.3.10</div>
 </div>
 
 </body>
