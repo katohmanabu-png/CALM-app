@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.26</title>
+<title>CALM v1.1.3.27</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -755,7 +755,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.26</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.27</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -6706,6 +6706,7 @@ function calculate() {
   var _cci = el('calc-cam-info');
   if (_cci) _cci.innerHTML = buildCamInfoHtml();
   updateBadge();
+  try { _dftSyncResultPanel(); } catch(e) {}
 }
 
 // ===== FAVORITES =====
@@ -6993,7 +6994,7 @@ function showPage(p) {
   if (p === 'finder') { try { syncFinderFromCalc(); } catch(e) {} try { initFinderDistSlider(); } catch(e) {} try { renderFinderResults(); } catch(e) {} }
   if (p === 'mix')    { try { syncMixFromCalc(); }   catch(e) {} try { renderMixList(); calcMix(); } catch(e) {} }
   if (p === 'feedback') { try { fbRenderDevInfo(); } catch(e) {} }
-  if (p === 'draft')    { try { _dftFitPage(); dftInit(); } catch(e) {} }
+  if (p === 'draft')    { try { _dftFitPage(); dftInit(); _dftSyncResultPanel(); } catch(e) {} }
 }
 
 // ── Camera info shared helper ──────────────────────────────
@@ -7050,7 +7051,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.26';
+  var ver = 'v1.1.3.27';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10267,7 +10268,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.26 =====
+// ===== DRAFT ENGINE v1.1.3.27 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -10326,6 +10327,58 @@ var _dft = {
   _pendingDistEdit:null,
   inited:false,
 };
+
+// ── Draft floating result panel ────────────────────────────
+(function(){
+  var _panel = null, _dragging = false;
+  var _dx = 0, _dy = 0, _ox = 0, _oy = 0;
+
+  function panel() { return _panel || (_panel = document.getElementById('dft-result-panel')); }
+
+  function onStart(cx, cy) {
+    var p = panel(); if (!p) return;
+    _dragging = true;
+    _ox = parseInt(p.style.left)||0;
+    _oy = parseInt(p.style.top)||0;
+    _dx = cx; _dy = cy;
+    p.style.cursor = 'grabbing';
+  }
+  function onMove(cx, cy) {
+    if (!_dragging) return;
+    var p = panel(); if (!p) return;
+    var area = document.getElementById('dft-canvas-area');
+    var aw = area ? area.clientWidth  : window.innerWidth;
+    var ah = area ? area.clientHeight : window.innerHeight;
+    var nx = Math.max(0, Math.min(aw - p.offsetWidth,  _ox + cx - _dx));
+    var ny = Math.max(0, Math.min(ah - p.offsetHeight, _oy + cy - _dy));
+    p.style.left = nx + 'px';
+    p.style.top  = ny + 'px';
+  }
+  function onEnd() { _dragging = false; var p = panel(); if (p) p.style.cursor = 'grab'; }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var p = panel(); if (!p) return;
+    p.addEventListener('mousedown',  function(e){ onStart(e.clientX, e.clientY); e.stopPropagation(); });
+    p.addEventListener('touchstart', function(e){ onStart(e.touches[0].clientX, e.touches[0].clientY); e.stopPropagation(); }, {passive:true});
+  });
+  document.addEventListener('mousemove',  function(e){ onMove(e.clientX, e.clientY); });
+  document.addEventListener('mouseup',    function(){ onEnd(); });
+  document.addEventListener('touchmove',  function(e){ if(_dragging){ onMove(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); } }, {passive:false});
+  document.addEventListener('touchend',   function(){ onEnd(); });
+  document.addEventListener('touchcancel',function(){ onEnd(); });
+})();
+
+function _dftSyncResultPanel() {
+  var p = document.getElementById('dft-result-panel'); if (!p) return;
+  var ri = document.getElementById('result-inner');
+  var rc = document.getElementById('calc-cam-info');
+  var di = document.getElementById('dft-result-inner');
+  var dc = document.getElementById('dft-result-cam');
+  if (di && ri) di.innerHTML = ri.innerHTML;
+  if (dc && rc) dc.innerHTML = rc.innerHTML;
+  var hasContent = di && di.textContent.trim().length > 0;
+  p.style.display = (typeof S !== 'undefined' && S.page === 'draft' && hasContent) ? 'block' : 'none';
+}
 
 function _dftFitPage() {
   var pg  = document.getElementById('page-draft');
@@ -12193,6 +12246,17 @@ function dftResetView() {
     <div class="draft-layerbar" id="dft-layerbar"></div>
     <div class="draft-canvas-area" id="dft-canvas-area">
       <canvas id="dft-canvas" class="draft-canvas"></canvas>
+      <!-- Floating result panel (draggable) -->
+      <div id="dft-result-panel" style="display:none;position:absolute;top:10px;left:10px;z-index:20;touch-action:none;cursor:grab;max-width:280px;min-width:160px;">
+        <div style="background:rgba(10,12,22,0.93);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:13px;padding:8px 12px 9px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 4px 20px rgba(0,0,0,.4);">
+          <div style="font-size:8px;font-weight:900;color:var(--accent,#f96);letter-spacing:.18em;margin-bottom:4px;display:flex;align-items:center;gap:6px;">
+            <span id="lbl-dft-result-hdr">RESULT</span>
+            <span style="opacity:.45;font-size:10px;letter-spacing:0;">⠿</span>
+          </div>
+          <div id="dft-result-inner" style="display:flex;align-items:center;gap:0;width:100%;"></div>
+          <div id="dft-result-cam" style="margin-top:3px;display:flex;flex-wrap:wrap;gap:3px;"></div>
+        </div>
+      </div>
       <!-- Zoom slider -->
       <div class="dft-zoom-ctl">
         <button class="dpad-btn" onclick="dftZoomBtn(1.25)" style="font-size:20px;font-weight:700;">+</button>
@@ -12415,7 +12479,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.26</div>
+  <div class="drawer-footer">CALM v1.1.3.27</div>
 </div>
 
 </body>
