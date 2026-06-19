@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.72</title>
+<title>CALM v1.1.2.73</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.72</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.73</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -1830,7 +1830,7 @@ window.onerror = function(m,s,l,c,e){ console.log('[LMP]',m,l,e&&e.stack); retur
 // ===== i18n =====
 var LANGS = {
   ja: {
-    navCalc:'光量計算', navMix:'Mix', navFinder:'おすすめ', navAlt:'代替検索', navCamera:'Camera', pageCalcTitle:'光量計算', pageCalcSub:'Light Calculator', pageMixTitle:'複数灯シュミレーション', pageMixSub:'複数のライトを組み合わせて合計光量を計算', pageFinderTitle:'おすすめ機材検索', pageFinderSub:'Light Finder', pageAltTitle:'おすすめ代替機材検索', pageAltSub:'Alternative Finder', pageCameraTitle:'カメラ設定', pageCameraSub:'Camera Settings',
+    navCalc:'光量計算', navMix:'Mix', navFinder:'おすすめ', navAlt:'代替検索', navCamera:'Camera', pageCalcTitle:'光量計算', pageCalcSub:'Light Calculator', pageMixTitle:'複数灯シュミレーション', pageMixSub:'複数のライトを組み合わせて合計光量・合計CCTを計算', pageFinderTitle:'おすすめ機材検索', pageFinderSub:'Light Finder', pageAltTitle:'おすすめ代替機材検索', pageAltSub:'Alternative Finder', pageCameraTitle:'カメラ設定', pageCameraSub:'Camera Settings',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ お気に入り',
     makerTitle:'会社名', modelTitle:'ライト', sortLabel:'Sort:',
     accTitle:'アクセサリー / Accessory', cctTitle:'色温度 / CCT',
@@ -1892,7 +1892,7 @@ var LANGS = {
     fbAnotherBtn:'別のフィードバックを送る'
   },
   en: {
-    navCalc:'Calc', navMix:'Mix', navFinder:'Finder', navAlt:'Alt', navCamera:'Camera', pageCalcTitle:'Light Calculator', pageCalcSub:'Exposure & F-stop Calculator', pageMixTitle:'Mix', pageMixSub:'Combine multiple lights and calculate total exposure', pageFinderTitle:'Light Finder', pageFinderSub:'Find the right fixture', pageAltTitle:'Alternative Finder', pageAltSub:'Find the best replacement', pageCameraTitle:'Camera', pageCameraSub:'Digital / Film / Photograph',
+    navCalc:'Calc', navMix:'Mix', navFinder:'Finder', navAlt:'Alt', navCamera:'Camera', pageCalcTitle:'Light Calculator', pageCalcSub:'Exposure & F-stop Calculator', pageMixTitle:'Mix', pageMixSub:'Combine multiple lights — calculate total exposure & mixed CCT', pageFinderTitle:'Light Finder', pageFinderSub:'Find the right fixture', pageAltTitle:'Alternative Finder', pageAltSub:'Find the best replacement', pageCameraTitle:'Camera', pageCameraSub:'Digital / Film / Photograph',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ Favorites',
     makerTitle:'Manufacturer', modelTitle:'Light', sortLabel:'Sort:',
     accTitle:'Accessory', cctTitle:'Color Temperature',
@@ -1947,7 +1947,7 @@ var LANGS = {
     fbAnotherBtn:'Send Another'
   },
   es: {
-    navCalc:'Calc', navMix:'Mix', navFinder:'Buscador', navAlt:'Alt', navCamera:'Cámara', pageCalcTitle:'Calculadora de Iluminación', pageCalcSub:'Calculadora de Exposición', pageMixTitle:'Mix', pageMixSub:'Combina múltiples luces y calcula la exposición total', pageFinderTitle:'Buscador de Equipos', pageFinderSub:'Encuentra el equipo ideal', pageAltTitle:'Buscar Equipo Equivalente', pageAltSub:'Encuentra la mejor alternativa', pageCameraTitle:'Cámara', pageCameraSub:'Digital / Film / Fotografía',
+    navCalc:'Calc', navMix:'Mix', navFinder:'Buscador', navAlt:'Alt', navCamera:'Cámara', pageCalcTitle:'Calculadora de Iluminación', pageCalcSub:'Calculadora de Exposición', pageMixTitle:'Mix', pageMixSub:'Combina múltiples luces — calcula exposición total y CCT mezclado', pageFinderTitle:'Buscador de Equipos', pageFinderSub:'Encuentra el equipo ideal', pageAltTitle:'Buscar Equipo Equivalente', pageAltSub:'Encuentra la mejor alternativa', pageCameraTitle:'Cámara', pageCameraSub:'Digital / Film / Fotografía',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ Favoritos',
     makerTitle:'Fabricante', modelTitle:'Luz', sortLabel:'Ordenar:',
     accTitle:'Accesorio', cctTitle:'Temperatura de Color',
@@ -6840,7 +6840,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.72';
+  var ver = 'v1.1.2.73';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10444,7 +10444,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.72</div>
+  <div class="drawer-footer">CALM v1.1.2.73</div>
 </div>
 
 </body>
