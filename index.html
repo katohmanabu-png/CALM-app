@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.28</title>
+<title>CALM v1.1.3.29</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -755,7 +755,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.28</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.29</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -4348,7 +4348,7 @@ var ACC_INFO = {
   am_wide:  { label:'AM8112 (Wide)',       beam:'Reflector Wide',emoji:'🔦', angle:65 },
   cf16_15:  { label:'CF16 Fresnel (18°)',  beam:'Fresnel Spot',  emoji:'🔬', angle:18 },
   cf16_50:  { label:'CF16 Fresnel (50°)',  beam:'Fresnel Flood', emoji:'🔬', angle:50 },
-  parallel: { label:'Parallel Beam',      beam:'Parallel',      emoji:'🎯', angle:0 },
+  parallel: { label:'Parallel Beam',      beam:'Parallel',      emoji:'🎯', angle:5 },
   // XT26
   refl20:   { label:'20° Reflector',      beam:'Reflector 20°', emoji:'🔦', angle:20 },
   refl50:   { label:'50° Reflector',      beam:'Reflector 50°', emoji:'🔦', angle:50 },
@@ -4387,7 +4387,7 @@ var ACC_INFO = {
   r60:      { label:'60° Reflector',      beam:'60°',           emoji:'🔦', angle:60 },
   fl16:     { label:'FL-45E (16°)',        beam:'Fresnel 16°',   emoji:'🔬', angle:16 },
   fl50:     { label:'FL-45E (50°)',        beam:'Fresnel 50°',   emoji:'🔬', angle:50 },
-  nlpb:     { label:'NL70 Para.Beam',     beam:'Parallel',      emoji:'🎯', angle:0 },
+  nlpb:     { label:'NL70 Para.Beam',     beam:'Parallel',      emoji:'🎯', angle:5 },
   flat:     { label:'Flat Mode',          beam:'Wide',          emoji:'🌅', angle:90 },
   spot:     { label:'Spot',               beam:'Spot',          emoji:'🔦', angle:10 },
   flat_1k:  { label:'Flat 1kW',           beam:'Flat',          emoji:'💡', angle:90 },
@@ -7051,7 +7051,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.28';
+  var ver = 'v1.1.3.29';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10268,7 +10268,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.28 =====
+// ===== DRAFT ENGINE v1.1.3.29 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -11444,7 +11444,7 @@ function _dftSetAcc(oid, accKey) {
   _dftPushHistory();
   o.accKey = accKey;
   var ai = ACC_INFO[accKey];
-  if (ai && ai.angle) o.beamAngle = ai.angle;
+  if (ai && typeof ai.angle === 'number') o.beamAngle = ai.angle;
   var sh = document.getElementById('_dft_ls');
   if (sh) sh.remove();
   dftLightSettings(oid);
@@ -12555,7 +12555,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.28</div>
+  <div class="drawer-footer">CALM v1.1.3.29</div>
 </div>
 
 </body>
