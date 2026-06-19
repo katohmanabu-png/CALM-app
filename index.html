@@ -8275,44 +8275,80 @@ function getFactorArray(prefix) {
   return [];
 }
 
-var FACTOR_DEFAULT_NAMES = ['Grid','Bounce','Diffuse','Silk','Chimera','CTB','CTO','ND 0.3','ND 0.6','ND 0.9','Fresnel','Egg Crate','Barn Doors','Snoot','Gel','UltraBounce','Showcard','Magic Cloth'];
-function getFactorNamePresets() {
-  try { return JSON.parse(localStorage.getItem('calm_factor_names') || '[]'); } catch(e) { return []; }
+var FACTOR_NAMES_BY_TYPE = {
+  bounce:  ['UltraBounce','BluffBounce','Unbleached Muslin','Bleached Muslin','Wall',
+             'TheLightBridge 0','TheLightBridge 1','TheLightBridge 2','TheLightBridge 3','TheLightBridge 4','Poly'],
+  diffuse: ['Silk','Chimera','Magic Cloth','Showcard','Grid','Egg Crate','Tough Spun','Hampshire Frost','Light Grid Cloth'],
+  none:    ['CTB','CTO','ND 0.3','ND 0.6','ND 0.9','Fresnel','Barn Doors','Snoot','Gel','Egg Crate']
+};
+function getFactorNamePresets(type) {
+  try {
+    var all = JSON.parse(localStorage.getItem('calm_factor_names') || '{}');
+    var key = type || 'none';
+    return Array.isArray(all[key]) ? all[key] : [];
+  } catch(e) { return []; }
 }
-function saveFactorNamePreset(name) {
+function saveFactorNamePreset(name, type) {
   if (!name || !name.trim()) return;
-  var list = getFactorNamePresets();
   name = name.trim();
-  if (FACTOR_DEFAULT_NAMES.indexOf(name) >= 0) return; // already in defaults
-  if (list.indexOf(name) >= 0) return; // already saved
-  list.unshift(name);
-  try { localStorage.setItem('calm_factor_names', JSON.stringify(list)); } catch(e) {}
+  var key = type || 'none';
+  var defaults = FACTOR_NAMES_BY_TYPE[key] || FACTOR_NAMES_BY_TYPE.none;
+  try {
+    var all = JSON.parse(localStorage.getItem('calm_factor_names') || '{}');
+    if (!Array.isArray(all[key])) all[key] = [];
+    if (defaults.indexOf(name) >= 0 || all[key].indexOf(name) >= 0) return;
+    all[key].unshift(name);
+    localStorage.setItem('calm_factor_names', JSON.stringify(all));
+  } catch(e) {}
 }
-function deleteFactorNamePreset(name) {
-  var list = getFactorNamePresets().filter(function(n){ return n !== name; });
-  try { localStorage.setItem('calm_factor_names', JSON.stringify(list)); } catch(e) {}
+function deleteFactorNamePreset(name, type) {
+  var key = type || 'none';
+  try {
+    var all = JSON.parse(localStorage.getItem('calm_factor_names') || '{}');
+    if (Array.isArray(all[key])) all[key] = all[key].filter(function(n){ return n !== name; });
+    localStorage.setItem('calm_factor_names', JSON.stringify(all));
+  } catch(e) {}
 }
 window._factorSaveName = function(prefix, fi) {
   var input = document.getElementById('fn-inp-' + prefix + '-' + fi);
   if (!input || !input.value.trim()) return;
-  saveFactorNamePreset(input.value.trim());
-  // ★ボタンをフラッシュ
+  var arr = getFactorArray(prefix);
+  var ftype = arr[fi] ? (arr[fi].type || 'none') : 'none';
+  saveFactorNamePreset(input.value.trim(), ftype);
   var btn = document.getElementById('fn-star-' + prefix + '-' + fi);
   if (btn) { btn.textContent = '✓'; setTimeout(function(){ btn.textContent = '★'; }, 1000); }
-  // datalist更新
   var dl = document.getElementById('fn-list-' + prefix + '-' + fi);
-  if (dl) dl.innerHTML = _factorNameOptions();
-  // 保存名リスト再描画
-  _renderSavedNames(prefix);
+  if (dl) dl.innerHTML = _factorNameOptions(ftype);
+  _renderSavedNames(prefix, ftype);
 };
-window._factorDelName = function(name, prefix) {
-  deleteFactorNamePreset(name);
-  _renderSavedNames(prefix);
+window._factorDelName = function(name, type, prefix) {
+  deleteFactorNamePreset(name, type);
+  _renderSavedNames(prefix, type);
 };
-function _factorNameOptions() {
-  var saved = getFactorNamePresets();
-  var all = saved.concat(FACTOR_DEFAULT_NAMES.filter(function(n){ return saved.indexOf(n) < 0; }));
+function _factorNameOptions(type) {
+  var key = type || 'none';
+  var defaults = FACTOR_NAMES_BY_TYPE[key] || FACTOR_NAMES_BY_TYPE.none;
+  var saved = getFactorNamePresets(key);
+  var all = saved.concat(defaults.filter(function(n){ return saved.indexOf(n) < 0; }));
   return all.map(function(n){ return '<option value="' + n.replace(/"/g,'&quot;') + '">'; }).join('');
+}
+function _renderSavedNames(prefix, type) {
+  var key = type || 'none';
+  var saved = getFactorNamePresets(key);
+  var container = document.getElementById('factor-saved-names-' + prefix);
+  if (!container) return;
+  if (!saved.length) { container.innerHTML = ''; return; }
+  container.innerHTML =
+    '<div style="padding:4px 10px 6px;display:flex;flex-wrap:wrap;gap:4px;">' +
+      saved.map(function(n){
+        var ne = n.replace(/'/g,"\\'").replace(/"/g,'&quot;');
+        var te = key.replace(/'/g,"\\'");
+        return '<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:10px;background:rgba(255,255,255,0.08);font-size:10px;font-weight:700;color:var(--text-dim);">' +
+          n +
+          '<button onclick="window._factorDelName(\'' + ne + '\',\'' + te + '\',\'' + prefix + '\')" style="background:none;border:none;color:#f44;font-size:11px;cursor:pointer;padding:0 1px;line-height:1;">✕</button>' +
+        '</span>';
+      }).join('') +
+    '</div>';
 }
 function _renderSavedNames(prefix) {
   var saved = getFactorNamePresets();
@@ -8357,18 +8393,27 @@ function buildFactorSection(prefix) {
     var toggleBg = fEnabled ? 'var(--accent)' : 'transparent';
     var toggleColor = fEnabled ? 'white' : 'var(--accent)';
     var toggleLabel = fEnabled ? 'ON' : 'OFF';
+    var ftype = f.type || 'none';
+    var curTypeNames = _factorNameOptions(ftype);
     rowsHtml +=
       '<div style="padding:8px 10px;border-top:1px solid rgba(255,255,255,0.05);opacity:' + rowOpacity + ';">' +
-        // Name input + star save + ON/OFF + delete
+        // Type buttons + ON/OFF + delete
         '<div style="display:flex;gap:4px;margin-bottom:6px;align-items:center;">' +
-          '<input type="text" id="fn-inp-' + prefix + '-' + fi + '" list="fn-list-' + prefix + '-' + fi + '"' +
-            ' value="' + (f.memo || '').replace(/"/g, '&quot;') + '" placeholder="Factor name..."' +
-            ' oninput="window._factorSetMemo(\'' + prefix + '\',' + fi + ',this.value)"' +
-            ' style="flex:1;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:var(--bg);color:var(--text);font-size:11px;">' +
-          '<datalist id="fn-list-' + prefix + '-' + fi + '">' + _factorNameOptions() + '</datalist>' +
-          '<button id="fn-star-' + prefix + '-' + fi + '" onclick="window._factorSaveName(\'' + prefix + '\',' + fi + ')" title="Save name" style="background:none;border:none;color:#f5a623;font-size:16px;cursor:pointer;padding:0 2px;line-height:1;">★</button>' +
+          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'bounce\')" style="padding:2px 10px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeBounce ? 'var(--accent)' : 'transparent') + ';color:' + (typeBounce ? 'white' : 'var(--accent)') + ';">Bounce</button>' +
+          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'diffuse\')" style="padding:2px 10px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeDiffuse ? 'var(--accent)' : 'transparent') + ';color:' + (typeDiffuse ? 'white' : 'var(--accent)') + ';">Diffuse</button>' +
+          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'none\')" style="padding:2px 10px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeNone ? 'var(--accent)' : 'transparent') + ';color:' + (typeNone ? 'white' : 'var(--accent)') + ';">Other</button>' +
+          '<div style="flex:1;"></div>' +
           '<button onclick="window._factorToggleEnabled(\'' + prefix + '\',' + fi + ')" style="padding:2px 7px;border-radius:8px;border:1.5px solid var(--accent);font-size:10px;font-weight:800;cursor:pointer;background:' + toggleBg + ';color:' + toggleColor + ';">' + toggleLabel + '</button>' +
           '<button onclick="window._factorDel(\'' + prefix + '\',' + fi + ')" style="background:none;border:none;color:#f44;font-size:14px;cursor:pointer;padding:0 2px;">✕</button>' +
+        '</div>' +
+        // Name input + star save (datalist switches by type)
+        '<div style="display:flex;gap:4px;margin-bottom:6px;align-items:center;">' +
+          '<input type="text" id="fn-inp-' + prefix + '-' + fi + '" list="fn-list-' + prefix + '-' + fi + '"' +
+            ' value="' + (f.memo || '').replace(/"/g, '&quot;') + '" placeholder="' + (typeBounce ? 'e.g. UltraBounce' : typeDiffuse ? 'e.g. Silk' : 'e.g. CTB') + '"' +
+            ' oninput="window._factorSetMemo(\'' + prefix + '\',' + fi + ',this.value)"' +
+            ' style="flex:1;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:var(--bg);color:var(--text);font-size:11px;">' +
+          '<datalist id="fn-list-' + prefix + '-' + fi + '">' + curTypeNames + '</datalist>' +
+          '<button id="fn-star-' + prefix + '-' + fi + '" onclick="window._factorSaveName(\'' + prefix + '\',' + fi + ')" title="Save name" style="background:none;border:none;color:#f5a623;font-size:16px;cursor:pointer;padding:0 2px;line-height:1;">★</button>' +
         '</div>' +
         // Stop controls
         '<div style="display:flex;align-items:center;gap:6px;">' +
