@@ -6743,6 +6743,7 @@ function showPage(p) {
   try { if (p === 'calc')   { renderModels(); calculate(); updateLightSelectorHdr(); } }   catch(e) {}
   try { if (p === 'alt')    { syncAltFromCalc(); } }              catch(e) {}
   if (p === 'finder') { try { syncFinderFromCalc(); } catch(e) {} try { initFinderDistSlider(); } catch(e) {} try { renderFinderResults(); } catch(e) {} }
+  if (p === 'mix')    { try { syncMixFromCalc(); }   catch(e) {} try { renderMixList(); calcMix(); } catch(e) {} }
   if (p === 'feedback') { try { fbRenderDevInfo(); } catch(e) {} }
 }
 
@@ -7823,6 +7824,30 @@ function syncAltFromCalc() {
   }
 
   try { runAlternativeFinder(); } catch(e) {}
+}
+
+function syncMixFromCalc() {
+  var light = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
+  if (!light || !light.refData || light.pendingPhotometric) return;
+
+  var dist = getActiveDist();
+  var cct  = getActiveCCT();
+  var acc  = S.accKey || (light.accessories && light.accessories[0]) || 'none';
+  var multiSl = el('multi-sl');
+  var units = multiSl ? (parseInt(multiSl.value) || 1) : 1;
+  var factors = (typeof S_calcFactors !== 'undefined') ? JSON.parse(JSON.stringify(S_calcFactors)) : [];
+
+  // Slot 0 を Calc の選択ライトで上書き（他スロットは保持）
+  var slot0 = { makerKey: S.maker, modelKey: S.model, units: units, cct: cct, acc: acc, dist: dist, factors: factors };
+  if (mixLights.length === 0) {
+    mixLights.push(slot0);
+  } else {
+    mixLights[0] = slot0;
+  }
+
+  // グローバル距離スライダーを Calc の距離に同期
+  S_mixManualDist = dist;
+  updateMixDistDisplay();
 }
 
 function syncFinderFromCalc() {
