@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.27</title>
+<title>CALM v1.1.3.28</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -755,7 +755,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.27</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.28</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -7051,7 +7051,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.27';
+  var ver = 'v1.1.3.28';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10268,7 +10268,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.27 =====
+// ===== DRAFT ENGINE v1.1.3.28 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -11388,7 +11388,83 @@ function _dftUpdateInfoBar() {
   if (o.type==='diffuser'||o.type==='bounce'||o.type==='flag') {
     info += ' <button onclick="dftSizeDialog()" style="padding:2px 8px;background:#1565c0;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">Size</button>';
   }
+  if (o.type==='light' && o.makerKey) {
+    var _ai = ACC_INFO[o.accKey||'none'];
+    var _ba = o.beamAngle || (_ai && _ai.angle) || 75;
+    info += ' <button onclick="dftLightSettings(\''+oid+'\')" style="padding:2px 8px;background:#e65100;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">'+(_ai?_ai.emoji:'●')+' '+_ba+'°</button>';
+  }
   status.innerHTML = info;
+}
+
+function dftLightSettings(oid) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o || o.type !== 'light') return;
+  var lt = LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
+  var accs = (lt && lt.accessories && lt.accessories.length) ? lt.accessories : [];
+  var allAccs = ['none'].concat(accs);
+  var curAcc = o.accKey || 'none';
+  var curAi  = ACC_INFO[curAcc] || {angle:75};
+  var beamVal = o.beamAngle || curAi.angle || 75;
+
+  var accBtns = allAccs.map(function(ak) {
+    var ai = ACC_INFO[ak] || {label:ak, emoji:'●', angle:75};
+    var active = curAcc === ak;
+    return '<button onclick="_dftSetAcc(\''+oid+'\',\''+ak+'\')" style="' +
+      'padding:8px 10px;border-radius:10px;border:2px solid '+(active?'#1976d2':'rgba(0,0,0,0.12)')+';' +
+      'background:'+(active?'#e3f2fd':'#f8f8f8')+';cursor:pointer;text-align:center;' +
+      'display:flex;flex-direction:column;align-items:center;gap:2px;min-width:70px;">' +
+      '<span style="font-size:20px;">'+ai.emoji+'</span>' +
+      '<span style="font-size:10px;font-weight:700;color:#333;white-space:nowrap;">'+ai.label+'</span>' +
+      '<span style="font-size:10px;color:#1976d2;font-weight:800;">'+ai.angle+'°</span>' +
+      '</button>';
+  }).join('');
+
+  var html =
+    '<div id="_dft_ls" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_ls\').remove()">' +
+    '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
+    '<div style="font-size:14px;font-weight:800;margin-bottom:2px;">'+(lt?lt.name:o.label||'Light')+'</div>' +
+    (accs.length ? '<div style="font-size:11px;color:#888;margin-bottom:12px;">Accessory</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">'+accBtns+'</div>' : '') +
+    '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:8px;">Beam Angle</div>' +
+    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">' +
+    '<input id="_dft_ls_ba" type="number" min="1" max="360" step="1" value="'+beamVal+'" ' +
+    'style="width:90px;padding:10px;font-size:22px;font-weight:700;border:2px solid #1976d2;border-radius:12px;text-align:center;box-sizing:border-box;" ' +
+    'onkeydown="if(event.key===\'Enter\')_dftApplyBeam(\''+oid+'\')">' +
+    '<span style="font-size:18px;color:#888;">°</span>' +
+    '<button onclick="_dftApplyBeam(\''+oid+'\')" style="padding:10px 18px;background:#1976d2;color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">Apply</button>' +
+    '</div>' +
+    '<button onclick="document.getElementById(\'_dft_ls\').remove()" style="width:100%;padding:11px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">Close</button>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+  setTimeout(function(){ var i=document.getElementById('_dft_ls_ba'); if(i){i.focus();i.select();} }, 80);
+}
+
+function _dftSetAcc(oid, accKey) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  _dftPushHistory();
+  o.accKey = accKey;
+  var ai = ACC_INFO[accKey];
+  if (ai && ai.angle) o.beamAngle = ai.angle;
+  var sh = document.getElementById('_dft_ls');
+  if (sh) sh.remove();
+  dftLightSettings(oid);
+  _dftUpdateInfoBar();
+  dftRender();
+}
+
+function _dftApplyBeam(oid) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  var bai = document.getElementById('_dft_ls_ba');
+  if (!bai) return;
+  var v = parseFloat(bai.value);
+  if (isNaN(v) || v < 1 || v > 360) return;
+  _dftPushHistory();
+  o.beamAngle = v;
+  var sh = document.getElementById('_dft_ls');
+  if (sh) sh.remove();
+  _dftUpdateInfoBar();
+  dftRender();
 }
 
 function dftCopy() {
@@ -12479,7 +12555,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.27</div>
+  <div class="drawer-footer">CALM v1.1.3.28</div>
 </div>
 
 </body>
