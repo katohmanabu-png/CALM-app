@@ -699,8 +699,8 @@ body {
 /* ===== DRAFT ===== */
 #page-draft { position:fixed;top:0;left:0;right:0;bottom:0;z-index:1;padding:0!important; }
 .draft-wrap { display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden; }
-.draft-toolbar { display:flex;gap:5px;padding:8px 10px;background:var(--bg);border-bottom:1px solid var(--border,#eee);overflow-x:auto;flex-shrink:0;-webkit-overflow-scrolling:touch;padding-top:max(env(safe-area-inset-top,8px),44px); }
-.draft-tool-btn { padding:6px 11px;border:1.5px solid var(--border,#eee);border-radius:9px;font-size:11px;font-weight:800;background:var(--bg);color:var(--text);cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif; }
+.draft-toolbar { display:flex;flex-wrap:wrap;gap:4px;padding:6px 8px 5px;background:var(--bg);border-bottom:1px solid var(--border,#eee);flex-shrink:0;padding-top:max(env(safe-area-inset-top,6px),44px); }
+.draft-tool-btn { padding:5px 9px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:11px;font-weight:800;background:var(--bg);color:var(--text);cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif;line-height:1.2; }
 .draft-tool-btn.active { background:var(--accent);color:#fff;border-color:var(--accent); }
 .draft-tool-sep { width:1px;background:var(--border,#ccc);flex-shrink:0;margin:4px 2px; }
 .draft-canvas-area { flex:1;position:relative;overflow:hidden;background:#dde0e6;touch-action:none; }
@@ -10431,20 +10431,38 @@ function _dftDrawObj(ctx, o) {
     ctx.stroke();
 
   } else if (o.type === 'camera') {
-    ctx.fillStyle   = sel ? '#e65100' : '#424242';
-    ctx.strokeStyle = sel ? '#b71c1c' : '#212121';
+    // Field-of-view cone (pointing in +y = "down" at rot=0, user rotates to aim)
+    var fov  = 50 * Math.PI / 180;
+    var fovL = Math.min(110, 5 / _dft.scale * _dft.zoom);
+    ctx.fillStyle   = 'rgba(100,180,255,0.14)';
+    ctx.strokeStyle = 'rgba(60,140,220,0.35)';
+    ctx.lineWidth   = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, fovL, Math.PI/2 - fov/2, Math.PI/2 + fov/2);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    // Camera body (horizontal rectangle, lens faces +y / "forward")
+    ctx.fillStyle   = sel ? '#e65100' : '#37474f';
+    ctx.strokeStyle = sel ? '#b71c1c' : '#263238';
     ctx.lineWidth   = sel ? 2.5 : 1.5;
-    _dftRR(ctx, -R, -R*0.65, R*2, R*1.3, 4);
+    _dftRR(ctx, -R*0.9, -R*0.55, R*1.8, R*1.1, 4);
     ctx.fill(); ctx.stroke();
-    // viewfinder
-    _dftRR(ctx, -R*0.35, -R*0.65-8, R*0.7, 8, 3);
-    ctx.fillStyle = sel ? '#e65100' : '#424242'; ctx.fill(); ctx.stroke();
-    // lens
-    ctx.fillStyle = sel ? '#ffcc80' : '#9e9e9e';
-    ctx.strokeStyle = sel ? '#b71c1c' : '#212121';
-    ctx.beginPath(); ctx.arc(0, 0, R*0.5, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#111';
-    ctx.beginPath(); ctx.arc(0, 0, R*0.25, 0, Math.PI*2); ctx.fill();
+    // Lens barrel (front, at +y side, center)
+    ctx.fillStyle   = sel ? '#ffcc80' : '#78909c';
+    ctx.strokeStyle = sel ? '#b71c1c' : '#263238';
+    ctx.lineWidth   = 1.5;
+    ctx.beginPath(); ctx.arc(0, R*0.28, R*0.45, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#1a1a2e';
+    ctx.beginPath(); ctx.arc(0, R*0.28, R*0.22, 0, Math.PI*2); ctx.fill();
+    // Eyepiece (back, at -y side)
+    ctx.fillStyle   = sel ? '#e65100' : '#546e7a';
+    ctx.strokeStyle = sel ? '#b71c1c' : '#263238';
+    ctx.lineWidth   = 1;
+    _dftRR(ctx, -R*0.3, -R*0.55-6, R*0.6, 7, 3);
+    ctx.fill(); ctx.stroke();
+    // Film magazine (right side bump)
+    _dftRR(ctx, R*0.9-2, -R*0.45, R*0.6, R*0.9, 3);
+    ctx.fillStyle = sel ? '#bf360c' : '#455a64'; ctx.fill(); ctx.stroke();
 
   } else if (o.type === 'light') {
     // beam cone (pointing down = +y direction, rotated by obj.rot)
@@ -10583,6 +10601,19 @@ function _dftMD(e) {
     if (_dft.calibPts.length === 2) _dftCalibFinish();
     else _dftSetStatus('📍 Tap point 2...');
     dftRender(); return;
+  }
+
+  // In any mode: tapping an existing object grabs it first (place only on empty space)
+  var hitFirst = _dftObjAt(mx, my);
+  if (hitFirst && _dft.mode !== 'select') {
+    _dft.selected    = hitFirst.id;
+    _dft.pointerDown = true;
+    _dft.dragObj     = hitFirst;
+    _dft.dragStartPx = mx; _dft.dragStartPy = my;
+    _dft.dragStartWx = hitFirst.wx; _dft.dragStartWy = hitFirst.wy;
+    _dftUpdateInfoBar();
+    dftRender();
+    return;
   }
 
   if (_dft.mode !== 'select') {
@@ -11333,21 +11364,22 @@ function dftNew() {
 <div id="page-draft" class="page-content" style="display:none;">
   <div class="draft-wrap">
     <div class="draft-toolbar" id="dft-toolbar">
+      <!-- Row 1: placement tools -->
       <button class="draft-tool-btn active" id="dft-btn-select" onclick="dftMode('select')">↖ Select</button>
-      <div class="draft-tool-sep"></div>
-      <button class="draft-tool-btn" id="dft-btn-subject" onclick="dftMode('subject')">🧍 Subject</button>
-      <button class="draft-tool-btn" id="dft-btn-camera" onclick="dftMode('camera')">🎬 Camera</button>
+      <button class="draft-tool-btn" id="dft-btn-subject" onclick="dftMode('subject')">🧍 Sub</button>
+      <button class="draft-tool-btn" id="dft-btn-camera" onclick="dftMode('camera')">🎥 Cam</button>
       <button class="draft-tool-btn" id="dft-btn-light" onclick="dftMode('light')">💡 Light</button>
-      <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftMode('diffuser')">⬜ Diffuser</button>
-      <button class="draft-tool-btn" id="dft-btn-bounce" onclick="dftMode('bounce')">🔲 Bounce</button>
+      <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftMode('diffuser')">⬜ Diff</button>
+      <button class="draft-tool-btn" id="dft-btn-bounce" onclick="dftMode('bounce')">🔲 Bnc</button>
       <button class="draft-tool-btn" id="dft-btn-flag" onclick="dftMode('flag')">▬ Flag</button>
-      <div class="draft-tool-sep"></div>
+      <!-- Row 2: utility tools (flex-wrap pushes here) -->
+      <div style="flex-basis:100%;height:0;"></div>
       <button class="draft-tool-btn" onclick="dftImportPDF()">📄 PDF</button>
       <button class="draft-tool-btn" onclick="dftSetScaleUI()">📐 Scale</button>
       <button class="draft-tool-btn" onclick="dftToggleUnit()" id="dft-btn-unit">m</button>
       <div class="draft-tool-sep"></div>
       <button class="draft-tool-btn" onclick="dftSave()">💾 Save</button>
-      <button class="draft-tool-btn" onclick="dftLoadMenu()">📂 Drafts</button>
+      <button class="draft-tool-btn" onclick="dftLoadMenu()">📂 Load</button>
       <button class="draft-tool-btn" onclick="dftNew()">＋ New</button>
     </div>
     <div class="draft-canvas-area" id="dft-canvas-area">
