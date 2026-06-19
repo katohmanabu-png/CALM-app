@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.73</title>
+<title>CALM v1.1.2.74</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.73</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.74</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -1729,10 +1729,14 @@ body {
       <div class="rank-row" style="margin-top:4px;">
         <div class="rank-lbl"><span id="lbl-finder-type">💡 Type</span></div>
         <div id="finder-type-chips" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;">
-          <button class="finder-type-chip active" data-type="all"   onclick="setFinderType('all')">All</button>
-          <button class="finder-type-chip"        data-type="LED"   onclick="setFinderType('LED')">LED</button>
-          <button class="finder-type-chip"        data-type="LED COB" onclick="setFinderType('LED COB')">LED COB</button>
-          <button class="finder-type-chip"        data-type="HMI"   onclick="setFinderType('HMI')">HMI</button>
+          <button class="finder-type-chip active" data-type="all"      onclick="setFinderType('all')">All</button>
+          <button class="finder-type-chip"        data-type="LED"      onclick="setFinderType('LED')">LED (All)</button>
+          <button class="finder-type-chip"        data-type="LED COB"  onclick="setFinderType('LED COB')">LED COB</button>
+          <button class="finder-type-chip"        data-type="LED Panel" onclick="setFinderType('LED Panel')">LED Panel</button>
+          <button class="finder-type-chip"        data-type="LED Spot" onclick="setFinderType('LED Spot')">LED Spot</button>
+          <button class="finder-type-chip"        data-type="HMI"      onclick="setFinderType('HMI')">HMI (All)</button>
+          <button class="finder-type-chip"        data-type="HMI Open" onclick="setFinderType('HMI Open')">HMI Open</button>
+          <button class="finder-type-chip"        data-type="HMI Lens" onclick="setFinderType('HMI Lens')">HMI Lens</button>
           <button class="finder-type-chip"        data-type="Tungsten" onclick="setFinderType('Tungsten')">Tungsten</button>
         </div>
       </div>
@@ -6840,7 +6844,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.73';
+  var ver = 'v1.1.2.74';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -7329,13 +7333,19 @@ function onFinderBeamChange() {
 
 function setFinderType(type) {
   S_finderType = type;
-  // チップのアクティブ状態を更新
   var chips = document.querySelectorAll('.finder-type-chip');
   for (var i = 0; i < chips.length; i++) {
-    var isActive = chips[i].getAttribute('data-type') === type;
-    chips[i].classList.toggle('active', isActive);
+    chips[i].classList.toggle('active', chips[i].getAttribute('data-type') === type);
   }
   renderFinderResults();
+}
+function setAltType(type) {
+  S_altType = type;
+  var chips = document.querySelectorAll('.alt-type-chip');
+  for (var i = 0; i < chips.length; i++) {
+    chips[i].classList.toggle('active', chips[i].getAttribute('data-type') === type);
+  }
+  if (typeof renderAltResults === 'function') renderAltResults();
 }
 
 function onFinderDistChange() {
@@ -7518,7 +7528,7 @@ function renderFinderResults() {
       // 種類フィルター
       if (typeof S_finderType !== 'undefined' && S_finderType !== 'all') {
         var lg = light.group || '';
-        if (S_finderType === 'LED') { if (lg !== 'LED') continue; }
+        if (S_finderType === 'LED') { if (!lg.startsWith('LED')) continue; }
         else if (S_finderType === 'HMI') { if (!lg.startsWith('HMI')) continue; }
         else { if (lg !== S_finderType) continue; }
       }
@@ -7996,6 +8006,13 @@ function runAlternativeFinder() {
       var rlk = allAltModels[rli];
       var rlight = LIGHTS[rmk][rlk];
       if (!rlight.refData || rlight.pendingPhotometric) continue;
+      // 種類フィルター
+      if (S_altType !== 'all') {
+        var rlg = rlight.group || '';
+        if (S_altType === 'LED') { if (!rlg.startsWith('LED')) continue; }
+        else if (S_altType === 'HMI') { if (!rlg.startsWith('HMI')) continue; }
+        else { if (rlg !== S_altType) continue; }
+      }
       var rcct = (rlight.ccts || [5600])[0];
       var raccs = rlight.accessories || ['none'];
       var bestLux = 0, bestAcc = 'none', bestAngleDiff = 9999;
@@ -8265,6 +8282,7 @@ function runAlternativeFinder() {
 var S_calcFactors = [];
 var S_finderFactors = [];
 var S_altFactors = [];
+var S_altType = 'all';
 var S_factorOpen = {};
 
 function getTotalFactorStops(factors) {
@@ -10197,6 +10215,21 @@ function selectMakerModel(mk, lk) {
                  border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;">
           🔄 Find Alternatives
         </button>
+        <!-- 種類フィルター -->
+        <div style="margin-top:10px;">
+          <div style="font-size:10px;font-weight:700;color:var(--text-dim);margin-bottom:5px;">💡 TYPE FILTER</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;">
+            <button class="finder-type-chip alt-type-chip active" data-type="all"       onclick="setAltType('all')">All</button>
+            <button class="finder-type-chip alt-type-chip"        data-type="LED"       onclick="setAltType('LED')">LED (All)</button>
+            <button class="finder-type-chip alt-type-chip"        data-type="LED COB"   onclick="setAltType('LED COB')">LED COB</button>
+            <button class="finder-type-chip alt-type-chip"        data-type="LED Panel" onclick="setAltType('LED Panel')">LED Panel</button>
+            <button class="finder-type-chip alt-type-chip"        data-type="LED Spot"  onclick="setAltType('LED Spot')">LED Spot</button>
+            <button class="finder-type-chip alt-type-chip"        data-type="HMI"       onclick="setAltType('HMI')">HMI (All)</button>
+            <button class="finder-type-chip alt-type-chip"        data-type="HMI Open"  onclick="setAltType('HMI Open')">HMI Open</button>
+            <button class="finder-type-chip alt-type-chip"        data-type="HMI Lens"  onclick="setAltType('HMI Lens')">HMI Lens</button>
+            <button class="finder-type-chip alt-type-chip"        data-type="Tungsten"  onclick="setAltType('Tungsten')">Tungsten</button>
+          </div>
+        </div>
         <div id="alt-results" style="margin-top:12px;"></div>
       </div>
     </div>
@@ -10444,7 +10477,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.73</div>
+  <div class="drawer-footer">CALM v1.1.2.74</div>
 </div>
 
 </body>
