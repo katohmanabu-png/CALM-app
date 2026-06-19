@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.83</title>
+<title>CALM v1.1.2.84</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.83</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.84</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -2096,8 +2096,8 @@ function applyI18n() {
   s('lbl-table-note','tableNote');
   var tabs = [['tab-btn-l','tabLighting'],['tab-btn-t','tabTable'],['tab-btn-d','tabDMX']];
   for (var i = 0; i < tabs.length; i++) {
-    var el = document.getElementById(tabs[i][0]);
-    if (el) el.textContent = t(tabs[i][1]);
+    var _te = document.getElementById(tabs[i][0]);
+    if (_te) _te.textContent = t(tabs[i][1]);
   }
   var sv = document.querySelector('.modal-save'); if (sv) sv.textContent = t('favSave');
   var cn = document.querySelector('.modal-cancel'); if (cn) cn.textContent = t('favCancel');
@@ -6932,7 +6932,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.83';
+  var ver = 'v1.1.2.84';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10611,7 +10611,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.83</div>
+  <div class="drawer-footer">CALM v1.1.2.84</div>
 </div>
 
 </body>
