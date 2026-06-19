@@ -6741,8 +6741,8 @@ function showPage(p) {
   var _sr = el('sticky-result');
   if (_sr && p !== 'calc') _sr.style.display = 'none';
   try { if (p === 'calc')   { renderModels(); calculate(); updateLightSelectorHdr(); } }   catch(e) {}
-  try { if (p === 'alt')    { populateAltMakers(); } }            catch(e) {}
-  if (p === 'finder') { try { initFinderDistSlider(); } catch(e) {} try { renderFinderResults(); } catch(e) {} }
+  try { if (p === 'alt')    { syncAltFromCalc(); } }              catch(e) {}
+  if (p === 'finder') { try { syncFinderFromCalc(); } catch(e) {} try { initFinderDistSlider(); } catch(e) {} try { renderFinderResults(); } catch(e) {} }
   if (p === 'feedback') { try { fbRenderDevInfo(); } catch(e) {} }
 }
 
@@ -7771,6 +7771,93 @@ function rankAllLights(srcLux,srcWatts,srcCCTs,srcAcc,srcType,srcCCT,dist){
   res.sort(function(a,b){return b.matchScore-a.matchScore;});
   return res;
 }
+function syncAltFromCalc() {
+  // Sync maker/model/acc/dist from Calc state
+  var makerSel = el('alt-src-maker');
+  var modelSel = el('alt-src-model');
+  var accSel   = el('alt-src-acc');
+  if (!makerSel) { populateAltMakers(); return; }
+
+  // Populate makers
+  makerSel.innerHTML = '';
+  sortedMakerKeys().forEach(function(k) {
+    var o = document.createElement('option');
+    o.value = k; o.textContent = (MAKERS[k]||{}).name || k;
+    makerSel.appendChild(o);
+  });
+  // Select Calc's maker
+  if (S.maker) makerSel.value = S.maker;
+
+  // Populate models for selected maker
+  if (modelSel) {
+    modelSel.innerHTML = '';
+    sortedModelEntries(makerSel.value).forEach(function(e2) {
+      var o = document.createElement('option');
+      o.value = e2[0]; o.textContent = e2[1].name;
+      modelSel.appendChild(o);
+    });
+    if (S.model) modelSel.value = S.model;
+  }
+
+  // Populate accessories
+  if (accSel && modelSel) {
+    var light = LIGHTS[makerSel.value] && LIGHTS[makerSel.value][modelSel.value];
+    accSel.innerHTML = '';
+    (light && light.accessories || ['none']).forEach(function(a) {
+      var o = document.createElement('option');
+      o.value = a; o.textContent = (ACC_INFO[a]||{label:a}).label;
+      accSel.appendChild(o);
+    });
+    if (S.accKey) accSel.value = S.accKey;
+  }
+
+  // Sync distance from Calc
+  var dist = getActiveDist();
+  var altSl = el('alt-dist-sl');
+  if (altSl && dist > 0) {
+    S_altManualDist = null;
+    altSl.value = S_altImperial
+      ? Math.max(1.6, Math.min(328, Math.round(dist * 3.28084)))
+      : Math.max(0.5, Math.min(100, Math.round(dist * 2) / 2));
+    updateAltDistDisplay();
+  }
+
+  try { runAlternativeFinder(); } catch(e) {}
+}
+
+function syncFinderFromCalc() {
+  // Sync distance from Calc
+  var dist = getActiveDist();
+  var fSl = el('finder-dist-sl');
+  if (fSl && dist > 0) {
+    fSl.value = S_finderImperial
+      ? Math.max(1.6, Math.min(328, Math.round(dist * 3.28084)))
+      : Math.max(0.5, Math.min(100, Math.round(dist * 2) / 2));
+    S_finderManualDist = null;
+    updateFinderDistDisplay();
+  }
+
+  // Sync target f-stop from Calc result
+  try {
+    var light = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
+    if (light && light.refData && !light.pendingPhotometric) {
+      var cct = getActiveCCT();
+      var r = luxForCCTAndDist(light.refData, cct, S.accKey, dist);
+      if (r && r.lux > 0) {
+        var calcF = luxToFstopCamera(r.lux);
+        // Find nearest FINDER_FSTOPS index
+        var bestIdx = 0, bestDiff = Infinity;
+        for (var i = 0; i < FINDER_FSTOPS.length; i++) {
+          var d = Math.abs(Math.log2(FINDER_FSTOPS[i]) - Math.log2(calcF));
+          if (d < bestDiff) { bestDiff = d; bestIdx = i; }
+        }
+        var sl2 = el('rank-target-f-sl');
+        if (sl2) { sl2.value = bestIdx; onFinderFstopChange(); return; }
+      }
+    }
+  } catch(e) {}
+}
+
 function populateAltMakers() {
   var sel = el('alt-src-maker'); if (!sel) return;
   sel.innerHTML = '';
