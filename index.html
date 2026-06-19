@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.90</title>
+<title>CALM v1.1.2.91</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.90</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.91</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -1914,7 +1914,12 @@ var LANGS = {
     fbDevLabel:'デバイス情報', fbDevAuto:'(自動取得)',
     fbSubmitBtn:'📨 送信する', fbThanksTitle:'ありがとうございます！',
     fbThanksMsg:'CALMの改善にご協力いただきありがとうございます。',
-    fbAnotherBtn:'別のフィードバックを送る'
+    fbAnotherBtn:'別のフィードバックを送る',
+    triCalcToggle:'📐 高さ・角度から計算', triLockTitle:'長押しでロック', triLockTitleOn:'ロック中（長押しで解除）',
+    distInputBtn:'📷 距離を入力', searchBtn:'🔍 検索',
+    mxSearchBtn:'検索', mxSearchPlaceholder:'ライト名を入力...',
+    indivDistOff:'個別距離 OFF', indivDistOn:'個別距離 ON',
+    cmDistTitle:'📷 距離を入力'
   },
   en: {
     navCalc:'Calc', navMix:'Mix', navFinder:'Finder', navAlt:'Alt', navCamera:'Camera', pageCalcTitle:'Light Calculator', pageCalcSub:'Exposure & F-stop Calculator', pageMixTitle:'Mix', pageMixSub:'Combine multiple lights — calculate total exposure & mixed CCT', pageFinderTitle:'Light Finder', pageFinderSub:'Find the right fixture', pageAltTitle:'Alternative Finder', pageAltSub:'Find the best replacement', pageCameraTitle:'Camera', pageCameraSub:'Digital / Film / Photograph',
@@ -6932,7 +6937,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.90';
+  var ver = 'v1.1.2.91';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10609,7 +10614,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.90</div>
+  <div class="drawer-footer">CALM v1.1.2.91</div>
 </div>
 
 </body>
