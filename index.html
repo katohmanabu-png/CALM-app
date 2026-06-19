@@ -9422,6 +9422,13 @@ function loadCalcState() {
     }
     var sFilmStockIdx = localStorage.getItem('calm_filmStockIdx');
     if (sFilmStockIdx !== null) S.filmStockIdx = parseInt(sFilmStockIdx) || 0;
+
+    // DOMスライダーにも反映（onCamChangeが読み出す前に上書き）
+    if (S.camType === 'cinema' || !S.camType) {
+      var isoSl = el('iso'); if (isoSl && S.iso != null) isoSl.value = S.iso;
+      var fpsSl2 = el('fps'); if (fpsSl2 && S.fps != null) fpsSl2.value = S.fps;
+      var fstopSl = el('fstop'); if (fstopSl && S.fstop != null) fstopSl.value = S.fstop;
+    }
   } catch(e) {}
 }
 
