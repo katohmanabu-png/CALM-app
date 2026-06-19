@@ -8395,15 +8395,22 @@ function buildFactorSection(prefix) {
     var toggleLabel = fEnabled ? 'ON' : 'OFF';
     var ftype = f.type || 'none';
     var curTypeNames = _factorNameOptions(ftype);
+    // タイプ別カラーパレット（濃→中→淡 の3段階、行番号で循環）
+    var _bounceShades = ['#4fc3f7','#29b6f6','#0288d1'];
+    var _diffuseShades = ['#81c784','#66bb6a','#43a047'];
+    var _otherShades  = ['#ffb74d','#ffa726','#fb8c00'];
+    var _shades = typeBounce ? _bounceShades : typeDiffuse ? _diffuseShades : _otherShades;
+    var rowColor = _shades[fi % _shades.length];
     rowsHtml +=
-      '<div style="padding:8px 10px;border-top:1px solid rgba(255,255,255,0.05);opacity:' + rowOpacity + ';">' +
+      '<div style="padding:8px 10px;border-top:1px solid rgba(255,255,255,0.05);opacity:' + rowOpacity + ';' +
+           'border-left:3px solid ' + rowColor + ';margin-left:2px;padding-left:8px;">' +
         // Type buttons + ON/OFF + delete
         '<div style="display:flex;gap:4px;margin-bottom:6px;align-items:center;">' +
-          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'bounce\')" style="padding:2px 10px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeBounce ? 'var(--accent)' : 'transparent') + ';color:' + (typeBounce ? 'white' : 'var(--accent)') + ';">Bounce</button>' +
-          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'diffuse\')" style="padding:2px 10px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeDiffuse ? 'var(--accent)' : 'transparent') + ';color:' + (typeDiffuse ? 'white' : 'var(--accent)') + ';">Diffuse</button>' +
-          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'none\')" style="padding:2px 10px;border-radius:12px;border:1px solid var(--accent);font-size:10px;font-weight:700;cursor:pointer;background:' + (typeNone ? 'var(--accent)' : 'transparent') + ';color:' + (typeNone ? 'white' : 'var(--accent)') + ';">Other</button>' +
+          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'bounce\')" style="padding:2px 10px;border-radius:12px;border:1px solid ' + (typeBounce?rowColor:'rgba(255,255,255,0.2)') + ';font-size:10px;font-weight:700;cursor:pointer;background:' + (typeBounce ? rowColor : 'transparent') + ';color:' + (typeBounce ? '#000' : 'var(--text-dim)') + ';">Bounce</button>' +
+          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'diffuse\')" style="padding:2px 10px;border-radius:12px;border:1px solid ' + (typeDiffuse?rowColor:'rgba(255,255,255,0.2)') + ';font-size:10px;font-weight:700;cursor:pointer;background:' + (typeDiffuse ? rowColor : 'transparent') + ';color:' + (typeDiffuse ? '#000' : 'var(--text-dim)') + ';">Diffuse</button>' +
+          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'none\')" style="padding:2px 10px;border-radius:12px;border:1px solid ' + (typeNone?rowColor:'rgba(255,255,255,0.2)') + ';font-size:10px;font-weight:700;cursor:pointer;background:' + (typeNone ? rowColor : 'transparent') + ';color:' + (typeNone ? '#000' : 'var(--text-dim)') + ';">Other</button>' +
           '<div style="flex:1;"></div>' +
-          '<button onclick="window._factorToggleEnabled(\'' + prefix + '\',' + fi + ')" style="padding:2px 7px;border-radius:8px;border:1.5px solid var(--accent);font-size:10px;font-weight:800;cursor:pointer;background:' + toggleBg + ';color:' + toggleColor + ';">' + toggleLabel + '</button>' +
+          '<button onclick="window._factorToggleEnabled(\'' + prefix + '\',' + fi + ')" style="padding:2px 7px;border-radius:8px;border:1.5px solid ' + rowColor + ';font-size:10px;font-weight:800;cursor:pointer;background:' + (fEnabled ? rowColor : 'transparent') + ';color:' + (fEnabled ? '#000' : rowColor) + ';">' + toggleLabel + '</button>' +
           '<button onclick="window._factorDel(\'' + prefix + '\',' + fi + ')" style="background:none;border:none;color:#f44;font-size:14px;cursor:pointer;padding:0 2px;">✕</button>' +
         '</div>' +
         // Name input + star save (datalist switches by type)
