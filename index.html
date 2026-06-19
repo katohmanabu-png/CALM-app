@@ -10626,6 +10626,23 @@ function _dftMD(e) {
     dftRender(); return;
   }
 
+  // Rotate mode: tap object then drag to rotate
+  if (_dft.mode === 'rotate') {
+    var rotHit = _dftObjAt(mx, my);
+    if (rotHit) {
+      _dftPushHistory();
+      var rsp = _dftW2S(rotHit.wx, rotHit.wy);
+      _dft.rotActive      = true;
+      _dft.rotObj         = rotHit;
+      _dft.selected       = rotHit.id;
+      _dft.rotStartAngle  = Math.atan2(my - rsp.y, mx - rsp.x);
+      _dft.rotObjStartRot = rotHit.rot || 0;
+      _dftUpdateInfoBar();
+      dftRender();
+    }
+    return;
+  }
+
   // Delete mode: tap object to delete it
   if (_dft.mode === 'delete') {
     var delHit = _dftObjAt(mx, my);
@@ -11409,6 +11426,7 @@ function dftNew() {
       <!-- Row 1: placement + edit tools -->
       <button class="draft-tool-btn active" id="dft-btn-select" onclick="dftMode('select')">↖ Select</button>
       <button class="draft-tool-btn dft-del-btn" id="dft-btn-delete" onclick="dftMode('delete')">🗑 Del</button>
+      <button class="draft-tool-btn" id="dft-btn-rotate" onclick="dftMode('rotate')">🔄 Rot</button>
       <button class="draft-tool-btn dft-undo-btn" onclick="dftUndo()" id="dft-btn-undo" disabled>↩ Undo</button>
       <div class="draft-tool-sep"></div>
       <button class="draft-tool-btn" id="dft-btn-subject" onclick="dftMode('subject')">🧍 Sub</button>
