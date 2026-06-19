@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.91</title>
+<title>CALM v1.1.3.0</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -696,6 +696,18 @@ body {
   overflow-x: hidden;
   width: 100% !important;
 }
+/* ===== DRAFT ===== */
+#page-draft { position:fixed;top:0;left:0;right:0;bottom:0;z-index:1;padding:0!important; }
+.draft-wrap { display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden; }
+.draft-toolbar { display:flex;gap:5px;padding:8px 10px;background:var(--bg);border-bottom:1px solid var(--border,#eee);overflow-x:auto;flex-shrink:0;-webkit-overflow-scrolling:touch;padding-top:max(env(safe-area-inset-top,8px),44px); }
+.draft-tool-btn { padding:6px 11px;border:1.5px solid var(--border,#eee);border-radius:9px;font-size:11px;font-weight:800;background:var(--bg);color:var(--text);cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif; }
+.draft-tool-btn.active { background:var(--accent);color:#fff;border-color:var(--accent); }
+.draft-tool-sep { width:1px;background:var(--border,#ccc);flex-shrink:0;margin:4px 2px; }
+.draft-canvas-area { flex:1;position:relative;overflow:hidden;background:#dde0e6;touch-action:none; }
+.draft-canvas { position:absolute;top:0;left:0;display:block; }
+.draft-infobar { position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,0.93);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-top:1px solid rgba(0,0,0,0.08);padding:5px 10px;display:flex;align-items:center;gap:8px;min-height:34px;flex-wrap:wrap;padding-bottom:max(env(safe-area-inset-bottom,5px),5px); }
+.draft-scale-pill { background:var(--accent);color:#fff;border-radius:6px;padding:2px 7px;font-size:9px;font-weight:800;letter-spacing:0.5px;white-space:nowrap; }
+.draft-status { font-size:10px;color:#555;font-weight:600;flex:1;font-family:'Nunito',sans-serif; }
 </style>
 </head>
 <body>
@@ -707,7 +719,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.91</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.0</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -6848,7 +6860,7 @@ function updateDrawerActiveItem(page) {
   });
 }
 function showPage(p) {
-  var PAGES = ['calc','camera','mix','finder','alt','feedback'];
+  var PAGES = ['calc','camera','mix','finder','alt','feedback','draft'];
   PAGES.forEach(function(pg) {
     var div = document.getElementById('page-' + pg);
     if (!div) return;
@@ -6881,6 +6893,7 @@ function showPage(p) {
   if (p === 'finder') { try { syncFinderFromCalc(); } catch(e) {} try { initFinderDistSlider(); } catch(e) {} try { renderFinderResults(); } catch(e) {} }
   if (p === 'mix')    { try { syncMixFromCalc(); }   catch(e) {} try { renderMixList(); calcMix(); } catch(e) {} }
   if (p === 'feedback') { try { fbRenderDevInfo(); } catch(e) {} }
+  if (p === 'draft')    { try { dftInit(); } catch(e) {} }
 }
 
 // ── Camera info shared helper ──────────────────────────────
@@ -6937,7 +6950,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.91';
+  var ver = 'v1.1.3.0';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -7082,7 +7095,7 @@ function fbReset() {
 
 // ── スワイプ切り替え（スライドアニメーション付き） ──────────
 (function() {
-  var PAGES = ['calc','camera','mix','finder','alt','feedback'];
+  var PAGES = ['calc','camera','mix','finder','alt','feedback','draft'];
   var tx0 = 0, ty0 = 0;
   var SWIPE_THRESHOLD = 60;   // 確定に必要な横移動量(px)
   var DRAG_START_PX  = 12;    // ドラッグ開始を判定する横移動量(px)
@@ -10152,6 +10165,862 @@ function selectMakerModel(mk, lk) {
   try { collapseLightSelector(); } catch(e3) {}
   showPage('calc');
 }
+
+// ===== DRAFT ENGINE v1.1.3.0 =====
+var _dft = {
+  canvas:null, ctx:null,
+  ox:0, oy:0, zoom:1,
+  scale:0.05,   // meters per pixel at zoom=1
+  unit:'m',
+  mode:'select',
+  objects:[],
+  selected:null,
+  nextId:1,
+  // drag/pan/rotate state
+  pointerDown:false,
+  dragObj:null,
+  dragStartPx:0, dragStartPy:0,
+  dragStartWx:0, dragStartWy:0,
+  panActive:false,
+  panStartPx:0, panStartPy:0,
+  panStartOx:0, panStartOy:0,
+  pinchActive:false,
+  lastPinchDist:0,
+  lastPinchMx:0, lastPinchMy:0,
+  rotActive:false,
+  rotObj:null,
+  rotStartAngle:0,
+  rotObjStartRot:0,
+  // PDF
+  pdfImg:null, pdfWm:0, pdfHm:0,
+  // calibration
+  calibMode:false, calibPts:[],
+  // light picker pending position
+  pendingLightWx:0, pendingLightWy:0,
+  // persistence
+  drafts:[],
+  draftId:null,
+  draftName:'Draft 1',
+  inited:false,
+};
+
+function dftInit() {
+  if (_dft.inited) return;
+  var canvas = document.getElementById('dft-canvas');
+  var area   = document.getElementById('dft-canvas-area');
+  if (!canvas || !area) return;
+  _dft.canvas = canvas;
+  _dft.ctx    = canvas.getContext('2d');
+  _dft.inited = true;
+
+  function dftResize() {
+    var infoH = 38;
+    canvas.width  = area.clientWidth  || 375;
+    canvas.height = Math.max(200, area.clientHeight - infoH);
+    _dft.ox = canvas.width  / 2;
+    _dft.oy = canvas.height / 2;
+    dftRender();
+  }
+  setTimeout(dftResize, 60);
+  window.addEventListener('resize', function(){
+    if (document.getElementById('page-draft').style.display !== 'none') dftResize();
+  });
+
+  canvas.addEventListener('mousedown',  _dftMD);
+  canvas.addEventListener('mousemove',  _dftMM);
+  canvas.addEventListener('mouseup',    _dftMU);
+  canvas.addEventListener('mouseleave', _dftMU);
+  canvas.addEventListener('wheel',      _dftWheel, {passive:false});
+  canvas.addEventListener('dblclick',   _dftDbl);
+  canvas.addEventListener('touchstart', _dftTS, {passive:false});
+  canvas.addEventListener('touchmove',  _dftTM, {passive:false});
+  canvas.addEventListener('touchend',   _dftTE);
+  canvas.addEventListener('touchcancel',_dftTE);
+
+  try {
+    var ds = localStorage.getItem('calm_drafts');
+    if (ds) _dft.drafts = JSON.parse(ds);
+    var da = localStorage.getItem('calm_draft_active');
+    if (da) {
+      var found = _dft.drafts.find(function(d){ return d.id === da; });
+      if (found) _dftLoadDraft(found, true);
+    }
+  } catch(e) {}
+
+  dftRender();
+}
+
+// coord transforms
+function _dftS2W(sx, sy) {
+  return { x:(sx - _dft.ox) / _dft.zoom * _dft.scale,
+           y:(sy - _dft.oy) / _dft.zoom * _dft.scale };
+}
+function _dftW2S(wx, wy) {
+  return { x: wx / _dft.scale * _dft.zoom + _dft.ox,
+           y: wy / _dft.scale * _dft.zoom + _dft.oy };
+}
+
+// mode switch
+function dftMode(m) {
+  _dft.mode = m;
+  _dft.selected = null;
+  document.querySelectorAll('.draft-tool-btn[id^="dft-btn-"]').forEach(function(b){ b.classList.remove('active'); });
+  var ab = document.getElementById('dft-btn-' + m);
+  if (ab) ab.classList.add('active');
+  var area = document.getElementById('dft-canvas-area');
+  if (area) area.style.cursor = m === 'select' ? 'default' : 'crosshair';
+  _dftSetStatus(m === 'select' ? 'Tap object to select · Drag to move · Double-tap to rename' : 'Tap canvas to place ' + m);
+  dftRender();
+}
+
+function _dftSetStatus(txt) {
+  var s = document.getElementById('dft-status');
+  if (s) s.textContent = txt;
+}
+
+// hit test
+function _dftObjAt(sx, sy) {
+  var HIT = 24;
+  var best = null, bestD = Infinity;
+  for (var i = _dft.objects.length - 1; i >= 0; i--) {
+    var o = _dft.objects[i];
+    var sp = _dftW2S(o.wx, o.wy);
+    var d  = Math.sqrt((sp.x-sx)*(sp.x-sx) + (sp.y-sy)*(sp.y-sy));
+    if (d < HIT && d < bestD) { bestD = d; best = o; }
+  }
+  return best;
+}
+
+// add object
+function _dftAddObj(type, wx, wy, extra) {
+  var id  = 'do' + (_dft.nextId++);
+  var obj = {id:id, type:type, wx:wx, wy:wy, rot:0, label:''};
+  if (extra) for (var k in extra) obj[k] = extra[k];
+  if (type === 'subject')  { obj.label = 'Subject'; }
+  else if (type === 'camera')   { obj.label = 'Camera'; }
+  else if (type === 'light')    { obj.label = obj.lightName || 'Light'; obj.beamAngle = obj.beamAngle || 75; }
+  else if (type === 'diffuser') { obj.label = 'Diffuser'; obj.w = obj.w||1.2; obj.h = obj.h||1.2; }
+  else if (type === 'bounce')   { obj.label = 'Bounce';   obj.w = obj.w||1.2; obj.h = obj.h||1.2; }
+  else if (type === 'flag')     { obj.label = 'Flag';     obj.w = obj.w||1.2; obj.h = obj.h||0.6; }
+  _dft.objects.push(obj);
+  return obj;
+}
+
+function _dftDist(a, b) {
+  var dx = a.wx - b.wx, dy = a.wy - b.wy;
+  return Math.sqrt(dx*dx + dy*dy);
+}
+
+function _dftFmt(m) {
+  if (_dft.unit === 'ft') return (m * 3.28084).toFixed(1) + 'ft';
+  return m.toFixed(1) + 'm';
+}
+
+// ── RENDER ──────────────────────────────────────────────────
+function dftRender() {
+  var c = _dft.canvas, ctx = _dft.ctx;
+  if (!c || !ctx) return;
+  var W = c.width, H = c.height;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#dde0e6';
+  ctx.fillRect(0, 0, W, H);
+
+  // PDF background
+  if (_dft.pdfImg) {
+    var ps = _dftW2S(0, 0);
+    var pe = _dftW2S(_dft.pdfWm, _dft.pdfHm);
+    ctx.drawImage(_dft.pdfImg, ps.x, ps.y, pe.x - ps.x, pe.y - ps.y);
+  }
+
+  _dftDrawGrid(ctx, W, H);
+
+  // distance lines (under objects)
+  _dftDrawDistances(ctx);
+
+  // objects
+  _dft.objects.forEach(function(o) { _dftDrawObj(ctx, o); });
+
+  // calibration points
+  if (_dft.calibMode && _dft.calibPts.length) {
+    ctx.fillStyle = '#e53935';
+    _dft.calibPts.forEach(function(p) {
+      var s = _dftW2S(p.x, p.y);
+      ctx.beginPath(); ctx.arc(s.x, s.y, 7, 0, Math.PI*2); ctx.fill();
+    });
+    if (_dft.calibPts.length === 2) {
+      var s0 = _dftW2S(_dft.calibPts[0].x, _dft.calibPts[0].y);
+      var s1 = _dftW2S(_dft.calibPts[1].x, _dft.calibPts[1].y);
+      ctx.strokeStyle = '#e53935'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y); ctx.stroke();
+    }
+  }
+
+  _dftUpdatePill();
+}
+
+function _dftDrawGrid(ctx, W, H) {
+  var pxPerM = _dft.zoom / _dft.scale;
+  var gm = 1;
+  if (pxPerM < 8)  gm = 10;
+  else if (pxPerM < 20) gm = 5;
+  else if (pxPerM > 300) gm = 0.25;
+  else if (pxPerM > 150) gm = 0.5;
+
+  var sw = _dftS2W(0, 0), ew = _dftS2W(W, H);
+  var x0 = Math.floor(sw.x / gm) * gm;
+  var y0 = Math.floor(sw.y / gm) * gm;
+
+  ctx.strokeStyle = 'rgba(0,0,0,0.09)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  for (var wx = x0; wx <= ew.x + gm; wx += gm) {
+    var sx = _dftW2S(wx, 0).x;
+    ctx.moveTo(sx, 0); ctx.lineTo(sx, H);
+  }
+  for (var wy = y0; wy <= ew.y + gm; wy += gm) {
+    var sy = _dftW2S(0, wy).y;
+    ctx.moveTo(0, sy); ctx.lineTo(W, sy);
+  }
+  ctx.stroke();
+
+  // origin cross
+  var op = _dftW2S(0, 0);
+  ctx.strokeStyle = 'rgba(0,0,0,0.25)'; ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(op.x-12, op.y); ctx.lineTo(op.x+12, op.y);
+  ctx.moveTo(op.x, op.y-12); ctx.lineTo(op.x, op.y+12);
+  ctx.stroke();
+}
+
+function _dftRR(ctx, x, y, w, h, r) {
+  r = Math.min(r, w/2, h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r, y); ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+  ctx.lineTo(x+w, y+h-r); ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+  ctx.lineTo(x+r, y+h); ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+  ctx.lineTo(x, y+r); ctx.quadraticCurveTo(x, y, x+r, y);
+  ctx.closePath();
+}
+
+function _dftDrawObj(ctx, o) {
+  var sp = _dftW2S(o.wx, o.wy);
+  var sx = sp.x, sy = sp.y;
+  var sel = (_dft.selected === o.id);
+  var R = 18;
+
+  ctx.save();
+  ctx.translate(sx, sy);
+  ctx.rotate(o.rot || 0);
+
+  if (o.type === 'subject') {
+    ctx.fillStyle   = sel ? '#ff6b00' : '#1976d2';
+    ctx.strokeStyle = sel ? '#e53500' : '#0d47a1';
+    ctx.lineWidth   = sel ? 2.5 : 1.5;
+    // head
+    ctx.beginPath(); ctx.arc(0, -R*0.55, R*0.38, 0, Math.PI*2);
+    ctx.fill(); ctx.stroke();
+    // body
+    ctx.beginPath();
+    ctx.moveTo(0, -R*0.17); ctx.lineTo(0, R*0.5);
+    ctx.moveTo(-R*0.5, R*0.1); ctx.lineTo(R*0.5, R*0.1);
+    ctx.moveTo(0, R*0.5); ctx.lineTo(-R*0.4, R);
+    ctx.moveTo(0, R*0.5); ctx.lineTo(R*0.4, R);
+    ctx.strokeStyle = sel ? '#e53500' : '#0d47a1';
+    ctx.lineWidth   = sel ? 2.5 : 1.5;
+    ctx.stroke();
+
+  } else if (o.type === 'camera') {
+    ctx.fillStyle   = sel ? '#e65100' : '#424242';
+    ctx.strokeStyle = sel ? '#b71c1c' : '#212121';
+    ctx.lineWidth   = sel ? 2.5 : 1.5;
+    _dftRR(ctx, -R, -R*0.65, R*2, R*1.3, 4);
+    ctx.fill(); ctx.stroke();
+    // viewfinder
+    _dftRR(ctx, -R*0.35, -R*0.65-8, R*0.7, 8, 3);
+    ctx.fillStyle = sel ? '#e65100' : '#424242'; ctx.fill(); ctx.stroke();
+    // lens
+    ctx.fillStyle = sel ? '#ffcc80' : '#9e9e9e';
+    ctx.strokeStyle = sel ? '#b71c1c' : '#212121';
+    ctx.beginPath(); ctx.arc(0, 0, R*0.5, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#111';
+    ctx.beginPath(); ctx.arc(0, 0, R*0.25, 0, Math.PI*2); ctx.fill();
+
+  } else if (o.type === 'light') {
+    // beam cone (pointing down = +y direction, rotated by obj.rot)
+    var ba = ((o.beamAngle || 75) * Math.PI / 180);
+    var bl = Math.min(120, (o.beamLen || 4) / _dft.scale * _dft.zoom);
+    ctx.fillStyle   = 'rgba(255,210,0,0.13)';
+    ctx.strokeStyle = 'rgba(220,150,0,0.35)';
+    ctx.lineWidth   = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, bl, Math.PI/2 - ba/2, Math.PI/2 + ba/2);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    // body
+    ctx.fillStyle   = sel ? '#e65100' : '#f9a825';
+    ctx.strokeStyle = sel ? '#b71c1c' : '#e65100';
+    ctx.lineWidth   = sel ? 2.5 : 1.5;
+    ctx.beginPath(); ctx.arc(0, 0, R, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    // inner ring
+    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+    ctx.lineWidth   = 1.5;
+    ctx.beginPath(); ctx.arc(0, 0, R*0.55, 0, Math.PI*2); ctx.stroke();
+
+  } else if (o.type === 'diffuser' || o.type === 'bounce' || o.type === 'flag') {
+    var rw = (o.w || 1.2) / _dft.scale * _dft.zoom;
+    var rh = (o.h || 1.2) / _dft.scale * _dft.zoom;
+    rw = Math.max(rw, 10); rh = Math.max(rh, 8);
+    var fc = o.type==='flag' ? '#222' : (o.type==='bounce' ? '#fffde7' : '#e3f2fd');
+    var sc = o.type==='flag' ? '#111' : (o.type==='bounce' ? '#f9a825' : '#1976d2');
+    ctx.fillStyle   = fc;
+    ctx.strokeStyle = sel ? '#e53500' : sc;
+    ctx.lineWidth   = sel ? 2.5 : 1.5;
+    _dftRR(ctx, -rw/2, -rh/2, rw, rh, 4);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = sel ? '#e53500' : sc;
+    ctx.font = 'bold 9px -apple-system,Arial';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    var ltr = o.type==='diffuser' ? 'D' : o.type==='bounce' ? 'B' : 'F';
+    ctx.fillText(ltr, 0, 0);
+  }
+
+  ctx.restore();
+
+  // label
+  ctx.fillStyle = sel ? '#e53500' : '#1a1a1a';
+  ctx.font = 'bold 9px -apple-system,Arial';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.fillText(o.label || '', sx, sy + R + 3);
+
+  // selection ring + rotation handle
+  if (sel) {
+    ctx.strokeStyle = '#e53500'; ctx.lineWidth = 2;
+    ctx.setLineDash([5, 3]);
+    ctx.beginPath(); ctx.arc(sx, sy, R+7, 0, Math.PI*2); ctx.stroke();
+    ctx.setLineDash([]);
+    // rotation handle (at top when rot=0)
+    var rha = (o.rot || 0) - Math.PI/2;
+    var rhx = sx + Math.cos(rha) * (R+20);
+    var rhy = sy + Math.sin(rha) * (R+20);
+    ctx.fillStyle = '#e53500';
+    ctx.beginPath(); ctx.arc(rhx, rhy, 8, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 11px Arial';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('↻', rhx, rhy);
+  }
+}
+
+function _dftDrawDistances(ctx) {
+  var lights    = _dft.objects.filter(function(o){ return o.type==='light'; });
+  var subjects  = _dft.objects.filter(function(o){ return o.type==='subject'; });
+  var diffusers = _dft.objects.filter(function(o){ return o.type==='diffuser'; });
+
+  lights.forEach(function(lt) {
+    subjects.forEach(function(sb)  { _dftDistLine(ctx, lt, sb, '#f9a825', true); });
+    diffusers.forEach(function(df) { _dftDistLine(ctx, lt, df, '#ab47bc', false); });
+  });
+  diffusers.forEach(function(df) {
+    subjects.forEach(function(sb)  { _dftDistLine(ctx, df, sb, '#26a69a', false); });
+  });
+}
+
+function _dftDistLine(ctx, a, b, color, showFstop) {
+  var as = _dftW2S(a.wx, a.wy);
+  var bs = _dftW2S(b.wx, b.wy);
+  var dm = _dftDist(a, b);
+  ctx.save();
+  ctx.strokeStyle = color; ctx.lineWidth = 1.5;
+  ctx.setLineDash([5, 4]);
+  ctx.beginPath(); ctx.moveTo(as.x, as.y); ctx.lineTo(bs.x, bs.y); ctx.stroke();
+  ctx.setLineDash([]);
+
+  var mx = (as.x+bs.x)/2, my = (as.y+bs.y)/2;
+  var label = _dftFmt(dm);
+  if (showFstop && a.type==='light' && a.makerKey) {
+    var fv = _dftCalcFstop(a, dm);
+    if (fv) label += ' f' + fv.toFixed(1);
+  }
+  ctx.font = 'bold 10px -apple-system,Arial';
+  var tw = ctx.measureText(label).width;
+  ctx.fillStyle = 'rgba(255,255,255,0.88)';
+  ctx.fillRect(mx - tw/2 - 5, my - 8, tw + 10, 16);
+  ctx.fillStyle = color;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(label, mx, my);
+  ctx.restore();
+}
+
+function _dftCalcFstop(lightObj, distM) {
+  try {
+    if (!lightObj.makerKey || !lightObj.modelKey) return null;
+    var lt = LIGHTS[lightObj.makerKey] && LIGHTS[lightObj.makerKey][lightObj.modelKey];
+    if (!lt || !lt.refData) return null;
+    var r = luxForCCTAndDist(lt.refData, 5600, lightObj.accKey||'none', distM);
+    if (!r || !r.lux) return null;
+    return luxToFstopCamera(r.lux);
+  } catch(e) { return null; }
+}
+
+function _dftUpdatePill() {
+  var pill = document.getElementById('dft-scale-pill');
+  if (!pill) return;
+  var pxPerM = _dft.zoom / _dft.scale;
+  var disp   = _dft.unit === 'ft' ? (pxPerM * 0.3048).toFixed(0) + 'px/ft' : pxPerM.toFixed(0) + 'px/m';
+  pill.textContent = disp;
+}
+
+// ── MOUSE ──────────────────────────────────────────────────
+function _dftMD(e) {
+  e.preventDefault();
+  var r  = _dft.canvas.getBoundingClientRect();
+  var mx = e.clientX - r.left, my = e.clientY - r.top;
+
+  if (_dft.calibMode) {
+    var w = _dftS2W(mx, my);
+    _dft.calibPts.push(w);
+    if (_dft.calibPts.length === 2) _dftCalibFinish();
+    else _dftSetStatus('📍 Tap point 2...');
+    dftRender(); return;
+  }
+
+  if (_dft.mode !== 'select') {
+    var wp = _dftS2W(mx, my);
+    if (_dft.mode === 'light') { _dftShowLightPicker(wp.x, wp.y); }
+    else {
+      var no = _dftAddObj(_dft.mode, wp.x, wp.y);
+      _dft.selected = no.id;
+      _dftUpdateInfoBar();
+      dftRender();
+    }
+    return;
+  }
+
+  // rotation handle check
+  if (_dft.selected) {
+    var so = _dft.objects.find(function(o){ return o.id === _dft.selected; });
+    if (so) {
+      var ssp = _dftW2S(so.wx, so.wy);
+      var rha = (so.rot||0) - Math.PI/2;
+      var rhx = ssp.x + Math.cos(rha)*(18+20);
+      var rhy = ssp.y + Math.sin(rha)*(18+20);
+      if (Math.sqrt((mx-rhx)*(mx-rhx)+(my-rhy)*(my-rhy)) < 14) {
+        _dft.rotActive       = true;
+        _dft.rotObj          = so;
+        _dft.rotStartAngle   = Math.atan2(my-ssp.y, mx-ssp.x);
+        _dft.rotObjStartRot  = so.rot || 0;
+        return;
+      }
+    }
+  }
+
+  var hit = _dftObjAt(mx, my);
+  if (hit) {
+    _dft.selected     = hit.id;
+    _dft.pointerDown  = true;
+    _dft.dragObj      = hit;
+    _dft.dragStartPx  = mx; _dft.dragStartPy = my;
+    _dft.dragStartWx  = hit.wx; _dft.dragStartWy = hit.wy;
+  } else {
+    _dft.selected   = null;
+    _dft.panActive  = true;
+    _dft.panStartPx = mx; _dft.panStartPy = my;
+    _dft.panStartOx = _dft.ox; _dft.panStartOy = _dft.oy;
+  }
+  _dftUpdateInfoBar();
+  dftRender();
+}
+
+function _dftMM(e) {
+  var r  = _dft.canvas.getBoundingClientRect();
+  var mx = e.clientX - r.left, my = e.clientY - r.top;
+  if (_dft.rotActive && _dft.rotObj) {
+    var ssp = _dftW2S(_dft.rotObj.wx, _dft.rotObj.wy);
+    _dft.rotObj.rot = _dft.rotObjStartRot + Math.atan2(my-ssp.y, mx-ssp.x) - _dft.rotStartAngle;
+    dftRender(); return;
+  }
+  if (_dft.panActive) {
+    _dft.ox = _dft.panStartOx + (mx - _dft.panStartPx);
+    _dft.oy = _dft.panStartOy + (my - _dft.panStartPy);
+    dftRender(); return;
+  }
+  if (_dft.pointerDown && _dft.dragObj) {
+    var dx = (mx - _dft.dragStartPx) / _dft.zoom * _dft.scale;
+    var dy = (my - _dft.dragStartPy) / _dft.zoom * _dft.scale;
+    _dft.dragObj.wx = _dft.dragStartWx + dx;
+    _dft.dragObj.wy = _dft.dragStartWy + dy;
+    dftRender();
+  }
+}
+
+function _dftMU() {
+  _dft.pointerDown = false; _dft.dragObj = null;
+  _dft.panActive   = false;
+  _dft.rotActive   = false; _dft.rotObj = null;
+}
+
+function _dftWheel(e) {
+  e.preventDefault();
+  var r  = _dft.canvas.getBoundingClientRect();
+  var mx = e.clientX - r.left, my = e.clientY - r.top;
+  var f  = e.deltaY > 0 ? 0.84 : 1.19;
+  _dft.ox   = mx - (mx - _dft.ox) * f;
+  _dft.oy   = my - (my - _dft.oy) * f;
+  _dft.zoom = Math.max(0.05, Math.min(30, _dft.zoom * f));
+  dftRender();
+}
+
+function _dftDbl(e) {
+  var r  = _dft.canvas.getBoundingClientRect();
+  var mx = e.clientX - r.left, my = e.clientY - r.top;
+  var hit = _dftObjAt(mx, my);
+  if (!hit) return;
+  var nl = prompt('Label:', hit.label || hit.type);
+  if (nl !== null) { hit.label = nl; dftRender(); }
+}
+
+// ── TOUCH ──────────────────────────────────────────────────
+function _dftTS(e) {
+  e.preventDefault();
+  var r = _dft.canvas.getBoundingClientRect();
+  if (e.touches.length === 1) {
+    var t = e.touches[0];
+    _dftMD({clientX:t.clientX, clientY:t.clientY, preventDefault:function(){}});
+  } else if (e.touches.length === 2) {
+    _dft.panActive=false; _dft.pointerDown=false; _dft.dragObj=null;
+    _dft.pinchActive = true;
+    var t0=e.touches[0], t1=e.touches[1];
+    _dft.lastPinchDist = Math.hypot(t0.clientX-t1.clientX, t0.clientY-t1.clientY);
+    _dft.lastPinchMx   = (t0.clientX+t1.clientX)/2 - r.left;
+    _dft.lastPinchMy   = (t0.clientY+t1.clientY)/2 - r.top;
+  }
+}
+
+function _dftTM(e) {
+  e.preventDefault();
+  var r = _dft.canvas.getBoundingClientRect();
+  if (e.touches.length === 1 && !_dft.pinchActive) {
+    var t = e.touches[0];
+    _dftMM({clientX:t.clientX, clientY:t.clientY});
+  } else if (e.touches.length === 2) {
+    var t0=e.touches[0], t1=e.touches[1];
+    var dist = Math.hypot(t0.clientX-t1.clientX, t0.clientY-t1.clientY);
+    var mx   = (t0.clientX+t1.clientX)/2 - r.left;
+    var my   = (t0.clientY+t1.clientY)/2 - r.top;
+    _dft.ox += mx - _dft.lastPinchMx;
+    _dft.oy += my - _dft.lastPinchMy;
+    if (_dft.lastPinchDist > 0) {
+      var f = dist / _dft.lastPinchDist;
+      _dft.ox   = mx - (mx - _dft.ox) * f;
+      _dft.oy   = my - (my - _dft.oy) * f;
+      _dft.zoom = Math.max(0.05, Math.min(30, _dft.zoom * f));
+    }
+    _dft.lastPinchDist = dist;
+    _dft.lastPinchMx   = mx; _dft.lastPinchMy = my;
+    dftRender();
+  }
+}
+
+function _dftTE() { _dft.pinchActive=false; _dftMU(); }
+
+// ── INFO BAR ──────────────────────────────────────────────
+function _dftUpdateInfoBar() {
+  var status = document.getElementById('dft-status');
+  if (!status) return;
+  if (!_dft.selected) {
+    status.innerHTML = _dft.objects.length + ' objects &nbsp;·&nbsp; Tap to select &nbsp;·&nbsp; Drag to pan &nbsp;·&nbsp; Pinch to zoom';
+    return;
+  }
+  var o = _dft.objects.find(function(x){ return x.id === _dft.selected; });
+  if (!o) return;
+  var info = '<b>' + (o.label||o.type) + '</b> at ' + _dftFmt(o.wx) + ', ' + _dftFmt(o.wy);
+  if (o.type==='light' && o.makerKey) {
+    var subs = _dft.objects.filter(function(x){ return x.type==='subject'; });
+    if (subs.length) {
+      var near = subs.reduce(function(b,s){ return _dftDist(o,s)<_dftDist(o,b)?s:b; }, subs[0]);
+      var dm = _dftDist(o, near);
+      var fv = _dftCalcFstop(o, dm);
+      if (fv) info += ' &nbsp;→&nbsp; <b>f' + fv.toFixed(1) + '</b>';
+    }
+  }
+  info += ' &nbsp;<button onclick="dftDeleteSelected()" style="padding:2px 8px;background:#e53935;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">Del</button>';
+  if (o.type==='diffuser'||o.type==='bounce'||o.type==='flag') {
+    info += ' <button onclick="dftSizeDialog()" style="padding:2px 8px;background:#1565c0;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">Size</button>';
+  }
+  status.innerHTML = info;
+}
+
+function dftDeleteSelected() {
+  if (!_dft.selected) return;
+  _dft.objects = _dft.objects.filter(function(o){ return o.id !== _dft.selected; });
+  _dft.selected = null;
+  _dftUpdateInfoBar();
+  dftRender();
+}
+
+function dftSizeDialog() {
+  var o = _dft.objects.find(function(x){ return x.id === _dft.selected; });
+  if (!o) return;
+  var presets = [
+    {l:'4×4ft (1.22m)', w:1.22, h:1.22},
+    {l:'8×8ft (2.44m)', w:2.44, h:2.44},
+    {l:'12×12ft (3.66m)', w:3.66, h:3.66},
+    {l:'1.2m × 0.6m', w:1.2, h:0.6},
+    {l:'2m × 2m', w:2, h:2},
+    {l:'3m × 3m', w:3, h:3},
+  ];
+  var oid = o.id;
+  var html = '<div id="_dft_sz" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sz\').remove()">' +
+    '<div style="background:var(--bg,#fff);border-radius:16px;padding:18px;width:88%;max-width:300px;" onclick="event.stopPropagation()">' +
+    '<div style="font-weight:800;margin-bottom:12px;">📐 Size · ' + (o.label||o.type) + '</div>' +
+    presets.map(function(p){
+      return '<button onclick="dftApplySize(\''+oid+'\','+p.w+','+p.h+');document.getElementById(\'_dft_sz\').remove()" style="display:block;width:100%;padding:8px;margin-bottom:6px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;text-align:left;background:var(--bg);">'+p.l+'</button>';
+    }).join('') +
+    '<div style="display:flex;gap:6px;margin-top:6px;">' +
+    '<input id="_sz_w" placeholder="W(m)" type="number" step="0.1" min="0.1" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;background:var(--bg);color:var(--text);">' +
+    '<input id="_sz_h" placeholder="H(m)" type="number" step="0.1" min="0.1" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;background:var(--bg);color:var(--text);">' +
+    '</div>' +
+    '<button onclick="var w=+document.getElementById(\'_sz_w\').value,h=+document.getElementById(\'_sz_h\').value;if(w>0&&h>0){dftApplySize(\''+oid+'\',w,h);document.getElementById(\'_dft_sz\').remove();}" style="margin-top:8px;width:100%;padding:8px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-weight:800;cursor:pointer;">Apply</button>' +
+    '<button onclick="document.getElementById(\'_dft_sz\').remove()" style="margin-top:6px;width:100%;padding:8px;background:var(--bg-secondary,#eee);border:none;border-radius:8px;font-weight:700;cursor:pointer;">Cancel</button>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function dftApplySize(id, w, h) {
+  var o = _dft.objects.find(function(x){ return x.id===id; });
+  if (o) { o.w=w; o.h=h; dftRender(); }
+}
+
+// ── LIGHT PICKER ──────────────────────────────────────────
+function _dftShowLightPicker(wx, wy) {
+  _dft.pendingLightWx = wx;
+  _dft.pendingLightWy = wy;
+  var html = '<div id="_dft_lp" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);z-index:9999;display:flex;align-items:flex-end;">' +
+    '<div style="background:#111;border-radius:20px 20px 0 0;width:100%;max-height:72vh;overflow:hidden;display:flex;flex-direction:column;">' +
+    '<div style="padding:14px 16px 0;flex-shrink:0;">' +
+    '<div style="font-size:14px;font-weight:800;color:#fff;margin-bottom:10px;">💡 Select Light</div>' +
+    '<input id="_dft_lpq" type="text" placeholder="Search..." oninput="_dftLPFilter(this.value)" style="width:100%;box-sizing:border-box;padding:8px 12px;border:none;border-radius:8px;font-size:13px;background:#1a1a1a;color:#fff;outline:none;margin-bottom:8px;">' +
+    '</div>' +
+    '<div id="_dft_lpl" style="overflow-y:auto;padding:0 16px 8px;flex:1;-webkit-overflow-scrolling:touch;"></div>' +
+    '<div style="padding:8px 16px 24px;flex-shrink:0;">' +
+    '<button onclick="document.getElementById(\'_dft_lp\').remove()" style="width:100%;padding:10px;background:#2a2a2a;color:#aaa;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">Cancel</button>' +
+    '</div></div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+  setTimeout(function(){ _dftLPFilter(''); }, 10);
+}
+
+function _dftLPFilter(q) {
+  var listEl = document.getElementById('_dft_lpl');
+  if (!listEl) return;
+  var favSet = {};
+  try { favSet = JSON.parse(localStorage.getItem('calm_favs') || '{}'); } catch(e) {}
+  q = (q || '').trim().toLowerCase();
+  var items = [];
+  sortedMakerKeys().forEach(function(mk) {
+    var makerName = (MAKERS[mk]||{}).name || mk;
+    sortedModelEntries(mk).forEach(function(e2) {
+      var lk = e2[0], lt = e2[1];
+      if (lt.pendingPhotometric) return;
+      if (q && lt.name.toLowerCase().indexOf(q) < 0 && makerName.toLowerCase().indexOf(q) < 0) return;
+      items.push({mk:mk, lk:lk, lt:lt, fav:!!(favSet[mk+'|'+lk]), makerName:makerName});
+    });
+  });
+  items.sort(function(a,b){ return (b.fav?1:0)-(a.fav?1:0); });
+  listEl.innerHTML = items.slice(0, 60).map(function(it) {
+    return '<div onclick="_dftLPSelect(\''+it.mk+'\',\''+it.lk+'\')" style="display:flex;align-items:center;padding:9px 10px;border-radius:9px;margin-bottom:4px;background:#1a1a1a;border:1px solid #2a2a2a;cursor:pointer;gap:8px;">' +
+      '<span style="font-size:15px;">'+(it.fav?'★':'☆')+'</span>' +
+      '<div><div style="color:#fff;font-weight:700;font-size:13px;">'+it.lt.name+'</div>' +
+      '<div style="color:#888;font-size:10px;">'+it.makerName+'</div></div>' +
+      '</div>';
+  }).join('') + (items.length>60 ? '<div style="color:#888;text-align:center;padding:6px;font-size:11px;">+' + (items.length-60) + ' more</div>' : '');
+}
+
+function _dftLPSelect(mk, lk) {
+  var picker = document.getElementById('_dft_lp');
+  if (picker) picker.remove();
+  var lt = LIGHTS[mk] && LIGHTS[mk][lk];
+  if (!lt) return;
+  var no = _dftAddObj('light', _dft.pendingLightWx, _dft.pendingLightWy, {
+    makerKey: mk, modelKey: lk,
+    lightName: lt.name, label: lt.name,
+    beamAngle: 75, accKey: 'none',
+  });
+  _dft.selected = no.id;
+  _dftUpdateInfoBar();
+  dftRender();
+}
+
+// ── PDF IMPORT ────────────────────────────────────────────
+function dftImportPDF() {
+  var inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = '.pdf,application/pdf';
+  inp.onchange = function(e) {
+    var f = e.target.files[0]; if (!f) return;
+    _dftLoadPDF(f);
+  };
+  inp.click();
+}
+
+function _dftLoadPDF(file) {
+  if (typeof pdfjsLib !== 'undefined') { _dftRenderPDF(file); return; }
+  var s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  s.onload = function() {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    _dftRenderPDF(file);
+  };
+  s.onerror = function() { alert('PDF.js load failed. Check internet connection.'); };
+  document.head.appendChild(s);
+}
+
+function _dftRenderPDF(file) {
+  _dftSetStatus('Loading PDF...');
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    pdfjsLib.getDocument(new Uint8Array(ev.target.result)).promise.then(function(pdf) {
+      pdf.getPage(1).then(function(page) {
+        var vp   = page.getViewport({scale: 2});
+        var oc   = document.createElement('canvas');
+        oc.width = vp.width; oc.height = vp.height;
+        page.render({canvasContext: oc.getContext('2d'), viewport: vp}).promise.then(function() {
+          _dft.pdfImg = oc;
+          // default world size: 20m wide (A3 landscape approximation)
+          _dft.pdfWm = 20;
+          _dft.pdfHm = vp.height / vp.width * 20;
+          _dft.scale  = _dft.pdfWm / (vp.width / 2);  // world meters per pixel
+          _dft.ox = _dft.canvas.width  / 2;
+          _dft.oy = _dft.canvas.height / 2;
+          dftRender();
+          _dftSetStatus('PDF loaded · Use 📐 Scale to calibrate real dimensions');
+        });
+      });
+    }).catch(function(err) { alert('PDF error: ' + err.message); });
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// ── SCALE ─────────────────────────────────────────────────
+function dftSetScaleUI() {
+  var pxPerM = (_dft.zoom / _dft.scale).toFixed(1);
+  var html = '<div id="_dft_sc" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sc\').remove()">' +
+    '<div style="background:var(--bg,#fff);border-radius:16px;padding:18px;width:88%;max-width:310px;" onclick="event.stopPropagation()">' +
+    '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">📐 Set Scale</div>' +
+    '<div style="font-size:12px;color:#888;margin-bottom:8px;">Manual: pixels per meter at current zoom</div>' +
+    '<div style="display:flex;gap:6px;align-items:center;margin-bottom:12px;">' +
+    '<span style="font-size:13px;font-weight:700;">1m =</span>' +
+    '<input id="_sc_v" type="number" step="1" min="1" value="'+pxPerM+'" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:14px;background:var(--bg);color:var(--text);">' +
+    '<span style="font-size:13px;font-weight:700;">px</span>' +
+    '</div>' +
+    '<button onclick="var v=+document.getElementById(\'_sc_v\').value;if(v>0){_dft.scale=_dft.zoom/v;dftRender();}document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">Apply</button>' +
+    '<div style="font-size:12px;color:#888;margin-bottom:8px;">— or — tap 2 points on the floor plan</div>' +
+    '<button onclick="document.getElementById(\'_dft_sc\').remove();_dftStartCalib();" style="width:100%;padding:9px;background:#1565c0;color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">📍 2-Point Calibration</button>' +
+    '<button onclick="document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--bg-secondary,#eee);border:none;border-radius:9px;font-weight:700;cursor:pointer;">Cancel</button>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function _dftStartCalib() {
+  _dft.calibMode = true; _dft.calibPts = [];
+  _dftSetStatus('📍 Tap point 1 on canvas...');
+  dftRender();
+}
+
+function _dftCalibFinish() {
+  _dft.calibMode = false;
+  var p0 = _dft.calibPts[0], p1 = _dft.calibPts[1];
+  // pixel distance between the 2 world points
+  var pxDist = Math.hypot(p1.x-p0.x, p1.y-p0.y) / _dft.scale;
+  _dft.calibPts = [];
+  var realM = parseFloat(prompt('Real distance between the 2 tapped points (meters):', '5'));
+  if (!realM || isNaN(realM) || realM <= 0) { dftRender(); return; }
+  _dft.scale = realM / pxDist;
+  dftRender();
+  _dftSetStatus('Scale set · ' + (_dft.zoom/_dft.scale).toFixed(0) + 'px per meter');
+}
+
+// ── UNIT ──────────────────────────────────────────────────
+function dftToggleUnit() {
+  _dft.unit = _dft.unit === 'm' ? 'ft' : 'm';
+  var btn = document.getElementById('dft-btn-unit');
+  if (btn) btn.textContent = _dft.unit;
+  dftRender(); _dftUpdateInfoBar();
+}
+
+// ── SAVE / LOAD ───────────────────────────────────────────
+function dftSave() {
+  var name = prompt('Save as:', _dft.draftName);
+  if (name === null) return;
+  if (name.trim()) _dft.draftName = name.trim();
+  var id = _dft.draftId || ('dft_' + Date.now());
+  _dft.draftId = id;
+  var data = {
+    id:id, name:_dft.draftName,
+    objects: JSON.parse(JSON.stringify(_dft.objects)),
+    scale: _dft.scale, unit: _dft.unit, nextId: _dft.nextId,
+    savedAt: new Date().toISOString(),
+  };
+  var idx = _dft.drafts.findIndex(function(d){ return d.id===id; });
+  if (idx >= 0) _dft.drafts[idx] = data; else _dft.drafts.push(data);
+  try {
+    localStorage.setItem('calm_drafts', JSON.stringify(_dft.drafts));
+    localStorage.setItem('calm_draft_active', id);
+  } catch(e) {}
+  _dftSetStatus('💾 Saved: ' + _dft.draftName);
+}
+
+function dftLoadMenu() {
+  if (!_dft.drafts.length) { alert('No saved drafts yet.'); return; }
+  var html = '<div id="_dft_lm" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_lm\').remove()">' +
+    '<div style="background:var(--bg,#fff);border-radius:16px;padding:18px;width:88%;max-width:340px;max-height:70vh;overflow-y:auto;" onclick="event.stopPropagation()">' +
+    '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">📂 Drafts</div>' +
+    _dft.drafts.slice().reverse().map(function(d) {
+      return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:10px;border:1.5px solid var(--border,#eee);border-radius:10px;">' +
+        '<div style="flex:1;cursor:pointer;" onclick="_dftLoadById(\''+d.id+'\');document.getElementById(\'_dft_lm\').remove()">' +
+        '<div style="font-weight:700;font-size:13px;">'+d.name+'</div>' +
+        '<div style="font-size:10px;color:#888;">'+(d.objects||[]).length+' objects · '+(d.savedAt||'').slice(0,10)+'</div>' +
+        '</div>' +
+        '<button onclick="_dftDelDraft(\''+d.id+'\');document.getElementById(\'_dft_lm\').remove();dftLoadMenu();" style="padding:4px 8px;background:#e53935;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;">🗑</button>' +
+        '</div>';
+    }).join('') +
+    '<button onclick="document.getElementById(\'_dft_lm\').remove()" style="width:100%;padding:9px;background:var(--bg-secondary,#eee);border:none;border-radius:9px;font-weight:700;cursor:pointer;margin-top:4px;">Close</button>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function _dftLoadById(id) {
+  var d = _dft.drafts.find(function(x){ return x.id===id; });
+  if (d) _dftLoadDraft(d, false);
+}
+
+function _dftLoadDraft(d, skipRender) {
+  _dft.objects   = JSON.parse(JSON.stringify(d.objects||[]));
+  _dft.scale     = d.scale  || 0.05;
+  _dft.unit      = d.unit   || 'm';
+  _dft.nextId    = d.nextId || (_dft.objects.length + 1);
+  _dft.draftId   = d.id;
+  _dft.draftName = d.name;
+  var btn = document.getElementById('dft-btn-unit');
+  if (btn) btn.textContent = _dft.unit;
+  try { localStorage.setItem('calm_draft_active', d.id); } catch(e) {}
+  if (!skipRender) { dftRender(); _dftUpdateInfoBar(); }
+}
+
+function _dftDelDraft(id) {
+  _dft.drafts = _dft.drafts.filter(function(d){ return d.id!==id; });
+  if (_dft.draftId === id) { _dft.draftId=null; _dft.draftName='Draft 1'; }
+  try { localStorage.setItem('calm_drafts', JSON.stringify(_dft.drafts)); } catch(e) {}
+}
+
+function dftNew() {
+  if (_dft.objects.length && !confirm('Start new draft? Unsaved changes will be lost.')) return;
+  _dft.objects=[]; _dft.draftId=null; _dft.draftName='Draft '+(_dft.drafts.length+1);
+  _dft.nextId=1; _dft.pdfImg=null; _dft.selected=null;
+  _dft.zoom=1;
+  if (_dft.canvas) { _dft.ox=_dft.canvas.width/2; _dft.oy=_dft.canvas.height/2; }
+  dftRender(); _dftUpdateInfoBar();
+}
+// ===== END DRAFT ENGINE =====
 </script>
 
 <div id="page-alt" class="page-content">
@@ -10460,6 +11329,37 @@ function selectMakerModel(mk, lk) {
   </div>
 </div><!-- #page-feedback -->
 
+<!-- ═══ DRAFT PAGE ═══════════════════════════════════════════ -->
+<div id="page-draft" class="page-content" style="display:none;">
+  <div class="draft-wrap">
+    <div class="draft-toolbar" id="dft-toolbar">
+      <button class="draft-tool-btn active" id="dft-btn-select" onclick="dftMode('select')">↖ Select</button>
+      <div class="draft-tool-sep"></div>
+      <button class="draft-tool-btn" id="dft-btn-subject" onclick="dftMode('subject')">🧍 Subject</button>
+      <button class="draft-tool-btn" id="dft-btn-camera" onclick="dftMode('camera')">🎬 Camera</button>
+      <button class="draft-tool-btn" id="dft-btn-light" onclick="dftMode('light')">💡 Light</button>
+      <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftMode('diffuser')">⬜ Diffuser</button>
+      <button class="draft-tool-btn" id="dft-btn-bounce" onclick="dftMode('bounce')">🔲 Bounce</button>
+      <button class="draft-tool-btn" id="dft-btn-flag" onclick="dftMode('flag')">▬ Flag</button>
+      <div class="draft-tool-sep"></div>
+      <button class="draft-tool-btn" onclick="dftImportPDF()">📄 PDF</button>
+      <button class="draft-tool-btn" onclick="dftSetScaleUI()">📐 Scale</button>
+      <button class="draft-tool-btn" onclick="dftToggleUnit()" id="dft-btn-unit">m</button>
+      <div class="draft-tool-sep"></div>
+      <button class="draft-tool-btn" onclick="dftSave()">💾 Save</button>
+      <button class="draft-tool-btn" onclick="dftLoadMenu()">📂 Drafts</button>
+      <button class="draft-tool-btn" onclick="dftNew()">＋ New</button>
+    </div>
+    <div class="draft-canvas-area" id="dft-canvas-area">
+      <canvas id="dft-canvas" class="draft-canvas"></canvas>
+      <div class="draft-infobar">
+        <span class="draft-scale-pill" id="dft-scale-pill">1m=20px</span>
+        <span class="draft-status" id="dft-status">Tap toolbar to place · Drag to pan · Pinch to zoom</span>
+      </div>
+    </div>
+  </div>
+</div><!-- #page-draft -->
+
 <nav class="page-nav">
   <button class="page-nav-btn active" id="nav-calc" onclick="showPage('calc')">
     <span class="page-nav-icon">💡</span>
@@ -10476,6 +11376,10 @@ function selectMakerModel(mk, lk) {
   <button class="page-nav-btn" id="nav-alt" onclick="showPage('alt')">
     <span class="page-nav-icon">🔄</span>
     <span class="page-nav-lbl" id="nav-lbl-alt">Alt</span>
+  </button>
+  <button class="page-nav-btn" id="nav-draft" onclick="showPage('draft')">
+    <span class="page-nav-icon">📐</span>
+    <span class="page-nav-lbl">Draft</span>
   </button>
 </nav>
 
@@ -10605,6 +11509,10 @@ function selectMakerModel(mk, lk) {
     <span class="drawer-item-icon">🎬</span>
     <span>Camera</span>
   </button>
+  <button class="drawer-item" id="drawer-item-draft" onclick="openDrawerPage('draft')">
+    <span class="drawer-item-icon">📐</span>
+    <span>Draft</span>
+  </button>
   <button class="drawer-item" id="drawer-item-feedback" onclick="openDrawerPage('feedback')">
     <span class="drawer-item-icon">📝</span>
     <span>Feedback</span>
@@ -10614,7 +11522,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.91</div>
+  <div class="drawer-footer">CALM v1.1.3.0</div>
 </div>
 
 </body>
