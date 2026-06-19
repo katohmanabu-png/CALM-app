@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.11</title>
+<title>CALM v1.1.3.12</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -734,7 +734,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.11</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.12</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -7029,7 +7029,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.11';
+  var ver = 'v1.1.3.12';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10245,7 +10245,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.11 =====
+// ===== DRAFT ENGINE v1.1.3.12 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -11183,18 +11183,107 @@ function dftApplySize(id, w, h) {
 function _dftShowLightPicker(wx, wy) {
   _dft.pendingLightWx = wx;
   _dft.pendingLightWy = wy;
+  var _lpTabStyle = function(active) {
+    return 'flex:1;padding:7px 4px;border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;' +
+      (active ? 'background:#fff;color:#111;' : 'background:#2a2a2a;color:#888;');
+  };
   var html = '<div id="_dft_lp" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);z-index:9999;display:flex;align-items:flex-end;">' +
-    '<div style="background:#111;border-radius:20px 20px 0 0;width:100%;max-height:72vh;overflow:hidden;display:flex;flex-direction:column;">' +
-    '<div style="padding:14px 16px 0;flex-shrink:0;">' +
+    '<div style="background:#111;border-radius:20px 20px 0 0;width:100%;max-height:78vh;overflow:hidden;display:flex;flex-direction:column;">' +
+    '<div style="padding:14px 16px 8px;flex-shrink:0;">' +
     '<div style="font-size:14px;font-weight:800;color:#fff;margin-bottom:10px;">'+t('dftSelectLight')+'</div>' +
-    '<input id="_dft_lpq" type="text" placeholder="'+t('dftSearchPlaceholder')+'" oninput="_dftLPFilter(this.value)" style="width:100%;box-sizing:border-box;padding:8px 12px;border:none;border-radius:8px;font-size:13px;background:#1a1a1a;color:#fff;outline:none;margin-bottom:8px;">' +
+    '<div style="display:flex;gap:6px;margin-bottom:8px;">' +
+    '<button id="_lpt_fav"    onclick="_dftLPTab(\'fav\')"    style="'+_lpTabStyle(true) +'">⭐ Fav</button>' +
+    '<button id="_lpt_maker"  onclick="_dftLPTab(\'maker\')"  style="'+_lpTabStyle(false)+'">🏢 Maker</button>' +
+    '<button id="_lpt_search" onclick="_dftLPTab(\'search\')" style="'+_lpTabStyle(false)+'">🔍 Search</button>' +
     '</div>' +
-    '<div id="_dft_lpl" style="overflow-y:auto;padding:0 16px 8px;flex:1;-webkit-overflow-scrolling:touch;"></div>' +
-    '<div style="padding:8px 16px 24px;flex-shrink:0;">' +
+    '<div id="_dft_lp_srow" style="display:none;">' +
+    '<input id="_dft_lpq" type="text" placeholder="'+t('dftSearchPlaceholder')+'" oninput="_dftLPFilter(this.value)" style="width:100%;box-sizing:border-box;padding:8px 12px;border:none;border-radius:8px;font-size:13px;background:#1a1a1a;color:#fff;outline:none;margin-bottom:6px;">' +
+    '</div>' +
+    '</div>' +
+    '<div id="_dft_lpl" style="overflow-y:auto;padding:0 16px 4px;flex:1;-webkit-overflow-scrolling:touch;"></div>' +
+    '<div style="padding:8px 16px 28px;flex-shrink:0;">' +
     '<button onclick="document.getElementById(\'_dft_lp\').remove()" style="width:100%;padding:10px;background:#2a2a2a;color:#aaa;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
     '</div></div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
-  setTimeout(function(){ _dftLPFilter(''); }, 10);
+  _dftLP = {tab:'fav', maker:null};
+  setTimeout(function(){ _dftLPRender(); }, 10);
+}
+
+var _dftLP = {tab:'fav', maker:null};
+
+function _dftLPTab(tab) {
+  _dftLP.tab = tab;
+  _dftLP.maker = null;
+  var srow = document.getElementById('_dft_lp_srow');
+  if (srow) srow.style.display = tab==='search' ? '' : 'none';
+  ['fav','maker','search'].forEach(function(t2) {
+    var btn = document.getElementById('_lpt_'+t2);
+    if (!btn) return;
+    btn.style.background = t2===tab ? '#fff' : '#2a2a2a';
+    btn.style.color      = t2===tab ? '#111' : '#888';
+  });
+  _dftLPRender();
+}
+
+function _dftLPRender() {
+  var listEl = document.getElementById('_dft_lpl');
+  if (!listEl) return;
+  if (_dftLP.tab === 'fav')    { _dftLPRenderFav(listEl); }
+  else if (_dftLP.tab === 'maker') {
+    if (_dftLP.maker) _dftLPRenderModels(listEl, _dftLP.maker);
+    else              _dftLPRenderMakers(listEl);
+  } else { _dftLPFilter(''); }
+}
+
+function _dftLPRenderFav(listEl) {
+  var favSet = {};
+  try { favSet = JSON.parse(localStorage.getItem('calm_favs') || '{}'); } catch(e) {}
+  var items = [];
+  Object.keys(favSet).forEach(function(key) {
+    var p = key.split('|'); if (p.length!==2) return;
+    var mk=p[0], lk=p[1], lt=LIGHTS[mk]&&LIGHTS[mk][lk];
+    if (!lt) return;
+    items.push({mk:mk, lk:lk, lt:lt, makerName:(MAKERS[mk]||{}).name||mk});
+  });
+  if (!items.length) {
+    listEl.innerHTML = '<div style="color:#888;text-align:center;padding:28px;font-size:13px;">⭐ No favorites yet<br><span style="font-size:11px;">Star lights in the Calc tab</span></div>';
+    return;
+  }
+  listEl.innerHTML = items.map(function(it){ return _dftLPItem(it.mk,it.lk,it.lt,it.makerName,true); }).join('');
+}
+
+function _dftLPRenderMakers(listEl) {
+  listEl.innerHTML = sortedMakerKeys().map(function(mk) {
+    var m = MAKERS[mk]||{};
+    var cnt = Object.keys(LIGHTS[mk]||{}).filter(function(lk){ return !(LIGHTS[mk][lk].pendingPhotometric); }).length;
+    if (!cnt) return '';
+    return '<div onclick="_dftLP.maker=\''+mk+'\';_dftLPRender()" style="display:flex;align-items:center;padding:10px 12px;border-radius:9px;margin-bottom:4px;background:#1a1a1a;border:1px solid #2a2a2a;cursor:pointer;gap:10px;">' +
+      '<span style="font-size:20px;">'+m.emoji+'</span>' +
+      '<div style="flex:1;"><div style="color:#fff;font-weight:700;font-size:13px;">'+m.name+'</div>' +
+      '<div style="color:#888;font-size:10px;">'+cnt+' lights</div></div>' +
+      '<span style="color:#555;font-size:16px;">›</span></div>';
+  }).join('');
+}
+
+function _dftLPRenderModels(listEl, mk) {
+  var m = MAKERS[mk]||{};
+  var favSet={};
+  try{favSet=JSON.parse(localStorage.getItem('calm_favs')||'{}');}catch(e){}
+  var back = '<div onclick="_dftLP.maker=null;_dftLPRender()" style="display:flex;align-items:center;gap:6px;padding:6px 0 10px;cursor:pointer;color:#aaa;font-size:12px;font-weight:800;">‹ '+m.name+'</div>';
+  var rows = sortedModelEntries(mk).filter(function(e2){return !e2[1].pendingPhotometric;})
+    .map(function(e2){
+      var lk=e2[0],lt=e2[1];
+      return _dftLPItem(mk,lk,lt,m.name||mk,!!(favSet[mk+'|'+lk]));
+    }).join('');
+  listEl.innerHTML = back + (rows||'<div style="color:#888;text-align:center;padding:16px;">No lights</div>');
+}
+
+function _dftLPItem(mk, lk, lt, makerName, isFav) {
+  return '<div onclick="_dftLPSelect(\''+mk+'\',\''+lk+'\')" style="display:flex;align-items:center;padding:9px 10px;border-radius:9px;margin-bottom:4px;background:#1a1a1a;border:1px solid #2a2a2a;cursor:pointer;gap:8px;">' +
+    '<span style="font-size:14px;color:'+(isFav?'#f9a825':'#444')+';">'+(isFav?'★':'☆')+'</span>' +
+    '<div style="flex:1;min-width:0;"><div style="color:#fff;font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+lt.name+'</div>' +
+    '<div style="color:#666;font-size:10px;">'+makerName+'</div></div>' +
+    '</div>';
 }
 
 function _dftLPFilter(q) {
@@ -11214,13 +11303,8 @@ function _dftLPFilter(q) {
     });
   });
   items.sort(function(a,b){ return (b.fav?1:0)-(a.fav?1:0); });
-  listEl.innerHTML = items.map(function(it) {
-    return '<div onclick="_dftLPSelect(\''+it.mk+'\',\''+it.lk+'\')" style="display:flex;align-items:center;padding:9px 10px;border-radius:9px;margin-bottom:4px;background:#1a1a1a;border:1px solid #2a2a2a;cursor:pointer;gap:8px;">' +
-      '<span style="font-size:15px;">'+(it.fav?'★':'☆')+'</span>' +
-      '<div><div style="color:#fff;font-weight:700;font-size:13px;">'+it.lt.name+'</div>' +
-      '<div style="color:#888;font-size:10px;">'+it.makerName+'</div></div>' +
-      '</div>';
-  }).join('');
+  listEl.innerHTML = items.map(function(it){ return _dftLPItem(it.mk,it.lk,it.lt,it.makerName,it.fav); }).join('') ||
+    '<div style="color:#888;text-align:center;padding:20px;font-size:12px;">No results</div>';
 }
 
 function _dftLPSelect(mk, lk) {
@@ -12072,7 +12156,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.11</div>
+  <div class="drawer-footer">CALM v1.1.3.12</div>
 </div>
 
 </body>
