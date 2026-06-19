@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.77</title>
+<title>CALM v1.1.2.78</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.77</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.78</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -1713,9 +1713,10 @@ body {
         <!-- hidden: renderFinderResultsが参照 -->
         <input type="hidden" id="rank-target-f" value="8">
       </div>
-      <div class="rank-row">
-        <div class="rank-lbl"><span id="lbl-finder-cct">🌡️ CCT</span></div>
-        <select id="rank-cct" onchange="renderFinderResults()" style="padding:8px 10px;border:1.5px solid #eee;border-radius:10px;font-size:13px;font-weight:700;background:white;color:var(--text);">
+      <!-- CCT フィルター -->
+      <div style="margin-top:8px;">
+        <div class="rank-field-lbl" style="margin-bottom:4px;"><span id="lbl-finder-cct">🌡️ CCT</span></div>
+        <select id="rank-cct" onchange="renderFinderResults()" style="width:100%;padding:8px 10px;border:1.5px solid #eee;border-radius:10px;font-size:13px;font-weight:700;background:white;color:var(--text);">
           <option value="0">All</option>
           <option value="3200">3200K (Tungsten)</option>
           <option value="4300">4300K (Neutral)</option>
@@ -1725,30 +1726,15 @@ body {
           <option value="any_full">Full Color (RGB)</option>
         </select>
       </div>
-      <!-- 種類フィルター -->
-      <div class="rank-row" style="margin-top:4px;">
-        <div class="rank-lbl"><span id="lbl-finder-type">💡 Type</span></div>
-        <div id="finder-type-chips" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;">
-          <button class="finder-type-chip active" data-type="all"      onclick="setFinderType('all')">All</button>
-          <button class="finder-type-chip"        data-type="LED"      onclick="setFinderType('LED')">LED (All)</button>
-          <button class="finder-type-chip"        data-type="LED COB"  onclick="setFinderType('LED COB')">LED COB</button>
-          <button class="finder-type-chip"        data-type="LED Panel" onclick="setFinderType('LED Panel')">LED Panel</button>
-          <button class="finder-type-chip"        data-type="LED Spot" onclick="setFinderType('LED Spot')">LED Spot</button>
-          <button class="finder-type-chip"        data-type="HMI"      onclick="setFinderType('HMI')">HMI (All)</button>
-          <button class="finder-type-chip"        data-type="HMI Open" onclick="setFinderType('HMI Open')">HMI Open</button>
-          <button class="finder-type-chip"        data-type="HMI Lens" onclick="setFinderType('HMI Lens')">HMI Lens</button>
-          <button class="finder-type-chip"        data-type="Tungsten" onclick="setFinderType('Tungsten')">Tungsten</button>
-        </div>
-      </div>
       <!-- Beam Angle フィルター -->
-      <div class="rank-row" style="margin-top:8px;">
+      <div style="margin-top:10px;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-          <div class="rank-lbl" style="margin:0;">📐 Beam Angle</div>
+          <div class="rank-field-lbl" style="margin:0;">📐 BEAM ANGLE</div>
           <span id="finder-beam-val-disp" style="font-size:13px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;">≤60°</span>
         </div>
         <input type="range" id="finder-beam-sl" min="0" max="5" step="1" value="4"
           oninput="onFinderBeamChange()" onchange="onFinderBeamChange()"
-          style="width:100%;height:4px;">
+          style="width:100%;height:20px;cursor:pointer;">
         <div style="display:flex;justify-content:space-between;margin-top:4px;">
           <span style="font-size:9px;color:var(--text-dim);">All</span>
           <span style="font-size:9px;color:var(--text-dim);">≤10°</span>
@@ -1756,6 +1742,21 @@ body {
           <span style="font-size:9px;color:var(--text-dim);">≤30°</span>
           <span style="font-size:9px;color:var(--text-dim);">≤60°</span>
           <span style="font-size:9px;color:var(--text-dim);">60°+</span>
+        </div>
+      </div>
+      <!-- 種類フィルター (Beam Angleの下) -->
+      <div style="margin-top:10px;">
+        <div class="rank-field-lbl" style="margin-bottom:6px;"><span id="lbl-finder-type">💡 TYPE</span></div>
+        <div id="finder-type-chips" style="display:flex;flex-wrap:wrap;gap:5px;">
+          <button class="finder-type-chip active" data-type="all"       onclick="setFinderType('all')">All</button>
+          <button class="finder-type-chip"        data-type="LED"       onclick="setFinderType('LED')">LED (All)</button>
+          <button class="finder-type-chip"        data-type="LED COB"   onclick="setFinderType('LED COB')">LED COB</button>
+          <button class="finder-type-chip"        data-type="LED Panel" onclick="setFinderType('LED Panel')">LED Panel</button>
+          <button class="finder-type-chip"        data-type="LED Spot"  onclick="setFinderType('LED Spot')">LED Spot</button>
+          <button class="finder-type-chip"        data-type="HMI"       onclick="setFinderType('HMI')">HMI (All)</button>
+          <button class="finder-type-chip"        data-type="HMI Open"  onclick="setFinderType('HMI Open')">HMI Open</button>
+          <button class="finder-type-chip"        data-type="HMI Lens"  onclick="setFinderType('HMI Lens')">HMI Lens</button>
+          <button class="finder-type-chip"        data-type="Tungsten"  onclick="setFinderType('Tungsten')">Tungsten</button>
         </div>
       </div>
     </div>
@@ -6844,7 +6845,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.77';
+  var ver = 'v1.1.2.78';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10484,7 +10485,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.77</div>
+  <div class="drawer-footer">CALM v1.1.2.78</div>
 </div>
 
 </body>
