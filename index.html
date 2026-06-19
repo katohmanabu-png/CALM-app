@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.5</title>
+<title>CALM v1.1.3.6</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -723,7 +723,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.5</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.6</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -6954,7 +6954,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.5';
+  var ver = 'v1.1.3.6';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10170,7 +10170,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.5 =====
+// ===== DRAFT ENGINE v1.1.3.6 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -10472,34 +10472,42 @@ function _dftDrawObj(ctx, o) {
   ctx.rotate(o.rot || 0);
 
   if (o.type === 'people') {
+    // Top-down floor-plan view. +y = facing direction.
+    // back(shoulders) at -y → body → head at +y → nose tip = clearly shows facing direction
     var isFem = (o.gender === 'female');
-    var bc = isFem ? (sel?'#e91e63':'#c2185b') : (sel?'#ff6b00':'#1976d2');
-    var sc2 = isFem ? (sel?'#c2185b':'#880e4f') : (sel?'#e53500':'#0d47a1');
-    ctx.fillStyle   = bc;
-    ctx.strokeStyle = sc2;
-    ctx.lineWidth   = sel ? 2.5 : 1.5;
-    // head
-    ctx.beginPath(); ctx.arc(0, -R*0.55, R*0.38, 0, Math.PI*2);
+    var bodyCol  = isFem ? (sel?'#f06292':'#e91e63') : (sel?'#42a5f5':'#1976d2');
+    var skinCol  = isFem ? '#fce4ec' : '#e3f2fd';
+    var darkCol  = isFem ? (sel?'#e53500':'#ad1457') : (sel?'#e53500':'#0d47a1');
+    ctx.strokeStyle = darkCol; ctx.lineWidth = sel ? 2.5 : 1.5;
+
+    // Shoulders (wide, at back = -y side)
+    ctx.fillStyle = bodyCol;
+    var sw = isFem ? R*0.72 : R*0.95;
+    ctx.beginPath(); ctx.ellipse(0, -R*0.38, sw, R*0.3, 0, 0, Math.PI*2);
     ctx.fill(); ctx.stroke();
-    ctx.strokeStyle = sc2; ctx.lineWidth = sel ? 2.5 : 1.5;
-    if (isFem) {
-      // body line
-      ctx.beginPath(); ctx.moveTo(0, -R*0.17); ctx.lineTo(0, R*0.15); ctx.stroke();
-      // arms
-      ctx.beginPath(); ctx.moveTo(-R*0.5, R*0.05); ctx.lineTo(R*0.5, R*0.05); ctx.stroke();
-      // skirt (triangle)
-      ctx.fillStyle = bc;
-      ctx.beginPath(); ctx.moveTo(-R*0.05, R*0.15); ctx.lineTo(-R*0.55, R); ctx.lineTo(R*0.55, R); ctx.closePath();
-      ctx.fill(); ctx.stroke();
-    } else {
-      // body
-      ctx.beginPath();
-      ctx.moveTo(0, -R*0.17); ctx.lineTo(0, R*0.5);
-      ctx.moveTo(-R*0.5, R*0.1); ctx.lineTo(R*0.5, R*0.1);
-      ctx.moveTo(0, R*0.5); ctx.lineTo(-R*0.4, R);
-      ctx.moveTo(0, R*0.5); ctx.lineTo(R*0.4, R);
-      ctx.stroke();
-    }
+
+    // Torso
+    ctx.fillStyle = bodyCol;
+    ctx.beginPath(); ctx.ellipse(0, R*0.08, isFem?R*0.55:R*0.62, R*0.52, 0, 0, Math.PI*2);
+    ctx.fill(); ctx.stroke();
+
+    // Neck
+    ctx.fillStyle = skinCol;
+    ctx.beginPath(); ctx.ellipse(0, R*0.52, R*0.19, R*0.19, 0, 0, Math.PI*2);
+    ctx.fill(); ctx.stroke();
+
+    // Head (front = +y)
+    ctx.fillStyle = skinCol;
+    ctx.beginPath(); ctx.arc(0, R*0.82, R*0.37, 0, Math.PI*2);
+    ctx.fill(); ctx.stroke();
+
+    // Nose — front-most point, clearly shows facing direction
+    ctx.fillStyle = darkCol;
+    ctx.beginPath(); ctx.arc(0, R*1.14, R*0.1, 0, Math.PI*2); ctx.fill();
+
+    // Hair color tint on top of head (back = -y side of head arc)
+    ctx.fillStyle = isFem ? '#c2185b' : '#0d47a1';
+    ctx.beginPath(); ctx.arc(0, R*0.82, R*0.37, Math.PI, Math.PI*2); ctx.fill();
 
   } else if (o.type === 'camera') {
     // Field-of-view cone (pointing in +y = "down" at rot=0, user rotates to aim)
@@ -11763,7 +11771,7 @@ function dftNew() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.5</div>
+  <div class="drawer-footer">CALM v1.1.3.6</div>
 </div>
 
 </body>
