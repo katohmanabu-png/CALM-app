@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.75</title>
+<title>CALM v1.1.2.76</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.75</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.76</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -3195,11 +3195,11 @@ var LIGHTS = {
       dmx:{led:'HMI',power:'12000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
         3: {spot:405000, flood:51200},
-        5: {spot:143333, flood:18432},
-        8: {spot:72400,  flood:7200},
-        12:{spot:35787,  flood:3200},
-        15:{spot:25313,  flood:2048},
-        20:{spot:12800,  flood:1152}
+        5: {spot:143333, flood:6050},
+        8: {spot:72400,  flood:3200},
+        12:{spot:35787,  flood:1513},
+        15:{spot:25313,  flood:1131},
+        20:{spot:12800,  flood:800}
       }}
     },
     arri_m90: {
@@ -3222,12 +3222,12 @@ var LIGHTS = {
       dmx:{led:'HMI',power:'6000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50–100%',effects:[]},
       refData:{5600:{
-        3: {spot:405000, flood:101250},
-        5: {spot:101250, flood:18100},
-        8: {spot:51200,  flood:8560},
-        12:{spot:18100,  flood:4530},
-        15:{spot:12800,  flood:2140},
-        20:{spot:8560,   flood:1510}
+        3: {spot:202500, flood:25600},
+        5: {spot:71600,  flood:3025},
+        8: {spot:36200,  flood:1600},
+        12:{spot:17900,  flood:756},
+        15:{spot:12657,  flood:566},
+        20:{spot:6400,   flood:400}
       }}
     },
     arri_m18: {
@@ -6844,7 +6844,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.75';
+  var ver = 'v1.1.2.76';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10483,7 +10483,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.75</div>
+  <div class="drawer-footer">CALM v1.1.2.76</div>
 </div>
 
 </body>
