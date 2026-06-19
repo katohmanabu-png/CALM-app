@@ -702,6 +702,10 @@ body {
 .draft-toolbar { display:flex;flex-wrap:wrap;gap:4px;padding:6px 8px 5px;background:var(--bg);border-bottom:1px solid var(--border,#eee);flex-shrink:0;padding-top:max(env(safe-area-inset-top,6px),44px); }
 .draft-tool-btn { padding:5px 9px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:11px;font-weight:800;background:var(--bg);color:var(--text);cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif;line-height:1.2; }
 .draft-tool-btn.active { background:var(--accent);color:#fff;border-color:var(--accent); }
+.dft-del-btn { border-color:#e53935;color:#e53935; }
+.dft-del-btn.active { background:#e53935;color:#fff;border-color:#e53935; }
+.dft-undo-btn { border-color:#888;color:#666; }
+.dft-undo-btn:disabled { opacity:.35;cursor:default; }
 .draft-tool-sep { width:1px;background:var(--border,#ccc);flex-shrink:0;margin:4px 2px; }
 .draft-canvas-area { flex:1;position:relative;overflow:hidden;background:#dde0e6;touch-action:none; }
 .draft-canvas { position:absolute;top:0;left:0;display:block; }
@@ -10201,6 +10205,8 @@ var _dft = {
   drafts:[],
   draftId:null,
   draftName:'Draft 1',
+  // undo
+  history:[],
   inited:false,
 };
 
@@ -10247,6 +10253,23 @@ function dftInit() {
     }
   } catch(e) {}
 
+  dftRender();
+}
+
+// undo history
+function _dftPushHistory() {
+  _dft.history.push(JSON.stringify(_dft.objects));
+  if (_dft.history.length > 30) _dft.history.shift();
+  var btn = document.getElementById('dft-btn-undo');
+  if (btn) btn.disabled = false;
+}
+function dftUndo() {
+  if (!_dft.history.length) return;
+  _dft.objects  = JSON.parse(_dft.history.pop());
+  _dft.selected = null;
+  var btn = document.getElementById('dft-btn-undo');
+  if (btn) btn.disabled = (_dft.history.length === 0);
+  _dftUpdateInfoBar();
   dftRender();
 }
 
@@ -10603,9 +10626,23 @@ function _dftMD(e) {
     dftRender(); return;
   }
 
+  // Delete mode: tap object to delete it
+  if (_dft.mode === 'delete') {
+    var delHit = _dftObjAt(mx, my);
+    if (delHit) {
+      _dftPushHistory();
+      _dft.objects  = _dft.objects.filter(function(o){ return o.id !== delHit.id; });
+      _dft.selected = null;
+      _dftUpdateInfoBar();
+      dftRender();
+    }
+    return;
+  }
+
   // In any mode: tapping an existing object grabs it first (place only on empty space)
   var hitFirst = _dftObjAt(mx, my);
   if (hitFirst && _dft.mode !== 'select') {
+    _dftPushHistory();
     _dft.selected    = hitFirst.id;
     _dft.pointerDown = true;
     _dft.dragObj     = hitFirst;
@@ -10620,6 +10657,7 @@ function _dftMD(e) {
     var wp = _dftS2W(mx, my);
     if (_dft.mode === 'light') { _dftShowLightPicker(wp.x, wp.y); }
     else {
+      _dftPushHistory();
       var no = _dftAddObj(_dft.mode, wp.x, wp.y);
       _dft.selected = no.id;
       _dftUpdateInfoBar();
@@ -10637,6 +10675,7 @@ function _dftMD(e) {
       var rhx = ssp.x + Math.cos(rha)*(18+20);
       var rhy = ssp.y + Math.sin(rha)*(18+20);
       if (Math.sqrt((mx-rhx)*(mx-rhx)+(my-rhy)*(my-rhy)) < 14) {
+        _dftPushHistory();
         _dft.rotActive       = true;
         _dft.rotObj          = so;
         _dft.rotStartAngle   = Math.atan2(my-ssp.y, mx-ssp.x);
@@ -10648,6 +10687,7 @@ function _dftMD(e) {
 
   var hit = _dftObjAt(mx, my);
   if (hit) {
+    _dftPushHistory();
     _dft.selected     = hit.id;
     _dft.pointerDown  = true;
     _dft.dragObj      = hit;
@@ -10784,6 +10824,7 @@ function _dftUpdateInfoBar() {
 
 function dftDeleteSelected() {
   if (!_dft.selected) return;
+  _dftPushHistory();
   _dft.objects = _dft.objects.filter(function(o){ return o.id !== _dft.selected; });
   _dft.selected = null;
   _dftUpdateInfoBar();
@@ -10820,7 +10861,7 @@ function dftSizeDialog() {
 
 function dftApplySize(id, w, h) {
   var o = _dft.objects.find(function(x){ return x.id===id; });
-  if (o) { o.w=w; o.h=h; dftRender(); }
+  if (o) { _dftPushHistory(); o.w=w; o.h=h; dftRender(); }
 }
 
 // ── LIGHT PICKER ──────────────────────────────────────────
@@ -10872,6 +10913,7 @@ function _dftLPSelect(mk, lk) {
   if (picker) picker.remove();
   var lt = LIGHTS[mk] && LIGHTS[mk][lk];
   if (!lt) return;
+  _dftPushHistory();
   var no = _dftAddObj('light', _dft.pendingLightWx, _dft.pendingLightWy, {
     makerKey: mk, modelKey: lk,
     lightName: lt.name, label: lt.name,
@@ -11364,8 +11406,11 @@ function dftNew() {
 <div id="page-draft" class="page-content" style="display:none;">
   <div class="draft-wrap">
     <div class="draft-toolbar" id="dft-toolbar">
-      <!-- Row 1: placement tools -->
+      <!-- Row 1: placement + edit tools -->
       <button class="draft-tool-btn active" id="dft-btn-select" onclick="dftMode('select')">↖ Select</button>
+      <button class="draft-tool-btn dft-del-btn" id="dft-btn-delete" onclick="dftMode('delete')">🗑 Del</button>
+      <button class="draft-tool-btn dft-undo-btn" onclick="dftUndo()" id="dft-btn-undo" disabled>↩ Undo</button>
+      <div class="draft-tool-sep"></div>
       <button class="draft-tool-btn" id="dft-btn-subject" onclick="dftMode('subject')">🧍 Sub</button>
       <button class="draft-tool-btn" id="dft-btn-camera" onclick="dftMode('camera')">🎥 Cam</button>
       <button class="draft-tool-btn" id="dft-btn-light" onclick="dftMode('light')">💡 Light</button>
