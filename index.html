@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.70</title>
+<title>CALM v1.1.2.71</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -98,7 +98,7 @@ header{background:var(--white);padding:1px 8px 1px;padding-top:calc(1px + env(sa
 .card-hdr h2 span{color:var(--text-dim);font-weight:600;}
 .card-
 .tabs{display:flex;border-bottom:1px solid #eee;margin:0;}
-.tab{flex:1;padding:9px 4px;text-align:center;font-size:11px;font-weight:800;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;}
+.tab{flex:1;padding:4px 4px;text-align:center;font-size:11px;font-weight:800;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent);}
 .tab-panel{display:none;}.tab-panel.active{display:block;}
 .sort-row{display:flex;align-items:center;gap:5px;padding:0 4px 8px;flex-wrap:wrap;}
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.70</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.71</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -6840,7 +6840,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.70';
+  var ver = 'v1.1.2.71';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10444,7 +10444,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.70</div>
+  <div class="drawer-footer">CALM v1.1.2.71</div>
 </div>
 
 </body>
