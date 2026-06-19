@@ -8942,7 +8942,7 @@ function mixAddLight() {
 
   // state
   var amk=''; // selected maker ('') = all
-  var activeTab='maker'; // 'maker' | 'name' | 'type'
+  var activeTab='fav'; // 'fav' | 'maker' | 'name' | 'type'
   var activeType='all';
   var searchText='';
 
@@ -9026,10 +9026,10 @@ function mixAddLight() {
     // Filter tabs
     function tabStyle(t){ return 'flex:1;padding:9px 6px;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:800;text-align:center;' + (activeTab===t?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:#aaa;'); }
     var tabHtml =
-      '<button onclick="window._mxtab(\'maker\')" style="'+tabStyle('maker')+'">🏷️ Manufacture</button>' +
+      '<button onclick="window._mxtab(\'fav\')"   style="'+tabStyle('fav') +'">⭐ Fav</button>' +
+      '<button onclick="window._mxtab(\'maker\')" style="'+tabStyle('maker')+'">🏷️ Maker</button>' +
       '<button onclick="window._mxtab(\'name\')"  style="'+tabStyle('name') +'">🔍 Name</button>' +
-      '<button onclick="window._mxtab(\'type\')"  style="'+tabStyle('type') +'">💡 Type</button>' +
-      '<button onclick="window._mxtab(\'fav\')"   style="'+tabStyle('fav') +'">⭐ Fav</button>';
+      '<button onclick="window._mxtab(\'type\')"  style="'+tabStyle('type') +'">💡 Type</button>';
 
     // Sub-content per tab
     var subHtml='';
