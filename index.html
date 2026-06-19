@@ -6257,7 +6257,7 @@ function onCamChange() {
     setHTML('still-iso-disp', stillISO + '<span>ISO</span>');
     setText('still-exposure-info','ISO'+stillISO+' · '+fLab(FSTOPS13[S.fstop])+' · 1/'+ssv+'s');
   }
-  updateBadge(); refreshAllTabs();
+  updateBadge(); refreshAllTabs(); try { saveCalcState(); } catch(e) {}
 }
 function onISODirect() {
   var v = parseInt(el('iso-direct').value); if (!v) return;
@@ -8550,10 +8550,13 @@ function renderMixList() {
         distRow +
         cctRow +
         accRow +
-        buildFactorSection('mix-' + i) +
+        '<div id="factor-wrap-mix-' + i + '" style="margin-top:6px;"></div>' +
       '</div>'
     );
   }).join('');
+
+  // Factor セクションを各スロットに描画（innerHTML設定後に実行）
+  mixLights.forEach(function(m, i) { renderFactorSection('mix-' + i); });
 
   if (S_mixPerLightDist && mixLights.length > 1) {
     mixLights.forEach(function(m, i) {
@@ -9146,7 +9149,7 @@ function setCinemaFPSPreset(val) {
   var angle = SA[saIdx] || 180;
   var ss = Math.round(val * 360 / angle);
   setText('shutter-speed-disp', '1/'+ss+'s');
-  updateBadge(); refreshAllTabs();
+  updateBadge(); refreshAllTabs(); try { saveCalcState(); } catch(e) {}
 }
 function toggleShutterAngle() {
   var body = el('shutter-angle-body');
@@ -9294,12 +9297,18 @@ function saveCalcState() {
     localStorage.setItem('calm_dist',     S.dist);
     localStorage.setItem('calm_imperial', S.imperial ? '1' : '0');
     localStorage.setItem('calm_camType',  S.camType || 'cinema');
-    localStorage.setItem('calm_iso',      S.iso     || 800);
+    localStorage.setItem('calm_iso',      S.iso     || 9);
     localStorage.setItem('calm_fps',      S.fps     || 24);
     localStorage.setItem('calm_fstop',    S.fstop   || 9);
     localStorage.setItem('calm_filmFPS',  S.filmFPS || 24);
     localStorage.setItem('calm_stillISO', S.stillISO|| 400);
     localStorage.setItem('calm_stillSS',  S.stillSS || 125);
+    // Shutter angle slider index
+    var saSl = el('shutter-angle-sl');
+    if (saSl) localStorage.setItem('calm_shutterAngleIdx', saSl.value);
+    var filmAngleSl = el('film-shutter-angle-sl');
+    if (filmAngleSl) localStorage.setItem('calm_filmAngleIdx', filmAngleSl.value);
+    if (S.filmStockIdx != null) localStorage.setItem('calm_filmStockIdx', S.filmStockIdx);
   } catch(e) {}
 }
 
@@ -9327,38 +9336,48 @@ function loadCalcState() {
       var lgt2 = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
       if (savedAcc && lgt2 && lgt2.accessories && lgt2.accessories.indexOf(savedAcc) >= 0) {
         S.accKey = savedAcc;
-        return;
+      } else {
+        if (lgt2 && lgt2.accessories && lgt2.accessories.length > 0) {
+          S.accKey = lgt2.accessories[0];
+        }
       }
+    } else {
+      // 初回起動 / バージョン不一致
+      var lgt = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
+      if (lgt && lgt.accessories && lgt.accessories.length > 0) S.accKey = lgt.accessories[0];
+      if (!localStorage.getItem('calm_cctIdx')) S.cctIdx = cctIdxFor5600(lgt);
     }
   } catch(e) {}
-  // Set accKey to first accessory only on first boot / invalid saved acc
-  var lgt = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
-  if (lgt && lgt.accessories && lgt.accessories.length > 0) {
-    S.accKey = lgt.accessories[0];
-  }
-  // 初回起動時: cctIdxをlocalStorageから復元していない場合は5600K基準で設定
-  if (!localStorage.getItem('calm_cctIdx')) {
-    S.cctIdx = cctIdxFor5600(lgt);
-  }
 
-  // Camera 設定を復元
+  // Camera 設定を常に復元
   try {
     var ct = localStorage.getItem('calm_camType');
-    if (ct) { S.camType = ct; try { setCamType(ct); } catch(e2){} }
+    if (ct) S.camType = ct;
     var sIso = localStorage.getItem('calm_iso');
-    if (sIso) S.iso = parseInt(sIso) || 800;
+    if (sIso !== null) S.iso = parseInt(sIso) || 9;
     var sFps = localStorage.getItem('calm_fps');
-    if (sFps) S.fps = parseInt(sFps) || 24;
+    if (sFps !== null) S.fps = parseInt(sFps) || 24;
     var sFstop = localStorage.getItem('calm_fstop');
-    if (sFstop) S.fstop = parseInt(sFstop) || 9;
+    if (sFstop !== null) S.fstop = parseInt(sFstop) || 9;
     var sFilmFPS = localStorage.getItem('calm_filmFPS');
-    if (sFilmFPS) S.filmFPS = parseInt(sFilmFPS) || 24;
+    if (sFilmFPS !== null) S.filmFPS = parseInt(sFilmFPS) || 24;
     var sStillISO = localStorage.getItem('calm_stillISO');
-    if (sStillISO) S.stillISO = parseInt(sStillISO) || 400;
+    if (sStillISO !== null) S.stillISO = parseInt(sStillISO) || 400;
     var sStillSS = localStorage.getItem('calm_stillSS');
-    if (sStillSS) S.stillSS = parseInt(sStillSS) || 125;
+    if (sStillSS !== null) S.stillSS = parseInt(sStillSS) || 125;
+    var sSaIdx = localStorage.getItem('calm_shutterAngleIdx');
+    if (sSaIdx !== null) {
+      var saSl = el('shutter-angle-sl');
+      if (saSl) saSl.value = parseInt(sSaIdx);
+    }
+    var sFilmAngleIdx = localStorage.getItem('calm_filmAngleIdx');
+    if (sFilmAngleIdx !== null) {
+      var filmAngleSl = el('film-shutter-angle-sl');
+      if (filmAngleSl) filmAngleSl.value = parseInt(sFilmAngleIdx);
+    }
+    var sFilmStockIdx = localStorage.getItem('calm_filmStockIdx');
+    if (sFilmStockIdx !== null) S.filmStockIdx = parseInt(sFilmStockIdx) || 0;
   } catch(e) {}
-
 }
 
 function renderCameraTab() {
@@ -9386,6 +9405,7 @@ function onFilmShutterAngleSlider() {
   setText('shutter-angle-disp', S.shutterAngle + '°');
   setText('shutter-speed-disp', '1/' + ss + 's');
   try { refreshAllTabs(); } catch(e) {}
+  try { saveCalcState(); } catch(e) {}
 }
 
 function onStillShutterSlider() {
@@ -9394,6 +9414,7 @@ function onStillShutterSlider() {
   var v = SS[parseInt(sl.value)] || 125;
   setText('still-shutter-denom', v);
   try { refreshAllTabs(); } catch(e) {}
+  try { saveCalcState(); } catch(e) {}
 }
 function onShutterAngleChange() {
   var SA=[360,270,180,172.8,144,90,45];
@@ -9416,7 +9437,7 @@ function onShutterAngleChange() {
     S.digCustomSS = DIG_SS_VALS[bestIdx];
   }
   openShutterAngle(); // アングル操作時は展開
-  refreshAllTabs();
+  refreshAllTabs(); try { saveCalcState(); } catch(e) {}
 }
 function setFilmFPS(fps) {
   S.filmFPS = fps;
