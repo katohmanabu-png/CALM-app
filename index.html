@@ -772,7 +772,7 @@ body {
           <button onclick="filterModels()"
             style="padding:8px 16px;background:var(--accent);color:#fff;border:none;
                    border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;
-                   white-space:nowrap;font-family:'Nunito',sans-serif;">🔍 検索</button>
+                   white-space:nowrap;font-family:'Nunito',sans-serif;" id="btn-model-search">🔍 検索</button>
         </div>
       </div>
       
@@ -994,7 +994,7 @@ body {
                     <div class="tri-res-val" id="tri-result">— m</div>
                   </div>
                   <button class="tri-btn" id="tri-use-btn" onclick="useTriDist()" disabled><span id="lbl-tri-use-btn">Use this dist →</span></button>
-                  <button onclick="cmOpen('calc')" style="margin-top:6px;width:100%;padding:8px;border:1.5px solid var(--accent);border-radius:8px;background:transparent;color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;">&#128207; 距離を入力</button>
+                  <button id="btn-cm-open-calc" onclick="cmOpen('calc')" style="margin-top:6px;width:100%;padding:8px;border:1.5px solid var(--accent);border-radius:8px;background:transparent;color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;">&#128207; 距離を入力</button>
                 </div>
           </div>
         
@@ -1569,7 +1569,7 @@ body {
         <!-- Tri active note -->
         <div class="tri-active" id="finder-tri-active-note" style="display:none;">
           <span id="finder-tri-active-text">📐</span>
-          <button class="tri-clear" onclick="clearFinderTriDist()">✕ 解除</button>
+          <button id="finder-tri-clear-btn" class="tri-clear" onclick="clearFinderTriDist()">✕ 解除</button>
         </div>
         <!-- Triangle Calculator 折りたたみ -->
         <div style="margin-top:4px;">
@@ -1577,7 +1577,7 @@ body {
             style="width:100%;padding:8px 12px;background:var(--bg);border:none;border-radius:10px;
                    display:flex;align-items:center;justify-content:space-between;cursor:pointer;
                    font-size:12px;font-weight:700;color:var(--text-dim);">
-            <span>📐 高さ・角度から計算</span>
+            <span id="finder-tri-calc-lbl">📐 高さ・角度から計算</span>
             <span id="finder-tri-arrow" style="transition:transform .25s;">▾</span>
           </button>
           <div id="finder-tri-body" style="display:none;">
@@ -1625,7 +1625,7 @@ body {
               <div class="tri-inputs">
                 <div>
                   <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                    <div class="tri-lbl">💡 高さ / Height</div>
+                    <div class="tri-lbl" id="finder-lbl-tri-h">💡 高さ / Height</div>
                     <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="finder-tri-height-disp">4.0 m</span>
                   </div>
                   <div style="display:flex;align-items:center;gap:5px;">
@@ -1640,7 +1640,7 @@ body {
                 </div>
                 <div>
                   <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                    <div class="tri-lbl">↔️ 水平距離</div>
+                    <div class="tri-lbl" id="finder-lbl-tri-hz">↔️ 水平距離</div>
                     <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="finder-tri-horiz-disp">6.0 m</span>
                   </div>
                   <div style="display:flex;align-items:center;gap:5px;">
@@ -1655,7 +1655,7 @@ body {
                 </div>
                 <div>
                   <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                    <div class="tri-lbl">📐 角度 / Angle</div>
+                    <div class="tri-lbl" id="finder-lbl-tri-angle">📐 角度 / Angle</div>
                     <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="finder-tri-angle-disp">34°</span>
                   </div>
                   <div style="display:flex;align-items:center;gap:5px;">
@@ -1670,11 +1670,11 @@ body {
                 </div>
               </div>
               <div class="tri-result">
-                <div class="tri-res-lbl">📏 斜辺 / Actual Dist.</div>
+                <div class="tri-res-lbl" id="finder-lbl-tri-res">📏 斜辺 / Actual Dist.</div>
                 <div class="tri-res-val" id="finder-tri-result">— m</div>
               </div>
               <button class="tri-btn" id="finder-tri-use-btn" onclick="useFinderTriDist()" disabled>Use this dist →</button>
-              <button onclick="cmOpen('finder')" style="margin-top:6px;width:100%;padding:8px;border:1.5px solid var(--accent);border-radius:8px;background:transparent;color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;">&#128207; 距離を入力</button>
+              <button id="btn-cm-open-finder" onclick="cmOpen('finder')" style="margin-top:6px;width:100%;padding:8px;border:1.5px solid var(--accent);border-radius:8px;background:transparent;color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;">&#128207; 距離を入力</button>
             </div>
           </div>
         </div>
@@ -1889,6 +1889,15 @@ var LANGS = {
     mixDistLabel:'距離 / Distance',
     finderCCTLabel:'🌡️ CCT',
     sortLabel:'🔀 SORT', sortDefault:'デフォルト', sortSingle:'1台優先', sortMulti:'複数台優先', sortFstop:'F値優先',
+    triHorizLbl:'↔️ 水平距離', triAngle:'📐 角度 / Angle', triClearBtn:'✕ 解除',
+    modelSearchPlaceholder:'ライト名を入力...', selectLightHint:'ライトを選択...',
+    cmUnitPrefix:'単位: ', cmApplied:' に反映',
+    secLabel1:'1台 ±0.5 stop', secLabel2:'複数台 ±0.5 stop', secLabel3:'1台 ±1 stop', secLabel4:'複数台 ±1 stop', secLabel5:'参考（距離調整）',
+    altSelectedLight:'選択ライト',
+    dmxPower:'定格出力', dmxCCT:'CCT', dmxDimming:'調光', dmxIP:'IP等級', dmxControl:'コントロール', dmxEffects:'エフェクト / Effects',
+    cmCtxCalc:'光量計算タブ', cmCtxFinder:'おすすめ検索タブ', cmCtxAlt:'代替検索タブ', cmCtxMix:'複数台タブ',
+    dblTapHint:'ダブルタップで直接入力',
+    pairSectionLabel:'2灯 組み合わせ', pairLabel:'📦 2灯セット', pairTotalW:'W 合計',
     filmFpsLabel:'コマ数 / FPS',
     stillFstopLabel:'F値',
     stillSSLabel:'シャッタースピード',
@@ -1961,7 +1970,21 @@ var LANGS = {
     fbDevLabel:'Device Information', fbDevAuto:'(auto)',
     fbSubmitBtn:'📨 Send Feedback', fbThanksTitle:'Thank you!',
     fbThanksMsg:'Thank you for helping improve CALM.\nYour feedback means a lot.',
-    fbAnotherBtn:'Send Another'
+    fbAnotherBtn:'Send Another',
+    filmFpsLabel:'FPS', stillFstopLabel:'F-stop', stillSSLabel:'Shutter Speed', stillISOLabel:'ISO',
+    selectLightHint:'Select a light...', searchBtn:'🔍 Search', distInputBtn:'📷 Enter Distance',
+    indivDistOff:'Indiv. Dist. OFF', indivDistOn:'Indiv. Dist. ON',
+    triCalcToggle:'📐 Height & Angle Calc', triLockTitle:'Long-press to lock', triLockTitleOn:'Locked (long-press to release)',
+    triHorizLbl:'↔️ Horizontal', triAngle:'📐 Angle',
+    modelSearchPlaceholder:'Light name...', mxSearchPlaceholder:'Light name...', mxSearchBtn:'Search',
+    cmDistTitle:'📷 Enter Distance',
+    cmUnitPrefix:'Unit: ', cmApplied:' applied',
+    secLabel1:'1 unit ±0.5 stop', secLabel2:'Multi ±0.5 stop', secLabel3:'1 unit ±1 stop', secLabel4:'Multi ±1 stop', secLabel5:'Reference (adjust distance)',
+    altSelectedLight:'Selected',
+    dmxPower:'Power', dmxCCT:'CCT', dmxDimming:'Dimming', dmxIP:'IP Rating', dmxControl:'Control', dmxEffects:'Effects',
+    cmCtxCalc:'Calc tab', cmCtxFinder:'Finder tab', cmCtxAlt:'Alt tab', cmCtxMix:'Mix tab',
+    dblTapHint:'Double-tap to enter directly',
+    pairSectionLabel:'2-Light Combo', pairLabel:'📦 2-Light Set', pairTotalW:'W total'
   },
   es: {
     navCalc:'Calc', navMix:'Mix', navFinder:'Buscador', navAlt:'Alt', navCamera:'Cámara', pageCalcTitle:'Calculadora de Iluminación', pageCalcSub:'Calculadora de Exposición', pageMixTitle:'Mix', pageMixSub:'Combina múltiples luces — calcula exposición total y CCT mezclado', pageFinderTitle:'Buscador de Equipos', pageFinderSub:'Encuentra el equipo ideal', pageAltTitle:'Buscar Equipo Equivalente', pageAltSub:'Encuentra la mejor alternativa', pageCameraTitle:'Cámara', pageCameraSub:'Digital / Film / Fotografía',
@@ -2013,7 +2036,22 @@ var LANGS = {
     fbDevLabel:'Información del Dispositivo', fbDevAuto:'(auto)',
     fbSubmitBtn:'📨 Enviar Comentario', fbThanksTitle:'¡Gracias!',
     fbThanksMsg:'Gracias por ayudar a mejorar CALM.\nTu opinión es muy valiosa.',
-    fbAnotherBtn:'Enviar Otro'
+    fbAnotherBtn:'Enviar Otro',
+    filmFpsLabel:'FPS', stillFstopLabel:'F-stop', stillSSLabel:'Vel. Obturación', stillISOLabel:'ISO',
+    unitsLabel:'Unidades', selectLightHint:'Seleccionar luz...',
+    searchBtn:'🔍 Buscar', distInputBtn:'📷 Ingresar Distancia',
+    indivDistOff:'Dist. Indiv. OFF', indivDistOn:'Dist. Indiv. ON',
+    triCalcToggle:'📐 Calc. Altura y Ángulo', triLockTitle:'Mantener para fijar', triLockTitleOn:'Fijado (mantener para liberar)',
+    triHorizLbl:'↔️ Horizontal', triAngle:'📐 Ángulo',
+    modelSearchPlaceholder:'Nombre del equipo...', mxSearchPlaceholder:'Nombre del equipo...', mxSearchBtn:'Buscar',
+    cmDistTitle:'📷 Ingresar Distancia',
+    cmUnitPrefix:'Unidad: ', cmApplied:' aplicado',
+    secLabel1:'1 unidad ±0.5 stop', secLabel2:'Múltiples ±0.5 stop', secLabel3:'1 unidad ±1 stop', secLabel4:'Múltiples ±1 stop', secLabel5:'Referencia (ajustar distancia)',
+    altSelectedLight:'Seleccionado',
+    dmxPower:'Potencia', dmxCCT:'CCT', dmxDimming:'Regulación', dmxIP:'Grado IP', dmxControl:'Control', dmxEffects:'Efectos',
+    cmCtxCalc:'Tab Calc', cmCtxFinder:'Tab Buscador', cmCtxAlt:'Tab Alt', cmCtxMix:'Tab Mix',
+    dblTapHint:'Toque doble para ingresar',
+    pairSectionLabel:'Combinación 2 luces', pairLabel:'📦 Juego 2 luces', pairTotalW:'W total'
   }
 };
 var LANG = 'en';
@@ -2046,7 +2084,7 @@ function applyI18n() {
   s('lbl-acc','accTitle'); s('lbl-cct','cctTitle'); s('lbl-dist','distTitle');
   s('lbl-direct','directInput'); s('lbl-manual','manualInput');
   s('lbl-direct-iso','directInput');
-  s('lbl-tri','triTitle'); s('lbl-tri-h','triHeight'); s('lbl-tri-hz','triHoriz');
+  s('lbl-tri','triTitle'); s('lbl-tri-h','triHeight'); s('lbl-tri-hz','triHoriz'); s('lbl-tri-a','triAngle');
   s('lbl-tri-res','triResult'); s('lbl-tri-clear','triClear');
  s('lbl-iso','isoLabel'); s('lbl-fps','fpsLabel');
   s('lbl-fstop','fstopLabel'); s('lbl-fstop-sub','fstopSub');
@@ -2100,6 +2138,7 @@ function applyI18n() {
   s('lbl-alt-fixture','altFinderFixture');
   s('lbl-alt-dist','altFinderDistLabel');
   s('lbl-alt-cct','altFinderCCTLabel');
+  s('lbl-alt-direct','directInput');
   s('alt-finder-btn','altFinderBtn');
   // Finder
   s('finder-desc-text','finderDesc');
@@ -2113,7 +2152,10 @@ function applyI18n() {
   // Direct inputs
   s('lbl-direct','directInput'); s('lbl-manual','manualInput');
   // Units / multi
-  s('lbl-multi','unitsLabel');
+  s('lbl-units','unitsLabel');
+  // Strip Japanese unit suffix from count display when not JA
+  var _mcd = el('multi-count-disp');
+  if (_mcd && LANG !== 'ja') { var _mcdN = parseInt(_mcd.textContent); if (!isNaN(_mcdN)) _mcd.textContent = _mcdN; }
   // Mix dist
   s('lbl-mix-dist','mixDistLabel');
   // Finder labels (already handled by refreshFinderI18n but add fallback)
@@ -2125,6 +2167,34 @@ function applyI18n() {
   s('lbl-still-fstop-label','stillFstopLabel');
   s('lbl-still-ss-label',   'stillSSLabel');
   s('lbl-still-iso-label',  'stillISOLabel');
+  // Elements with hardcoded Japanese text
+  s('btn-model-search',    'searchBtn');
+  s('btn-cm-open-calc',    'distInputBtn');
+  s('btn-cm-open-finder',  'distInputBtn');
+  s('btn-cm-open-alt',     'distInputBtn');
+  s('cm-dist-title',       'cmDistTitle');
+  s('finder-tri-calc-lbl', 'triCalcToggle');
+  s('alt-tri-calc-lbl',    'triCalcToggle');
+  s('finder-tri-clear-btn','triClear');
+  s('alt-tri-clear-btn',   'triClear');
+  s('finder-lbl-tri-h',    'triHeight');
+  s('finder-lbl-tri-hz',   'triHorizLbl');
+  s('finder-lbl-tri-angle','triAngle');  // uses existing JA key
+  s('finder-lbl-tri-res',  'triResult');
+  s('alt-lbl-tri-h',       'triHeight');
+  s('alt-lbl-tri-hz',      'triHorizLbl');
+  s('alt-lbl-tri-angle',   'triAngle');
+  s('alt-lbl-tri-res',     'triResult');
+  // Model search input placeholder
+  var _ms = el('model-search');
+  if (_ms) _ms.placeholder = t('modelSearchPlaceholder');
+  // Light selector placeholder (only when no light selected)
+  var _lsName = el('light-select-hdr-name');
+  if (_lsName && (!S || !S.maker || !S.model)) { _lsName.textContent = t('selectLightHint'); }
+  // Lock button titles
+  document.querySelectorAll('.tri-lock-btn').forEach(function(b) {
+    b.title = b.classList.contains('locked') ? t('triLockTitleOn') : t('triLockTitle');
+  });
   // Sort chip labels (Finder + Alt)
   var _sortMap = {default:'sortDefault', single:'sortSingle', multi:'sortMulti', fstop:'sortFstop'};
   document.querySelectorAll('.finder-sort-chip, .alt-sort-chip').forEach(function(btn) {
@@ -5557,7 +5627,7 @@ function _triUnlock(slId) {
   _triLocks[slId] = false;
   var btnId = 'lock-' + slId;
   var btn = el(btnId), sl = el(slId);
-  if (btn) { btn.textContent = '🔓'; btn.classList.remove('locked'); btn.title = '長押しでロック'; }
+  if (btn) { btn.textContent = '🔓'; btn.classList.remove('locked'); btn.title = t('triLockTitle'); }
   if (sl)  sl.classList.remove('tri-slider-locked');
 }
 
@@ -5572,7 +5642,7 @@ function triLockToggle(slId, btnId) {
   if (btn) {
     btn.textContent = willLock ? '🔒' : '🔓';
     btn.classList.toggle('locked', willLock);
-    btn.title = willLock ? 'ロック中（長押しで解除）' : '長押しでロック';
+    btn.title = willLock ? t('triLockTitleOn') : t('triLockTitle');
   }
   if (sl) sl.classList.toggle('tri-slider-locked', willLock);
 }
@@ -5618,7 +5688,7 @@ function makeSlValEditable(dispId, slId, min, max, step, onCommit) {
   if (!disp || disp._slEditBound) return;
   disp._slEditBound = true;
   disp.style.cursor = 'pointer';
-  disp.title = 'ダブルタップで直接入力';
+  disp.title = t('dblTapHint');
 
   function startEdit() {
     var sl = el(slId);
@@ -5726,12 +5796,9 @@ function calcTriangle(changed) {
 var _cmContext = 'calc';
 
 // コンテキスト名 → 表示ラベル
-var _cmContextLabels = {
-  calc:   '光量計算タブ',
-  finder: 'おすすめ検索タブ',
-  alt:    '代替検索タブ',
-  mix:    '複数台タブ'
-};
+function _cmContextLabels() {
+  return { calc: t('cmCtxCalc'), finder: t('cmCtxFinder'), alt: t('cmCtxAlt'), mix: t('cmCtxMix') };
+}
 
 // オーバーレイを開く
 function cmOpen(ctx) {
@@ -5747,8 +5814,8 @@ function cmOpen(ctx) {
   // 単位表示を更新
   var imp  = typeof S !== 'undefined' && S.imperial;
   var unit = imp ? 'ft' : 'm';
-  if (un) un.textContent = '単位: ' + unit + ' (' + (imp ? 'フィート' : 'メートル') + ')';
-  if (lbl) lbl.textContent = _cmContextLabels[_cmContext] || '';
+  if (un) un.textContent = t('cmUnitPrefix') + unit;
+  if (lbl) lbl.textContent = _cmContextLabels()[_cmContext] || '';
   if (fb) fb.style.display = 'none';
 
   // input の placeholder を単位に合わせる
@@ -5852,7 +5919,7 @@ function cmApply(dest) {
   var destLabel = dest === 'height' ? 'Height' : dest === 'horiz' ? 'Horiz' : 'Distance';
   var fb = document.getElementById('cm-feedback');
   if (fb) {
-    fb.textContent = '✓ ' + raw + ' ' + unit + ' → ' + destLabel + ' に反映しました';
+    fb.textContent = '✓ ' + raw + ' ' + unit + ' → ' + destLabel + t('cmApplied');
     fb.style.display = 'block';
   }
 
@@ -6081,16 +6148,16 @@ function renderDMX() {
   }
   var d = light.dmx;
   var items = [
-    ['定格出力', d.power], ['CCT範囲', d.cct],
+    [t('dmxPower'), d.power], [t('dmxCCT'), d.cct],
     ['CRI', d.cri], ['TLCI', d.tlci],
-    ['調光', d.dimming], ['IP等級', d.ip]
+    [t('dmxDimming'), d.dimming], [t('dmxIP'), d.ip]
   ];
   var html = items.map(function(i){
     return '<div class="dmx-item"><div class="dmx-lbl">'+i[0]+'</div><div class="dmx-val">'+(i[1]||'-')+'</div></div>';
   }).join('');
-  html += '<div class="dmx-item dmx-wide"><div class="dmx-lbl">コントロール</div><div class="dmx-val" style="font-size:10px;line-height:1.5">'+d.control+'</div></div>';
+  html += '<div class="dmx-item dmx-wide"><div class="dmx-lbl">'+t('dmxControl')+'</div><div class="dmx-val" style="font-size:10px;line-height:1.5">'+d.control+'</div></div>';
   if (d.effects && d.effects.length) {
-    html += '<div class="dmx-item dmx-wide"><div class="dmx-lbl">エフェクト / Effects</div>' +
+    html += '<div class="dmx-item dmx-wide"><div class="dmx-lbl">'+t('dmxEffects')+'</div>' +
       '<div class="dmx-fx">' + d.effects.map(function(e){ return '<span class="dmx-chip">✨ '+e+'</span>'; }).join('') + '</div></div>';
   }
   grid.innerHTML = html;
@@ -7810,7 +7877,7 @@ function renderFinderResults() {
     // プライオリティ区切り線
     if (targetFval > 0 && res.priority !== prevPriority) {
       var secDiv = document.createElement('div');
-      var secLabels = ['','1台 ±0.5 stop','複数台 ±0.5 stop','1台 ±1 stop','複数台 ±1 stop','参考（距離調整で対応）'];
+      var secLabels = ['',t('secLabel1'),t('secLabel2'),t('secLabel3'),t('secLabel4'),t('secLabel5')];
       secDiv.style.cssText = 'padding:6px 12px 3px;font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,0.35);';
       secDiv.textContent = secLabels[res.priority] || '';
       if (secDiv.textContent) out.appendChild(secDiv);
@@ -8208,7 +8275,7 @@ function runAlternativeFinder() {
     // 上段: 選択ライト
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
       '<div>' +
-        '<div style="font-size:10px;color:var(--text-dim);font-weight:700;">選択ライト · ' + dist.toFixed(1) + 'm</div>' +
+        '<div style="font-size:10px;color:var(--text-dim);font-weight:700;">'+t('altSelectedLight')+' · ' + dist.toFixed(1) + 'm</div>' +
         '<div style="font-size:13px;font-weight:800;color:var(--text);">' + (LIGHTS[mk] && LIGHTS[mk][lk] ? LIGHTS[mk][lk].name : lk) + '</div>' +
         '<div style="font-size:10px;color:var(--text-dim);">' + acc + ' · ' + (srcLux > 0 ? Math.round(srcLux).toLocaleString() + ' lux' : 'No data') + '</div>' +
       '</div>' +
@@ -8250,7 +8317,7 @@ function runAlternativeFinder() {
   }
 
   var prevPri = -1;
-  var secLabels = ['','1台 ±0.5 stop','複数台 ±0.5 stop','1台 ±1 stop','複数台 ±1 stop'];
+  var secLabels = ['',t('secLabel1'),t('secLabel2'),t('secLabel3'),t('secLabel4')];
   var rankIdx = 0;
   results.slice(0, 30).forEach(function(res, idx) {
     rankIdx++;
@@ -8299,7 +8366,7 @@ function runAlternativeFinder() {
   if (pairResults.length > 0) {
     var pairSec = document.createElement('div');
     pairSec.style.cssText = 'padding:8px 12px 3px;font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,0.35);margin-top:4px;border-top:1px solid var(--bg);';
-    pairSec.textContent = '2灯 組み合わせ';
+    pairSec.textContent = t('pairSectionLabel');
     out.appendChild(pairSec);
 
     pairResults.slice(0, 8).forEach(function(pr) {
@@ -8315,7 +8382,7 @@ function runAlternativeFinder() {
           '<div style="font-size:11px;font-weight:900;color:var(--text-dim);">#' + rankIdx + '</div>' +
         '</div>' +
         '<div style="flex:1;min-width:0;">' +
-          '<div style="font-size:11px;color:var(--accent);font-weight:700;">📦 2灯セット</div>' +
+          '<div style="font-size:11px;color:var(--accent);font-weight:700;">'+t('pairLabel')+'</div>' +
           '<div style="font-size:12px;font-weight:800;color:var(--text);line-height:1.4;">' +
             (makerA.emoji||'') + ' ' + pr.nameA + ' <span style="color:var(--text-dim);font-size:10px;">' + pr.accA + '</span>' +
           '</div>' +
@@ -8323,7 +8390,7 @@ function runAlternativeFinder() {
             '<span style="font-size:10px;color:var(--text-dim);margin-right:2px;">+</span>' +
             (makerB.emoji||'') + ' ' + pr.nameB + ' <span style="color:var(--text-dim);font-size:10px;">' + pr.accB + '</span>' +
           '</div>' +
-          '<div style="font-size:10px;color:var(--text-dim);">' + (pr.wattsA + pr.wattsB) + 'W 合計</div>' +
+          '<div style="font-size:10px;color:var(--text-dim);">' + (pr.wattsA + pr.wattsB) + t('pairTotalW') + '</div>' +
         '</div>' +
         '<div style="text-align:right;min-width:70px;padding-left:8px;">' +
           '<div style="font-size:20px;font-weight:900;color:var(--accent);font-family:\'JetBrains Mono\',monospace;">' + pr.fStr + '</div>' +
@@ -8643,7 +8710,7 @@ function renderMixList() {
   if (perBtn) {
     if (mixLights.length >= 2) {
       perBtn.style.display = '';
-      perBtn.textContent = '個別距離 ' + (S_mixPerLightDist ? 'ON' : 'OFF');
+      perBtn.textContent = S_mixPerLightDist ? t('indivDistOn') : t('indivDistOff');
       perBtn.style.background = S_mixPerLightDist ? 'var(--accent)' : 'transparent';
       perBtn.style.color = S_mixPerLightDist ? 'white' : 'var(--accent)';
     } else {
@@ -8782,7 +8849,7 @@ function renderMixList() {
           '<input type="range" min="1" max="50" step="1" value="' + (m.units||1) + '"' +
             ' oninput="window._mxusl(' + i + ',this.value)"' +
             ' style="flex:1;height:4px;">' +
-          '<span style="font-size:10px;color:var(--text-dim);min-width:28px;">' + (m.units||1) + '台</span>' +
+          '<span style="font-size:10px;color:var(--text-dim);min-width:28px;">' + (m.units||1) + (t('mixUnitSuffix')||'') + '</span>' +
         '</div>' +
         distRow +
         cctRow +
@@ -9108,7 +9175,7 @@ function calcMix() {
         entries.map(function(e2) {
           var pct = Math.round(e2.subtotal / cctTotalLux * 100);
           return '<span style="font-weight:700;color:var(--text)">' + e2.cct + 'K</span>' +
-                 ' × ' + e2.units + '台 = ' + pct + '%';
+                 ' × ' + e2.units + (t('mixUnitSuffix')||'') + ' = ' + pct + '%';
         }).join('<br>') +
       '</div>';
   }
@@ -9231,11 +9298,11 @@ function mixAddLight() {
       subHtml=''; // maker shown above always
     } else if(activeTab==='name'){
       subHtml='<div style="display:flex;gap:6px;margin-top:8px;">' +
-        '<input id="mxsearch" type="text" placeholder="ライト名を入力..." value="'+searchText.replace(/"/g,'&quot;')+'" ' +
+        '<input id="mxsearch" type="text" placeholder="'+t('mxSearchPlaceholder')+'" value="'+searchText.replace(/"/g,'&quot;')+'" ' +
         'style="flex:1;padding:8px 10px;border:1.5px solid #333;border-radius:8px;font-size:13px;font-weight:600;background:#1a1a1a;color:#fff;box-sizing:border-box;outline:none;" ' +
         'oninput="window._mxsearch(this.value)" onkeydown="if(event.key===\'Enter\')window._mxsearch(this.value)">' +
         '<button onclick="window._mxsearch(document.getElementById(\'mxsearch\').value)" ' +
-        'style="padding:8px 14px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;">検索</button>' +
+        'style="padding:8px 14px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;">'+t('mxSearchBtn')+'</button>' +
         '</div>';
     } else if(activeTab==='type'){
       var types=['all','cob','panel','spot','tube','hmi_lens','hmi_open','tungsten','led_other'];
@@ -9255,7 +9322,7 @@ function mixAddLight() {
         '<div style="padding:14px 14px 10px;border-bottom:1px solid #222;flex-shrink:0;">' +
           // Title + close
           '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">' +
-            '<div style="font-size:14px;font-weight:800;color:#fff;">ライトを選択</div>' +
+            '<div style="font-size:14px;font-weight:800;color:#fff;">'+t('selectLightHint')+'</div>' +
             '<button onclick="document.getElementById(\'mix-modal\').remove()" style="background:none;border:none;color:#888;font-size:20px;cursor:pointer;padding:0 4px;">✕</button>' +
           '</div>' +
           // Filter tabs — 上に大きく表示
@@ -9451,7 +9518,7 @@ function updateLightSelectorHdr() {
   var subEl  = el('light-select-hdr-sub');
   var emoji  = el('light-select-hdr-emoji');
   if (!light) {
-    if (nameEl) nameEl.textContent = 'ライトを選択...';
+    if (nameEl) nameEl.textContent = t('selectLightHint');
     if (subEl)  subEl.textContent  = '';
     if (emoji)  emoji.textContent  = '💡';
     return;
@@ -10035,7 +10102,7 @@ function useMixTriDist() {
 }
 
 window._mxu   = function(i,d){ mixLights[i].units=Math.max(1,Math.min(50,(mixLights[i].units||1)+d)); renderMixList(); calcMix(); };
-window._mxusl = function(i,v){ mixLights[i].units=parseInt(v)||1; var u=document.getElementById('mx-u-'+i); var ul=document.getElementById('mx-ul-'+i); if(u) u.textContent=mixLights[i].units; if(ul) ul.textContent=mixLights[i].units+'台'; calcMix(); };
+window._mxusl = function(i,v){ mixLights[i].units=parseInt(v)||1; var u=document.getElementById('mx-u-'+i); var ul=document.getElementById('mx-ul-'+i); if(u) u.textContent=mixLights[i].units; if(ul) ul.textContent=mixLights[i].units+(t('mixUnitSuffix')||''); calcMix(); };
 window._mxdel = function(i){ mixLights.splice(i,1); renderMixList(); calcMix(); };
 window._mxcct  = function(i,v,minC){ mixLights[i].cct=(parseInt(minC)||2700)+parseInt(v)*100; var el2=document.getElementById('mxcv-'+i); if(el2)el2.textContent=mixLights[i].cct+'K'; calcMix(); };
 window._mxccts = function(i,d,minC,maxSteps){ var sl=document.getElementById('mxcsl-'+i); if(!sl) return; var v=Math.max(0,Math.min(maxSteps,parseInt(sl.value)+d)); sl.value=v; window._mxcct(i,v,minC); };
@@ -10157,7 +10224,7 @@ function selectMakerModel(mk, lk) {
           <!-- Triangle Calculator の結果が使用中の場合に表示 -->
           <div class="tri-active" id="alt-tri-active-note" style="display:none;">
             <span id="alt-tri-active-text">📐</span>
-            <button class="tri-clear" onclick="clearAltTriDist()">✕ 解除</button>
+            <button id="alt-tri-clear-btn" class="tri-clear" onclick="clearAltTriDist()">✕ 解除</button>
           </div>
           <!-- Triangle Calculator（折りたたみ） -->
           <div style="margin-top:4px;">
@@ -10165,7 +10232,7 @@ function selectMakerModel(mk, lk) {
               style="width:100%;padding:8px 12px;background:var(--bg);border:none;border-radius:10px;
                      display:flex;align-items:center;justify-content:space-between;cursor:pointer;
                      font-size:12px;font-weight:700;color:var(--text-dim);">
-              <span>📐 高さ・角度から計算</span>
+              <span id="alt-tri-calc-lbl">📐 高さ・角度から計算</span>
               <span id="alt-tri-arrow" style="transition:transform .25s;">▾</span>
             </button>
             <div id="alt-tri-body" style="display:none;">
@@ -10213,7 +10280,7 @@ function selectMakerModel(mk, lk) {
                 <div class="tri-inputs">
                   <div>
                     <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                      <div class="tri-lbl">💡 高さ / Height</div>
+                      <div class="tri-lbl" id="alt-lbl-tri-h">💡 高さ / Height</div>
                       <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="alt-tri-height-disp">4.0 m</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:5px;">
@@ -10228,7 +10295,7 @@ function selectMakerModel(mk, lk) {
                   </div>
                   <div>
                     <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                      <div class="tri-lbl">↔️ 水平距離</div>
+                      <div class="tri-lbl" id="alt-lbl-tri-hz">↔️ 水平距離</div>
                       <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="alt-tri-horiz-disp">6.0 m</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:5px;">
@@ -10243,7 +10310,7 @@ function selectMakerModel(mk, lk) {
                   </div>
                   <div>
                     <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                      <div class="tri-lbl">📐 角度 / Angle</div>
+                      <div class="tri-lbl" id="alt-lbl-tri-angle">📐 角度 / Angle</div>
                       <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="alt-tri-angle-disp">34°</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:5px;">
@@ -10258,11 +10325,11 @@ function selectMakerModel(mk, lk) {
                   </div>
                 </div>
                 <div class="tri-result">
-                  <div class="tri-res-lbl">📏 斜辺 / Actual Dist.</div>
+                  <div class="tri-res-lbl" id="alt-lbl-tri-res">📏 斜辺 / Actual Dist.</div>
                   <div class="tri-res-val" id="alt-tri-result">— m</div>
                 </div>
                 <button class="tri-btn" id="alt-tri-use-btn" onclick="useAltTriDist()" disabled>Use this dist →</button>
-                <button onclick="cmOpen('alt')" style="margin-top:6px;width:100%;padding:8px;border:1.5px solid var(--accent);border-radius:8px;background:transparent;color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;">&#128207; 距離を入力</button>
+                <button id="btn-cm-open-alt" onclick="cmOpen('alt')" style="margin-top:6px;width:100%;padding:8px;border:1.5px solid var(--accent);border-radius:8px;background:transparent;color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;">&#128207; 距離を入力</button>
               </div>
             </div>
           </div>
@@ -10429,7 +10496,7 @@ function selectMakerModel(mk, lk) {
     <!-- Title row -->
     <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 18px 16px;">
       <div>
-        <div style="font-size:17px;font-weight:800;color:var(--text,#fff);">&#128207; 距離を入力</div>
+        <div id="cm-dist-title" style="font-size:17px;font-weight:800;color:var(--text,#fff);">&#128207; 距離を入力</div>
         <div id="cm-context-label" style="font-size:11px;color:var(--text-dim,#999);margin-top:2px;"></div>
       </div>
       <button onclick="cmClose()"
