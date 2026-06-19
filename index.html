@@ -7863,14 +7863,18 @@ function syncMixFromCalc() {
   var acc  = S.accKey || (light.accessories && light.accessories[0]) || 'none';
   var multiSl = el('multi-sl');
   var units = multiSl ? (parseInt(multiSl.value) || 1) : 1;
-  var factors = (typeof S_calcFactors !== 'undefined') ? JSON.parse(JSON.stringify(S_calcFactors)) : [];
+  var calcFactors = (typeof S_calcFactors !== 'undefined') ? JSON.parse(JSON.stringify(S_calcFactors)) : [];
 
-  // Slot 0 を Calc の選択ライトで上書き（他スロットは保持）
-  var slot0 = { makerKey: S.maker, modelKey: S.model, units: units, cct: cct, acc: acc, dist: dist, factors: factors };
+  // Slot 0 を Calc の選択ライトで更新（ファクターはMix側の編集を保持）
   if (mixLights.length === 0) {
-    mixLights.push(slot0);
+    mixLights.push({ makerKey: S.maker, modelKey: S.model, units: units, cct: cct, acc: acc, dist: dist, factors: calcFactors, enabled: true });
   } else {
-    mixLights[0] = slot0;
+    // ライト・距離・CCT・台数のみ更新、Mixで編集済みのfactorsは保持
+    var existingFactors = mixLights[0].factors && mixLights[0].factors.length > 0 ? mixLights[0].factors : calcFactors;
+    mixLights[0] = Object.assign({}, mixLights[0], {
+      makerKey: S.maker, modelKey: S.model, units: units, cct: cct, acc: acc, dist: dist,
+      factors: existingFactors
+    });
   }
 
   // グローバル距離スライダーを Calc の距離に同期
