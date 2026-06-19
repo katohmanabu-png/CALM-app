@@ -1746,7 +1746,7 @@ body {
       </div>
       <!-- ソート順 -->
       <div style="margin-top:10px;">
-        <div class="rank-field-lbl" style="margin-bottom:6px;">🔀 SORT</div>
+        <div class="rank-field-lbl finder-sort-label" style="margin-bottom:6px;">🔀 SORT</div>
         <div style="display:flex;gap:5px;">
           <button class="finder-type-chip finder-sort-chip active" data-sort="default"  onclick="setFinderSort('default')">デフォルト</button>
           <button class="finder-type-chip finder-sort-chip"        data-sort="single"   onclick="setFinderSort('single')">1台優先</button>
@@ -1888,6 +1888,7 @@ var LANGS = {
     unitsLabel:'複数台 / Units',
     mixDistLabel:'距離 / Distance',
     finderCCTLabel:'🌡️ CCT',
+    sortLabel:'🔀 SORT', sortDefault:'デフォルト', sortSingle:'1台優先', sortMulti:'複数台優先', sortFstop:'F値優先',
     filmFpsLabel:'コマ数 / FPS',
     stillFstopLabel:'F値',
     stillSSLabel:'シャッタースピード',
@@ -1949,6 +1950,7 @@ var LANGS = {
     unitsLabel:'Units',
     mixDistLabel:'Distance',
     finderCCTLabel:'🌡️ CCT',
+    sortLabel:'🔀 SORT', sortDefault:'Default', sortSingle:'Single Unit', sortMulti:'Multi Unit', sortFstop:'F-stop Match',
     ftabName:'🔍 Name', ftabMaker:'Manufacturer', ftabType:'💡 Type',
     cmLblHeight:'Height', cmLblHoriz:'Horiz', cmLblDist:'Distance',
     cmLblUseHeight:'Use as Height', cmLblUseHoriz:'Use as Horiz', cmLblUseDist:'Use as Distance',
@@ -1964,7 +1966,8 @@ var LANGS = {
   es: {
     navCalc:'Calc', navMix:'Mix', navFinder:'Buscador', navAlt:'Alt', navCamera:'Cámara', pageCalcTitle:'Calculadora de Iluminación', pageCalcSub:'Calculadora de Exposición', pageMixTitle:'Mix', pageMixSub:'Combina múltiples luces — calcula exposición total y CCT mezclado', pageFinderTitle:'Buscador de Equipos', pageFinderSub:'Encuentra el equipo ideal', pageAltTitle:'Buscar Equipo Equivalente', pageAltSub:'Encuentra la mejor alternativa', pageCameraTitle:'Cámara', pageCameraSub:'Digital / Film / Fotografía',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ Favoritos',
-    makerTitle:'Fabricante', modelTitle:'Luz', sortLabel:'Ordenar:',
+    makerTitle:'Fabricante', modelTitle:'Luz', sortLabel:'🔀 SORT', sortDefault:'Por defecto', sortSingle:'1 unidad', sortMulti:'Múltiples', sortFstop:'F-stop exacto',
+    finderCCTLabel:'🌡️ CCT',
     accTitle:'Accesorio', cctTitle:'Temperatura de Color',
     distTitle:'Distancia', directInput:'Entrada directa:', manualInput:'Personalizado:',
     tabLighting:'💡 Iluminación', tabTable:'📊 Tabla de Distancias', tabDMX:'📡 Data',
@@ -2122,6 +2125,13 @@ function applyI18n() {
   s('lbl-still-fstop-label','stillFstopLabel');
   s('lbl-still-ss-label',   'stillSSLabel');
   s('lbl-still-iso-label',  'stillISOLabel');
+  // Sort chip labels (Finder + Alt)
+  var _sortMap = {default:'sortDefault', single:'sortSingle', multi:'sortMulti', fstop:'sortFstop'};
+  document.querySelectorAll('.finder-sort-chip, .alt-sort-chip').forEach(function(btn) {
+    var k = _sortMap[btn.dataset.sort];
+    if (k) btn.textContent = t(k);
+  });
+  document.querySelectorAll('.finder-sort-label').forEach(function(el) { el.textContent = t('sortLabel'); });
 }
 
 // ===== MAKERS =====
@@ -10264,7 +10274,7 @@ function selectMakerModel(mk, lk) {
         </button>
         <!-- ソート順 -->
         <div style="margin-top:10px;">
-          <div style="font-size:10px;font-weight:700;color:var(--text-dim);margin-bottom:5px;">🔀 SORT</div>
+          <div class="finder-sort-label" style="font-size:10px;font-weight:700;color:var(--text-dim);margin-bottom:5px;">🔀 SORT</div>
           <div style="display:flex;gap:5px;">
             <button class="finder-type-chip alt-sort-chip active" data-sort="default" onclick="setAltSort('default')">デフォルト</button>
             <button class="finder-type-chip alt-sort-chip"        data-sort="single"  onclick="setAltSort('single')">1台優先</button>
