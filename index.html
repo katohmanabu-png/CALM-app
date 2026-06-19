@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.74</title>
+<title>CALM v1.1.2.75</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.74</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.75</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -6844,7 +6844,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.74';
+  var ver = 'v1.1.2.75';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -7667,18 +7667,24 @@ function renderFinderResults() {
       var absDiffU = Math.abs(stopDiffU);
 
       // ── プライオリティ計算 ──
-      // 1: 1台 ±1stop以内
-      // 2: 複数台 ±1stop以内
-      // 3: 1台 ±2stop以内
-      // 4: 複数台 ±2stop以内
-      // 5: ±2stop超（参考: 距離調整で対応可能なもの）
-      var priority = 5;
+      // 目標以上（stopDiff >= 0）を先、目標未満（stopDiff < 0）を後ろに
+      // 1: 1台 ≥ target かつ ±1stop以内
+      // 2: 複数台 ≥ target かつ ±1stop以内
+      // 3: 1台 < target かつ ±1stop以内（暗い）
+      // 4: 複数台 < target かつ ±1stop以内（暗い）
+      // 5: 1台 ±2stop以内
+      // 6: 複数台 ±2stop以内
+      // 7: ±2stop超（参考）
+      var priority = 7;
       if (targetFval > 0) {
-        if (bestUnits === 1 && absDiff1 < 1.001) priority = 1;
-        else if (bestUnits > 1 && absDiffU < 1.001) priority = 2;
-        else if (bestUnits === 1 && absDiff1 < 2.001) priority = 3;
-        else if (bestUnits > 1 && absDiffU < 2.001) priority = 4;
-        // priority 5: ±1stop超のものも参考として残す（除外しない）
+        var above1 = stopDiff1 >= -0.001;
+        var aboveU = stopDiffU >= -0.001;
+        if      (bestUnits === 1 && absDiff1 < 1.001 && above1) priority = 1;
+        else if (bestUnits > 1  && absDiffU < 1.001 && aboveU) priority = 2;
+        else if (bestUnits === 1 && absDiff1 < 1.001)           priority = 3;
+        else if (bestUnits > 1  && absDiffU < 1.001)            priority = 4;
+        else if (bestUnits === 1 && absDiff1 < 2.001)           priority = 5;
+        else if (bestUnits > 1  && absDiffU < 2.001)            priority = 6;
       }
 
       // ワイド→スポット順: angle降順ソート用キー
@@ -10477,7 +10483,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.74</div>
+  <div class="drawer-footer">CALM v1.1.2.75</div>
 </div>
 
 </body>
