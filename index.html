@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.15</title>
+<title>CALM v1.1.3.16</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -700,12 +700,25 @@ body {
 #page-draft { position:fixed;top:0;left:0;right:0;bottom:0;z-index:1;padding:0!important; }
 .draft-wrap { display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden; }
 .draft-toolbar { display:flex;flex-wrap:wrap;gap:4px;padding:6px 8px 5px;background:var(--bg);border-bottom:1px solid var(--border,#eee);flex-shrink:0;padding-top:max(env(safe-area-inset-top,6px),44px); }
-.draft-tool-btn { padding:5px 9px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:11px;font-weight:800;background:var(--bg);color:var(--text);cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif;line-height:1.2; }
-.draft-tool-btn.active { background:var(--accent);color:#fff;border-color:var(--accent); }
-.dft-del-btn { border-color:#e53935;color:#e53935; }
-.dft-del-btn.active { background:#e53935;color:#fff;border-color:#e53935; }
-.dft-undo-btn { border-color:#888;color:#666; }
-.dft-undo-btn:disabled { opacity:.35;cursor:default; }
+.draft-tool-btn { padding:5px 9px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:11px;font-weight:800;background:var(--bg);color:var(--text);cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif;line-height:1.2;transition:background .12s,color .12s,border-color .12s,box-shadow .12s; }
+/* mode-specific active colors */
+#dft-btn-select.active { background:#1565c0;color:#fff;border-color:#1565c0;box-shadow:0 0 0 2px rgba(21,101,192,.25); }
+#dft-btn-delete.active { background:#c62828;color:#fff;border-color:#c62828;box-shadow:0 0 0 2px rgba(198,40,40,.25); }
+#dft-btn-rotate.active { background:#e65100;color:#fff;border-color:#e65100;box-shadow:0 0 0 2px rgba(230,81,0,.25); }
+/* placement modes */
+#dft-btn-people.active,#dft-btn-camera.active,#dft-btn-light.active,
+#dft-btn-diffuser.active,#dft-btn-bounce.active,#dft-btn-flag.active { background:#2e7d32;color:#fff;border-color:#2e7d32;box-shadow:0 0 0 2px rgba(46,125,50,.25); }
+/* inactive state hints */
+#dft-btn-delete { border-color:#e57373;color:#c62828; }
+#dft-btn-rotate { border-color:#ffb74d;color:#e65100; }
+.dft-undo-btn { border-color:#bbb;color:#888; }
+.dft-undo-btn:disabled,.dft-copy-btn:disabled,.dft-paste-btn:disabled { opacity:.32;cursor:default; }
+/* canvas mode border */
+.draft-canvas-area.dft-mode-delete { outline:3px solid #c62828;outline-offset:-3px; }
+.draft-canvas-area.dft-mode-rotate { outline:3px solid #e65100;outline-offset:-3px; }
+.draft-canvas-area.dft-mode-place  { outline:3px solid #2e7d32;outline-offset:-3px; }
+/* mode badge */
+.dft-mode-badge { display:inline-flex;align-items:center;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:800;color:#fff;margin-right:4px; }
 .draft-tool-sep { width:1px;background:var(--border,#ccc);flex-shrink:0;margin:4px 2px; }
 .draft-canvas-area { flex:1;position:relative;overflow:hidden;background:#dde0e6;touch-action:none; }
 .draft-canvas { position:absolute;top:0;left:0;display:block; }
@@ -734,7 +747,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.15</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.16</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -7029,7 +7042,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.15';
+  var ver = 'v1.1.3.16';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10245,7 +10258,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.15 =====
+// ===== DRAFT ENGINE v1.1.3.16 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -10376,6 +10389,18 @@ function _dftW2S(wx, wy) {
 }
 
 // mode switch
+var _DFT_MODE_META = {
+  select:   {label:'SELECT',  color:'#1565c0', cls:''},
+  delete:   {label:'DELETE',  color:'#c62828', cls:'dft-mode-delete'},
+  rotate:   {label:'ROTATE',  color:'#e65100', cls:'dft-mode-rotate'},
+  people:   {label:'PLACE',   color:'#2e7d32', cls:'dft-mode-place'},
+  camera:   {label:'PLACE',   color:'#2e7d32', cls:'dft-mode-place'},
+  light:    {label:'PLACE',   color:'#2e7d32', cls:'dft-mode-place'},
+  diffuser: {label:'DRAW',    color:'#2e7d32', cls:'dft-mode-place'},
+  bounce:   {label:'DRAW',    color:'#2e7d32', cls:'dft-mode-place'},
+  flag:     {label:'DRAW',    color:'#2e7d32', cls:'dft-mode-place'},
+  image:    {label:'PLACE',   color:'#2e7d32', cls:'dft-mode-place'},
+};
 function dftMode(m) {
   _dft.mode = m;
   _dft.selected = null;
@@ -10383,8 +10408,20 @@ function dftMode(m) {
   var ab = document.getElementById('dft-btn-' + m);
   if (ab) ab.classList.add('active');
   var area = document.getElementById('dft-canvas-area');
-  if (area) area.style.cursor = m === 'select' ? 'default' : 'crosshair';
-  _dftSetStatus(m === 'select' ? 'Tap object to select · Drag to move · Double-tap to rename' : 'Tap canvas to place ' + m);
+  var meta = _DFT_MODE_META[m] || {label:m.toUpperCase(), color:'#555', cls:''};
+  if (area) {
+    area.style.cursor = m === 'select' ? 'default' : 'crosshair';
+    area.className = area.className.replace(/\bdft-mode-\S+/g,'').trim();
+    if (meta.cls) area.classList.add(meta.cls);
+  }
+  var badge = m === 'select' ? '' :
+    '<span class="dft-mode-badge" style="background:'+meta.color+';">'+meta.label+'</span>';
+  var hint = m === 'select'  ? 'Tap to select · Drag to move' :
+             m === 'delete'  ? 'Tap object to delete' :
+             m === 'rotate'  ? 'Drag ↻ handle to rotate' :
+             m === 'diffuser'|| m === 'bounce' || m === 'flag' ? 'Drag to draw' :
+             'Tap canvas to place';
+  _dftSetStatus(badge + hint);
   dftRender();
 }
 
@@ -12210,7 +12247,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.15</div>
+  <div class="drawer-footer">CALM v1.1.3.16</div>
 </div>
 
 </body>
