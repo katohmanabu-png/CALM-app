@@ -9114,19 +9114,15 @@ function setCamType(type) {
 function syncCameraSliders(type) {
   // 現在の S.iso → 各タブのISOスライダーに反映
   if (type === 'cinema') {
-    // ISO: ISO_V の最近傍インデックス
+    // S.iso はスライダーインデックスなので直接セット
     var isoEl = el('iso');
-    if (isoEl && typeof ISO_V !== 'undefined') {
-      var bestIdx = 0, bestDiff = Infinity;
-      ISO_V.forEach(function(v,i){ var d=Math.abs(v - (S.iso||800)); if(d<bestDiff){bestDiff=d;bestIdx=i;} });
-      isoEl.value = bestIdx;
-    }
+    if (isoEl) isoEl.value = S.iso != null ? S.iso : 9;
     // FPS: 直接値
     var fpsEl = el('fps');
-    if (fpsEl) fpsEl.value = S.filmFPS || S.fps || 24;
+    if (fpsEl) fpsEl.value = S.fps || 24;
     // Fstop
     var fstEl = el('fstop');
-    if (fstEl) fstEl.value = S.fstop || 9;
+    if (fstEl) fstEl.value = S.fstop != null ? S.fstop : 9;
   } else if (type === 'film') {
     // FPS
     var fpsFilmEl = el('film-fps-sl');
