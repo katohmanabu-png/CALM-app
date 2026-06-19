@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.16</title>
+<title>CALM v1.1.3.17</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -699,7 +699,12 @@ body {
 /* ===== DRAFT ===== */
 #page-draft { position:fixed;top:0;left:0;right:0;bottom:0;z-index:1;padding:0!important; }
 .draft-wrap { display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden; }
-.draft-toolbar { display:flex;flex-wrap:wrap;gap:4px;padding:6px 8px 5px;background:var(--bg);border-bottom:1px solid var(--border,#eee);flex-shrink:0;padding-top:max(env(safe-area-inset-top,6px),44px); }
+.draft-toolbar { display:flex;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--border,#eee);flex-shrink:0; }
+.dft-tools-row { display:flex;flex-wrap:nowrap;align-items:center;gap:4px;padding:5px 8px 5px;padding-top:max(env(safe-area-inset-top,5px),44px);overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--bg);scrollbar-width:none; }
+.dft-tools-row::-webkit-scrollbar { display:none; }
+.dft-objects-row { display:flex;flex-wrap:nowrap;align-items:center;gap:4px;padding:4px 8px 5px;overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--bg-secondary,#f4f4f6);border-top:1px solid var(--border,#eee);scrollbar-width:none; }
+.dft-objects-row::-webkit-scrollbar { display:none; }
+.dft-row-lbl { font-size:8px;font-weight:900;letter-spacing:0.7px;color:var(--text-dim,#aaa);flex-shrink:0;padding-right:2px;user-select:none; }
 .draft-tool-btn { padding:5px 9px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:11px;font-weight:800;background:var(--bg);color:var(--text);cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif;line-height:1.2;transition:background .12s,color .12s,border-color .12s,box-shadow .12s; }
 /* mode-specific active colors */
 #dft-btn-select.active { background:#1565c0;color:#fff;border-color:#1565c0;box-shadow:0 0 0 2px rgba(21,101,192,.25); }
@@ -747,7 +752,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.16</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.17</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -7042,7 +7047,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.16';
+  var ver = 'v1.1.3.17';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10258,7 +10263,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.16 =====
+// ===== DRAFT ENGINE v1.1.3.17 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -12036,30 +12041,36 @@ function dftResetView() {
 <div id="page-draft" class="page-content" style="display:none;">
   <div class="draft-wrap">
     <div class="draft-toolbar" id="dft-toolbar">
-      <!-- Row 1: placement + edit tools -->
-      <button class="draft-tool-btn active" id="dft-btn-select" onclick="dftMode('select')">↖ Select</button>
-      <button class="draft-tool-btn dft-del-btn" id="dft-btn-delete" onclick="dftMode('delete')">🗑 Del</button>
-      <button class="draft-tool-btn" id="dft-btn-rotate" onclick="dftMode('rotate')">🔄 Rot</button>
-      <button class="draft-tool-btn dft-undo-btn" onclick="dftUndo()" id="dft-btn-undo" disabled>↩ Undo</button>
-      <button class="draft-tool-btn" id="dft-btn-copy" onclick="dftCopy()" disabled>⎘ Copy</button>
-      <button class="draft-tool-btn" id="dft-btn-paste" onclick="dftPaste()" disabled>⎙ Paste</button>
-      <div class="draft-tool-sep"></div>
-      <button class="draft-tool-btn" id="dft-btn-people" onclick="dftMode('people')">🧍 People</button>
-      <button class="draft-tool-btn" id="dft-btn-camera" onclick="dftMode('camera')">🎥 Cam</button>
-      <button class="draft-tool-btn" id="dft-btn-light" onclick="dftMode('light')">💡 Light</button>
-      <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftMode('diffuser')">⬜ Diff</button>
-      <button class="draft-tool-btn" id="dft-btn-bounce" onclick="dftMode('bounce')">🔲 Bnc</button>
-      <button class="draft-tool-btn" id="dft-btn-flag" onclick="dftMode('flag')">▬ Flag</button>
-      <!-- Row 2: utility tools (flex-wrap pushes here) -->
-      <div style="flex-basis:100%;height:0;"></div>
-      <button class="draft-tool-btn" id="dft-btn-pdf" onclick="dftImportPDF()">📄 PDF</button>
-      <button class="draft-tool-btn" id="dft-btn-photo" onclick="dftImportPhoto()">🖼 Photo</button>
-      <button class="draft-tool-btn" id="dft-btn-scale" onclick="dftSetScaleUI()">📐 Scale</button>
-      <button class="draft-tool-btn" onclick="dftToggleUnit()" id="dft-btn-unit">m</button>
-      <div class="draft-tool-sep"></div>
-      <button class="draft-tool-btn" id="dft-btn-save" onclick="dftSave()">💾 Save</button>
-      <button class="draft-tool-btn" id="dft-btn-load" onclick="dftLoadMenu()">📂 Load</button>
-      <button class="draft-tool-btn" id="dft-btn-new" onclick="dftNew()">＋ New</button>
+      <!-- Row 1: edit tools -->
+      <div class="dft-tools-row">
+        <span class="dft-row-lbl">TOOLS</span>
+        <button class="draft-tool-btn active" id="dft-btn-select" onclick="dftMode('select')">↖ Select</button>
+        <button class="draft-tool-btn" id="dft-btn-delete" onclick="dftMode('delete')">🗑 Del</button>
+        <button class="draft-tool-btn" id="dft-btn-rotate" onclick="dftMode('rotate')">🔄 Rot</button>
+        <div class="draft-tool-sep"></div>
+        <button class="draft-tool-btn dft-undo-btn" onclick="dftUndo()" id="dft-btn-undo" disabled>↩ Undo</button>
+        <button class="draft-tool-btn" id="dft-btn-copy" onclick="dftCopy()" disabled>⎘ Copy</button>
+        <button class="draft-tool-btn" id="dft-btn-paste" onclick="dftPaste()" disabled>⎙ Paste</button>
+        <div class="draft-tool-sep"></div>
+        <button class="draft-tool-btn" id="dft-btn-save" onclick="dftSave()">💾 Save</button>
+        <button class="draft-tool-btn" id="dft-btn-load" onclick="dftLoadMenu()">📂 Load</button>
+        <button class="draft-tool-btn" id="dft-btn-new" onclick="dftNew()">＋ New</button>
+      </div>
+      <!-- Row 2: object placement -->
+      <div class="dft-objects-row">
+        <span class="dft-row-lbl">ADD</span>
+        <button class="draft-tool-btn" id="dft-btn-people" onclick="dftMode('people')">🧍 People</button>
+        <button class="draft-tool-btn" id="dft-btn-camera" onclick="dftMode('camera')">🎥 Cam</button>
+        <button class="draft-tool-btn" id="dft-btn-light" onclick="dftMode('light')">💡 Light</button>
+        <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftMode('diffuser')">⬜ Diff</button>
+        <button class="draft-tool-btn" id="dft-btn-bounce" onclick="dftMode('bounce')">🔲 Bnc</button>
+        <button class="draft-tool-btn" id="dft-btn-flag" onclick="dftMode('flag')">▬ Flag</button>
+        <div class="draft-tool-sep"></div>
+        <button class="draft-tool-btn" id="dft-btn-pdf" onclick="dftImportPDF()">📄 PDF</button>
+        <button class="draft-tool-btn" id="dft-btn-photo" onclick="dftImportPhoto()">🖼 Photo</button>
+        <button class="draft-tool-btn" id="dft-btn-scale" onclick="dftSetScaleUI()">📐 Scale</button>
+        <button class="draft-tool-btn" onclick="dftToggleUnit()" id="dft-btn-unit">m</button>
+      </div>
     </div>
     <!-- Layer bar -->
     <div class="draft-layerbar" id="dft-layerbar"></div>
@@ -12247,7 +12258,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.16</div>
+  <div class="drawer-footer">CALM v1.1.3.17</div>
 </div>
 
 </body>
