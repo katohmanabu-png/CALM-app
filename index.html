@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.79</title>
+<title>CALM v1.1.2.80</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.79</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.80</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -1750,6 +1750,7 @@ body {
         <div style="display:flex;gap:5px;">
           <button class="finder-type-chip finder-sort-chip active" data-sort="default"  onclick="setFinderSort('default')">デフォルト</button>
           <button class="finder-type-chip finder-sort-chip"        data-sort="single"   onclick="setFinderSort('single')">1台優先</button>
+          <button class="finder-type-chip finder-sort-chip"        data-sort="multi"    onclick="setFinderSort('multi')">複数台優先</button>
           <button class="finder-type-chip finder-sort-chip"        data-sort="fstop"    onclick="setFinderSort('fstop')">F値優先</button>
         </div>
       </div>
@@ -6854,7 +6855,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.79';
+  var ver = 'v1.1.2.80';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -7386,6 +7387,12 @@ function sortResults(results, sortMode) {
     if (sortMode === 'single') {
       // 1台優先: 台数昇順 → stop差昇順
       if (a.units !== b.units) return a.units - b.units;
+      if (Math.abs(absA - absB) > 0.05) return absA - absB;
+      return 0;
+    }
+    if (sortMode === 'multi') {
+      // 複数台優先: 台数降順 → stop差昇順
+      if (a.units !== b.units) return b.units - a.units;
       if (Math.abs(absA - absB) > 0.05) return absA - absB;
       return 0;
     }
@@ -10261,6 +10268,7 @@ function selectMakerModel(mk, lk) {
           <div style="display:flex;gap:5px;">
             <button class="finder-type-chip alt-sort-chip active" data-sort="default" onclick="setAltSort('default')">デフォルト</button>
             <button class="finder-type-chip alt-sort-chip"        data-sort="single"  onclick="setAltSort('single')">1台優先</button>
+            <button class="finder-type-chip alt-sort-chip"        data-sort="multi"   onclick="setAltSort('multi')">複数台優先</button>
             <button class="finder-type-chip alt-sort-chip"        data-sort="fstop"   onclick="setAltSort('fstop')">F値優先</button>
           </div>
         </div>
@@ -10526,7 +10534,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.79</div>
+  <div class="drawer-footer">CALM v1.1.2.80</div>
 </div>
 
 </body>
