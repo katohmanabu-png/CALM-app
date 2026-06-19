@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.2.89</title>
+<title>CALM v1.1.2.90</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -707,7 +707,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.89</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.2.90</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -1629,14 +1629,14 @@ body {
                     <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="finder-tri-height-disp">4.0 m</span>
                   </div>
                   <div style="display:flex;align-items:center;gap:5px;">
-                    <button class="step-btn" onclick="triStep('finder-tri-height',-.5,.5,20,'h','calcFinderTriangle')">‹</button>
-                    <input type="range" id="finder-tri-height" min="0.5" max="20" step="0.5" value="4"
+                    <button class="step-btn" onclick="triStep('finder-tri-height',-.5,.5,50,'h','calcFinderTriangle')">‹</button>
+                    <input type="range" id="finder-tri-height" min="0.5" max="50" step="0.5" value="4"
                       oninput="triDisp('finder-tri-height','finder-tri-height-disp','finder-tri-unit-h');calcFinderTriangle('h')"
                       style="flex:1;height:4px;">
-                    <button class="step-btn" onclick="triStep('finder-tri-height',.5,.5,20,'h','calcFinderTriangle')">›</button>
+                    <button class="step-btn" onclick="triStep('finder-tri-height',.5,.5,50,'h','calcFinderTriangle')">›</button>
                     <button class="tri-lock-btn" id="lock-finder-tri-height" title="長押しでロック" onmousedown="triLockPress('finder-tri-height','lock-finder-tri-height')" onmouseup="triLockRelease('finder-tri-height')" ontouchstart="triLockPress('finder-tri-height','lock-finder-tri-height')" ontouchend="triLockRelease('finder-tri-height')">🔓</button>
                   </div>
-                  <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5 <span id="finder-tri-unit-h">m</span></span><span style="font-size:9px;color:var(--text-dim);">20m</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5 <span id="finder-tri-unit-h">m</span></span><span style="font-size:9px;color:var(--text-dim);">50m</span></div>
                 </div>
                 <div>
                   <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -1644,14 +1644,14 @@ body {
                     <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="finder-tri-horiz-disp">6.0 m</span>
                   </div>
                   <div style="display:flex;align-items:center;gap:5px;">
-                    <button class="step-btn" onclick="triStep('finder-tri-horiz',-.5,.5,30,'di','calcFinderTriangle')">‹</button>
-                    <input type="range" id="finder-tri-horiz" min="0.5" max="30" step="0.5" value="6"
+                    <button class="step-btn" onclick="triStep('finder-tri-horiz',-.5,.5,100,'di','calcFinderTriangle')">‹</button>
+                    <input type="range" id="finder-tri-horiz" min="0.5" max="100" step="0.5" value="6"
                       oninput="triDisp('finder-tri-horiz','finder-tri-horiz-disp','finder-tri-unit-hz');calcFinderTriangle('di')"
                       style="flex:1;height:4px;">
-                    <button class="step-btn" onclick="triStep('finder-tri-horiz',.5,.5,30,'di','calcFinderTriangle')">›</button>
+                    <button class="step-btn" onclick="triStep('finder-tri-horiz',.5,.5,100,'di','calcFinderTriangle')">›</button>
                     <button class="tri-lock-btn" id="lock-finder-tri-horiz" title="長押しでロック" onmousedown="triLockPress('finder-tri-horiz','lock-finder-tri-horiz')" onmouseup="triLockRelease('finder-tri-horiz')" ontouchstart="triLockPress('finder-tri-horiz','lock-finder-tri-horiz')" ontouchend="triLockRelease('finder-tri-horiz')">🔓</button>
                   </div>
-                  <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5 <span id="finder-tri-unit-hz">m</span></span><span style="font-size:9px;color:var(--text-dim);">30m</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5 <span id="finder-tri-unit-hz">m</span></span><span style="font-size:9px;color:var(--text-dim);">100m</span></div>
                 </div>
                 <div>
                   <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -6932,7 +6932,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.2.89';
+  var ver = 'v1.1.2.90';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10609,7 +10609,7 @@ function selectMakerModel(mk, lk) {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.2.89</div>
+  <div class="drawer-footer">CALM v1.1.2.90</div>
 </div>
 
 </body>
