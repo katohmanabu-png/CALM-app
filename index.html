@@ -3657,7 +3657,7 @@ var LIGHTS = {
 
   kinoflo: {
     celeb_450: {
-      group:'LED Panel', name:'Celeb 450 DMX', desc:'450W LED Studio Soft Light', emoji:'🟢', watts:450,
+      group:'LED Panel', name:'Celeb 450 DMX', desc:'450W LED Studio Soft Light', emoji:'🟢', watts:450, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'9.6 kg', size:'686×330×140 mm',
       ccts:[2700,3200,4300,5600,6500],
       accessories:['none'],
@@ -3670,7 +3670,7 @@ var LIGHTS = {
       }
     },
     celeb_250: {
-      group:'LED Panel', name:'Celeb 250 DMX', desc:'250W LED Soft Light', emoji:'🟢', watts:250,
+      group:'LED Panel', name:'Celeb 250 DMX', desc:'250W LED Soft Light', emoji:'🟢', watts:250, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'6.2 kg', size:'440×300×130 mm',
       ccts:[2700,5600],
       accessories:['none'],
@@ -3724,7 +3724,7 @@ var LIGHTS = {
       }
     },
     freestyle_21: {
-      group:'LED', name:'FreeStyle 21', desc:'150W Full Color LED Strip', emoji:'🟢', watts:150,
+      group:'LED', name:'FreeStyle 21', desc:'150W Full Color LED Strip', emoji:'🟢', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'5 kg', size:'670×90×280 mm',
       ccts:[2500, 3200, 5600, 9900], accessories:['none'],
       dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
@@ -3734,7 +3734,7 @@ var LIGHTS = {
       }
     },
     freestyle_41: {
-      group:'LED', name:'FreeStyle 41', desc:'150W Full Color LED Strip', emoji:'🟢', watts:150,
+      group:'LED', name:'FreeStyle 41', desc:'150W Full Color LED Strip', emoji:'🟢', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'7.3 kg', size:'1334×102×229 mm',
       ccts:[2500, 3200, 5600, 9900], accessories:['none'],
       dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
@@ -7174,7 +7174,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.123';
+  var ver = 'v1.1.3.124';
   (function(){ var el=document.getElementById('hdr-ver'); if(el) el.textContent=ver; var df=document.getElementById('drawer-footer-ver'); if(df) df.textContent='CALM '+ver; })();
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
