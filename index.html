@@ -744,6 +744,64 @@ body {
 .dft-layer-chip.dft-layer-hidden { opacity:0.42; }
 .dft-layer-eye { font-size:11px;padding:0 1px; }
 .dft-layer-addbtn { padding:3px 9px;border-radius:8px;border:1.5px dashed var(--border,#bbb);background:transparent;cursor:pointer;font-size:13px;font-weight:800;color:var(--text-dim,#999);flex-shrink:0; }
+
+/* ── Dark mode overrides ───────────────────────────────── */
+html.dark header,
+html.dark .page-nav,
+html.dark .drawer,
+html.dark .fav-panel { background:var(--white); }
+
+html.dark .model-chip,
+html.dark .card,
+html.dark .modal,
+html.dark .mix-units-wrap,
+html.dark .mix-modal-sheet,
+html.dark .mix-maker-btn,
+html.dark .mix-model-btn,
+html.dark .modal-cancel,
+html.dark .dmx-chip,
+html.dark .tri-result,
+html.dark .dft-zoom-ctl>button,
+html.dark .dpad-btn,
+html.dark .dpad-center { background:var(--white); color:var(--text); }
+
+html.dark .model-chip { border-color:var(--border); }
+html.dark .model-chip .chip-name,
+html.dark .model-chip span { color:var(--text); }
+
+html.dark input,
+html.dark select,
+html.dark textarea,
+html.dark .sl-direct,
+html.dark .tri-num { background:var(--input-bg); color:var(--text); border-color:var(--border); }
+
+html.dark .mix-modal-close { background:var(--bg); color:var(--text); }
+html.dark .mix-maker-btn,
+html.dark .mix-model-btn { border-color:var(--border); }
+
+html.dark .draft-canvas-area { background:#1a1a2a; }
+html.dark .draft-toolbar,
+html.dark .dft-objects-row,
+html.dark .dft-tools-row,
+html.dark .draft-layerbar,
+html.dark .draft-infobar { background:var(--white); }
+
+html.dark .page-content { background:var(--bg); }
+html.dark .drawer-item { color:var(--text); }
+html.dark .drawer-item:hover { background:var(--bg); }
+
+html.dark .chip-name { color:var(--text) !important; }
+html.dark .acc-btn { background:var(--input-bg) !important; color:var(--text) !important; border-color:var(--border) !important; }
+html.dark .acc-btn.active { background:var(--accent) !important; color:#fff !important; }
+
+html.dark .result-val,
+html.dark .result-unit { color:#fff; }
+html.dark .section-title { color:var(--text); }
+html.dark .fav-item { background:var(--white); border-color:var(--border); }
+html.dark .dft-layer-chip { background:var(--input-bg); border-color:var(--border); color:var(--text); }
+html.dark .dft-layer-chip.dft-layer-active { background:#1a3a6a; border-color:#1976d2; color:#90caf9; }
+html.dark .draft-scale-pill { background:var(--accent); }
+html.dark .draft-status { color:var(--text-dim); }
 </style>
 </head>
 <body>
@@ -7068,7 +7126,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.70';
+  var ver = 'v1.1.3.71';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
