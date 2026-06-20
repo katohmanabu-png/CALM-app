@@ -13,8 +13,8 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.41</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>CALM v1.1.3.59</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -42,7 +42,7 @@ html,body,* { color-scheme: light only; }
 :root{ color-scheme: light; --bg:#f0f2f7;--white:#fff;--shadow:0 4px 20px rgba(0,0,0,0.08);--radius:20px;--radius-sm:12px;--text:#1a1a2e;--text-dim:#6b7280;--accent:#e65100;--accent-dark:#bf360c;--accent-light:#fff3e0;--accent-glow:rgba(230,81,0,0.25);}
 *{box-sizing:border-box;margin:0;padding:0;}
 
-header{background:var(--white);padding:1px 8px 1px;padding-top:calc(1px + env(safe-area-inset-top, 0px));box-shadow:var(--shadow);position:sticky;top:0;z-index:200;display:flex;align-items:center;overflow:hidden;width:100%;gap:4px;flex-wrap:nowrap;}
+header{background:var(--white);padding:1px 8px 1px;padding-top:calc(1px + env(safe-area-inset-top, 0px));box-shadow:var(--shadow);position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;overflow:hidden;width:100%;max-width:480px;margin:0 auto;gap:4px;flex-wrap:nowrap;}
 .hdr-icon{width:18px;height:18px;background:transparent;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;transition:background .4s;flex-shrink:0;}
 .hdr-text{flex:1;min-width:0;overflow:hidden;}
 .hdr-text h1{font-size:9px;font-weight:900;white-space:nowrap;}
@@ -561,6 +561,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 /* PAGE VISIBILITY */
 .page-content {
   display: none !important;
+  padding-top: calc(44px + env(safe-area-inset-top, 0px));
   padding-bottom: calc(60px + env(safe-area-inset-bottom,0px));
   box-sizing: border-box;
   width: 100%;
@@ -730,13 +731,13 @@ body {
 .draft-infobar { position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,0.93);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-top:1px solid rgba(0,0,0,0.08);padding:5px 10px;display:flex;align-items:center;gap:8px;min-height:34px;flex-wrap:wrap;padding-bottom:max(env(safe-area-inset-bottom,5px),5px); }
 .draft-scale-pill { background:var(--accent);color:#fff;border-radius:6px;padding:2px 7px;font-size:9px;font-weight:800;letter-spacing:0.5px;white-space:nowrap; }
 .draft-status { font-size:10px;color:#555;font-weight:600;flex:1;font-family:'Nunito',sans-serif; }
-.draft-dpad { position:absolute;bottom:46px;right:10px;display:grid;grid-template-columns:repeat(3,38px);grid-template-rows:repeat(3,38px);gap:3px;z-index:10;pointer-events:none; }
-.dft-zoom-ctl { position:absolute;bottom:46px;right:145px;display:flex;flex-direction:column;align-items:center;gap:4px;z-index:10;pointer-events:none; }
+.draft-dpad { position:absolute;bottom:46px;right:10px;display:grid;grid-template-columns:repeat(3,20px);grid-template-rows:repeat(3,20px);gap:2px;z-index:10;pointer-events:none; }
+.dft-zoom-ctl { position:absolute;bottom:46px;right:78px;display:flex;flex-direction:column;align-items:center;gap:3px;z-index:10;pointer-events:none; }
 .dft-zoom-ctl>* { pointer-events:all; }
-.dft-zoom-range { writing-mode:vertical-lr;direction:rtl;-webkit-appearance:slider-vertical;appearance:auto;height:76px;width:28px;cursor:pointer;touch-action:none;accent-color:#1976d2; }
-.dpad-btn { width:38px;height:38px;border-radius:10px;border:1.5px solid rgba(0,0,0,0.13);background:rgba(255,255,255,0.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 2px 8px rgba(0,0,0,0.14);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:all;user-select:none;-webkit-user-select:none;touch-action:none; }
+.dft-zoom-range { writing-mode:vertical-lr;direction:rtl;-webkit-appearance:slider-vertical;appearance:auto;height:40px;width:16px;cursor:pointer;touch-action:none;accent-color:#1976d2; }
+.dpad-btn { width:20px;height:20px;border-radius:6px;border:1px solid rgba(0,0,0,0.13);background:rgba(255,255,255,0.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 1px 4px rgba(0,0,0,0.14);font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:all;user-select:none;-webkit-user-select:none;touch-action:none; }
 .dpad-btn:active,.dpad-btn:hover { background:rgba(0,0,0,0.09); }
-.dpad-center { width:38px;height:38px;border-radius:10px;border:1.5px solid rgba(0,0,0,0.10);background:rgba(255,255,255,0.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:all;user-select:none;touch-action:none;color:#777;font-weight:800; }
+.dpad-center { width:20px;height:20px;border-radius:6px;border:1px solid rgba(0,0,0,0.10);background:rgba(255,255,255,0.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-size:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:all;user-select:none;touch-action:none;color:#777;font-weight:800; }
 .dpad-center:active { background:rgba(0,0,0,0.09); }
 .draft-layerbar { display:flex;align-items:center;gap:4px;padding:3px 8px;background:var(--bg);border-bottom:1px solid var(--border,#eee);flex-shrink:0;overflow-x:auto;-webkit-overflow-scrolling:touch;min-height:34px; }
 .dft-layer-chip { display:inline-flex;align-items:center;gap:3px;padding:3px 8px 3px 6px;border-radius:8px;font-size:11px;font-weight:700;border:1.5px solid var(--border,#ddd);cursor:pointer;white-space:nowrap;background:var(--bg-secondary,#f0f0f0);color:var(--text,#222);user-select:none;-webkit-user-select:none;flex-shrink:0; }
@@ -755,7 +756,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.41</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.59</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -1971,7 +1972,7 @@ var LANGS = {
     pageDraftTitle:'ドラフト', pageDraftSub:'2Dライティングプラン',
     dftBtnSelect:'↖ 選択', dftBtnDelete:'🗑 削除', dftBtnRotate:'🔄 回転', dftBtnUndo:'↩ 元に戻す',
     dftBtnPeople:'🧍 人', dftBtnCamera:'🎥 Cam', dftBtnLight:'💡 ライト',
-    dftBtnDiff:'⬜ ディフ', dftBtnBnc:'🔲 バウンス', dftBtnFlag:'▬ フラッグ',
+    dftBtnDiff:'⬜ DIFF', dftBtnBnc:'🔲 反射', dftBtnFlag:'▬ フラッグ',
     dftBtnPdf:'📄 PDF', dftBtnPhoto:'🖼 写真', dftBtnScale:'📐 スケール',
     dftBtnSave:'💾 保存', dftBtnLoad:'📂 読込', dftBtnNew:'＋ 新規',
     dftSelectLight:'💡 ライト選択', dftSearchPlaceholder:'検索...',
@@ -7051,7 +7052,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.41';
+  var ver = 'v1.1.3.69';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -7164,6 +7165,12 @@ function fbSubmit() {
     btn.textContent = '📨 Send Feedback';
     if (result.ok && result.data.html_url) {
       var link = result.data.html_url;
+      // ntfy.sh push notification
+      fetch('https://ntfy.sh/calm-katohmanabu', {
+        method: 'POST',
+        headers: { 'Title': 'CALM Feedback', 'Priority': 'high', 'Tags': 'bell' },
+        body: issueTitle + '\n' + link
+      }).catch(function(){});
       document.getElementById('fb-issue-link').innerHTML =
         '<a href="' + link + '" target="_blank" rel="noopener" ' +
         'style="display:inline-flex;align-items:center;gap:6px;padding:9px 16px;' +
@@ -8683,7 +8690,7 @@ function buildFactorSection(prefix) {
         // Type buttons + ON/OFF + delete
         '<div style="display:flex;gap:4px;margin-bottom:6px;align-items:center;">' +
           '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'bounce\')" style="padding:2px 10px;border-radius:12px;border:1px solid ' + (typeBounce?rowColor:'rgba(255,255,255,0.2)') + ';font-size:10px;font-weight:700;cursor:pointer;background:' + (typeBounce ? rowColor : 'transparent') + ';color:' + (typeBounce ? '#000' : 'var(--text-dim)') + ';">Bounce</button>' +
-          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'diffuse\')" style="padding:2px 10px;border-radius:12px;border:1px solid ' + (typeDiffuse?rowColor:'rgba(255,255,255,0.2)') + ';font-size:10px;font-weight:700;cursor:pointer;background:' + (typeDiffuse ? rowColor : 'transparent') + ';color:' + (typeDiffuse ? '#000' : 'var(--text-dim)') + ';">Diffuse</button>' +
+          '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'diffuse\')" style="padding:2px 10px;border-radius:12px;border:1px solid ' + (typeDiffuse?rowColor:'rgba(255,255,255,0.2)') + ';font-size:10px;font-weight:700;cursor:pointer;background:' + (typeDiffuse ? rowColor : 'transparent') + ';color:' + (typeDiffuse ? '#000' : 'var(--text-dim)') + ';">Diffusion</button>' +
           '<button onclick="window._factorSetType(\'' + prefix + '\',' + fi + ',\'none\')" style="padding:2px 10px;border-radius:12px;border:1px solid ' + (typeNone?rowColor:'rgba(255,255,255,0.2)') + ';font-size:10px;font-weight:700;cursor:pointer;background:' + (typeNone ? rowColor : 'transparent') + ';color:' + (typeNone ? '#000' : 'var(--text-dim)') + ';">Other</button>' +
           '<div style="flex:1;"></div>' +
           '<button onclick="window._factorToggleEnabled(\'' + prefix + '\',' + fi + ')" style="padding:2px 7px;border-radius:8px;border:1.5px solid ' + rowColor + ';font-size:10px;font-weight:800;cursor:pointer;background:' + (fEnabled ? rowColor : 'transparent') + ';color:' + (fEnabled ? '#000' : rowColor) + ';">' + toggleLabel + '</button>' +
@@ -10268,7 +10275,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.41 =====
+// ===== DRAFT ENGINE v1.1.3.59 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -10314,6 +10321,12 @@ var _dft = {
   layers:[{id:1, name:'L1', visible:true}],
   activeLayer:1,
   clipboard:null,
+  // multi-select & groups
+  multiSelected:[],
+  groups:[],
+  nextGroupId:1,
+  // distance line visibility
+  distVis:{direct:true, bounceIn:true, bounceOut:true, sum:true, diffuser:true, camera:true},
   // persistence
   drafts:[],
   draftId:null,
@@ -10555,9 +10568,11 @@ function dftMode(m) {
     area.className = area.className.replace(/\bdft-mode-\S+/g,'').trim();
     if (meta.cls) area.classList.add(meta.cls);
   }
+  if (m !== 'multi') _dft.multiSelected = [];
   var badge = m === 'select' ? '' :
     '<span class="dft-mode-badge" style="background:'+meta.color+';">'+meta.label+'</span>';
   var hint = m === 'select'  ? 'Tap to select · Drag to move' :
+             m === 'multi'   ? 'Tap objects to select · Group / Ungroup in info bar' :
              m === 'delete'  ? 'Tap object to delete' :
              m === 'rotate'  ? 'Drag ↻ handle to rotate' :
              m === 'diffuser'|| m === 'bounce' || m === 'flag' ? 'Drag to draw' :
@@ -10603,7 +10618,7 @@ function _dftAddObj(type, wx, wy, extra) {
   else if (type === 'image') { obj.label=obj.label||'Photo'; obj.wm=obj.wm||2; obj.hm=obj.hm||2; obj.imgSrc=obj.imgSrc||null; if (!obj.imgEl && obj.imgSrc) _dftLoadImgEl(obj); }
   else if (type === 'camera')   { obj.label = 'Camera'; obj.fstopIdx = (typeof S !== 'undefined' && S.fstop != null) ? S.fstop : 21; }
   else if (type === 'light')    { obj.label = obj.lightName || 'Light'; obj.beamAngle = obj.beamAngle || 75; if (!obj.factors) obj.factors = []; }
-  else if (type === 'diffuser') { obj.label = 'Diffuser'; obj.w = obj.w||1.2; obj.h = obj.h||1.2; }
+  else if (type === 'diffuser') { obj.label = 'Diffusion'; obj.w = obj.w||1.2; obj.h = obj.h||1.2; }
   else if (type === 'bounce')   { obj.label = 'Bounce';   obj.w = obj.w||1.2; obj.h = obj.h||1.2; }
   else if (type === 'flag')     { obj.label = 'Flag';     obj.w = obj.w||1.2; obj.h = obj.h||0.6; }
   _dft.objects.push(obj);
@@ -10644,12 +10659,30 @@ function dftRender() {
   // distance lines (under objects)
   _dftDrawDistances(ctx);
 
+  // group outlines (behind objects)
+  _dftDrawGroups(ctx);
+
   // objects (skip hidden layers)
   _dft.objects.forEach(function(o) {
     var oLayer = _dft.layers.find(function(l){return l.id===(o.layer||1);});
     if (oLayer && !oLayer.visible) return;
     _dftDrawObj(ctx, o);
   });
+
+  // multi-select highlight
+  if (_dft.mode === 'multi' && _dft.multiSelected.length) {
+    _dft.multiSelected.forEach(function(id) {
+      var o = _dft.objects.find(function(x){ return x.id===id; });
+      if (!o) return;
+      var sp = _dftW2S(o.wx, o.wy);
+      var Rh = Math.max(10, Math.min(40, (_dft.zoom/_dft.scale)*0.18));
+      ctx.save();
+      ctx.strokeStyle = '#2196f3';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.arc(sp.x, sp.y, Rh+4, 0, Math.PI*2); ctx.stroke();
+      ctx.restore();
+    });
+  }
 
   // calibration points
   if (_dft.calibMode && _dft.calibPts.length) {
@@ -10693,7 +10726,95 @@ function dftRender() {
     ctx.fillText(lbl, rx + rw/2, ry + rh/2);
   }
 
+  // F-stop badges for each configured light
+  _dftDrawLightFstops(ctx);
+
   _dftUpdatePill();
+}
+
+// Returns true if target world-point (tx,ty) is within light's beam cone
+function _dftInBeam(lt, tx, ty) {
+  var dx = tx - lt.wx, dy = ty - lt.wy;
+  var len = Math.hypot(dx, dy); if (!len) return false;
+  dx /= len; dy /= len;
+  var bx = -Math.sin(lt.rot || 0), by = Math.cos(lt.rot || 0);
+  var half = ((lt.beamAngle || 75) / 2) * Math.PI / 180;
+  return (dx * bx + dy * by) >= Math.cos(half);
+}
+
+function _dftDrawLightFstops(ctx) {
+  var lights  = _dft.objects.filter(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
+  var people  = _dft.objects.filter(function(o){ return o.type==='people'; });
+  var bounces = _dft.objects.filter(function(o){ return o.type==='bounce'; });
+  if (!lights.length || !people.length) return;
+  var sb = people[0];
+  var R = Math.max(8, Math.min(36, (_dft.zoom/_dft.scale)*0.15));
+
+  // Build nearest-configured-light map for bounces
+  var bnNearestLt = {};
+  bounces.forEach(function(bn) {
+    var nl = lights.reduce(function(best, lt) {
+      return _dftDist(lt, bn) < _dftDist(best, bn) ? lt : best;
+    }, lights[0]);
+    if (nl) bnNearestLt[bn.id] = nl.id;
+  });
+
+  lights.forEach(function(lt) {
+    var myBounces = bounces.filter(function(bn){ return bnNearestLt[bn.id] === lt.id; });
+    var dist, bnExtra = 0, illuminated;
+
+    if (myBounces.length > 0) {
+      var bn = myBounces[0];
+      // Light is linked to bounce — treat as illuminated (auto-orient points light at bounce)
+      illuminated = true;
+      dist = _dftDist(lt, bn) + _dftDist(bn, sb);
+      bnExtra = getTotalFactorStops(bn.factors || []);
+    } else {
+      illuminated = _dftInBeam(lt, sb.wx, sb.wy);
+      dist = _dftDist(lt, sb);
+    }
+    if (!illuminated) return;
+
+    var fv = _dftCalcFstop(lt, dist, bnExtra);
+    if (!fv) return;
+
+    var sp = _dftW2S(lt.wx, lt.wy);
+    var label = 'f' + fv.toFixed(1);
+    // Place badge below the name label (name is at sy+R+3, ~11px tall → badge starts at sy+R+18)
+    ctx.save();
+    ctx.font = 'bold 12px -apple-system,Arial';
+    var tw = ctx.measureText(label).width;
+    var pw = tw + 10, ph = 18;
+    var px = sp.x - pw/2, py = sp.y + R + 18;
+    ctx.fillStyle = 'rgba(230,81,0,0.92)';
+    _dftRR(ctx, px, py, pw, ph, 6);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(label, sp.x, py + ph/2);
+    ctx.restore();
+  });
+
+  // Bounce factor badge — placed below bounce name label
+  bounces.forEach(function(bn) {
+    if (!bn.factors || !bn.factors.length) return;
+    var stops = getTotalFactorStops(bn.factors);
+    if (!stops) return;
+    var sp = _dftW2S(bn.wx, bn.wy);
+    var label = (stops > 0 ? '-' : '') + Math.abs(stops).toFixed(1) + ' stop';
+    ctx.save();
+    ctx.font = 'bold 10px -apple-system,Arial';
+    var tw = ctx.measureText(label).width;
+    var pw = tw + 8, ph = 16;
+    var px = sp.x - pw/2, py = sp.y + R + 18;
+    ctx.fillStyle = 'rgba(2,136,209,0.9)';
+    _dftRR(ctx, px, py, pw, ph, 5);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(label, sp.x, py + ph/2);
+    ctx.restore();
+  });
 }
 
 function _dftDrawGrid(ctx, W, H) {
@@ -10974,84 +11095,216 @@ function _dftDrawObj(ctx, o) {
   }
 }
 
-function _dftDrawBounceBeams(ctx) {
-  var lights  = _dft.objects.filter(function(o){ return o.type==='light'; });
-  var bounces = _dft.objects.filter(function(o){ return o.type==='bounce'; });
-  if (!lights.length || !bounces.length) return;
-
-  lights.forEach(function(lt) {
-    var lts = _dftW2S(lt.wx, lt.wy);
-    bounces.forEach(function(bn) {
-      var bns = _dftW2S(bn.wx, bn.wy);
-
-      // Incoming ray = light's actual beam direction (rot=0 → +y in canvas)
-      var idx = -Math.sin(lt.rot || 0);
-      var idy =  Math.cos(lt.rot || 0);
-
-      // Bounce surface normal: rotation-handle side = (sin(rot), -cos(rot))
-      var nx = Math.sin(bn.rot || 0), ny = -Math.cos(bn.rot || 0);
-
-      // Ensure normal opposes incoming ray (d·n must be < 0)
-      var dot = idx*nx + idy*ny;
-      if (dot > 0) { nx = -nx; ny = -ny; dot = -dot; }
-      if (Math.abs(dot) < 0.001) return; // grazing incidence — skip
-
-      // Law of reflection: r = d - 2*(d·n)*n
-      var rx = idx - 2*dot*nx;
-      var ry = idy - 2*dot*ny;
-
-      var ba = ((lt.beamAngle || 75) * Math.PI / 180);
-      var outAngle = Math.atan2(ry, rx);
-      var beamLen  = Math.min(240, 10 / _dft.scale * _dft.zoom);
-
-      // Draw reflected cone from bounce
-      ctx.save();
-      ctx.translate(bns.x, bns.y);
-
-      ctx.fillStyle   = 'rgba(255,200,60,0.15)';
-      ctx.strokeStyle = 'rgba(200,130,0,0.5)';
-      ctx.lineWidth   = 1.2;
-      ctx.setLineDash([6, 4]);
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.arc(0, 0, beamLen, outAngle - ba/2, outAngle + ba/2);
-      ctx.closePath(); ctx.fill(); ctx.stroke();
-
-      // Center ray (solid)
-      ctx.setLineDash([]);
-      ctx.strokeStyle = 'rgba(200,130,0,0.75)';
-      ctx.lineWidth   = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(Math.cos(outAngle)*beamLen, Math.sin(outAngle)*beamLen);
-      ctx.stroke();
-
-      // Small arrow at bounce surface to show reflection direction
-      var ax = Math.cos(outAngle)*20, ay = Math.sin(outAngle)*20;
-      var ap = outAngle + Math.PI * 0.85;
-      var am = outAngle - Math.PI * 0.85;
-      ctx.beginPath();
-      ctx.moveTo(ax, ay);
-      ctx.lineTo(ax + Math.cos(ap)*8, ay + Math.sin(ap)*8);
-      ctx.moveTo(ax, ay);
-      ctx.lineTo(ax + Math.cos(am)*8, ay + Math.sin(am)*8);
-      ctx.stroke();
-
-      ctx.restore();
-    });
+// Returns the nearest light to a given object (or null)
+function _dftNearestLight(obj) {
+  var lights = _dft.objects.filter(function(o){ return o.type==='light'; });
+  if (!lights.length) return null;
+  return lights.reduce(function(best, lt) {
+    return _dftDist(lt, obj) < _dftDist(best, obj) ? lt : best;
   });
 }
 
+function _dftDrawBounceBeams(ctx) {
+  var bounces = _dft.objects.filter(function(o){ return o.type==='bounce'; });
+  if (!bounces.length) return;
+
+  bounces.forEach(function(bn) {
+    // Each bounce links only to its nearest light
+    var lt = _dftNearestLight(bn);
+    if (!lt) return;
+
+    var bns = _dftW2S(bn.wx, bn.wy);
+
+    // Geometric direction from light to bounce (the actual incident ray)
+    var gdx = bn.wx - lt.wx, gdy = bn.wy - lt.wy;
+    var glen = Math.hypot(gdx, gdy); if (!glen) return;
+    gdx /= glen; gdy /= glen;
+
+    // Check: is bounce within the light's beam cone?
+    var beamDirX = -Math.sin(lt.rot || 0);
+    var beamDirY =  Math.cos(lt.rot || 0);
+    var cosAngle = gdx * beamDirX + gdy * beamDirY;
+    var halfBeam = ((lt.beamAngle || 75) / 2) * Math.PI / 180;
+    if (cosAngle < Math.cos(halfBeam)) return; // bounce not illuminated — no reflection
+
+    // Bounce surface normal: board long-axis at rot=0 is vertical → normal is horizontal
+    var nx = Math.cos(bn.rot || 0), ny = Math.sin(bn.rot || 0);
+    // Flip so normal faces the incoming ray (d·n < 0)
+    var dot = gdx*nx + gdy*ny;
+    if (dot > 0) { nx = -nx; ny = -ny; dot = -dot; }
+    if (Math.abs(dot) < 0.001) return;
+
+    // Law of reflection: r = d - 2*(d·n)*n
+    var rx = gdx - 2*dot*nx;
+    var ry = gdy - 2*dot*ny;
+
+    var ba       = ((lt.beamAngle || 75) * Math.PI / 180);
+    var outAngle = Math.atan2(ry, rx);
+    var beamLen  = Math.min(240, 10 / _dft.scale * _dft.zoom);
+
+    ctx.save();
+    ctx.translate(bns.x, bns.y);
+
+    // Reflected cone (dashed fill)
+    ctx.fillStyle   = 'rgba(255,200,60,0.15)';
+    ctx.strokeStyle = 'rgba(200,130,0,0.5)';
+    ctx.lineWidth   = 1.2;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, beamLen, outAngle - ba/2, outAngle + ba/2);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+
+    // Center ray (solid)
+    ctx.setLineDash([]);
+    ctx.strokeStyle = 'rgba(200,130,0,0.8)';
+    ctx.lineWidth   = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(Math.cos(outAngle)*beamLen, Math.sin(outAngle)*beamLen);
+    ctx.stroke();
+
+    ctx.restore();
+  });
+}
+
+// ── Group / Ungroup ────────────────────────────────────────────────────────
+function dftGroup() {
+  var ids = _dft.multiSelected;
+  if (ids.length < 2) return;
+  _dftPushHistory();
+  var gid = 'g' + (_dft.nextGroupId++);
+  ids.forEach(function(id) {
+    var o = _dft.objects.find(function(x){ return x.id === id; });
+    if (o) o.groupId = gid;
+  });
+  _dft.groups.push({id: gid, memberIds: ids.slice()});
+  _dft.multiSelected = [];
+  dftMode('select');
+}
+
+function dftUngroup() {
+  var o = _dft.objects.find(function(x){ return x.id === _dft.selected; });
+  if (!o || !o.groupId) return;
+  _dftPushHistory();
+  var gid = o.groupId;
+  _dft.objects.filter(function(x){ return x.groupId === gid; }).forEach(function(x){ delete x.groupId; });
+  _dft.groups = _dft.groups.filter(function(g){ return g.id !== gid; });
+  _dftUpdateInfoBar();
+  dftRender();
+}
+
+function _dftDrawGroups(ctx) {
+  var gids = {};
+  _dft.objects.forEach(function(o) {
+    if (o.groupId) { if (!gids[o.groupId]) gids[o.groupId]=[]; gids[o.groupId].push(o); }
+  });
+  Object.keys(gids).forEach(function(gid) {
+    var members = gids[gid];
+    var R = Math.max(8, Math.min(36, (_dft.zoom/_dft.scale)*0.15));
+    var xs = members.map(function(o){ return _dftW2S(o.wx,o.wy).x; });
+    var ys = members.map(function(o){ return _dftW2S(o.wx,o.wy).y; });
+    var pad = R + 10;
+    var x1 = Math.min.apply(null,xs)-pad, y1 = Math.min.apply(null,ys)-pad;
+    var x2 = Math.max.apply(null,xs)+pad, y2 = Math.max.apply(null,ys)+pad;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(33,150,243,0.7)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([6,4]);
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(x1,y1,x2-x1,y2-y1,8) : ctx.rect(x1,y1,x2-x1,y2-y1);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='rgba(33,150,243,0.07)';
+    ctx.fill();
+    ctx.restore();
+  });
+}
+
+// Sync draft distances → S.dist → calculate() so the result panel updates live
+function _dftUpdateCalcFromDraft() {
+  try {
+    var lights  = _dft.objects.filter(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
+    var people  = _dft.objects.filter(function(o){ return o.type==='people'; });
+    var bounces = _dft.objects.filter(function(o){ return o.type==='bounce'; });
+    var diffs   = _dft.objects.filter(function(o){ return o.type==='diffuser'; });
+    if (!lights.length || !people.length) return;
+    // Prefer the currently selected light; fall back to first
+    var selObj = _dft.selected && _dft.objects.find(function(o){ return o.id===_dft.selected && o.type==='light' && o.makerKey && o.modelKey; });
+    var lt = selObj || lights[0];
+    var sb = people[0];
+    var dist;
+    var activeBounce = null;
+    var illuminated = false;
+    // Find nearest bounce linked to this light (among configured lights)
+    var myBounce = null;
+    bounces.forEach(function(b) {
+      var nl = lights.reduce(function(best, x) { return _dftDist(x,b)<_dftDist(best,b)?x:best; }, lights[0]);
+      if (nl && nl.id === lt.id) myBounce = b;
+    });
+    if (myBounce) {
+      illuminated = true; // light linked to bounce — always show result
+      activeBounce = myBounce;
+      dist = _dftDist(lt, myBounce) + _dftDist(myBounce, sb);
+    } else if (diffs.length > 0) {
+      illuminated = _dftInBeam(lt, diffs[0].wx, diffs[0].wy);
+      dist = _dftDist(diffs[0], sb);
+    } else {
+      illuminated = _dftInBeam(lt, sb.wx, sb.wy);
+      dist = _dftDist(lt, sb);
+    }
+    if (!dist || dist <= 0) return;
+    if (!illuminated) {
+      var _rp = document.getElementById('dft-result-panel');
+      if (_rp) _rp.style.display = 'none';
+      return;
+    }
+    // Apply bounce factor to S.factors so calculate() picks it up
+    if (activeBounce && activeBounce.factors && activeBounce.factors.length) {
+      var bnStops = getTotalFactorStops(activeBounce.factors);
+      // Inject as a temporary factor on the light (removed after calculate)
+      if (!lt._draftBounceFactorInjected) {
+        lt._draftBounceFactorInjected = true;
+        lt.factors = lt.factors || [];
+        lt._draftBounceFactorIdx = lt.factors.length;
+        lt.factors.push({ stops: bnStops, type: 'bounce', _draft: true });
+      } else {
+        lt.factors[lt._draftBounceFactorIdx].stops = bnStops;
+      }
+    } else if (lt._draftBounceFactorInjected) {
+      lt.factors.splice(lt._draftBounceFactorIdx, 1);
+      delete lt._draftBounceFactorInjected;
+      delete lt._draftBounceFactorIdx;
+    }
+    if (_dft.unit === 'ft') dist = dist / 0.3048;
+    S.dist = dist;
+    var distEl = document.getElementById('dist');
+    if (distEl) { distEl.value = dist; }
+    var dispEl = document.getElementById('dist-disp');
+    if (dispEl) dispEl.textContent = dist.toFixed(1) + (_dft.unit === 'ft' ? ' ft' : ' m');
+    calculate();
+  } catch(e) {}
+}
+
 function _dftAutoOrient(obj) {
-  // Find nearest person and orient obj to face them
   var people = _dft.objects.filter(function(o){ return o.type==='people'; });
   if (!people.length) return;
-  var nearest = people.reduce(function(best, p) {
-    var d = Math.hypot(p.wx - obj.wx, p.wy - obj.wy);
-    return d < Math.hypot(best.wx - obj.wx, best.wy - obj.wy) ? p : best;
-  });
-  var dx = nearest.wx - obj.wx, dy = nearest.wy - obj.wy;
-  // beam/FOV direction at rot=0 is (0,+y) in world coords → rot = atan2(-dx, dy)
+  var target = null;
+  // For lights: if a bounce's nearest light is this light, orient toward the bounce instead of person
+  if (obj.type === 'light') {
+    var bounces = _dft.objects.filter(function(o){ return o.type==='bounce'; });
+    bounces.forEach(function(bn) {
+      var nl = _dftNearestLight(bn);
+      if (nl && nl.id === obj.id) { target = bn; }
+    });
+  }
+  if (!target) {
+    target = people.reduce(function(best, p) {
+      var d = Math.hypot(p.wx - obj.wx, p.wy - obj.wy);
+      return d < Math.hypot(best.wx - obj.wx, best.wy - obj.wy) ? p : best;
+    });
+  }
+  var dx = target.wx - obj.wx, dy = target.wy - obj.wy;
   obj.rot = Math.atan2(-dx, dy);
 }
 
@@ -11062,40 +11315,57 @@ function _dftDrawDistances(ctx) {
   var diffusers = _dft.objects.filter(function(o){ return o.type==='diffuser'; });
   var bounces   = _dft.objects.filter(function(o){ return o.type==='bounce'; });
 
+  // Collect each bounce's nearest light once
+  var bounceNearestLight = {};
+  bounces.forEach(function(bn) {
+    var nl = _dftNearestLight(bn);
+    if (nl) bounceNearestLight[bn.id] = nl.id;
+  });
+
   lights.forEach(function(lt) {
-    if (bounces.length > 0) {
-      bounces.forEach(function(bn) {
+    // Only show bounce lines for bounces whose nearest light is this one
+    var myBounces = bounces.filter(function(bn){ return bounceNearestLight[bn.id] === lt.id; });
+
+    var dv = _dft.distVis;
+    if (myBounces.length > 0) {
+      myBounces.forEach(function(bn) {
         var d1 = _dftDist(lt, bn);
-        // ② Light → Bounce (yellow)
-        _dftDistLine(ctx, lt, bn, '#f9a825', false, null, null);
+        if (dv.bounceIn !== false) _dftDistLine(ctx, lt, bn, '#f9a825', false, null, null);
         subjects.forEach(function(sb) {
           var d2 = _dftDist(bn, sb);
           var total = d1 + d2;
-          // ① Light → Person direct (gray, no f-stop, thinner dashed)
-          _dftDistLine(ctx, lt, sb, 'rgba(150,150,150,0.6)', false, null, null, true);
-          // ③ Bounce → Person (teal)
-          _dftDistLine(ctx, bn, sb, '#26a69a', false, null, null);
-          // ④ Total sum label with f-stop near person
-          _dftSumLabel(ctx, lt, sb, total);
+          if (dv.direct  !== false) _dftDistLine(ctx, lt, sb, 'rgba(150,150,150,0.6)', false, null, null, true);
+          if (dv.bounceOut !== false) _dftDistLine(ctx, bn, sb, '#26a69a', false, null, null);
+          if (dv.sum !== false) _dftSumLabel(ctx, lt, sb, total, bn);
         });
       });
     } else {
-      // No bounce: direct light → person
-      subjects.forEach(function(sb) { _dftDistLine(ctx, lt, sb, '#f9a825', true, null, null); });
+      if (dv.direct !== false) subjects.forEach(function(sb) { _dftDistLine(ctx, lt, sb, '#f9a825', true, null, null); });
     }
-    diffusers.forEach(function(df) { _dftDistLine(ctx, lt, df, '#ab47bc', false, null, null); });
+    if (dv.diffuser !== false) diffusers.forEach(function(df) { _dftDistLine(ctx, lt, df, '#ab47bc', false, null, null); });
   });
-  // Diffuser → Person (regardless of bounce) — show f-stop using nearest light
-  diffusers.forEach(function(df) {
-    var srcLight = lights.length > 0 ? lights[0] : null;
-    subjects.forEach(function(sb) { _dftDistLine(ctx, df, sb, '#26a69a', !!srcLight, srcLight, null); });
-  });
+  // Diffuser → Person
+  var dv2 = _dft.distVis;
+  if (dv2.diffuser !== false) {
+    diffusers.forEach(function(df) {
+      var srcLight = lights.length > 0 ? lights[0] : null;
+      subjects.forEach(function(sb) { _dftDistLine(ctx, df, sb, '#26a69a', !!srcLight, srcLight, null); });
+    });
+  }
+  // Camera → Person
+  if (dv2.camera !== false) {
+    var cameras = _dft.objects.filter(function(o){ return o.type==='camera'; });
+    cameras.forEach(function(cam) {
+      subjects.forEach(function(sb) { _dftDistLine(ctx, cam, sb, 'rgba(100,149,237,0.7)', false, null, null, true); });
+    });
+  }
 }
 
 // Draw a floating sum label near person showing total bounce path + f-stop
-function _dftSumLabel(ctx, lightObj, personObj, totalDist) {
+function _dftSumLabel(ctx, lightObj, personObj, totalDist, bounceObj) {
   var ps = _dftW2S(personObj.wx, personObj.wy);
-  var fv = _dftCalcFstop(lightObj, totalDist);
+  var bnExtra = bounceObj ? getTotalFactorStops(bounceObj.factors || []) : 0;
+  var fv = _dftCalcFstop(lightObj, totalDist, bnExtra);
   var label = '∑' + _dftFmt(totalDist) + (fv ? '  f' + fv.toFixed(1) : '');
   ctx.save();
   ctx.font = 'bold 11px -apple-system,Arial';
@@ -11157,14 +11427,17 @@ function _dftDistLine(ctx, a, b, color, showFstop, lightObj, totalDist, thin) {
   _dft.distLabels.push({mx:mx, my:my, hw:lw/2+6, hh:lh/2+6, aObj:a, bObj:b});
 }
 
-function _dftCalcFstop(lightObj, distM) {
+function _dftCalcFstop(lightObj, distM, extraStops) {
   try {
     if (!lightObj.makerKey || !lightObj.modelKey) return null;
     var lt = LIGHTS[lightObj.makerKey] && LIGHTS[lightObj.makerKey][lightObj.modelKey];
     if (!lt || !lt.refData) return null;
-    var r = luxForCCTAndDist(lt.refData, 5600, lightObj.accKey||'none', distM);
+    var accKey = (!lightObj.accKey || lightObj.accKey === 'none') ? defaultWidestAcc(lt) : lightObj.accKey;
+    var r = luxForCCTAndDist(lt.refData, 5600, accKey, distM);
+    // If still no data (e.g. accKey not in refData), try widest
+    if (!r || !r.lux) { r = luxForCCTAndDist(lt.refData, 5600, defaultWidestAcc(lt), distM); }
     if (!r || !r.lux) return null;
-    var stops = getTotalFactorStops(lightObj.factors || []);
+    var stops = getTotalFactorStops(lightObj.factors || []) + (extraStops || 0);
     return luxToFstopCamera(r.lux * Math.pow(2, -stops));
   } catch(e) { return null; }
 }
@@ -11338,6 +11611,19 @@ function _dftMD(e) {
     dftRender(); return;
   }
 
+  // Multi-select mode: tap to toggle membership
+  if (_dft.mode === 'multi') {
+    var mHit = _dftObjAt(mx, my);
+    if (mHit) {
+      var mIdx = _dft.multiSelected.indexOf(mHit.id);
+      if (mIdx >= 0) _dft.multiSelected.splice(mIdx, 1);
+      else _dft.multiSelected.push(mHit.id);
+    }
+    _dftUpdateInfoBar();
+    dftRender();
+    return;
+  }
+
   // Rotate mode: tap object then drag to rotate
   if (_dft.mode === 'rotate') {
     var rotHit = _dftObjAt(mx, my);
@@ -11464,17 +11750,40 @@ function _dftMD(e) {
 
   var hit = _dftObjAt(mx, my);
   if (hit) {
+    // Double-tap detection (within 350ms on same object)
+    var now = Date.now();
+    if (_dft._lastTap && _dft._lastTap.id === hit.id && (now - _dft._lastTap.t) < 350) {
+      _dft._lastTap = null;
+      _dftOpenSettings(hit);
+      return;
+    }
+    _dft._lastTap = {id: hit.id, t: now};
     _dftPushHistory();
     _dft.selected     = hit.id;
+    _dftUpdateCalcFromDraft();
     _dft.pointerDown  = true;
     _dft.dragObj      = hit;
     _dft.dragStartPx  = mx; _dft.dragStartPy = my;
     _dft.dragStartWx  = hit.wx; _dft.dragStartWy = hit.wy;
   } else {
-    _dft.selected   = null;
-    _dft.panActive  = true;
-    _dft.panStartPx = mx; _dft.panStartPy = my;
-    _dft.panStartOx = _dft.ox; _dft.panStartOy = _dft.oy;
+    _dft._lastTap     = null;
+    _dft.selected     = null;
+    _dft.panActive    = true;
+    _dft.panStartPx   = mx; _dft.panStartPy = my;
+    _dft.panStartOx   = _dft.ox; _dft.panStartOy = _dft.oy;
+  }
+  _dftUpdateInfoBar();
+  dftRender();
+}
+
+function _dftOpenSettings(o) {
+  _dft.selected = o.id;
+  if (o.type === 'light') {
+    dftLightSettings(o.id);
+  } else if (o.type === 'bounce' || o.type === 'diffuser') {
+    dftBounceSettings(o.id);
+  } else if (o.type === 'camera') {
+    dftCameraEdit(o.id);
   }
   _dftUpdateInfoBar();
   dftRender();
@@ -11509,8 +11818,25 @@ function _dftMM(e) {
     dftRender(); return;
   }
   if (_dft.rotActive && _dft.rotObj) {
-    var ssp = _dftW2S(_dft.rotObj.wx, _dft.rotObj.wy);
-    _dft.rotObj.rot = _dft.rotObjStartRot + Math.atan2(my-ssp.y, mx-ssp.x) - _dft.rotStartAngle;
+    var ro = _dft.rotObj;
+    var newAngle = _dft.rotObjStartRot + Math.atan2(my - _dftW2S(ro.wx,ro.wy).y, mx - _dftW2S(ro.wx,ro.wy).x) - _dft.rotStartAngle;
+    var gid = ro.groupId;
+    if (gid) {
+      // Rotate entire group around group centroid
+      var gMembers = _dft.objects.filter(function(o){ return o.groupId === gid; });
+      var gcx = gMembers.reduce(function(s,o){return s+o.wx;},0)/gMembers.length;
+      var gcy = gMembers.reduce(function(s,o){return s+o.wy;},0)/gMembers.length;
+      var dRot = newAngle - ro.rot;
+      gMembers.forEach(function(o) {
+        var relX = o.wx - gcx, relY = o.wy - gcy;
+        var cos = Math.cos(dRot), sin = Math.sin(dRot);
+        o.wx = gcx + relX*cos - relY*sin;
+        o.wy = gcy + relX*sin + relY*cos;
+        o.rot = (o.rot||0) + dRot;
+      });
+    } else {
+      ro.rot = newAngle;
+    }
     dftRender(); return;
   }
   if (_dft.panActive) {
@@ -11521,8 +11847,22 @@ function _dftMM(e) {
   if (_dft.pointerDown && _dft.dragObj) {
     var dx = (mx - _dft.dragStartPx) / _dft.zoom * _dft.scale;
     var dy = (my - _dft.dragStartPy) / _dft.zoom * _dft.scale;
-    _dft.dragObj.wx = _dft.dragStartWx + dx;
-    _dft.dragObj.wy = _dft.dragStartWy + dy;
+    var gid2 = _dft.dragObj.groupId;
+    if (gid2) {
+      // Move all group members together
+      var ddx = dx - (_dft.dragObj.wx - _dft.dragStartWx);
+      var ddy = dy - (_dft.dragObj.wy - _dft.dragStartWy);
+      _dft.objects.filter(function(o){ return o.groupId === gid2; }).forEach(function(o){
+        o.wx += ddx; o.wy += ddy;
+        if (o.type === 'light' || o.type === 'camera') _dftAutoOrient(o);
+      });
+    } else {
+      _dft.dragObj.wx = _dft.dragStartWx + dx;
+      _dft.dragObj.wy = _dft.dragStartWy + dy;
+      if (_dft.dragObj.type === 'light' || _dft.dragObj.type === 'camera') {
+        _dftAutoOrient(_dft.dragObj);
+      }
+    }
     dftRender();
   }
 }
@@ -11548,6 +11888,7 @@ function _dftMU() {
   _dft.pointerDown = false; _dft.dragObj = null;
   _dft.panActive   = false;
   _dft.rotActive   = false; _dft.rotObj = null;
+  _dftUpdateCalcFromDraft();
 }
 
 function _dftWheel(e) {
@@ -11618,6 +11959,13 @@ function _dftTE() { _dft.pinchActive=false; _dftMU(); }
 function _dftUpdateInfoBar() {
   var status = document.getElementById('dft-status');
   if (!status) return;
+  // Multi-select mode: show selected count + Group button
+  if (_dft.mode === 'multi') {
+    var n = _dft.multiSelected.length;
+    var grpBtn = n >= 2 ? '<button onclick="dftGroup()" style="padding:2px 10px;background:#1976d2;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;">⊞ Group ' + n + ' objects</button>' : '';
+    status.innerHTML = (n ? n + ' selected' : 'Tap objects to select') + '&nbsp;&nbsp;' + grpBtn;
+    return;
+  }
   if (!_dft.selected) {
     status.innerHTML = _dft.objects.length + ' objects &nbsp;·&nbsp; Tap to select &nbsp;·&nbsp; Drag to pan &nbsp;·&nbsp; Pinch to zoom';
     var _cb = document.getElementById('dft-btn-copy'); if (_cb) _cb.disabled = true;
@@ -11647,8 +11995,16 @@ function _dftUpdateInfoBar() {
   }).join('');
   info += ' <select onchange="_dftMoveLayer(\''+oid+'\',+this.value)" style="padding:2px 4px;border:1px solid rgba(0,0,0,0.18);border-radius:6px;font-size:11px;font-weight:700;background:rgba(255,255,255,0.85);color:#111;outline:none;">'+layerOpts+'</select>';
   info += ' &nbsp;<button onclick="dftDeleteSelected()" style="padding:2px 8px;background:#e53935;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">Del</button>';
+  if (o.groupId) {
+    info += ' <button onclick="dftUngroup()" style="padding:2px 8px;background:#1565c0;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">⊟ Ungroup</button>';
+  }
   if (o.type==='diffuser'||o.type==='bounce'||o.type==='flag') {
     info += ' <button onclick="dftSizeDialog()" style="padding:2px 8px;background:#1565c0;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">Size</button>';
+  }
+  if (o.type==='bounce'||o.type==='diffuser') {
+    var bfStops = getTotalFactorStops(o.factors||[]);
+    var bfLabel = (o.factors&&o.factors.length) ? (bfStops>0?'-':'')+Math.abs(bfStops).toFixed(1)+'stop' : 'Factor';
+    info += ' <button onclick="dftBounceSettings(\''+oid+'\')" style="padding:2px 8px;background:#0288d1;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">⚙ '+bfLabel+'</button>';
   }
   if (o.type==='light' && o.makerKey) {
     var _ai = ACC_INFO[o.accKey||'none'];
@@ -11722,6 +12078,7 @@ function _dftSetAcc(oid, accKey) {
   dftLightSettings(oid);
   _dftUpdateInfoBar();
   dftRender();
+  _dftUpdateCalcFromDraft();
 }
 
 function _dftApplyBeam(oid) {
@@ -11737,6 +12094,54 @@ function _dftApplyBeam(oid) {
   if (sh) sh.remove();
   _dftUpdateInfoBar();
   dftRender();
+  _dftUpdateCalcFromDraft();
+}
+
+// ── Shared slider-based factor row builder for draft sheets ──────────────
+function _dftFactorRowsHTML(factors, cbPrefix) {
+  if (!factors.length) return '<p style="font-size:11px;color:#aaa;text-align:center;padding:8px 0;">No factors yet</p>';
+  return factors.map(function(f, fi) {
+    var stops = parseFloat(f.stops) || 0;
+    var isBounce  = f.type === 'bounce';
+    var isDiffuse = f.type === 'diffuse';
+    var color = isBounce ? '#0288d1' : isDiffuse ? '#43a047' : '#f57c00';
+    var nameKey = isBounce ? 'bounce' : isDiffuse ? 'diffuse' : 'none';
+    var presets = (FACTOR_NAMES_BY_TYPE[nameKey] || []);
+    var saved = (function(){ try { var a=JSON.parse(localStorage.getItem('calm_factor_names')||'{}'); return Array.isArray(a[nameKey])?a[nameKey]:[]; } catch(e){ return []; } })();
+    var allNames = saved.concat(presets.filter(function(n){ return saved.indexOf(n)<0; }));
+    var dlId = '_dftfndl_'+cbPrefix+'_'+fi;
+    var dataList = '<datalist id="'+dlId+'">'+allNames.map(function(n){ return '<option value="'+n.replace(/"/g,'&quot;')+'">'; }).join('')+'</datalist>';
+    var typeBtns = ['bounce','diffuse','none'].map(function(t) {
+      var active = (f.type===t)||(t==='none'&&!f.type);
+      var lbl = t==='bounce'?'Bounce':t==='diffuse'?'Diffusion':'Other';
+      return '<button onclick="window._dftFType_'+cbPrefix+'('+fi+',\''+t+'\')" style="padding:2px 10px;border-radius:12px;border:1px solid '+(active?color:'#ccc')+';font-size:10px;font-weight:700;cursor:pointer;background:'+(active?color:'#fff')+';color:'+(active?'#fff':'#555')+';">'+lbl+'</button>';
+    }).join('');
+    return '<div style="padding:10px;background:#f8f8f8;border-radius:10px;margin-bottom:8px;border-left:3px solid '+color+';">'+
+      '<div style="display:flex;gap:4px;margin-bottom:8px;align-items:center;">'+typeBtns+
+        '<div style="flex:1;"></div>'+
+        '<button onclick="window._dftFDel_'+cbPrefix+'('+fi+')" style="background:none;border:none;color:#e53935;font-size:16px;cursor:pointer;padding:0 4px;">✕</button>'+
+      '</div>'+
+      '<input type="text" list="'+dlId+'" placeholder="Name (e.g. UltraBounce)" value="'+(f.memo||'').replace(/"/g,'&quot;')+'" '+
+        'oninput="window._dftFMemo_'+cbPrefix+'('+fi+',this.value)" '+
+        'style="width:100%;box-sizing:border-box;padding:5px 8px;border-radius:7px;border:1px solid #ddd;font-size:11px;margin-bottom:8px;">'+
+      dataList+
+      '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">'+
+        '<button class="step-btn" onclick="window._dftFStep_'+cbPrefix+'('+fi+',-0.1)" style="background:#fff;border:1px solid #ddd;border-radius:6px;width:30px;height:30px;font-size:16px;cursor:pointer;">‹</button>'+
+        '<span id="_dftfv_'+cbPrefix+'_'+fi+'" style="min-width:54px;text-align:center;font-size:16px;font-weight:800;color:'+color+';">'+(stops>0?'-':'')+stops.toFixed(1)+'s</span>'+
+        '<button class="step-btn" onclick="window._dftFStep_'+cbPrefix+'('+fi+',0.1)" style="background:#fff;border:1px solid #ddd;border-radius:6px;width:30px;height:30px;font-size:16px;cursor:pointer;">›</button>'+
+        '<div style="flex:1;"></div>'+
+        '<button onclick="window._dftFStep_'+cbPrefix+'('+fi+',-('+stops+'))" style="background:#fff;border:1px solid #ccc;border-radius:6px;color:#888;font-size:10px;padding:2px 7px;cursor:pointer;">Reset</button>'+
+      '</div>'+
+      '<input type="range" min="0" max="10" step="0.1" value="'+stops+'" id="_dftfsl_'+cbPrefix+'_'+fi+'" '+
+        'oninput="window._dftFSl_'+cbPrefix+'('+fi+',this.value)" '+
+        'style="width:100%;height:24px;cursor:pointer;accent-color:'+color+';">'+
+    '</div>';
+  }).join('');
+}
+
+function _dftFTotalStr(factors) {
+  var t = getTotalFactorStops(factors);
+  return (t > 0 ? '-' : '') + Math.abs(t).toFixed(1) + ' stop';
 }
 
 function _dftFRefresh() {
@@ -11747,29 +12152,32 @@ function _dftFRefresh() {
   var o = _dft.objects.find(function(x){ return x.id === oid; });
   if (!o) return;
   var factors = o.factors || (o.factors = []);
-  var total = getTotalFactorStops(factors);
-  if (totalEl) totalEl.textContent = (total > 0 ? '-' : '') + Math.abs(total).toFixed(1) + ' stop';
-
-  rowsEl.innerHTML = factors.map(function(f, fi) {
-    var stops = parseFloat(f.stops) || 0;
-    var isBounce  = f.type === 'bounce';
-    var isDiffuse = f.type === 'diffuse';
-    var color = isBounce ? '#0288d1' : isDiffuse ? '#43a047' : '#f57c00';
-    var selOpts = ['bounce','diffuse','none'].map(function(t) {
-      var sel = (f.type === t || (!f.type && t === 'none')) ? ' selected' : '';
-      var lbl = t === 'bounce' ? 'Bounce' : t === 'diffuse' ? 'Diffuse' : 'Other';
-      return '<option value="'+t+'"'+sel+'>'+lbl+'</option>';
-    }).join('');
-    return '<div style="display:flex;align-items:center;gap:6px;padding:7px 8px;background:#f5f5f5;border-radius:9px;margin-bottom:5px;border-left:3px solid '+color+';">' +
-      '<select onchange="window._dftFType('+fi+',this.value)" style="font-size:10px;font-weight:700;border:1px solid #ddd;border-radius:6px;padding:3px 4px;background:#fff;color:#333;">'+selOpts+'</select>' +
-      '<button onclick="window._dftFStep('+fi+',-0.3)" style="width:28px;height:28px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:16px;">‹</button>' +
-      '<span style="min-width:54px;text-align:center;font-size:12px;font-weight:800;color:'+color+';">'+(stops>0?'-':'')+stops.toFixed(1)+' s</span>' +
-      '<button onclick="window._dftFStep('+fi+',0.3)" style="width:28px;height:28px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:16px;">›</button>' +
-      '<div style="flex:1;"></div>' +
-      '<button onclick="window._dftFDel('+fi+')" style="background:none;border:none;color:#e53935;font-size:15px;cursor:pointer;padding:0 2px;">✕</button>' +
-      '</div>';
-  }).join('');
+  if (totalEl) totalEl.textContent = _dftFTotalStr(factors);
+  rowsEl.innerHTML = _dftFactorRowsHTML(factors, 'lt');
 }
+
+function _dftFSetter(cbPrefix, getObj) {
+  window['_dftFDel_'+cbPrefix]  = function(fi) { var o=getObj(); if(!o||!o.factors)return; o.factors.splice(fi,1); _dftFRefresh_all(cbPrefix,getObj); };
+  window['_dftFType_'+cbPrefix] = function(fi,t){ var o=getObj(); if(!o||!o.factors||!o.factors[fi])return; o.factors[fi].type=t; _dftFRefresh_all(cbPrefix,getObj); };
+  window['_dftFMemo_'+cbPrefix] = function(fi,v){ var o=getObj(); if(!o||!o.factors||!o.factors[fi])return; o.factors[fi].memo=v; };
+  window['_dftFSl_'+cbPrefix]   = function(fi,v){ var o=getObj(); if(!o||!o.factors||!o.factors[fi])return;
+    var val=Math.max(0,Math.min(10,Math.round(parseFloat(v)*10)/10)); o.factors[fi].stops=val;
+    var dv=document.getElementById('_dftfv_'+cbPrefix+'_'+fi); if(dv) dv.textContent=(val>0?'-':'')+val.toFixed(1)+'s';
+    var te=document.getElementById('_dft_ls_ftotal')||document.getElementById('_dft_bs_ftotal'); if(te) te.textContent=_dftFTotalStr(o.factors);
+    _dftUpdateInfoBar(); dftRender(); _dftUpdateCalcFromDraft(); };
+  window['_dftFStep_'+cbPrefix] = function(fi,d){ var o=getObj(); if(!o||!o.factors||!o.factors[fi])return;
+    var v=Math.max(0,Math.min(10,Math.round((parseFloat(o.factors[fi].stops||0)+d)*10)/10));
+    window['_dftFSl_'+cbPrefix](fi,v);
+    var sl=document.getElementById('_dftfsl_'+cbPrefix+'_'+fi); if(sl) sl.value=v; };
+}
+
+function _dftFRefresh_all(cbPrefix, getObj) {
+  if (cbPrefix === 'lt') _dftFRefresh();
+  else if (cbPrefix === 'bn') _dftBFRefresh();
+  _dftUpdateInfoBar(); dftRender(); _dftUpdateCalcFromDraft();
+}
+
+_dftFSetter('lt', function(){ return _dft.objects.find(function(x){ return x.id===_dft._editLightId; }); });
 
 window._dftFAdd = function() {
   var o = _dft.objects.find(function(x){ return x.id === _dft._editLightId; });
@@ -11778,26 +12186,7 @@ window._dftFAdd = function() {
   var hasBounce  = _dft.objects.some(function(x){ return x.type === 'bounce'; });
   var hasDiffuse = _dft.objects.some(function(x){ return x.type === 'diffuser'; });
   var defType = hasBounce ? 'bounce' : hasDiffuse ? 'diffuse' : 'none';
-  o.factors.push({ stops: 1, type: defType, memo: '' });
-  _dftFRefresh(); dftRender();
-};
-window._dftFDel = function(fi) {
-  var o = _dft.objects.find(function(x){ return x.id === _dft._editLightId; });
-  if (!o || !o.factors) return;
-  o.factors.splice(fi, 1);
-  _dftFRefresh(); dftRender();
-};
-window._dftFStep = function(fi, delta) {
-  var o = _dft.objects.find(function(x){ return x.id === _dft._editLightId; });
-  if (!o || !o.factors || !o.factors[fi]) return;
-  var v = Math.round((parseFloat(o.factors[fi].stops) + delta) * 10) / 10;
-  o.factors[fi].stops = Math.max(0, Math.min(10, v));
-  _dftFRefresh(); dftRender();
-};
-window._dftFType = function(fi, type) {
-  var o = _dft.objects.find(function(x){ return x.id === _dft._editLightId; });
-  if (!o || !o.factors || !o.factors[fi]) return;
-  o.factors[fi].type = type;
+  o.factors.push({ stops: 0, type: defType, memo: '' });
   _dftFRefresh(); dftRender();
 };
 
@@ -11848,6 +12237,49 @@ function dftDeleteSelected() {
   _dftUpdateInfoBar();
   dftRender();
 }
+
+function dftBounceSettings(oid) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  var typeLabel = o.type === 'bounce' ? 'Bounce' : 'Diffusion';
+  var html =
+    '<div id="_dft_bs" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_bs\').remove()">' +
+    '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
+    '<div style="font-size:14px;font-weight:800;margin-bottom:12px;">' + typeLabel + ' &nbsp;<span style="font-size:11px;color:#888;font-weight:600;">' + (o.label||'') + '</span></div>' +
+    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
+    '<span style="font-size:11px;font-weight:800;color:#555;">Factor <span style="font-weight:600;color:#999;font-size:10px;">(光量補正)</span></span>' +
+    '<span id="_dft_bs_ftotal" style="font-size:12px;font-weight:800;color:#0288d1;"></span>' +
+    '</div>' +
+    '<div id="_dft_bs_frows"></div>' +
+    '<button onclick="_dftBFAdd()" style="width:100%;padding:8px;border:1px dashed #0288d1;border-radius:10px;background:transparent;color:#0288d1;font-size:12px;font-weight:700;cursor:pointer;margin-bottom:14px;">+ Add Factor</button>' +
+    '<button onclick="document.getElementById(\'_dft_bs\').remove()" style="width:100%;padding:11px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">Close</button>' +
+    '</div></div>';
+  _dft._editBounceId = oid;
+  document.body.insertAdjacentHTML('beforeend', html);
+  _dftBFRefresh();
+}
+
+function _dftBFRefresh() {
+  var oid = _dft._editBounceId;
+  var rowsEl  = document.getElementById('_dft_bs_frows');
+  var totalEl = document.getElementById('_dft_bs_ftotal');
+  if (!rowsEl || !oid) return;
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  var factors = o.factors || (o.factors = []);
+  if (totalEl) totalEl.textContent = _dftFTotalStr(factors);
+  rowsEl.innerHTML = _dftFactorRowsHTML(factors, 'bn');
+}
+
+_dftFSetter('bn', function(){ return _dft.objects.find(function(x){ return x.id===_dft._editBounceId; }); });
+
+window._dftBFAdd = function() {
+  var o = _dft.objects.find(function(x){ return x.id === _dft._editBounceId; });
+  if (!o) return;
+  if (!o.factors) o.factors = [];
+  o.factors.push({ stops: 0, type: 'bounce', memo: '' });
+  _dftBFRefresh(); _dftUpdateInfoBar(); dftRender();
+};
 
 function dftSizeDialog() {
   var o = _dft.objects.find(function(x){ return x.id === _dft.selected; });
@@ -12030,7 +12462,7 @@ function _dftLPSelect(mk, lk) {
   var no = _dftAddObj('light', _dft.pendingLightWx, _dft.pendingLightWy, {
     makerKey: mk, modelKey: lk,
     lightName: lt.name, label: lt.name,
-    beamAngle: 75, accKey: 'none',
+    beamAngle: 75, accKey: defaultWidestAcc(lt) || 'none',
   });
   _dftAutoOrient(no);
   _dft.selected = no.id;
@@ -12402,6 +12834,77 @@ function dftNew() {
   _dftRenderLayerBar();
   dftRender(); _dftUpdateInfoBar();
 }
+
+function _dftMoreSheet(id, title, rows) {
+  var existing = document.getElementById(id);
+  if (existing) { existing.remove(); return; }
+  var html = '<div id="'+id+'" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)this.remove()">' +
+    '<div style="background:var(--bg,#fff);border-radius:20px 20px 0 0;width:100%;padding:14px 12px 32px;">' +
+    '<div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px;padding:0 4px;">'+title+'</div>' +
+    '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">'+rows+'</div>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function _dftMoreBtn(label, onclick, color) {
+  return '<button onclick="document.getElementById(\'_dft_more_add\')||document.getElementById(\'_dft_more_tools\')||null;('+onclick+');[...document.querySelectorAll(\'#_dft_more_add,#_dft_more_tools\')].forEach(function(e){e.remove()})" '+
+    'style="padding:10px 4px;border:1.5px solid var(--border,#eee);border-radius:10px;font-size:11px;font-weight:700;background:var(--bg);color:'+(color||'var(--text)')+';cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;">'+label+'</button>';
+}
+
+function dftAddMoreMenu() {
+  _dftMoreSheet('_dft_more_add', '追加ツール',
+    _dftMoreBtn('📄<br>PDF',    'dftImportPDF()') +
+    _dftMoreBtn('🖼<br>写真',  'dftImportPhoto()') +
+    _dftMoreBtn('📐<br>スケール','dftSetScaleUI()') +
+    _dftMoreBtn('<span id="dft-btn-unit2" style="font-size:15px;font-weight:900;">m</span><br>単位', 'dftToggleUnit();document.getElementById(\'dft-btn-unit2\').textContent=(_dft.unit||\'m\')')
+  );
+}
+
+function dftToolsMoreMenu() {
+  _dftMoreSheet('_dft_more_tools', '操作ツール',
+    _dftMoreBtn('⎘<br>Copy',    'dftCopy()') +
+    _dftMoreBtn('⎙<br>Paste',   'dftPaste()') +
+    _dftMoreBtn('💾<br>保存',   'dftSave()') +
+    _dftMoreBtn('📂<br>読込',   'dftLoadMenu()') +
+    _dftMoreBtn('＋<br>New',    'dftNew()') +
+    _dftMoreBtn('📤<br>Export', 'dftExport()') +
+    _dftMoreBtn('📥<br>Import', 'dftImport()') +
+    _dftMoreBtn('🗑<br>Reset',  'dftReset()', '#e53935')
+  );
+}
+
+function dftDistVisMenu() {
+  var v = _dft.distVis;
+  var items = [
+    {key:'direct',   label:'💡→🧍 ライト → 人物（直接）'},
+    {key:'bounceIn', label:'💡→🔲 ライト → バウンス'},
+    {key:'bounceOut',label:'🔲→🧍 バウンス → 人物'},
+    {key:'sum',      label:'∑ 合算ラベル（F値）'},
+    {key:'diffuser', label:'⬜ Diffusion 距離'},
+    {key:'camera',   label:'🎥 カメラ 距離'},
+  ];
+  var rows = items.map(function(it) {
+    var on = v[it.key] !== false;
+    return '<label style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer;" onclick="window._dftDistVisToggle(\''+it.key+'\')">' +
+      '<span style="font-size:13px;font-weight:600;color:#222;">'+it.label+'</span>' +
+      '<span id="_dv_'+it.key+'" style="font-size:22px;">'+(on?'✅':'⬜')+'</span>' +
+    '</label>';
+  }).join('');
+  var html = '<div id="_dft_dv" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_dv\').remove()">' +
+    '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:16px 0 32px;">' +
+    '<div style="font-size:14px;font-weight:800;padding:0 16px 12px;border-bottom:1px solid #eee;">📏 距離表示の切り替え</div>' +
+    rows +
+    '<button onclick="document.getElementById(\'_dft_dv\').remove()" style="display:block;width:calc(100% - 32px);margin:14px 16px 0;padding:12px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">閉じる</button>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+window._dftDistVisToggle = function(key) {
+  _dft.distVis[key] = _dft.distVis[key] === false ? true : false;
+  var el = document.getElementById('_dv_' + key);
+  if (el) el.textContent = _dft.distVis[key] !== false ? '✅' : '⬜';
+  dftRender();
+};
 
 function dftReset() {
   var dlg = document.createElement('div');
@@ -12825,9 +13328,9 @@ function dftResetView() {
       </div>
       <!-- Zoom slider -->
       <div class="dft-zoom-ctl">
-        <button class="dpad-btn" onclick="dftZoomBtn(1.25)" style="font-size:20px;font-weight:700;">+</button>
+        <button class="dpad-btn" onclick="dftZoomBtn(1.25)" style="font-size:11px;font-weight:700;">+</button>
         <input type="range" id="dft-zoom-range" class="dft-zoom-range" min="0" max="100" value="50" oninput="dftZoomFromSlider(+this.value)" ontouchstart="event.stopPropagation()" ontouchmove="event.stopPropagation()">
-        <button class="dpad-btn" onclick="dftZoomBtn(0.8)" style="font-size:20px;font-weight:700;">−</button>
+        <button class="dpad-btn" onclick="dftZoomBtn(0.8)" style="font-size:11px;font-weight:700;">−</button>
       </div>
       <!-- D-pad pan control -->
       <div class="draft-dpad">
@@ -12849,38 +13352,25 @@ function dftResetView() {
     <!-- Toolbar at bottom -->
     <div class="draft-toolbar" id="dft-toolbar">
       <!-- Row 1: object placement -->
-      <div class="dft-objects-row">
-        <span class="dft-row-lbl">ADD</span>
-        <button class="draft-tool-btn" id="dft-btn-people" onclick="dftMode('people')">🧍 People</button>
-        <button class="draft-tool-btn" id="dft-btn-camera" onclick="dftMode('camera')">🎥 Cam</button>
-        <button class="draft-tool-btn" id="dft-btn-light" onclick="dftMode('light')">💡 Light</button>
-        <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftMode('diffuser')">⬜ Diff</button>
-        <button class="draft-tool-btn" id="dft-btn-bounce" onclick="dftMode('bounce')">🔲 Bnc</button>
-        <button class="draft-tool-btn" id="dft-btn-flag" onclick="dftMode('flag')">▬ Flag</button>
-        <div class="draft-tool-sep"></div>
-        <button class="draft-tool-btn" id="dft-btn-pdf" onclick="dftImportPDF()">📄 PDF</button>
-        <button class="draft-tool-btn" id="dft-btn-photo" onclick="dftImportPhoto()">🖼 Photo</button>
-        <button class="draft-tool-btn" id="dft-btn-scale" onclick="dftSetScaleUI()">📐 Scale</button>
-        <button class="draft-tool-btn" onclick="dftToggleUnit()" id="dft-btn-unit">m</button>
+      <div class="dft-objects-row" style="overflow-x:visible;flex-wrap:nowrap;justify-content:space-between;">
+        <button class="draft-tool-btn" id="dft-btn-people"   onclick="dftMode('people')"   style="flex:1;padding:5px 2px;min-width:0;text-align:center;">🧍<br><span style="font-size:9px;">人</span></button>
+        <button class="draft-tool-btn" id="dft-btn-camera"   onclick="dftMode('camera')"   style="flex:1;padding:5px 2px;min-width:0;text-align:center;">🎥<br><span style="font-size:9px;">Cam</span></button>
+        <button class="draft-tool-btn" id="dft-btn-light"    onclick="dftMode('light')"    style="flex:1;padding:5px 2px;min-width:0;text-align:center;">💡<br><span style="font-size:9px;">ライト</span></button>
+        <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftMode('diffuser')" style="flex:1;padding:5px 2px;min-width:0;text-align:center;">⬜<br><span style="font-size:9px;">DIFF</span></button>
+        <button class="draft-tool-btn" id="dft-btn-bounce"   onclick="dftMode('bounce')"   style="flex:1;padding:5px 2px;min-width:0;text-align:center;">🔲<br><span style="font-size:9px;">反射</span></button>
+        <button class="draft-tool-btn" id="dft-btn-flag"     onclick="dftMode('flag')"     style="flex:1;padding:5px 2px;min-width:0;text-align:center;">▬<br><span style="font-size:9px;">フラグ</span></button>
+        <button class="draft-tool-btn" onclick="dftAddMoreMenu()"                           style="flex:1;padding:5px 2px;min-width:0;text-align:center;font-size:16px;">⋯<br><span style="font-size:9px;">その他</span></button>
       </div>
       <!-- Row 2: edit tools -->
-      <div class="dft-tools-row">
-        <span class="dft-row-lbl">TOOLS</span>
-        <button class="draft-tool-btn active" id="dft-btn-select" onclick="dftMode('select')">↖ Select</button>
-        <button class="draft-tool-btn" id="dft-btn-delete" onclick="dftMode('delete')">🗑 Del</button>
-        <button class="draft-tool-btn" id="dft-btn-rotate" onclick="dftMode('rotate')">🔄 Rot</button>
-        <div class="draft-tool-sep"></div>
-        <button class="draft-tool-btn dft-undo-btn" onclick="dftUndo()" id="dft-btn-undo" disabled>↩ Undo</button>
-        <button class="draft-tool-btn dft-undo-btn" onclick="dftRedo()" id="dft-btn-redo" disabled>↪ Redo</button>
-        <button class="draft-tool-btn" id="dft-btn-copy" onclick="dftCopy()" disabled>⎘ Copy</button>
-        <button class="draft-tool-btn" id="dft-btn-paste" onclick="dftPaste()" disabled>⎙ Paste</button>
-        <div class="draft-tool-sep"></div>
-        <button class="draft-tool-btn" id="dft-btn-save" onclick="dftSave()">💾 Save</button>
-        <button class="draft-tool-btn" id="dft-btn-load" onclick="dftLoadMenu()">📂 Load</button>
-        <button class="draft-tool-btn" id="dft-btn-new" onclick="dftNew()">＋ New</button>
-        <button class="draft-tool-btn" onclick="dftExport()">📤 Export</button>
-        <button class="draft-tool-btn" onclick="dftImport()">📥 Import</button>
-        <button class="draft-tool-btn" id="dft-btn-reset" onclick="dftReset()" style="color:#e53935;">🗑 Reset</button>
+      <div class="dft-tools-row" style="overflow-x:visible;flex-wrap:nowrap;justify-content:space-between;">
+        <button class="draft-tool-btn active" id="dft-btn-select" onclick="dftMode('select')" style="flex:1;padding:5px 2px;min-width:0;text-align:center;">↖<br><span style="font-size:9px;">選択</span></button>
+        <button class="draft-tool-btn" id="dft-btn-multi"  onclick="dftMode('multi')"         style="flex:1;padding:5px 2px;min-width:0;text-align:center;">⊞<br><span style="font-size:9px;">複数</span></button>
+        <button class="draft-tool-btn" id="dft-btn-delete" onclick="dftMode('delete')"        style="flex:1;padding:5px 2px;min-width:0;text-align:center;">🗑<br><span style="font-size:9px;">削除</span></button>
+        <button class="draft-tool-btn" id="dft-btn-rotate" onclick="dftMode('rotate')"        style="flex:1;padding:5px 2px;min-width:0;text-align:center;">🔄<br><span style="font-size:9px;">回転</span></button>
+        <button class="draft-tool-btn" onclick="dftDistVisMenu()"                             style="flex:1;padding:5px 2px;min-width:0;text-align:center;">📏<br><span style="font-size:9px;">距離</span></button>
+        <button class="draft-tool-btn dft-undo-btn" onclick="dftUndo()" id="dft-btn-undo" disabled style="flex:1;padding:5px 2px;min-width:0;text-align:center;">↩<br><span style="font-size:9px;">元に戻</span></button>
+        <button class="draft-tool-btn dft-undo-btn" onclick="dftRedo()" id="dft-btn-redo" disabled style="flex:1;padding:5px 2px;min-width:0;text-align:center;">↪<br><span style="font-size:9px;">Redo</span></button>
+        <button class="draft-tool-btn" onclick="dftToolsMoreMenu()"                           style="flex:1;padding:5px 2px;min-width:0;text-align:center;font-size:16px;">⋯<br><span style="font-size:9px;">その他</span></button>
       </div>
     </div>
   </div>
@@ -13048,7 +13538,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.41</div>
+  <div class="drawer-footer">CALM v1.1.3.59</div>
 </div>
 
 </body>
