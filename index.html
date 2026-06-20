@@ -7172,7 +7172,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.107';
+  var ver = 'v1.1.3.108';
   (function(){ var el=document.getElementById('hdr-ver'); if(el) el.textContent=ver; })();
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
@@ -7224,7 +7224,6 @@ function fbSubmit() {
   var titleEl = document.getElementById('fb-title');
   var descEl  = document.getElementById('fb-desc');
   var filesEl = document.getElementById('fb-files');
-  var shotEl  = document.getElementById('fb-screenshot');
   var btn     = document.getElementById('fb-submit-btn');
 
   if (!titleEl.value.trim()) { alert('Please enter a title.'); titleEl.focus(); return; }
@@ -7243,7 +7242,6 @@ function fbSubmit() {
 
   var fileNames = [];
   for (var i = 0; i < filesEl.files.length; i++) fileNames.push(filesEl.files[i].name);
-  if (shotEl.files.length) fileNames.push(shotEl.files[0].name);
 
   var issueTitle = typeInfo.prefix + ' ' + titleStr;
   var issueBody =
