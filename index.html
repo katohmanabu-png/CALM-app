@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.34</title>
+<title>CALM v1.1.3.35</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -755,7 +755,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.34</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.35</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -7051,7 +7051,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.34';
+  var ver = 'v1.1.3.35';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10268,7 +10268,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.34 =====
+// ===== DRAFT ENGINE v1.1.3.35 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -10925,13 +10925,18 @@ function _dftDrawDistances(ctx) {
   lights.forEach(function(lt) {
     if (bounces.length > 0) {
       bounces.forEach(function(bn) {
-        // Light → Bounce: leg distance only
+        var d1 = _dftDist(lt, bn);
+        // ② Light → Bounce (yellow)
         _dftDistLine(ctx, lt, bn, '#f9a825', false, null, null);
-        // Bounce → Person: leg + combined total + f-stop using light
         subjects.forEach(function(sb) {
-          var d1 = _dftDist(lt, bn);
           var d2 = _dftDist(bn, sb);
-          _dftDistLine(ctx, bn, sb, '#26a69a', true, lt, d1 + d2);
+          var total = d1 + d2;
+          // ① Light → Person direct (gray, no f-stop, thinner dashed)
+          _dftDistLine(ctx, lt, sb, 'rgba(150,150,150,0.6)', false, null, null, true);
+          // ③ Bounce → Person (teal)
+          _dftDistLine(ctx, bn, sb, '#26a69a', false, null, null);
+          // ④ Total sum label with f-stop near person
+          _dftSumLabel(ctx, lt, sb, total);
         });
       });
     } else {
@@ -10946,17 +10951,47 @@ function _dftDrawDistances(ctx) {
   });
 }
 
+// Draw a floating sum label near person showing total bounce path + f-stop
+function _dftSumLabel(ctx, lightObj, personObj, totalDist) {
+  var ps = _dftW2S(personObj.wx, personObj.wy);
+  var fv = _dftCalcFstop(lightObj, totalDist);
+  var label = '∑' + _dftFmt(totalDist) + (fv ? '  f' + fv.toFixed(1) : '');
+  ctx.save();
+  ctx.font = 'bold 11px -apple-system,Arial';
+  var tw = ctx.measureText(label).width;
+  var lw = tw + 14, lh = 18;
+  var x = ps.x - lw / 2, y = ps.y + 22;
+  ctx.fillStyle = 'rgba(30,30,30,0.88)';
+  _dftRoundRect(ctx, x, y, lw, lh, 5);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(label, ps.x, y + lh / 2);
+  ctx.restore();
+}
+
+function _dftRoundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r, y); ctx.arcTo(x+w, y, x+w, y+r, r);
+  ctx.lineTo(x+w, y+h-r); ctx.arcTo(x+w, y+h, x+w-r, y+h, r);
+  ctx.lineTo(x+r, y+h); ctx.arcTo(x, y+h, x, y+h-r, r);
+  ctx.lineTo(x, y+r); ctx.arcTo(x, y, x+r, y, r);
+  ctx.closePath();
+}
+
 // lightObj: override which light to use for f-stop (e.g. when path is bounce→person)
 // totalDist: override distance for f-stop (combined legs), null = use actual a-b distance
-function _dftDistLine(ctx, a, b, color, showFstop, lightObj, totalDist) {
+// thin: draw thinner dashed line (used for direct reference line in bounce mode)
+function _dftDistLine(ctx, a, b, color, showFstop, lightObj, totalDist, thin) {
   var as = _dftW2S(a.wx, a.wy);
   var bs = _dftW2S(b.wx, b.wy);
   var dm = _dftDist(a, b);            // actual segment length (displayed)
   var fstopDist = (totalDist != null) ? totalDist : dm;
   var fstopLight = lightObj || (a.type==='light' ? a : null);
   ctx.save();
-  ctx.strokeStyle = color; ctx.lineWidth = 1.5;
-  ctx.setLineDash([5, 4]);
+  ctx.strokeStyle = color; ctx.lineWidth = thin ? 1 : 1.5;
+  ctx.setLineDash(thin ? [3, 6] : [5, 4]);
   ctx.beginPath(); ctx.moveTo(as.x, as.y); ctx.lineTo(bs.x, bs.y); ctx.stroke();
   ctx.setLineDash([]);
 
@@ -12591,7 +12626,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.34</div>
+  <div class="drawer-footer">CALM v1.1.3.35</div>
 </div>
 
 </body>
