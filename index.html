@@ -803,6 +803,14 @@ html.dark .dft-layer-chip.dft-layer-active { background:#1a3a6a; border-color:#1
 html.dark .draft-scale-pill { background:var(--accent); }
 html.dark .draft-status { color:var(--text-dim); }
 
+/* SVG icons: invert stroke to white in dark mode */
+html.dark .model-chip-icon svg *,
+html.dark .chip-icon-wrap svg *,
+html.dark #light-silhouette svg *,
+html.dark .hdr-icon svg * { stroke: #fff !important; fill: none !important; }
+html.dark .model-chip-icon svg [fill]:not([fill="none"]),
+html.dark .chip-icon-wrap svg [fill]:not([fill="none"]) { fill: rgba(255,255,255,0.15) !important; }
+
 html.dark .maker-btn { background:var(--input-bg); }
 html.dark .maker-name { color:var(--text) !important; }
 html.dark .maker-btn.active { background:var(--accent); }
@@ -7153,7 +7161,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.75';
+  var ver = 'v1.1.3.76';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
