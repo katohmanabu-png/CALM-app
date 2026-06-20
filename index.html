@@ -802,6 +802,20 @@ html.dark .dft-layer-chip { background:var(--input-bg); border-color:var(--borde
 html.dark .dft-layer-chip.dft-layer-active { background:#1a3a6a; border-color:#1976d2; color:#90caf9; }
 html.dark .draft-scale-pill { background:var(--accent); }
 html.dark .draft-status { color:var(--text-dim); }
+
+html.dark .maker-btn { background:var(--input-bg); }
+html.dark .maker-name { color:var(--text) !important; }
+html.dark .maker-btn.active { background:var(--accent); }
+html.dark .maker-btn.active .maker-name { color:#fff !important; }
+html.dark .model-chip { border-color:var(--border) !important; }
+html.dark .model-chip .chip-name { color:var(--text) !important; }
+html.dark .model-chip.active { border-color:var(--accent) !important; background:var(--accent-light) !important; }
+html.dark .section-label,
+html.dark .section-title,
+html.dark label,
+html.dark .label { color:var(--text) !important; }
+html.dark .tab-btn { background:var(--input-bg); color:var(--text-dim); border-color:var(--border); }
+html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 </style>
 </head>
 <body>
@@ -7126,7 +7140,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.71';
+  var ver = 'v1.1.3.72';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
