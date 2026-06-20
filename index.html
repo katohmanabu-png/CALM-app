@@ -2417,7 +2417,7 @@ var MAKERS = {
   k5600:        { name:'K5600 Lighting',     emoji:'💛', accent:'#f9a825', dark:'#f57f17', light:'#fffde7', glow:'rgba(249,168,37,0.25)' },
   tungsten:     { name:'Tungsten',           emoji:'🟠', accent:'#f57c00', dark:'#e65100', light:'#fff3e0', glow:'rgba(245,124,0,0.25)' },
   amaran:       { name:'amaran',             emoji:'🔴', accent:'#e53935', dark:'#b71c1c', light:'#ffebee', glow:'rgba(229,57,53,0.25)' },
-  hudson_spider: { name:'Hudson Spider',      emoji:'🕷️', accent:'#546e7a', dark:'#263238', light:'#eceff1', glow:'rgba(84,110,122,0.25)' },
+  hudson_spider: { name:'Hudson Spider',      emoji:'🕷️', accent:'#c62828', dark:'#b71c1c', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121', emojiFilter:'brightness(0) invert(1)' },
   lightstar:     { name:'Lightstar',          emoji:'🌟', accent:'#f9c800', dark:'#e0a800', light:'#fffde7', glow:'rgba(249,200,0,0.25)', accent2:'#ffffff', activeOutline:'#f9c800' },
   optex: {name:'OPTEX', emoji:'💡', accent:'#7b1fa2', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(123,31,162,0.25)'},
   etc: {name:'ETC', emoji:'💡', accent:'#37474f', dark:'#263238', light:'#eceff1', glow:'rgba(55,71,79,0.25)'},};
@@ -5067,7 +5067,8 @@ function initMakers() {
     if (_isActive && m.activeOutline) { btn.style.outline = '3px solid ' + m.activeOutline; btn.style.outlineOffset = '2px'; }
     var dotBg = m.accent3 ? 'linear-gradient(135deg,' + m.accent + ' 33%,' + m.accent2 + ' 33%,' + m.accent2 + ' 66%,' + m.accent3 + ' 66%)' :
                 m.accent2 ? 'linear-gradient(135deg,' + m.accent + ' 50%,' + m.accent2 + ' 50%)' : m.accent;
-    btn.innerHTML = '<div class="maker-dot" style="background:' + dotBg + ';color:#fff;">' + m.emoji + '</div>' +
+    var emojiHtml = m.emojiFilter ? '<span style="filter:' + m.emojiFilter + ';display:inline-block;">' + m.emoji + '</span>' : m.emoji;
+    btn.innerHTML = '<div class="maker-dot" style="background:' + dotBg + ';color:#fff;">' + emojiHtml + '</div>' +
                     '<div class="maker-name" style="color:' + (_dark ? '#fff' : m.accent) + ';">' + m.name + '</div>';
     grid.appendChild(btn);
   });
@@ -7168,7 +7169,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.84';
+  var ver = 'v1.1.3.85';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
