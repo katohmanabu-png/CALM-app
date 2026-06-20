@@ -813,7 +813,7 @@ html.dark .chip-icon-wrap svg [fill]:not([fill="none"]) { fill: rgba(255,255,255
 
 html.dark .maker-btn { background:var(--input-bg); }
 html.dark .maker-name { color:var(--text) !important; }
-html.dark .maker-btn.active { background:var(--accent); }
+html.dark .maker-btn.active { background:var(--accent-active-bg, var(--accent)); }
 html.dark .maker-btn.active .maker-name { color:#fff !important; }
 html.dark .model-chip { border-color:var(--border) !important; }
 html.dark .model-chip .chip-name { color:var(--text) !important; }
@@ -5019,6 +5019,10 @@ function applyTheme(mk) {
   // In dark mode use semi-transparent accent instead of the light pastel
   r.style.setProperty('--accent-light', isDark ? m.accent + '2e' : m.light);
   r.style.setProperty('--accent-glow', m.glow);
+  // Active bg for dark mode: if accent is very light use accent2/dark instead
+  var _isLightHex = function(h){ var c=(h||'').replace('#',''); if(c.length<6) return false; var rv=parseInt(c.substr(0,2),16),gv=parseInt(c.substr(2,2),16),bv=parseInt(c.substr(4,2),16); return (rv*299+gv*587+bv*114)/1000>180; };
+  var activeBg = (isDark && _isLightHex(m.accent)) ? (m.accent2 && !_isLightHex(m.accent2) ? m.accent2 : m.dark) : m.accent;
+  r.style.setProperty('--accent-active-bg', activeBg);
   var hdrEl = el('hdr-icon');
   if (hdrEl) {
     if (m.svgIcon) { hdrEl.innerHTML = m.svgIcon; }
@@ -7169,7 +7173,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.95';
+  var ver = 'v1.1.3.96';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
