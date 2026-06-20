@@ -3743,26 +3743,6 @@ var LIGHTS = {
         5600:{2:{'none':34810}, 3:{'none':16000}, 5:{'none':7840}, 8:{'none':4000}}
       }
     },
-    freestyle_tube_1: {
-      group:'LED', name:'FreeStyle LEDチューブ×1', desc:'150W LED Tube ×1', emoji:'🟢', watts:150,
-      weight:'0.5 kg', size:'1600×45 mm',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
-      dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
-        control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Chase', 'Strobe']},
-      refData:{
-        5600:{3:{'none':7840}, 5:{'none':4000}, 8:{'none':1440}}
-      }
-    },
-    freestyle_tube_4: {
-      group:'LED', name:'FreeStyle LEDチューブ×4 set', desc:'150W LED Tube ×4 set', emoji:'🟢', watts:600,
-      weight:'2 kg', size:'1600×45 mm ×4',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
-      dmx:{led:'RGBWW',power:'600W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
-        control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Chase', 'Strobe']},
-      refData:{
-        5600:{3:{'none':31360}, 5:{'none':16000}, 8:{'none':4840}}
-      }
-    },
   },
   k5600: {
     joker_800: {
@@ -7174,7 +7154,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.126';
+  var ver = 'v1.1.3.127';
   (function(){ var el=document.getElementById('hdr-ver'); if(el) el.textContent=ver; var df=document.getElementById('drawer-footer-ver'); if(df) df.textContent='CALM '+ver; })();
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
