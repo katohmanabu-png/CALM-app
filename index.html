@@ -5057,7 +5057,7 @@ function initMakers() {
   favBtn.onclick = function(){ selectFavMaker(); };
   favBtn.style.cssText = _makerBtnStyle('#e65100', '#fff3e0');
   favBtn.innerHTML = '<div class="maker-dot" style="background:#fff3e0">⭐</div>' +
-                     '<div class="maker-name" style="color:#212121">Favorite</div>';
+                     '<div class="maker-name" style="color:' + (_dark ? '#e8e8f0' : '#212121') + '">Favorite</div>';
   grid.appendChild(favBtn);
   sortedMakerKeys().forEach(function(k) {
     var m = MAKERS[k];
@@ -7172,7 +7172,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.101';
+  var ver = 'v1.1.3.102';
   (function(){ var el=document.getElementById('hdr-ver'); if(el) el.textContent=ver; })();
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
