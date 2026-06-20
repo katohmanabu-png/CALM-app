@@ -2411,7 +2411,7 @@ var MAKERS = {
   arri_led:     { name:'ARRI LED',           emoji:'🩵', accent:'#5b9bd5', dark:'#3a78b5', light:'#e3f0fb', glow:'rgba(91,155,213,0.25)' },
   arri_hmi:     { name:'ARRI HMI',           emoji:'🩵', accent:'#5b9bd5', dark:'#3a78b5', light:'#e3f0fb', glow:'rgba(91,155,213,0.25)' },
   kinoflo:      { name:'Kino Flo / Litegear',emoji:'🟡', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)' },
-  fiilex:       { name:'Fiilex',             emoji:'🔴', accent:'#c62828', dark:'#b71c1c', light:'#ffebee', glow:'rgba(198,40,40,0.25)' },
+  fiilex:       { name:'Fiilex',             emoji:'🔴', accent:'#c62828', dark:'#b71c1c', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121' },
   godox:        { name:'Godox',              emoji:'🟡', accent:'#f57f17', dark:'#e65100', light:'#fffde7', glow:'rgba(245,127,23,0.25)' },
   dedolight:    { name:'Dedolight',          emoji:'🟡', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)' },
   k5600:        { name:'K5600 Lighting',     emoji:'💛', accent:'#f9a825', dark:'#f57f17', light:'#fffde7', glow:'rgba(249,168,37,0.25)' },
@@ -7167,7 +7167,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.79';
+  var ver = 'v1.1.3.80';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
