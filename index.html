@@ -2410,7 +2410,7 @@ var MAKERS = {
   astera:       { name:'Astera',             emoji:'🟣', accent:'#7b1fa2', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(123,31,162,0.25)', accent2:'#f57c00' },
   arri_led:     { name:'ARRI LED',           emoji:'🩵', accent:'#7ec8f0', dark:'#4aaed8', light:'#e8f6fd', glow:'rgba(126,200,240,0.30)' },
   arri_hmi:     { name:'ARRI HMI',           emoji:'🩵', accent:'#7ec8f0', dark:'#4aaed8', light:'#e8f6fd', glow:'rgba(126,200,240,0.30)' },
-  kinoflo:      { name:'Kino Flo / Litegear',emoji:'🟡', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)' },
+  kinoflo:      { name:'Kino Flo / Litegear',emoji:'🟡', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)', accent2:'#ffffff', accent3:'#212121' },
   fiilex:       { name:'Fiilex',             emoji:'🔴', accent:'#c62828', dark:'#b71c1c', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121', accent3:'#ffffff' },
   godox:        { name:'Godox',              emoji:'🔴', accent:'#e53935', dark:'#b71c1c', light:'#ffebee', glow:'rgba(229,57,53,0.25)', accent2:'#212121' },
   dedolight:    { name:'Dedolight',          emoji:'🟡', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)', accent2:'#212121' },
@@ -7169,7 +7169,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.86';
+  var ver = 'v1.1.3.87';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
