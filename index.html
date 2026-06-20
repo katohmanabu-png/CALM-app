@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.37</title>
+<title>CALM v1.1.3.38</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -755,7 +755,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.37</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.38</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -7051,7 +7051,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.37';
+  var ver = 'v1.1.3.38';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10268,7 +10268,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.37 =====
+// ===== DRAFT ENGINE v1.1.3.38 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -10943,42 +10943,59 @@ function _dftDrawBounceBeams(ctx) {
     bounces.forEach(function(bn) {
       var bns = _dftW2S(bn.wx, bn.wy);
 
-      // Incoming direction light→bounce (world/screen coords)
-      var idx = bn.wx - lt.wx, idy = bn.wy - lt.wy;
-      var ilen = Math.sqrt(idx*idx + idy*idy); if (!ilen) return;
-      idx /= ilen; idy /= ilen;
+      // Incoming ray = light's actual beam direction (rot=0 → +y in canvas)
+      var idx = -Math.sin(lt.rot || 0);
+      var idy =  Math.cos(lt.rot || 0);
 
-      // Bounce surface normal — "front face" = rotation-handle side
-      // Handle is at angle (bn.rot - π/2), so normal = (sin(bn.rot), -cos(bn.rot))
+      // Bounce surface normal: rotation-handle side = (sin(rot), -cos(rot))
       var nx = Math.sin(bn.rot || 0), ny = -Math.cos(bn.rot || 0);
-      // Ensure normal faces incoming ray (dot < 0 means facing each other)
+
+      // Ensure normal opposes incoming ray (d·n must be < 0)
       var dot = idx*nx + idy*ny;
       if (dot > 0) { nx = -nx; ny = -ny; dot = -dot; }
+      if (Math.abs(dot) < 0.001) return; // grazing incidence — skip
 
-      // Reflection: r = d - 2*(d·n)*n
+      // Law of reflection: r = d - 2*(d·n)*n
       var rx = idx - 2*dot*nx;
       var ry = idy - 2*dot*ny;
 
-      // Draw incoming beam segment: light → bounce (yellow, same as light beam style)
       var ba = ((lt.beamAngle || 75) * Math.PI / 180);
-      var lightDir = { x: -Math.sin(lt.rot||0), y: Math.cos(lt.rot||0) };
-      var incoming = { x: idx, y: idy };
-      // Half-angle spread around the center ray toward bounce
-      var inAngle = Math.atan2(idy, idx);
       var outAngle = Math.atan2(ry, rx);
-      var bl = Math.sqrt((bns.x-lts.x)*(bns.x-lts.x)+(bns.y-lts.y)*(bns.y-lts.y));
+      var beamLen  = Math.min(240, 10 / _dft.scale * _dft.zoom);
 
-      // Reflected beam from bounce (teal/orange cone)
-      var beamLen = Math.min(200, 8 / _dft.scale * _dft.zoom);
+      // Draw reflected cone from bounce
       ctx.save();
       ctx.translate(bns.x, bns.y);
-      ctx.fillStyle   = 'rgba(255,180,40,0.18)';
-      ctx.strokeStyle = 'rgba(220,140,0,0.45)';
-      ctx.lineWidth   = 1.5;
+
+      ctx.fillStyle   = 'rgba(255,200,60,0.15)';
+      ctx.strokeStyle = 'rgba(200,130,0,0.5)';
+      ctx.lineWidth   = 1.2;
+      ctx.setLineDash([6, 4]);
       ctx.beginPath();
       ctx.moveTo(0, 0);
       ctx.arc(0, 0, beamLen, outAngle - ba/2, outAngle + ba/2);
       ctx.closePath(); ctx.fill(); ctx.stroke();
+
+      // Center ray (solid)
+      ctx.setLineDash([]);
+      ctx.strokeStyle = 'rgba(200,130,0,0.75)';
+      ctx.lineWidth   = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(Math.cos(outAngle)*beamLen, Math.sin(outAngle)*beamLen);
+      ctx.stroke();
+
+      // Small arrow at bounce surface to show reflection direction
+      var ax = Math.cos(outAngle)*20, ay = Math.sin(outAngle)*20;
+      var ap = outAngle + Math.PI * 0.85;
+      var am = outAngle - Math.PI * 0.85;
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(ax + Math.cos(ap)*8, ay + Math.sin(ap)*8);
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(ax + Math.cos(am)*8, ay + Math.sin(am)*8);
+      ctx.stroke();
+
       ctx.restore();
     });
   });
@@ -12771,7 +12788,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.37</div>
+  <div class="drawer-footer">CALM v1.1.3.38</div>
 </div>
 
 </body>
