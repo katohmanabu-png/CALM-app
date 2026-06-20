@@ -5068,11 +5068,8 @@ function initMakers() {
     var dotBg = m.accent3 ? 'linear-gradient(135deg,' + m.accent + ' 33%,' + m.accent2 + ' 33%,' + m.accent2 + ' 66%,' + m.accent3 + ' 66%)' :
                 m.accent2 ? 'linear-gradient(135deg,' + m.accent + ' 50%,' + m.accent2 + ' 50%)' : m.accent;
     var emojiHtml = m.emojiFilter ? '<span style="filter:' + m.emojiFilter + ';display:inline-block;">' + m.emoji + '</span>' : m.emoji;
-    // In light mode, avoid using very light accent as text color
-    var _isLightColor = function(hex) { var c=hex.replace('#',''); var r=parseInt(c.substr(0,2),16),g=parseInt(c.substr(2,2),16),b=parseInt(c.substr(4,2),16); return (r*299+g*587+b*114)/1000 > 180; };
-    var lightModeTextColor = _isLightColor(m.accent) ? (m.accent2 && !_isLightColor(m.accent2) ? m.accent2 : m.dark) : m.accent;
     btn.innerHTML = '<div class="maker-dot" style="background:' + dotBg + ';color:#fff;">' + emojiHtml + '</div>' +
-                    '<div class="maker-name" style="color:' + (_dark ? '#fff' : lightModeTextColor) + ';">' + m.name + '</div>';
+                    '<div class="maker-name" style="color:' + (_dark ? '#fff' : '#212121') + ';">' + m.name + '</div>';
     grid.appendChild(btn);
   });
 }
@@ -7172,7 +7169,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.94';
+  var ver = 'v1.1.3.95';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
