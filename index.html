@@ -5302,10 +5302,12 @@ function renderModels() {
   // ── チップ生成ヘルパー ──────────────────────────────────────
   function makeChip(e) {
     var k = e[0], m = e[1], mk = e._makerKey || S.maker;
+    var makerColor = (MAKERS[mk] && MAKERS[mk].accent) || 'var(--accent)';
     var chip = document.createElement('div');
     chip.className = 'model-chip' + (k === S.model && mk === S.maker ? ' active' : '');
     chip.setAttribute('data-maker', mk);
     chip.setAttribute('data-key', k);
+    chip.style.borderLeft = '4px solid ' + makerColor;
     chip.onclick = (function(mk2, k2) {
       return function() {
         if (mk2 !== S.maker) { selectMakerModel(mk2, k2); return; }
@@ -5324,7 +5326,7 @@ function renderModels() {
       '<div class="model-chip-info">' +
         '<div class="model-chip-name">' + m.name + '</div>' +
         '<div class="model-chip-sub">' +
-          (makerLabel ? '<span style="color:var(--accent);font-weight:800;">' + makerLabel + '</span> · ' : '') +
+          (makerLabel ? '<span style="color:' + makerColor + ';font-weight:800;">' + makerLabel + '</span> · ' : '') +
           (m.desc ? m.desc.replace(/^[0-9]+W /, '') : '') +
           (wattStr ? ' · ' + wattStr : '') +
         '</div>' +
@@ -7172,7 +7174,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.112';
+  var ver = 'v1.1.3.113';
   (function(){ var el=document.getElementById('hdr-ver'); if(el) el.textContent=ver; var df=document.getElementById('drawer-footer-ver'); if(df) df.textContent='CALM '+ver; })();
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
