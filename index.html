@@ -13453,25 +13453,35 @@ var ver = 'v1.1.3.128';
     <!-- Toolbar at bottom -->
     <div class="draft-toolbar" id="dft-toolbar">
       <!-- Row 1: object placement -->
-      <div class="dft-objects-row" style="overflow-x:visible;flex-wrap:nowrap;justify-content:space-between;">
-        <button class="draft-tool-btn" id="dft-btn-people"   onclick="dftMode('people')"   style="flex:1;padding:5px 2px;min-width:0;text-align:center;">🧍<br><span style="font-size:9px;">人</span></button>
-        <button class="draft-tool-btn" id="dft-btn-camera"   onclick="dftMode('camera')"   style="flex:1;padding:5px 2px;min-width:0;text-align:center;">🎥<br><span style="font-size:9px;">Cam</span></button>
-        <button class="draft-tool-btn" id="dft-btn-light"    onclick="dftMode('light')"    style="flex:1;padding:5px 2px;min-width:0;text-align:center;">💡<br><span style="font-size:9px;">ライト</span></button>
-        <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftMode('diffuser')" style="flex:1;padding:5px 2px;min-width:0;text-align:center;">⬜<br><span style="font-size:9px;">DIFF</span></button>
-        <button class="draft-tool-btn" id="dft-btn-bounce"   onclick="dftMode('bounce')"   style="flex:1;padding:5px 2px;min-width:0;text-align:center;">🔲<br><span style="font-size:9px;">反射</span></button>
-        <button class="draft-tool-btn" id="dft-btn-flag"     onclick="dftMode('flag')"     style="flex:1;padding:5px 2px;min-width:0;text-align:center;">▬<br><span style="font-size:9px;">フラグ</span></button>
-        <button class="draft-tool-btn" onclick="dftAddMoreMenu()"                           style="flex:1;padding:5px 2px;min-width:0;text-align:center;font-size:16px;">⋯<br><span style="font-size:9px;">その他</span></button>
+      <div class="dft-objects-row" style="overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;">
+        <button class="draft-tool-btn" id="dft-btn-people"   onclick="dftMode('people')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🧍<br><span style="font-size:8px;">人</span></button>
+        <button class="draft-tool-btn" id="dft-btn-camera"   onclick="dftMode('camera')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🎥<br><span style="font-size:8px;">Cam</span></button>
+        <button class="draft-tool-btn" id="dft-btn-light"    onclick="dftMode('light')"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">💡<br><span style="font-size:8px;">Light</span></button>
+        <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftMode('diffuser')" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⬜<br><span style="font-size:8px;">DIFF</span></button>
+        <button class="draft-tool-btn" id="dft-btn-bounce"   onclick="dftMode('bounce')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔲<br><span style="font-size:8px;">反射</span></button>
+        <button class="draft-tool-btn" id="dft-btn-flag"     onclick="dftMode('flag')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">▬<br><span style="font-size:8px;">Flag</span></button>
+        <button class="draft-tool-btn" onclick="dftImportPDF()"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📄<br><span style="font-size:8px;">PDF</span></button>
+        <button class="draft-tool-btn" onclick="dftImportPhoto()"  style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🖼<br><span style="font-size:8px;">写真</span></button>
+        <button class="draft-tool-btn" onclick="dftSetScaleUI()"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📐<br><span style="font-size:8px;">Scale</span></button>
+        <button class="draft-tool-btn" onclick="dftToggleUnit();document.getElementById('dft-btn-unit-lbl').textContent=(_dft.unit||'m')" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;"><span id="dft-btn-unit-lbl" style="font-size:15px;font-weight:900;">m</span><br><span style="font-size:8px;">単位</span></button>
       </div>
-      <!-- Row 2: edit tools -->
-      <div class="dft-tools-row" style="overflow-x:visible;flex-wrap:nowrap;justify-content:space-between;">
-        <button class="draft-tool-btn active" id="dft-btn-select" onclick="dftMode('select')" style="flex:1;padding:5px 2px;min-width:0;text-align:center;">↖<br><span style="font-size:9px;">選択</span></button>
-        <button class="draft-tool-btn" id="dft-btn-multi"  onclick="dftMode('multi')"         style="flex:1;padding:5px 2px;min-width:0;text-align:center;">⊞<br><span style="font-size:9px;">複数</span></button>
-        <button class="draft-tool-btn" id="dft-btn-delete" onclick="dftMode('delete')"        style="flex:1;padding:5px 2px;min-width:0;text-align:center;">🗑<br><span style="font-size:9px;">削除</span></button>
-        <button class="draft-tool-btn" id="dft-btn-rotate" onclick="dftMode('rotate')"        style="flex:1;padding:5px 2px;min-width:0;text-align:center;">🔄<br><span style="font-size:9px;">回転</span></button>
-        <button class="draft-tool-btn" onclick="dftDistVisMenu()"                             style="flex:1;padding:5px 2px;min-width:0;text-align:center;">📏<br><span style="font-size:9px;">距離</span></button>
-        <button class="draft-tool-btn dft-undo-btn" onclick="dftUndo()" id="dft-btn-undo" disabled style="flex:1;padding:5px 2px;min-width:0;text-align:center;">↩<br><span style="font-size:9px;">元に戻</span></button>
-        <button class="draft-tool-btn dft-undo-btn" onclick="dftRedo()" id="dft-btn-redo" disabled style="flex:1;padding:5px 2px;min-width:0;text-align:center;">↪<br><span style="font-size:9px;">Redo</span></button>
-        <button class="draft-tool-btn" onclick="dftToolsMoreMenu()"                           style="flex:1;padding:5px 2px;min-width:0;text-align:center;font-size:16px;">⋯<br><span style="font-size:9px;">その他</span></button>
+      <!-- Row 2: edit + file tools -->
+      <div class="dft-tools-row" style="overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;">
+        <button class="draft-tool-btn active" id="dft-btn-select" onclick="dftMode('select')" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">↖<br><span style="font-size:8px;">選択</span></button>
+        <button class="draft-tool-btn" id="dft-btn-multi"  onclick="dftMode('multi')"         style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⊞<br><span style="font-size:8px;">複数</span></button>
+        <button class="draft-tool-btn" id="dft-btn-delete" onclick="dftMode('delete')"        style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🗑<br><span style="font-size:8px;">削除</span></button>
+        <button class="draft-tool-btn" id="dft-btn-rotate" onclick="dftMode('rotate')"        style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔄<br><span style="font-size:8px;">回転</span></button>
+        <button class="draft-tool-btn" onclick="dftDistVisMenu()"                             style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📏<br><span style="font-size:8px;">距離</span></button>
+        <button class="draft-tool-btn dft-undo-btn" onclick="dftUndo()" id="dft-btn-undo" disabled style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">↩<br><span style="font-size:8px;">Undo</span></button>
+        <button class="draft-tool-btn dft-undo-btn" onclick="dftRedo()" id="dft-btn-redo" disabled style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">↪<br><span style="font-size:8px;">Redo</span></button>
+        <button class="draft-tool-btn" onclick="dftCopy()"       style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⎘<br><span style="font-size:8px;">Copy</span></button>
+        <button class="draft-tool-btn" onclick="dftPaste()"      style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⎙<br><span style="font-size:8px;">Paste</span></button>
+        <button class="draft-tool-btn" onclick="dftSave()"       style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">💾<br><span style="font-size:8px;">保存</span></button>
+        <button class="draft-tool-btn" onclick="dftLoadMenu()"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📂<br><span style="font-size:8px;">読込</span></button>
+        <button class="draft-tool-btn" onclick="dftNew()"        style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">＋<br><span style="font-size:8px;">New</span></button>
+        <button class="draft-tool-btn" onclick="dftExport()"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📤<br><span style="font-size:8px;">Export</span></button>
+        <button class="draft-tool-btn" onclick="dftImport()"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📥<br><span style="font-size:8px;">Import</span></button>
+        <button class="draft-tool-btn" onclick="dftReset()"      style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;color:#e53935;">🗑<br><span style="font-size:8px;">Reset</span></button>
       </div>
     </div>
   </div>
