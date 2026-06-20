@@ -38,8 +38,8 @@
 }
 
 
-html,body,* { color-scheme: light only; }
-:root{ color-scheme: light; --bg:#f0f2f7;--white:#fff;--shadow:0 4px 20px rgba(0,0,0,0.08);--radius:20px;--radius-sm:12px;--text:#1a1a2e;--text-dim:#6b7280;--accent:#e65100;--accent-dark:#bf360c;--accent-light:#fff3e0;--accent-glow:rgba(230,81,0,0.25);}
+:root{ color-scheme: light; --bg:#f0f2f7;--white:#fff;--shadow:0 4px 20px rgba(0,0,0,0.08);--radius:20px;--radius-sm:12px;--text:#1a1a2e;--text-dim:#6b7280;--accent:#e65100;--accent-dark:#bf360c;--accent-light:#fff3e0;--accent-glow:rgba(230,81,0,0.25);--border:#e0e0e0;--input-bg:#fff;}
+html.dark{ color-scheme: dark; --bg:#1a1a2a;--white:#242436;--shadow:0 4px 20px rgba(0,0,0,0.4);--text:#f0f0f5;--text-dim:#9090a8;--accent:#e65100;--accent-dark:#bf360c;--accent-light:rgba(230,81,0,0.18);--accent-glow:rgba(230,81,0,0.3);--border:#3a3a50;--input-bg:#2e2e42;}
 *{box-sizing:border-box;margin:0;padding:0;}
 
 header{background:var(--white);padding:1px 8px 1px;padding-top:calc(1px + env(safe-area-inset-top, 0px));box-shadow:var(--shadow);position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;overflow:hidden;width:100%;max-width:480px;margin:0 auto;gap:4px;flex-wrap:nowrap;}
@@ -631,17 +631,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 #mix-tri-toggle-btn:active { opacity: 0.7; }
 #mix-tri-use-btn:active { opacity: 0.8; }
 
-/* Force light mode — prevent iOS dark mode override */
 html, body {
   box-sizing: border-box;
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
 }
-html { background: #f0f2f7 !important; color: #1a1a2e !important; color-scheme: light; }
-body { background: #f0f2f7 !important; color: #1a1a2e !important; }
-.card { background: #ffffff !important; color: #1a1a2e !important; }
-input, select, textarea { background: #ffffff !important; color: #1a1a2e !important; }
+html { background: var(--bg); color: var(--text); }
+body { background: var(--bg); color: var(--text); }
+.card { background: var(--white); color: var(--text); }
+input, select, textarea { background: var(--input-bg); color: var(--text); }
 
 /* Model chip icon */
 .chip-icon-wrap { width:36px; height:36px; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:var(--bg); border-radius:9px; padding:3px; }
@@ -760,6 +759,7 @@ body {
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
+    <button id="dark-toggle-btn" onclick="toggleDarkMode()" aria-label="Dark mode" style="background:none;border:none;padding:4px 6px;cursor:pointer;font-size:18px;line-height:1;border-radius:8px;">🌙</button>
     <button class="hamburger-btn" onclick="openDrawer()" aria-label="Menu">☰</button>
   </div>
 </header>
@@ -6943,6 +6943,22 @@ window.addEventListener('DOMContentLoaded', function() {
   renderFactorSection('alt');
 });
 
+// ── Dark mode ─────────────────────────────────────────────
+function applyDarkMode(dark) {
+  document.documentElement.classList.toggle('dark', dark);
+  var btn = document.getElementById('dark-toggle-btn');
+  if (btn) btn.textContent = dark ? '☀️' : '🌙';
+}
+function toggleDarkMode() {
+  var isDark = document.documentElement.classList.contains('dark');
+  applyDarkMode(!isDark);
+  localStorage.setItem('calm_dark', !isDark ? '1' : '0');
+}
+(function() {
+  var saved = localStorage.getItem('calm_dark');
+  applyDarkMode(saved === '1');
+})();
+
 function openDrawer() {
   document.getElementById('drawer').classList.add('open');
   document.getElementById('drawer-overlay').classList.add('open');
@@ -7052,7 +7068,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.69';
+  var ver = 'v1.1.3.70';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
