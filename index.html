@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CALM v1.1.3.31</title>
+<title>CALM v1.1.3.32</title>
 <meta name="theme-color" content="#e65100">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CALM">
@@ -755,7 +755,7 @@ body {
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
     <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.31</span>
+    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.32</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -6690,7 +6690,7 @@ function calculate() {
     '<span style="font-size:16px;font-weight:700;color:rgba(255,255,255,.5);">' + Math.round(lux/10.764).toLocaleString() + '<span style="font-size:11px;margin-left:1px;">fc</span></span>' +
     '<span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.85);">' + distNote + (units > 1 ? ' \xd7' + units : '') + '</span>' +
     '</div>';
-  if (stickyEl) {
+  if (stickyEl && (typeof S === 'undefined' || S.page !== 'draft')) {
     stickyEl.style.display = 'block';
     // Calc タブのみ units-fixed-wrap を表示
     var _uw2 = el('units-fixed-wrap');
@@ -7051,7 +7051,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.31';
+  var ver = 'v1.1.3.32';
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
   var ios = ua.match(/OS (\d+[_\d]*)/);
@@ -10268,7 +10268,7 @@ function selectMakerModel(mk, lk) {
   showPage('calc');
 }
 
-// ===== DRAFT ENGINE v1.1.3.31 =====
+// ===== DRAFT ENGINE v1.1.3.32 =====
 var _dft = {
   canvas:null, ctx:null,
   ox:0, oy:0, zoom:1,
@@ -10378,6 +10378,9 @@ function _dftSyncResultPanel() {
   if (dc && rc) dc.innerHTML = rc.innerHTML;
   var hasContent = di && di.textContent.trim().length > 0;
   p.style.display = (typeof S !== 'undefined' && S.page === 'draft' && hasContent) ? 'block' : 'none';
+  // Ensure sticky-result stays hidden in draft mode
+  var sr = document.getElementById('sticky-result');
+  if (sr && typeof S !== 'undefined' && S.page === 'draft') sr.style.display = 'none';
 }
 
 function _dftFitPage() {
@@ -11624,18 +11627,30 @@ function _dftLPRender() {
   } else { _dftLPFilter(''); }
 }
 
+function _dftGetUsageCounts() {
+  try { return JSON.parse(localStorage.getItem('lmp_usage')||'{}'); } catch(e) { return {}; }
+}
+function _dftIncrFavCount(mk, lk) {
+  var counts = _dftGetUsageCounts();
+  var key = mk + '|' + lk;
+  counts[key] = (counts[key] || 0) + 1;
+  try { localStorage.setItem('lmp_usage', JSON.stringify(counts)); } catch(e) {}
+}
+
 function _dftLPRenderFav(listEl) {
   var favs = getFavs();
+  var counts = _dftGetUsageCounts();
   var items = favs.map(function(f) {
     var mk=f.maker, lk=f.model, lt=LIGHTS[mk]&&LIGHTS[mk][lk];
     if (!lt) return null;
-    return {mk:mk, lk:lk, lt:lt, makerName:(MAKERS[mk]||{}).name||mk};
+    return {mk:mk, lk:lk, lt:lt, makerName:(MAKERS[mk]||{}).name||mk, count:counts[mk+'|'+lk]||0};
   }).filter(Boolean);
   if (!items.length) {
     listEl.innerHTML = '<div style="color:#888;text-align:center;padding:28px;font-size:13px;">⭐ No favorites yet<br><span style="font-size:11px;">Star lights in the Calc tab</span></div>';
     return;
   }
-  listEl.innerHTML = items.map(function(it){ return _dftLPItem(it.mk,it.lk,it.lt,it.makerName,true); }).join('');
+  items.sort(function(a,b){ return b.count - a.count; });
+  listEl.innerHTML = items.map(function(it){ return _dftLPItem(it.mk,it.lk,it.lt,it.makerName,true,it.count); }).join('');
 }
 
 function _dftLPRenderMakers(listEl) {
@@ -11665,10 +11680,11 @@ function _dftLPRenderModels(listEl, mk) {
   listEl.innerHTML = back + (rows||'<div style="color:#888;text-align:center;padding:16px;">No lights</div>');
 }
 
-function _dftLPItem(mk, lk, lt, makerName, isFav) {
+function _dftLPItem(mk, lk, lt, makerName, isFav, usageCount) {
+  var countBadge = (usageCount && usageCount > 0) ? '<span style="color:#888;font-size:10px;margin-left:4px;">×'+usageCount+'</span>' : '';
   return '<div onclick="_dftLPSelect(\''+mk+'\',\''+lk+'\')" style="display:flex;align-items:center;padding:9px 10px;border-radius:9px;margin-bottom:4px;background:#1a1a1a;border:1px solid #2a2a2a;cursor:pointer;gap:8px;">' +
     '<span style="font-size:14px;color:'+(isFav?'#f9a825':'#444')+';">'+(isFav?'★':'☆')+'</span>' +
-    '<div style="flex:1;min-width:0;"><div style="color:#fff;font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+lt.name+'</div>' +
+    '<div style="flex:1;min-width:0;"><div style="color:#fff;font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+lt.name+countBadge+'</div>' +
     '<div style="color:#666;font-size:10px;">'+makerName+'</div></div>' +
     '</div>';
 }
@@ -11706,6 +11722,7 @@ function _dftLPSelect(mk, lk) {
     beamAngle: 75, accKey: 'none',
   });
   _dft.selected = no.id;
+  _dftIncrFavCount(mk, lk);
   try { selectMaker(mk); selectModel(lk); } catch(e) {}
   _dftUpdateInfoBar();
   dftRender();
@@ -12574,7 +12591,7 @@ function dftResetView() {
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
   </div>
-  <div class="drawer-footer">CALM v1.1.3.31</div>
+  <div class="drawer-footer">CALM v1.1.3.32</div>
 </div>
 
 </body>
