@@ -13414,16 +13414,16 @@ var ver = 'v1.1.3.128';
     <div class="draft-canvas-area" id="dft-canvas-area">
       <canvas id="dft-canvas" class="draft-canvas"></canvas>
       <!-- Floating result panel (draggable) -->
-      <div id="dft-result-panel" style="display:none;position:absolute;top:10px;left:10px;z-index:20;touch-action:none;cursor:grab;max-width:280px;min-width:160px;">
-        <div style="background:rgba(10,12,22,0.93);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:13px;padding:8px 12px 9px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 4px 20px rgba(0,0,0,.4);">
-          <div style="font-size:8px;font-weight:900;color:var(--accent,#f96);letter-spacing:.18em;display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none;" onclick="(function(){var b=document.getElementById('dft-result-body');var a=document.getElementById('dft-result-arrow');var open=b.style.display!=='none';b.style.display=open?'none':'block';a.textContent=open?'▸':'▾';})()">
+      <div id="dft-result-panel" style="display:none;position:absolute;top:10px;left:10px;z-index:20;touch-action:none;cursor:grab;max-width:200px;min-width:100px;">
+        <div style="background:rgba(10,12,22,0.93);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:10px;padding:5px 8px 6px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 4px 20px rgba(0,0,0,.4);">
+          <div style="font-size:7px;font-weight:900;color:var(--accent,#f96);letter-spacing:.18em;display:flex;align-items:center;gap:4px;cursor:pointer;user-select:none;" onclick="(function(){var b=document.getElementById('dft-result-body');var a=document.getElementById('dft-result-arrow');var open=b.style.display!=='none';b.style.display=open?'none':'block';a.textContent=open?'▸':'▾';})()">
             <span id="lbl-dft-result-hdr">RESULT</span>
-            <span style="opacity:.45;font-size:10px;letter-spacing:0;">⠿</span>
-            <span id="dft-result-arrow" style="margin-left:auto;font-size:9px;opacity:.6;">▸</span>
+            <span style="opacity:.45;font-size:8px;letter-spacing:0;">⠿</span>
+            <span id="dft-result-arrow" style="margin-left:auto;font-size:8px;opacity:.6;">▸</span>
           </div>
           <div id="dft-result-body" style="display:none;">
-            <div id="dft-result-inner" style="display:flex;align-items:center;gap:0;width:100%;margin-top:4px;"></div>
-            <div id="dft-result-cam" style="margin-top:3px;display:flex;flex-wrap:wrap;gap:3px;"></div>
+            <div id="dft-result-inner" style="display:flex;align-items:center;gap:0;width:100%;margin-top:3px;transform:scale(0.7);transform-origin:top left;width:143%;"></div>
+            <div id="dft-result-cam" style="margin-top:2px;display:flex;flex-wrap:wrap;gap:2px;transform:scale(0.7);transform-origin:top left;width:143%;"></div>
           </div>
         </div>
       </div>
