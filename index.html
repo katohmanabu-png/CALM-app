@@ -5308,7 +5308,7 @@ function renderModels() {
     chip.setAttribute('data-key', k);
     chip.onclick = (function(mk2, k2) {
       return function() {
-        if (mk2 !== S.maker) { selectMaker(mk2); return; }
+        if (mk2 !== S.maker) { selectMakerModel(mk2, k2); return; }
         selectModel(k2);
       };
     })(mk, k);
@@ -7172,7 +7172,7 @@ function buildCamInfoHtml() {
 
 // ── Feedback page ─────────────────────────────────────────
 function fbGetDeviceInfo() {
-  var ver = 'v1.1.3.111';
+  var ver = 'v1.1.3.112';
   (function(){ var el=document.getElementById('hdr-ver'); if(el) el.textContent=ver; var df=document.getElementById('drawer-footer-ver'); if(df) df.textContent='CALM '+ver; })();
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
