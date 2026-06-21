@@ -5413,6 +5413,16 @@ function renderAccessories() {
   var grid = el('accessory-grid'); if (!grid) return;
   grid.innerHTML = '';
 
+  // spot/flood ペア + HMI_BEAMエントリのあるライトはスライダー専用 → ボタン非表示
+  var _ba = getBeamAngles(light);
+  var _accs = light.accessories || [];
+  var _isSpotFlood = _ba && _accs.indexOf('spot') >= 0 && _accs.indexOf('flood') >= 0;
+  var _isHMI = light && HMI_BEAM[light.name] && _ba;
+  var _isFresnel = ACC_INFO[S.accKey] && typeof (ACC_INFO[S.accKey]||{}).beam === 'string'
+                   && (ACC_INFO[S.accKey].beam||'').indexOf('Fresnel') >= 0;
+  if (_isSpotFlood && _isHMI && !_isFresnel) { grid.style.display = 'none'; return; }
+  grid.style.display = '';
+
   var isBeaker = BEAKER_LIGHTS[S.maker + '|' + S.model];
   var beakerSec = el('beaker-section');
   if (beakerSec) beakerSec.style.display = isBeaker ? 'block' : 'none';
