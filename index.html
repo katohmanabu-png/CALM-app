@@ -7765,7 +7765,11 @@ function sortResults(results, sortMode) {
       if (Math.abs(absA - absB) > 0.05) return absA - absB;
       return 0;
     }
-    // default: priority → units → colorKey → stop差
+    // default: angleDiff bucket(15°) → priority → units → colorKey(exact>bright>dark) → stop差
+    var aDiff = a.angleDiff != null ? a.angleDiff : 0;
+    var bDiff = b.angleDiff != null ? b.angleDiff : 0;
+    var aAngleBkt = Math.floor(aDiff / 15), bAngleBkt = Math.floor(bDiff / 15);
+    if (aAngleBkt !== bAngleBkt) return aAngleBkt - bAngleBkt;
     if (a.priority !== b.priority) return a.priority - b.priority;
     if (a.units !== b.units) return a.units - b.units;
     if (a.colorKey !== b.colorKey) return a.colorKey - b.colorKey;
@@ -8114,6 +8118,7 @@ function renderFinderResults() {
 
       // ワイド→スポット順: angle降順ソート用キー
       var angleForSort = bestAngle != null ? bestAngle : 0;
+      var finderAngleDiff = (useBeamFilter && bestAngle != null) ? Math.abs(bestAngle - beamMax) : 0;
       results.push({
         name: light.name, mk: mk, lk: lk,
         lux: bestLux, fNum: bestFnum, fNum1: fNum1,
@@ -8121,7 +8126,8 @@ function renderFinderResults() {
         watts: light.watts || 0, cct: matchCCT,
         units: bestUnits, priority: priority,
         stopDiff: bestUnits === 1 ? stopDiff1 : stopDiffU,
-        angle: bestAngle, angleForSort: angleForSort
+        angle: bestAngle, angleForSort: angleForSort,
+        angleDiff: finderAngleDiff
       });
     }
   }
@@ -8132,6 +8138,9 @@ function renderFinderResults() {
     results[ci].colorKey = (Math.abs(sd) < 0.3) ? 0 : (sd > 0 ? 1 : 2);
   }
   sortResults(results, S_finderSort);
+  if (targetFval === 0) {
+    results.sort(function(a, b) { return b.lux - a.lux; });
+  }
 
   // 件数表示
   var sub = el('rank-result-sub');
@@ -8638,9 +8647,8 @@ function runAlternativeFinder() {
         else if (bestUnits > 1 && absDiffU < 2.001) priority = 4;
         else continue;
       } else {
-        if (bestUnits === 1 && absDiff1 < 2.001 && signedDiff > 0) priority = 3;  // 暗い方向のみ
-        else if (bestUnits > 1 && absDiffU < 2.001 && signedDiff > 0) priority = 4;
-        else continue;
+        // デフォルトモード: ±1 stop以内のみ表示（±2 stopは非表示）
+        continue;
       }
 
       // ワット数が大きく異なる場合は除外（消費電力20倍超は現実的な代替にならない）
@@ -13332,7 +13340,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.137';
+var ver = 'v1.1.3.138';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
