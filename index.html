@@ -7695,11 +7695,8 @@ function sortResults(results, sortMode) {
       if (Math.abs(absA - absB) > 0.05) return absA - absB;
       return 0;
     }
-    // default: priority → angleDiff → units → colorKey → stop差
+    // default: priority → units → colorKey → stop差
     if (a.priority !== b.priority) return a.priority - b.priority;
-    var adA = a.angleDiff !== undefined ? a.angleDiff : 9999;
-    var adB = b.angleDiff !== undefined ? b.angleDiff : 9999;
-    if (Math.abs(adA - adB) > 5) return adA - adB;
     if (a.units !== b.units) return a.units - b.units;
     if (a.colorKey !== b.colorKey) return a.colorKey - b.colorKey;
     return absA - absB;
@@ -8372,16 +8369,19 @@ function runAlternativeFinder() {
       }
       var rcct = (rlight.ccts || [5600])[0];
       var raccs = rlight.accessories || ['none'];
-      var bestLux = 0, bestAcc = 'none', bestAngleDiff = 9999;
+      var bestLux = 0, bestAcc = 'none', bestBeamAngle = -1;
       for (var ai = 0; ai < raccs.length; ai++) {
         var candAcc = raccs[ai];
-        var angleDiff = beamAngleDiff(acc, candAcc);
-        if (!beamTypeCompatible(acc, candAcc)) continue;
+        var candAngle = getBeamAngle(candAcc);
         var rr = luxForCCTAndDist(rlight.refData, rcct, candAcc, dist);
         if (!rr || !rr.lux) continue;
-        if (angleDiff < bestAngleDiff || (angleDiff === bestAngleDiff && rr.lux > bestLux)) {
-          bestLux = rr.lux; bestAcc = candAcc; bestAngleDiff = angleDiff;
-        }
+        // 同じbeam angleなら優先、それ以外はより大きい（FLOOD寄り）を優先
+        var srcAngle = getBeamAngle(acc);
+        var isExact = (candAngle === srcAngle);
+        var prevExact = (bestBeamAngle === srcAngle);
+        if (isExact && !prevExact) { bestLux = rr.lux; bestAcc = candAcc; bestBeamAngle = candAngle; continue; }
+        if (!isExact && prevExact) continue;
+        if (candAngle > bestBeamAngle) { bestLux = rr.lux; bestAcc = candAcc; bestBeamAngle = candAngle; }
       }
       if (!bestLux) continue;
 
