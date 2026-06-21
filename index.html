@@ -7690,8 +7690,8 @@ function sortResults(results, sortMode) {
       return 0;
     }
     if (sortMode === 'multi') {
-      // 複数台優先: 台数降順 → stop差昇順
-      if (a.units !== b.units) return b.units - a.units;
+      // 複数台優先: 台数昇順 → stop差昇順
+      if (a.units !== b.units) return a.units - b.units;
       if (Math.abs(absA - absB) > 0.05) return absA - absB;
       return 0;
     }
