@@ -8176,54 +8176,103 @@ function rankAllLights(srcLux,srcWatts,srcCCTs,srcAcc,srcType,srcCCT,dist){
   return res;
 }
 function syncAltFromCalc() {
-  // Sync maker/model/acc/dist from Calc state
   var makerSel = el('alt-src-maker');
   var modelSel = el('alt-src-model');
   var accSel   = el('alt-src-acc');
   if (!makerSel) { populateAltMakers(); return; }
 
-  // Populate makers
-  makerSel.innerHTML = '';
-  sortedMakerKeys().forEach(function(k) {
-    var o = document.createElement('option');
-    o.value = k; o.textContent = (MAKERS[k]||{}).name || k;
-    makerSel.appendChild(o);
-  });
-  // Select Calc's maker
-  if (S.maker) makerSel.value = S.maker;
+  // 初回起動時: localStorageから前回のALT検索状態を復元
+  var useSaved = false;
+  if (!_altRestoredSaved) {
+    _altRestoredSaved = true;
+    try {
+      var savedMk = localStorage.getItem('calm_alt_maker');
+      var savedLk = localStorage.getItem('calm_alt_model');
+      if (savedMk && LIGHTS[savedMk] && savedLk && LIGHTS[savedMk][savedLk]) {
+        useSaved = true;
+        var savedAcc  = localStorage.getItem('calm_alt_acc');
+        var savedDist = localStorage.getItem('calm_alt_dist');
+        var savedImp  = localStorage.getItem('calm_alt_imperial');
+        if (savedImp !== null) setAltUnit(savedImp === '1' ? 'ft' : 'm');
 
-  // Populate models for selected maker
-  if (modelSel) {
-    modelSel.innerHTML = '';
-    sortedModelEntries(makerSel.value).forEach(function(e2) {
-      var o = document.createElement('option');
-      o.value = e2[0]; o.textContent = e2[1].name;
-      modelSel.appendChild(o);
-    });
-    if (S.model) modelSel.value = S.model;
+        makerSel.innerHTML = '';
+        sortedMakerKeys().forEach(function(k) {
+          var o = document.createElement('option');
+          o.value = k; o.textContent = (MAKERS[k]||{}).name || k;
+          makerSel.appendChild(o);
+        });
+        makerSel.value = savedMk;
+
+        if (modelSel) {
+          modelSel.innerHTML = '';
+          sortedModelEntries(savedMk).forEach(function(e2) {
+            var o = document.createElement('option');
+            o.value = e2[0]; o.textContent = e2[1].name;
+            modelSel.appendChild(o);
+          });
+          modelSel.value = savedLk;
+        }
+
+        if (accSel) {
+          var sLight = LIGHTS[savedMk][savedLk];
+          accSel.innerHTML = '';
+          (sLight.accessories || ['none']).forEach(function(a) {
+            var o = document.createElement('option');
+            o.value = a; o.textContent = (ACC_INFO[a]||{label:a}).label;
+            accSel.appendChild(o);
+          });
+          if (savedAcc && sLight.accessories && sLight.accessories.indexOf(savedAcc) >= 0)
+            accSel.value = savedAcc;
+        }
+
+        if (savedDist) {
+          var altSl = el('alt-dist-sl');
+          if (altSl) { altSl.value = savedDist; S_altManualDist = null; updateAltDistDisplay(); }
+        }
+      }
+    } catch(e) {}
   }
 
-  // Populate accessories
-  if (accSel && modelSel) {
-    var light = LIGHTS[makerSel.value] && LIGHTS[makerSel.value][modelSel.value];
-    accSel.innerHTML = '';
-    (light && light.accessories || ['none']).forEach(function(a) {
+  if (!useSaved) {
+    // 通常: Calcの状態と同期
+    makerSel.innerHTML = '';
+    sortedMakerKeys().forEach(function(k) {
       var o = document.createElement('option');
-      o.value = a; o.textContent = (ACC_INFO[a]||{label:a}).label;
-      accSel.appendChild(o);
+      o.value = k; o.textContent = (MAKERS[k]||{}).name || k;
+      makerSel.appendChild(o);
     });
-    if (S.accKey) accSel.value = S.accKey;
-  }
+    if (S.maker) makerSel.value = S.maker;
 
-  // Sync distance from Calc
-  var dist = getActiveDist();
-  var altSl = el('alt-dist-sl');
-  if (altSl && dist > 0) {
-    S_altManualDist = null;
-    altSl.value = S_altImperial
-      ? Math.max(1.6, Math.min(328, Math.round(dist * 3.28084)))
-      : Math.max(0.5, Math.min(100, Math.round(dist * 2) / 2));
-    updateAltDistDisplay();
+    if (modelSel) {
+      modelSel.innerHTML = '';
+      sortedModelEntries(makerSel.value).forEach(function(e2) {
+        var o = document.createElement('option');
+        o.value = e2[0]; o.textContent = e2[1].name;
+        modelSel.appendChild(o);
+      });
+      if (S.model) modelSel.value = S.model;
+    }
+
+    if (accSel && modelSel) {
+      var light = LIGHTS[makerSel.value] && LIGHTS[makerSel.value][modelSel.value];
+      accSel.innerHTML = '';
+      (light && light.accessories || ['none']).forEach(function(a) {
+        var o = document.createElement('option');
+        o.value = a; o.textContent = (ACC_INFO[a]||{label:a}).label;
+        accSel.appendChild(o);
+      });
+      if (S.accKey) accSel.value = S.accKey;
+    }
+
+    var dist = getActiveDist();
+    var altSl = el('alt-dist-sl');
+    if (altSl && dist > 0) {
+      S_altManualDist = null;
+      altSl.value = S_altImperial
+        ? Math.max(1.6, Math.min(328, Math.round(dist * 3.28084)))
+        : Math.max(0.5, Math.min(100, Math.round(dist * 2) / 2));
+      updateAltDistDisplay();
+    }
   }
 
   try { runAlternativeFinder(); } catch(e) {}
@@ -8320,6 +8369,18 @@ function populateAltAccs(maker, model) {
     sel.appendChild(o);
   });
 }
+function saveAltState() {
+  try {
+    var msel = el('alt-src-maker'), lsel = el('alt-src-model'), asel = el('alt-src-acc'), dsl = el('alt-dist-sl');
+    if (!msel || !lsel) return;
+    localStorage.setItem('calm_alt_maker', msel.value);
+    localStorage.setItem('calm_alt_model', lsel.value);
+    if (asel) localStorage.setItem('calm_alt_acc', asel.value);
+    if (dsl)  localStorage.setItem('calm_alt_dist', dsl.value);
+    localStorage.setItem('calm_alt_imperial', S_altImperial ? '1' : '0');
+  } catch(e) {}
+}
+var _altRestoredSaved = false;
 function runAlternativeFinder() {
   var msel = el('alt-src-maker'), lsel = el('alt-src-model'), asel = el('alt-src-acc');
   if (!msel || !lsel) return;
@@ -8327,6 +8388,8 @@ function runAlternativeFinder() {
   var acc = asel ? asel.value : 'none';
   var light = LIGHTS[mk] && LIGHTS[mk][lk];
   if (!light) return;
+
+  saveAltState();
 
   // S.altDist（三角計算 or スライダー）から距離を取得
   var distEl = el('alt-dist-sl');
@@ -8369,19 +8432,18 @@ function runAlternativeFinder() {
       }
       var rcct = (rlight.ccts || [5600])[0];
       var raccs = rlight.accessories || ['none'];
-      var bestLux = 0, bestAcc = 'none', bestBeamAngle = -1;
+      var bestLux = 0, bestAcc = 'none', bestAngleDiff = 9999;
+      var srcAngle = getBeamAngle(acc);
       for (var ai = 0; ai < raccs.length; ai++) {
         var candAcc = raccs[ai];
         var candAngle = getBeamAngle(candAcc);
+        var angleDiff = Math.abs(srcAngle - candAngle);
         var rr = luxForCCTAndDist(rlight.refData, rcct, candAcc, dist);
         if (!rr || !rr.lux) continue;
-        // 同じbeam angleなら優先、それ以外はより大きい（FLOOD寄り）を優先
-        var srcAngle = getBeamAngle(acc);
-        var isExact = (candAngle === srcAngle);
-        var prevExact = (bestBeamAngle === srcAngle);
-        if (isExact && !prevExact) { bestLux = rr.lux; bestAcc = candAcc; bestBeamAngle = candAngle; continue; }
-        if (!isExact && prevExact) continue;
-        if (candAngle > bestBeamAngle) { bestLux = rr.lux; bestAcc = candAcc; bestBeamAngle = candAngle; }
+        // 角度差が同じ場合はより広角（FLOOD寄り）を優先
+        if (angleDiff < bestAngleDiff || (angleDiff === bestAngleDiff && candAngle > getBeamAngle(bestAcc))) {
+          bestLux = rr.lux; bestAcc = candAcc; bestAngleDiff = angleDiff;
+        }
       }
       if (!bestLux) continue;
 
