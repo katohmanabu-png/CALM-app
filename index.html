@@ -7725,7 +7725,9 @@ function sortResults(results, sortMode) {
       return 0;
     }
     if (sortMode === 'multi') {
-      // 複数台優先: 台数昇順 → stop差昇順
+      // 複数台優先: 2台以上を先頭、その中で台数昇順(少ない順) → stop差昇順
+      var aMulti = a.units > 1, bMulti = b.units > 1;
+      if (aMulti !== bMulti) return aMulti ? -1 : 1;
       if (a.units !== b.units) return a.units - b.units;
       if (Math.abs(absA - absB) > 0.05) return absA - absB;
       return 0;
@@ -8433,7 +8435,10 @@ function runAlternativeFinder() {
   var dist = (S.altDist && S.altDist > 0) ? S.altDist : slValM;
   var cct = (light.ccts || [5600])[0];
   // カメラ設定を完全反映 — 基準ライトの lux/F値
-  var r = luxForCCTAndDist(light.refData, cct, acc, dist);
+  // beamスライダー使用中はluxAtBeamAngleで計算（ARRIMAX等の中間角度対応）
+  var r = (S.useBeam && mk === S.maker && lk === S.model && getBeamAngles(light))
+    ? luxAtBeamAngle(light, dist)
+    : luxForCCTAndDist(light.refData, cct, acc, dist);
   var srcLuxRaw = r ? r.lux : 0;
   var _af = getTotalFactorStops(S_altFactors);
   var srcLux = (_af > 0 && srcLuxRaw > 0) ? srcLuxRaw / Math.pow(2, _af) : srcLuxRaw;
