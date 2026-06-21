@@ -4371,7 +4371,8 @@ var LIGHTS = {
 var ACC_INFO = {
   none:     { label:'Light Only',          beam:'Bare Light',    emoji:'⭕', angle:120 },
   native20: { label:'Native 20° Beam',     beam:'20° Native',   emoji:'🔦', angle:20 },
-  flood:    { label:'No Modifier',         beam:'Flood',         emoji:'☀️', angle:60 },
+  flood:    { label:'FLOOD',               beam:'Flood',         emoji:'🔆', angle:55 },
+  spot:     { label:'SPOT',               beam:'Spot ~10°',     emoji:'🎯', angle:10 },
   spot9:    { label:'NOVA 9° Spot Lens', beam:'9° Spot', emoji:'🔬', angle:9 },
   deg19:    { label:'19° Beam',  beam:'Spot 19°',   emoji:'🔦', angle:19 },
   deg36:    { label:'36° Beam',  beam:'Medium 36°', emoji:'🔦', angle:36 },
@@ -4939,7 +4940,7 @@ function getBeamAngle(acc) {
     'am81150':50, 'r60':60, 'spot50':50, 'fresnel50':50, 'cf16_flood_50':50,
     'refl50':50, 'parallel_beam_70':70,
     // wide/open系は広角として扱う
-    'bare':90, 'open':90, 'flood':90, 'flat':90, 'flat_1k':90, 'flat_300':90,
+    'bare':90, 'open':90, 'flood':55, 'flat':90, 'flat_1k':90, 'flat_300':90,
     'flat_500':90, 'none':90, 'soft_tube':90, 'frost':90, 'frost_l1':90,
     'frost_l2':90, 'frost_l3':90, 'frost_l4':90, 'sf400':90,
     'lantern30':90, 'round_diff':90, 'mini_diffuser':90, 'diffuser':90,
@@ -7694,8 +7695,11 @@ function sortResults(results, sortMode) {
       if (Math.abs(absA - absB) > 0.05) return absA - absB;
       return 0;
     }
-    // default: priority → units → colorKey → stop差
+    // default: priority → angleDiff → units → colorKey → stop差
     if (a.priority !== b.priority) return a.priority - b.priority;
+    var adA = a.angleDiff !== undefined ? a.angleDiff : 9999;
+    var adB = b.angleDiff !== undefined ? b.angleDiff : 9999;
+    if (Math.abs(adA - adB) > 5) return adA - adB;
     if (a.units !== b.units) return a.units - b.units;
     if (a.colorKey !== b.colorKey) return a.colorKey - b.colorKey;
     return absA - absB;
@@ -8429,6 +8433,7 @@ function runAlternativeFinder() {
         stopDiff: absDiffU, stopDiffSigned: bestSigned,
         watts: rlight.watts || 0,
         units: bestUnits, priority: priority, colorKey: colorKey,
+        angleDiff: bestAngleDiff,
         isSelf: rmk === mk && rlk === lk
       });
     }
