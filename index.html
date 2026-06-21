@@ -3350,12 +3350,16 @@ var LIGHTS = {
       name:'ARRI HMI 6000', group:'HMI', desc:'6000W HMI PAR / Fresnel', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:6000,
       weight:'38 kg', size:'530×530×520 mm',
       ccts:[5600],
-      accessories:['flood','spot','sun_6k'],
+      accessories:['flood','spot'],
       dmx:{led:'HMI',power:'6000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{
-        5600:{10:{spot:16000,flood:3200,sun_spot:32000,sun_flood:6400},15:{spot:7109,flood:1417},20:{spot:4000,flood:800,sun_spot:8000,sun_flood:1600}},
-      }
+      refData:{5600:{
+        3:{spot:151875, flood:27075},
+        5:{spot:76800,  flood:12863},
+        8:{spot:27075,  flood:3206},
+        12:{spot:12675, flood:1695},
+        15:{spot:9075,  flood:1200}
+      }}
     },
     arrisun_12k: {
       name:'ARRI SUN 12kW', group:'HMI Lens', desc:'12000W HMI PAR — lens interchange', emoji:'⚫', watts:12000,
@@ -13340,7 +13344,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.138';
+var ver = 'v1.1.3.139';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
