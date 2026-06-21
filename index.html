@@ -5554,6 +5554,27 @@ function renderBeamSlider() {
 
   var sl = el('beam-sl');
   if (!sl) return;
+
+  // spot/flood or HMI: degree-based slider (1° steps)
+  var isDegreeMode = (isSpotFlood || isHMI) && !isFresnel;
+  if (isDegreeMode && ba) {
+    sl.min = ba[0]; sl.max = ba[1]; sl.step = 1;
+    // spot選択中: 最小端
+    if (k === 'spot') S.beamPct = 0;
+    // flood/flat選択中: 最大端
+    if (k === 'flood' || k === 'flat') S.beamPct = 100;
+    var curDeg = Math.round(ba[0] + S.beamPct / 100 * (ba[1] - ba[0]));
+    sl.value = curDeg;
+    var valEl = el('beam-val');
+    if (valEl) valEl.textContent = curDeg + '°';
+    var slLabs2b = el('beam-labs');
+    if (slLabs2b) slLabs2b.innerHTML =
+      '<span class="sl-lab">SPOT ' + ba[0] + '°</span>' +
+      '<span class="sl-lab">' + Math.round((ba[0]+ba[1])/2) + '°</span>' +
+      '<span class="sl-lab">FLOOD ' + ba[1] + '°</span>';
+    return;
+  }
+
   sl.min = 0; sl.max = 100; sl.step = 1;
 
   // フレネル選択中: スライダーをその角度に同期
@@ -5587,14 +5608,28 @@ function updateBeamDisplay(ba) {
 }
 function onBeamSlider() {
   var sl = el('beam-sl'); if (!sl) return;
-  S.beamPct = parseInt(sl.value) || 0;
   S.useBeam = true;
   var light = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
   var ba = getBeamAngles(light);
-  if (ba) {
-    var curAngle = Math.round(ba[0] + S.beamPct / 100 * (ba[1] - ba[0]));
+  var accs = (light && light.accessories) || [];
+  var isSpotFlood = ba && accs.indexOf('spot') >= 0 && accs.indexOf('flood') >= 0;
+  var isHMI = light && HMI_BEAM[light.name] && ba;
+  var k = S.accKey;
+  var isFresnel = ACC_INFO[k] && typeof ACC_INFO[k].beam === 'string' && ACC_INFO[k].beam.indexOf('Fresnel') >= 0;
+  var isDegreeMode = (isSpotFlood || isHMI) && !isFresnel;
+
+  if (isDegreeMode && ba) {
+    var deg = parseInt(sl.value) || ba[0];
+    S.beamPct = Math.round((deg - ba[0]) / (ba[1] - ba[0]) * 100);
     var valEl = el('beam-val');
-    if (valEl) valEl.textContent = curAngle + '°';
+    if (valEl) valEl.textContent = deg + '°';
+  } else {
+    S.beamPct = parseInt(sl.value) || 0;
+    if (ba) {
+      var curAngle = Math.round(ba[0] + S.beamPct / 100 * (ba[1] - ba[0]));
+      var valEl2 = el('beam-val');
+      if (valEl2) valEl2.textContent = curAngle + '°';
+    }
   }
   calculate();
 }
