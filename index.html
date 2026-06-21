@@ -2009,7 +2009,7 @@ var LANGS = {
     mixDistLabel:'距離 / Distance',
     altFinderTitle:'おすすめ代替機材検索', altFinderDesc:'同等の代替機材を探します — 換算台数とマッチスコア付き。',
     altFinderFixture:'置き換えたい機材', altFinderDistLabel:'距離', altFinderCCTLabel:'色温度',
-    altFinderBtn:'🔄 代替案を探す',
+    altFinderBtn:'🔄 代替案を探す', altFinderRecalc:'再計算',
     altFactorLabel:'換算台数', altMatchLabel:'マッチ率',
     proLabel:'PRO',
     ftabName:'🔍 名前', ftabMaker:'🏢 会社', ftabType:'💡 種類',
@@ -2104,7 +2104,7 @@ var LANGS = {
     mixDistLabel:'Distance',
     altFinderTitle:'Alternative Finder', altFinderDesc:'Find the best alternative — with Equivalent Factor and Match Score.',
     altFinderFixture:'Fixture to Replace', altFinderDistLabel:'Distance', altFinderCCTLabel:'Color Temp',
-    altFinderBtn:'🔄 Find Alternatives',
+    altFinderBtn:'🔄 Find Alternatives', altFinderRecalc:'Recalculate',
     altFactorLabel:'Equiv. Factor', altMatchLabel:'Match Score',
     proLabel:'PRO',
     unitsLabel:'Units',
@@ -2194,7 +2194,7 @@ var LANGS = {
     mixDistLabel:'Distancia',
     altFinderTitle:'Buscar Equipo Equivalente', altFinderDesc:'Encuentra la mejor alternativa.',
     altFinderFixture:'Fixture a Reemplazar', altFinderDistLabel:'Distancia', altFinderCCTLabel:'Temperatura',
-    altFinderBtn:'🔄 Buscar Alternativas', altFactorLabel:'Factor Equiv.', altMatchLabel:'Coincidencia',
+    altFinderBtn:'🔄 Buscar Alternativas', altFinderRecalc:'Recalcular', altFactorLabel:'Factor Equiv.', altMatchLabel:'Coincidencia',
     proLabel:'PRO',
     cmLblHeight:'Altura', cmLblHoriz:'Horiz.', cmLblDist:'Distancia',
     cmLblUseHeight:'Usar Altura', cmLblUseHoriz:'Usar Horiz.', cmLblUseDist:'Usar Distancia',
@@ -2336,7 +2336,7 @@ function applyI18n() {
   s('lbl-alt-dist','altFinderDistLabel');
   s('lbl-alt-cct','altFinderCCTLabel');
   s('lbl-alt-direct','directInput');
-  s('alt-finder-btn','altFinderBtn');
+  var _afb = el('alt-find-btn'); if (_afb) _afb.innerHTML = getAltBtnHTML();
   // Finder
   s('finder-desc-text','finderDesc');
   s('lbl-finder-run-btn-inner','finderRunBtn');
@@ -6350,14 +6350,23 @@ function useAltTriDist() {
   if (txt) txt.textContent = '📐 ' + dispVal + ' ' + unit;
   // Find Altボタン更新
   var btn = el('alt-find-btn');
-  if (btn) btn.innerHTML = '🔄 Find Alternatives <span style="font-size:11px;opacity:0.85;">(' + dispVal + ' ' + unit + ')</span>';
+  if (btn) btn.innerHTML = getAltBtnHTML(dispVal + ' ' + unit);
+}
+
+function getAltBtnHTML(extra) {
+  var main = t('altFinderBtn');
+  var sub = t('altFinderRecalc');
+  var html = main;
+  if (sub) html += '<br><span style="font-size:11px;font-weight:600;opacity:0.8;">' + sub + '</span>';
+  if (extra) html += ' <span style="font-size:11px;opacity:0.85;">(' + extra + ')</span>';
+  return html;
 }
 
 function clearAltTriDist() {
   S.altDist = null; S.altTriDist = null;
   var note = el('alt-tri-active-note'); if (note) note.style.display = 'none';
   var btn = el('alt-find-btn');
-  if (btn) btn.innerHTML = '🔄 Find Alternatives';
+  if (btn) btn.innerHTML = getAltBtnHTML();
   // スライダー値を使用
   var sl = el('alt-dist-sl');
   if (sl) { S.altDist = S_altImperial ? parseFloat(sl.value)/3.28084 : parseFloat(sl.value); }
@@ -13323,7 +13332,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.136';
+var ver = 'v1.1.3.137';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -13540,7 +13549,7 @@ var ver = 'v1.1.3.136';
         <button id="alt-find-btn" onclick="runAlternativeFinder()"
           style="width:100%;padding:12px;background:var(--accent);color:white;border:none;
                  border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;">
-          🔄 Find Alternatives
+          🔄 Find Alternatives<br><span style="font-size:11px;font-weight:600;opacity:0.8;">Recalculate</span>
         </button>
         <!-- ソート順 -->
         <div style="margin-top:10px;">
