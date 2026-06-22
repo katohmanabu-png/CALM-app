@@ -664,13 +664,13 @@ input, select, textarea { background: var(--input-bg); color: var(--text); }
 .filter-tabs { display:flex; gap:5px; }
 .filter-tab { flex:1; padding:7px 4px; border:1.5px solid #eee; border-radius:10px;
   background:white; font-size:11px; font-weight:700; font-family:'Nunito',sans-serif;
-  cursor:pointer; color:var(--text-dim); transition:all .15s; }
+  cursor:pointer; color:#888; transition:all .15s; }
 .filter-tab.active { background:var(--accent); color:white; border-color:var(--accent); }
 .filter-row { /* shown/hidden by JS */ }
 .filter-chips { display:flex; flex-wrap:wrap; gap:5px; padding:2px 0; }
 .fchip { padding:5px 10px; border:1.5px solid #eee; border-radius:20px;
   background:white; font-size:11px; font-weight:700; font-family:'Nunito',sans-serif;
-  cursor:pointer; color:var(--text-dim); transition:all .15s; white-space:nowrap; }
+  cursor:pointer; color:#888; transition:all .15s; white-space:nowrap; }
 .fchip.active { background:var(--accent); color:white; border-color:var(--accent); }
 .fchip-maker { padding:5px 10px; }
 
@@ -833,8 +833,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
   </div>
   <div class="hdr-text">
     <h1 style="font-size:20px;letter-spacing:2px;">CALM</h1>
-    <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:var(--text-dim);font-weight:600;">Cinema Advanced Lighting Matcher</span>
-    <span id="hdr-ver" style="font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;">v1.1.3.128</span>
+    <span id="hdr-sub" style="font-size:9px;letter-spacing:0.5px;color:#888;font-weight:600;">Cinema Advanced Lighting Matcher</span>
+    <span id="hdr-ver" style="font-size:9px;color:#888;font-weight:700;letter-spacing:0.5px;">v1.1.3.128</span>
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
@@ -846,7 +846,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 
 <div id="page-calc" class="page-content active">
 <div class="app">
-<div id="calc-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-calc" style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;"></div><div id="page-sub-calc" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div></div>
+<div id="calc-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-calc" style="font-size:15px;font-weight:800;color:#555;line-height:1.2;"></div><div id="page-sub-calc" style="font-size:11px;color:#888;font-weight:600;margin-top:1px;"></div></div>
 
 <!-- ライト選択エリア 折りたたみヘッダー -->
 <div id="light-select-hdr" onclick="toggleLightSelector()"
@@ -856,11 +856,11 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
   <div style="display:flex;align-items:center;gap:8px;min-width:0;">
     <span id="light-select-hdr-emoji" style="font-size:18px;flex-shrink:0;">💡</span>
     <div style="min-width:0;">
-      <div id="light-select-hdr-name" style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">ライトを選択...</div>
-      <div id="light-select-hdr-sub"  style="font-size:10px;color:var(--text-dim);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;"></div>
+      <div id="light-select-hdr-name" style="font-size:13px;font-weight:800;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">ライトを選択...</div>
+      <div id="light-select-hdr-sub"  style="font-size:10px;color:#888;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;"></div>
     </div>
   </div>
-  <span id="light-select-arrow" style="font-size:13px;color:var(--text-dim);flex-shrink:0;margin-left:8px;transition:transform .25s;">▾</span>
+  <span id="light-select-arrow" style="font-size:13px;color:#888;flex-shrink:0;margin-left:8px;transition:transform .25s;">▾</span>
 </div>
 
 <!-- 折りたたみ本体 -->
@@ -937,7 +937,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
     <button onclick="toggleDmxPanel()" id="dmx-panel-toggle"
         style="width:100%;padding:8px 12px;background:var(--bg);border:none;border-radius:10px;
                display:flex;align-items:center;justify-content:space-between;cursor:pointer;
-               font-size:12px;font-weight:700;color:var(--text-dim);">
+               font-size:12px;font-weight:700;color:#888;">
         <span>📡 Data</span>
         <span id="dmx-panel-arrow" style="transition:transform .25s;">▾</span>
       </button>
@@ -1024,7 +1024,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <button onclick="toggleCalcTri()" id="calc-tri-toggle-btn"
             style="width:100%;padding:8px 12px;background:var(--bg);border:none;border-radius:10px;
                    display:flex;align-items:center;justify-content:space-between;cursor:pointer;
-                   font-size:12px;font-weight:700;color:var(--text-dim);">
+                   font-size:12px;font-weight:700;color:#888;">
             <span>📐 <span id="lbl-tri-title-calc">Triangle Calc</span></span>
             <span id="calc-tri-arrow" style="transition:transform .25s;">▾</span>
           </button>
@@ -1084,7 +1084,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                         <button class="step-btn" onclick="triStep('tri-height',.5,.5,20,'h','calcTriangle')">›</button>
                         <button class="tri-lock-btn" id="lock-tri-height" title="長押しでロック" onmousedown="triLockPress('tri-height','lock-tri-height')" onmouseup="triLockRelease('tri-height')" ontouchstart="triLockPress('tri-height','lock-tri-height')" ontouchend="triLockRelease('tri-height')">🔓</button>
                       </div>
-                      <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5 <span id="tri-unit-h">m</span></span><span style="font-size:9px;color:var(--text-dim);">20 <span class="tri-unit-h-r">m</span></span></div>
+                      <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5 <span id="tri-unit-h">m</span></span><span style="font-size:9px;color:#888;">20 <span class="tri-unit-h-r">m</span></span></div>
                     </div>
                     <div>
                       <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -1099,7 +1099,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                         <button class="step-btn" onclick="triStep('tri-horiz',.5,.5,30,'di','calcTriangle')">›</button>
                         <button class="tri-lock-btn" id="lock-tri-horiz" title="長押しでロック" onmousedown="triLockPress('tri-horiz','lock-tri-horiz')" onmouseup="triLockRelease('tri-horiz')" ontouchstart="triLockPress('tri-horiz','lock-tri-horiz')" ontouchend="triLockRelease('tri-horiz')">🔓</button>
                       </div>
-                      <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5 <span id="tri-unit-hz">m</span></span><span style="font-size:9px;color:var(--text-dim);">30 <span class="tri-unit-hz-r">m</span></span></div>
+                      <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5 <span id="tri-unit-hz">m</span></span><span style="font-size:9px;color:#888;">30 <span class="tri-unit-hz-r">m</span></span></div>
                     </div>
                     <div>
                       <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -1114,7 +1114,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                         <button class="step-btn" onclick="triStep('tri-angle',1,1,89,'a','calcTriangle')">›</button>
                         <button class="tri-lock-btn" id="lock-tri-angle" title="長押しでロック" onmousedown="triLockPress('tri-angle','lock-tri-angle')" onmouseup="triLockRelease('tri-angle')" ontouchstart="triLockPress('tri-angle','lock-tri-angle')" ontouchend="triLockRelease('tri-angle')">🔓</button>
                       </div>
-                      <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">1°</span><span style="font-size:9px;color:var(--text-dim);">89°</span></div>
+                      <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">1°</span><span style="font-size:9px;color:#888;">89°</span></div>
                     </div>
                   </div>
                   <div class="tri-result">
@@ -1138,8 +1138,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 <div id="page-camera" class="page-content">
 <div class="app">
 <div id="camera-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;">
-  <div id="page-title-camera" style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;"></div>
-  <div id="page-sub-camera" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div>
+  <div id="page-title-camera" style="font-size:15px;font-weight:800;color:#555;line-height:1.2;"></div>
+  <div id="page-sub-camera" style="font-size:11px;color:#888;font-weight:600;margin-top:1px;"></div>
 </div>
 
 <div class="card">
@@ -1183,39 +1183,39 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
         </div>
         <div class="sl-labs"><span class="sl-lab">1</span><span class="sl-lab">24</span><span class="sl-lab">60</span><span class="sl-lab">120</span><span class="sl-lab">240</span><span class="sl-lab">1000</span></div>
         <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;">
-          <button onclick="setCinemaFPSPreset(23.976)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">23.976</button>
+          <button onclick="setCinemaFPSPreset(23.976)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">23.976</button>
           <button onclick="setCinemaFPSPreset(24)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--accent);color:white;">24</button>
-          <button onclick="setCinemaFPSPreset(25)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">25</button>
-          <button onclick="setCinemaFPSPreset(29.97)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">29.97</button>
-          <button onclick="setCinemaFPSPreset(30)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">30</button>
-          <button onclick="setCinemaFPSPreset(48)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">48</button>
-          <button onclick="setCinemaFPSPreset(50)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">50</button>
-          <button onclick="setCinemaFPSPreset(60)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">60</button>
-          <button onclick="setCinemaFPSPreset(72)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">72</button>
-          <button onclick="setCinemaFPSPreset(90)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">90</button>
-          <button onclick="setCinemaFPSPreset(96)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">96</button>
-          <button onclick="setCinemaFPSPreset(100)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">100</button>
-          <button onclick="setCinemaFPSPreset(120)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">120</button>
-          <button onclick="setCinemaFPSPreset(144)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">144</button>
-          <button onclick="setCinemaFPSPreset(150)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">150</button>
-          <button onclick="setCinemaFPSPreset(200)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">200</button>
-          <button onclick="setCinemaFPSPreset(240)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">240</button>
-          <button onclick="setCinemaFPSPreset(300)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">300</button>
-          <button onclick="setCinemaFPSPreset(480)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">480</button>
-          <button onclick="setCinemaFPSPreset(960)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">960</button>
-          <button onclick="setCinemaFPSPreset(1000)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">1000</button>
+          <button onclick="setCinemaFPSPreset(25)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">25</button>
+          <button onclick="setCinemaFPSPreset(29.97)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">29.97</button>
+          <button onclick="setCinemaFPSPreset(30)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">30</button>
+          <button onclick="setCinemaFPSPreset(48)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">48</button>
+          <button onclick="setCinemaFPSPreset(50)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">50</button>
+          <button onclick="setCinemaFPSPreset(60)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">60</button>
+          <button onclick="setCinemaFPSPreset(72)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">72</button>
+          <button onclick="setCinemaFPSPreset(90)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">90</button>
+          <button onclick="setCinemaFPSPreset(96)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">96</button>
+          <button onclick="setCinemaFPSPreset(100)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">100</button>
+          <button onclick="setCinemaFPSPreset(120)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">120</button>
+          <button onclick="setCinemaFPSPreset(144)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">144</button>
+          <button onclick="setCinemaFPSPreset(150)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">150</button>
+          <button onclick="setCinemaFPSPreset(200)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">200</button>
+          <button onclick="setCinemaFPSPreset(240)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">240</button>
+          <button onclick="setCinemaFPSPreset(300)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">300</button>
+          <button onclick="setCinemaFPSPreset(480)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">480</button>
+          <button onclick="setCinemaFPSPreset(960)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">960</button>
+          <button onclick="setCinemaFPSPreset(1000)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">1000</button>
         </div>
       </div>
       <!-- Shutter Angle (Digital) — 折りたたみ -->
       <div class="sl-field" style="margin-top:10px;">
         <div class="sl-top" onclick="toggleShutterAngle()" style="cursor:pointer;user-select:none;">
           <div class="sl-label" style="display:flex;align-items:center;gap:6px;">
-            <span id="shutter-angle-arrow" style="font-size:11px;color:var(--text-dim);transition:transform .2s;">▶</span>
+            <span id="shutter-angle-arrow" style="font-size:11px;color:#888;transition:transform .2s;">▶</span>
             Shutter Angle
           </div>
           <div style="display:flex;align-items:baseline;gap:6px;">
             <div class="sl-val" id="shutter-angle-disp" style="font-size:14px;">172.8<span>°</span></div>
-            <div style="font-size:11px;color:var(--text-dim);font-weight:600;" id="shutter-speed-disp">1/50s</div>
+            <div style="font-size:11px;color:#888;font-weight:600;" id="shutter-speed-disp">1/50s</div>
           </div>
         </div>
         <div id="shutter-angle-body" style="display:none;">
@@ -1225,13 +1225,13 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
             <button class="step-btn" onclick="stepSl('shutter-angle-sl',1,onShutterAngleChange)">›</button>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;">
-            <button onclick="setShutterAnglePreset(0)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:var(--text-dim);">360°</button>
-            <button onclick="setShutterAnglePreset(1)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:var(--text-dim);">270°</button>
-            <button onclick="setShutterAnglePreset(2)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:var(--text-dim);">180°</button>
+            <button onclick="setShutterAnglePreset(0)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:#888;">360°</button>
+            <button onclick="setShutterAnglePreset(1)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:#888;">270°</button>
+            <button onclick="setShutterAnglePreset(2)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:#888;">180°</button>
             <button onclick="setShutterAnglePreset(3)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--accent);color:white;">172.8°</button>
-            <button onclick="setShutterAnglePreset(4)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:var(--text-dim);">144°</button>
-            <button onclick="setShutterAnglePreset(5)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:var(--text-dim);">90°</button>
-            <button onclick="setShutterAnglePreset(6)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:var(--text-dim);">45°</button>
+            <button onclick="setShutterAnglePreset(4)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:#888;">144°</button>
+            <button onclick="setShutterAnglePreset(5)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:#888;">90°</button>
+            <button onclick="setShutterAnglePreset(6)" style="padding:4px 8px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;background:var(--bg);color:#888;">45°</button>
           </div>
         </div>
       </div>
@@ -1254,7 +1254,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <!-- F-stop -->
       <div class="sl-field" style="margin-top:10px;">
         <div class="sl-top">
-          <div class="sl-label" id="lbl-fstop">F-stop <span style="font-size:10px;color:var(--text-dim);">1/3 stop</span></div>
+          <div class="sl-label" id="lbl-fstop">F-stop <span style="font-size:10px;color:#888;">1/3 stop</span></div>
           <div class="sl-val" id="fstop-disp">f2.8</div>
         </div>
         <div class="sl-with-btns">
@@ -1281,11 +1281,11 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
           <button id="film-stock-0" onclick="onFilmStockChange(0)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--accent);color:white;">Kodak 500T</button>
-          <button id="film-stock-1" onclick="onFilmStockChange(1)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:var(--text-dim);">Kodak 250D</button>
-          <button id="film-stock-2" onclick="onFilmStockChange(2)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:var(--text-dim);">Kodak 200T</button>
-          <button id="film-stock-3" onclick="onFilmStockChange(3)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:var(--text-dim);">Kodak 50D</button>
-          <button id="film-stock-4" onclick="onFilmStockChange(4)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:var(--text-dim);">Fuji 500T</button>
-          <button id="film-stock-5" onclick="onFilmStockChange(5)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:var(--text-dim);">Fuji 250D</button>
+          <button id="film-stock-1" onclick="onFilmStockChange(1)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:#888;">Kodak 250D</button>
+          <button id="film-stock-2" onclick="onFilmStockChange(2)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:#888;">Kodak 200T</button>
+          <button id="film-stock-3" onclick="onFilmStockChange(3)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:#888;">Kodak 50D</button>
+          <button id="film-stock-4" onclick="onFilmStockChange(4)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:#888;">Fuji 500T</button>
+          <button id="film-stock-5" onclick="onFilmStockChange(5)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:#888;">Fuji 250D</button>
         </div>
       </div>
       <!-- Film FPS -->
@@ -1308,27 +1308,27 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <span class="sl-lab">1000</span>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;">
-          <button onclick="setFilmFPSPreset(23.976)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">23.976</button>
+          <button onclick="setFilmFPSPreset(23.976)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">23.976</button>
           <button onclick="setFilmFPSPreset(24)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--accent);color:white;">24</button>
-          <button onclick="setFilmFPSPreset(25)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">25</button>
-          <button onclick="setFilmFPSPreset(29.97)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">29.97</button>
-          <button onclick="setFilmFPSPreset(30)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">30</button>
-          <button onclick="setFilmFPSPreset(48)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">48</button>
-          <button onclick="setFilmFPSPreset(50)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">50</button>
-          <button onclick="setFilmFPSPreset(60)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">60</button>
-          <button onclick="setFilmFPSPreset(72)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">72</button>
-          <button onclick="setFilmFPSPreset(90)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">90</button>
-          <button onclick="setFilmFPSPreset(96)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">96</button>
-          <button onclick="setFilmFPSPreset(100)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">100</button>
-          <button onclick="setFilmFPSPreset(120)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">120</button>
-          <button onclick="setFilmFPSPreset(144)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">144</button>
-          <button onclick="setFilmFPSPreset(150)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">150</button>
-          <button onclick="setFilmFPSPreset(200)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">200</button>
-          <button onclick="setFilmFPSPreset(240)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">240</button>
-          <button onclick="setFilmFPSPreset(300)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">300</button>
-          <button onclick="setFilmFPSPreset(480)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">480</button>
-          <button onclick="setFilmFPSPreset(960)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">960</button>
-          <button onclick="setFilmFPSPreset(1000)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:var(--text-dim);">1000</button>
+          <button onclick="setFilmFPSPreset(25)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">25</button>
+          <button onclick="setFilmFPSPreset(29.97)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">29.97</button>
+          <button onclick="setFilmFPSPreset(30)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">30</button>
+          <button onclick="setFilmFPSPreset(48)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">48</button>
+          <button onclick="setFilmFPSPreset(50)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">50</button>
+          <button onclick="setFilmFPSPreset(60)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">60</button>
+          <button onclick="setFilmFPSPreset(72)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">72</button>
+          <button onclick="setFilmFPSPreset(90)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">90</button>
+          <button onclick="setFilmFPSPreset(96)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">96</button>
+          <button onclick="setFilmFPSPreset(100)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">100</button>
+          <button onclick="setFilmFPSPreset(120)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">120</button>
+          <button onclick="setFilmFPSPreset(144)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">144</button>
+          <button onclick="setFilmFPSPreset(150)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">150</button>
+          <button onclick="setFilmFPSPreset(200)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">200</button>
+          <button onclick="setFilmFPSPreset(240)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">240</button>
+          <button onclick="setFilmFPSPreset(300)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">300</button>
+          <button onclick="setFilmFPSPreset(480)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">480</button>
+          <button onclick="setFilmFPSPreset(960)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">960</button>
+          <button onclick="setFilmFPSPreset(1000)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">1000</button>
         </div>
       </div>
       <!-- Shutter Angle (Film) -->
@@ -1337,16 +1337,16 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <div class="sl-label">Shutter Angle</div>
           <div style="display:flex;align-items:baseline;gap:6px;">
             <div class="sl-val" id="film-angle-disp">180<span>°</span></div>
-            <div style="font-size:11px;color:var(--text-dim);font-weight:600;" id="film-shutter-speed-disp">1/50s</div>
+            <div style="font-size:11px;color:#888;font-weight:600;" id="film-shutter-speed-disp">1/50s</div>
           </div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;">
-          <button onclick="setFilmShutterAngle(360)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:var(--text-dim);">360°</button>
-          <button onclick="setFilmShutterAngle(270)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:var(--text-dim);">270°</button>
-          <button onclick="setFilmShutterAngle(180)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:var(--text-dim);">180°</button>
+          <button onclick="setFilmShutterAngle(360)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:#888;">360°</button>
+          <button onclick="setFilmShutterAngle(270)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:#888;">270°</button>
+          <button onclick="setFilmShutterAngle(180)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:#888;">180°</button>
           <button onclick="setFilmShutterAngle(172.8)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--accent);color:white;">172.8°</button>
-          <button onclick="setFilmShutterAngle(144)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:var(--text-dim);">144°</button>
-          <button onclick="setFilmShutterAngle(90)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:var(--text-dim);">90°</button>
+          <button onclick="setFilmShutterAngle(144)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:#888;">144°</button>
+          <button onclick="setFilmShutterAngle(90)" style="padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;background:var(--bg);color:#888;">90°</button>
         </div>
       </div>
       <!-- F-stop (Film) -->
@@ -1364,7 +1364,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       </div>
       <!-- Film Exposure Info -->
       <div style="margin-top:10px;padding:10px 12px;background:var(--bg);border-radius:10px;font-size:12px;line-height:1.8;">
-        <div id="film-exposure-info" style="color:var(--text-dim);">EI 500 · 25fps · 180° → 1/50s</div>
+        <div id="film-exposure-info" style="color:#888;">EI 500 · 25fps · 180° → 1/50s</div>
       </div>
     </div><!-- /cam-film-section -->
 
@@ -1434,7 +1434,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 <!-- ═══ PROJECT PRESETS ═══ -->
 <div class="card" style="margin-top:8px;">
   <div class="card-body" style="padding-top:12px;">
-    <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:10px;letter-spacing:0.5px;">📁 PROJECT PRESETS</div>
+    <div style="font-size:12px;font-weight:800;color:#555;margin-bottom:10px;letter-spacing:0.5px;">📁 PROJECT PRESETS</div>
 
     <!-- 入力エリア -->
     <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px;">
@@ -1464,8 +1464,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 <div id="page-mix" class="page-content">
 <div class="app">
 <div id="mix-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;">
-  <div id="page-title-mix" style="font-size:15px;font-weight:800;color:var(--text)"></div>
-  <div id="page-sub-mix" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div>
+  <div id="page-title-mix" style="font-size:15px;font-weight:800;color:#555"></div>
+  <div id="page-sub-mix" style="font-size:11px;color:#888;font-weight:600;margin-top:1px;"></div>
 </div>
 
 <!-- Light list -->
@@ -1517,7 +1517,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <button onclick="toggleMixTri()"
         style="width:100%;padding:8px 12px;background:var(--bg);border:none;border-radius:10px;
                display:flex;align-items:center;justify-content:space-between;cursor:pointer;
-               font-size:12px;font-weight:700;color:var(--text-dim);">
+               font-size:12px;font-weight:700;color:#888;">
         <span>📐 Triangle Calc</span>
         <span id="mix-tri-arrow" style="transition:transform .25s;">▾</span>
       </button>
@@ -1566,7 +1566,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px;">
           <div>
             <div style="display:flex;justify-content:space-between;align-items:baseline;">
-              <div style="font-size:11px;color:var(--text-dim);">💡 Height (<span id="mix-tri-unit-h">m</span>)</div>
+              <div style="font-size:11px;color:#888;">💡 Height (<span id="mix-tri-unit-h">m</span>)</div>
               <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="mix-tri-h-disp">4.0 m</span>
             </div>
             <div style="display:flex;align-items:center;gap:5px;">
@@ -1577,11 +1577,11 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
               <button class="step-btn" onclick="triStep('mix-tri-h',.5,.5,20,'h','calcMixTri')">›</button>
               <button class="tri-lock-btn" id="lock-mix-tri-h" title="長押しでロック" onmousedown="triLockPress('mix-tri-h','lock-mix-tri-h')" onmouseup="triLockRelease('mix-tri-h')" ontouchstart="triLockPress('mix-tri-h','lock-mix-tri-h')" ontouchend="triLockRelease('mix-tri-h')">🔓</button>
             </div>
-            <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5m</span><span style="font-size:9px;color:var(--text-dim);">20m</span></div>
+            <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5m</span><span style="font-size:9px;color:#888;">20m</span></div>
           </div>
           <div>
             <div style="display:flex;justify-content:space-between;align-items:baseline;">
-              <div style="font-size:11px;color:var(--text-dim);">↔ Horiz. (<span id="mix-tri-unit-hz">m</span>)</div>
+              <div style="font-size:11px;color:#888;">↔ Horiz. (<span id="mix-tri-unit-hz">m</span>)</div>
               <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="mix-tri-hz-disp">6.0 m</span>
             </div>
             <div style="display:flex;align-items:center;gap:5px;">
@@ -1592,11 +1592,11 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
               <button class="step-btn" onclick="triStep('mix-tri-hz',.5,.5,30,'d','calcMixTri')">›</button>
               <button class="tri-lock-btn" id="lock-mix-tri-hz" title="長押しでロック" onmousedown="triLockPress('mix-tri-hz','lock-mix-tri-hz')" onmouseup="triLockRelease('mix-tri-hz')" ontouchstart="triLockPress('mix-tri-hz','lock-mix-tri-hz')" ontouchend="triLockRelease('mix-tri-hz')">🔓</button>
             </div>
-            <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5m</span><span style="font-size:9px;color:var(--text-dim);">30m</span></div>
+            <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5m</span><span style="font-size:9px;color:#888;">30m</span></div>
           </div>
           <div>
             <div style="display:flex;justify-content:space-between;align-items:baseline;">
-              <div style="font-size:11px;color:var(--text-dim);">📐 Angle (°)</div>
+              <div style="font-size:11px;color:#888;">📐 Angle (°)</div>
               <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="mix-tri-angle-disp2">34°</span>
             </div>
             <div style="display:flex;align-items:center;gap:5px;">
@@ -1607,16 +1607,16 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
               <button class="step-btn" onclick="triStep('mix-tri-angle',1,1,89,'a','calcMixTri')">›</button>
               <button class="tri-lock-btn" id="lock-mix-tri-angle" title="長押しでロック" onmousedown="triLockPress('mix-tri-angle','lock-mix-tri-angle')" onmouseup="triLockRelease('mix-tri-angle')" ontouchstart="triLockPress('mix-tri-angle','lock-mix-tri-angle')" ontouchend="triLockRelease('mix-tri-angle')">🔓</button>
             </div>
-            <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">1°</span><span style="font-size:9px;color:var(--text-dim);">89°</span></div>
+            <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">1°</span><span style="font-size:9px;color:#888;">89°</span></div>
           </div>
         </div>
         <!-- Result -->
         <div style="background:var(--bg);border-radius:10px;padding:10px 12px;
                     display:flex;align-items:center;justify-content:space-between;">
           <div>
-            <div style="font-size:10px;color:var(--text-dim);">Actual Dist. / Hypotenuse</div>
+            <div style="font-size:10px;color:#888;">Actual Dist. / Hypotenuse</div>
             <div style="font-size:18px;font-weight:800;color:var(--accent);" id="mix-tri-val">—</div>
-            <div style="font-size:11px;color:var(--text-dim);margin-top:2px;" id="mix-tri-angle-disp"></div>
+            <div style="font-size:11px;color:#888;margin-top:2px;" id="mix-tri-angle-disp"></div>
           </div>
           <div style="display:flex;gap:6px;flex-direction:column;align-items:stretch;">
             <button onclick="useMixTriDist()"
@@ -1661,8 +1661,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 
 <div id="page-finder" class="page-content">
 <div class="app">
-<div id="finder-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-finder" style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;"></div>
-<div id="page-sub-finder" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div></div>
+<div id="finder-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-finder" style="font-size:15px;font-weight:800;color:#555;line-height:1.2;"></div>
+<div id="page-sub-finder" style="font-size:11px;color:#888;font-weight:600;margin-top:1px;"></div></div>
 
 <div class="card finder-hero">
   <div class="card-hdr">
@@ -1704,7 +1704,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <button onclick="toggleFinderTri()" id="finder-tri-toggle-btn"
             style="width:100%;padding:8px 12px;background:var(--bg);border:none;border-radius:10px;
                    display:flex;align-items:center;justify-content:space-between;cursor:pointer;
-                   font-size:12px;font-weight:700;color:var(--text-dim);">
+                   font-size:12px;font-weight:700;color:#888;">
             <span id="finder-tri-calc-lbl">📐 高さ・角度から計算</span>
             <span id="finder-tri-arrow" style="transition:transform .25s;">▾</span>
           </button>
@@ -1764,7 +1764,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                     <button class="step-btn" onclick="triStep('finder-tri-height',.5,.5,50,'h','calcFinderTriangle')">›</button>
                     <button class="tri-lock-btn" id="lock-finder-tri-height" title="長押しでロック" onmousedown="triLockPress('finder-tri-height','lock-finder-tri-height')" onmouseup="triLockRelease('finder-tri-height')" ontouchstart="triLockPress('finder-tri-height','lock-finder-tri-height')" ontouchend="triLockRelease('finder-tri-height')">🔓</button>
                   </div>
-                  <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5 <span id="finder-tri-unit-h">m</span></span><span style="font-size:9px;color:var(--text-dim);">50m</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5 <span id="finder-tri-unit-h">m</span></span><span style="font-size:9px;color:#888;">50m</span></div>
                 </div>
                 <div>
                   <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -1779,7 +1779,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                     <button class="step-btn" onclick="triStep('finder-tri-horiz',.5,.5,100,'di','calcFinderTriangle')">›</button>
                     <button class="tri-lock-btn" id="lock-finder-tri-horiz" title="長押しでロック" onmousedown="triLockPress('finder-tri-horiz','lock-finder-tri-horiz')" onmouseup="triLockRelease('finder-tri-horiz')" ontouchstart="triLockPress('finder-tri-horiz','lock-finder-tri-horiz')" ontouchend="triLockRelease('finder-tri-horiz')">🔓</button>
                   </div>
-                  <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5 <span id="finder-tri-unit-hz">m</span></span><span style="font-size:9px;color:var(--text-dim);">100m</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5 <span id="finder-tri-unit-hz">m</span></span><span style="font-size:9px;color:#888;">100m</span></div>
                 </div>
                 <div>
                   <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -1794,7 +1794,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                     <button class="step-btn" onclick="triStep('finder-tri-angle',1,1,89,'a','calcFinderTriangle')">›</button>
                     <button class="tri-lock-btn" id="lock-finder-tri-angle" title="長押しでロック" onmousedown="triLockPress('finder-tri-angle','lock-finder-tri-angle')" onmouseup="triLockRelease('finder-tri-angle')" ontouchstart="triLockPress('finder-tri-angle','lock-finder-tri-angle')" ontouchend="triLockRelease('finder-tri-angle')">🔓</button>
                   </div>
-                  <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">1°</span><span style="font-size:9px;color:var(--text-dim);">89°</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">1°</span><span style="font-size:9px;color:#888;">89°</span></div>
                 </div>
               </div>
               <div class="tri-result">
@@ -1824,12 +1824,12 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <button class="step-btn" onclick="stepFinderFstop(1)">›</button>
         </div>
         <div style="display:flex;justify-content:space-between;padding:0 2px;margin-top:2px;">
-          <span style="font-size:9px;color:var(--text-dim);">f1.4</span>
-          <span style="font-size:9px;color:var(--text-dim);">f2.8</span>
-          <span style="font-size:9px;color:var(--text-dim);">f5.6</span>
-          <span style="font-size:9px;color:var(--text-dim);">f11</span>
-          <span style="font-size:9px;color:var(--text-dim);">f22</span>
-          <span style="font-size:9px;color:var(--text-dim);">f45</span>
+          <span style="font-size:9px;color:#888;">f1.4</span>
+          <span style="font-size:9px;color:#888;">f2.8</span>
+          <span style="font-size:9px;color:#888;">f5.6</span>
+          <span style="font-size:9px;color:#888;">f11</span>
+          <span style="font-size:9px;color:#888;">f22</span>
+          <span style="font-size:9px;color:#888;">f45</span>
         </div>
         <!-- ダブルタップ直接入力フィールド（通常非表示） -->
         <div id="rank-target-f-edit-wrap" style="display:none;margin-top:4px;">
@@ -1844,7 +1844,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <!-- CCT フィルター -->
       <div style="margin-top:8px;">
         <div class="rank-field-lbl" style="margin-bottom:4px;"><span id="lbl-finder-cct">🌡️ CCT</span></div>
-        <select id="rank-cct" onchange="renderFinderResults()" style="width:100%;padding:8px 10px;border:1.5px solid #eee;border-radius:10px;font-size:13px;font-weight:700;background:white;color:var(--text);">
+        <select id="rank-cct" onchange="renderFinderResults()" style="width:100%;padding:8px 10px;border:1.5px solid #eee;border-radius:10px;font-size:13px;font-weight:700;background:white;color:#555;">
           <option value="0">All</option>
           <option value="3200">3200K (Tungsten)</option>
           <option value="4300">4300K (Neutral)</option>
@@ -1864,12 +1864,12 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           oninput="onFinderBeamChange()" onchange="onFinderBeamChange()"
           style="width:100%;height:20px;cursor:pointer;">
         <div style="display:flex;justify-content:space-between;margin-top:4px;">
-          <span style="font-size:9px;color:var(--text-dim);">All</span>
-          <span style="font-size:9px;color:var(--text-dim);">≤10°</span>
-          <span style="font-size:9px;color:var(--text-dim);">≤20°</span>
-          <span style="font-size:9px;color:var(--text-dim);">≤30°</span>
-          <span style="font-size:9px;color:var(--text-dim);">≤60°</span>
-          <span style="font-size:9px;color:var(--text-dim);">60°+</span>
+          <span style="font-size:9px;color:#888;">All</span>
+          <span style="font-size:9px;color:#888;">≤10°</span>
+          <span style="font-size:9px;color:#888;">≤20°</span>
+          <span style="font-size:9px;color:#888;">≤30°</span>
+          <span style="font-size:9px;color:#888;">≤60°</span>
+          <span style="font-size:9px;color:#888;">60°+</span>
         </div>
       </div>
       <!-- ソート順 -->
@@ -5731,7 +5731,7 @@ function renderCCTPresets(ccts, currentCCT) {
       'font-size:12px;font-weight:700;white-space:nowrap;' +
       (isActive
         ? 'background:var(--accent);color:#fff;'
-        : 'background:var(--bg);color:var(--text-dim);') +
+        : 'background:var(--bg);color:#888;') +
       '">' + label + 'K</button>';
   }).join('');
 }
@@ -6410,7 +6410,7 @@ function renderDMX() {
   var light = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
   var grid = el('dmx-grid'); if (!grid) return;
   if (!light || !light.dmx) {
-    grid.innerHTML = '<div style="padding:20px;grid-column:1/-1;text-align:center;color:var(--text-dim);font-size:11px;font-weight:700">' + t('noData') + '</div>';
+    grid.innerHTML = '<div style="padding:20px;grid-column:1/-1;text-align:center;color:#888;font-size:11px;font-weight:700">' + t('noData') + '</div>';
     return;
   }
   var d = light.dmx;
@@ -6445,7 +6445,7 @@ function showLightTab(tab) {
 function renderDistTable() {
   var light = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
   var wrap = el('dist-table-wrap'); if (!wrap) return;
-  if (!light) { wrap.innerHTML = '<p style="color:var(--text-dim);font-size:11px">' + t('noData') + '</p>'; return; }
+  if (!light) { wrap.innerHTML = '<p style="color:#888;font-size:11px">' + t('noData') + '</p>'; return; }
   var cct = getActiveCCT();
   var html = '<table class="dist-table"><thead><tr><th>m</th><th>Lux</th><th>fc</th><th></th></tr></thead><tbody>';
   for (var d = 1; d <= 20; d++) {
@@ -6454,10 +6454,10 @@ function renderDistTable() {
     html += '<td style="color:var(--accent)">' + d + 'm</td>';
     if (r && r.lux) {
       html += '<td>' + r.lux.toLocaleString() + '</td>';
-      html += '<td style="color:var(--text-dim)">' + Math.round(r.lux/10.764).toLocaleString() + '</td>';
-      html += '<td style="font-size:9px;color:var(--text-dim)">' + (r.exact ? t('measured') : t('estimated')) + '</td>';
+      html += '<td style="color:#888">' + Math.round(r.lux/10.764).toLocaleString() + '</td>';
+      html += '<td style="font-size:9px;color:#888">' + (r.exact ? t('measured') : t('estimated')) + '</td>';
     } else {
-      html += '<td colspan="3" style="color:var(--text-dim);font-size:9px">' + t('noData') + '</td>';
+      html += '<td colspan="3" style="color:#888;font-size:9px">' + t('noData') + '</td>';
     }
     html += '</tr>';
   }
@@ -6771,7 +6771,7 @@ function calculate() {
     inner.innerHTML='<div class="no-data-wrap" style="text-align:center;padding:20px">'
       +'<span style="font-size:32px">📋</span>'
       +'<p style="font-weight:800;margin:8px 0 4px">'+light.name+'</p>'
-      +'<p style="color:var(--text-dim);font-size:12px">Pending Photometric Data</p>'
+      +'<p style="color:#888;font-size:12px">Pending Photometric Data</p>'
       +'</div>';
     return;
   }
@@ -6869,7 +6869,7 @@ function closeFavPanel() { el('fav-panel').classList.remove('open'); }
 function renderFavList() {
   var favs = getFavs();
   var list = el('fav-list'); if (!list) return;
-  if (!favs.length) { list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;font-weight:700">' + t('favEmpty') + '</div>'; return; }
+  if (!favs.length) { list.innerHTML = '<div style="padding:20px;text-align:center;color:#888;font-size:12px;font-weight:700">' + t('favEmpty') + '</div>'; return; }
   list.innerHTML = '';
   favs.forEach(function(f, idx) {
     var maker = MAKERS[f.maker];
@@ -7335,7 +7335,7 @@ function fbSubmit() {
         'background:var(--accent-light);color:var(--accent);border-radius:8px;' +
         'font-size:12px;font-weight:800;text-decoration:none;">' +
         '🔗 View Issue #' + result.data.number + '</a>' +
-        '<div style="margin-top:10px;font-size:11px;color:var(--text-dim);line-height:1.5;">' +
+        '<div style="margin-top:10px;font-size:11px;color:#888;line-height:1.5;">' +
         '📸 写真を添付する場合は上のリンクを開き、コメント欄に画像をドラッグ＆ドロップまたは貼り付けてください。' +
         '</div>';
       document.getElementById('fb-form').style.display = 'none';
@@ -8156,7 +8156,7 @@ function renderFinderResults() {
   // リスト描画
   out.innerHTML = '';
   if (!results.length) {
-    out.innerHTML = '<p style="padding:16px;color:var(--text-dim);">No results found.</p>';
+    out.innerHTML = '<p style="padding:16px;color:#888;">No results found.</p>';
     return;
   }
 
@@ -8210,8 +8210,8 @@ function renderFinderResults() {
       '</div>' +
       '<div style="flex:1;min-width:0;">' +
         '<div style="font-size:11px;color:' + makerAccent + ';font-weight:700;">' + (maker.emoji||'') + ' ' + (maker.name||res.mk) + '</div>' +
-        '<div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + '</div>' +
-        '<div style="font-size:10px;color:var(--text-dim);">' + res.cct + 'K · ' + angleLabel + res.acc + ' · ' + res.watts + 'W</div>' +
+        '<div style="font-size:13px;font-weight:800;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + '</div>' +
+        '<div style="font-size:10px;color:#888;">' + res.cct + 'K · ' + angleLabel + res.acc + ' · ' + res.watts + 'W</div>' +
       '</div>' +
       '<div style="text-align:right;min-width:64px;padding-left:6px;">' +
         '<div style="font-size:20px;font-weight:900;color:var(--accent);font-family:\'JetBrains Mono\',monospace;">' + res.fStr + '</div>' +
@@ -8567,7 +8567,7 @@ function runAlternativeFinder() {
   if (!out) return;
 
   if (!srcLuxRaw) {
-    out.innerHTML = '<p style="padding:12px;color:var(--text-dim);">No photometric data for this fixture.</p>';
+    out.innerHTML = '<p style="padding:12px;color:#888;">No photometric data for this fixture.</p>';
     return;
   }
 
@@ -8749,9 +8749,9 @@ function runAlternativeFinder() {
     // 上段: 選択ライト
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
       '<div>' +
-        '<div style="font-size:10px;color:var(--text-dim);font-weight:700;">'+t('altSelectedLight')+' · ' + dist.toFixed(1) + 'm</div>' +
-        '<div style="font-size:13px;font-weight:800;color:var(--text);">' + (LIGHTS[mk] && LIGHTS[mk][lk] ? LIGHTS[mk][lk].name : lk) + '</div>' +
-        '<div style="font-size:10px;color:var(--text-dim);">' + acc + ' · ' + (srcLux > 0 ? Math.round(srcLux).toLocaleString() + ' lux' : 'No data') + '</div>' +
+        '<div style="font-size:10px;color:#888;font-weight:700;">'+t('altSelectedLight')+' · ' + dist.toFixed(1) + 'm</div>' +
+        '<div style="font-size:13px;font-weight:800;color:#555;">' + (LIGHTS[mk] && LIGHTS[mk][lk] ? LIGHTS[mk][lk].name : lk) + '</div>' +
+        '<div style="font-size:10px;color:#888;">' + acc + ' · ' + (srcLux > 0 ? Math.round(srcLux).toLocaleString() + ' lux' : 'No data') + '</div>' +
       '</div>' +
       '<div style="text-align:right;">' +
         '<div style="font-size:24px;font-weight:900;color:var(--accent);">' + srcFstr + '</div>' +
@@ -8760,23 +8760,23 @@ function runAlternativeFinder() {
     // 下段: カメラ設定
     '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;padding-top:8px;border-top:1px solid rgba(0,0,0,0.08);">' +
       '<div style="background:rgba(0,0,0,0.05);border-radius:6px;padding:5px 8px;">' +
-        '<div style="font-size:9px;color:var(--text-dim);font-weight:700;">TYPE</div>' +
+        '<div style="font-size:9px;color:#888;font-weight:700;">TYPE</div>' +
         '<div style="font-size:11px;font-weight:800;">' + _altCamType + ' ' + (S.camType==='film'?'Film':S.camType==='still'?'Still':'Digital') + '</div>' +
       '</div>' +
       '<div style="background:rgba(0,0,0,0.05);border-radius:6px;padding:5px 8px;">' +
-        '<div style="font-size:9px;color:var(--text-dim);font-weight:700;">ISO</div>' +
+        '<div style="font-size:9px;color:#888;font-weight:700;">ISO</div>' +
         '<div style="font-size:12px;font-weight:800;">' + _altISO + '</div>' +
       '</div>' +
       '<div style="background:rgba(0,0,0,0.05);border-radius:6px;padding:5px 8px;">' +
-        '<div style="font-size:9px;color:var(--text-dim);font-weight:700;">FPS</div>' +
+        '<div style="font-size:9px;color:#888;font-weight:700;">FPS</div>' +
         '<div style="font-size:12px;font-weight:800;">' + _altFPS + '</div>' +
       '</div>' +
       '<div style="background:rgba(0,0,0,0.05);border-radius:6px;padding:5px 8px;">' +
-        '<div style="font-size:9px;color:var(--text-dim);font-weight:700;">SHUTTER</div>' +
+        '<div style="font-size:9px;color:#888;font-weight:700;">SHUTTER</div>' +
         '<div style="font-size:10px;font-weight:800;">' + _altSSstr + '</div>' +
       '</div>' +
       '<div style="background:rgba(0,0,0,0.05);border-radius:6px;padding:5px 8px;">' +
-        '<div style="font-size:9px;color:var(--text-dim);font-weight:700;">BASE F</div>' +
+        '<div style="font-size:9px;color:#888;font-weight:700;">BASE F</div>' +
         '<div style="font-size:12px;font-weight:800;">' + (typeof fLab==='function'&&typeof FSTOPS13!=='undefined' ? fLab(FSTOPS13[S.fstop]) : '--') + '</div>' +
       '</div>' +
     '</div>';
@@ -8784,7 +8784,7 @@ function runAlternativeFinder() {
 
   if (!results.length && !pairResults.length) {
     var noRes = document.createElement('p');
-    noRes.style.cssText = 'padding:16px;color:var(--text-dim);';
+    noRes.style.cssText = 'padding:16px;color:#888;';
     noRes.textContent = 'No alternatives within ±1 stop.';
     out.appendChild(noRes);
     return;
@@ -8822,8 +8822,8 @@ function runAlternativeFinder() {
       '</div>' +
       '<div style="flex:1;min-width:0;">' +
         '<div style="font-size:11px;color:var(--accent);font-weight:700;">' + (maker.emoji||'') + ' ' + (maker.name||res.mk) + '</div>' +
-        '<div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + (res.isSelf ? ' ✓' : '') + '</div>' +
-        '<div style="font-size:10px;color:var(--text-dim);">' + res.acc + ' · ' + getBeamAngle(res.acc) + '° · ' + res.watts + 'W</div>' +
+        '<div style="font-size:13px;font-weight:800;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + (res.isSelf ? ' ✓' : '') + '</div>' +
+        '<div style="font-size:10px;color:#888;">' + res.acc + ' · ' + getBeamAngle(res.acc) + '° · ' + res.watts + 'W</div>' +
       '</div>' +
       '<div style="text-align:right;min-width:70px;padding-left:8px;">' +
         '<div style="font-size:20px;font-weight:900;color:var(--accent);font-family:\'JetBrains Mono\',monospace;">' + res.fStr + '</div>' +
@@ -8853,18 +8853,18 @@ function runAlternativeFinder() {
       prow.style.cssText = 'display:flex;align-items:center;padding:10px 12px;border-bottom:1px solid var(--bg);';
       prow.innerHTML =
         '<div style="min-width:26px;text-align:center;margin-right:6px;">' +
-          '<div style="font-size:11px;font-weight:900;color:var(--text-dim);">#' + rankIdx + '</div>' +
+          '<div style="font-size:11px;font-weight:900;color:#888;">#' + rankIdx + '</div>' +
         '</div>' +
         '<div style="flex:1;min-width:0;">' +
           '<div style="font-size:11px;color:var(--accent);font-weight:700;">'+t('pairLabel')+'</div>' +
-          '<div style="font-size:12px;font-weight:800;color:var(--text);line-height:1.4;">' +
-            (makerA.emoji||'') + ' ' + pr.nameA + ' <span style="color:var(--text-dim);font-size:10px;">' + pr.accA + '</span>' +
+          '<div style="font-size:12px;font-weight:800;color:#555;line-height:1.4;">' +
+            (makerA.emoji||'') + ' ' + pr.nameA + ' <span style="color:#888;font-size:10px;">' + pr.accA + '</span>' +
           '</div>' +
-          '<div style="font-size:12px;font-weight:800;color:var(--text);line-height:1.4;">' +
-            '<span style="font-size:10px;color:var(--text-dim);margin-right:2px;">+</span>' +
-            (makerB.emoji||'') + ' ' + pr.nameB + ' <span style="color:var(--text-dim);font-size:10px;">' + pr.accB + '</span>' +
+          '<div style="font-size:12px;font-weight:800;color:#555;line-height:1.4;">' +
+            '<span style="font-size:10px;color:#888;margin-right:2px;">+</span>' +
+            (makerB.emoji||'') + ' ' + pr.nameB + ' <span style="color:#888;font-size:10px;">' + pr.accB + '</span>' +
           '</div>' +
-          '<div style="font-size:10px;color:var(--text-dim);">' + (pr.wattsA + pr.wattsB) + t('pairTotalW') + '</div>' +
+          '<div style="font-size:10px;color:#888;">' + (pr.wattsA + pr.wattsB) + t('pairTotalW') + '</div>' +
         '</div>' +
         '<div style="text-align:right;min-width:70px;padding-left:8px;">' +
           '<div style="font-size:20px;font-weight:900;color:var(--accent);font-family:\'JetBrains Mono\',monospace;">' + pr.fStr + '</div>' +
@@ -8973,7 +8973,7 @@ function _renderSavedNames(prefix, type) {
       saved.map(function(n){
         var ne = n.replace(/'/g,"\\'").replace(/"/g,'&quot;');
         var te = key.replace(/'/g,"\\'");
-        return '<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:10px;background:rgba(255,255,255,0.08);font-size:10px;font-weight:700;color:var(--text-dim);">' +
+        return '<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:10px;background:rgba(255,255,255,0.08);font-size:10px;font-weight:700;color:#888;">' +
           n +
           '<button onclick="window._factorDelName(\'' + ne + '\',\'' + te + '\',\'' + prefix + '\')" style="background:none;border:none;color:#f44;font-size:11px;cursor:pointer;padding:0 1px;line-height:1;">✕</button>' +
         '</span>';
@@ -8988,7 +8988,7 @@ function _renderSavedNames(prefix) {
   container.innerHTML =
     '<div style="padding:4px 10px 6px;display:flex;flex-wrap:wrap;gap:4px;">' +
       saved.map(function(n){
-        return '<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:10px;background:rgba(255,255,255,0.08);font-size:10px;font-weight:700;color:var(--text-dim);">' +
+        return '<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:10px;background:rgba(255,255,255,0.08);font-size:10px;font-weight:700;color:#888;">' +
           n +
           '<button onclick="window._factorDelName(\'' + n.replace(/'/g,"\\'") + '\',\'' + prefix + '\')" style="background:none;border:none;color:#f44;font-size:11px;cursor:pointer;padding:0 1px;line-height:1;">✕</button>' +
         '</span>';
@@ -9003,10 +9003,10 @@ function buildFactorSection(prefix) {
   var headerHtml =
     '<div onclick="window._factorToggle(\'' + prefix + '\')" style="display:flex;align-items:center;justify-content:space-between;' +
     'padding:6px 10px;background:var(--bg);border-radius:' + (open ? '10px 10px 0 0' : '10px') + ';cursor:pointer;user-select:none;">' +
-      '<span style="font-size:11px;font-weight:700;color:var(--text-dim);">Factor</span>' +
+      '<span style="font-size:11px;font-weight:700;color:#888;">Factor</span>' +
       '<div style="display:flex;align-items:center;gap:6px;">' +
         '<span id="factor-total-' + prefix + '" style="font-size:12px;font-weight:800;color:var(--accent);font-family:\'JetBrains Mono\',monospace;">' + totalStr + '</span>' +
-        '<span style="font-size:11px;color:var(--text-dim);">' + (open ? '▲' : '▼') + '</span>' +
+        '<span style="font-size:11px;color:#888;">' + (open ? '▲' : '▼') + '</span>' +
       '</div>' +
     '</div>';
 
@@ -9048,7 +9048,7 @@ function buildFactorSection(prefix) {
           '<input type="text" id="fn-inp-' + prefix + '-' + fi + '" list="fn-list-' + prefix + '-' + fi + '"' +
             ' value="' + (f.memo || '').replace(/"/g, '&quot;') + '" placeholder="' + (typeBounce ? 'e.g. UltraBounce' : typeDiffuse ? 'e.g. Silk' : 'e.g. CTB') + '"' +
             ' oninput="window._factorSetMemo(\'' + prefix + '\',' + fi + ',this.value)"' +
-            ' style="flex:1;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:var(--bg);color:var(--text);font-size:11px;">' +
+            ' style="flex:1;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:var(--bg);color:#555;font-size:11px;">' +
           '<datalist id="fn-list-' + prefix + '-' + fi + '">' + curTypeNames + '</datalist>' +
           '<button id="fn-star-' + prefix + '-' + fi + '" onclick="window._factorSaveName(\'' + prefix + '\',' + fi + ')" title="Save name" style="background:none;border:none;color:#f5a623;font-size:16px;cursor:pointer;padding:0 2px;line-height:1;">★</button>' +
         '</div>' +
@@ -9058,7 +9058,7 @@ function buildFactorSection(prefix) {
           '<span id="fv-' + prefix + '-' + fi + '" style="font-size:14px;font-weight:800;color:var(--accent);font-family:\'JetBrains Mono\',monospace;min-width:54px;text-align:center;cursor:pointer;" title="ダブルタップで直接入力">' + fStopStr + '</span>' +
           '<button class="step-btn" onclick="window._factorStep(\'' + prefix + '\',' + fi + ',0.1)">›</button>' +
           '<div style="flex:1;"></div>' +
-          '<button onclick="window._factorReset(\'' + prefix + '\',' + fi + ')" style="background:none;border:1px solid var(--text-dim);border-radius:6px;color:var(--text-dim);font-size:10px;padding:2px 6px;cursor:pointer;">Reset</button>' +
+          '<button onclick="window._factorReset(\'' + prefix + '\',' + fi + ')" style="background:none;border:1px solid var(--text-dim);border-radius:6px;color:#888;font-size:10px;padding:2px 6px;cursor:pointer;">Reset</button>' +
         '</div>' +
         '<input type="range" min="0" max="10" step="0.1" value="' + fStops + '"' +
           ' id="fsl-' + prefix + '-' + fi + '"' +
@@ -9072,7 +9072,7 @@ function buildFactorSection(prefix) {
       rowsHtml +
       '<div style="display:flex;gap:6px;padding:6px 10px;">' +
         '<button onclick="window._factorAdd(\'' + prefix + '\')" style="flex:1;padding:5px 8px;border-radius:8px;border:1px dashed var(--accent);background:transparent;color:var(--accent);font-size:11px;font-weight:700;cursor:pointer;">* Add Factor</button>' +
-        (factors.length > 0 ? '<button onclick="window._factorResetAll(\'' + prefix + '\')" style="padding:5px 8px;border-radius:8px;border:1px solid var(--text-dim);background:transparent;color:var(--text-dim);font-size:10px;cursor:pointer;">Reset All</button>' : '') +
+        (factors.length > 0 ? '<button onclick="window._factorResetAll(\'' + prefix + '\')" style="padding:5px 8px;border-radius:8px;border:1px solid var(--text-dim);background:transparent;color:#888;font-size:10px;cursor:pointer;">Reset All</button>' : '') +
       '</div>' +
       '<div id="factor-saved-names-' + prefix + '"></div>' +
     '</div>'
@@ -9193,7 +9193,7 @@ function renderMixList() {
     }
   }
   if (!mixLights.length) {
-    list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:13px;">Tap + Add Light</div>';
+    list.innerHTML = '<div style="text-align:center;padding:20px;color:#888;font-size:13px;">Tap + Add Light</div>';
     return;
   }
   // makeSlValEditable は innerHTML 再生成後に再バインドが必要なので後で呼ぶ
@@ -9225,7 +9225,7 @@ function renderMixList() {
     })();
     var distRow = S_mixPerLightDist && mixLights.length > 1 ?
       '<div style="display:flex;align-items:center;gap:8px;margin-top:6px;">' +
-        '<span style="font-size:10px;color:var(--text-dim);min-width:28px;">Dist</span>' +
+        '<span style="font-size:10px;color:#888;min-width:28px;">Dist</span>' +
         '<button onclick="window._mxdists(' + i + ',-1)"' +
           ' style="width:28px;height:28px;border-radius:50%;border:1.5px solid var(--accent);' +
                   'background:transparent;color:var(--accent);font-size:18px;cursor:pointer;line-height:1;">−</button>' +
@@ -9251,7 +9251,7 @@ function renderMixList() {
       cctRow =
         '<div style="margin-top:8px;">' +
           '<div style="display:flex;align-items:baseline;gap:6px;margin-bottom:4px;">' +
-            '<span style="font-size:10px;color:var(--text-dim);">CCT</span>' +
+            '<span style="font-size:10px;color:#888;">CCT</span>' +
             '<span style="font-size:18px;font-weight:900;color:var(--accent);font-family:\'JetBrains Mono\',monospace;" id="mxcv-' + i + '">' + snappedCCT + 'K</span>' +
           '</div>' +
           '<div style="display:flex;align-items:center;gap:6px;">' +
@@ -9262,12 +9262,12 @@ function renderMixList() {
             '<button class="step-btn" onclick="window._mxccts(' + i + ',1,' + minCCT + ',' + steps100 + ')">›</button>' +
           '</div>' +
           '<div style="display:flex;justify-content:space-between;padding:0 2px;margin-top:2px;">' +
-            '<span style="font-size:10px;color:var(--text-dim);">' + minCCT + 'K</span>' +
-            '<span style="font-size:10px;color:var(--text-dim);">' + maxCCT + 'K</span>' +
+            '<span style="font-size:10px;color:#888;">' + minCCT + 'K</span>' +
+            '<span style="font-size:10px;color:#888;">' + maxCCT + 'K</span>' +
           '</div>' +
         '</div>';
     } else {
-      cctRow = '<div style="font-size:11px;color:var(--text-dim);margin-top:5px;">' + minCCT + 'K</div>';
+      cctRow = '<div style="font-size:11px;color:#888;margin-top:5px;">' + minCCT + 'K</div>';
     }
 
     // Acc selector if multiple accs
@@ -9281,7 +9281,7 @@ function renderMixList() {
         '<div style="margin-top:7px;">' +
           '<select onchange="window._mxacc(' + i + ',this.value)"' +
             ' style="width:100%;padding:5px 8px;border-radius:8px;border:1px solid var(--bg);' +
-                    'background:var(--card);color:var(--text);font-size:11px;font-weight:700;">' +
+                    'background:var(--card);color:#555;font-size:11px;font-weight:700;">' +
             accOpts +
           '</select>' +
         '</div>';
@@ -9297,7 +9297,7 @@ function renderMixList() {
         '<div style="display:flex;align-items:center;justify-content:space-between;">' +
           '<div style="display:flex;align-items:center;gap:8px;">' +
             '<div style="width:10px;height:10px;border-radius:50%;background:' + slotColor + ';flex-shrink:0;"></div>' +
-            '<div style="font-size:13px;font-weight:700;color:var(--text)">' + light.name + '</div>' +
+            '<div style="font-size:13px;font-weight:700;color:#555">' + light.name + '</div>' +
           '</div>' +
           '<div style="display:flex;align-items:center;gap:6px;">' +
             '<button onclick="window._mxtoggle(' + i + ')"' +
@@ -9312,7 +9312,7 @@ function renderMixList() {
         '</div>' +
         // Units row
         '<div style="display:flex;align-items:center;gap:8px;margin-top:8px;">' +
-          '<span style="font-size:10px;color:var(--text-dim);min-width:28px;">Units</span>' +
+          '<span style="font-size:10px;color:#888;min-width:28px;">Units</span>' +
           '<button onclick="window._mxu(' + i + ',-1)"' +
             ' style="width:28px;height:28px;border-radius:50%;border:1.5px solid var(--accent);' +
                     'background:transparent;color:var(--accent);font-size:18px;cursor:pointer;line-height:1;">−</button>' +
@@ -9323,7 +9323,7 @@ function renderMixList() {
           '<input type="range" min="1" max="50" step="1" value="' + (m.units||1) + '"' +
             ' oninput="window._mxusl(' + i + ',this.value)"' +
             ' style="flex:1;height:4px;">' +
-          '<span style="font-size:10px;color:var(--text-dim);min-width:28px;">×' + (m.units||1) + '</span>' +
+          '<span style="font-size:10px;color:#888;min-width:28px;">×' + (m.units||1) + '</span>' +
         '</div>' +
         distRow +
         cctRow +
@@ -9643,12 +9643,12 @@ function calcMix() {
     cctRes.innerHTML =
       '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;">' +
         '<div style="font-size:28px;font-weight:900;color:var(--accent);">' + mixedCCT + 'K</div>' +
-        '<div style="font-size:12px;color:var(--text-dim);">' + cctDesc + '</div>' +
+        '<div style="font-size:12px;color:#888;">' + cctDesc + '</div>' +
       '</div>' +
-      '<div style="font-size:11px;color:var(--text-dim);line-height:1.9;">' +
+      '<div style="font-size:11px;color:#888;line-height:1.9;">' +
         entries.map(function(e2) {
           var pct = Math.round(e2.subtotal / cctTotalLux * 100);
-          return '<span style="font-weight:700;color:var(--text)">' + e2.cct + 'K</span>' +
+          return '<span style="font-weight:700;color:#555">' + e2.cct + 'K</span>' +
                  ' × ' + e2.units + ' = ' + pct + '%';
         }).join('<br>') +
       '</div>';
@@ -9731,7 +9731,7 @@ function mixAddLight() {
   function renderList(container) {
     var entries=filteredEntries();
     if(!entries.length){
-      container.innerHTML='<div style="color:var(--text);font-size:13px;padding:16px;text-align:center;">No lights found</div>';
+      container.innerHTML='<div style="color:#555;font-size:13px;padding:16px;text-align:center;">No lights found</div>';
       return;
     }
     container.innerHTML=entries.map(function(r){
@@ -9741,7 +9741,7 @@ function mixAddLight() {
       return '<div style="display:flex;align-items:center;border-radius:8px;margin-bottom:4px;border:1px solid #2a2a2a;background:#1a1a1a;overflow:hidden;">' +
         '<button onclick="window._mxadd(\'' + mk + '\',\'' + lk + '\')" style="flex:1;display:block;text-align:left;padding:10px 12px;background:transparent;border:none;cursor:pointer;box-sizing:border-box;">' +
           '<div style="font-size:13px;font-weight:700;color:#fff">' + lt.name + '</div>' +
-          '<div style="font-size:11px;color:var(--text-dim)">' + (MAKERS[mk]?MAKERS[mk].name+' · ':'')+  (lt.watts||'') + 'W · ' + typeLabel(lt.group) + '</div>' +
+          '<div style="font-size:11px;color:#888">' + (MAKERS[mk]?MAKERS[mk].name+' · ':'')+  (lt.watts||'') + 'W · ' + typeLabel(lt.group) + '</div>' +
         '</button>' +
         '<button class="fav-star-btn'+(mxIsFav?' active':'')+'" data-fav-key="'+mxFavKey+'" onclick="toggleFav(\'' + mk + '\',\'' + lk + '\',event)" style="padding:8px 10px;font-size:20px;background:none;border:none;color:'+(mxIsFav?'#f5a623':'#888')+';cursor:pointer;">'+(mxIsFav?'★':'☆')+'</button>' +
         '</div>';
@@ -9751,15 +9751,15 @@ function mixAddLight() {
   function rebuild() {
     // Maker buttons (All + each maker)
     var mkBtns = '<button onclick="window._mxmk(\'\')" style="padding:5px 10px;border:none;border-radius:7px;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;' +
-      (amk===''?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:var(--text-dim);') + '">All</button>';
+      (amk===''?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:#888;') + '">All</button>';
     mkBtns += sortedMakerKeys().map(function(k){
       var m=MAKERS[k]||{};
       return '<button onclick="window._mxmk(\''+k+'\')" style="padding:5px 10px;border:none;border-radius:7px;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;' +
-        (amk===k?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:var(--text-dim);') + '">' + (m.emoji||'') + ' ' + (m.name||k) + '</button>';
+        (amk===k?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:#888;') + '">' + (m.emoji||'') + ' ' + (m.name||k) + '</button>';
     }).join('');
 
     // Filter tabs
-    function tabStyle(t){ return 'flex:1;padding:9px 6px;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:800;text-align:center;' + (activeTab===t?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:var(--text-dim);'); }
+    function tabStyle(t){ return 'flex:1;padding:9px 6px;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:800;text-align:center;' + (activeTab===t?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:#888;'); }
     var tabHtml =
       '<button onclick="window._mxtab(\'fav\')"   style="'+tabStyle('fav') +'">⭐ Fav</button>' +
       '<button onclick="window._mxtab(\'maker\')" style="'+tabStyle('maker')+'">🏷️ Maker</button>' +
@@ -9795,7 +9795,7 @@ function mixAddLight() {
           // Title + close
           '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">' +
             '<div style="font-size:14px;font-weight:800;color:#fff;">'+t('selectLightHint')+'</div>' +
-            '<button onclick="document.getElementById(\'mix-modal\').remove()" style="background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;padding:0 4px;">✕</button>' +
+            '<button onclick="document.getElementById(\'mix-modal\').remove()" style="background:none;border:none;color:#888;font-size:20px;cursor:pointer;padding:0 4px;">✕</button>' +
           '</div>' +
           // Filter tabs
           '<div style="display:flex;gap:8px;margin-bottom:10px;">' + tabHtml + '</div>' +
@@ -10250,7 +10250,7 @@ function renderProjectPresets() {
   var wrap = el('project-preset-list'); if (!wrap) return;
   var list = getProjectPresets();
   if (!list.length) {
-    wrap.innerHTML = '<div style="text-align:center;padding:10px;color:var(--text-dim);font-size:12px;">No saved presets</div>';
+    wrap.innerHTML = '<div style="text-align:center;padding:10px;color:#888;font-size:12px;">No saved presets</div>';
     return;
   }
   var CAM_LABELS = { cinema:'🎬 Digital', film:'🎞 Film', still:'📷 Photo' };
@@ -10262,8 +10262,8 @@ function renderProjectPresets() {
     var sub = [camLabel, isoVal, fpsVal].filter(Boolean).join(' · ');
     return '<div style="display:flex;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--bg);">' +
       '<div style="flex:1;min-width:0;">' +
-        '<div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + p.name + '</div>' +
-        '<div style="font-size:11px;color:var(--text-dim);margin-top:1px;">' + p.date + ' · ' + sub + '</div>' +
+        '<div style="font-size:13px;font-weight:800;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + p.name + '</div>' +
+        '<div style="font-size:11px;color:#888;margin-top:1px;">' + p.date + ' · ' + sub + '</div>' +
       '</div>' +
       '<button onclick="loadProject(' + i + ')" style="padding:5px 12px;border-radius:8px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;">Load</button>' +
       '<button onclick="deleteProject(' + i + ')" style="padding:5px 8px;border-radius:8px;border:none;background:none;color:#f44;font-size:15px;cursor:pointer;line-height:1;">✕</button>' +
@@ -11799,12 +11799,12 @@ function _dftEditDist(dl) {
     '<div id="_dft_dedit" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_dedit\').remove()">' +
     '<div style="background:#fff;border-radius:18px;padding:22px 20px 18px;width:280px;box-shadow:0 8px 40px rgba(0,0,0,.3);">' +
     '<div style="font-size:13px;font-weight:800;margin-bottom:4px;">距離を編集</div>' +
-    '<div style="font-size:11px;color:var(--text-dim);margin-bottom:14px;">' + aName + ' → ' + bName + '</div>' +
+    '<div style="font-size:11px;color:#888;margin-bottom:14px;">' + aName + ' → ' + bName + '</div>' +
     '<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">' +
     '<input id="_dft_dedit_val" type="number" min="0.01" step="0.01" value="' + dispVal + '" ' +
     'style="flex:1;padding:12px;font-size:22px;font-weight:700;border:2px solid #1976d2;border-radius:12px;text-align:center;box-sizing:border-box;" ' +
     'onkeydown="if(event.key===\'Enter\')_dftApplyDist()">' +
-    '<span style="font-size:16px;font-weight:700;color:var(--text);">' + unitLabel + '</span>' +
+    '<span style="font-size:16px;font-weight:700;color:#555;">' + unitLabel + '</span>' +
     '</div>' +
     '<div style="display:flex;gap:8px;">' +
     '<button onclick="document.getElementById(\'_dft_dedit\').remove()" style="flex:1;padding:11px;border:none;background:#eee;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;">キャンセル</button>' +
@@ -11824,7 +11824,7 @@ function _dftCamFstopEdit(camObj) {
     '<div id="_dft_cedit" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_cedit\').remove()">' +
     '<div style="background:#fff;border-radius:18px;padding:22px 20px 18px;width:300px;box-shadow:0 8px 40px rgba(0,0,0,.3);">' +
     '<div style="font-size:13px;font-weight:800;margin-bottom:2px;">🎥 ' + (camObj.label||'Camera') + '</div>' +
-    '<div style="font-size:11px;color:var(--text-dim);margin-bottom:16px;">F値を設定 (ダブルタップで編集)</div>' +
+    '<div style="font-size:11px;color:#888;margin-bottom:16px;">F値を設定 (ダブルタップで編集)</div>' +
     '<div style="text-align:center;margin-bottom:12px;">' +
     '<span id="_dft_cedit_disp" style="font-size:42px;font-weight:900;color:#1976d2;letter-spacing:-1px;">f' + fLab(fval) + '</span>' +
     '</div>' +
@@ -11832,7 +11832,7 @@ function _dftCamFstopEdit(camObj) {
     'oninput="_dftCamFslide(this.value)" ' +
     'style="width:100%;margin-bottom:14px;accent-color:#1976d2;">' +
     '<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">' +
-    '<span style="font-size:13px;font-weight:700;color:var(--text);">f</span>' +
+    '<span style="font-size:13px;font-weight:700;color:#555;">f</span>' +
     '<input type="number" id="_dft_cedit_num" min="0.7" max="128" step="0.1" value="' + fval + '" ' +
     'oninput="_dftCamFnum(this.value)" ' +
     'style="flex:1;padding:10px;font-size:18px;font-weight:700;border:2px solid #1976d2;border-radius:10px;text-align:center;box-sizing:border-box;">' +
@@ -12326,7 +12326,7 @@ function _dftUpdateInfoBar() {
   var info = '<input id="dft-label-input" type="text" value="' + (o.label||'').replace(/"/g,'&quot;') + '" ' +
     'oninput="_dftLabelInput(this.value,\''+oid+'\')" ' +
     'style="padding:2px 6px;border:1px solid rgba(0,0,0,0.2);border-radius:6px;font-size:12px;font-weight:700;background:rgba(255,255,255,0.85);color:#111;width:110px;outline:none;">' +
-    ' <span style="font-size:10px;color:var(--text-dim);">at '+_dftFmt(o.wx)+', '+_dftFmt(o.wy)+'</span>';
+    ' <span style="font-size:10px;color:#888;">at '+_dftFmt(o.wx)+', '+_dftFmt(o.wy)+'</span>';
   if (o.type==='light' && o.makerKey) {
     var subs = _dft.objects.filter(function(x){ return x.type==='subject'; });
     if (subs.length) {
@@ -12388,18 +12388,18 @@ function dftLightSettings(oid) {
     '<div id="_dft_ls" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_ls\').remove()">' +
     '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
     '<div style="font-size:14px;font-weight:800;margin-bottom:2px;">'+(lt?lt.name:o.label||'Light')+'</div>' +
-    (accs.length ? '<div style="font-size:11px;color:var(--text-dim);margin-bottom:12px;">Accessory</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">'+accBtns+'</div>' : '') +
-    '<div style="font-size:11px;font-weight:800;color:var(--text);margin-bottom:8px;">Beam Angle</div>' +
+    (accs.length ? '<div style="font-size:11px;color:#888;margin-bottom:12px;">Accessory</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">'+accBtns+'</div>' : '') +
+    '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:8px;">Beam Angle</div>' +
     '<div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">' +
     '<input id="_dft_ls_ba" type="number" min="1" max="360" step="1" value="'+beamVal+'" ' +
     'style="width:90px;padding:10px;font-size:22px;font-weight:700;border:2px solid #1976d2;border-radius:12px;text-align:center;box-sizing:border-box;" ' +
     'onkeydown="if(event.key===\'Enter\')_dftApplyBeam(\''+oid+'\')">' +
-    '<span style="font-size:18px;color:var(--text-dim);">°</span>' +
+    '<span style="font-size:18px;color:#888;">°</span>' +
     '<button onclick="_dftApplyBeam(\''+oid+'\')" style="padding:10px 18px;background:#1976d2;color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">Apply</button>' +
     '</div>' +
     '<div style="border-top:1px solid #eee;margin:0 -16px;padding:14px 16px 0;">' +
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
-    '<span style="font-size:11px;font-weight:800;color:var(--text);">Factor <span style="font-weight:600;color:var(--text-dim);font-size:10px;">(光量補正)</span></span>' +
+    '<span style="font-size:11px;font-weight:800;color:#555;">Factor <span style="font-weight:600;color:#888;font-size:10px;">(光量補正)</span></span>' +
     '<span id="_dft_ls_ftotal" style="font-size:12px;font-weight:800;color:#e65100;"></span>' +
     '</div>' +
     '<div id="_dft_ls_frows"></div>' +
@@ -12446,7 +12446,7 @@ function _dftApplyBeam(oid) {
 
 // ── Shared slider-based factor row builder for draft sheets ──────────────
 function _dftFactorRowsHTML(factors, cbPrefix) {
-  if (!factors.length) return '<p style="font-size:11px;color:var(--text-dim);text-align:center;padding:8px 0;">No factors yet</p>';
+  if (!factors.length) return '<p style="font-size:11px;color:#888;text-align:center;padding:8px 0;">No factors yet</p>';
   return factors.map(function(f, fi) {
     var stops = parseFloat(f.stops) || 0;
     var isBounce  = f.type === 'bounce';
@@ -12477,7 +12477,7 @@ function _dftFactorRowsHTML(factors, cbPrefix) {
         '<span id="_dftfv_'+cbPrefix+'_'+fi+'" style="min-width:54px;text-align:center;font-size:16px;font-weight:800;color:'+color+';">'+(stops>0?'-':'')+stops.toFixed(1)+'s</span>'+
         '<button class="step-btn" onclick="window._dftFStep_'+cbPrefix+'('+fi+',0.1)" style="background:#fff;border:1px solid #ddd;border-radius:6px;width:30px;height:30px;font-size:16px;cursor:pointer;">›</button>'+
         '<div style="flex:1;"></div>'+
-        '<button onclick="window._dftFStep_'+cbPrefix+'('+fi+',-('+stops+'))" style="background:#fff;border:1px solid #ccc;border-radius:6px;color:var(--text-dim);font-size:10px;padding:2px 7px;cursor:pointer;">Reset</button>'+
+        '<button onclick="window._dftFStep_'+cbPrefix+'('+fi+',-('+stops+'))" style="background:#fff;border:1px solid #ccc;border-radius:6px;color:#888;font-size:10px;padding:2px 7px;cursor:pointer;">Reset</button>'+
       '</div>'+
       '<input type="range" min="0" max="10" step="0.1" value="'+stops+'" id="_dftfsl_'+cbPrefix+'_'+fi+'" '+
         'oninput="window._dftFSl_'+cbPrefix+'('+fi+',this.value)" '+
@@ -12592,9 +12592,9 @@ function dftBounceSettings(oid) {
   var html =
     '<div id="_dft_bs" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_bs\').remove()">' +
     '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
-    '<div style="font-size:14px;font-weight:800;margin-bottom:12px;">' + typeLabel + ' &nbsp;<span style="font-size:11px;color:var(--text-dim);font-weight:600;">' + (o.label||'') + '</span></div>' +
+    '<div style="font-size:14px;font-weight:800;margin-bottom:12px;">' + typeLabel + ' &nbsp;<span style="font-size:11px;color:#888;font-weight:600;">' + (o.label||'') + '</span></div>' +
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
-    '<span style="font-size:11px;font-weight:800;color:var(--text);">Factor <span style="font-weight:600;color:var(--text-dim);font-size:10px;">(光量補正)</span></span>' +
+    '<span style="font-size:11px;font-weight:800;color:#555;">Factor <span style="font-weight:600;color:#888;font-size:10px;">(光量補正)</span></span>' +
     '<span id="_dft_bs_ftotal" style="font-size:12px;font-weight:800;color:#0288d1;"></span>' +
     '</div>' +
     '<div id="_dft_bs_frows"></div>' +
@@ -12647,8 +12647,8 @@ function dftSizeDialog() {
       return '<button onclick="dftApplySize(\''+oid+'\','+p.w+','+p.h+');document.getElementById(\'_dft_sz\').remove()" style="display:block;width:100%;padding:8px;margin-bottom:6px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;text-align:left;background:var(--bg);">'+p.l+'</button>';
     }).join('') +
     '<div style="display:flex;gap:6px;margin-top:6px;">' +
-    '<input id="_sz_w" placeholder="W(m)" type="number" step="0.1" min="0.1" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;background:var(--bg);color:var(--text);">' +
-    '<input id="_sz_h" placeholder="H(m)" type="number" step="0.1" min="0.1" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;background:var(--bg);color:var(--text);">' +
+    '<input id="_sz_w" placeholder="W(m)" type="number" step="0.1" min="0.1" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;background:var(--bg);color:#555;">' +
+    '<input id="_sz_h" placeholder="H(m)" type="number" step="0.1" min="0.1" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;background:var(--bg);color:#555;">' +
     '</div>' +
     '<button onclick="var w=+document.getElementById(\'_sz_w\').value,h=+document.getElementById(\'_sz_h\').value;if(w>0&&h>0){dftApplySize(\''+oid+'\',w,h);document.getElementById(\'_dft_sz\').remove();}" style="margin-top:8px;width:100%;padding:8px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-weight:800;cursor:pointer;">Apply</button>' +
     '<button onclick="document.getElementById(\'_dft_sz\').remove()" style="margin-top:6px;width:100%;padding:8px;background:var(--bg-secondary,#eee);border:none;border-radius:8px;font-weight:700;cursor:pointer;">Cancel</button>' +
@@ -12667,7 +12667,7 @@ function _dftShowLightPicker(wx, wy) {
   _dft.pendingLightWy = wy;
   var _lpTabStyle = function(active) {
     return 'flex:1;padding:7px 4px;border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;' +
-      (active ? 'background:#fff;color:#111;' : 'background:#2a2a2a;color:var(--text-dim);');
+      (active ? 'background:#fff;color:#111;' : 'background:#2a2a2a;color:#888;');
   };
   var html = '<div id="_dft_lp" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);z-index:9999;display:flex;align-items:flex-end;">' +
     '<div style="background:#111;border-radius:20px 20px 0 0;width:100%;max-height:78vh;overflow:hidden;display:flex;flex-direction:column;">' +
@@ -12684,7 +12684,7 @@ function _dftShowLightPicker(wx, wy) {
     '</div>' +
     '<div id="_dft_lpl" style="overflow-y:auto;padding:0 16px 4px;flex:1;-webkit-overflow-scrolling:touch;"></div>' +
     '<div style="padding:8px 16px 28px;flex-shrink:0;">' +
-    '<button onclick="document.getElementById(\'_dft_lp\').remove()" style="width:100%;padding:10px;background:#2a2a2a;color:var(--text-dim);border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
+    '<button onclick="document.getElementById(\'_dft_lp\').remove()" style="width:100%;padding:10px;background:#2a2a2a;color:#888;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
     '</div></div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
   _dftLP = {tab:'fav', maker:null};
@@ -12736,7 +12736,7 @@ function _dftLPRenderFav(listEl) {
     return {mk:mk, lk:lk, lt:lt, makerName:(MAKERS[mk]||{}).name||mk, count:counts[mk+'|'+lk]||0};
   }).filter(Boolean);
   if (!items.length) {
-    listEl.innerHTML = '<div style="color:var(--text-dim);text-align:center;padding:28px;font-size:13px;">⭐ No favorites yet<br><span style="font-size:11px;">Star lights in the Calc tab</span></div>';
+    listEl.innerHTML = '<div style="color:#888;text-align:center;padding:28px;font-size:13px;">⭐ No favorites yet<br><span style="font-size:11px;">Star lights in the Calc tab</span></div>';
     return;
   }
   items.sort(function(a,b){ return b.count - a.count; });
@@ -12751,8 +12751,8 @@ function _dftLPRenderMakers(listEl) {
     return '<div onclick="_dftLP.maker=\''+mk+'\';_dftLPRender()" style="display:flex;align-items:center;padding:10px 12px;border-radius:9px;margin-bottom:4px;background:#1a1a1a;border:1px solid #2a2a2a;cursor:pointer;gap:10px;">' +
       '<span style="font-size:20px;">'+m.emoji+'</span>' +
       '<div style="flex:1;"><div style="color:#fff;font-weight:700;font-size:13px;">'+m.name+'</div>' +
-      '<div style="color:var(--text-dim);font-size:10px;">'+cnt+' lights</div></div>' +
-      '<span style="color:var(--text);font-size:16px;">›</span></div>';
+      '<div style="color:#888;font-size:10px;">'+cnt+' lights</div></div>' +
+      '<span style="color:#555;font-size:16px;">›</span></div>';
   }).join('');
 }
 
@@ -12761,21 +12761,21 @@ function _dftLPRenderModels(listEl, mk) {
   var favSet={};
   var favArr = getFavs();
   var favSet = {}; favArr.forEach(function(f){ favSet[f.maker+'|'+f.model]=true; });
-  var back = '<div onclick="_dftLP.maker=null;_dftLPRender()" style="display:flex;align-items:center;gap:6px;padding:6px 0 10px;cursor:pointer;color:var(--text-dim);font-size:12px;font-weight:800;">‹ '+m.name+'</div>';
+  var back = '<div onclick="_dftLP.maker=null;_dftLPRender()" style="display:flex;align-items:center;gap:6px;padding:6px 0 10px;cursor:pointer;color:#888;font-size:12px;font-weight:800;">‹ '+m.name+'</div>';
   var rows = sortedModelEntries(mk).filter(function(e2){return !e2[1].pendingPhotometric;})
     .map(function(e2){
       var lk=e2[0],lt=e2[1];
       return _dftLPItem(mk,lk,lt,m.name||mk,!!(favSet[mk+'|'+lk]));
     }).join('');
-  listEl.innerHTML = back + (rows||'<div style="color:var(--text-dim);text-align:center;padding:16px;">No lights</div>');
+  listEl.innerHTML = back + (rows||'<div style="color:#888;text-align:center;padding:16px;">No lights</div>');
 }
 
 function _dftLPItem(mk, lk, lt, makerName, isFav, usageCount) {
-  var countBadge = (usageCount && usageCount > 0) ? '<span style="color:var(--text-dim);font-size:10px;margin-left:4px;">×'+usageCount+'</span>' : '';
+  var countBadge = (usageCount && usageCount > 0) ? '<span style="color:#888;font-size:10px;margin-left:4px;">×'+usageCount+'</span>' : '';
   return '<div onclick="_dftLPSelect(\''+mk+'\',\''+lk+'\')" style="display:flex;align-items:center;padding:9px 10px;border-radius:9px;margin-bottom:4px;background:#1a1a1a;border:1px solid #2a2a2a;cursor:pointer;gap:8px;">' +
     '<span style="font-size:14px;color:'+(isFav?'#f9a825':'#444')+';">'+(isFav?'★':'☆')+'</span>' +
     '<div style="flex:1;min-width:0;"><div style="color:#fff;font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+lt.name+countBadge+'</div>' +
-    '<div style="color:var(--text);font-size:10px;">'+makerName+'</div></div>' +
+    '<div style="color:#555;font-size:10px;">'+makerName+'</div></div>' +
     '</div>';
 }
 
@@ -12797,7 +12797,7 @@ function _dftLPFilter(q) {
   });
   items.sort(function(a,b){ return (b.fav?1:0)-(a.fav?1:0); });
   listEl.innerHTML = items.map(function(it){ return _dftLPItem(it.mk,it.lk,it.lt,it.makerName,it.fav); }).join('') ||
-    '<div style="color:var(--text-dim);text-align:center;padding:20px;font-size:12px;">No results</div>';
+    '<div style="color:#888;text-align:center;padding:20px;font-size:12px;">No results</div>';
 }
 
 function _dftLPSelect(mk, lk) {
@@ -12950,14 +12950,14 @@ function dftSetScaleUI() {
   var html = '<div id="_dft_sc" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sc\').remove()">' +
     '<div style="background:var(--bg,#fff);border-radius:16px;padding:18px;width:88%;max-width:310px;" onclick="event.stopPropagation()">' +
     '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">'+t('dftScaleTitle')+'</div>' +
-    '<div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;">1m = ? px</div>' +
+    '<div style="font-size:12px;color:#888;margin-bottom:8px;">1m = ? px</div>' +
     '<div style="display:flex;gap:6px;align-items:center;margin-bottom:12px;">' +
     '<span style="font-size:13px;font-weight:700;">1m =</span>' +
-    '<input id="_sc_v" type="number" step="1" min="1" value="'+pxPerM+'" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:14px;background:var(--bg);color:var(--text);">' +
+    '<input id="_sc_v" type="number" step="1" min="1" value="'+pxPerM+'" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:14px;background:var(--bg);color:#555;">' +
     '<span style="font-size:13px;font-weight:700;">px</span>' +
     '</div>' +
     '<button onclick="var v=+document.getElementById(\'_sc_v\').value;if(v>0){_dft.scale=_dft.zoom/v;dftRender();}document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">'+t('dftApply')+'</button>' +
-    '<div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;">'+t('dftScaleOr')+'</div>' +
+    '<div style="font-size:12px;color:#888;margin-bottom:8px;">'+t('dftScaleOr')+'</div>' +
     '<button onclick="document.getElementById(\'_dft_sc\').remove();_dftStartCalib();" style="width:100%;padding:9px;background:#1565c0;color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">'+t('dftCalibBtn')+'</button>' +
     '<button onclick="document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--bg-secondary,#eee);border:none;border-radius:9px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
     '</div></div>';
@@ -12998,13 +12998,13 @@ function dftSave() {
     '<div id="_dft_sv" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.58);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sv\').remove()">' +
     '<div style="background:#fff;border-radius:18px;padding:22px 20px 18px;width:88%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.3);" onclick="event.stopPropagation()">' +
     '<div style="font-size:15px;font-weight:800;margin-bottom:16px;">💾 保存</div>' +
-    '<div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;">プロジェクト名</div>' +
+    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">プロジェクト名</div>' +
     '<input id="_sv_name" type="text" value="'+(_dft.draftName||'').replace(/"/g,'&quot;')+'" placeholder="例: Wedding Reception" ' +
     'style="width:100%;padding:10px;font-size:14px;font-weight:700;border:2px solid #1976d2;border-radius:10px;box-sizing:border-box;margin-bottom:12px;">' +
-    '<div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;">日付</div>' +
+    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">日付</div>' +
     '<input id="_sv_date" type="date" value="'+(_dft.draftDate||today)+'" ' +
     'style="width:100%;padding:10px;font-size:14px;border:1.5px solid #ddd;border-radius:10px;box-sizing:border-box;margin-bottom:12px;">' +
-    '<div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;">ロケーション / Location</div>' +
+    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">ロケーション / Location</div>' +
     '<input id="_sv_loc" type="text" value="'+(_dft.draftLocation||'').replace(/"/g,'&quot;')+'" placeholder="例: Studio A, 横浜" ' +
     'style="width:100%;padding:10px;font-size:14px;border:1.5px solid #ddd;border-radius:10px;box-sizing:border-box;margin-bottom:18px;">' +
     '<div style="display:flex;gap:10px;">' +
@@ -13061,7 +13061,7 @@ function dftLoadMenu() {
       return '<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;padding:11px;border:1.5px solid var(--border,#eee);border-radius:12px;">' +
         '<div style="flex:1;cursor:pointer;" onclick="_dftLoadById(\''+d.id+'\');document.getElementById(\'_dft_lm\').remove()">' +
         '<div style="font-weight:800;font-size:13px;margin-bottom:2px;">'+(d.name||'Untitled')+'</div>' +
-        '<div style="font-size:10px;color:var(--text-dim);line-height:1.6;">'+meta.join('  ·  ')+'</div>' +
+        '<div style="font-size:10px;color:#888;line-height:1.6;">'+meta.join('  ·  ')+'</div>' +
         '</div>' +
         '<div style="display:flex;flex-direction:column;gap:4px;">' +
         '<button onclick="dftExportOne(\''+d.id+'\',event)" style="padding:3px 7px;background:#1976d2;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;">📤</button>' +
@@ -13187,7 +13187,7 @@ function _dftMoreSheet(id, title, rows) {
   if (existing) { existing.remove(); return; }
   var html = '<div id="'+id+'" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)this.remove()">' +
     '<div style="background:var(--bg,#fff);border-radius:20px 20px 0 0;width:100%;padding:14px 12px 32px;">' +
-    '<div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px;padding:0 4px;">'+title+'</div>' +
+    '<div style="font-size:13px;font-weight:800;color:#555;margin-bottom:10px;padding:0 4px;">'+title+'</div>' +
     '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">'+rows+'</div>' +
     '</div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
@@ -13233,7 +13233,7 @@ function dftDistVisMenu() {
   var rows = items.map(function(it) {
     var on = v[it.key] !== false;
     return '<label style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer;" onclick="window._dftDistVisToggle(\''+it.key+'\')">' +
-      '<span style="font-size:13px;font-weight:600;color:var(--text);">'+it.label+'</span>' +
+      '<span style="font-size:13px;font-weight:600;color:#555;">'+it.label+'</span>' +
       '<span id="_dv_'+it.key+'" style="font-size:22px;">'+(on?'✅':'⬜')+'</span>' +
     '</label>';
   }).join('');
@@ -13260,7 +13260,7 @@ function dftReset() {
     '<div style="background:#fff;border-radius:18px;padding:24px 20px 18px;width:300px;box-shadow:0 8px 40px rgba(0,0,0,.35);text-align:center;">' +
     '<div style="font-size:32px;margin-bottom:8px;">🗑</div>' +
     '<div style="font-size:15px;font-weight:800;color:#c62828;margin-bottom:8px;">全データをリセット</div>' +
-    '<div style="font-size:12px;color:var(--text);margin-bottom:20px;line-height:1.5;">キャンバス上の全オブジェクトと<br>オートセーブデータが削除されます。<br>この操作は元に戻せません。</div>' +
+    '<div style="font-size:12px;color:#555;margin-bottom:20px;line-height:1.5;">キャンバス上の全オブジェクトと<br>オートセーブデータが削除されます。<br>この操作は元に戻せません。</div>' +
     '<div style="display:flex;gap:10px;">' +
     '<button id="_dft_reset_cancel" style="flex:1;padding:12px;border:none;background:#eee;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">キャンセル</button>' +
     '<button id="_dft_reset_ok" style="flex:1;padding:12px;border:none;background:#e53935;color:#fff;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">リセット</button>' +
@@ -13348,7 +13348,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.141';
+var ver = 'v1.1.3.142';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -13359,14 +13359,14 @@ var ver = 'v1.1.3.141';
 
 <div id="page-alt" class="page-content">
 <div class="app">
-<div id="alt-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-alt" style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;"></div><div id="page-sub-alt" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div></div>
+<div id="alt-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-alt" style="font-size:15px;font-weight:800;color:#555;line-height:1.2;"></div><div id="page-sub-alt" style="font-size:11px;color:#888;font-weight:600;margin-top:1px;"></div></div>
 
   <div id="alt-pro-gate" style="display:none;">
     <div class="card">
       <div class="card-body" style="text-align:center;padding:36px 20px;">
         <div style="font-size:52px;margin-bottom:12px;">🔒</div>
-        <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:8px;">Alt Finder PRO</div>
-        <div style="font-size:13px;color:var(--text-dim);margin-bottom:24px;line-height:1.6;">
+        <div style="font-size:18px;font-weight:800;color:#555;margin-bottom:8px;">Alt Finder PRO</div>
+        <div style="font-size:13px;color:#888;margin-bottom:24px;line-height:1.6;">
           Find the best alternative to any fixture<br>with Equivalent Factor &amp; Match Score.
         </div>
         <div style="display:flex;gap:8px;margin-bottom:12px;">
@@ -13379,7 +13379,7 @@ var ver = 'v1.1.3.141';
                  border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;">
           🔓 Unlock PRO
         </button>
-        <div id="pro-unlock-msg" style="margin-top:10px;font-size:12px;color:var(--text-dim);min-height:16px;"></div>
+        <div id="pro-unlock-msg" style="margin-top:10px;font-size:12px;color:#888;min-height:16px;"></div>
       </div>
     </div>
   </div>
@@ -13388,8 +13388,8 @@ var ver = 'v1.1.3.141';
     <div class="card">
       
       <div class="card-body">
-        <p id="alt-finder-desc" style="font-size:12px;color:var(--text-dim);margin:0 0 10px;">Find the best alternative — with Equivalent Factor and Match Score.</p>
-        <div id="lbl-alt-fixture" style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:4px;">FIXTURE TO REPLACE</div>
+        <p id="alt-finder-desc" style="font-size:12px;color:#888;margin:0 0 10px;">Find the best alternative — with Equivalent Factor and Match Score.</p>
+        <div id="lbl-alt-fixture" style="font-size:11px;font-weight:700;color:#888;margin-bottom:4px;">FIXTURE TO REPLACE</div>
         <select id="alt-src-maker" onchange="populateAltModels(this.value)"
           style="width:100%;padding:8px 10px;border-radius:8px;border:1.5px solid var(--bg);
                  font-size:13px;font-weight:600;background:var(--white);color:var(--text);margin-bottom:6px;"></select>
@@ -13412,12 +13412,12 @@ var ver = 'v1.1.3.141';
         </div>
         <div id="alt-beam-sl-wrap" style="display:none;margin-bottom:10px;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-            <span style="font-size:11px;font-weight:700;color:var(--text-dim);">BEAM ANGLE</span>
+            <span style="font-size:11px;font-weight:700;color:#888;">BEAM ANGLE</span>
             <span id="alt-beam-val" style="font-size:13px;font-weight:700;color:var(--accent);">55°</span>
           </div>
           <input type="range" id="alt-beam-sl" min="10" max="55" step="1" value="55"
             oninput="onAltBeamSlider()" style="width:100%;accent-color:var(--accent);">
-          <div id="alt-beam-labs" style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim);margin-top:2px;">
+          <div id="alt-beam-labs" style="display:flex;justify-content:space-between;font-size:10px;color:#888;margin-top:2px;">
             <span>SPOT</span><span>FLOOD</span>
           </div>
         </div>
@@ -13459,7 +13459,7 @@ var ver = 'v1.1.3.141';
             <button onclick="toggleAltTri()" id="alt-tri-toggle-btn"
               style="width:100%;padding:8px 12px;background:var(--bg);border:none;border-radius:10px;
                      display:flex;align-items:center;justify-content:space-between;cursor:pointer;
-                     font-size:12px;font-weight:700;color:var(--text-dim);">
+                     font-size:12px;font-weight:700;color:#888;">
               <span id="alt-tri-calc-lbl">📐 高さ・角度から計算</span>
               <span id="alt-tri-arrow" style="transition:transform .25s;">▾</span>
             </button>
@@ -13519,7 +13519,7 @@ var ver = 'v1.1.3.141';
                       <button class="step-btn" onclick="triStep('alt-tri-height',.5,.5,20,'h','calcAltTriangle')">›</button>
                       <button class="tri-lock-btn" id="lock-alt-tri-height" title="長押しでロック" onmousedown="triLockPress('alt-tri-height','lock-alt-tri-height')" onmouseup="triLockRelease('alt-tri-height')" ontouchstart="triLockPress('alt-tri-height','lock-alt-tri-height')" ontouchend="triLockRelease('alt-tri-height')">🔓</button>
                     </div>
-                    <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5 <span id="alt-tri-unit-h">m</span></span><span style="font-size:9px;color:var(--text-dim);">20m</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5 <span id="alt-tri-unit-h">m</span></span><span style="font-size:9px;color:#888;">20m</span></div>
                   </div>
                   <div>
                     <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -13534,7 +13534,7 @@ var ver = 'v1.1.3.141';
                       <button class="step-btn" onclick="triStep('alt-tri-horiz',.5,.5,30,'di','calcAltTriangle')">›</button>
                       <button class="tri-lock-btn" id="lock-alt-tri-horiz" title="長押しでロック" onmousedown="triLockPress('alt-tri-horiz','lock-alt-tri-horiz')" onmouseup="triLockRelease('alt-tri-horiz')" ontouchstart="triLockPress('alt-tri-horiz','lock-alt-tri-horiz')" ontouchend="triLockRelease('alt-tri-horiz')">🔓</button>
                     </div>
-                    <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">0.5 <span id="alt-tri-unit-hz">m</span></span><span style="font-size:9px;color:var(--text-dim);">30m</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5 <span id="alt-tri-unit-hz">m</span></span><span style="font-size:9px;color:#888;">30m</span></div>
                   </div>
                   <div>
                     <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -13549,7 +13549,7 @@ var ver = 'v1.1.3.141';
                       <button class="step-btn" onclick="triStep('alt-tri-angle',1,1,89,'a','calcAltTriangle')">›</button>
                       <button class="tri-lock-btn" id="lock-alt-tri-angle" title="長押しでロック" onmousedown="triLockPress('alt-tri-angle','lock-alt-tri-angle')" onmouseup="triLockRelease('alt-tri-angle')" ontouchstart="triLockPress('alt-tri-angle','lock-alt-tri-angle')" ontouchend="triLockRelease('alt-tri-angle')">🔓</button>
                     </div>
-                    <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:var(--text-dim);">1°</span><span style="font-size:9px;color:var(--text-dim);">89°</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">1°</span><span style="font-size:9px;color:#888;">89°</span></div>
                   </div>
                 </div>
                 <div class="tri-result">
@@ -13569,7 +13569,7 @@ var ver = 'v1.1.3.141';
         </button>
         <!-- ソート順 -->
         <div style="margin-top:10px;">
-          <div class="finder-sort-label" style="font-size:10px;font-weight:700;color:var(--text-dim);margin-bottom:5px;">🔀 SORT</div>
+          <div class="finder-sort-label" style="font-size:10px;font-weight:700;color:#888;margin-bottom:5px;">🔀 SORT</div>
           <div style="display:flex;gap:5px;">
             <button class="finder-type-chip alt-sort-chip active" data-sort="default"     onclick="setAltSort('default')">デフォルト</button>
             <button class="finder-type-chip alt-sort-chip"        data-sort="single"      onclick="setAltSort('single')">1台優先</button>
@@ -13580,7 +13580,7 @@ var ver = 'v1.1.3.141';
         </div>
         <!-- 種類フィルター -->
         <div style="margin-top:10px;">
-          <div style="font-size:10px;font-weight:700;color:var(--text-dim);margin-bottom:5px;">💡 TYPE FILTER</div>
+          <div style="font-size:10px;font-weight:700;color:#888;margin-bottom:5px;">💡 TYPE FILTER</div>
           <div style="display:flex;flex-wrap:wrap;gap:5px;">
             <button class="finder-type-chip alt-type-chip active" data-type="all"       onclick="setAltType('all')">All</button>
             <button class="finder-type-chip alt-type-chip"        data-type="LED"       onclick="setAltType('LED')">LED (All)</button>
