@@ -8657,11 +8657,13 @@ function runAlternativeFinder() {
         else continue;
       }
 
-      // ワット数が大きく異なる場合は除外（消費電力20倍超は現実的な代替にならない）
+      // ワット数フィルター
       if (light.watts > 0 && rlight.watts > 0) {
         var srcW = light.watts, candW = rlight.watts * bestUnits;
         var wRatio = srcW > candW ? srcW / candW : candW / srcW;
         if (wRatio > 20) continue;
+        // 1台の場合: ソースの1/3未満の出力ライトは現実的な代替にならない
+        if (bestUnits === 1 && light.watts / rlight.watts > 3) continue;
       }
 
       // 色キー: 緑→青→赤
@@ -13346,7 +13348,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.139';
+var ver = 'v1.1.3.140';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
