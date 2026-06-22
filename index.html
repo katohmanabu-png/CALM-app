@@ -8651,8 +8651,10 @@ function runAlternativeFinder() {
         else if (bestUnits > 1 && absDiffU < 2.001) priority = 4;
         else continue;
       } else {
-        // デフォルトモード: ±1 stop以内のみ表示（±2 stopは非表示）
-        continue;
+        // デフォルトモード: 明るい方向(+)のみ最大+1stop追加表示（暗い方向は±1stop以内のみ）
+        if (bestUnits === 1 && absDiff1 < 2.001 && signedDiff > 0) priority = 3;
+        else if (bestUnits > 1 && absDiffU < 2.001 && signedDiff > 0) priority = 4;
+        else continue;
       }
 
       // ワット数が大きく異なる場合は除外（消費電力20倍超は現実的な代替にならない）
