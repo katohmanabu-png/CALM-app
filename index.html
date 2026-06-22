@@ -39,7 +39,7 @@
 
 
 :root{ color-scheme: light; --bg:#c8ccd6;--white:#ffffff;--shadow:0 4px 20px rgba(0,0,0,0.12);--radius:20px;--radius-sm:12px;--text:#1a1a2e;--text-dim:#6b7280;--accent:#e65100;--accent-dark:#bf360c;--accent-light:#fff3e0;--accent-glow:rgba(230,81,0,0.25);--border:#c0c4ce;--input-bg:#f4f5f8;}
-html.dark{ color-scheme: dark; --bg:#1a1a2a;--white:#242436;--shadow:0 4px 20px rgba(0,0,0,0.4);--text:#f0f0f5;--text-dim:#9090a8;--accent:#e65100;--accent-dark:#bf360c;--accent-light:rgba(230,81,0,0.18);--accent-glow:rgba(230,81,0,0.3);--border:#3a3a50;--input-bg:#2e2e42;}
+html.dark{ color-scheme: dark; --bg:#1a1a2a;--white:#242436;--shadow:0 4px 20px rgba(0,0,0,0.4);--text:#ffffff;--text-dim:#c0c0cc;--accent:#e65100;--accent-dark:#bf360c;--accent-light:rgba(230,81,0,0.18);--accent-glow:rgba(230,81,0,0.3);--border:#3a3a50;--input-bg:#2e2e42;}
 *{box-sizing:border-box;margin:0;padding:0;}
 
 header{background:var(--white);padding:1px 8px 1px;padding-top:calc(1px + env(safe-area-inset-top, 0px));box-shadow:var(--shadow);position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;overflow:hidden;width:100%;max-width:480px;margin:0 auto;gap:4px;flex-wrap:nowrap;}
@@ -716,7 +716,7 @@ body {
 /* inactive state hints */
 #dft-btn-delete { border-color:#e57373;color:#c62828; }
 #dft-btn-rotate { border-color:#ffb74d;color:#e65100; }
-.dft-undo-btn { border-color:#bbb;color:#888; }
+.dft-undo-btn { border-color:#bbb;color:var(--text-dim); }
 .dft-undo-btn:disabled,.dft-copy-btn:disabled,.dft-paste-btn:disabled { opacity:.32;cursor:default; }
 /* canvas mode border */
 .draft-canvas-area.dft-mode-delete { outline:3px solid #c62828;outline-offset:-3px; }
@@ -729,7 +729,7 @@ body {
 .draft-canvas { position:absolute;top:0;left:0;display:block; }
 .draft-infobar { position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,0.93);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-top:1px solid rgba(0,0,0,0.08);padding:5px 10px;display:flex;align-items:center;gap:8px;min-height:34px;flex-wrap:wrap;padding-bottom:max(env(safe-area-inset-bottom,5px),5px); }
 .draft-scale-pill { background:var(--accent);color:#fff;border-radius:6px;padding:2px 7px;font-size:9px;font-weight:800;letter-spacing:0.5px;white-space:nowrap; }
-.draft-status { font-size:10px;color:#555;font-weight:600;flex:1;font-family:'Nunito',sans-serif; }
+.draft-status { font-size:10px;color:var(--text);font-weight:600;flex:1;font-family:'Nunito',sans-serif; }
 .draft-dpad { position:absolute;bottom:46px;right:10px;display:grid;grid-template-columns:repeat(3,20px);grid-template-rows:repeat(3,20px);gap:2px;z-index:10;pointer-events:none; }
 .dft-zoom-ctl { position:absolute;bottom:46px;right:78px;display:flex;flex-direction:column;align-items:center;gap:3px;z-index:10;pointer-events:none; }
 .dft-zoom-ctl>* { pointer-events:all; }
@@ -9731,7 +9731,7 @@ function mixAddLight() {
   function renderList(container) {
     var entries=filteredEntries();
     if(!entries.length){
-      container.innerHTML='<div style="color:#666;font-size:13px;padding:16px;text-align:center;">No lights found</div>';
+      container.innerHTML='<div style="color:var(--text);font-size:13px;padding:16px;text-align:center;">No lights found</div>';
       return;
     }
     container.innerHTML=entries.map(function(r){
@@ -9741,7 +9741,7 @@ function mixAddLight() {
       return '<div style="display:flex;align-items:center;border-radius:8px;margin-bottom:4px;border:1px solid #2a2a2a;background:#1a1a1a;overflow:hidden;">' +
         '<button onclick="window._mxadd(\'' + mk + '\',\'' + lk + '\')" style="flex:1;display:block;text-align:left;padding:10px 12px;background:transparent;border:none;cursor:pointer;box-sizing:border-box;">' +
           '<div style="font-size:13px;font-weight:700;color:#fff">' + lt.name + '</div>' +
-          '<div style="font-size:11px;color:#888">' + (MAKERS[mk]?MAKERS[mk].name+' · ':'')+  (lt.watts||'') + 'W · ' + typeLabel(lt.group) + '</div>' +
+          '<div style="font-size:11px;color:var(--text-dim)">' + (MAKERS[mk]?MAKERS[mk].name+' · ':'')+  (lt.watts||'') + 'W · ' + typeLabel(lt.group) + '</div>' +
         '</button>' +
         '<button class="fav-star-btn'+(mxIsFav?' active':'')+'" data-fav-key="'+mxFavKey+'" onclick="toggleFav(\'' + mk + '\',\'' + lk + '\',event)" style="padding:8px 10px;font-size:20px;background:none;border:none;color:'+(mxIsFav?'#f5a623':'#888')+';cursor:pointer;">'+(mxIsFav?'★':'☆')+'</button>' +
         '</div>';
@@ -9751,15 +9751,15 @@ function mixAddLight() {
   function rebuild() {
     // Maker buttons (All + each maker)
     var mkBtns = '<button onclick="window._mxmk(\'\')" style="padding:5px 10px;border:none;border-radius:7px;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;' +
-      (amk===''?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:#aaa;') + '">All</button>';
+      (amk===''?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:var(--text-dim);') + '">All</button>';
     mkBtns += sortedMakerKeys().map(function(k){
       var m=MAKERS[k]||{};
       return '<button onclick="window._mxmk(\''+k+'\')" style="padding:5px 10px;border:none;border-radius:7px;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;' +
-        (amk===k?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:#aaa;') + '">' + (m.emoji||'') + ' ' + (m.name||k) + '</button>';
+        (amk===k?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:var(--text-dim);') + '">' + (m.emoji||'') + ' ' + (m.name||k) + '</button>';
     }).join('');
 
     // Filter tabs
-    function tabStyle(t){ return 'flex:1;padding:9px 6px;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:800;text-align:center;' + (activeTab===t?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:#aaa;'); }
+    function tabStyle(t){ return 'flex:1;padding:9px 6px;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:800;text-align:center;' + (activeTab===t?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:var(--text-dim);'); }
     var tabHtml =
       '<button onclick="window._mxtab(\'fav\')"   style="'+tabStyle('fav') +'">⭐ Fav</button>' +
       '<button onclick="window._mxtab(\'maker\')" style="'+tabStyle('maker')+'">🏷️ Maker</button>' +
@@ -9795,7 +9795,7 @@ function mixAddLight() {
           // Title + close
           '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">' +
             '<div style="font-size:14px;font-weight:800;color:#fff;">'+t('selectLightHint')+'</div>' +
-            '<button onclick="document.getElementById(\'mix-modal\').remove()" style="background:none;border:none;color:#888;font-size:20px;cursor:pointer;padding:0 4px;">✕</button>' +
+            '<button onclick="document.getElementById(\'mix-modal\').remove()" style="background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;padding:0 4px;">✕</button>' +
           '</div>' +
           // Filter tabs
           '<div style="display:flex;gap:8px;margin-bottom:10px;">' + tabHtml + '</div>' +
@@ -11799,12 +11799,12 @@ function _dftEditDist(dl) {
     '<div id="_dft_dedit" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_dedit\').remove()">' +
     '<div style="background:#fff;border-radius:18px;padding:22px 20px 18px;width:280px;box-shadow:0 8px 40px rgba(0,0,0,.3);">' +
     '<div style="font-size:13px;font-weight:800;margin-bottom:4px;">距離を編集</div>' +
-    '<div style="font-size:11px;color:#888;margin-bottom:14px;">' + aName + ' → ' + bName + '</div>' +
+    '<div style="font-size:11px;color:var(--text-dim);margin-bottom:14px;">' + aName + ' → ' + bName + '</div>' +
     '<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">' +
     '<input id="_dft_dedit_val" type="number" min="0.01" step="0.01" value="' + dispVal + '" ' +
     'style="flex:1;padding:12px;font-size:22px;font-weight:700;border:2px solid #1976d2;border-radius:12px;text-align:center;box-sizing:border-box;" ' +
     'onkeydown="if(event.key===\'Enter\')_dftApplyDist()">' +
-    '<span style="font-size:16px;font-weight:700;color:#555;">' + unitLabel + '</span>' +
+    '<span style="font-size:16px;font-weight:700;color:var(--text);">' + unitLabel + '</span>' +
     '</div>' +
     '<div style="display:flex;gap:8px;">' +
     '<button onclick="document.getElementById(\'_dft_dedit\').remove()" style="flex:1;padding:11px;border:none;background:#eee;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;">キャンセル</button>' +
@@ -11824,7 +11824,7 @@ function _dftCamFstopEdit(camObj) {
     '<div id="_dft_cedit" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_cedit\').remove()">' +
     '<div style="background:#fff;border-radius:18px;padding:22px 20px 18px;width:300px;box-shadow:0 8px 40px rgba(0,0,0,.3);">' +
     '<div style="font-size:13px;font-weight:800;margin-bottom:2px;">🎥 ' + (camObj.label||'Camera') + '</div>' +
-    '<div style="font-size:11px;color:#888;margin-bottom:16px;">F値を設定 (ダブルタップで編集)</div>' +
+    '<div style="font-size:11px;color:var(--text-dim);margin-bottom:16px;">F値を設定 (ダブルタップで編集)</div>' +
     '<div style="text-align:center;margin-bottom:12px;">' +
     '<span id="_dft_cedit_disp" style="font-size:42px;font-weight:900;color:#1976d2;letter-spacing:-1px;">f' + fLab(fval) + '</span>' +
     '</div>' +
@@ -11832,7 +11832,7 @@ function _dftCamFstopEdit(camObj) {
     'oninput="_dftCamFslide(this.value)" ' +
     'style="width:100%;margin-bottom:14px;accent-color:#1976d2;">' +
     '<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">' +
-    '<span style="font-size:13px;font-weight:700;color:#555;">f</span>' +
+    '<span style="font-size:13px;font-weight:700;color:var(--text);">f</span>' +
     '<input type="number" id="_dft_cedit_num" min="0.7" max="128" step="0.1" value="' + fval + '" ' +
     'oninput="_dftCamFnum(this.value)" ' +
     'style="flex:1;padding:10px;font-size:18px;font-weight:700;border:2px solid #1976d2;border-radius:10px;text-align:center;box-sizing:border-box;">' +
@@ -12326,7 +12326,7 @@ function _dftUpdateInfoBar() {
   var info = '<input id="dft-label-input" type="text" value="' + (o.label||'').replace(/"/g,'&quot;') + '" ' +
     'oninput="_dftLabelInput(this.value,\''+oid+'\')" ' +
     'style="padding:2px 6px;border:1px solid rgba(0,0,0,0.2);border-radius:6px;font-size:12px;font-weight:700;background:rgba(255,255,255,0.85);color:#111;width:110px;outline:none;">' +
-    ' <span style="font-size:10px;color:#888;">at '+_dftFmt(o.wx)+', '+_dftFmt(o.wy)+'</span>';
+    ' <span style="font-size:10px;color:var(--text-dim);">at '+_dftFmt(o.wx)+', '+_dftFmt(o.wy)+'</span>';
   if (o.type==='light' && o.makerKey) {
     var subs = _dft.objects.filter(function(x){ return x.type==='subject'; });
     if (subs.length) {
@@ -12388,18 +12388,18 @@ function dftLightSettings(oid) {
     '<div id="_dft_ls" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_ls\').remove()">' +
     '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
     '<div style="font-size:14px;font-weight:800;margin-bottom:2px;">'+(lt?lt.name:o.label||'Light')+'</div>' +
-    (accs.length ? '<div style="font-size:11px;color:#888;margin-bottom:12px;">Accessory</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">'+accBtns+'</div>' : '') +
-    '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:8px;">Beam Angle</div>' +
+    (accs.length ? '<div style="font-size:11px;color:var(--text-dim);margin-bottom:12px;">Accessory</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">'+accBtns+'</div>' : '') +
+    '<div style="font-size:11px;font-weight:800;color:var(--text);margin-bottom:8px;">Beam Angle</div>' +
     '<div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">' +
     '<input id="_dft_ls_ba" type="number" min="1" max="360" step="1" value="'+beamVal+'" ' +
     'style="width:90px;padding:10px;font-size:22px;font-weight:700;border:2px solid #1976d2;border-radius:12px;text-align:center;box-sizing:border-box;" ' +
     'onkeydown="if(event.key===\'Enter\')_dftApplyBeam(\''+oid+'\')">' +
-    '<span style="font-size:18px;color:#888;">°</span>' +
+    '<span style="font-size:18px;color:var(--text-dim);">°</span>' +
     '<button onclick="_dftApplyBeam(\''+oid+'\')" style="padding:10px 18px;background:#1976d2;color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">Apply</button>' +
     '</div>' +
     '<div style="border-top:1px solid #eee;margin:0 -16px;padding:14px 16px 0;">' +
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
-    '<span style="font-size:11px;font-weight:800;color:#555;">Factor <span style="font-weight:600;color:#999;font-size:10px;">(光量補正)</span></span>' +
+    '<span style="font-size:11px;font-weight:800;color:var(--text);">Factor <span style="font-weight:600;color:var(--text-dim);font-size:10px;">(光量補正)</span></span>' +
     '<span id="_dft_ls_ftotal" style="font-size:12px;font-weight:800;color:#e65100;"></span>' +
     '</div>' +
     '<div id="_dft_ls_frows"></div>' +
@@ -12446,7 +12446,7 @@ function _dftApplyBeam(oid) {
 
 // ── Shared slider-based factor row builder for draft sheets ──────────────
 function _dftFactorRowsHTML(factors, cbPrefix) {
-  if (!factors.length) return '<p style="font-size:11px;color:#aaa;text-align:center;padding:8px 0;">No factors yet</p>';
+  if (!factors.length) return '<p style="font-size:11px;color:var(--text-dim);text-align:center;padding:8px 0;">No factors yet</p>';
   return factors.map(function(f, fi) {
     var stops = parseFloat(f.stops) || 0;
     var isBounce  = f.type === 'bounce';
@@ -12477,7 +12477,7 @@ function _dftFactorRowsHTML(factors, cbPrefix) {
         '<span id="_dftfv_'+cbPrefix+'_'+fi+'" style="min-width:54px;text-align:center;font-size:16px;font-weight:800;color:'+color+';">'+(stops>0?'-':'')+stops.toFixed(1)+'s</span>'+
         '<button class="step-btn" onclick="window._dftFStep_'+cbPrefix+'('+fi+',0.1)" style="background:#fff;border:1px solid #ddd;border-radius:6px;width:30px;height:30px;font-size:16px;cursor:pointer;">›</button>'+
         '<div style="flex:1;"></div>'+
-        '<button onclick="window._dftFStep_'+cbPrefix+'('+fi+',-('+stops+'))" style="background:#fff;border:1px solid #ccc;border-radius:6px;color:#888;font-size:10px;padding:2px 7px;cursor:pointer;">Reset</button>'+
+        '<button onclick="window._dftFStep_'+cbPrefix+'('+fi+',-('+stops+'))" style="background:#fff;border:1px solid #ccc;border-radius:6px;color:var(--text-dim);font-size:10px;padding:2px 7px;cursor:pointer;">Reset</button>'+
       '</div>'+
       '<input type="range" min="0" max="10" step="0.1" value="'+stops+'" id="_dftfsl_'+cbPrefix+'_'+fi+'" '+
         'oninput="window._dftFSl_'+cbPrefix+'('+fi+',this.value)" '+
@@ -12592,9 +12592,9 @@ function dftBounceSettings(oid) {
   var html =
     '<div id="_dft_bs" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_bs\').remove()">' +
     '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
-    '<div style="font-size:14px;font-weight:800;margin-bottom:12px;">' + typeLabel + ' &nbsp;<span style="font-size:11px;color:#888;font-weight:600;">' + (o.label||'') + '</span></div>' +
+    '<div style="font-size:14px;font-weight:800;margin-bottom:12px;">' + typeLabel + ' &nbsp;<span style="font-size:11px;color:var(--text-dim);font-weight:600;">' + (o.label||'') + '</span></div>' +
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
-    '<span style="font-size:11px;font-weight:800;color:#555;">Factor <span style="font-weight:600;color:#999;font-size:10px;">(光量補正)</span></span>' +
+    '<span style="font-size:11px;font-weight:800;color:var(--text);">Factor <span style="font-weight:600;color:var(--text-dim);font-size:10px;">(光量補正)</span></span>' +
     '<span id="_dft_bs_ftotal" style="font-size:12px;font-weight:800;color:#0288d1;"></span>' +
     '</div>' +
     '<div id="_dft_bs_frows"></div>' +
@@ -12667,7 +12667,7 @@ function _dftShowLightPicker(wx, wy) {
   _dft.pendingLightWy = wy;
   var _lpTabStyle = function(active) {
     return 'flex:1;padding:7px 4px;border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;' +
-      (active ? 'background:#fff;color:#111;' : 'background:#2a2a2a;color:#888;');
+      (active ? 'background:#fff;color:#111;' : 'background:#2a2a2a;color:var(--text-dim);');
   };
   var html = '<div id="_dft_lp" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);z-index:9999;display:flex;align-items:flex-end;">' +
     '<div style="background:#111;border-radius:20px 20px 0 0;width:100%;max-height:78vh;overflow:hidden;display:flex;flex-direction:column;">' +
@@ -12684,7 +12684,7 @@ function _dftShowLightPicker(wx, wy) {
     '</div>' +
     '<div id="_dft_lpl" style="overflow-y:auto;padding:0 16px 4px;flex:1;-webkit-overflow-scrolling:touch;"></div>' +
     '<div style="padding:8px 16px 28px;flex-shrink:0;">' +
-    '<button onclick="document.getElementById(\'_dft_lp\').remove()" style="width:100%;padding:10px;background:#2a2a2a;color:#aaa;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
+    '<button onclick="document.getElementById(\'_dft_lp\').remove()" style="width:100%;padding:10px;background:#2a2a2a;color:var(--text-dim);border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
     '</div></div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
   _dftLP = {tab:'fav', maker:null};
@@ -12736,7 +12736,7 @@ function _dftLPRenderFav(listEl) {
     return {mk:mk, lk:lk, lt:lt, makerName:(MAKERS[mk]||{}).name||mk, count:counts[mk+'|'+lk]||0};
   }).filter(Boolean);
   if (!items.length) {
-    listEl.innerHTML = '<div style="color:#888;text-align:center;padding:28px;font-size:13px;">⭐ No favorites yet<br><span style="font-size:11px;">Star lights in the Calc tab</span></div>';
+    listEl.innerHTML = '<div style="color:var(--text-dim);text-align:center;padding:28px;font-size:13px;">⭐ No favorites yet<br><span style="font-size:11px;">Star lights in the Calc tab</span></div>';
     return;
   }
   items.sort(function(a,b){ return b.count - a.count; });
@@ -12751,8 +12751,8 @@ function _dftLPRenderMakers(listEl) {
     return '<div onclick="_dftLP.maker=\''+mk+'\';_dftLPRender()" style="display:flex;align-items:center;padding:10px 12px;border-radius:9px;margin-bottom:4px;background:#1a1a1a;border:1px solid #2a2a2a;cursor:pointer;gap:10px;">' +
       '<span style="font-size:20px;">'+m.emoji+'</span>' +
       '<div style="flex:1;"><div style="color:#fff;font-weight:700;font-size:13px;">'+m.name+'</div>' +
-      '<div style="color:#888;font-size:10px;">'+cnt+' lights</div></div>' +
-      '<span style="color:#555;font-size:16px;">›</span></div>';
+      '<div style="color:var(--text-dim);font-size:10px;">'+cnt+' lights</div></div>' +
+      '<span style="color:var(--text);font-size:16px;">›</span></div>';
   }).join('');
 }
 
@@ -12761,21 +12761,21 @@ function _dftLPRenderModels(listEl, mk) {
   var favSet={};
   var favArr = getFavs();
   var favSet = {}; favArr.forEach(function(f){ favSet[f.maker+'|'+f.model]=true; });
-  var back = '<div onclick="_dftLP.maker=null;_dftLPRender()" style="display:flex;align-items:center;gap:6px;padding:6px 0 10px;cursor:pointer;color:#aaa;font-size:12px;font-weight:800;">‹ '+m.name+'</div>';
+  var back = '<div onclick="_dftLP.maker=null;_dftLPRender()" style="display:flex;align-items:center;gap:6px;padding:6px 0 10px;cursor:pointer;color:var(--text-dim);font-size:12px;font-weight:800;">‹ '+m.name+'</div>';
   var rows = sortedModelEntries(mk).filter(function(e2){return !e2[1].pendingPhotometric;})
     .map(function(e2){
       var lk=e2[0],lt=e2[1];
       return _dftLPItem(mk,lk,lt,m.name||mk,!!(favSet[mk+'|'+lk]));
     }).join('');
-  listEl.innerHTML = back + (rows||'<div style="color:#888;text-align:center;padding:16px;">No lights</div>');
+  listEl.innerHTML = back + (rows||'<div style="color:var(--text-dim);text-align:center;padding:16px;">No lights</div>');
 }
 
 function _dftLPItem(mk, lk, lt, makerName, isFav, usageCount) {
-  var countBadge = (usageCount && usageCount > 0) ? '<span style="color:#888;font-size:10px;margin-left:4px;">×'+usageCount+'</span>' : '';
+  var countBadge = (usageCount && usageCount > 0) ? '<span style="color:var(--text-dim);font-size:10px;margin-left:4px;">×'+usageCount+'</span>' : '';
   return '<div onclick="_dftLPSelect(\''+mk+'\',\''+lk+'\')" style="display:flex;align-items:center;padding:9px 10px;border-radius:9px;margin-bottom:4px;background:#1a1a1a;border:1px solid #2a2a2a;cursor:pointer;gap:8px;">' +
     '<span style="font-size:14px;color:'+(isFav?'#f9a825':'#444')+';">'+(isFav?'★':'☆')+'</span>' +
     '<div style="flex:1;min-width:0;"><div style="color:#fff;font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+lt.name+countBadge+'</div>' +
-    '<div style="color:#666;font-size:10px;">'+makerName+'</div></div>' +
+    '<div style="color:var(--text);font-size:10px;">'+makerName+'</div></div>' +
     '</div>';
 }
 
@@ -12797,7 +12797,7 @@ function _dftLPFilter(q) {
   });
   items.sort(function(a,b){ return (b.fav?1:0)-(a.fav?1:0); });
   listEl.innerHTML = items.map(function(it){ return _dftLPItem(it.mk,it.lk,it.lt,it.makerName,it.fav); }).join('') ||
-    '<div style="color:#888;text-align:center;padding:20px;font-size:12px;">No results</div>';
+    '<div style="color:var(--text-dim);text-align:center;padding:20px;font-size:12px;">No results</div>';
 }
 
 function _dftLPSelect(mk, lk) {
@@ -12950,14 +12950,14 @@ function dftSetScaleUI() {
   var html = '<div id="_dft_sc" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sc\').remove()">' +
     '<div style="background:var(--bg,#fff);border-radius:16px;padding:18px;width:88%;max-width:310px;" onclick="event.stopPropagation()">' +
     '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">'+t('dftScaleTitle')+'</div>' +
-    '<div style="font-size:12px;color:#888;margin-bottom:8px;">1m = ? px</div>' +
+    '<div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;">1m = ? px</div>' +
     '<div style="display:flex;gap:6px;align-items:center;margin-bottom:12px;">' +
     '<span style="font-size:13px;font-weight:700;">1m =</span>' +
     '<input id="_sc_v" type="number" step="1" min="1" value="'+pxPerM+'" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:14px;background:var(--bg);color:var(--text);">' +
     '<span style="font-size:13px;font-weight:700;">px</span>' +
     '</div>' +
     '<button onclick="var v=+document.getElementById(\'_sc_v\').value;if(v>0){_dft.scale=_dft.zoom/v;dftRender();}document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">'+t('dftApply')+'</button>' +
-    '<div style="font-size:12px;color:#888;margin-bottom:8px;">'+t('dftScaleOr')+'</div>' +
+    '<div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;">'+t('dftScaleOr')+'</div>' +
     '<button onclick="document.getElementById(\'_dft_sc\').remove();_dftStartCalib();" style="width:100%;padding:9px;background:#1565c0;color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">'+t('dftCalibBtn')+'</button>' +
     '<button onclick="document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--bg-secondary,#eee);border:none;border-radius:9px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
     '</div></div>';
@@ -12998,13 +12998,13 @@ function dftSave() {
     '<div id="_dft_sv" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.58);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sv\').remove()">' +
     '<div style="background:#fff;border-radius:18px;padding:22px 20px 18px;width:88%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.3);" onclick="event.stopPropagation()">' +
     '<div style="font-size:15px;font-weight:800;margin-bottom:16px;">💾 保存</div>' +
-    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">プロジェクト名</div>' +
+    '<div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;">プロジェクト名</div>' +
     '<input id="_sv_name" type="text" value="'+(_dft.draftName||'').replace(/"/g,'&quot;')+'" placeholder="例: Wedding Reception" ' +
     'style="width:100%;padding:10px;font-size:14px;font-weight:700;border:2px solid #1976d2;border-radius:10px;box-sizing:border-box;margin-bottom:12px;">' +
-    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">日付</div>' +
+    '<div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;">日付</div>' +
     '<input id="_sv_date" type="date" value="'+(_dft.draftDate||today)+'" ' +
     'style="width:100%;padding:10px;font-size:14px;border:1.5px solid #ddd;border-radius:10px;box-sizing:border-box;margin-bottom:12px;">' +
-    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">ロケーション / Location</div>' +
+    '<div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;">ロケーション / Location</div>' +
     '<input id="_sv_loc" type="text" value="'+(_dft.draftLocation||'').replace(/"/g,'&quot;')+'" placeholder="例: Studio A, 横浜" ' +
     'style="width:100%;padding:10px;font-size:14px;border:1.5px solid #ddd;border-radius:10px;box-sizing:border-box;margin-bottom:18px;">' +
     '<div style="display:flex;gap:10px;">' +
@@ -13061,7 +13061,7 @@ function dftLoadMenu() {
       return '<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;padding:11px;border:1.5px solid var(--border,#eee);border-radius:12px;">' +
         '<div style="flex:1;cursor:pointer;" onclick="_dftLoadById(\''+d.id+'\');document.getElementById(\'_dft_lm\').remove()">' +
         '<div style="font-weight:800;font-size:13px;margin-bottom:2px;">'+(d.name||'Untitled')+'</div>' +
-        '<div style="font-size:10px;color:#888;line-height:1.6;">'+meta.join('  ·  ')+'</div>' +
+        '<div style="font-size:10px;color:var(--text-dim);line-height:1.6;">'+meta.join('  ·  ')+'</div>' +
         '</div>' +
         '<div style="display:flex;flex-direction:column;gap:4px;">' +
         '<button onclick="dftExportOne(\''+d.id+'\',event)" style="padding:3px 7px;background:#1976d2;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;">📤</button>' +
@@ -13233,7 +13233,7 @@ function dftDistVisMenu() {
   var rows = items.map(function(it) {
     var on = v[it.key] !== false;
     return '<label style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer;" onclick="window._dftDistVisToggle(\''+it.key+'\')">' +
-      '<span style="font-size:13px;font-weight:600;color:#222;">'+it.label+'</span>' +
+      '<span style="font-size:13px;font-weight:600;color:var(--text);">'+it.label+'</span>' +
       '<span id="_dv_'+it.key+'" style="font-size:22px;">'+(on?'✅':'⬜')+'</span>' +
     '</label>';
   }).join('');
@@ -13260,7 +13260,7 @@ function dftReset() {
     '<div style="background:#fff;border-radius:18px;padding:24px 20px 18px;width:300px;box-shadow:0 8px 40px rgba(0,0,0,.35);text-align:center;">' +
     '<div style="font-size:32px;margin-bottom:8px;">🗑</div>' +
     '<div style="font-size:15px;font-weight:800;color:#c62828;margin-bottom:8px;">全データをリセット</div>' +
-    '<div style="font-size:12px;color:#555;margin-bottom:20px;line-height:1.5;">キャンバス上の全オブジェクトと<br>オートセーブデータが削除されます。<br>この操作は元に戻せません。</div>' +
+    '<div style="font-size:12px;color:var(--text);margin-bottom:20px;line-height:1.5;">キャンバス上の全オブジェクトと<br>オートセーブデータが削除されます。<br>この操作は元に戻せません。</div>' +
     '<div style="display:flex;gap:10px;">' +
     '<button id="_dft_reset_cancel" style="flex:1;padding:12px;border:none;background:#eee;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">キャンセル</button>' +
     '<button id="_dft_reset_ok" style="flex:1;padding:12px;border:none;background:#e53935;color:#fff;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">リセット</button>' +
@@ -13348,7 +13348,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.140';
+var ver = 'v1.1.3.141';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
