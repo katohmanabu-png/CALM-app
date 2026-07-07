@@ -846,7 +846,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 
 <div id="page-calc" class="page-content active">
 <div class="app">
-<div id="calc-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-calc" style="font-size:15px;font-weight:800;color:#555;line-height:1.2;"></div><div id="page-sub-calc" style="font-size:11px;color:#888;font-weight:600;margin-top:1px;"></div></div>
+<div id="calc-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-calc" style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;"></div><div id="page-sub-calc" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div></div>
 
 <!-- ライト選択エリア 折りたたみヘッダー -->
 <div id="light-select-hdr" onclick="toggleLightSelector()"
@@ -856,8 +856,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
   <div style="display:flex;align-items:center;gap:8px;min-width:0;">
     <span id="light-select-hdr-emoji" style="font-size:18px;flex-shrink:0;">💡</span>
     <div style="min-width:0;">
-      <div id="light-select-hdr-name" style="font-size:13px;font-weight:800;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">ライトを選択...</div>
-      <div id="light-select-hdr-sub"  style="font-size:10px;color:#888;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;"></div>
+      <div id="light-select-hdr-name" style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">ライトを選択...</div>
+      <div id="light-select-hdr-sub"  style="font-size:10px;color:var(--text-dim);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;"></div>
     </div>
   </div>
   <span id="light-select-arrow" style="font-size:13px;color:#888;flex-shrink:0;margin-left:8px;transition:transform .25s;">▾</span>
@@ -1138,8 +1138,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 <div id="page-camera" class="page-content">
 <div class="app">
 <div id="camera-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;">
-  <div id="page-title-camera" style="font-size:15px;font-weight:800;color:#555;line-height:1.2;"></div>
-  <div id="page-sub-camera" style="font-size:11px;color:#888;font-weight:600;margin-top:1px;"></div>
+  <div id="page-title-camera" style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;"></div>
+  <div id="page-sub-camera" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div>
 </div>
 
 <div class="card">
@@ -1464,8 +1464,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 <div id="page-mix" class="page-content">
 <div class="app">
 <div id="mix-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;">
-  <div id="page-title-mix" style="font-size:15px;font-weight:800;color:#555"></div>
-  <div id="page-sub-mix" style="font-size:11px;color:#888;font-weight:600;margin-top:1px;"></div>
+  <div id="page-title-mix" style="font-size:15px;font-weight:800;color:var(--text)"></div>
+  <div id="page-sub-mix" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div>
 </div>
 
 <!-- Light list -->
@@ -1661,8 +1661,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 
 <div id="page-finder" class="page-content">
 <div class="app">
-<div id="finder-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-finder" style="font-size:15px;font-weight:800;color:#555;line-height:1.2;"></div>
-<div id="page-sub-finder" style="font-size:11px;color:#888;font-weight:600;margin-top:1px;"></div></div>
+<div id="finder-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-finder" style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;"></div>
+<div id="page-sub-finder" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div></div>
 
 <div class="card finder-hero">
   <div class="card-hdr">
@@ -5002,10 +5002,20 @@ function applyTheme(mk) {
   var m = MAKERS[mk]; if (!m) return;
   var r = document.documentElement;
   var isDark = r.classList.contains('dark');
-  r.style.setProperty('--accent', m.accent);
-  r.style.setProperty('--accent-dark', m.dark);
+  // ダークモード: アクセントが暗色(輝度<64)だと文字が背景に溶けるため明るい代替色に置換
+  var _lum = function(h){ var c=(h||'').replace('#',''); if(c.length<6) return -1; return (parseInt(c.substr(0,2),16)*299+parseInt(c.substr(2,2),16)*587+parseInt(c.substr(4,2),16)*114)/1000; };
+  var accentMain = m.accent, accentDark = m.dark;
+  if (isDark && _lum(m.accent) >= 0 && _lum(m.accent) < 64) {
+    var cands = [m.accent2, m.accent3, '#e8e8f0'];
+    for (var ci = 0; ci < cands.length; ci++) {
+      if (cands[ci] && _lum(cands[ci]) >= 64) { accentMain = cands[ci]; break; }
+    }
+    accentDark = accentMain;
+  }
+  r.style.setProperty('--accent', accentMain);
+  r.style.setProperty('--accent-dark', accentDark);
   // In dark mode use semi-transparent accent instead of the light pastel
-  r.style.setProperty('--accent-light', isDark ? m.accent + '2e' : m.light);
+  r.style.setProperty('--accent-light', isDark ? accentMain + '2e' : m.light);
   r.style.setProperty('--accent-glow', m.glow);
   // Active bg for dark mode: if accent is very light use accent2/dark instead
   var _isLightHex = function(h){ var c=(h||'').replace('#',''); if(c.length<6) return false; var rv=parseInt(c.substr(0,2),16),gv=parseInt(c.substr(2,2),16),bv=parseInt(c.substr(4,2),16); return (rv*299+gv*587+bv*114)/1000>180; };
@@ -8227,8 +8237,8 @@ function renderFinderResults() {
       '</div>' +
       '<div style="flex:1;min-width:0;">' +
         '<div style="font-size:11px;color:' + makerAccent + ';font-weight:700;">' + (maker.emoji||'') + ' ' + (maker.name||res.mk) + '</div>' +
-        '<div style="font-size:13px;font-weight:800;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + '</div>' +
-        '<div style="font-size:10px;color:#888;">' + res.cct + 'K · ' + angleLabel + res.acc + ' · ' + res.watts + 'W</div>' +
+        '<div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + '</div>' +
+        '<div style="font-size:10px;color:var(--text-dim);">' + res.cct + 'K · ' + angleLabel + res.acc + ' · ' + res.watts + 'W</div>' +
       '</div>' +
       '<div style="text-align:right;min-width:64px;padding-left:6px;">' +
         '<div style="font-size:20px;font-weight:900;color:var(--accent);font-family:\'JetBrains Mono\',monospace;">' + res.fStr + '</div>' +
@@ -8767,7 +8777,7 @@ function runAlternativeFinder() {
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
       '<div>' +
         '<div style="font-size:10px;color:#888;font-weight:700;">'+t('altSelectedLight')+' · ' + dist.toFixed(1) + 'm</div>' +
-        '<div style="font-size:13px;font-weight:800;color:#555;">' + (LIGHTS[mk] && LIGHTS[mk][lk] ? LIGHTS[mk][lk].name : lk) + '</div>' +
+        '<div style="font-size:13px;font-weight:800;color:var(--text);">' + (LIGHTS[mk] && LIGHTS[mk][lk] ? LIGHTS[mk][lk].name : lk) + '</div>' +
         '<div style="font-size:10px;color:#888;">' + acc + ' · ' + (srcLux > 0 ? Math.round(srcLux).toLocaleString() + ' lux' : 'No data') + '</div>' +
       '</div>' +
       '<div style="text-align:right;">' +
@@ -8839,8 +8849,8 @@ function runAlternativeFinder() {
       '</div>' +
       '<div style="flex:1;min-width:0;">' +
         '<div style="font-size:11px;color:var(--accent);font-weight:700;">' + (maker.emoji||'') + ' ' + (maker.name||res.mk) + '</div>' +
-        '<div style="font-size:13px;font-weight:800;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + (res.isSelf ? ' ✓' : '') + '</div>' +
-        '<div style="font-size:10px;color:#888;">' + res.acc + ' · ' + getBeamAngle(res.acc) + '° · ' + res.watts + 'W</div>' +
+        '<div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + (res.isSelf ? ' ✓' : '') + '</div>' +
+        '<div style="font-size:10px;color:var(--text-dim);">' + res.acc + ' · ' + getBeamAngle(res.acc) + '° · ' + res.watts + 'W</div>' +
       '</div>' +
       '<div style="text-align:right;min-width:70px;padding-left:8px;">' +
         '<div style="font-size:20px;font-weight:900;color:var(--accent);font-family:\'JetBrains Mono\',monospace;">' + res.fStr + '</div>' +
@@ -13365,7 +13375,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.144';
+var ver = 'v1.1.3.145';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -13376,7 +13386,7 @@ var ver = 'v1.1.3.144';
 
 <div id="page-alt" class="page-content">
 <div class="app">
-<div id="alt-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-alt" style="font-size:15px;font-weight:800;color:#555;line-height:1.2;"></div><div id="page-sub-alt" style="font-size:11px;color:#888;font-weight:600;margin-top:1px;"></div></div>
+<div id="alt-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-alt" style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;"></div><div id="page-sub-alt" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div></div>
 
   <div id="alt-pro-gate" style="display:none;">
     <div class="card">
