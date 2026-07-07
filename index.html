@@ -7365,8 +7365,9 @@ function fbReset() {
   var PAGES = ['calc','camera','mix','finder','alt','feedback','draft'];
   var tx0 = 0, ty0 = 0;
   var SWIPE_THRESHOLD = 60;   // 確定に必要な横移動量(px)
-  var DRAG_START_PX  = 12;    // ドラッグ開始を判定する横移動量(px)
-  var ANGLE_LIMIT    = 55;    // スワイプと認める最大角度(°) — 水平から55°以内
+  var DRAG_START_PX  = 16;    // ドラッグ開始を判定する横移動量(px)
+  var ANGLE_LIMIT    = 35;    // スワイプと認める最大角度(°) — 水平から35°以内
+  var SLIDER_MARGIN  = 28;    // スライダー周辺のスワイプ無効マージン(px)
 
   // 状態: 'idle' | 'watching' | 'dragging' | 'animating'
   var state = 'idle';
@@ -7385,6 +7386,18 @@ function fbReset() {
       target.closest('.tri-lock-btn') ||
       target.closest('[type="range"]')
     )) return true;
+    return false;
+  }
+
+  // タッチ開始点が表示中のスライダー近傍(±SLIDER_MARGIN px)ならスワイプを開始しない
+  function nearSlider(x, y) {
+    var sliders = document.querySelectorAll('input[type=range]');
+    for (var i = 0; i < sliders.length; i++) {
+      var r = sliders[i].getBoundingClientRect();
+      if (r.width === 0 && r.height === 0) continue; // 非表示
+      if (x >= r.left - SLIDER_MARGIN && x <= r.right + SLIDER_MARGIN &&
+          y >= r.top - SLIDER_MARGIN && y <= r.bottom + SLIDER_MARGIN) return true;
+    }
     return false;
   }
 
@@ -7460,6 +7473,7 @@ function fbReset() {
     if (animating) return;
     if (shouldIgnore(e.target)) { state = 'idle'; return; }
     var t = e.touches[0];
+    if (nearSlider(t.clientX, t.clientY)) { state = 'idle'; return; }
     tx0 = t.clientX; ty0 = t.clientY;
     state = 'watching';
   }, { passive: true });
@@ -13348,7 +13362,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.142';
+var ver = 'v1.1.3.143';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
