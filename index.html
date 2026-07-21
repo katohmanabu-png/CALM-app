@@ -11376,7 +11376,12 @@ function _dftDrawObj(ctx, o) {
     ctx.strokeStyle = sel ? '#e53500' : sc;
     ctx.lineWidth   = sel ? 2.5 : 1.5;
     _dftRR(ctx, -rw/2, -rh/2, rw, rh, 4);
-    ctx.fill(); ctx.stroke();
+    // 塗りは半透明にして、同位置に重ねたライト等が透けて見えるようにする
+    // （枠線・文字は不透明のままで識別性を維持）
+    ctx.globalAlpha = 0.45;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.stroke();
     ctx.fillStyle = sel ? '#e53500' : sc;
     ctx.font = 'bold 9px -apple-system,Arial';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -13378,7 +13383,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.149';
+var ver = 'v1.1.3.150';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
