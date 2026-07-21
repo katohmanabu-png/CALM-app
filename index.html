@@ -700,10 +700,8 @@ body {
 #page-draft { position:fixed;top:0;left:0;right:0;bottom:0;z-index:1;padding:0!important;transition:none; }
 .draft-wrap { display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden; }
 .draft-toolbar { display:flex;flex-direction:column;gap:0;background:var(--bg);border-top:1px solid var(--border,#eee);flex-shrink:0; }
-.dft-tools-row { display:flex;flex-wrap:nowrap;align-items:center;gap:4px;padding:5px 8px 5px;overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--bg);scrollbar-width:none; }
-.dft-tools-row::-webkit-scrollbar { display:none; }
-.dft-objects-row { display:flex;flex-wrap:nowrap;align-items:center;gap:4px;padding:4px 8px 5px;overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--bg-secondary,#f4f4f6);border-bottom:1px solid var(--border,#eee);scrollbar-width:none; }
-.dft-objects-row::-webkit-scrollbar { display:none; }
+.dft-tools-row { display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center;gap:4px;padding:5px 6px;background:var(--bg); }
+.dft-objects-row { display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center;gap:4px;padding:4px 6px 5px;background:var(--bg-secondary,#f4f4f6);border-bottom:1px solid var(--border,#eee); }
 .dft-row-lbl { font-size:8px;font-weight:900;letter-spacing:0.7px;color:var(--text-dim,#aaa);flex-shrink:0;padding-right:2px;user-select:none; }
 .draft-tool-btn { padding:5px 9px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:11px;font-weight:800;background:var(--bg);color:var(--text);cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif;line-height:1.2;transition:background .12s,color .12s,border-color .12s,box-shadow .12s; }
 /* mode-specific active colors */
@@ -13375,7 +13373,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.146';
+var ver = 'v1.1.3.147';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -13755,7 +13753,7 @@ var ver = 'v1.1.3.146';
     <!-- Toolbar at bottom -->
     <div class="draft-toolbar" id="dft-toolbar">
       <!-- Row 1: object placement -->
-      <div class="dft-objects-row" style="overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;">
+      <div class="dft-objects-row">
         <button class="draft-tool-btn" id="dft-btn-people"   onclick="dftMode('people')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🧍<br><span style="font-size:8px;">人</span></button>
         <button class="draft-tool-btn" id="dft-btn-camera"   onclick="dftMode('camera')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🎥<br><span style="font-size:8px;">Cam</span></button>
         <button class="draft-tool-btn" id="dft-btn-light"    onclick="dftMode('light')"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">💡<br><span style="font-size:8px;">Light</span></button>
@@ -13768,7 +13766,7 @@ var ver = 'v1.1.3.146';
         <button class="draft-tool-btn" onclick="dftToggleUnit();document.getElementById('dft-btn-unit-lbl').textContent=(_dft.unit||'m')" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;"><span id="dft-btn-unit-lbl" style="font-size:15px;font-weight:900;">m</span><br><span style="font-size:8px;">単位</span></button>
       </div>
       <!-- Row 2: edit + file tools -->
-      <div class="dft-tools-row" style="overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;">
+      <div class="dft-tools-row">
         <button class="draft-tool-btn active" id="dft-btn-select" onclick="dftMode('select')" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">↖<br><span style="font-size:8px;">選択</span></button>
         <button class="draft-tool-btn" id="dft-btn-multi"  onclick="dftMode('multi')"         style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⊞<br><span style="font-size:8px;">複数</span></button>
         <button class="draft-tool-btn" id="dft-btn-delete" onclick="dftMode('delete')"        style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🗑<br><span style="font-size:8px;">削除</span></button>
