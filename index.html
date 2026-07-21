@@ -11377,8 +11377,8 @@ function _dftDrawObj(ctx, o) {
     ctx.lineWidth   = sel ? 2.5 : 1.5;
     _dftRR(ctx, -rw/2, -rh/2, rw, rh, 4);
     // 塗りは半透明にして、同位置に重ねたライト等が透けて見えるようにする
-    // （枠線・文字は不透明のままで識別性を維持）
-    ctx.globalAlpha = 0.45;
+    // （枠線・文字は不透明のままで識別性を維持）。透明度はオブジェクトごとに可変
+    ctx.globalAlpha = (o.alpha != null ? o.alpha : 0.45);
     ctx.fill();
     ctx.globalAlpha = 1;
     ctx.stroke();
@@ -11391,26 +11391,35 @@ function _dftDrawObj(ctx, o) {
 
   ctx.restore();
 
+  // 名前ラベル + 設置高さバッジ
+  // 重ね置き時に両方読めるよう、四角は上側・点オブジェクトは下側にまとめて配置
+  var _RCTH = {diffuser:1, bounce:1, flag:1, image:1};
+  var _isRectT = !!_RCTH[o.type];
+  var _halfHpx = _isRectT ? (o.hm||o.h||1)/_dft.scale*_dft.zoom/2 : R;
+
+  // 四角は上側に回転ハンドル(≈halfH+20)があるので、その外側に注記を積む
+  var _rectTop = sy - _halfHpx - 30;   // 回転ハンドルの上
+
   // label
   ctx.fillStyle = sel ? '#e53500' : '#1a1a1a';
   ctx.font = 'bold 9px -apple-system,Arial';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-  ctx.fillText(o.label || '', sx, sy + R + 3);
+  ctx.textAlign = 'center';
+  if (_isRectT) {
+    ctx.textBaseline = 'bottom';
+    ctx.fillText(o.label || '', sx, _rectTop);             // 四角: 回転ハンドルの上
+  } else {
+    ctx.textBaseline = 'top';
+    ctx.fillText(o.label || '', sx, sy + R + 3);           // 点: 下側
+  }
 
   // 設置高さ(床から)バッジ — 紫のピルで他の情報と区別
-  // 重ね置き時に両方見えるよう、四角は上側・点オブジェクトは下側に配置
   if (o.zHeight != null) {
     var hstr = '↕ ' + (_dft.unit === 'ft' ? (o.zHeight*3.28084).toFixed(1)+'ft' : o.zHeight.toFixed(1)+'m');
     ctx.font = 'bold 9px -apple-system,Arial';
     var hbw = ctx.measureText(hstr).width + 8, hbh = 13;
-    var _RCTH = {diffuser:1, bounce:1, flag:1, image:1};
-    var hby;
-    if (_RCTH[o.type]) {
-      var _hhH = (o.hm||o.h||1)/_dft.scale*_dft.zoom/2;
-      hby = sy - _hhH - hbh - 3;   // 四角: 上辺の外側
-    } else {
-      hby = sy + R + 15;           // 点オブジェクト: 下側
-    }
+    var hby = _isRectT
+      ? _rectTop - 11 - hbh             // 四角: 名前ラベルのさらに上
+      : sy + R + 15;                    // 点: 名前ラベルの下
     ctx.fillStyle = 'rgba(94,53,177,0.92)';
     _dftRoundRect(ctx, sx - hbw/2, hby, hbw, hbh, 4); ctx.fill();
     ctx.fillStyle = '#fff';
@@ -12651,6 +12660,7 @@ function dftBounceSettings(oid) {
     '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
     '<div style="font-size:14px;font-weight:800;margin-bottom:12px;">' + typeLabel + ' &nbsp;<span style="font-size:11px;color:#888;font-weight:600;">' + (o.label||'') + '</span></div>' +
     _dftHeightFieldHTML(o) +
+    _dftAlphaFieldHTML(o) +
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
     '<span style="font-size:11px;font-weight:800;color:#555;">Factor <span style="font-weight:600;color:#888;font-size:10px;">(光量補正)</span></span>' +
     '<span id="_dft_bs_ftotal" style="font-size:12px;font-weight:800;color:#0288d1;"></span>' +
@@ -12741,6 +12751,32 @@ window._dftSetHeight = function(id, v) {
   o.zHeight = (v === '' || !isFinite(n)) ? null : n;
   _dftUpdateInfoBar();
   dftRender();
+};
+
+// ── 透明度（塗りの不透明度） ─────────────────────────────
+function _dftAlphaFieldHTML(o) {
+  var a = (o.alpha != null ? o.alpha : 0.45);
+  var pct = Math.round(a * 100);
+  return '<div style="margin-bottom:16px;">' +
+    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">' +
+      '<span style="font-size:11px;font-weight:800;color:#555;">透明度 <span style="font-weight:600;color:#888;font-size:10px;">(塗りの濃さ)</span></span>' +
+      '<span id="_dft_a_val" style="font-size:12px;font-weight:800;color:#5e35b1;">' + pct + '%</span>' +
+    '</div>' +
+    '<input id="_dft_a_input" type="range" min="0.1" max="1" step="0.05" value="' + a + '" ' +
+      'oninput="_dftSetAlpha(\''+o.id+'\',this.value)" style="width:100%;">' +
+  '</div>';
+}
+
+window._dftSetAlpha = function(id, v) {
+  var o = _dft.objects.find(function(x){ return x.id===id; });
+  if (!o) return;
+  var n = parseFloat(v);
+  if (isFinite(n)) {
+    o.alpha = n;
+    var lbl = document.getElementById('_dft_a_val');
+    if (lbl) lbl.textContent = Math.round(n*100) + '%';
+    dftRender();
+  }
 };
 
 // ── LIGHT PICKER ──────────────────────────────────────────
@@ -13430,7 +13466,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.151';
+var ver = 'v1.1.3.152';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
