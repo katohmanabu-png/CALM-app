@@ -12027,8 +12027,13 @@ function _dftMD(e) {
   }
 
   // In any mode: tapping an existing object grabs it first (place only on empty space)
+  // 例外: ポイント系(ライト/人/カメラ)を配置中に四角(DIFF/バウンス/フラッグ)や
+  //       取り込み画像へ重ねてタップした場合は「掴む」ではなく「上に配置」する
+  //       （同位置・別高さのライトや、図面画像の上への配置を可能にする）
   var hitFirst = _dftObjAt(mx, my);
-  if (hitFirst && _dft.mode !== 'select') {
+  var _pointPlaceMode = (_dft.mode==='light' || _dft.mode==='people' || _dft.mode==='camera');
+  var _hitIsSurface = hitFirst && (hitFirst.type==='diffuser' || hitFirst.type==='bounce' || hitFirst.type==='flag' || hitFirst.type==='image');
+  if (hitFirst && _dft.mode !== 'select' && !(_pointPlaceMode && _hitIsSurface)) {
     _dftPushHistory();
     _dft.selected    = hitFirst.id;
     _dft.pointerDown = true;
@@ -13373,7 +13378,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.148';
+var ver = 'v1.1.3.149';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
