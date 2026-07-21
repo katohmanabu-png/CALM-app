@@ -11397,18 +11397,11 @@ function _dftDrawObj(ctx, o) {
   var _isRectT = !!_RCTH[o.type];
   var _halfHpx = _isRectT ? (o.hm||o.h||1)/_dft.scale*_dft.zoom/2 : R;
 
-  // 四角は上側に回転ハンドル(≈halfH+20)があるので、その外側に注記を積む
-  var _rectTop = sy - _halfHpx - 30;   // 回転ハンドルの上
-
-  // label
-  ctx.fillStyle = sel ? '#e53500' : '#1a1a1a';
-  ctx.font = 'bold 9px -apple-system,Arial';
-  ctx.textAlign = 'center';
-  if (_isRectT) {
-    ctx.textBaseline = 'bottom';
-    ctx.fillText(o.label || '', sx, _rectTop);             // 四角: 回転ハンドルの上
-  } else {
-    ctx.textBaseline = 'top';
+  // label — 四角(D/B/F)は中の文字で識別できるので名前ラベルは省略（スッキリ）
+  if (!_isRectT) {
+    ctx.fillStyle = sel ? '#e53500' : '#1a1a1a';
+    ctx.font = 'bold 9px -apple-system,Arial';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
     ctx.fillText(o.label || '', sx, sy + R + 3);           // 点: 下側
   }
 
@@ -11418,7 +11411,7 @@ function _dftDrawObj(ctx, o) {
     ctx.font = 'bold 9px -apple-system,Arial';
     var hbw = ctx.measureText(hstr).width + 8, hbh = 13;
     var hby = _isRectT
-      ? _rectTop - 11 - hbh             // 四角: 名前ラベルのさらに上
+      ? sy - _halfHpx - 4 - hbh         // 四角: 上辺のすぐ外側
       : sy + R + 15;                    // 点: 名前ラベルの下
     ctx.fillStyle = 'rgba(94,53,177,0.92)';
     _dftRoundRect(ctx, sx - hbw/2, hby, hbw, hbh, 4); ctx.fill();
@@ -11442,22 +11435,17 @@ function _dftDrawObj(ctx, o) {
     ctx.fillText(fstr, sx, by + bh/2);
   }
 
-  // Rotation handle — always shown for all objects; bigger+red when selected
-  var _RCHT = {image:1,diffuser:1,bounce:1,flag:1};
-  var _rha  = (o.rot||0) - Math.PI/2;
-  var _rHalfH = _RCHT[o.type] ? (o.hm||o.h||1)/_dft.scale*_dft.zoom/2 : R;
-  var _rhDist = _rHalfH + 20;
-  var _rhx = sx + Math.cos(_rha)*_rhDist;
-  var _rhy = sy + Math.sin(_rha)*_rhDist;
+  // Rotation handle — 選択中のオブジェクトにのみ表示（雑然さ回避）
   if (sel) {
+    var _RCHT = {image:1,diffuser:1,bounce:1,flag:1};
+    var _rha  = (o.rot||0) - Math.PI/2;
+    var _rHalfH = _RCHT[o.type] ? (o.hm||o.h||1)/_dft.scale*_dft.zoom/2 : R;
+    var _rhDist = _rHalfH + 20;
+    var _rhx = sx + Math.cos(_rha)*_rhDist;
+    var _rhy = sy + Math.sin(_rha)*_rhDist;
     ctx.fillStyle='#e53500'; ctx.strokeStyle='rgba(255,255,255,0.9)'; ctx.lineWidth=1.8;
     ctx.beginPath(); ctx.arc(_rhx,_rhy,11,0,Math.PI*2); ctx.fill(); ctx.stroke();
     ctx.fillStyle='#fff'; ctx.font='bold 14px Arial';
-    ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('↻',_rhx,_rhy);
-  } else {
-    ctx.fillStyle='rgba(50,50,50,0.38)'; ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.2;
-    ctx.beginPath(); ctx.arc(_rhx,_rhy,8,0,Math.PI*2); ctx.fill(); ctx.stroke();
-    ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.font='bold 10px Arial';
     ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('↻',_rhx,_rhy);
   }
 
@@ -13466,7 +13454,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.152';
+var ver = 'v1.1.3.153';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
