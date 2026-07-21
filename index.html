@@ -13284,12 +13284,12 @@ function dftReset() {
   var dlg = document.createElement('div');
   dlg.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;';
   dlg.innerHTML =
-    '<div style="background:#fff;border-radius:18px;padding:24px 20px 18px;width:300px;box-shadow:0 8px 40px rgba(0,0,0,.35);text-align:center;">' +
-    '<div style="font-size:32px;margin-bottom:8px;">🗑</div>' +
-    '<div style="font-size:15px;font-weight:800;color:#c62828;margin-bottom:8px;">全データをリセット</div>' +
-    '<div style="font-size:12px;color:#555;margin-bottom:20px;line-height:1.5;">キャンバス上の全オブジェクトと<br>オートセーブデータが削除されます。<br>この操作は元に戻せません。</div>' +
+    '<div style="background:var(--white);border-radius:18px;padding:24px 20px 18px;width:300px;box-shadow:0 8px 40px rgba(0,0,0,.35);text-align:center;">' +
+    '<div style="font-size:32px;margin-bottom:8px;">↺</div>' +
+    '<div style="font-size:15px;font-weight:800;color:#e53935;margin-bottom:8px;">最初から書き直す</div>' +
+    '<div style="font-size:12px;color:var(--text-dim);margin-bottom:20px;line-height:1.5;">キャンバス上の全オブジェクトと<br>オートセーブデータが削除されます。<br>この操作は元に戻せません。</div>' +
     '<div style="display:flex;gap:10px;">' +
-    '<button id="_dft_reset_cancel" style="flex:1;padding:12px;border:none;background:#eee;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">キャンセル</button>' +
+    '<button id="_dft_reset_cancel" style="flex:1;padding:12px;border:none;background:var(--bg);color:var(--text);border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">キャンセル</button>' +
     '<button id="_dft_reset_ok" style="flex:1;padding:12px;border:none;background:#e53935;color:#fff;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">リセット</button>' +
     '</div></div>';
   document.body.appendChild(dlg);
@@ -13309,7 +13309,7 @@ function dftReset() {
     var rb = document.getElementById('dft-btn-redo'); if(rb) rb.disabled=true;
     _dftRenderLayerBar();
     dftRender(); _dftUpdateInfoBar();
-    _dftSetStatus('🗑 リセット完了');
+    _dftSetStatus('↺ リセット完了');
   };
 }
 // ── LAYER SYSTEM ──────────────────────────────────────────
@@ -13375,7 +13375,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.145';
+var ver = 'v1.1.3.146';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -13708,8 +13708,11 @@ var ver = 'v1.1.3.145';
 <!-- ═══ DRAFT PAGE ═══════════════════════════════════════════ -->
 <div id="page-draft" class="page-content" style="display:none;">
   <div class="draft-wrap">
-    <!-- Layer bar -->
-    <div class="draft-layerbar" id="dft-layerbar"></div>
+    <!-- Layer bar + always-visible reset -->
+    <div class="draft-topbar" style="display:flex;align-items:stretch;background:var(--bg);border-bottom:1px solid var(--border,#eee);flex-shrink:0;">
+      <div class="draft-layerbar" id="dft-layerbar" style="flex:1;border-bottom:none;min-width:0;"></div>
+      <button id="dft-reset-top" onclick="dftReset()" title="最初から書き直し / Start over" style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0 14px;border:none;border-left:1px solid var(--border,#eee);background:transparent;color:#e53935;font-weight:900;font-size:16px;cursor:pointer;line-height:1;">↺<span id="lbl-dft-reset-top" style="font-size:8px;font-weight:800;">リセット</span></button>
+    </div>
     <div class="draft-canvas-area" id="dft-canvas-area">
       <canvas id="dft-canvas" class="draft-canvas"></canvas>
       <!-- Floating result panel (draggable) -->
@@ -13780,7 +13783,6 @@ var ver = 'v1.1.3.145';
         <button class="draft-tool-btn" onclick="dftNew()"        style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">＋<br><span style="font-size:8px;">New</span></button>
         <button class="draft-tool-btn" onclick="dftExport()"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📤<br><span style="font-size:8px;">Export</span></button>
         <button class="draft-tool-btn" onclick="dftImport()"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📥<br><span style="font-size:8px;">Import</span></button>
-        <button class="draft-tool-btn" onclick="dftReset()"      style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;color:#e53935;">🗑<br><span style="font-size:8px;">Reset</span></button>
       </div>
     </div>
   </div>
