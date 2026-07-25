@@ -7384,8 +7384,10 @@ function fbReset() {
 }
 
 // ── スワイプ切り替え（スライドアニメーション付き） ──────────
+// camera/feedback はドロワー専用ページなのでスワイプ循環から除外
+// （ボトムナビと同じ主要タブのみを左右スワイプで移動）
 (function() {
-  var PAGES = ['calc','camera','mix','finder','alt','feedback','draft'];
+  var PAGES = ['calc','mix','finder','alt','draft'];
   var tx0 = 0, ty0 = 0;
   var SWIPE_THRESHOLD = 60;   // 確定に必要な横移動量(px)
   var DRAG_START_PX  = 16;    // ドラッグ開始を判定する横移動量(px)
@@ -13468,7 +13470,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.156';
+var ver = 'v1.1.3.157';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
