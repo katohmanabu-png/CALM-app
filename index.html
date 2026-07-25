@@ -1166,7 +1166,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <input type="range" id="iso" min="0" max="21" step="1" value="9" oninput="onCamChange()">
           <button class="step-btn" onclick="stepSl('iso',1,onCamChange)">›</button>
         </div>
-        <div class="sl-labs"><span class="sl-lab">100</span><span class="sl-lab">400</span><span class="sl-lab">800</span><span class="sl-lab">3200</span><span class="sl-lab">6400</span><span class="sl-lab">12800</span></div>
+        <div class="sl-labs" style="position:relative;height:13px;"><span class="sl-lab" style="position:absolute;left:0;">100</span><span class="sl-lab" style="position:absolute;left:28.6%;transform:translateX(-50%);">400</span><span class="sl-lab" style="position:absolute;left:42.9%;transform:translateX(-50%);">800</span><span class="sl-lab" style="position:absolute;left:71.4%;transform:translateX(-50%);">3200</span><span class="sl-lab" style="position:absolute;left:85.7%;transform:translateX(-50%);">6400</span><span class="sl-lab" style="position:absolute;left:100%;transform:translateX(-100%);">12800</span></div>
       </div>
       <!-- FPS -->
       <div class="sl-field" style="margin-top:10px;">
@@ -1179,7 +1179,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <input type="range" id="fps" min="1" max="1000" step="1" value="24" oninput="onCamChange()">
           <button class="step-btn" onclick="stepSl('fps',1,onCamChange)">›</button>
         </div>
-        <div class="sl-labs"><span class="sl-lab">1</span><span class="sl-lab">24</span><span class="sl-lab">60</span><span class="sl-lab">120</span><span class="sl-lab">240</span><span class="sl-lab">1000</span></div>
+        <div class="sl-labs"><span class="sl-lab">1</span><span class="sl-lab">200</span><span class="sl-lab">400</span><span class="sl-lab">600</span><span class="sl-lab">800</span><span class="sl-lab">1000</span></div>
         <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;">
           <button onclick="setCinemaFPSPreset(23.976)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--bg);color:#888;">23.976</button>
           <button onclick="setCinemaFPSPreset(24)" style="padding:7px 12px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;background:var(--accent);color:white;">24</button>
@@ -1244,8 +1244,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <input type="range" id="dig-ss-sl" min="0" max="38" step="1" value="17" oninput="onDigSSChange()">
           <button class="step-btn" onclick="stepSl('dig-ss-sl',1,onDigSSChange)">›</button>
         </div>
-        <div class="sl-labs">
-          <span class="sl-lab">1s</span><span class="sl-lab">1/30</span><span class="sl-lab">1/250</span><span class="sl-lab">1/1000</span><span class="sl-lab">1/8000</span>
+        <div class="sl-labs" style="position:relative;height:13px;">
+          <span class="sl-lab" style="position:absolute;left:0;">1s</span><span class="sl-lab" style="position:absolute;left:39.5%;transform:translateX(-50%);">1/30</span><span class="sl-lab" style="position:absolute;left:63.2%;transform:translateX(-50%);">1/250</span><span class="sl-lab" style="position:absolute;left:78.9%;transform:translateX(-50%);">1/1000</span><span class="sl-lab" style="position:absolute;left:100%;transform:translateX(-100%);">1/8000</span>
         </div>
 
       </div>
@@ -1260,7 +1260,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <input type="range" id="fstop" min="0" max="54" step="1" value="21" oninput="onCamChange()">
           <button class="step-btn" onclick="stepSl('fstop',1,onCamChange)">›</button>
         </div>
-        <div class="sl-labs" style="justify-content:space-between;"><span class="sl-lab">f1.4</span><span class="sl-lab">f2</span><span class="sl-lab">f2.8</span><span class="sl-lab">f4</span><span class="sl-lab">f5.6</span><span class="sl-lab">f8</span><span class="sl-lab">f11</span><span class="sl-lab">f16</span><span class="sl-lab">f22</span><span class="sl-lab">f32</span><span class="sl-lab">f45</span></div>
+        <div class="sl-labs" style="position:relative;height:13px;"><span class="sl-lab" style="position:absolute;left:27.8%;transform:translateX(-50%);">f1.4</span><span class="sl-lab" style="position:absolute;left:38.9%;transform:translateX(-50%);">f2.8</span><span class="sl-lab" style="position:absolute;left:50%;transform:translateX(-50%);">f5.6</span><span class="sl-lab" style="position:absolute;left:61.1%;transform:translateX(-50%);">f11</span><span class="sl-lab" style="position:absolute;left:72.2%;transform:translateX(-50%);">f22</span><span class="sl-lab" style="position:absolute;left:83.3%;transform:translateX(-50%);">f45</span></div>
         <div class="sl-inline">
           <span class="sl-unit">Direct:</span>
           <input type="number" class="sl-direct" id="fstop-direct" placeholder="2.8" min="0.7" max="64" step="0.1" oninput="onFstopDirect()">
@@ -1299,10 +1299,10 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
         </div>
         <div class="sl-labs">
           <span class="sl-lab">1</span>
-          <span class="sl-lab">24</span>
-          <span class="sl-lab">60</span>
-          <span class="sl-lab">120</span>
-          <span class="sl-lab">240</span>
+          <span class="sl-lab">200</span>
+          <span class="sl-lab">400</span>
+          <span class="sl-lab">600</span>
+          <span class="sl-lab">800</span>
           <span class="sl-lab">1000</span>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;">
@@ -1358,7 +1358,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <input type="range" id="film-fstop-sl" min="0" max="54" step="1" value="9" oninput="onFilmFstopChange()">
           <button class="step-btn" onclick="stepSl('film-fstop-sl',1,onFilmFstopChange)">›</button>
         </div>
-        <div class="sl-labs" style="justify-content:space-between;"><span class="sl-lab">T1.4</span><span class="sl-lab">T2</span><span class="sl-lab">T2.8</span><span class="sl-lab">T4</span><span class="sl-lab">T5.6</span><span class="sl-lab">T8</span><span class="sl-lab">T11</span><span class="sl-lab">T16</span><span class="sl-lab">T22</span></div>
+        <div class="sl-labs" style="position:relative;height:13px;"><span class="sl-lab" style="position:absolute;left:27.8%;transform:translateX(-50%);">T1.4</span><span class="sl-lab" style="position:absolute;left:38.9%;transform:translateX(-50%);">T2.8</span><span class="sl-lab" style="position:absolute;left:50%;transform:translateX(-50%);">T5.6</span><span class="sl-lab" style="position:absolute;left:61.1%;transform:translateX(-50%);">T11</span><span class="sl-lab" style="position:absolute;left:72.2%;transform:translateX(-50%);">T22</span></div>
       </div>
       <!-- Film Exposure Info -->
       <div style="margin-top:10px;padding:10px 12px;background:var(--bg);border-radius:10px;font-size:12px;line-height:1.8;">
@@ -1379,12 +1379,12 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <input type="range" id="still-iso-sl" min="0" max="23" step="1" value="7" oninput="onStillChange()">
           <button class="step-btn" onclick="var e=el('still-iso-sl');if(e){e.value=Math.min(23,parseInt(e.value)+1);onStillChange();}">&#x203a;</button>
         </div>
-        <div class="sl-labs">
-          <span class="sl-lab">64</span>
-          <span class="sl-lab">200</span>
-          <span class="sl-lab">800</span>
-          <span class="sl-lab">3200</span>
-          <span class="sl-lab">12800</span>
+        <div class="sl-labs" style="position:relative;height:13px;">
+          <span class="sl-lab" style="position:absolute;left:0;">64</span>
+          <span class="sl-lab" style="position:absolute;left:21.7%;transform:translateX(-50%);">200</span>
+          <span class="sl-lab" style="position:absolute;left:47.8%;transform:translateX(-50%);">800</span>
+          <span class="sl-lab" style="position:absolute;left:73.9%;transform:translateX(-50%);">3200</span>
+          <span class="sl-lab" style="position:absolute;left:100%;transform:translateX(-100%);">12800</span>
         </div>
       </div>
       <!-- Shutter Speed Slider -->
@@ -1398,12 +1398,12 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <input type="range" id="still-ss-sl" min="0" max="39" step="1" value="21" oninput="onStillChange()">
           <button class="step-btn" onclick="var e=el('still-ss-sl');if(e){e.value=Math.min(39,parseInt(e.value)+1);onStillChange();}">&#x203a;</button>
         </div>
-        <div class="sl-labs">
-          <span class="sl-lab">1s</span>
-          <span class="sl-lab">1/30</span>
-          <span class="sl-lab">1/125</span>
-          <span class="sl-lab">1/1000</span>
-          <span class="sl-lab">1/8000</span>
+        <div class="sl-labs" style="position:relative;height:13px;">
+          <span class="sl-lab" style="position:absolute;left:0;">1s</span>
+          <span class="sl-lab" style="position:absolute;left:38.5%;transform:translateX(-50%);">1/30</span>
+          <span class="sl-lab" style="position:absolute;left:53.8%;transform:translateX(-50%);">1/125</span>
+          <span class="sl-lab" style="position:absolute;left:76.9%;transform:translateX(-50%);">1/1000</span>
+          <span class="sl-lab" style="position:absolute;left:100%;transform:translateX(-100%);">1/8000</span>
         </div>
       </div>
       <!-- F-stop Slider -->
@@ -1417,11 +1417,14 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <input type="range" id="still-fstop-sl" min="0" max="54" step="1" value="27" oninput="onStillChange()">
           <button class="step-btn" onclick="var e=el('still-fstop-sl');if(e){e.value=Math.min(54,parseInt(e.value)+1);onStillChange();}">&#x203a;</button>
         </div>
-        <div class="sl-labs">
-          <span class="sl-lab">f0.5</span>
-          <span class="sl-lab">f1.4</span>
-          <span class="sl-lab">f2.8</span><span class="sl-lab">f4</span><span class="sl-lab">f5.6</span><span class="sl-lab">f8</span><span class="sl-lab">f11</span><span class="sl-lab">f16</span><span class="sl-lab">f22</span>
-          <span class="sl-lab">f128</span>
+        <div class="sl-labs" style="position:relative;height:13px;">
+          <span class="sl-lab" style="position:absolute;left:11.1%;transform:translateX(-50%);">f0.5</span>
+          <span class="sl-lab" style="position:absolute;left:27.8%;transform:translateX(-50%);">f1.4</span>
+          <span class="sl-lab" style="position:absolute;left:38.9%;transform:translateX(-50%);">f2.8</span>
+          <span class="sl-lab" style="position:absolute;left:50%;transform:translateX(-50%);">f5.6</span>
+          <span class="sl-lab" style="position:absolute;left:61.1%;transform:translateX(-50%);">f11</span>
+          <span class="sl-lab" style="position:absolute;left:72.2%;transform:translateX(-50%);">f22</span>
+          <span class="sl-lab" style="position:absolute;left:100%;transform:translateX(-100%);">f128</span>
         </div>
       </div>
     </div><!-- /cam-still-section -->
@@ -13470,7 +13473,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.157';
+var ver = 'v1.1.3.158';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
