@@ -13468,7 +13468,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.155';
+var ver = 'v1.1.3.156';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -14031,6 +14031,18 @@ var ver = 'v1.1.3.155';
   <button class="drawer-item" id="drawer-item-camera" onclick="openDrawerPage('camera')">
     <span class="drawer-item-icon">🎬</span>
     <span>Camera</span>
+  </button>
+  <button class="drawer-item" id="drawer-item-mix" onclick="openDrawerPage('mix')">
+    <span class="drawer-item-icon">🎛️</span>
+    <span id="drawer-lbl-mix">Mix</span>
+  </button>
+  <button class="drawer-item" id="drawer-item-finder" onclick="openDrawerPage('finder')">
+    <span class="drawer-item-icon">🔍</span>
+    <span id="drawer-lbl-finder">Finder</span>
+  </button>
+  <button class="drawer-item" id="drawer-item-alt" onclick="openDrawerPage('alt')">
+    <span class="drawer-item-icon">🔄</span>
+    <span id="drawer-lbl-alt">Alt</span>
   </button>
   <button class="drawer-item" id="drawer-item-draft" onclick="openDrawerPage('draft')">
     <span class="drawer-item-icon">📐</span>
