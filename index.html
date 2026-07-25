@@ -892,9 +892,9 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
         <div style="display:flex;gap:6px;align-items:center;">
           <input type="text" id="model-search" placeholder="ライト名を入力..."
             onkeydown="if(event.key==='Enter')filterModels()"
-            style="flex:1;padding:8px 12px;border:1.5px solid #eee;border-radius:10px;
+            style="flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:10px;
                    font-size:13px;font-family:'Nunito',sans-serif;font-weight:600;
-                   box-sizing:border-box;outline:none;background:white;color:var(--text);">
+                   box-sizing:border-box;outline:none;background:var(--input-bg);color:var(--text);">
           <button onclick="filterModels()"
             style="padding:8px 16px;background:var(--accent);color:#fff;border:none;
                    border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;
@@ -1842,7 +1842,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <!-- CCT フィルター -->
       <div style="margin-top:8px;">
         <div class="rank-field-lbl" style="margin-bottom:4px;"><span id="lbl-finder-cct">🌡️ CCT</span></div>
-        <select id="rank-cct" onchange="renderFinderResults()" style="width:100%;padding:8px 10px;border:1.5px solid #eee;border-radius:10px;font-size:13px;font-weight:700;background:white;color:#555;">
+        <select id="rank-cct" onchange="renderFinderResults()" style="width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-weight:700;background:var(--input-bg);color:var(--text);">
           <option value="0">All</option>
           <option value="3200">3200K (Tungsten)</option>
           <option value="4300">4300K (Neutral)</option>
@@ -12703,8 +12703,8 @@ function dftSizeDialog() {
       return '<button onclick="dftApplySize(\''+oid+'\','+p.w+','+p.h+');document.getElementById(\'_dft_sz\').remove()" style="display:block;width:100%;padding:8px;margin-bottom:6px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;text-align:left;background:var(--bg);">'+p.l+'</button>';
     }).join('') +
     '<div style="display:flex;gap:6px;margin-top:6px;">' +
-    '<input id="_sz_w" placeholder="W(m)" type="number" step="0.1" min="0.1" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;background:var(--bg);color:#555;">' +
-    '<input id="_sz_h" placeholder="H(m)" type="number" step="0.1" min="0.1" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;background:var(--bg);color:#555;">' +
+    '<input id="_sz_w" placeholder="W(m)" type="number" step="0.1" min="0.1" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;background:var(--bg);color:var(--text);">' +
+    '<input id="_sz_h" placeholder="H(m)" type="number" step="0.1" min="0.1" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:13px;background:var(--bg);color:var(--text);">' +
     '</div>' +
     '<button onclick="var w=+document.getElementById(\'_sz_w\').value,h=+document.getElementById(\'_sz_h\').value;if(w>0&&h>0){dftApplySize(\''+oid+'\',w,h);document.getElementById(\'_dft_sz\').remove();}" style="margin-top:8px;width:100%;padding:8px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-weight:800;cursor:pointer;">Apply</button>' +
     '<button onclick="document.getElementById(\'_dft_sz\').remove()" style="margin-top:6px;width:100%;padding:8px;background:var(--bg-secondary,#eee);border:none;border-radius:8px;font-weight:700;cursor:pointer;">Cancel</button>' +
@@ -13059,7 +13059,7 @@ function dftSetScaleUI() {
     '<div style="font-size:12px;color:#888;margin-bottom:8px;">1m = ? px</div>' +
     '<div style="display:flex;gap:6px;align-items:center;margin-bottom:12px;">' +
     '<span style="font-size:13px;font-weight:700;">1m =</span>' +
-    '<input id="_sc_v" type="number" step="1" min="1" value="'+pxPerM+'" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:14px;background:var(--bg);color:#555;">' +
+    '<input id="_sc_v" type="number" step="1" min="1" value="'+pxPerM+'" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:14px;background:var(--bg);color:var(--text);">' +
     '<span style="font-size:13px;font-weight:700;">px</span>' +
     '</div>' +
     '<button onclick="var v=+document.getElementById(\'_sc_v\').value;if(v>0){_dft.scale=_dft.zoom/v;dftRender();}document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">'+t('dftApply')+'</button>' +
@@ -13454,7 +13454,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.153';
+var ver = 'v1.1.3.154';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
