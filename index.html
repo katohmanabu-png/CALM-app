@@ -1252,25 +1252,25 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <!-- F-stop -->
       <div class="sl-field" style="margin-top:10px;">
         <div class="sl-top">
-          <div class="sl-label" id="lbl-fstop">F-stop <span style="font-size:10px;color:#888;">1/3 stop</span></div>
-          <div class="sl-val" id="fstop-disp">f2.8</div>
+          <div class="sl-label" id="lbl-fstop">T-stop <span style="font-size:10px;color:#888;">1/3 stop</span></div>
+          <div class="sl-val" id="fstop-disp">T2.8</div>
         </div>
         <div class="sl-with-btns">
           <button class="step-btn" onclick="stepSl('fstop',-1,onCamChange)">‹</button>
           <input type="range" id="fstop" min="0" max="54" step="1" value="21" oninput="onCamChange()">
           <button class="step-btn" onclick="stepSl('fstop',1,onCamChange)">›</button>
         </div>
-        <div class="sl-labs" style="position:relative;height:13px;"><span class="sl-lab" style="position:absolute;left:27.8%;transform:translateX(-50%);">f1.4</span><span class="sl-lab" style="position:absolute;left:38.9%;transform:translateX(-50%);">f2.8</span><span class="sl-lab" style="position:absolute;left:50%;transform:translateX(-50%);">f5.6</span><span class="sl-lab" style="position:absolute;left:61.1%;transform:translateX(-50%);">f11</span><span class="sl-lab" style="position:absolute;left:72.2%;transform:translateX(-50%);">f22</span><span class="sl-lab" style="position:absolute;left:83.3%;transform:translateX(-50%);">f45</span></div>
+        <div class="sl-labs" style="position:relative;height:13px;"><span class="sl-lab" style="position:absolute;left:27.8%;transform:translateX(-50%);">T1.4</span><span class="sl-lab" style="position:absolute;left:38.9%;transform:translateX(-50%);">T2.8</span><span class="sl-lab" style="position:absolute;left:50%;transform:translateX(-50%);">T5.6</span><span class="sl-lab" style="position:absolute;left:61.1%;transform:translateX(-50%);">T11</span><span class="sl-lab" style="position:absolute;left:72.2%;transform:translateX(-50%);">T22</span><span class="sl-lab" style="position:absolute;left:83.3%;transform:translateX(-50%);">T45</span></div>
         <div class="sl-inline">
           <span class="sl-unit">Direct:</span>
           <input type="number" class="sl-direct" id="fstop-direct" placeholder="2.8" min="0.7" max="64" step="0.1" oninput="onFstopDirect()">
-          <span class="sl-unit">f</span>
+          <span class="sl-unit">T</span>
         </div>
         <div style="display:flex;gap:6px;margin-top:8px;">
-          <button onclick="setBaseFstop(21)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">f2.8</button>
-          <button onclick="setBaseFstop(24)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">f4</button>
-          <button onclick="setBaseFstop(27)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">f5.6</button>
-          <button onclick="setBaseFstop(30)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">f8</button>
+          <button onclick="setBaseFstop(21)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">T2.8</button>
+          <button onclick="setBaseFstop(24)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">T4</button>
+          <button onclick="setBaseFstop(27)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">T5.6</button>
+          <button onclick="setBaseFstop(30)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">T8</button>
         </div>
       </div>
     </div><!-- /cam-cinema-section -->
@@ -1990,7 +1990,7 @@ var LANGS = {
     triResult:'📏 斜辺 / Actual Dist.', triUseBtn:'この距離を照度計算に使う →',
     triClear:'✕ 解除', triActiveText:'📐 斜辺距離を使用中',
     camTitle:'カメラ設定', isoLabel:'ISO 感度', fpsLabel:'コマ数 / FPS',
-    fstopLabel:'基準 F値', fstopSub:'1/3stop刻み',
+    fstopLabel:'基準 T値', fstopSub:'1/3stop刻み',
     resultLabel:'計算結果', mixResultLabel:'計算結果',
     luxLabel:'照度 / Lux', fcLabel:'照度 / fc', exactFLabel:'正確なF値', shutterLabel:'シャッター(180°)',
     noData:'データなし', noDataSoon:'近日公開', normalLabel:'NORMAL ✓',
@@ -2086,7 +2086,7 @@ var LANGS = {
     triResult:'📏 Hypotenuse / Actual Dist.', triUseBtn:'Use this distance →',
     triClear:'✕ Clear', triActiveText:'📐 Using hypotenuse',
     camTitle:'Camera Settings', isoLabel:'ISO Sensitivity', fpsLabel:'Frame Rate / FPS',
-    fstopLabel:'Base F-stop', fstopSub:'1/3 stop steps',
+    fstopLabel:'Base T-stop', fstopSub:'1/3 stop steps',
     resultLabel:'RESULT', mixResultLabel:'RESULT',
     luxLabel:'Illuminance / Lux', fcLabel:'Illuminance / fc', exactFLabel:'Exact F-stop', shutterLabel:'Shutter (180°)',
     noData:'No Data', noDataSoon:'Coming soon', normalLabel:'NORMAL ✓',
@@ -2176,7 +2176,7 @@ var LANGS = {
     triResult:'📏 Distancia real (hipotenusa)', triUseBtn:'Usar esta distancia →',
     triClear:'✕ Borrar', triActiveText:'📐 Distancia triangular activa',
     camTitle:'Configuración de Cámara', isoLabel:'Sensibilidad ISO', fpsLabel:'Fotogramas / FPS',
-    fstopLabel:'F-stop Base', fstopSub:'Incrementos de 1/3',
+    fstopLabel:'T-stop Base', fstopSub:'Incrementos de 1/3',
     resultLabel:'RESULTADO', mixResultLabel:'RESULTADO',
     luxLabel:'Iluminancia / Lux', fcLabel:'Iluminancia / fc', exactFLabel:'F-stop Exacto', shutterLabel:'Obturador (180°)',
     noData:'Sin datos', noDataSoon:'Próximamente', normalLabel:'NORMAL ✓',
@@ -4667,6 +4667,11 @@ function fLab(f) {
   return 'f' + (Math.round(f * 10) / 10).toFixed(1);
 }
 
+// T-stop表記（値は同じ、接頭辞のみ f→T）。シネマ表記用
+function tLab(f) {
+  return fLab(f).replace('f', 'T');
+}
+
 // 表示中のF値ラベルに対応する数値を返す（0.15stop以内なら標準絞りにスナップ）
 // stop差バッジをF値ラベルと必ず整合させるために使う
 function _fSnap(f) {
@@ -6649,7 +6654,7 @@ function onCamChange() {
     var f   = FSTOPS13[S.fstop];
     setHTML('iso-disp', iso + '<span>ISO</span>');
     setHTML('fps-disp', fps + '<span>fps</span>');
-    setText('fstop-disp', fLab(f));
+    setText('fstop-disp', tLab(f));
     // Shutter angle
     var SA=[360,270,180,172.8,144,90,45];
     var saIdx = parseInt((el('shutter-angle-sl')||{}).value||3);
@@ -6674,7 +6679,7 @@ function onCamChange() {
     setText('film-ei-disp','EI '+st.asa);
     setText('film-exposure-info','EI '+st.asa+' · '+filmFps+'fps · '+filmAngle+'° → 1/'+filmSS+'s');
     var fsl=el('film-fstop-sl');
-    if(fsl){S.fstop=parseInt(fsl.value); setText('film-fstop-disp','T'+fLab(FSTOPS13[S.fstop]));}
+    if(fsl){S.fstop=parseInt(fsl.value); setText('film-fstop-disp',tLab(FSTOPS13[S.fstop]));}
     try { syncCamTabs('film'); } catch(e) {}
   } else if (type === 'still') {
     var stillISO=S.stillISO||400; S.iso=stillISO;
@@ -6716,7 +6721,7 @@ function onFPSDirect() {
 }
 function onFstopDirect() {
   var v = parseFloat(el('fstop-direct').value);
-  if (v && v >= 0.7 && v <= 64) { S.customFstop = v; setText('fstop-disp', fLab(v)); calculate(); }
+  if (v && v >= 0.7 && v <= 64) { S.customFstop = v; setText('fstop-disp', tLab(v)); calculate(); }
 }
 // Base F値クイックセット（ショートカットボタン）
 function setBaseFstop(idx) {
@@ -6781,12 +6786,12 @@ function syncCamTabs(sourceType) {
   // cinemaのF値スライダーを同期
   if (sourceType !== 'cinema') {
     var cfsl = el('fstop');
-    if (cfsl) { cfsl.value = fIdx; setText('fstop-disp', fLab(FSTOPS13[fIdx])); }
+    if (cfsl) { cfsl.value = fIdx; setText('fstop-disp', tLab(FSTOPS13[fIdx])); }
   }
   // filmのF値スライダーを同期
   if (sourceType !== 'film') {
     var ffsl = el('film-fstop-sl');
-    if (ffsl) { ffsl.value = fIdx; setText('film-fstop-disp', 'T' + fLab(FSTOPS13[fIdx])); }
+    if (ffsl) { ffsl.value = fIdx; setText('film-fstop-disp', tLab(FSTOPS13[fIdx])); }
   }
   // stillのF値スライダーを同期
   if (sourceType !== 'still') {
@@ -7242,8 +7247,10 @@ function buildCamInfoHtml() {
     formatLabel = '🎬 Digital';
   }
 
+  // シネマ系(Digital/Film)はT表記、Photo(still)はF表記
+  var _baseFmt = (S.camType === 'still') ? fLab : tLab;
   var baseF = (typeof FSTOPS13 !== 'undefined' && FSTOPS13[S.fstop])
-    ? (typeof fLab === 'function' ? fLab(FSTOPS13[S.fstop]) : FSTOPS13[S.fstop])
+    ? (typeof _baseFmt === 'function' ? _baseFmt(FSTOPS13[S.fstop]) : FSTOPS13[S.fstop])
     : '--';
 
   var chip = 'display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;' +
@@ -10444,7 +10451,7 @@ function setStillISO(v){ S.stillISO=v; try{onCamChange();}catch(e){} }
 function onFilmFstopChange() {
   var sl=el('film-fstop-sl'); if(!sl) return;
   S.fstop=parseInt(sl.value);
-  setText('film-fstop-disp','T'+fLab(FSTOPS13[S.fstop]));
+  setText('film-fstop-disp',tLab(FSTOPS13[S.fstop]));
   try { syncCamTabs('film'); } catch(e) {}
   refreshAllTabs();
 }
@@ -13487,7 +13494,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.159';
+var ver = 'v1.1.3.160';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
