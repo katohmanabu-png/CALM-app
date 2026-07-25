@@ -4658,6 +4658,18 @@ function fLab(f) {
   return 'f' + (Math.round(f * 10) / 10).toFixed(1);
 }
 
+// 表示中のF値ラベルに対応する数値を返す（0.15stop以内なら標準絞りにスナップ）
+// stop差バッジをF値ラベルと必ず整合させるために使う
+function _fSnap(f) {
+  if (!f || f <= 0) return 0;
+  var best = f, bd = Infinity;
+  for (var i = 0; i < FSTOPS13.length; i++) {
+    var d = Math.abs(Math.log2(FSTOPS13[i]) - Math.log2(f));
+    if (d < bd) { bd = d; best = FSTOPS13[i]; }
+  }
+  return bd < 0.15 ? best : f;
+}
+
 // ===== HMI BEAM =====
 var HMI_BEAM = {
   'ARRI 18kW HMI':[15,60],
@@ -8691,15 +8703,18 @@ function runAlternativeFinder() {
         if (bestUnits === 1 && light.watts / rlight.watts > 3) continue;
       }
 
+      // 表示F値(スナップ後)基準のstop差 → ソート・色・バッジすべてを表示と一致させる
+      var _snapSigned = 2 * Math.log2(_fSnap(bestFnum) / _fSnap(srcFcomp));
+      var _snapAbs = Math.abs(_snapSigned);
       // 色キー: 緑→青→赤
-      var colorKey = Math.abs(bestSigned) < 0.3 ? 0 : bestSigned > 0 ? 1 : 2;
+      var colorKey = _snapAbs < 0.18 ? 0 : _snapSigned > 0 ? 1 : 2;
       var factor = Math.round(srcLux / (bestLux * bestUnits) * 10) / 10;
 
       results.push({
         name: rlight.name, mk: rmk, lk: rlk,
         lux: bestLux, fNum: bestFnum, fStr: fLab(bestFnum),
         acc: bestAcc, factor: factor,
-        stopDiff: absDiffU, stopDiffSigned: bestSigned,
+        stopDiff: _snapAbs, stopDiffSigned: _snapSigned,
         watts: rlight.watts || 0,
         units: bestUnits, priority: priority, colorKey: colorKey,
         angleDiff: bestAngleDiff,
@@ -8833,11 +8848,10 @@ function runAlternativeFinder() {
     row.style.cssText = 'display:flex;align-items:center;padding:10px 12px;border-bottom:1px solid var(--bg);cursor:pointer;'
       + (res.isSelf ? 'opacity:0.4;' : '')
       + (idx === 0 ? 'background:var(--accent-light);' : '');
-    // 1/3stop単位（映画業界標準）
-    var sdR = Math.round(res.stopDiff * 3) / 3 * (res.stopDiff < 0 ? -1 : 1);
-    // colorKeyは既存値使用
+    // stopDiffSigned は表示F値(スナップ後)基準なのでラベル・ソートと必ず整合
+    var sdR = Math.round((res.stopDiffSigned || 0) * 3) / 3;  // 1/3stop単位（映画業界標準）
     var col = res.colorKey === 0 ? '#4caf50' : res.colorKey === 1 ? '#64b5f6' : '#ef9a9a';
-    var stopLabel = Math.abs(sdR) < 0.18 ? '±0.0 stop' : (res.stopDiff > 0 ? '+' : '') + sdR.toFixed(1) + ' stop';
+    var stopLabel = Math.abs(sdR) < 0.18 ? '±0.0 stop' : (sdR > 0 ? '+' : '-') + Math.abs(sdR).toFixed(1) + ' stop';
     var unitsLabel = res.units > 1
       ? '<span style="font-size:10px;font-weight:900;color:var(--accent);background:rgba(249,150,90,0.15);padding:1px 5px;border-radius:6px;margin-right:3px;">×' + res.units + '</span>'
       : '';
@@ -13454,7 +13468,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.154';
+var ver = 'v1.1.3.155';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
