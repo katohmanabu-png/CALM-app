@@ -2994,6 +2994,7 @@ var LIGHTS = {
       dmx:{led:'Bi-Color COB',power:'2400W',cct:'2700K–6500K',cri:'Average 96',tlci:'Average 97',ip:'IP54',
         control:'On-board / NANLINK APP / DMX/RDM / LumenRadio CRMX',
         dimming:'0%–100%',effects:['Flash','Pulse','Storm','TV','Firework']},
+      dmxUrl:'https://cdn-aliyun.nanlux.com/release/1715246546501-639074-11338836370-Evoke_2400B_DMX_REFERENCE_GUIDE_EN.pdf',
       refData:{
         3200:{5:{none:3200,r15:49000,r30:22500,r45:9800,r60:6500},
               10:{none:800,r15:12250,r30:5620,r45:2450,r60:1625}},
@@ -3009,6 +3010,8 @@ var LIGHTS = {
       dmx:{led:'Bi-Color COB',power:'500W',cct:'2700K–6500K',cri:'>96',tlci:'>96',ip:'IP54',
         control:'On-board / NANLINK APP / DMX',dimming:'0%–100%',
         effects:['Flash','Pulse','Storm','TV']},
+      dmxUrl:'https://cdn-aliyun.nanlite.com/release/1691141297037-082920-1124121241519342-Forza+500B+II+DMX+%E9%80%9A%E9%81%93%E8%A1%A8%EF%BC%88NANLITE%EF%BC%89V1+20221228+W.pdf',
+      dmxVer:'v1',
       refData:{
         3200:{3:{none:7800,r15:72000,r30:32000,r45:14500},5:{none:2808,r15:25920,r30:11520,r45:5220}},
         5600:{3:{none:8400,r15:78000,r30:35000,r45:16000},5:{none:3024,r15:28080,r30:12600,r45:5760}}
@@ -3035,6 +3038,7 @@ var LIGHTS = {
       dmx:{led:'RGBWW Tube',power:'40W',cct:'2700K–10000K + Full RGBWW',cri:'>96',tlci:'>96',ip:'IP54',
         control:'NANLINK APP / DMX',dimming:'0%–100%',
         effects:['Chase','Strobe','Pulse','Rainbow']},
+      dmxUrl:'https://cdn-aliyun.nanlite.com/release/1691141353635-852428-1124121241519342-PavoTube_II_15C_30C_DMX_REFERENCE_GUIDE_EN.pdf',
       refData:{
         2700:{1:{none:980},2:{none:270}},
         5600:{1:{none:1100},2:{none:305}}
@@ -3058,6 +3062,7 @@ var LIGHTS = {
       weight:'7.7 kg', size:'330×210 mm', ccts:[1800,3200,5600,20000],
       accessories:['none','r15','r30','r45'],
       dmx:{led:'RGBWW COB',power:'940W',cct:'1800K–20000K + Full RGBWW',cri:'Average 97',ip:'IP54',control:'On-board / NANLINK APP / DMX / CRMX',dimming:'0%–100%',effects:['Flash','Pulse','Storm','TV','Fire']},
+      dmxUrl:'https://cdn-aliyun.nanlux.com/release/1701079376851-926524-11338834471-Evoke_900C_DMX_REFERENCE_GUIDE_EN.pdf',
       refData:{3200:{3:{none:4800,r15:52000,r30:24000,r45:10500},5:{none:1728,r15:18720,r30:8640,r45:3780},10:{none:432,r15:4680,r30:2160,r45:945}},5600:{3:{none:5200,r15:56000,r30:26000,r45:11400},5:{none:1872,r15:20160,r30:9360,r45:4104},10:{none:468,r15:5040,r30:2340,r45:1026}}}
     },
     forza_60c: {
@@ -13638,7 +13643,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.173';
+var ver = 'v1.1.3.174';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
