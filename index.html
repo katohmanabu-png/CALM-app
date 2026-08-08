@@ -2506,6 +2506,8 @@ var LIGHTS = {
       weight:'9.55 kg', size:'673×370×84 mm', ccts:[1800,2500,3200,4300,5600,6500,10000,20000],
       accessories:['flood','diffuser'],
       dmx:{led:'BLAIR-CG',power:'1000W (max 1300W)',cct:'1800K–20000K',cri:'≥95',tlci:'≥95',ip:'IP65',control:'Bluetooth / CRMX / DMX / Art-Net / sACN'},
+      dmxUrl:'https://docs.aputure.com/hubfs/Knowledge%20Base/Aputure/NOVA%20II%202x1/documents/NOVA%20II%20-%202x1%20&%201x1%20DMX%20Profile%20Specification%20V1.1.pdf',
+      dmxVer:'v1.1',
       refData: {
         'diffuser':{
           1800:{1:19420, 3:2374, 5:906},
@@ -2534,6 +2536,8 @@ var LIGHTS = {
       weight:'9.55 kg', size:'673×370×84 mm', ccts:[1800,2500,3200,4300,5600,6500,10000,20000],
       accessories:['flood','diffuser'],
       dmx:{led:'BLAIR-CG',power:'500W (max 650W)',cct:'1800K–20000K',cri:'≥95',tlci:'≥95',ip:'IP65',control:'Bluetooth / CRMX / DMX / Art-Net / sACN'},
+      dmxUrl:'https://docs.aputure.com/hubfs/Knowledge%20Base/Aputure/NOVA%20II%202x1/documents/NOVA%20II%20-%202x1%20&%201x1%20DMX%20Profile%20Specification%20V1.1.pdf',
+      dmxVer:'v1.1',
       refData: {
         'diffuser':{
           1800:{1:9710, 3:1187, 5:453},
@@ -2562,6 +2566,8 @@ var LIGHTS = {
       weight:'9.55 kg', size:'673×370×84 mm', ccts:[1800,2500,3200,4300,5600,6500,7500,10000,20000],
       accessories:['nova9_flood','nova9_diffuser'],
       dmx:{led:'BLAIR-CG',power:'500W (max 650W)',cct:'1800K–20000K',cri:'≥95',ip:'IP65',control:'Bluetooth / CRMX / DMX / Art-Net / sACN'},
+      dmxUrl:'https://docs.aputure.com/hubfs/Knowledge%20Base/Aputure/NOVA%20II%202x1/documents/NOVA%20II%20-%202x1%20&%201x1%20DMX%20Profile%20Specification%20V1.1.pdf',
+      dmxVer:'v1.1',
       refData: {
         'nova9_diffuser':{
           1800:{1:13280, 3:1594, 5:615},
@@ -2872,6 +2878,8 @@ var LIGHTS = {
       weight:'3.2 kg', size:'190×340×310 mm', ccts:[5600],
       accessories:['none','r30','r15'],
       dmx:{led:'Daylight COB',power:'350W',cct:'5600K',cri:'≤96',ip:'IP54',control:'On-board / App / DMX',dimming:'0%–100%',effects:['Flash','Pulse','TV']},
+      dmxUrl:'https://docs.aputure.com/hubfs/Knowledge%20Base/Aputure/LS%20300d%20II/All%20files/LS-600d-Pro-LS-300d-II-common-DMX-Profile-Specification-V1.0.pdf',
+      dmxVer:'v1.0',
       refData:{5600:{2:{none:6048,r30:7620,r15:14406},3:{none:1905,r30:3208,r15:6788},5:{none:832,r30:1512,r15:2858},8:{none:378,r30:588,r15:933},12:{none:147,r30:300,r15:476}}}
     },
     amaran_300c: {
@@ -13609,7 +13617,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.171';
+var ver = 'v1.1.3.172';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
