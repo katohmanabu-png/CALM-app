@@ -2073,7 +2073,7 @@ var LANGS = {
     secLabel1:'1台・目標以上 (±1 stop)', secLabel2:'複数台・目標以上 (±1 stop)', secLabel3:'1台・目標より暗い (−1 stop以内)', secLabel4:'複数台・目標より暗い (−1 stop以内)', secLabel5:'±2 stop以内（参考）',
     altSec1:'1台で代替 (±1 stop)', altSec2:'複数台で代替 (±1 stop)', altSec3:'1台・明るい (+2 stopまで)', altSec4:'複数台・明るい (+2 stopまで)',
     altSelectedLight:'選択ライト',
-    dmxPower:'定格出力', dmxCCT:'CCT', dmxDimming:'調光', dmxIP:'IP等級', dmxControl:'コントロール', dmxEffects:'エフェクト / Effects',
+    dmxPower:'定格出力', dmxCCT:'CCT', dmxDimming:'調光', dmxIP:'IP等級', dmxControl:'コントロール', dmxEffects:'エフェクト / Effects', dmxChart:'DMXチャート (公式)', dmxChartOpen:'PDFを開く',
     cmCtxCalc:'光量計算タブ', cmCtxFinder:'おすすめ検索タブ', cmCtxAlt:'代替検索タブ', cmCtxMix:'複数台タブ',
     dblTapHint:'ダブルタップで直接入力',
     pairSectionLabel:'2灯 組み合わせ', pairLabel:'📦 2灯セット', pairTotalW:'W 合計',
@@ -2184,7 +2184,7 @@ var LANGS = {
     secLabel1:'1 unit · at/above target (±1 stop)', secLabel2:'Multi · at/above target (±1 stop)', secLabel3:'1 unit · below target (within −1 stop)', secLabel4:'Multi · below target (within −1 stop)', secLabel5:'Within ±2 stop (reference)',
     altSec1:'1 unit (±1 stop)', altSec2:'Multi units (±1 stop)', altSec3:'1 unit · brighter (up to +2 stop)', altSec4:'Multi · brighter (up to +2 stop)',
     altSelectedLight:'Selected',
-    dmxPower:'Power', dmxCCT:'CCT', dmxDimming:'Dimming', dmxIP:'IP Rating', dmxControl:'Control', dmxEffects:'Effects',
+    dmxPower:'Power', dmxCCT:'CCT', dmxDimming:'Dimming', dmxIP:'IP Rating', dmxControl:'Control', dmxEffects:'Effects', dmxChart:'DMX Chart (official)', dmxChartOpen:'Open PDF',
     cmCtxCalc:'Calc tab', cmCtxFinder:'Finder tab', cmCtxAlt:'Alt tab', cmCtxMix:'Mix tab',
     dblTapHint:'Double-tap to enter directly',
     pairSectionLabel:'2-Light Combo', pairLabel:'📦 2-Light Set', pairTotalW:'W total',
@@ -2270,7 +2270,7 @@ var LANGS = {
     secLabel1:'1 unidad · objetivo o más (±1 stop)', secLabel2:'Múltiples · objetivo o más (±1 stop)', secLabel3:'1 unidad · bajo objetivo (−1 stop)', secLabel4:'Múltiples · bajo objetivo (−1 stop)', secLabel5:'Dentro de ±2 stop (referencia)',
     altSec1:'1 unidad (±1 stop)', altSec2:'Múltiples (±1 stop)', altSec3:'1 unidad · más brillante (hasta +2 stop)', altSec4:'Múltiples · más brillante (hasta +2 stop)',
     altSelectedLight:'Seleccionado',
-    dmxPower:'Potencia', dmxCCT:'CCT', dmxDimming:'Regulación', dmxIP:'Grado IP', dmxControl:'Control', dmxEffects:'Efectos',
+    dmxPower:'Potencia', dmxCCT:'CCT', dmxDimming:'Regulación', dmxIP:'Grado IP', dmxControl:'Control', dmxEffects:'Efectos', dmxChart:'Tabla DMX (oficial)', dmxChartOpen:'Abrir PDF',
     cmCtxCalc:'Tab Calc', cmCtxFinder:'Tab Buscador', cmCtxAlt:'Tab Alt', cmCtxMix:'Tab Mix',
     dblTapHint:'Toque doble para ingresar',
     pairSectionLabel:'Combinación 2 luces', pairLabel:'📦 Juego 2 luces', pairTotalW:'W total',
@@ -3212,6 +3212,7 @@ var LIGHTS = {
       dmx:{led:'RGBW',power:'410W',cct:'2800K–10000K + Full RGBWW',cri:'>95',tlci:'>96',ip:'IP20',
         control:'On-board / ARRI Stellar / DMX / RDM / Art-Net / sACN',dimming:'0%–100%',
         effects:['Flash','Pulse','Fire','Lightning','TV','Paparazzi','Cop Car','Strobe','Party']},
+      dmxUrl:'https://www.arri.com/resource/blob/65958/560471fec7f8f2e186ef8ca9e6cdd489/arri-skypanel-dmx-protocol-specification-v4-4-en-okt2018-data.pdf',
       refData:{
         2800:{3:{none:8200},5:{none:3100},10:{none:780}},
         5600:{3:{none:9800},5:{none:3700},10:{none:930}},
@@ -3225,6 +3226,7 @@ var LIGHTS = {
       dmx:{led:'RGBW',power:'200W',cct:'2800K–10000K + Full RGBWW',cri:'>95',tlci:'>96',ip:'IP20',
         control:'On-board / DMX / RDM / Art-Net / sACN',dimming:'0%–100%',
         effects:['Flash','Pulse','Fire','TV','Cop Car','Strobe']},
+      dmxUrl:'https://www.arri.com/resource/blob/65958/560471fec7f8f2e186ef8ca9e6cdd489/arri-skypanel-dmx-protocol-specification-v4-4-en-okt2018-data.pdf',
       refData:{
         2800:{3:{none:4100},5:{none:1550}},
         5600:{3:{none:4900},5:{none:1850}},
@@ -3249,6 +3251,7 @@ var LIGHTS = {
       ccts:[2800, 3200, 5600, 10000], accessories:['none'],
       dmx:{led:'RGBW',power:'420W',cct:'2800K–10000K + RGBWW',cri:'>95',ip:'IP20',
         control:'On-board / ARRI Stellar / DMX / CRMX',dimming:'0%–100%',effects:['Flash', 'Pulse', 'Fire', 'TV', 'Cop Car']},
+      dmxUrl:'https://www.arri.com/resource/blob/65958/560471fec7f8f2e186ef8ca9e6cdd489/arri-skypanel-dmx-protocol-specification-v4-4-en-okt2018-data.pdf',
       refData:{
         5600:{2:{'none':75690}, 3:{'none':37210}, 5:{'none':17640}, 8:{'none':7840}, 10:{'none':4000}}
       }
@@ -6506,6 +6509,14 @@ function renderDMX() {
   if (d.effects && d.effects.length) {
     html += '<div class="dmx-item dmx-wide"><div class="dmx-lbl">'+t('dmxEffects')+'</div>' +
       '<div class="dmx-fx">' + d.effects.map(function(e){ return '<span class="dmx-chip">✨ '+e+'</span>'; }).join('') + '</div></div>';
+  }
+  // メーカー公式DMXチャート(PDF)へのリンク
+  if (light.dmxUrl) {
+    html += '<a href="' + light.dmxUrl + '" target="_blank" rel="noopener noreferrer" class="dmx-item dmx-wide" ' +
+      'style="display:flex;align-items:center;gap:8px;text-decoration:none;background:var(--accent-light);border:1.5px solid var(--accent);">' +
+      '<span style="font-size:18px;">📄</span>' +
+      '<span style="flex:1;min-width:0;"><span class="dmx-lbl" style="color:var(--accent);">'+t('dmxChart')+'</span>' +
+      '<span class="dmx-val" style="color:var(--accent);font-weight:800;">'+t('dmxChartOpen')+' ↗</span></span></a>';
   }
   grid.innerHTML = html;
 }
@@ -13554,7 +13565,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.165';
+var ver = 'v1.1.3.166';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
