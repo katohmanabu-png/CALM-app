@@ -1561,6 +1561,14 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <span class="sl-lab">0.5m</span><span class="sl-lab">1m</span>
       <span class="sl-lab" style="margin-left:auto;">100m</span>
     </div>
+    <div style="display:flex;gap:6px;margin-top:8px;">
+      <button onclick="setMixDist(1)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">1m</button>
+      <button onclick="setMixDist(2)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">2m</button>
+      <button onclick="setMixDist(3)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">3m</button>
+      <button onclick="setMixDist(5)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">5m</button>
+      <button onclick="setMixDist(8)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">8m</button>
+      <button onclick="setMixDist(10)" style="flex:1;padding:8px 0;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:800;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);">10m</button>
+    </div>
 
     <!-- Triangle Calc (Calcタブと同仕様, H/Horiz/Angle 3入力) -->
     <div style="margin-top:8px;">
@@ -3068,6 +3076,17 @@ var LIGHTS = {
       refData:{
         3200:{1:{none:4200},2:{none:1150},3:{none:510}},
         5600:{1:{none:4800},2:{none:1320},3:{none:585}}
+      }
+    },
+    evoke_5c: {
+      group:'LED', name:'Evoke 5C', desc:'Compact Full Color RGBW LED (IP67)', emoji:'🔵', watts:6, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
+      ccts:[3200,5600], accessories:['none'],
+      dmx:{led:'RGBW',power:'6W',cct:'1000K–20000K + Full RGB',cri:'≥98',tlci:'≥98',ip:'IP67',control:'On-board / Nanlink App / DMX / RDM / CRMX',dimming:'0%–100%',effects:['CCT Loop','INT Loop','HUE Loop','Flash','Pulse','Storm','Police Car','TV','Paparazzi']},
+      dmxUrl:'https://cdn-aliyun.nanlux.com/release/1776252307363-857413-11338834471-Nanlux_Evoke5C_UserManual_EN_V1.1_20260316+W.pdf',
+      dmxVer:'v1.1',
+      refData:{
+        5600:{1:{none:496},2:{none:124},3:{none:55},5:{none:20}},
+        3200:{1:{none:448},2:{none:112},3:{none:50},5:{none:18}},
       }
     },
     evoke_900c: {
@@ -10708,6 +10727,14 @@ function onMixDistChange() {
   snapDistSlider(el('mix-dist-sl'), S.imperial);
   syncMixPerLightDists();
   updateMixDistDisplay(); calcMix();
+}
+// 距離クイックセット（ショートカット・引数はメートル）
+function setMixDist(m) {
+  var sl = el('mix-dist-sl'); if (!sl) return;
+  S_mixManualDist = null;
+  var inp = el('mix-dist-direct'); if (inp) inp.value = '';
+  sl.value = S.imperial ? Math.round(m * 3.28084) : m;
+  onMixDistChange();
 }
 function syncMixPerLightDists() {
   if (!S_mixPerLightDist) return;
