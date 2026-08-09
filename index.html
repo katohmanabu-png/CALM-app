@@ -3016,6 +3016,8 @@ var LIGHTS = {
       dmx:{led:'Bi-Color COB',power:'300W',cct:'2700K–6500K',cri:'>96',tlci:'>96',ip:'IP54',
         control:'On-board / NANLINK APP / DMX',dimming:'0%–100%',
         effects:['Flash','Pulse','TV']},
+      dmxUrl:'https://cdn-aliyun.nanlite.com/release/1691371735469-174179-1124121241519342-Forza+300B+II+DMX+%E9%80%9A%E9%81%93%E8%A1%A8%EF%BC%88NANLITE%EF%BC%89B%E7%89%88+V2+20221022+W.pdf',
+      dmxVer:'v2',
       refData:{
         3200:{3:{none:4800,r15:44000,r30:19500,r45:8800},5:{none:1728,r15:15840,r30:7020,r45:3168}},
         5600:{3:{none:5200,r15:48000,r30:21000,r45:9500},5:{none:1872,r15:17280,r30:7560,r45:3420}}
@@ -3078,6 +3080,7 @@ var LIGHTS = {
       weight:'3.62 kg', size:'1205.5×307.3×23.5 mm', ccts:[2700,5600],
       accessories:['none'],
       dmx:{led:'RGBWW',power:'260W',cct:'2700K–7500K + Full RGBWW',cri:'>96',ip:'IP20',control:'On-board / NANLINK APP / DMX / CRMX',dimming:'0%–100%',effects:['Chase','Pulse','Strobe','Rainbow']},
+      dmxUrl:'https://cdn-aliyun.nanlite.com/release/1713318978534-782112-1124121241519342-PavoSlim_60C_60CL_120C_240C_DMX_REFERENCE_GUIDE_EN.pdf',
       refData:{3200:{1:{none:3800},2:{none:1040},3:{none:462}},5600:{1:{none:4400},2:{none:1200},3:{none:534}}}
     }
 
@@ -13638,7 +13641,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.177';
+var ver = 'v1.1.3.178';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
