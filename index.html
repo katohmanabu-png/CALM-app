@@ -3312,6 +3312,8 @@ var LIGHTS = {
       dmx:{led:'RGBACL',power:'570W',cct:'1000K–20000K + Full RGBWW',cri:'>96',tlci:'>97',ip:'IP54',
         control:'On-board / ARRI Stellar / DMX / RDM / Art-Net / sACN',dimming:'0%–100%',
         effects:['Flash','Pulse','Fire','Lightning','TV','Paparazzi','Cop Car','Strobe','Disco']},
+      dmxUrl:'https://www.arri.com/resource/blob/281324/c563bed1e5ac8c3d9d91fe0855f47c27/l5-0037960-arri-orbiter-dmx-mode-specification-en-v5-0-jul2022-data.pdf',
+      dmxVer:'v5.0',
       refData:{
         3200:{3:{none:24000},5:{none:8600},10:{none:2150}},
         5600:{3:{none:28000},5:{none:10100},10:{none:2520}},
@@ -3335,6 +3337,8 @@ var LIGHTS = {
       ccts:[2800, 3200, 5600, 10000], accessories:['none'],
       dmx:{led:'RGBW',power:'1550W',cct:'2800K–10000K + RGBWW',cri:'>95',ip:'IP20',
         control:'On-board / ARRI Stellar / DMX / CRMX',dimming:'0%–100%',effects:['Flash', 'Pulse', 'Fire', 'TV', 'Cop Car']},
+      dmxUrl:'https://www.arri.com/resource/blob/65958/560471fec7f8f2e186ef8ca9e6cdd489/arri-skypanel-dmx-protocol-specification-v4-4-en-okt2018-data.pdf',
+      dmxVer:'v4.4',
       refData:{
         5600:{2:{'none':538240}, 3:{'none':256000}, 5:{'none':121000}, 8:{'none':34810}, 10:{'none':16000}}
       }
@@ -13641,7 +13645,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.178';
+var ver = 'v1.1.3.179';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
