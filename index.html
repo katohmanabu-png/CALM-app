@@ -3812,6 +3812,26 @@ var LIGHTS = {
   },
 
   kinoflo: {
+    litetile_plus_4: {
+      group:'LED', name:'LiteTile Plus 4', desc:'200W Bi-Color Soft Tile (LiteGear)', emoji:'💡', watts:200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      ccts:[3200,5600], accessories:['none'],
+      dmx:{led:'Bi-Color',power:'200W',cct:'2600K–6200K',cri:'≥95',tlci:'≥95',ip:'IP20',control:'DMX (LiteDimmer Plus AC400)',dimming:'0%–100%'},
+      dmxUrl:'https://www.litegear.com/wp-content/uploads/2019/06/LiteTile-Plus-4-Data-Sheet-3.pdf',
+      refData:{
+        5600:{1:{none:6014},2:{none:1504},3:{none:668},5:{none:241},8:{none:94}},
+        3200:{1:{none:6014},2:{none:1504},3:{none:668},5:{none:241},8:{none:94}},
+      }
+    },
+    auroris_x: {
+      group:'LED', name:'Auroris X', desc:'1200W Full Color Large-Area Overhead (LiteGear 3×3m)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      ccts:[3200,5600], accessories:['none'],
+      dmx:{led:'RGBWW',power:'1200W (max 1450W)',cct:'2000K–11000K + Full RGB',cri:'≥95',tlci:'≥95',ip:'IP20',control:'DMX / CRMX',dimming:'0%–100%'},
+      dmxUrl:'https://www.litegear.com/wp-content/uploads/2022/03/Auroris-Data-Sheet_revb.pdf',
+      refData:{
+        5600:{3:{none:3027},6:{none:1187},9:{none:620},12:{none:349},15:{none:223}},
+        3200:{3:{none:2737},6:{none:1093},9:{none:564},12:{none:317},15:{none:203}},
+      }
+    },
     litemat_spec_1: {
       group:'LED', name:'LiteMat Spectrum 1', desc:'50W RGBWW Soft Mat (LiteGear)', emoji:'💡', watts:50, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
@@ -13784,7 +13804,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.189';
+var ver = 'v1.1.3.190';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
