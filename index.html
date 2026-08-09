@@ -3095,6 +3095,8 @@ var LIGHTS = {
       dmx:{led:'RGBW',power:'650W',cct:'2200K–10000K + RGBW',cri:'≥95',tlci:'≥95',ip:'IP65',
         control:'On-board / App / DMX / RDM / Art-Net / sACN',dimming:'0.0%–100%',
         effects:['Flash','Pulse','Fire','Lightning','TV','Paparazzi','Police','Strobe']},
+      dmxUrl:'https://creamsource.com/wp-content/downloads/dmx-tables/VortexSeries-DMX-Tables-1.2.1.pdf',
+      dmxVer:'v1.2.1',
       refData:{
         3200:{1:{native20:68200},2:{native20:26200},3:{native20:12700},4:{native20:7400},5:{native20:4800},6:{native20:3400}},
         5600:{1:{native20:73500},2:{native20:28600},3:{native20:13900},4:{native20:8000},5:{native20:5200},6:{native20:3700}},
@@ -3108,6 +3110,8 @@ var LIGHTS = {
       dmx:{led:'RGBW',power:'400W',cct:'2200K–10000K + RGBW',cri:'≥95',tlci:'≥95',ip:'IP65',
         control:'On-board / App / DMX / RDM / Art-Net / sACN',dimming:'0.0%–100%',
         effects:['Flash','Pulse','Fire','TV','Strobe']},
+      dmxUrl:'https://creamsource.com/wp-content/downloads/dmx-tables/VortexSeries-DMX-Tables-1.2.1.pdf',
+      dmxVer:'v1.2.1',
       refData:{
         3200:{1:{native20:35000},2:{native20:13500},3:{native20:6500},4:{native20:3800},5:{native20:2470}},
         5600:{1:{native20:38000},2:{native20:14600},3:{native20:7100},4:{native20:4100},5:{native20:2680}},
@@ -3119,6 +3123,8 @@ var LIGHTS = {
       ccts:[2200, 3200, 5600, 10000, 15000], accessories:['none'],
       dmx:{led:'RGBW',power:'1950W',cct:'2200K–15000K + Full RGBWW',cri:'>95',ip:'IP65',
         control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Flash','Pulse','TV','Fire','Lightning']},
+      dmxUrl:'https://creamsource.com/wp-content/downloads/dmx-tables/VortexSeries-DMX-Tables-1.2.1.pdf',
+      dmxVer:'v1.2.1',
       refData:{
         3200:{1:{'none':1176490}, 2:{'none':292410}, 3:{'none':130050}, 5:{'none':46923}, 8:{'none':20250}, 10:{'none':13225}},
         5600:{1:{'none':1176490}, 2:{'none':484000}, 3:{'none':141610}, 5:{'none':73960}, 8:{'none':34810}, 10:{'none':20250}}
@@ -4423,6 +4429,8 @@ var LIGHTS = {
       ccts:[2500, 3200, 5600, 7500], accessories:['none'],
       dmx:{led:'RGBWW',power:'240W',cct:'2500K–7500K + RGBWW',cri:'>95',ip:'IP20',
         control:'On-board / Sidus Link / DMX',dimming:'0%–100%',effects:['Flash', 'Pulse', 'TV', 'Fire']},
+      dmxUrl:'https://docs.aputure.com/hubfs/Knowledge%20Base/amaran/F21-F22/All%20Files/F21X-F22X-Pro-DMX-Profile-Specification-V1.0-.pdf',
+      dmxVer:'v1.0',
       refData:{
         5600:{2:{'none':292410}, 3:{'none':121000}, 5:{'none':37823}, 8:{'none':18490}}
       }
@@ -4433,6 +4441,8 @@ var LIGHTS = {
       ccts:[2500, 3200, 5600, 7500], accessories:['none'],
       dmx:{led:'RGBWW',power:'120W',cct:'2500K–7500K + RGBWW',cri:'>95',ip:'IP20',
         control:'On-board / Sidus Link / DMX',dimming:'0%–100%',effects:['Flash', 'Pulse', 'TV', 'Fire']},
+      dmxUrl:'https://docs.aputure.com/hubfs/Knowledge%20Base/amaran/F21-F22/All%20Files/F21X-F22X-Pro-DMX-Profile-Specification-V1.0-.pdf',
+      dmxVer:'v1.0',
       refData:{
         5600:{2:{'none':256000}, 3:{'none':64000}, 5:{'none':31360}, 8:{'none':9000}}
       }
@@ -13658,7 +13668,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.183';
+var ver = 'v1.1.3.184';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
