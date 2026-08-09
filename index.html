@@ -3844,6 +3844,7 @@ var LIGHTS = {
       ccts:[2500, 3200, 5600, 9900], accessories:['none'],
       dmx:{led:'RGBWW',power:'55W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
         control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
+      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/08/3100132-Rev-B-FreeStyle-Air-Mini-Op-Manual-02-01-2025.pdf',
       refData:{
         5600:{1:{'none':1815}, 2:{'none':470}, 3:{'none':240}, 5:{'none':94}}
       }
@@ -3854,6 +3855,7 @@ var LIGHTS = {
       ccts:[2500, 3200, 5600, 9900], accessories:['none'],
       dmx:{led:'RGBWW',power:'100W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
         control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
+      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/08/3100128-Rev-A-FreeStyle-Air-LED-08-01-2023.pdf',
       refData:{
         5600:{1:{'none':1984}, 2:{'none':513}, 3:{'none':346}, 5:{'none':121}}
       }
@@ -3864,6 +3866,7 @@ var LIGHTS = {
       ccts:[2500, 3200, 5600, 9900], accessories:['none'],
       dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
         control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
+      dmxUrl:'https://kinoflo.com/wp-content/uploads/2023/09/3100130-Rev-A-FreeStyle-Air-MAX-LED-08-01-2023-1.pdf',
       refData:{
         5600:{1:{'none':3840}, 2:{'none':1084}, 3:{'none':479}, 5:{'none':240}}
       }
@@ -13655,7 +13658,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.182';
+var ver = 'v1.1.3.183';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
