@@ -9394,11 +9394,23 @@ function getFactorArray(prefix) {
 // ARC System ディフューザー・ファクター目安表（透過）2021.03.12 基準f5.6½で算出した減光ストップ
 var DIFF_FACTOR_STOPS = {'土間ビニール':0.2,'タフタシルク':2.2,'キミーラシルク':2.5,'グリットクロス':3.0,'ライトグリットクロス':2.0,'B3グリットクロス':3.2,'B3ライトグリットクロス':2.0,'B1グリットクロス':2.0,'B1ライトグリットクロス':2.2,'1/4シルク':1.0,'白シルク':2.8,'天竺シルク':3.2,'チャイナシルク':1.8,'白紗S':0.5,'白紗W':1.2,'黒紗S':0.5,'黒紗W':1.5,'ブルーシート':3.5,'グリーンシート':2.8,'ハイライト':0.2,'サイレントグリットクロス':2.8,'難燃トレッシングペーパー':1.5,'梨地ビニール':0.5,'クリスタルデュフュージョン':2.0,'2mm厚乳白アクリル':4.0,'白シーツ':3.0,'ダンプラ白':2.5,'A3グリットクロス':2.5,'A1グリットクロス':2.2,'デイブルー':2.8,'ナイトブルー(薄)':4.2,'ウィンドストッパー白':2.2,'ウィンドストッパー黒':3.5,'ナイトグレー(薄)':3.8,'ナイトブルー(濃)':4.8,'ウィンドストッパーシルバー':1.8,'デイグレー':3.2,'ナイトグレー(濃)':4.5,'グレーシルク':3.8,'サテン':2.8,'スカイブルーシルク':3.5,'天竺':2.8,'サイレントライトグリットクロス':2.2,'マジッククロス':3.5,'ニュートラルグレイグリッド':2.5};
 // 名前→ストップ検索（前後空白許容）
-function diffFactorLookup(name){ if(!name) return null; var n=(''+name).trim(); return (n in DIFF_FACTOR_STOPS)?DIFF_FACTOR_STOPS[n]:null; }
+// 世界共通のデフォルト・プリセット（初期値。個体差があるため各行で可変）
+// 透過(diffuse): Grid Cloth類/Magic Cloth/Hilite。 反射(bounce): UltraBounce/Muslin。
+DIFF_FACTOR_STOPS['Full Grid Cloth']=3.0;
+DIFF_FACTOR_STOPS['1/2 Grid Cloth']=1.5;
+DIFF_FACTOR_STOPS['1/4 Grid Cloth']=0.8;
+DIFF_FACTOR_STOPS['Magic Cloth']=3.5;
+DIFF_FACTOR_STOPS['Hilite']=0.5;
+var BOUNCE_FACTOR_STOPS = {'UltraBounce':1.2,'Unbleached Muslin':1.5,'Bleached Muslin':1.0};
+// 名前→{stops,type}（透過→反射の順で照合）。前後空白許容
+function factorPresetLookup(name){ if(!name) return null; var n=(''+name).trim();
+  if(n in DIFF_FACTOR_STOPS) return {stops:DIFF_FACTOR_STOPS[n], type:'diffuse'};
+  if(n in BOUNCE_FACTOR_STOPS) return {stops:BOUNCE_FACTOR_STOPS[n], type:'bounce'};
+  return null; }
+function diffFactorLookup(name){ var r=factorPresetLookup(name); return r?r.stops:null; }
 var FACTOR_NAMES_BY_TYPE = {
-  bounce:  ['UltraBounce','BluffBounce','Unbleached Muslin','Bleached Muslin','Wall',
-             'TheLightBridge 0','TheLightBridge 1','TheLightBridge 2','TheLightBridge 3','TheLightBridge 4','Poly'],
-  diffuse: ['土間ビニール','タフタシルク','キミーラシルク','グリットクロス','ライトグリットクロス','B3グリットクロス','B3ライトグリットクロス','B1グリットクロス','B1ライトグリットクロス','1/4シルク','白シルク','天竺シルク','チャイナシルク','白紗S','白紗W','黒紗S','黒紗W','ブルーシート','グリーンシート','ハイライト','サイレントグリットクロス','難燃トレッシングペーパー','梨地ビニール','クリスタルデュフュージョン','2mm厚乳白アクリル','白シーツ','ダンプラ白','A3グリットクロス','A1グリットクロス','デイブルー','ナイトブルー(薄)','ウィンドストッパー白','ウィンドストッパー黒','ナイトグレー(薄)','ナイトブルー(濃)','ウィンドストッパーシルバー','デイグレー','ナイトグレー(濃)','グレーシルク','サテン','スカイブルーシルク','天竺','サイレントライトグリットクロス','マジッククロス','ニュートラルグレイグリッド','Full Grid Cloth','1/2 Grid Cloth','1/4 Grid Cloth','Soft Frost','Half Frost','Magic Cloth'],
+  bounce:  ['UltraBounce','Unbleached Muslin','Bleached Muslin'],
+  diffuse: ['Full Grid Cloth','1/2 Grid Cloth','1/4 Grid Cloth','Magic Cloth','Hilite'],
   none:    ['CTB','CTO','ND 0.3','ND 0.6','ND 0.9','Fresnel','Barn Doors','Snoot','Gel','Egg Crate']
 };
 function getFactorNamePresets(type) {
@@ -9633,11 +9645,11 @@ window._factorSetMemo = function(prefix, i, val) {
   var arr = getFactorArray(prefix);
   arr[i].memo = val;
   // ディフューザー名に一致したら減光ストップを自動入力
-  var st = diffFactorLookup(val);
-  if (st !== null) {
-    arr[i].type = 'diffuse';
+  var pr = factorPresetLookup(val);
+  if (pr !== null) {
+    arr[i].type = pr.type;
     S_factorOpen[prefix] = true;
-    window._factorSetStops(prefix, i, st);
+    window._factorSetStops(prefix, i, pr.stops);
     renderFactorSection(prefix);
   }
 };
@@ -13043,7 +13055,7 @@ function _dftFSetter(cbPrefix, getObj) {
   window['_dftFDel_'+cbPrefix]  = function(fi) { var o=getObj(); if(!o||!o.factors)return; o.factors.splice(fi,1); _dftFRefresh_all(cbPrefix,getObj); };
   window['_dftFType_'+cbPrefix] = function(fi,t){ var o=getObj(); if(!o||!o.factors||!o.factors[fi])return; o.factors[fi].type=t; _dftFRefresh_all(cbPrefix,getObj); };
   window['_dftFMemo_'+cbPrefix] = function(fi,v){ var o=getObj(); if(!o||!o.factors||!o.factors[fi])return; o.factors[fi].memo=v;
-    var st=diffFactorLookup(v); if(st!==null){ o.factors[fi].type='diffuse'; o.factors[fi].stops=st; _dftFRefresh_all(cbPrefix,getObj); } };
+    var pr=factorPresetLookup(v); if(pr!==null){ o.factors[fi].type=pr.type; o.factors[fi].stops=pr.stops; _dftFRefresh_all(cbPrefix,getObj); } };
   window['_dftFSl_'+cbPrefix]   = function(fi,v){ var o=getObj(); if(!o||!o.factors||!o.factors[fi])return;
     var val=Math.max(0,Math.min(10,Math.round(parseFloat(v)*10)/10)); o.factors[fi].stops=val;
     var dv=document.getElementById('_dftfv_'+cbPrefix+'_'+fi); if(dv) dv.textContent=(val>0?'-':'')+val.toFixed(1)+'s';
@@ -13937,7 +13949,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.198';
+var ver = 'v1.1.3.199';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
