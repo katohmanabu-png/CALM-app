@@ -9407,7 +9407,7 @@ DIFF_FACTOR_STOPS['Hilite']=0.5;
 // Muslinは透過でも使うため diffuse 値も登録（透過は反射より減光大）
 DIFF_FACTOR_STOPS['Unbleached Muslin']=2.0;
 DIFF_FACTOR_STOPS['Bleached Muslin']=1.5;
-var BOUNCE_FACTOR_STOPS = {'UltraBounce':1.2,'Unbleached Muslin':1.5,'Bleached Muslin':1.0,'Poly':0,'Wall':0};
+var BOUNCE_FACTOR_STOPS = {'UltraBounce':1.2,'Unbleached Muslin':1.5,'Bleached Muslin':1.0,'White Silk':2.0,'Poly':0,'Wall':0};
 // 名前→{stops,type}。行の現在type(preferType)を優先し、なければ透過→反射で照合。前後空白許容
 function factorPresetLookup(name, preferType){ if(!name) return null; var n=(''+name).trim();
   var d=(n in DIFF_FACTOR_STOPS)?DIFF_FACTOR_STOPS[n]:null;
@@ -9419,7 +9419,7 @@ function factorPresetLookup(name, preferType){ if(!name) return null; var n=(''+
   return null; }
 function diffFactorLookup(name){ var r=factorPresetLookup(name); return r?r.stops:null; }
 var FACTOR_NAMES_BY_TYPE = {
-  bounce:  ['UltraBounce','Unbleached Muslin','Bleached Muslin','Poly','Wall'],
+  bounce:  ['UltraBounce','Unbleached Muslin','Bleached Muslin','White Silk','Poly','Wall'],
   diffuse: ['Full Grid Cloth','1/2 Grid Cloth','1/4 Grid Cloth','Magic Cloth','Hilite','Unbleached Muslin','Bleached Muslin'],
   none:    ['CTB','CTO','ND 0.3','ND 0.6','ND 0.9','Fresnel','Barn Doors','Snoot','Gel','Egg Crate']
 };
@@ -14037,7 +14037,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.203';
+var ver = 'v1.1.3.204';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
