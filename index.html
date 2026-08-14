@@ -1494,9 +1494,13 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
         style="width:100%;box-sizing:border-box;padding:9px 12px;border-radius:10px;border:1.5px solid var(--bg);
                background:var(--white);color:var(--text);font-size:13px;font-weight:600;">
       <div style="display:flex;gap:8px;align-items:center;">
-        <input type="date" id="project-date-input"
-          style="flex:1;padding:9px 12px;border-radius:10px;border:1.5px solid var(--bg);
-                 background:var(--white);color:var(--text);font-size:13px;font-weight:600;">
+        <div style="flex:1;position:relative;">
+          <input type="text" id="project-date-display" readonly onclick="_projDatePick()" placeholder="YYYY-MM-DD"
+            style="width:100%;box-sizing:border-box;padding:9px 12px;border-radius:10px;border:1.5px solid var(--bg);
+                   background:var(--white);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;">
+          <input type="date" id="project-date-input" onchange="_projDateSync()" tabindex="-1"
+            style="position:absolute;left:0;bottom:0;width:1px;height:1px;opacity:0;pointer-events:none;">
+        </div>
         <button onclick="saveProject()"
           style="padding:9px 18px;border-radius:10px;border:none;background:var(--accent);
                  color:white;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;">
@@ -2318,6 +2322,7 @@ function setLang(lang) {
     btns[i].className = btns[i].getAttribute('data-lang') === lang ? 'lang-btn active' : 'lang-btn';
   }
   applyI18n();
+  _applyDateLocale();
   renderModels();
   try { onCamChange(); } catch(e) {}
   try { renderFavList(); } catch(e) {}
@@ -2326,6 +2331,17 @@ function setLang(lang) {
   try { renderMixList(); } catch(e) {}
   try { if (typeof renderAltResults === 'function') renderAltResults(); } catch(e) {}
   try { updateDraftI18n(); } catch(e) {}
+}
+
+// <input type="date"> のプレースホルダ（年/月/日 等）はブラウザのロケール依存。
+// アプリの言語に合わせて lang 属性を切り替え、表示言語と一致させる。
+function _applyDateLocale() {
+  var loc = { ja:'ja', en:'en-US', es:'es' }[LANG] || 'en-US';
+  try { document.documentElement.setAttribute('lang', loc); } catch(e) {}
+  ['project-date-input', '_sv_date'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.setAttribute('lang', loc);
+  });
 }
 
 function applyI18n() {
@@ -7578,6 +7594,7 @@ window.addEventListener('DOMContentLoaded', function() {
   renderFactorSection('finder');
   renderFactorSection('alt');
   try { setTimeout(_undoInit, 400); } catch(e) {}
+  try { _projDateSync(); } catch(e) {}
 });
 
 // ── Dark mode ─────────────────────────────────────────────
@@ -10784,6 +10801,25 @@ function renderCameraTab() {
     var y = now.getFullYear(), mo = String(now.getMonth()+1).padStart(2,'0'), d = String(now.getDate()).padStart(2,'0');
     di.value = y + '-' + mo + '-' + d;
   }
+  _projDateSync();
+}
+
+// 日付フィールド: ネイティブ<input type=date>のプレースホルダ(年/月/日 等)はブラウザの
+// OSロケール依存で言語連動できないため、表示は言語非依存のYYYY-MM-DD文字列で自前管理し、
+// 実際の選択は非表示のネイティブピッカーで行う。
+function _projDatePick() {
+  var h = el('project-date-input'); if (!h) return;
+  try { if (h.showPicker) h.showPicker(); else { h.style.opacity = 1; h.style.pointerEvents = 'auto'; h.focus(); } }
+  catch(e) { try { h.focus(); } catch(e2) {} }
+}
+function _projDateSync() {
+  var h = el('project-date-input'), d = el('project-date-display');
+  if (!h || !d) return;
+  if (!h.value) {
+    var n = new Date();
+    h.value = n.getFullYear() + '-' + String(n.getMonth()+1).padStart(2,'0') + '-' + String(n.getDate()).padStart(2,'0');
+  }
+  d.value = h.value;
 }
 
 function getProjectPresets() {
@@ -13859,7 +13895,7 @@ function dftSave() {
     '<input id="_sv_name" type="text" value="'+(_dft.draftName||'').replace(/"/g,'&quot;')+'" placeholder="例: Wedding Reception" ' +
     'style="width:100%;padding:10px;font-size:14px;font-weight:700;border:2px solid #1976d2;border-radius:10px;box-sizing:border-box;margin-bottom:12px;">' +
     '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">日付</div>' +
-    '<input id="_sv_date" type="date" value="'+(_dft.draftDate||today)+'" ' +
+    '<input id="_sv_date" type="date" lang="'+({ja:"ja",en:"en-US",es:"es"}[LANG]||"en-US")+'" value="'+(_dft.draftDate||today)+'" ' +
     'style="width:100%;padding:10px;font-size:14px;border:1.5px solid #ddd;border-radius:10px;box-sizing:border-box;margin-bottom:12px;">' +
     '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">ロケーション / Location</div>' +
     '<input id="_sv_loc" type="text" value="'+(_dft.draftLocation||'').replace(/"/g,'&quot;')+'" placeholder="例: Studio A, 横浜" ' +
@@ -14205,7 +14241,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.210';
+var ver = 'v1.1.3.211';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
