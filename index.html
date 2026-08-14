@@ -1554,7 +1554,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
     <!-- Slider 1~50m / 1~164ft, step=1 -->
     <div class="sl-with-btns">
       <button class="step-btn" onclick="stepMixDist(-1)">‹</button>
-      <input type="range" id="mix-dist-sl" min="0.5" max="100" step="0.5" value="5" oninput="onMixDistChange()">
+      <input type="range" id="mix-dist-sl" min="0.5" max="100" step="0.1" value="5" oninput="onMixDistChange()">
       <button class="step-btn" onclick="stepMixDist(1)">›</button>
     </div>
     <div class="sl-labs" id="mix-dist-labs">
@@ -9876,7 +9876,7 @@ function renderMixList() {
 window._mxtogglePerLight=function(){S_mixPerLightDist=!S_mixPerLightDist;renderMixList();calcMix();};
 window._mxtoggle=function(i){mixLights[i].enabled=mixLights[i].enabled===false?true:false;renderMixList();calcMix();};
 window._mxdel=function(i){mixLights.splice(i,1);renderMixList();calcMix();};
-window._mxadd=function(mk,lk){var light=LIGHTS[mk]&&LIGHTS[mk][lk];if(!light)return;var _ccts=light.ccts||[5600];var _defCCT=_ccts.reduce(function(best,c){return Math.abs(c-5600)<Math.abs(best-5600)?c:best;},_ccts[0]);var _defDist=getMixDistM?getMixDistM():5;mixLights.push({makerKey:mk,modelKey:lk,units:1,cct:_defCCT,dist:_defDist,enabled:true});if(mixLights.length>=2)S_mixPerLightDist=true;var m=document.getElementById('mix-modal');if(m)m.remove();renderMixList();calcMix();};
+window._mxadd=function(mk,lk){var light=LIGHTS[mk]&&LIGHTS[mk][lk];if(!light)return;var _ccts=light.ccts||[5600];var _defCCT=_ccts.reduce(function(best,c){return Math.abs(c-5600)<Math.abs(best-5600)?c:best;},_ccts[0]);var _defDist=getMixDistM?getMixDistM():5;mixLights.push({makerKey:mk,modelKey:lk,units:1,cct:_defCCT,dist:_defDist,enabled:true});var m=document.getElementById('mix-modal');if(m)m.remove();renderMixList();calcMix();};
 window._mxdist=function(i,v){
   var distM=S.imperial?parseFloat(v)/3.28084:parseFloat(v);
   distM=Math.round(distM*10)/10;
@@ -10945,7 +10945,11 @@ function getMixDistM() {
 function onMixDistChange() {
   S_mixManualDist = null;  // スライダー操作時は直接入力をクリア
   var inp = el('mix-dist-direct'); if (inp) inp.value = '';
-  snapDistSlider(el('mix-dist-sl'), S.imperial);
+  // 滑らかに動くよう整数丸めをやめ、0.1m(1ft)刻みでスナップ
+  (function(){ var sl=el('mix-dist-sl'); if(!sl) return; var v=parseFloat(sl.value);
+    if(S.imperial){ v=Math.max(1.6,Math.min(328,Math.round(v))); }
+    else { v=Math.max(0.5,Math.min(100,Math.round(v*10)/10)); }
+    sl.value=v; })();
   syncMixPerLightDists();
   updateMixDistDisplay(); calcMix();
 }
@@ -10977,7 +10981,7 @@ function updateMixDistDisplay() {
       '<span class="sl-lab">1ft</span><span class="sl-lab">2ft</span>' +
       '<span class="sl-lab" style="margin-left:auto;">328ft</span>');
   } else {
-    sl.min = 0.5; sl.max = 100; sl.step = 0.5;
+    sl.min = 0.5; sl.max = 100; sl.step = 0.1;
     setHTML('mix-dist-labs',
       '<span class="sl-lab">0.5m</span><span class="sl-lab">1m</span>' +
       '<span class="sl-lab" style="margin-left:auto;">100m</span>');
@@ -13956,7 +13960,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.201';
+var ver = 'v1.1.3.202';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
