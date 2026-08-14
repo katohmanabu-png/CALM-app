@@ -12768,7 +12768,7 @@ function _dftMD(e) {
       if (!_roL || !_roL.visible) continue;
       var _rsp = _dftW2S(_ro.wx, _ro.wy);
       var _rha2 = (_ro.rot||0) - Math.PI/2;
-      var _rHalf = _RHT[_ro.type] ? ((_ro.hm||_ro.h||1)/_dft.scale*_dft.zoom/2) : 18;
+      var _rHalf = _RHT[_ro.type] ? (_dftRectDims(_ro).h/_dft.scale*_dft.zoom/2) : 18;
       var _rhx2 = _rsp.x + Math.cos(_rha2)*(_rHalf+20);
       var _rhy2 = _rsp.y + Math.sin(_rha2)*(_rHalf+20);
       if (Math.hypot(mx-_rhx2, my-_rhy2) < 16) {
@@ -14241,7 +14241,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.211';
+var ver = 'v1.1.3.212';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
