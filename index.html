@@ -2076,7 +2076,7 @@ var LANGS = {
     unitsLabel:'複数台 / Units',
     mixDistLabel:'距離 / Distance',
     finderCCTLabel:'🌡️ CCT',
-    sortLabel:'🔀 SORT', sortDefault:'デフォルト', sortSingle:'1台優先', sortMulti:'複数台優先', sortFstop:'F値優先', sortFstopMulti:'F値＋複数台', factorNote:'プリセットのFactorは目安です。個体差により実測値と異なる場合があります。数値を調整してご使用ください。', rectSizeTitle:'サイズを選択', rectPreset:'プリセット', rectManual:'✏️ 手動で描く（ドラッグ）', rectCustom:'カスタム入力', rectPlace:'配置',
+    sortLabel:'🔀 SORT', sortDefault:'デフォルト', sortSingle:'1台優先', sortMulti:'複数台優先', sortFstop:'F値優先', sortFstopMulti:'F値＋複数台', factorNote:'プリセットのFactorは目安です。個体差により実測値と異なる場合があります。数値を調整してご使用ください。', rectSizeTitle:'サイズを選択', rectPreset:'プリセット', rectManual:'✏️ 手動で描く（ドラッグ）', rectCustom:'カスタム入力', rectPlace:'配置', orientLabel:'向き', orientHint:'(俯瞰での見え方)', orientFlat:'寝かせ', orientStand:'立て', orientFloorEdge:'床に接する辺:',
     triHorizLbl:'↔️ 水平距離', triAngle:'📐 角度 / Angle', triClearBtn:'✕ 解除',
     modelSearchPlaceholder:'ライト名を入力...', selectLightHint:'ライトを選択...',
     cmUnitPrefix:'単位: ', cmApplied:' に反映',
@@ -2171,7 +2171,7 @@ var LANGS = {
     unitsLabel:'Units',
     mixDistLabel:'Distance',
     finderCCTLabel:'🌡️ CCT',
-    sortLabel:'🔀 SORT', sortDefault:'Default', sortSingle:'Single Unit', sortMulti:'Multi Unit', sortFstop:'F-stop Match', sortFstopMulti:'F-stop + Multi', factorNote:'Preset factors are approximate — actual values vary by unit. Adjust the value before use.', rectSizeTitle:'Choose size', rectPreset:'Preset', rectManual:'✏️ Draw manually (drag)', rectCustom:'Custom size', rectPlace:'Place',
+    sortLabel:'🔀 SORT', sortDefault:'Default', sortSingle:'Single Unit', sortMulti:'Multi Unit', sortFstop:'F-stop Match', sortFstopMulti:'F-stop + Multi', factorNote:'Preset factors are approximate — actual values vary by unit. Adjust the value before use.', rectSizeTitle:'Choose size', rectPreset:'Preset', rectManual:'✏️ Draw manually (drag)', rectCustom:'Custom size', rectPlace:'Place', orientLabel:'Orientation', orientHint:'(top-down view)', orientFlat:'Flat', orientStand:'Standing', orientFloorEdge:'Floor edge:',
     ftabName:'🔍 Name', ftabMaker:'Manufacture', ftabType:'💡 Type',
     cmLblHeight:'Height', cmLblHoriz:'Horiz', cmLblDist:'Distance',
     cmLblUseHeight:'Use as Height', cmLblUseHoriz:'Use as Horiz', cmLblUseDist:'Use as Distance',
@@ -2220,7 +2220,7 @@ var LANGS = {
   es: {
     navCalc:'Calc', navMix:'Mix', navFinder:'Buscador', navAlt:'Alt', navCamera:'Cámara', pageCalcTitle:'Calculadora de Iluminación', pageCalcSub:'Calculadora de Exposición', pageMixTitle:'Mix', pageMixSub:'Combina múltiples luces — calcula exposición total y CCT mezclado', pageFinderTitle:'Buscador de Equipos', pageFinderSub:'Encuentra el equipo ideal', pageAltTitle:'Buscar Equipo Equivalente', pageAltSub:'Encuentra la mejor alternativa', pageCameraTitle:'Cámara', pageCameraSub:'Digital / Film / Fotografía',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ Favoritos',
-    makerTitle:'Fabricante', modelTitle:'Luz', sortLabel:'🔀 SORT', sortDefault:'Por defecto', sortSingle:'1 unidad', sortMulti:'Múltiples', sortFstop:'F-stop exacto', sortFstopMulti:'F-stop + Múlt.', factorNote:'Los factores predefinidos son orientativos; varían según la unidad. Ajústelos antes de usar.', rectSizeTitle:'Elegir tamaño', rectPreset:'Preajuste', rectManual:'✏️ Dibujar manual (arrastrar)', rectCustom:'Tamaño personalizado', rectPlace:'Colocar',
+    makerTitle:'Fabricante', modelTitle:'Luz', sortLabel:'🔀 SORT', sortDefault:'Por defecto', sortSingle:'1 unidad', sortMulti:'Múltiples', sortFstop:'F-stop exacto', sortFstopMulti:'F-stop + Múlt.', factorNote:'Los factores predefinidos son orientativos; varían según la unidad. Ajústelos antes de usar.', rectSizeTitle:'Elegir tamaño', rectPreset:'Preajuste', rectManual:'✏️ Dibujar manual (arrastrar)', rectCustom:'Tamaño personalizado', rectPlace:'Colocar', orientLabel:'Orientación', orientHint:'(vista superior)', orientFlat:'Tumbado', orientStand:'De pie', orientFloorEdge:'Lado en el suelo:',
     finderCCTLabel:'🌡️ CCT',
     accTitle:'Accesorio', cctTitle:'Temperatura de Color',
     distTitle:'Distancia', directInput:'Entrada directa:', manualInput:'Personalizado:',
@@ -11573,8 +11573,10 @@ function _dftObjAt(sx, sy) {
       var dx = sx-sp.x, dy = sy-sp.y, rot = -(o.rot||0);
       var lx = dx*Math.cos(rot)-dy*Math.sin(rot);
       var ly = dx*Math.sin(rot)+dy*Math.cos(rot);
-      var hw = (o.wm||o.w||1)/_dft.scale*_dft.zoom/2;
-      var hh = (o.hm||o.h||1)/_dft.scale*_dft.zoom/2;
+      var _hd = _dftRectDims(o);
+      var hw = _hd.w/_dft.scale*_dft.zoom/2;
+      var hh = _hd.h/_dft.scale*_dft.zoom/2;
+      if (_hd.stand) hh = Math.max(hh, 12); // 立てた薄いバーはタップしやすいよう余裕を持たせる
       if (Math.abs(lx)<=hw && Math.abs(ly)<=hh) return o;
     } else {
       if (Math.hypot(sp.x-sx, sp.y-sy) < 24) return o;
@@ -11607,6 +11609,18 @@ function _dftDist(a, b) {
 function _dftFmt(m) {
   if (_dft.unit === 'ft') return (m * 3.28084).toFixed(1) + 'ft';
   return m.toFixed(1) + 'm';
+}
+
+// 俯瞰図での実効寸法（footprint）。Bounce/Diff/Flag を「立てて」使う場合、
+// 床に接する辺(standEdge)だけが平面上の長さになり、もう一方は高さ(vert)として上に伸びる。
+function _dftRectDims(o) {
+  var w = (o.wm || o.w || 1.2), h = (o.hm || o.h || 1.2);
+  if ((o.type === 'diffuser' || o.type === 'bounce' || o.type === 'flag') && o.stand) {
+    var floorDim = (o.standEdge === 'h') ? h : w;   // 床に接する辺
+    var vertDim  = (o.standEdge === 'h') ? w : h;   // 立ち上がる高さ
+    return { w: floorDim, h: 0.08, vert: vertDim, stand: true };
+  }
+  return { w: w, h: h, vert: 0, stand: false };
 }
 
 // ── RENDER ──────────────────────────────────────────────────
@@ -11969,26 +11983,41 @@ function _dftDrawObj(ctx, o) {
     _dftRR(ctx, -iw/2, -ih/2, iw, ih, 6); ctx.stroke();
 
   } else if (o.type === 'diffuser' || o.type === 'bounce' || o.type === 'flag') {
-    var rw = (o.w || 1.2) / _dft.scale * _dft.zoom;
-    var rh = (o.h || 1.2) / _dft.scale * _dft.zoom;
-    rw = Math.max(rw, 10); rh = Math.max(rh, 8);
+    var _rd = _dftRectDims(o);
+    var rw = _rd.w / _dft.scale * _dft.zoom;
+    var rh = _rd.h / _dft.scale * _dft.zoom;
+    rw = Math.max(rw, 10); rh = Math.max(rh, _rd.stand ? 5 : 8);
     var fc = o.type==='flag' ? '#222' : (o.type==='bounce' ? '#fffde7' : '#e3f2fd');
     var sc = o.type==='flag' ? '#111' : (o.type==='bounce' ? '#f9a825' : '#1976d2');
     ctx.fillStyle   = fc;
     ctx.strokeStyle = sel ? '#e53500' : sc;
     ctx.lineWidth   = sel ? 2.5 : 1.5;
-    _dftRR(ctx, -rw/2, -rh/2, rw, rh, 4);
+    _dftRR(ctx, -rw/2, -rh/2, rw, rh, _rd.stand ? 2 : 4);
     // 塗りは半透明にして、同位置に重ねたライト等が透けて見えるようにする
     // （枠線・文字は不透明のままで識別性を維持）。透明度はオブジェクトごとに可変
     ctx.globalAlpha = (o.alpha != null ? o.alpha : 0.45);
     ctx.fill();
     ctx.globalAlpha = 1;
     ctx.stroke();
+    // 立て(standing)は両端に短い端キャップを描いて「立てたパネルを真上から見た線」を表現
+    if (_rd.stand) {
+      ctx.beginPath();
+      ctx.moveTo(-rw/2, -rh/2-3); ctx.lineTo(-rw/2, rh/2+3);
+      ctx.moveTo( rw/2, -rh/2-3); ctx.lineTo( rw/2, rh/2+3);
+      ctx.stroke();
+    }
     ctx.fillStyle = sel ? '#e53500' : sc;
     ctx.font = 'bold 9px -apple-system,Arial';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     var ltr = o.type==='diffuser' ? 'D' : o.type==='bounce' ? 'B' : 'F';
-    ctx.fillText(ltr, 0, 0);
+    if (!_rd.stand || rw > 22) ctx.fillText(ltr, 0, 0);
+    // 立て表示: 立ち上がり高さ(vert)を線の脇にラベル表示
+    if (_rd.stand) {
+      var vstr = '↥' + (_dft.unit === 'ft' ? (_rd.vert*3.28084).toFixed(1)+'ft' : _rd.vert.toFixed(1)+'m');
+      ctx.font = 'bold 8px -apple-system,Arial';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+      ctx.fillText(vstr, 0, -rh/2 - 4);
+    }
   }
 
   ctx.restore();
@@ -11997,7 +12026,7 @@ function _dftDrawObj(ctx, o) {
   // 重ね置き時に両方読めるよう、四角は上側・点オブジェクトは下側にまとめて配置
   var _RCTH = {diffuser:1, bounce:1, flag:1, image:1};
   var _isRectT = !!_RCTH[o.type];
-  var _halfHpx = _isRectT ? (o.hm||o.h||1)/_dft.scale*_dft.zoom/2 : R;
+  var _halfHpx = _isRectT ? _dftRectDims(o).h/_dft.scale*_dft.zoom/2 : R;
 
   // label — 四角(D/B/F)は中の文字で識別できるので名前ラベルは省略（スッキリ）
   if (!_isRectT) {
@@ -12041,7 +12070,7 @@ function _dftDrawObj(ctx, o) {
   if (sel) {
     var _RCHT = {image:1,diffuser:1,bounce:1,flag:1};
     var _rha  = (o.rot||0) - Math.PI/2;
-    var _rHalfH = _RCHT[o.type] ? (o.hm||o.h||1)/_dft.scale*_dft.zoom/2 : R;
+    var _rHalfH = _RCHT[o.type] ? _dftRectDims(o).h/_dft.scale*_dft.zoom/2 : R;
     var _rhDist = _rHalfH + 20;
     var _rhx = sx + Math.cos(_rha)*_rhDist;
     var _rhy = sy + Math.sin(_rha)*_rhDist;
@@ -13324,6 +13353,7 @@ function dftBounceSettings(oid) {
     '<div id="_dft_bs" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_bs\').remove()">' +
     '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
     '<div style="font-size:14px;font-weight:800;margin-bottom:12px;">' + typeLabel + ' &nbsp;<span style="font-size:11px;color:#888;font-weight:600;">' + (o.label||'') + '</span></div>' +
+    _dftOrientFieldHTML(o) +
     _dftHeightFieldHTML(o) +
     _dftAlphaFieldHTML(o) +
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
@@ -13443,6 +13473,49 @@ window._dftSetAlpha = function(id, v) {
     if (lbl) lbl.textContent = Math.round(n*100) + '%';
     dftRender();
   }
+};
+
+// ── 向き（寝かせ / 立て）─────────────────────────────────
+function _dftOrientFieldHTML(o) {
+  var stand = !!o.stand, edge = o.standEdge || 'w';
+  var w = (o.wm||o.w||1.2), h = (o.hm||o.h||1.2);
+  var seg = function(active, label, onclick){
+    return '<button onclick="' + onclick + '" style="flex:1;padding:8px 4px;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;' +
+      (active ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#555;') + '">' + label + '</button>';
+  };
+  var html = '<div style="margin-bottom:16px;">' +
+    '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:6px;">' + t('orientLabel') + ' <span style="font-weight:600;color:#888;font-size:10px;">' + t('orientHint') + '</span></div>' +
+    '<div style="display:flex;gap:6px;' + (stand ? 'margin-bottom:8px;' : '') + '">' +
+      seg(!stand, '▭ ' + t('orientFlat'),  '_dftSetOrient(\'' + o.id + '\',false)') +
+      seg(stand,  '│ '  + t('orientStand'), '_dftSetOrient(\'' + o.id + '\',true)') +
+    '</div>';
+  if (stand) {
+    html += '<div style="display:flex;gap:6px;align-items:center;">' +
+      '<span style="font-size:10px;color:#888;font-weight:700;white-space:nowrap;">' + t('orientFloorEdge') + '</span>' +
+      seg(edge==='w', _dftFmt(w), '_dftSetStandEdge(\'' + o.id + '\',\'w\')') +
+      seg(edge==='h', _dftFmt(h), '_dftSetStandEdge(\'' + o.id + '\',\'h\')') +
+    '</div>';
+  }
+  return html + '</div>';
+}
+function _dftReopenBounceSettings(id) {
+  var el = document.getElementById('_dft_bs'); if (el) el.remove();
+  dftBounceSettings(id);
+}
+window._dftSetOrient = function(id, stand) {
+  var o = _dft.objects.find(function(x){ return x.id===id; });
+  if (!o) return;
+  o.stand = !!stand;
+  if (o.stand && !o.standEdge) o.standEdge = 'w';
+  _dftUpdateInfoBar(); dftRender();
+  _dftReopenBounceSettings(id);
+};
+window._dftSetStandEdge = function(id, edge) {
+  var o = _dft.objects.find(function(x){ return x.id===id; });
+  if (!o) return;
+  o.standEdge = edge;
+  _dftUpdateInfoBar(); dftRender();
+  _dftReopenBounceSettings(id);
 };
 
 // ── LIGHT PICKER ──────────────────────────────────────────
@@ -14132,7 +14205,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.209';
+var ver = 'v1.1.3.210';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
