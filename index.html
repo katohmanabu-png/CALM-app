@@ -9440,7 +9440,7 @@ function diffFactorLookup(name){ var r=factorPresetLookup(name); return r?r.stop
 var FACTOR_NAMES_BY_TYPE = {
   bounce:  ['UltraBounce','Unbleached Muslin','Bleached Muslin','White Silk','Poly','Wall'],
   diffuse: ['Full Grid Cloth','1/2 Grid Cloth','1/4 Grid Cloth','Magic Cloth','Hilite','Unbleached Muslin','Bleached Muslin'],
-  none:    ['CTB','CTO','ND 0.3','ND 0.6','ND 0.9','Fresnel','Barn Doors','Snoot','Gel','Egg Crate']
+  none:    ['CTB','CTO','ND 0.3','ND 0.6','ND 0.9','Snoot','Blind Shutter','Gel','Egg Crate']
 };
 function getFactorNamePresets(type) {
   try {
@@ -14064,7 +14064,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.206';
+var ver = 'v1.1.3.207';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
