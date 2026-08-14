@@ -2080,7 +2080,7 @@ var LANGS = {
     unitsLabel:'複数台 / Units',
     mixDistLabel:'距離 / Distance',
     finderCCTLabel:'🌡️ CCT',
-    sortLabel:'🔀 SORT', sortDefault:'デフォルト', sortSingle:'1台優先', sortMulti:'複数台優先', sortFstop:'F値優先', sortFstopMulti:'F値＋複数台', factorNote:'プリセットのFactorは目安です。個体差により実測値と異なる場合があります。数値を調整してご使用ください。', rectSizeTitle:'サイズを選択', rectPreset:'プリセット', rectManual:'✏️ 手動で描く（ドラッグ）', rectCustom:'カスタム入力', rectPlace:'配置', orientLabel:'向き', orientHint:'(俯瞰での見え方)', orientFlat:'寝かせ', orientStand:'立て', orientFloorEdge:'床に接する辺:',
+    sortLabel:'🔀 SORT', sortDefault:'デフォルト', sortSingle:'1台優先', sortMulti:'複数台優先', sortFstop:'F値優先', sortFstopMulti:'F値＋複数台', factorNote:'プリセットのFactorは目安です。個体差により実測値と異なる場合があります。数値を調整してご使用ください。', rectSizeTitle:'サイズを選択', rectPreset:'プリセット', rectManual:'✏️ 手動で描く（ドラッグ）', rectCustom:'カスタム入力', rectPlace:'配置', orientLabel:'向き', orientHint:'(俯瞰での見え方)', orientFlat:'寝かせ', orientStand:'立て', orientFloorEdge:'床に接する辺:', dftHeightLabel:'設置高さ', dftHeightHint:'(床から)', dftAlphaLabel:'透明度', dftAlphaHint:'(塗りの濃さ)', dftFactorHint:'(光量補正)', dftClose:'閉じる',
     triHorizLbl:'↔️ 水平距離', triAngle:'📐 角度 / Angle', triClearBtn:'✕ 解除',
     modelSearchPlaceholder:'ライト名を入力...', selectLightHint:'ライトを選択...',
     cmUnitPrefix:'単位: ', cmApplied:' に反映',
@@ -2175,7 +2175,7 @@ var LANGS = {
     unitsLabel:'Units',
     mixDistLabel:'Distance',
     finderCCTLabel:'🌡️ CCT',
-    sortLabel:'🔀 SORT', sortDefault:'Default', sortSingle:'Single Unit', sortMulti:'Multi Unit', sortFstop:'F-stop Match', sortFstopMulti:'F-stop + Multi', factorNote:'Preset factors are approximate — actual values vary by unit. Adjust the value before use.', rectSizeTitle:'Choose size', rectPreset:'Preset', rectManual:'✏️ Draw manually (drag)', rectCustom:'Custom size', rectPlace:'Place', orientLabel:'Orientation', orientHint:'(top-down view)', orientFlat:'Flat', orientStand:'Standing', orientFloorEdge:'Floor edge:',
+    sortLabel:'🔀 SORT', sortDefault:'Default', sortSingle:'Single Unit', sortMulti:'Multi Unit', sortFstop:'F-stop Match', sortFstopMulti:'F-stop + Multi', factorNote:'Preset factors are approximate — actual values vary by unit. Adjust the value before use.', rectSizeTitle:'Choose size', rectPreset:'Preset', rectManual:'✏️ Draw manually (drag)', rectCustom:'Custom size', rectPlace:'Place', orientLabel:'Orientation', orientHint:'(top-down view)', orientFlat:'Flat', orientStand:'Standing', orientFloorEdge:'Floor edge:', dftHeightLabel:'Height', dftHeightHint:'(from floor)', dftAlphaLabel:'Opacity', dftAlphaHint:'(fill)', dftFactorHint:'(light loss)', dftClose:'Close',
     ftabName:'🔍 Name', ftabMaker:'Manufacture', ftabType:'💡 Type',
     cmLblHeight:'Height', cmLblHoriz:'Horiz', cmLblDist:'Distance',
     cmLblUseHeight:'Use as Height', cmLblUseHoriz:'Use as Horiz', cmLblUseDist:'Use as Distance',
@@ -2224,7 +2224,7 @@ var LANGS = {
   es: {
     navCalc:'Calc', navMix:'Mix', navFinder:'Buscador', navAlt:'Alt', navCamera:'Cámara', pageCalcTitle:'Calculadora de Iluminación', pageCalcSub:'Calculadora de Exposición', pageMixTitle:'Mix', pageMixSub:'Combina múltiples luces — calcula exposición total y CCT mezclado', pageFinderTitle:'Buscador de Equipos', pageFinderSub:'Encuentra el equipo ideal', pageAltTitle:'Buscar Equipo Equivalente', pageAltSub:'Encuentra la mejor alternativa', pageCameraTitle:'Cámara', pageCameraSub:'Digital / Film / Fotografía',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ Favoritos',
-    makerTitle:'Fabricante', modelTitle:'Luz', sortLabel:'🔀 SORT', sortDefault:'Por defecto', sortSingle:'1 unidad', sortMulti:'Múltiples', sortFstop:'F-stop exacto', sortFstopMulti:'F-stop + Múlt.', factorNote:'Los factores predefinidos son orientativos; varían según la unidad. Ajústelos antes de usar.', rectSizeTitle:'Elegir tamaño', rectPreset:'Preajuste', rectManual:'✏️ Dibujar manual (arrastrar)', rectCustom:'Tamaño personalizado', rectPlace:'Colocar', orientLabel:'Orientación', orientHint:'(vista superior)', orientFlat:'Tumbado', orientStand:'De pie', orientFloorEdge:'Lado en el suelo:',
+    makerTitle:'Fabricante', modelTitle:'Luz', sortLabel:'🔀 SORT', sortDefault:'Por defecto', sortSingle:'1 unidad', sortMulti:'Múltiples', sortFstop:'F-stop exacto', sortFstopMulti:'F-stop + Múlt.', factorNote:'Los factores predefinidos son orientativos; varían según la unidad. Ajústelos antes de usar.', rectSizeTitle:'Elegir tamaño', rectPreset:'Preajuste', rectManual:'✏️ Dibujar manual (arrastrar)', rectCustom:'Tamaño personalizado', rectPlace:'Colocar', orientLabel:'Orientación', orientHint:'(vista superior)', orientFlat:'Tumbado', orientStand:'De pie', orientFloorEdge:'Lado en el suelo:', dftHeightLabel:'Altura', dftHeightHint:'(desde el suelo)', dftAlphaLabel:'Opacidad', dftAlphaHint:'(relleno)', dftFactorHint:'(pérdida de luz)', dftClose:'Cerrar',
     finderCCTLabel:'🌡️ CCT',
     accTitle:'Accesorio', cctTitle:'Temperatura de Color',
     distTitle:'Distancia', directInput:'Entrada directa:', manualInput:'Personalizado:',
@@ -11348,7 +11348,7 @@ var _dft = {
   future:[],
   // distance label hit-test
   distLabels:[],
-  _lastTap:0, _lastTapX:0, _lastTapY:0,
+  _lastTap:null, _lastTapT:0, _lastTapX:0, _lastTapY:0,
   _pendingDistEdit:null,
   inited:false,
 };
@@ -12648,9 +12648,9 @@ function _dftMD(e) {
 
   // Double-tap on distance label → edit distance
   var _now = Date.now();
-  if (_now - _dft._lastTap < 340 &&
+  if (_now - _dft._lastTapT < 340 &&
       Math.abs(mx - _dft._lastTapX) < 38 && Math.abs(my - _dft._lastTapY) < 38) {
-    _dft._lastTap = 0;
+    _dft._lastTapT = 0;
     var _dlHit = null;
     for (var _di = 0; _di < _dft.distLabels.length; _di++) {
       var _dl = _dft.distLabels[_di];
@@ -12663,7 +12663,7 @@ function _dftMD(e) {
     var _camHit = _dftObjAt(mx, my);
     if (_camHit && _camHit.type === 'camera') { _dftCamFstopEdit(_camHit); return; }
   }
-  _dft._lastTap = _now; _dft._lastTapX = mx; _dft._lastTapY = my;
+  _dft._lastTapT = _now; _dft._lastTapX = mx; _dft._lastTapY = my;
 
   if (_dft.calibMode) {
     var w = _dftS2W(mx, my);
@@ -12982,6 +12982,12 @@ function _dftDbl(e) {
   var mx = e.clientX - r.left, my = e.clientY - r.top;
   var hit = _dftObjAt(mx, my);
   if (!hit) return;
+  // Diffusion/Bounce はダブルクリックで設定画面（透明度・立て/寝かせ・Factor）を再表示
+  if (hit.type === 'diffuser' || hit.type === 'bounce') {
+    _dft.selected = hit.id; _dftUpdateInfoBar(); dftRender();
+    dftBounceSettings(hit.id); return;
+  }
+  if (hit.type === 'camera') { _dftCamFstopEdit(hit); return; }
   var nl = prompt('Label:', hit.label || hit.type);
   if (nl !== null) { hit.label = nl; dftRender(); }
 }
@@ -13128,7 +13134,7 @@ function dftLightSettings(oid) {
     _dftHeightFieldHTML(o) +
     '<div style="border-top:1px solid #eee;margin:0 -16px;padding:14px 16px 0;">' +
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
-    '<span style="font-size:11px;font-weight:800;color:#555;">Factor <span style="font-weight:600;color:#888;font-size:10px;">(光量補正)</span></span>' +
+    '<span style="font-size:11px;font-weight:800;color:#555;">Factor <span style="font-weight:600;color:#888;font-size:10px;">' + t('dftFactorHint') + '</span></span>' +
     '<span id="_dft_ls_ftotal" style="font-size:12px;font-weight:800;color:#e65100;"></span>' +
     '</div>' +
     '<div id="_dft_ls_frows"></div>' +
@@ -13393,13 +13399,13 @@ function dftBounceSettings(oid) {
     _dftHeightFieldHTML(o) +
     _dftAlphaFieldHTML(o) +
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
-    '<span style="font-size:11px;font-weight:800;color:#555;">Factor <span style="font-weight:600;color:#888;font-size:10px;">(光量補正)</span></span>' +
+    '<span style="font-size:11px;font-weight:800;color:#555;">Factor <span style="font-weight:600;color:#888;font-size:10px;">' + t('dftFactorHint') + '</span></span>' +
     '<span id="_dft_bs_ftotal" style="font-size:12px;font-weight:800;color:#0288d1;"></span>' +
     '</div>' +
     '<div id="_dft_bs_frows"></div>' +
     '<button onclick="_dftBFAdd()" style="width:100%;padding:8px;border:1px dashed #0288d1;border-radius:10px;background:transparent;color:#0288d1;font-size:12px;font-weight:700;cursor:pointer;margin-bottom:8px;">+ Add Factor</button>' +
     '<div style="font-size:10px;line-height:1.5;color:#888;margin-bottom:12px;">⚠️ ' + t('factorNote') + '</div>' +
-    '<button onclick="document.getElementById(\'_dft_bs\').remove()" style="width:100%;padding:11px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">Close</button>' +
+    '<button onclick="document.getElementById(\'_dft_bs\').remove()" style="width:100%;padding:11px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">' + t('dftClose') + '</button>' +
     '</div></div>';
   _dft._editBounceId = oid;
   document.body.insertAdjacentHTML('beforeend', html);
@@ -13466,7 +13472,7 @@ function dftApplySize(id, w, h) {
 function _dftHeightFieldHTML(o) {
   var v = (o.zHeight != null) ? o.zHeight : '';
   return '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:16px;">' +
-    '<span style="font-size:11px;font-weight:800;color:#555;">設置高さ <span style="font-weight:600;color:#888;font-size:10px;">(床から / Height m)</span></span>' +
+    '<span style="font-size:11px;font-weight:800;color:#555;">' + t('dftHeightLabel') + ' <span style="font-weight:600;color:#888;font-size:10px;">' + t('dftHeightHint') + '</span></span>' +
     '<div style="display:flex;align-items:center;gap:4px;">' +
       '<input id="_dft_h_input" type="number" step="0.1" min="0" value="'+v+'" placeholder="—" ' +
         'oninput="_dftSetHeight(\''+o.id+'\',this.value)" ' +
@@ -13491,7 +13497,7 @@ function _dftAlphaFieldHTML(o) {
   var pct = Math.round(a * 100);
   return '<div style="margin-bottom:16px;">' +
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">' +
-      '<span style="font-size:11px;font-weight:800;color:#555;">透明度 <span style="font-weight:600;color:#888;font-size:10px;">(塗りの濃さ)</span></span>' +
+      '<span style="font-size:11px;font-weight:800;color:#555;">' + t('dftAlphaLabel') + ' <span style="font-weight:600;color:#888;font-size:10px;">' + t('dftAlphaHint') + '</span></span>' +
       '<span id="_dft_a_val" style="font-size:12px;font-weight:800;color:#5e35b1;">' + pct + '%</span>' +
     '</div>' +
     '<input id="_dft_a_input" type="range" min="0.1" max="1" step="0.05" value="' + a + '" ' +
@@ -14241,7 +14247,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.212';
+var ver = 'v1.1.3.213';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
