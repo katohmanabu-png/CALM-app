@@ -837,6 +837,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
+    <button id="undo-btn-global" onclick="doUndoGlobal()" aria-label="Undo" title="元に戻す" disabled style="background:none;border:none;padding:4px 5px;cursor:pointer;font-size:17px;line-height:1;border-radius:8px;color:var(--text);opacity:.3;">↩</button>
+    <button id="redo-btn-global" onclick="doRedoGlobal()" aria-label="Redo" title="やり直し" disabled style="background:none;border:none;padding:4px 5px;cursor:pointer;font-size:17px;line-height:1;border-radius:8px;color:var(--text);opacity:.3;">↪</button>
     <button id="dark-toggle-btn" onclick="toggleDarkMode()" aria-label="Dark mode" style="background:none;border:none;padding:4px 6px;cursor:pointer;font-size:18px;line-height:1;border-radius:8px;">🌙</button>
     <button class="hamburger-btn" onclick="openDrawer()" aria-label="Menu">☰</button>
   </div>
@@ -7556,6 +7558,7 @@ window.addEventListener('DOMContentLoaded', function() {
   renderFactorSection('calc');
   renderFactorSection('finder');
   renderFactorSection('alt');
+  try { setTimeout(_undoInit, 400); } catch(e) {}
 });
 
 // ── Dark mode ─────────────────────────────────────────────
@@ -9907,6 +9910,7 @@ window._mxdists=function(i,delta){
   calcMix();
 };
 function calcMix() {
+  try { _recordUndo(); } catch(e) {}
   var distM = getMixDistM ? getMixDistM() : (getMixDist ? getMixDist() : 5);
   var total = 0;
   var entries = [];
@@ -10602,7 +10606,80 @@ function saveCalcState() {
     if (filmAngleSl) localStorage.setItem('calm_filmAngleIdx', filmAngleSl.value);
     if (S.filmStockIdx != null) localStorage.setItem('calm_filmStockIdx', S.filmStockIdx);
   } catch(e) {}
+  try { _recordUndo(); } catch(e) {}
 }
+
+// ====== グローバルUndo/Redo（全タブ：Calc/Camera/Mix） ======
+// 状態スナップショット = localStorageのcalm_*キー + Mix(mixLights)/Calc factors。
+// 復元は既存の loadCalcState() + refreshAllTabs() を再利用。Draftは独自Undoで別管理。
+var _undoStack=[], _redoStack=[], _undoReady=false, _undoRestoring=false, _undoTimer=null;
+function _undoSnapshot(){
+  var ls={};
+  try{ for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && k.indexOf('calm_')===0 && k!=='calm_dark') ls[k]=localStorage.getItem(k); } }catch(e){}
+  return JSON.stringify({
+    ls: ls,
+    mix: (typeof mixLights!=='undefined'?mixLights:[]),
+    factors: (typeof S_calcFactors!=='undefined'?S_calcFactors:[]),
+    mixPer: (typeof S_mixPerLightDist!=='undefined'?S_mixPerLightDist:false),
+    mixMan: (typeof S_mixManualDist!=='undefined'?S_mixManualDist:null)
+  });
+}
+function _undoApply(str){
+  var snap; try{ snap=JSON.parse(str); }catch(e){ return; }
+  _undoRestoring=true;
+  try{
+    var cur=[]; for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && k.indexOf('calm_')===0 && k!=='calm_dark') cur.push(k); }
+    cur.forEach(function(k){ if(!(k in snap.ls)) localStorage.removeItem(k); });
+    Object.keys(snap.ls).forEach(function(k){ localStorage.setItem(k, snap.ls[k]); });
+    if (typeof mixLights!=='undefined'){ mixLights.length=0; (snap.mix||[]).forEach(function(m){ mixLights.push(JSON.parse(JSON.stringify(m))); }); }
+    if (typeof S_calcFactors!=='undefined'){ S_calcFactors.length=0; (snap.factors||[]).forEach(function(f){ S_calcFactors.push(JSON.parse(JSON.stringify(f))); }); }
+    if (typeof S_mixPerLightDist!=='undefined') S_mixPerLightDist=snap.mixPer;
+    if (typeof S_mixManualDist!=='undefined')  S_mixManualDist=snap.mixMan;
+    try{ loadCalcState(); }catch(e){}
+    try{ renderFactorSection('calc'); }catch(e){}
+    try{ renderMixList(); }catch(e){}
+    try{ refreshAllTabs(); }catch(e){}
+  }catch(e){ console.log('undo apply', e); }
+  _undoRestoring=false;
+}
+function _recordUndo(){
+  if(!_undoReady || _undoRestoring) return;
+  clearTimeout(_undoTimer);
+  _undoTimer=setTimeout(function(){
+    var snap=_undoSnapshot();
+    if(_undoStack.length && _undoStack[_undoStack.length-1]===snap) return;
+    _undoStack.push(snap);
+    if(_undoStack.length>40) _undoStack.shift();
+    _redoStack.length=0;
+    _updateUndoBtns();
+  }, 350);
+}
+function _updateUndoBtns(){
+  var u=el('undo-btn-global'), r=el('redo-btn-global');
+  if(u){ u.disabled=_undoStack.length<2; u.style.opacity=u.disabled?0.3:1; }
+  if(r){ r.disabled=_redoStack.length===0; r.style.opacity=r.disabled?0.3:1; }
+}
+function doUndoGlobal(){
+  // Draftタブは独自のUndoを使う
+  if (S.page==='draft'){ try{ dftUndo(); }catch(e){} return; }
+  if(_undoStack.length<2) return;
+  _redoStack.push(_undoStack.pop());
+  _undoApply(_undoStack[_undoStack.length-1]);
+  _updateUndoBtns();
+}
+function doRedoGlobal(){
+  if (S.page==='draft'){ try{ dftRedo(); }catch(e){} return; }
+  if(!_redoStack.length) return;
+  var s=_redoStack.pop(); _undoStack.push(s); _undoApply(s); _updateUndoBtns();
+}
+function _undoInit(){ _undoReady=true; _undoStack=[_undoSnapshot()]; _redoStack=[]; _updateUndoBtns(); }
+document.addEventListener('keydown', function(e){
+  var mod = e.metaKey||e.ctrlKey;
+  if(!mod || (e.key||'').toLowerCase()!=='z') return;
+  var tg=e.target; if(tg && /INPUT|TEXTAREA|SELECT/.test(tg.tagName)) return;
+  e.preventDefault();
+  if(e.shiftKey) doRedoGlobal(); else doUndoGlobal();
+});
 
 function loadCalcState() {
   try {
@@ -13960,7 +14037,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.202';
+var ver = 'v1.1.3.203';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
