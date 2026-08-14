@@ -2076,7 +2076,7 @@ var LANGS = {
     unitsLabel:'複数台 / Units',
     mixDistLabel:'距離 / Distance',
     finderCCTLabel:'🌡️ CCT',
-    sortLabel:'🔀 SORT', sortDefault:'デフォルト', sortSingle:'1台優先', sortMulti:'複数台優先', sortFstop:'F値優先', sortFstopMulti:'F値＋複数台', factorNote:'プリセットのFactorは目安です。個体差により実測値と異なる場合があります。数値を調整してご使用ください。',
+    sortLabel:'🔀 SORT', sortDefault:'デフォルト', sortSingle:'1台優先', sortMulti:'複数台優先', sortFstop:'F値優先', sortFstopMulti:'F値＋複数台', factorNote:'プリセットのFactorは目安です。個体差により実測値と異なる場合があります。数値を調整してご使用ください。', rectSizeTitle:'サイズを選択', rectPreset:'プリセット', rectManual:'✏️ 手動で描く（ドラッグ）', rectCustom:'カスタム入力', rectPlace:'配置',
     triHorizLbl:'↔️ 水平距離', triAngle:'📐 角度 / Angle', triClearBtn:'✕ 解除',
     modelSearchPlaceholder:'ライト名を入力...', selectLightHint:'ライトを選択...',
     cmUnitPrefix:'単位: ', cmApplied:' に反映',
@@ -2171,7 +2171,7 @@ var LANGS = {
     unitsLabel:'Units',
     mixDistLabel:'Distance',
     finderCCTLabel:'🌡️ CCT',
-    sortLabel:'🔀 SORT', sortDefault:'Default', sortSingle:'Single Unit', sortMulti:'Multi Unit', sortFstop:'F-stop Match', sortFstopMulti:'F-stop + Multi', factorNote:'Preset factors are approximate — actual values vary by unit. Adjust the value before use.',
+    sortLabel:'🔀 SORT', sortDefault:'Default', sortSingle:'Single Unit', sortMulti:'Multi Unit', sortFstop:'F-stop Match', sortFstopMulti:'F-stop + Multi', factorNote:'Preset factors are approximate — actual values vary by unit. Adjust the value before use.', rectSizeTitle:'Choose size', rectPreset:'Preset', rectManual:'✏️ Draw manually (drag)', rectCustom:'Custom size', rectPlace:'Place',
     ftabName:'🔍 Name', ftabMaker:'Manufacture', ftabType:'💡 Type',
     cmLblHeight:'Height', cmLblHoriz:'Horiz', cmLblDist:'Distance',
     cmLblUseHeight:'Use as Height', cmLblUseHoriz:'Use as Horiz', cmLblUseDist:'Use as Distance',
@@ -2220,7 +2220,7 @@ var LANGS = {
   es: {
     navCalc:'Calc', navMix:'Mix', navFinder:'Buscador', navAlt:'Alt', navCamera:'Cámara', pageCalcTitle:'Calculadora de Iluminación', pageCalcSub:'Calculadora de Exposición', pageMixTitle:'Mix', pageMixSub:'Combina múltiples luces — calcula exposición total y CCT mezclado', pageFinderTitle:'Buscador de Equipos', pageFinderSub:'Encuentra el equipo ideal', pageAltTitle:'Buscar Equipo Equivalente', pageAltSub:'Encuentra la mejor alternativa', pageCameraTitle:'Cámara', pageCameraSub:'Digital / Film / Fotografía',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ Favoritos',
-    makerTitle:'Fabricante', modelTitle:'Luz', sortLabel:'🔀 SORT', sortDefault:'Por defecto', sortSingle:'1 unidad', sortMulti:'Múltiples', sortFstop:'F-stop exacto', sortFstopMulti:'F-stop + Múlt.', factorNote:'Los factores predefinidos son orientativos; varían según la unidad. Ajústelos antes de usar.',
+    makerTitle:'Fabricante', modelTitle:'Luz', sortLabel:'🔀 SORT', sortDefault:'Por defecto', sortSingle:'1 unidad', sortMulti:'Múltiples', sortFstop:'F-stop exacto', sortFstopMulti:'F-stop + Múlt.', factorNote:'Los factores predefinidos son orientativos; varían según la unidad. Ajústelos antes de usar.', rectSizeTitle:'Elegir tamaño', rectPreset:'Preajuste', rectManual:'✏️ Dibujar manual (arrastrar)', rectCustom:'Tamaño personalizado', rectPlace:'Colocar',
     finderCCTLabel:'🌡️ CCT',
     accTitle:'Accesorio', cctTitle:'Temperatura de Color',
     distTitle:'Distancia', directInput:'Entrada directa:', manualInput:'Personalizado:',
@@ -13251,6 +13251,71 @@ function dftDeleteSelected() {
   dftRender();
 }
 
+// ── Bounce/Diffusion size picker ────────────────────────────
+// プリセットサイズ（表示ラベル, 幅m, 高さm）
+var _DFT_RECT_PRESETS = [
+  {label:'90 × 180 cm',  wm:0.9,    hm:1.8},
+  {label:'120 × 240 cm', wm:1.2,    hm:2.4},
+  {label:'1 × 2 m',      wm:1.0,    hm:2.0},
+  {label:'3 × 3 ft',     wm:0.9144, hm:0.9144},
+  {label:'4 × 4 ft',     wm:1.2192, hm:1.2192},
+  {label:'6 × 6 ft',     wm:1.8288, hm:1.8288},
+  {label:'8 × 8 ft',     wm:2.4384, hm:2.4384},
+  {label:'12 × 12 ft',   wm:3.6576, hm:3.6576},
+  {label:'20 × 20 ft',   wm:6.096,  hm:6.096}
+];
+function dftRectStart(type) {
+  var typeLabel = type === 'bounce' ? 'Bounce' : 'Diffusion';
+  var isFt = (_dft.unit === 'ft');
+  var defW = isFt ? '4' : '1.2', defH = isFt ? '4' : '2.4', uLbl = isFt ? 'ft' : 'm';
+  var presetBtns = _DFT_RECT_PRESETS.map(function(p){
+    return '<button onclick="_dftRectPick(\'' + type + '\',' + p.wm + ',' + p.hm + ')" ' +
+      'style="padding:11px 6px;border:1px solid #cfd8e3;border-radius:10px;background:#f5f8fc;color:#1565c0;' +
+      'font-size:12px;font-weight:700;cursor:pointer;">' + p.label + '</button>';
+  }).join('');
+  var html =
+    '<div id="_dft_rs" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_rs\').remove()">' +
+    '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:82vh;overflow-y:auto;">' +
+    '<div style="font-size:14px;font-weight:800;margin-bottom:14px;">' + typeLabel + ' · ' + t('rectSizeTitle') + '</div>' +
+    '<div style="font-size:11px;font-weight:800;color:#888;margin-bottom:8px;">' + t('rectPreset') + '</div>' +
+    '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px;">' + presetBtns + '</div>' +
+    '<div style="font-size:11px;font-weight:800;color:#888;margin-bottom:8px;">' + t('rectCustom') + '</div>' +
+    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">' +
+      '<input id="_dft_rs_w" type="number" step="0.1" min="0.1" value="' + defW + '" style="width:70px;padding:8px;border:1px solid #cfd8e3;border-radius:8px;font-size:14px;text-align:center;">' +
+      '<span style="font-size:14px;color:#888;">×</span>' +
+      '<input id="_dft_rs_h" type="number" step="0.1" min="0.1" value="' + defH + '" style="width:70px;padding:8px;border:1px solid #cfd8e3;border-radius:8px;font-size:14px;text-align:center;">' +
+      '<span style="font-size:12px;color:#888;font-weight:700;">' + uLbl + '</span>' +
+      '<button onclick="_dftRectCustom(\'' + type + '\',' + (isFt?1:0) + ')" style="margin-left:auto;padding:9px 18px;border:none;border-radius:10px;background:#1565c0;color:#fff;font-size:13px;font-weight:800;cursor:pointer;">' + t('rectPlace') + '</button>' +
+    '</div>' +
+    '<button onclick="document.getElementById(\'_dft_rs\').remove();dftMode(\'' + type + '\');" style="width:100%;padding:12px;border:1px dashed #2e7d32;border-radius:10px;background:transparent;color:#2e7d32;font-size:13px;font-weight:800;cursor:pointer;">' + t('rectManual') + '</button>' +
+    '</div></div>';
+  var d = document.createElement('div'); d.innerHTML = html;
+  document.body.appendChild(d.firstChild);
+}
+function _dftRectCustom(type, isFt) {
+  var wv = parseFloat(document.getElementById('_dft_rs_w').value);
+  var hv = parseFloat(document.getElementById('_dft_rs_h').value);
+  if (!(wv > 0) || !(hv > 0)) return;
+  var f = isFt ? 0.3048 : 1;
+  _dftRectPick(type, wv * f, hv * f);
+}
+function _dftRectPick(type, wm, hm) {
+  var el = document.getElementById('_dft_rs'); if (el) el.remove();
+  _dftPushHistory();
+  var c = _dftS2W(_dft.canvas.width / 2, _dft.canvas.height / 2);
+  var no = _dftAddObj(type, c.x, c.y, {w: wm, h: hm});
+  dftMode('select');
+  _dft.selected = no.id;
+  _dftUpdateInfoBar();
+  if (type === 'diffuser' || type === 'bounce') {
+    if (!no.factors) no.factors = [];
+    if (!no.factors.length) no.factors.push({ stops:0, type:(type==='bounce'?'bounce':'diffuse'), memo:'' });
+    var _bid = no.id;
+    setTimeout(function(){ try { dftBounceSettings(_bid); } catch(e) {} }, 60);
+  }
+  dftRender();
+}
+
 function dftBounceSettings(oid) {
   var o = _dft.objects.find(function(x){ return x.id === oid; });
   if (!o) return;
@@ -14067,7 +14132,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.208';
+var ver = 'v1.1.3.209';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -14470,8 +14535,8 @@ var ver = 'v1.1.3.208';
         <button class="draft-tool-btn" id="dft-btn-people"   onclick="dftMode('people')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🧍<br><span style="font-size:8px;" data-dfti18n="people">人</span></button>
         <button class="draft-tool-btn" id="dft-btn-camera"   onclick="dftMode('camera')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🎥<br><span style="font-size:8px;">Cam</span></button>
         <button class="draft-tool-btn" id="dft-btn-light"    onclick="dftMode('light')"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">💡<br><span style="font-size:8px;">Light</span></button>
-        <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftMode('diffuser')" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⬜<br><span style="font-size:8px;">DIFF</span></button>
-        <button class="draft-tool-btn" id="dft-btn-bounce"   onclick="dftMode('bounce')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔲<br><span style="font-size:8px;" data-dfti18n="bounce">反射</span></button>
+        <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftRectStart('diffuser')" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⬜<br><span style="font-size:8px;">DIFF</span></button>
+        <button class="draft-tool-btn" id="dft-btn-bounce"   onclick="dftRectStart('bounce')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔲<br><span style="font-size:8px;" data-dfti18n="bounce">反射</span></button>
         <button class="draft-tool-btn" id="dft-btn-flag"     onclick="dftMode('flag')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">▬<br><span style="font-size:8px;">Flag</span></button>
         <button class="draft-tool-btn" onclick="dftImportPDF()"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📄<br><span style="font-size:8px;">PDF</span></button>
         <button class="draft-tool-btn" onclick="dftImportPhoto()"  style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🖼<br><span style="font-size:8px;" data-dfti18n="photo">写真</span></button>
