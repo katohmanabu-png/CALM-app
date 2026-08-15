@@ -75,33 +75,25 @@ export default {
       'User-Agent': 'CALM-Feedback-Worker'
     };
 
+    // @mention the notify user so GitHub sends a notification (GitHub app / email).
+    // Note: GitHub suppresses notifications for your OWN actions, so this is only
+    // reliable when the token belongs to a DIFFERENT account than GH_NOTIFY_USER.
+    const notifyUser = env.GH_NOTIFY_USER || env.GH_OWNER;
+    const fullBody = body + (notifyUser ? ('\n\ncc @' + notifyUser) : '');
+
     async function createIssue(withLabel) {
-      const p = { title: title, body: body };
+      const p = { title: title, body: fullBody };
       if (withLabel) p.labels = [label];
+      if (notifyUser) p.assignees = [notifyUser];
       return fetch(apiUrl, { method: 'POST', headers: ghHeaders, body: JSON.stringify(p) });
     }
 
     let res = await createIssue(true);
-    if (res.status === 422) res = await createIssue(false); // label missing → retry without
+    if (res.status === 422) res = await createIssue(false); // label/assignee invalid → retry plain
 
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.html_url) {
       return json({ error: (data && data.message) || 'GitHub error', status: res.status }, 502, origin);
-    }
-
-    // Optional push notification (ntfy). Use NTFY_TOKEN (access token) so the
-    // quota is tied to your ntfy account, not Cloudflare's shared egress IP
-    // (anonymous publishing from Workers hits the daily IP limit → HTTP 429).
-    if (env.NTFY_TOPIC) {
-      try {
-        const nHeaders = { 'Title': 'CALM Feedback', 'Priority': 'high', 'Tags': 'bell' };
-        if (env.NTFY_TOKEN) nHeaders['Authorization'] = 'Bearer ' + env.NTFY_TOKEN;
-        await fetch('https://ntfy.sh/' + env.NTFY_TOPIC, {
-          method: 'POST',
-          headers: nHeaders,
-          body: title + '\n' + data.html_url
-        });
-      } catch (e) { /* non-fatal */ }
     }
 
     return json({ ok: true, url: data.html_url, number: data.number }, 200, origin);
