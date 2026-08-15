@@ -114,6 +114,10 @@ export default {
     // Attachments: GitHub has no public API for uploading to an issue, so commit
     // each file into the repo and embed its raw URL in the issue body.
     // Requires the token to also have Contents: Read and write.
+    // 非公開リポジトリ運用（GH_PRIVATE=1）: 画像は埋め込まずリンクにし、
+    // テスターに開けない Issue URL は返さない。
+    const isPrivate = /^(1|true|yes)$/i.test(String(env.GH_PRIVATE || ''));
+
     let attachMd = '';
     let attached = 0;
     let attachErr = null;
@@ -135,7 +139,10 @@ export default {
         const blob = ud && ud.content && ud.content.html_url;       // github.com blob (renders CSV as a table)
         if (up.ok && url) {
           if (/\.(png|jpe?g|gif|webp)$/i.test(safe)) {
-            attachMd += '![' + safe + '](' + url + ')\n\n';
+            // 非公開リポジトリでは raw URL の画像埋め込みは認証が通らず壊れるためリンクにする
+            attachMd += (isPrivate
+              ? '🖼 [' + safe + '](' + (blob || url) + ')'
+              : '![' + safe + '](' + url + ')') + '\n\n';
           } else {
             attachMd += '**' + safe + '** — [' + (blob ? 'view' : 'file') + '](' + (blob || url) + ')' + (blob ? ' · [raw](' + url + ')' : '') + '\n\n';
             // CSV/TSV/txt は中身を表にして本文へ展開（モバイルでも読めるように）
@@ -159,17 +166,18 @@ export default {
     }
     const fullBody = body + (attachMd ? '\n\n## Attachments\n' + attachMd : '');
 
-    async function createIssue(withExtras) {
+    // level 2 = labels + assignee, 1 = assignee only, 0 = plain.
+    // A brand-new repo has none of the labels, which would otherwise 422.
+    async function createIssue(level) {
       const p = { title: title, body: fullBody };
-      if (withExtras) {
-        p.labels = [label];
-        if (notifyUser) p.assignees = [notifyUser];
-      }
+      if (level >= 2) p.labels = [label];
+      if (level >= 1 && notifyUser) p.assignees = [notifyUser];
       return fetch(apiUrl, { method: 'POST', headers: ghHeaders, body: JSON.stringify(p) });
     }
 
-    let res = await createIssue(true);
-    if (res.status === 422) res = await createIssue(false); // label/assignee invalid → retry plain
+    let res = await createIssue(2);
+    if (res.status === 422) res = await createIssue(1);
+    if (res.status === 422) res = await createIssue(0);
 
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.html_url) {
@@ -193,6 +201,12 @@ export default {
       } catch (e) { /* non-fatal */ }
     }
 
-    return json({ ok: true, url: data.html_url, number: data.number, attached: attached, attachErr: attachErr }, 200, origin);
+    return json({
+      ok: true,
+      url: isPrivate ? undefined : data.html_url,
+      number: data.number,
+      attached: attached,
+      attachErr: attachErr
+    }, 200, origin);
   }
 };
