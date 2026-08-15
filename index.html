@@ -7353,6 +7353,13 @@ function calculate() {
 
 // ===== FAVORITES =====
 function getFavs() { try { return JSON.parse(localStorage.getItem('lmp_favs')||'[]'); } catch(e) { return []; } }
+// メーカー分類の変更（例: aputure→amaran へ移動）で保存済みのお気に入り／参照が
+// 元のメーカーキーで解決できない場合、全メーカーから同じ型番を探して正しいライトを返す。
+function _resolveLightRef(maker, model) {
+  if (LIGHTS[maker] && LIGHTS[maker][model]) return { maker: maker, light: LIGHTS[maker][model] };
+  for (var mk in LIGHTS) { if (LIGHTS[mk] && LIGHTS[mk][model]) return { maker: mk, light: LIGHTS[mk][model] }; }
+  return { maker: maker, light: null };
+}
 function saveFavs(f) { try { localStorage.setItem('lmp_favs', JSON.stringify(f)); } catch(e) {} }
 var _pendingMemo = null;
 function updateFavStar() {}
@@ -7363,9 +7370,12 @@ function renderFavList() {
   var list = el('fav-list'); if (!list) return;
   if (!favs.length) { list.innerHTML = '<div style="padding:20px;text-align:center;color:#888;font-size:12px;font-weight:700">' + t('favEmpty') + '</div>'; return; }
   list.innerHTML = '';
+  var _favMigrated = false;
   favs.forEach(function(f, idx) {
+    var _rl = _resolveLightRef(f.maker, f.model);
+    if (_rl.light && _rl.maker !== f.maker) { f.maker = _rl.maker; f.key = f.maker + '|' + f.model; _favMigrated = true; } // 保存キーを移行
     var maker = MAKERS[f.maker];
-    var light = LIGHTS[f.maker] && LIGHTS[f.maker][f.model];
+    var light = _rl.light;
     var item = document.createElement('div');
     item.className = 'fav-item';
     item.innerHTML = '<div class="fav-info">' +
@@ -7378,6 +7388,7 @@ function renderFavList() {
       '</div>';
     list.appendChild(item);
   });
+  if (_favMigrated) saveFavs(favs);
 }
 function addFav() {
   _pendingMemo = { maker: S.maker, model: S.model };
@@ -7399,8 +7410,9 @@ function delFav(idx) {
   showToast(t('favRemoved')); renderFavList();
 }
 function loadFav(maker, model) {
+  var _rl = _resolveLightRef(maker, model); maker = _rl.maker;
   S.maker = maker; applyTheme(maker); S.model = model;
-  var light = LIGHTS[maker] && LIGHTS[maker][model];
+  var light = _rl.light;
   S.accKey = defaultWidestAcc(light);
   S.cctIdx = cctIdxFor5600(light); S.manualDist = null; S.useTriDist = false;
   initMakers(); renderModels(); closeFavPanel();
@@ -14317,7 +14329,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.3.216';
+var ver = 'v1.1.3.217';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
