@@ -2909,6 +2909,25 @@ var LIGHTS = {
       dmxVer:'v1.0',
       refData:{3200:{2:{none:12000},5:{none:4320},8:{none:1688}},5600:{2:{none:13000},5:{none:4680},8:{none:1828}}}
     },
+    storm_cs32: {
+      group:'LED COB', name:'STORM CS32', desc:'3200W Full Color LED Point Source', emoji:'💡', watts:3200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
+      weight:'17 kg', size:'360×397×331 mm', ccts:[1800,2500,3200,4300,5600,6500,10000,20000],
+      accessories:['none','r30'],
+      dmx:{led:'BLAIR-CG + Extended Red',power:'3200W (4K HMI equivalent)',cct:'1800K–20000K + Full Color',cri:'97',tlci:'98',ip:'IP65',control:'Bluetooth / Sidus Link / CRMX / DMX / Art-Net / sACN',dimming:'0%–100%'},
+      dmxUrl:'https://docs.aputure.com/hubfs/Knowledge%20Base/Aputure/STORM%20CS32/Documents/STORM%20CS32%20DMX%20Profile%20Specification%20V1.0.pdf',
+      dmxVer:'v1.0',
+      // Official Aputure photometrics — Bare Bulb / 30° Reflector, 3m & 5m
+      refData:{
+        1800:{3:{none:7150,r30:50200},5:{none:3000,r30:17700}},
+        2500:{3:{none:12400,r30:87000},5:{none:5000,r30:30000}},
+        3200:{3:{none:14800,r30:103000},5:{none:5800,r30:35000}},
+        4300:{3:{none:15100,r30:106000},5:{none:5900,r30:36000}},
+        5600:{3:{none:15000,r30:106000},5:{none:5850,r30:35500}},
+        6500:{3:{none:14700,r30:104000},5:{none:5720,r30:34800}},
+        10000:{3:{none:13500,r30:94400},5:{none:5270,r30:31700}},
+        20000:{3:{none:10600,r30:73300},5:{none:4140,r30:24700}}
+      }
+    },
     storm_1000c: {
       group:'LED COB', name:'STORM 1000c', desc:'1000W IP65 BLAIR-CG RGBWW LED Spot', emoji:'💡', watts:1440, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
       weight:'9.66 kg', size:'335×338×557 mm', ccts:[1800, 2500, 3200, 4300, 5600, 6500, 7500, 10000, 15000, 20000],
@@ -2961,6 +2980,22 @@ var LIGHTS = {
 
   
   nanlite_lux: {
+    matrix_2500b: {
+      group:'LED COB', name:'Matrix 2500B', desc:'2500W 4-Head Bi-Color Array Fixture', emoji:'🔵', watts:2500,
+      svgIcon:'<svg width="160" height="100" viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#111" stroke-width="3" stroke-linejoin="round"><rect x="34" y="18" width="72" height="72" rx="6"/><circle cx="52" cy="40" r="10"/><circle cx="88" cy="40" r="10"/><circle cx="52" cy="68" r="10"/><circle cx="88" cy="68" r="10"/></g></svg>',
+      weight:'17 kg', size:'40×23.5×40 cm', ccts:[2700,3200,4300,5600,6500],
+      accessories:['none','fres16','fres48'],
+      dmx:{led:'Nebula B4 (4× White LED)',power:'2500W',cct:'2700K–6500K (G/M±80)',cri:'98',tlci:'98',ip:'IP66',control:'On-board / NANLINK App / Wired Controller / DMX/RDM / Art-Net/sACN / CRMX / NFC',dimming:'0.0%–100%'},
+      refData:{5600:{3:{none:13470,fres16:103000,fres48:25240},10:{none:4630,fres16:35400,fres48:9160}}}
+    },
+    matrix_2500c: {
+      group:'LED COB', name:'Matrix 2500C', desc:'2500W 4-Head Full Color Array Fixture', emoji:'🔵', watts:2500,
+      svgIcon:'<svg width="160" height="100" viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#111" stroke-width="3" stroke-linejoin="round"><rect x="34" y="18" width="72" height="72" rx="6"/><circle cx="52" cy="40" r="10"/><circle cx="88" cy="40" r="10"/><circle cx="52" cy="68" r="10"/><circle cx="88" cy="68" r="10"/></g></svg>',
+      weight:'18.5 kg', size:'40×23.5×40 cm', ccts:[1000,2700,3200,4300,5600,6500,10000,20000],
+      accessories:['none','fres16','fres48'],
+      dmx:{led:'Nebula C8 (8-color)',power:'2500W',cct:'1000K–20000K (G/M±200)',cri:'98',tlci:'98',ip:'IP66',control:'On-board / NANLINK App / Wired Controller / DMX/RDM / Art-Net/sACN / CRMX / NFC',dimming:'0.0%–100%'},
+      refData:{5600:{3:{none:9570,fres16:67900,fres48:16300},10:{none:3380,fres16:23050,fres48:5810}}}
+    },
     pavoslim_60b: {
       group:'LED', name:'PavoSlim 60B', desc:'65W Bi-Color Slim Panel', emoji:'💡', watts:65, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
@@ -4855,6 +4890,9 @@ var LIGHTS = {
 
 var ACC_INFO = {
   none:     { label:'Light Only',          beam:'Bare Light',    emoji:'⭕', angle:120 },
+  r30:      { label:'30° Reflector',       beam:'Spot 30°',      emoji:'🔆', angle:30 },
+  fres16:   { label:'Fresnel 16°',         beam:'Spot 16°',      emoji:'🔬', angle:16 },
+  fres48:   { label:'Fresnel 48°',         beam:'Flood 48°',     emoji:'🔆', angle:48 },
   native20: { label:'Native 20° Beam',     beam:'20° Native',   emoji:'🔦', angle:20 },
   flood:    { label:'FLOOD',               beam:'Flood',         emoji:'🔆', angle:55 },
   spot:     { label:'SPOT',               beam:'Spot ~10°',     emoji:'🎯', angle:10 },
@@ -14813,7 +14851,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.17';
+var ver = 'v1.1.4.18';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
