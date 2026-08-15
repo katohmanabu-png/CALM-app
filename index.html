@@ -7111,6 +7111,7 @@ function refreshAllTabs() {
   try { if (typeof renderAltResults === 'function') renderAltResults();
         else if (typeof renderAlt === 'function') renderAlt(); } catch(e) { console.log('alt err',e); }
   try { renderMixList(); calcMix(); }     catch(e) { console.log('mix err',e); }
+  try { if (document.getElementById('_cmp_ov')) renderCompare(); } catch(e) {}
 }
 function onCamChange() {
   var type = S.camType || 'cinema';
@@ -7516,6 +7517,51 @@ function _cmpBeam(light) {
   if (b && b.length === 1) return b[0] + '°';
   return '—';
 }
+// ビームアングルのスライダーを持つライト（spot↔flood / Fresnel の連続ズーム）
+function _cmpBeamLux(light, cct, dist, pct) {
+  var ba = getBeamAngles(light); if (!ba || ba.length < 2) return null;
+  var accs = light.accessories || [];
+  var spotAcc = null, flatAcc = null;
+  if (accs.indexOf('spot') >= 0) spotAcc = 'spot';
+  if (accs.indexOf('flat') >= 0) flatAcc = 'flat';
+  if (accs.indexOf('flood') >= 0) flatAcc = 'flood';
+  if (accs.indexOf('open') >= 0) flatAcc = 'open';
+  var fres = accs.filter(function(a){ return ACC_INFO[a] && typeof ACC_INFO[a].beam === 'string' && ACC_INFO[a].beam.indexOf('Fresnel') >= 0 && ACC_INFO[a].angle != null; });
+  if (fres.length >= 2) { fres.sort(function(a,b){ return ACC_INFO[a].angle - ACC_INFO[b].angle; }); spotAcc = fres[0]; flatAcc = fres[fres.length-1]; }
+  if (!spotAcc || !flatAcc) return null;
+  var rS = luxForCCTAndDist(light.refData, cct, spotAcc, dist);
+  var rF = luxForCCTAndDist(light.refData, cct, flatAcc, dist);
+  if (!rS && !rF) return null;
+  if (rS && !rF) return rS.lux;
+  if (rF && !rS) return rF.lux;
+  var p = (pct == null ? 50 : pct) / 100;
+  return Math.round(Math.exp(Math.log(rS.lux) * (1-p) + Math.log(rF.lux) * p));
+}
+function _cmpHasBeam(light) { return !!getBeamAngles(light) && _cmpBeamLux(light, 5600, 3, 50) != null; }
+function _cmpBeamAngleAt(light, pct) {
+  var ba = getBeamAngles(light); if (!ba || ba.length < 2) return null;
+  return Math.round(ba[0] * Math.pow(ba[1]/ba[0], (pct == null ? 50 : pct)/100));
+}
+function _cmpSlotBeam(slot) { return (slot && slot.beamPct != null) ? slot.beamPct : 50; }
+function _cmpSetBeam(i, val) { if (_cmp.slots[i]) { _cmp.slots[i].beamPct = Math.max(0, Math.min(100, parseInt(val) || 0)); renderCompare(); } }
+function _cmpBeamSliderHTML(i, light, pct) {
+  var ang = _cmpBeamAngleAt(light, pct);
+  return '<div style="margin-top:5px;">' +
+    '<input type="range" min="0" max="100" step="1" value="' + pct + '" oninput="_cmpSetBeam(' + i + ',this.value)" style="width:100%;accent-color:var(--accent,#1976d2);">' +
+    '<div style="font-size:9.5px;font-weight:800;color:var(--text-dim,#777);margin-top:1px;">🔦 ' + (ang != null ? ang + '°' : '—') + '</div>' +
+  '</div>';
+}
+// カメラタブ設定のサマリー（F値計算に使用中の設定を表示）
+function _cmpCamSummary() {
+  try {
+    var iso = getActiveISO();
+    var fps = getActiveFPS ? getActiveFPS() : (S.fps || 24);
+    var sd = getActiveShutterDuration();
+    var ss = (sd && sd > 0) ? ('1/' + Math.round(1/sd) + 's') : '';
+    var typ = (S.camType === 'film') ? 'Film' : (S.camType === 'still') ? 'Photo' : 'Digital';
+    return '🎥 ' + typ + ' · ISO' + iso + ' · ' + fps + 'fps · ' + ss;
+  } catch(e) { return '🎥'; }
+}
 
 function renderCompare() {
   var body = document.getElementById('_cmp_body'); if (!body) return;
@@ -7536,13 +7582,20 @@ function renderCompare() {
         '<button onclick="_cmpSetDist(0.5)" style="width:28px;height:28px;border:none;border-radius:7px;background:var(--bg,#eee);color:var(--text,#333);font-size:16px;font-weight:800;cursor:pointer;">+</button>' +
         '<div style="flex:1;"></div>' + cctBtns +
       '</div>' +
-      '<input type="range" min="0.5" max="30" step="0.5" value="' + dv + '" oninput="_cmpSetDistAbs(this.value)" style="width:100%;margin-top:6px;accent-color:var(--accent,#1976d2);">';
+      '<input type="range" min="0.5" max="30" step="0.5" value="' + dv + '" oninput="_cmpSetDistAbs(this.value)" style="width:100%;margin-top:6px;accent-color:var(--accent,#1976d2);">' +
+      '<div style="font-size:10px;font-weight:700;color:var(--text-dim,#888);margin-top:6px;">' + _cmpCamSummary() + ' <span style="color:var(--accent,#1976d2);">→ F値</span></div>';
   }
 
-  // 各スロットの lux を先に計算（最大値ハイライト用）。アクセサリー(配光)はスロットごとに選択可
+  // 各スロットの lux を先に計算（最大値ハイライト用）。
+  // ビームアングルのスライダーを持つライトはビーム%で、そうでなければアクセサリー(配光)で計算。
   var lights = _cmp.slots.map(_cmpLightOf);
-  var accs = lights.map(function(l,i){ return l ? _cmpSlotAcc(_cmp.slots[i], l) : null; });
-  var luxes = lights.map(function(l,i){ return l ? _cmpLuxAt(l, _cmp.cct, dv, accs[i]) : null; });
+  var beamOn = lights.map(function(l){ return l ? _cmpHasBeam(l) : false; });
+  var accs = lights.map(function(l,i){ return (l && !beamOn[i]) ? _cmpSlotAcc(_cmp.slots[i], l) : null; });
+  var bpcts = lights.map(function(l,i){ return beamOn[i] ? _cmpSlotBeam(_cmp.slots[i]) : null; });
+  var luxes = lights.map(function(l,i){
+    if (!l) return null;
+    return beamOn[i] ? _cmpBeamLux(l, _cmp.cct, dv, bpcts[i]) : _cmpLuxAt(l, _cmp.cct, dv, accs[i]);
+  });
   var maxLux = -1, maxIdx = -1;
   luxes.forEach(function(v,i){ if (v != null && v > maxLux) { maxLux = v; maxIdx = i; } });
 
@@ -7556,7 +7609,7 @@ function renderCompare() {
         '<button onclick="_cmpClear(' + i + ')" style="position:absolute;top:4px;right:4px;width:20px;height:20px;border:none;border-radius:50%;background:rgba(0,0,0,0.12);color:#fff;font-size:11px;cursor:pointer;line-height:1;">✕</button>' +
         '<div style="font-size:26px;line-height:1;margin-bottom:6px;">' + (mk ? mk.emoji : '💡') + '</div>' +
         '<div style="font-size:12px;font-weight:800;color:var(--text,#111);line-height:1.25;min-height:30px;">' + l.name + '</div>' +
-        _cmpAccSelectHTML(i, l, accs[i]) +
+        (beamOn[i] ? _cmpBeamSliderHTML(i, l, bpcts[i]) : _cmpAccSelectHTML(i, l, accs[i])) +
         '<button onclick="_cmpPick(' + i + ')" style="margin-top:6px;padding:4px 10px;border:1px solid var(--accent,#1976d2);border-radius:20px;background:transparent;color:var(--accent,#1976d2);font-size:10px;font-weight:800;cursor:pointer;">' + t('cmpChange') + '</button>' +
       '</div>';
     } else {
@@ -7572,11 +7625,11 @@ function renderCompare() {
   var specs = [
     { label: t('cmpFstop'), hi: true, val: function(l,i){ var lx=luxes[i]; if(lx==null) return '—'; var f=luxToFstopCamera(lx); return f? ('f' + f.toFixed(1)) : '—'; } },
     { label: t('cmpLuxAt') + ' @' + dv.toFixed(1) + 'm', hi: true, val: function(l,i){ var lx=luxes[i]; return lx==null? '—' : (lx.toLocaleString() + ' lx'); } },
-    { label: t('cmpMaxLux'), val: function(l,i){ var lx=l?_cmpLuxAt(l,_cmp.cct,1,accs[i]):null; return lx==null?'—':(lx.toLocaleString()+' lx'); } },
+    { label: t('cmpMaxLux'), val: function(l,i){ if(!l) return '—'; var lx=beamOn[i]?_cmpBeamLux(l,_cmp.cct,1,bpcts[i]):_cmpLuxAt(l,_cmp.cct,1,accs[i]); return lx==null?'—':(lx.toLocaleString()+' lx'); } },
     { label: t('cmpPower'), val: function(l){ return l && l.watts ? (l.watts + 'W') : '—'; } },
     { label: t('cmpCCT'), val: function(l){ return l ? _cmpCCTRange(l) : '—'; } },
     { label: t('cmpCRI'), val: function(l){ if(!l||!l.dmx) return '—'; var c=l.dmx.cri, tt=l.dmx.tlci; if(!c&&!tt) return '—'; return (c||'—') + ' / ' + (tt||'—'); } },
-    { label: t('cmpBeam'), val: function(l,i){ if(!l) return '—'; var a=accs[i]; var ai=ACC_INFO[a]; return ai ? (ai.beam || (ai.angle!=null?ai.angle+'°':'—')) : _cmpBeam(l); } },
+    { label: t('cmpBeam'), val: function(l,i){ if(!l) return '—'; if(beamOn[i]){ var ang=_cmpBeamAngleAt(l,bpcts[i]); return ang!=null?(ang+'°'):'—'; } var a=accs[i]; var ai=ACC_INFO[a]; return ai ? (ai.beam || (ai.angle!=null?ai.angle+'°':'—')) : _cmpBeam(l); } },
     { label: t('cmpIP'), val: function(l){ return (l&&l.dmx&&l.dmx.ip) ? l.dmx.ip : '—'; } },
     { label: t('cmpControl'), val: function(l){ return (l&&l.dmx&&l.dmx.control) ? l.dmx.control : '—'; } }
   ];
@@ -14619,7 +14672,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.9';
+var ver = 'v1.1.4.10';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
