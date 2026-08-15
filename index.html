@@ -7234,7 +7234,7 @@ function camDblEdit(kind) {
       setText('shutter-speed-disp', '1/' + v + 's'); updateBadge(); refreshAllTabs(); try { saveCalcState(); } catch(e) {}
     } else if (kind === 'tstop') {
       var v = parseFloat(prompt('Base T-stop', S.customFstop || FSTOPS13[S.fstop] || 2.8)); if (!v || v < 0.7 || v > 64) return;
-      S.customFstop = v; setText('fstop-disp', tLab(v)); calculate(); try { saveCalcState(); } catch(e) {}
+      S.customFstop = v; setText('fstop-disp', tLab(v)); updateBadge(); refreshAllTabs(); try { saveCalcState(); } catch(e) {}
     } else if (kind === 'stilliso') {
       var v = parseInt(prompt('ISO', S.stillISO || 400)); if (!v || v <= 0) return;
       S.stillISO = v; setHTML('still-iso-disp', v + '<span>ISO</span>');
@@ -8123,8 +8123,9 @@ function buildCamInfoHtml() {
 
   // シネマ系(Digital/Film)はT表記、Photo(still)はF表記
   var _baseFmt = (S.camType === 'still') ? fLab : tLab;
-  var baseF = (typeof FSTOPS13 !== 'undefined' && FSTOPS13[S.fstop])
-    ? (typeof _baseFmt === 'function' ? _baseFmt(FSTOPS13[S.fstop]) : FSTOPS13[S.fstop])
+  var _baseFval = S.customFstop || (typeof FSTOPS13 !== 'undefined' ? FSTOPS13[S.fstop] : null);
+  var baseF = _baseFval
+    ? (typeof _baseFmt === 'function' ? _baseFmt(_baseFval) : _baseFval)
     : '--';
 
   var chip = 'display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;' +
@@ -10430,7 +10431,7 @@ function calcMix() {
   var camType = S.camType || 'cinema';
   var camISO = getActiveISO ? getActiveISO() : (S.customISO || ISO_V[S.iso] || 800);
   var camFPS = getActiveFPS ? getActiveFPS() : (S.customFPS || S.fps || 24);
-  var camFstop = FSTOPS13 ? FSTOPS13[S.fstop] : null;
+  var camFstop = S.customFstop || (FSTOPS13 ? FSTOPS13[S.fstop] : null);
   var camFstopStr = camFstop ? fLab(camFstop) : '--';
 
   // シャッタースピード文字列
@@ -10467,7 +10468,7 @@ function calcMix() {
 
   // F-stopと露出補正を計算
   // fvalをFSTOPS13の最近傍標準値に丸めてstopDiff計算（表示値との整合性）
-  var baseF = FSTOPS13 ? FSTOPS13[S.fstop] : 2.8;
+  var baseF = S.customFstop || (FSTOPS13 ? FSTOPS13[S.fstop] : 2.8);
   var fvalForStop = fval;
   if (FSTOPS13 && fval > 0) {
     var _bestF = FSTOPS13[0], _bestD = Infinity;
@@ -14770,7 +14771,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.14';
+var ver = 'v1.1.4.15';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
