@@ -2033,6 +2033,19 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
   </div>
 </div>
 
+<!-- MIX 用 固定RESULTバー（スクロールしても常に表示） -->
+<div id="mix-sticky-result" style="position:fixed;bottom:calc(49px + env(safe-area-inset-bottom,0px));left:0;right:0;max-width:480px;margin:0 auto;z-index:250;display:none;">
+  <div style="padding:5px 12px 6px;background:rgba(10,12,22,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
+      <div style="font-size:9px;font-weight:900;color:var(--accent,#f96);letter-spacing:.18em;text-transform:uppercase;line-height:1;">RESULT</div>
+      <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.45);letter-spacing:.1em;">MIX</div>
+      <div style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></div>
+    </div>
+    <div id="mix-sticky-inner" style="display:flex;align-items:center;gap:0;width:100%;"></div>
+    <div id="mix-sticky-cam" style="margin-top:4px;display:flex;flex-wrap:wrap;gap:4px;"></div>
+  </div>
+</div>
+
 <script>
 
 window.onerror = function(m,s,l,c,e){ console.log('[LMP]',m,l,e&&e.stack); return true; }; // suppress uncaught display
@@ -8060,6 +8073,9 @@ function showPage(p) {
   // sticky-result も Calc タブ以外は非表示
   var _sr = el('sticky-result');
   if (_sr && p !== 'calc') _sr.style.display = 'none';
+  // MIX 固定RESULTバーは Mix タブ以外は非表示
+  var _msr = el('mix-sticky-result');
+  if (_msr && p !== 'mix') _msr.style.display = 'none';
   try { if (p === 'calc')   { renderModels(); calculate(); updateLightSelectorHdr(); } }   catch(e) {}
   try { if (p === 'alt')    { syncAltFromCalc(); } }              catch(e) {}
   if (p === 'finder') { try { syncFinderFromCalc(); } catch(e) {} try { initFinderDistSlider(); } catch(e) {} try { renderFinderResults(); } catch(e) {} }
@@ -10383,6 +10399,8 @@ function calcMix() {
   if (!total) {
     card.style.display = 'none'; inner.innerHTML = '';
     if (cctCard) cctCard.style.display = 'none';
+    var _ms0 = el('mix-sticky-result'); if (_ms0) _ms0.style.display = 'none';
+    var _pm0 = document.getElementById('page-mix'); if (_pm0) _pm0.style.paddingBottom = '';
     return;
   }
 
@@ -10465,6 +10483,31 @@ function calcMix() {
     badge.style.flexWrap = 'wrap';
     badge.style.gap = '4px';
     badge.innerHTML = buildCamInfoHtml();
+  }
+
+  // 固定RESULTバー（Calcタブと同様、スクロールしても常に表示）
+  var _msInner = el('mix-sticky-inner');
+  if (_msInner) {
+    var _msBadge = (Math.abs(stopDiff) < 0.15)
+      ? '<span style="font-size:13px;font-weight:800;color:#4caf50;padding:2px 6px;border-radius:4px;background:rgba(76,175,80,.18);">OK</span>'
+      : '<span style="font-size:13px;font-weight:800;padding:2px 6px;border-radius:4px;color:' +
+        (stopDiff > 0 ? '#64b5f6;background:rgba(100,181,246,.18);">' : '#ef9a9a;background:rgba(239,154,154,.18);">') +
+        stopDiffStr + '</span>';
+    _msInner.innerHTML =
+      '<div style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:2px 2px;">' +
+      '<span style="font-size:34px;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1;">' + fLab(fvalForStop) + '</span>' +
+      _msBadge +
+      '<span style="font-size:20px;font-weight:800;color:#fff;">' + total.toLocaleString() + '<span style="font-size:11px;opacity:.65;margin-left:2px;">lx</span></span>' +
+      '<span style="font-size:16px;font-weight:700;color:rgba(255,255,255,.5);">' + fc.toLocaleString() + '<span style="font-size:11px;margin-left:1px;">fc</span></span>' +
+      '<span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.85);">' + distDisp + unit + '</span>' +
+      '</div>';
+  }
+  var _msCam = el('mix-sticky-cam'); if (_msCam) _msCam.innerHTML = buildCamInfoHtml();
+  var _msWrap = el('mix-sticky-result');
+  if (_msWrap && (S.page === 'mix')) {
+    _msWrap.style.display = 'block';
+    var _pm = document.getElementById('page-mix');
+    if (_pm) _pm.style.paddingBottom = (49 + (_msWrap.offsetHeight || 60) + 20) + 'px';
   }
 
   // ─ stopバー生成 ─
@@ -14715,7 +14758,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.12';
+var ver = 'v1.1.4.13';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
