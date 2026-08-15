@@ -75,16 +75,14 @@ export default {
       'User-Agent': 'CALM-Feedback-Worker'
     };
 
-    // @mention the notify user so GitHub sends a notification (GitHub app / email).
-    // Note: GitHub suppresses notifications for your OWN actions, so this is only
-    // reliable when the token belongs to a DIFFERENT account than GH_NOTIFY_USER.
     const notifyUser = env.GH_NOTIFY_USER || env.GH_OWNER;
-    const fullBody = body + (notifyUser ? ('\n\ncc @' + notifyUser) : '');
 
-    async function createIssue(withLabel) {
-      const p = { title: title, body: fullBody };
-      if (withLabel) p.labels = [label];
-      if (notifyUser) p.assignees = [notifyUser];
+    async function createIssue(withExtras) {
+      const p = { title: title, body: body };
+      if (withExtras) {
+        p.labels = [label];
+        if (notifyUser) p.assignees = [notifyUser];
+      }
       return fetch(apiUrl, { method: 'POST', headers: ghHeaders, body: JSON.stringify(p) });
     }
 
@@ -94,6 +92,23 @@ export default {
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.html_url) {
       return json({ error: (data && data.message) || 'GitHub error', status: res.status }, 502, origin);
+    }
+
+    // Push notification via Discord webhook. Unlike ntfy's free tier (per-IP
+    // quota → 429 from Cloudflare's shared egress) this works reliably from a
+    // Worker, and unlike GitHub's own notifications it isn't suppressed as a
+    // "your own action" event.
+    if (env.DISCORD_WEBHOOK) {
+      try {
+        await fetch(env.DISCORD_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: 'CALM Feedback',
+            content: '**' + title + '**\n' + data.html_url
+          })
+        });
+      } catch (e) { /* non-fatal */ }
     }
 
     return json({ ok: true, url: data.html_url, number: data.number }, 200, origin);
