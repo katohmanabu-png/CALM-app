@@ -8423,7 +8423,7 @@ function fbUpdateFiles() {
 // セキュリティ: GitHub トークンはクライアントに置かない。フィードバックは
 // サーバー側プロキシ（Cloudflare Worker 等）を経由し、トークンは Worker の
 // シークレットに保管する。FB_PROXY_URL に自分の Worker の URL を設定すること。
-var FB_PROXY_URL = 'REPLACE_WITH_YOUR_WORKER_URL';  // 例: https://calm-feedback.xxxxx.workers.dev
+var FB_PROXY_URL = 'https://calm-feedback.katohmanabu.workers.dev';  // Cloudflare Worker (feedback proxy)
 var FB_TYPE_MAP = {
   bug:           { prefix:'[Bug]',        label:'bug' },
   feature:       { prefix:'[Feature]',    label:'enhancement' },
@@ -14996,7 +14996,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.23';
+var ver = 'v1.1.4.24';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
