@@ -3185,10 +3185,18 @@ var LIGHTS = {
     },
     evoke1200: {
       group:'LED COB', name:'Evoke 1200', emoji:'🔵', watts:1200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
-      ccts:[5600], accessories:["flat", "spot"],
+      desc:'1200W Daylight LED Fixture',
+      ccts:[5600], accessories:['none','r45','fresnel11','fresnel30','fresnel45'],
+      dmx:{led:'Daylight COB',power:'1200W',cct:'5600K',cri:'≈96',ip:'IP54',control:'On-board / NANLINK APP / DMX/RDM / LumenRadio CRMX',dimming:'0%–100%'},
       dmxUrl:'https://cdn-aliyun.nanlux.com/release/1701080735695-203116-11338834471-Evoke+1200+DMX+REFERENCE+GUIDE%EF%BC%88NANLUX%EF%BC%89B+V2+20211103+W.pdf',
       dmxVer:'v2',
-      refData:{flat:{5600:{1:75938,2:22868,3:12095,5:3601,8:1200,12:588}},spot:{5600:{1:303750,2:95675,3:48381,5:14406,8:5717,12:3024}}}
+      // Official Nanlux photometrics (nanlux.com) — 5600K daylight; Light Only / 45° Reflector / Fresnel 11°/30°/45°, 3/5/7/10m
+      refData:{5600:{
+        3:{none:5532,r45:18460,fresnel11:65280,fresnel30:25560,fresnel45:15170},
+        5:{none:2373,r45:6583, fresnel11:22080,fresnel30:10640,fresnel45:5718},
+        7:{none:1266,r45:3671, fresnel11:11765,fresnel30:5674, fresnel45:3065},
+        10:{none:679, r45:2021, fresnel11:6308, fresnel30:3043, fresnel45:1644}
+      }}
     },
   
     pavoSlim_240cl: {
@@ -4901,6 +4909,9 @@ var ACC_INFO = {
   flat_diff:   { label:'Flat Diffuser', beam:'130° Diffused', emoji:'🔦', angle:130 },
   intensifier:   { label:'Intensifier', beam:'60° Focused', emoji:'🔦', angle:60 },
   r26:   { label:'26° Reflector', beam:'26°', emoji:'🔦', angle:26 },
+  fresnel11: { label:'Fresnel 11°', beam:'Fresnel 11°', emoji:'🔬', angle:11 },
+  fresnel30: { label:'Fresnel 30°', beam:'Fresnel 30°', emoji:'🔬', angle:30 },
+  fresnel45: { label:'Fresnel 45°', beam:'Fresnel 45°', emoji:'🔬', angle:45 },
   r30:   { label:'30° Reflector', beam:'30°', emoji:'🔦', angle:30 },
   r45:   { label:'45° Reflector', beam:'45°', emoji:'🔦', angle:45 },
   r60:   { label:'60° Reflector', beam:'60°', emoji:'🔦', angle:60 },
@@ -14605,7 +14616,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.6';
+var ver = 'v1.1.4.7';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
