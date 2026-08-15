@@ -89,12 +89,15 @@ export default {
       return json({ error: (data && data.message) || 'GitHub error', status: res.status }, 502, origin);
     }
 
-    // Optional push notification
+    // Optional push notification (ntfy) and/or email.
+    // Set NOTIFY_EMAIL to also receive an email via ntfy's email forwarding.
     if (env.NTFY_TOPIC) {
       try {
+        const nHeaders = { 'Title': 'CALM Feedback', 'Priority': 'high', 'Tags': 'bell' };
+        if (env.NOTIFY_EMAIL) nHeaders['Email'] = env.NOTIFY_EMAIL;
         await fetch('https://ntfy.sh/' + env.NTFY_TOPIC, {
           method: 'POST',
-          headers: { 'Title': 'CALM Feedback', 'Priority': 'high', 'Tags': 'bell' },
+          headers: nHeaders,
           body: title + '\n' + data.html_url
         });
       } catch (e) { /* non-fatal */ }
