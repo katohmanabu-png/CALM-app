@@ -7581,31 +7581,41 @@ function _cmpPick(i) {
   _cmpFilter('');
   setTimeout(function(){ var q=document.getElementById('_cmp_q'); if(q) q.focus(); }, 60);
 }
-function _cmpAllLights() {
-  var out = [];
-  for (var mk in LIGHTS) {
-    for (var lk in LIGHTS[mk]) {
-      var l = LIGHTS[mk][lk];
-      if (!l || !l.name) continue;
-      out.push({ maker: mk, model: lk, name: l.name, emoji: (MAKERS[mk] ? MAKERS[mk].emoji : '💡'), makerName: (MAKERS[mk] ? MAKERS[mk].name : mk) });
-    }
-  }
-  out.sort(function(a,b){ return a.name.localeCompare(b.name); });
-  return out;
+// メーカー分類の並び順（MAKERSの定義順＝通常のグリッドと同じ分類）
+function _cmpMakerOrder() {
+  var order = [];
+  for (var mk in MAKERS) { if (LIGHTS[mk]) order.push(mk); }
+  for (var mk2 in LIGHTS) { if (order.indexOf(mk2) < 0) order.push(mk2); }
+  return order;
 }
 function _cmpFilter(q) {
   var list = document.getElementById('_cmp_list'); if (!list) return;
   q = (q || '').toLowerCase().trim();
-  var items = _cmpAllLights().filter(function(it){
-    return !q || (it.name.toLowerCase().indexOf(q) >= 0 || it.makerName.toLowerCase().indexOf(q) >= 0);
+  var html = '';
+  _cmpMakerOrder().forEach(function(mk) {
+    var mkObj = MAKERS[mk];
+    var mkName = mkObj ? mkObj.name : mk;
+    var emoji  = mkObj ? mkObj.emoji : '💡';
+    var lights = [];
+    for (var lk in LIGHTS[mk]) {
+      var l = LIGHTS[mk][lk];
+      if (!l || !l.name) continue;
+      if (q && l.name.toLowerCase().indexOf(q) < 0 && mkName.toLowerCase().indexOf(q) < 0) continue;
+      lights.push({ model: lk, name: l.name, desc: l.desc || '' });
+    }
+    if (!lights.length) return;
+    // メーカー見出し（スクロール追従）
+    html += '<div style="position:sticky;top:0;background:var(--white,#fff);padding:9px 8px 5px;z-index:1;' +
+      'font-size:11px;font-weight:900;color:var(--text-dim,#777);border-bottom:1.5px solid var(--bg,#eee);' +
+      'display:flex;align-items:center;gap:6px;"><span style="font-size:14px;">' + emoji + '</span>' + mkName + '</div>';
+    html += lights.map(function(it) {
+      return '<button onclick="_cmpChoose(\'' + mk + '\',\'' + it.model + '\')" style="display:block;width:100%;text-align:left;padding:9px 12px;border:none;border-bottom:1px solid var(--bg,#f2f2f2);background:transparent;cursor:pointer;">' +
+        '<span style="display:block;font-size:13px;font-weight:800;color:var(--text,#111);">' + it.name + '</span>' +
+        (it.desc ? '<span style="display:block;font-size:10px;color:var(--text-dim,#999);font-weight:600;margin-top:1px;">' + it.desc + '</span>' : '') +
+      '</button>';
+    }).join('');
   });
-  list.innerHTML = items.map(function(it){
-    return '<button onclick="_cmpChoose(\'' + it.maker + '\',\'' + it.model + '\')" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 10px;border:none;border-bottom:1px solid var(--bg,#f0f0f0);background:transparent;cursor:pointer;">' +
-      '<span style="font-size:18px;flex-shrink:0;">' + it.emoji + '</span>' +
-      '<span style="min-width:0;"><span style="display:block;font-size:13px;font-weight:800;color:var(--text,#111);">' + it.name + '</span>' +
-      '<span style="display:block;font-size:10px;color:var(--text-dim,#888);font-weight:600;">' + it.makerName + '</span></span>' +
-    '</button>';
-  }).join('') || '<div style="text-align:center;padding:20px;color:#888;font-size:12px;">—</div>';
+  list.innerHTML = html || '<div style="text-align:center;padding:20px;color:#888;font-size:12px;">—</div>';
 }
 function _cmpChoose(maker, model) {
   _cmp.slots[_cmp.pickIdx] = { maker: maker, model: model };
@@ -14523,7 +14533,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.1';
+var ver = 'v1.1.4.2';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
