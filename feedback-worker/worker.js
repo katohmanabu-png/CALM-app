@@ -77,8 +77,36 @@ export default {
 
     const notifyUser = env.GH_NOTIFY_USER || env.GH_OWNER;
 
+    // Attachments: GitHub has no public API for uploading to an issue, so commit
+    // each file into the repo and embed its raw URL in the issue body.
+    // Requires the token to also have Contents: Read and write.
+    let attachMd = '';
+    let attached = 0;
+    const atts = Array.isArray(payload.attachments) ? payload.attachments.slice(0, 4) : [];
+    for (const a of atts) {
+      const b64 = String((a && a.b64) || '');
+      if (!b64 || b64.length > 8 * 1024 * 1024) continue;   // ~6MB binary cap
+      const safe = String((a && a.name) || 'file')
+        .replace(/[^A-Za-z0-9._-]/g, '_').slice(-60);
+      const path = 'feedback-attachments/' + Date.now() + '-' + Math.random().toString(36).slice(2, 7) + '-' + safe;
+      try {
+        const up = await fetch('https://api.github.com/repos/' + env.GH_OWNER + '/' + env.GH_REPO + '/contents/' + path, {
+          method: 'PUT',
+          headers: ghHeaders,
+          body: JSON.stringify({ message: 'feedback attachment: ' + safe, content: b64 })
+        });
+        const ud = await up.json().catch(() => ({}));
+        const url = ud && ud.content && ud.content.download_url;
+        if (up.ok && url) {
+          attachMd += (/\.(png|jpe?g|gif|webp)$/i.test(safe) ? '![' + safe + '](' + url + ')' : '[' + safe + '](' + url + ')') + '\n\n';
+          attached++;
+        }
+      } catch (e) { /* skip this file */ }
+    }
+    const fullBody = body + (attachMd ? '\n\n## Attachments\n' + attachMd : '');
+
     async function createIssue(withExtras) {
-      const p = { title: title, body: body };
+      const p = { title: title, body: fullBody };
       if (withExtras) {
         p.labels = [label];
         if (notifyUser) p.assignees = [notifyUser];
@@ -111,6 +139,6 @@ export default {
       } catch (e) { /* non-fatal */ }
     }
 
-    return json({ ok: true, url: data.html_url, number: data.number }, 200, origin);
+    return json({ ok: true, url: data.html_url, number: data.number, attached: attached }, 200, origin);
   }
 };
