@@ -8130,12 +8130,23 @@ function buildCamInfoHtml() {
   var chip = 'display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;' +
              'background:rgba(255,255,255,0.07);font-size:10px;font-weight:700;color:rgba(255,255,255,0.7);white-space:nowrap;';
   var accent = 'color:rgba(255,255,255,0.95);font-weight:800;';
-
+  // カメラ設定チップはダブルタップで直接編集（Film はストック基準のため編集不可）
+  var edit = (camType === 'film') ? null : {
+    iso:  camType === 'still' ? 'stilliso'   : 'iso',
+    fps:  'fps',
+    ss:   camType === 'still' ? 'stillss'    : 'digss',
+    base: camType === 'still' ? 'stillfstop' : 'tstop'
+  };
+  var chipTap = chip + 'cursor:pointer;touch-action:manipulation;';
+  function _c(kind, html) {
+    if (edit && kind) return '<span onclick="camTapEdit(\'' + edit[kind] + '\')" title="Wタップで変更" style="' + chipTap + '">' + html + '</span>';
+    return '<span style="' + chip + '">' + html + '</span>';
+  }
   return '<span style="' + chip + '">' + formatLabel + '</span>' +
-         '<span style="' + chip + '">ISO <span style="' + accent + '">' + iso + '</span></span>' +
-         (fps !== '--' ? '<span style="' + chip + '"><span style="' + accent + '">' + fps + '</span> fps</span>' : '') +
-         '<span style="' + chip + '">' + ssStr + '</span>' +
-         '<span style="' + chip + '">Base <span style="' + accent + '">' + baseF + '</span></span>';
+         _c('iso', 'ISO <span style="' + accent + '">' + iso + '</span>') +
+         (fps !== '--' ? _c('fps', '<span style="' + accent + '">' + fps + '</span> fps') : '') +
+         _c('ss', ssStr) +
+         _c('base', 'Base <span style="' + accent + '">' + baseF + '</span>');
 }
 
 // ── Feedback page ─────────────────────────────────────────
@@ -10500,6 +10511,7 @@ function calcMix() {
       '<span style="font-size:20px;font-weight:800;color:#fff;">' + total.toLocaleString() + '<span style="font-size:11px;opacity:.65;margin-left:2px;">lx</span></span>' +
       '<span style="font-size:16px;font-weight:700;color:rgba(255,255,255,.5);">' + fc.toLocaleString() + '<span style="font-size:11px;margin-left:1px;">fc</span></span>' +
       '<span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.85);">' + distDisp + unit + '</span>' +
+      (cctTotalLux > 0 ? '<span style="font-size:17px;font-weight:900;color:var(--accent,#f96);white-space:nowrap;">' + Math.round(cctLuxSum / cctTotalLux) + '<span style="font-size:10px;font-weight:700;">K</span></span>' : '') +
       '</div>';
   }
   var _msCam = el('mix-sticky-cam'); if (_msCam) _msCam.innerHTML = buildCamInfoHtml();
@@ -14758,7 +14770,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.13';
+var ver = 'v1.1.4.14';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
