@@ -89,12 +89,16 @@ export default {
       return json({ error: (data && data.message) || 'GitHub error', status: res.status }, 502, origin);
     }
 
-    // Optional push notification (ntfy)
+    // Optional push notification (ntfy). Use NTFY_TOKEN (access token) so the
+    // quota is tied to your ntfy account, not Cloudflare's shared egress IP
+    // (anonymous publishing from Workers hits the daily IP limit → HTTP 429).
     if (env.NTFY_TOPIC) {
       try {
+        const nHeaders = { 'Title': 'CALM Feedback', 'Priority': 'high', 'Tags': 'bell' };
+        if (env.NTFY_TOKEN) nHeaders['Authorization'] = 'Bearer ' + env.NTFY_TOKEN;
         await fetch('https://ntfy.sh/' + env.NTFY_TOPIC, {
           method: 'POST',
-          headers: { 'Title': 'CALM Feedback', 'Priority': 'high', 'Tags': 'bell' },
+          headers: nHeaders,
           body: title + '\n' + data.html_url
         });
       } catch (e) { /* non-fatal */ }
