@@ -7657,7 +7657,7 @@ function renderCompare() {
         '<span id="_cmp_dist_val" style="font-size:14px;font-weight:900;color:var(--accent,#1976d2);min-width:52px;text-align:center;">' + dv.toFixed(1) + 'm</span>' +
         '<button onclick="_cmpSetDist(0.5)" style="width:28px;height:28px;border:none;border-radius:7px;background:var(--bg,#eee);color:var(--text,#333);font-size:16px;font-weight:800;cursor:pointer;">+</button>' +
       '</div>' +
-      '<input type="range" min="0.5" max="30" step="0.1" value="' + dv + '" oninput="_cmpSetDistAbs(this.value)" style="width:100%;margin-top:6px;accent-color:var(--accent,#1976d2);" ontouchstart="event.stopPropagation()" ontouchmove="event.stopPropagation()">' +
+      '<input type="range" min="0.5" max="30" step="0.5" value="' + dv + '" oninput="_cmpSetDistAbs(this.value)" style="width:100%;margin-top:6px;accent-color:var(--accent,#1976d2);" ontouchstart="event.stopPropagation()" ontouchmove="event.stopPropagation()">' +
       '<div style="font-size:10px;font-weight:700;color:var(--text-dim,#888);margin-top:6px;">' + _cmpCamSummary() + ' <span style="color:var(--accent,#1976d2);">→ F値</span></div>';
   }
   body.innerHTML = '<div id="_cmp_header"></div><div id="_cmp_rows"></div>' +
@@ -14813,7 +14813,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.16';
+var ver = 'v1.1.4.17';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
