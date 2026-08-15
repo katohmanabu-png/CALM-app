@@ -7458,12 +7458,29 @@ function _cmpLightOf(slot) {
   if (!slot) return null;
   return (LIGHTS[slot.maker] && LIGHTS[slot.maker][slot.model]) || null;
 }
-function _cmpLuxAt(light, cct, dist) {
+function _cmpLuxAt(light, cct, dist, acc) {
   if (!light || !light.refData) return null;
-  var acc = defaultWidestAcc(light);
+  if (!acc) acc = defaultWidestAcc(light);
   var r = luxForCCTAndDist(light.refData, cct, acc, dist);
   return (r && r.lux != null) ? r.lux : null;
 }
+function _cmpAccLabel(acc) {
+  return (ACC_INFO[acc] && ACC_INFO[acc].label) || acc;
+}
+function _cmpSlotAcc(slot, light) {
+  if (slot && slot.acc && light && light.accessories && light.accessories.indexOf(slot.acc) >= 0) return slot.acc;
+  return defaultWidestAcc(light);
+}
+// ライトカード内のアクセサリー(配光)選択。ビーム角を揃えて比較できるように。
+function _cmpAccSelectHTML(i, light, cur) {
+  var arr = (light && light.accessories) || [];
+  if (arr.length <= 1) {
+    return '<div style="font-size:9px;color:var(--text-dim,#888);font-weight:700;margin-top:4px;">' + _cmpAccLabel(arr[0] || cur) + '</div>';
+  }
+  var opts = arr.map(function(a){ return '<option value="' + a + '"' + (a === cur ? ' selected' : '') + '>' + _cmpAccLabel(a) + '</option>'; }).join('');
+  return '<select onchange="_cmpSetAcc(' + i + ',this.value)" style="margin-top:5px;width:100%;box-sizing:border-box;padding:3px 4px;font-size:9.5px;font-weight:700;border:1px solid var(--bg,#ccc);border-radius:7px;background:var(--white,#fff);color:var(--text,#111);">' + opts + '</select>';
+}
+function _cmpSetAcc(i, acc) { if (_cmp.slots[i]) { _cmp.slots[i].acc = acc; renderCompare(); } }
 function _cmpCCTRange(light) {
   if (light.dmx && light.dmx.cct) return light.dmx.cct;
   if (light.ccts && light.ccts.length) {
@@ -7501,9 +7518,10 @@ function renderCompare() {
       '<input type="range" min="0.5" max="30" step="0.5" value="' + dv + '" oninput="_cmpSetDistAbs(this.value)" style="width:100%;margin-top:6px;accent-color:var(--accent,#1976d2);">';
   }
 
-  // 各スロットの lux を先に計算（最大値ハイライト用）
+  // 各スロットの lux を先に計算（最大値ハイライト用）。アクセサリー(配光)はスロットごとに選択可
   var lights = _cmp.slots.map(_cmpLightOf);
-  var luxes = lights.map(function(l){ return l ? _cmpLuxAt(l, _cmp.cct, dv) : null; });
+  var accs = lights.map(function(l,i){ return l ? _cmpSlotAcc(_cmp.slots[i], l) : null; });
+  var luxes = lights.map(function(l,i){ return l ? _cmpLuxAt(l, _cmp.cct, dv, accs[i]) : null; });
   var maxLux = -1, maxIdx = -1;
   luxes.forEach(function(v,i){ if (v != null && v > maxLux) { maxLux = v; maxIdx = i; } });
 
@@ -7517,7 +7535,8 @@ function renderCompare() {
         '<button onclick="_cmpClear(' + i + ')" style="position:absolute;top:4px;right:4px;width:20px;height:20px;border:none;border-radius:50%;background:rgba(0,0,0,0.12);color:#fff;font-size:11px;cursor:pointer;line-height:1;">✕</button>' +
         '<div style="font-size:26px;line-height:1;margin-bottom:6px;">' + (mk ? mk.emoji : '💡') + '</div>' +
         '<div style="font-size:12px;font-weight:800;color:var(--text,#111);line-height:1.25;min-height:30px;">' + l.name + '</div>' +
-        '<button onclick="_cmpPick(' + i + ')" style="margin-top:8px;padding:4px 10px;border:1px solid var(--accent,#1976d2);border-radius:20px;background:transparent;color:var(--accent,#1976d2);font-size:10px;font-weight:800;cursor:pointer;">' + t('cmpChange') + '</button>' +
+        _cmpAccSelectHTML(i, l, accs[i]) +
+        '<button onclick="_cmpPick(' + i + ')" style="margin-top:6px;padding:4px 10px;border:1px solid var(--accent,#1976d2);border-radius:20px;background:transparent;color:var(--accent,#1976d2);font-size:10px;font-weight:800;cursor:pointer;">' + t('cmpChange') + '</button>' +
       '</div>';
     } else {
       header += '<div style="background:var(--bg,#f5f5f7);border-radius:14px;padding:12px 6px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:118px;">' +
@@ -7532,11 +7551,11 @@ function renderCompare() {
   var specs = [
     { label: t('cmpFstop'), hi: true, val: function(l,i){ var lx=luxes[i]; if(lx==null) return '—'; var f=luxToFstopCamera(lx); return f? ('f' + f.toFixed(1)) : '—'; } },
     { label: t('cmpLuxAt') + ' @' + dv.toFixed(1) + 'm', hi: true, val: function(l,i){ var lx=luxes[i]; return lx==null? '—' : (lx.toLocaleString() + ' lx'); } },
-    { label: t('cmpMaxLux'), val: function(l,i){ var lx=l?_cmpLuxAt(l,_cmp.cct,1):null; return lx==null?'—':(lx.toLocaleString()+' lx'); } },
+    { label: t('cmpMaxLux'), val: function(l,i){ var lx=l?_cmpLuxAt(l,_cmp.cct,1,accs[i]):null; return lx==null?'—':(lx.toLocaleString()+' lx'); } },
     { label: t('cmpPower'), val: function(l){ return l && l.watts ? (l.watts + 'W') : '—'; } },
     { label: t('cmpCCT'), val: function(l){ return l ? _cmpCCTRange(l) : '—'; } },
     { label: t('cmpCRI'), val: function(l){ if(!l||!l.dmx) return '—'; var c=l.dmx.cri, tt=l.dmx.tlci; if(!c&&!tt) return '—'; return (c||'—') + ' / ' + (tt||'—'); } },
-    { label: t('cmpBeam'), val: function(l){ return l ? _cmpBeam(l) : '—'; } },
+    { label: t('cmpBeam'), val: function(l,i){ if(!l) return '—'; var a=accs[i]; var ai=ACC_INFO[a]; return ai ? (ai.beam || (ai.angle!=null?ai.angle+'°':'—')) : _cmpBeam(l); } },
     { label: t('cmpIP'), val: function(l){ return (l&&l.dmx&&l.dmx.ip) ? l.dmx.ip : '—'; } },
     { label: t('cmpControl'), val: function(l){ return (l&&l.dmx&&l.dmx.control) ? l.dmx.control : '—'; } }
   ];
@@ -14579,7 +14598,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.4';
+var ver = 'v1.1.4.5';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
