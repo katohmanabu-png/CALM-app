@@ -26,3 +26,6 @@ Lightstar*.csv
 
 # Temp
 *.tmp
+
+# Local version archive — kept on disk, not published to GitHub Pages
+CALMv*.html
