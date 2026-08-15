@@ -40,6 +40,40 @@ function json(obj, status, origin) {
   });
 }
 
+// CSV/テキストの添付は、GitHubのCSVビューアがモバイルで読めないことがあるため
+// 中身をMarkdownの表にしてIssue本文へ直接埋め込む（先頭のみ・長すぎる場合は省略）。
+function csvToMarkdown(text, maxRows, maxCols) {
+  const rows = [];
+  let cell = '', row = [], q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"') { if (text[i+1] === '"') { cell += '"'; i++; } else q = false; }
+      else cell += c;
+    } else if (c === '"') q = true;
+    else if (c === ',') { row.push(cell); cell = ''; }
+    else if (c === '\n' || c === '\r') {
+      if (c === '\r' && text[i+1] === '\n') i++;
+      row.push(cell); cell = '';
+      if (row.some(v => v.trim() !== '')) rows.push(row);
+      row = [];
+      if (rows.length > maxRows + 1) break;
+    } else cell += c;
+  }
+  if (cell !== '' || row.length) { row.push(cell); if (row.some(v => v.trim() !== '')) rows.push(row); }
+  if (!rows.length) return '';
+  const esc = v => String(v).replace(/\|/g, '\\|').replace(/\n/g, ' ').trim() || ' ';
+  const width = Math.min(maxCols, Math.max.apply(null, rows.map(r => r.length)));
+  const pad = r => { const a = r.slice(0, width); while (a.length < width) a.push(''); return a; };
+  const head = pad(rows[0]).map(esc);
+  const bodyRows = rows.slice(1, maxRows + 1).map(r => pad(r).map(esc));
+  let md = '| ' + head.join(' | ') + ' |\n|' + head.map(() => '---').join('|') + '|\n';
+  md += bodyRows.map(r => '| ' + r.join(' | ') + ' |').join('\n') + '\n';
+  const total = rows.length - 1;
+  if (total > maxRows) md += '\n_… ' + (total - maxRows) + ' more rows (see the file link above)_\n';
+  return md;
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
@@ -100,9 +134,23 @@ export default {
         const url  = ud && ud.content && ud.content.download_url;   // raw (embeds images)
         const blob = ud && ud.content && ud.content.html_url;       // github.com blob (renders CSV as a table)
         if (up.ok && url) {
-          attachMd += (/\.(png|jpe?g|gif|webp)$/i.test(safe)
-            ? '![' + safe + '](' + url + ')'
-            : '[' + safe + '](' + (blob || url) + ')' + (blob ? ' · [raw](' + url + ')' : '')) + '\n\n';
+          if (/\.(png|jpe?g|gif|webp)$/i.test(safe)) {
+            attachMd += '![' + safe + '](' + url + ')\n\n';
+          } else {
+            attachMd += '**' + safe + '** — [' + (blob ? 'view' : 'file') + '](' + (blob || url) + ')' + (blob ? ' · [raw](' + url + ')' : '') + '\n\n';
+            // CSV/TSV/txt は中身を表にして本文へ展開（モバイルでも読めるように）
+            if (/\.(csv|tsv|txt)$/i.test(safe) && b64.length < 400 * 1024) {
+              try {
+                const bin = atob(b64);
+                const bytes = new Uint8Array(bin.length);
+                for (let k = 0; k < bin.length; k++) bytes[k] = bin.charCodeAt(k);
+                let txt = new TextDecoder('utf-8').decode(bytes);
+                if (/\.tsv$/i.test(safe)) txt = txt.replace(/\t/g, ',');
+                const tbl = csvToMarkdown(txt, 40, 12);
+                if (tbl) attachMd += '<details open><summary>' + safe + '</summary>\n\n' + tbl + '\n</details>\n\n';
+              } catch (e) { /* fall back to link only */ }
+            }
+          }
           attached++;
         } else {
           attachErr = up.status + ': ' + String((ud && ud.message) || '').slice(0, 120);
