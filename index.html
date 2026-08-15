@@ -7558,7 +7558,24 @@ function _cmpAccSelectHTML(i, light, cur) {
   var opts = arr.map(function(a){ return '<option value="' + a + '"' + (a === cur ? ' selected' : '') + '>' + _cmpAccLabel(a) + '</option>'; }).join('');
   return '<select onchange="_cmpSetAcc(' + i + ',this.value)" style="margin-top:5px;width:100%;box-sizing:border-box;padding:3px 4px;font-size:9.5px;font-weight:700;border:1px solid var(--bg,#ccc);border-radius:7px;background:var(--white,#fff);color:var(--text,#111);">' + opts + '</select>';
 }
-function _cmpSetAcc(i, acc) { if (_cmp.slots[i]) { _cmp.slots[i].acc = acc; renderCompare(); } }
+function _cmpSetAcc(i, acc) { if (_cmp.slots[i]) { _cmp.slots[i].acc = acc; _cmpRenderRows(); } }
+// CCT はライトごとに設定（タングステン等は固定値、バイカラー/RGBは選択）
+function _cmpSlotCCT(slot, light) {
+  var ccts = (light && light.ccts && light.ccts.length) ? light.ccts : [5600];
+  if (slot && slot.cct != null && ccts.indexOf(slot.cct) >= 0) return slot.cct;
+  var best = ccts[0];
+  for (var i = 1; i < ccts.length; i++) { if (Math.abs(ccts[i]-5600) < Math.abs(best-5600)) best = ccts[i]; }
+  return best;
+}
+function _cmpCCTSelectHTML(i, light, cur) {
+  var ccts = (light && light.ccts && light.ccts.length) ? light.ccts : [5600];
+  if (ccts.length <= 1) {
+    return '<div style="font-size:9.5px;color:var(--text-dim,#888);font-weight:800;margin-top:5px;">🌡 ' + ccts[0] + 'K</div>';
+  }
+  var opts = ccts.map(function(c){ return '<option value="' + c + '"' + (c === cur ? ' selected' : '') + '>' + c + 'K</option>'; }).join('');
+  return '<select onchange="_cmpSetSlotCCT(' + i + ',this.value)" style="margin-top:5px;width:100%;box-sizing:border-box;padding:3px 4px;font-size:9.5px;font-weight:700;border:1px solid var(--bg,#ccc);border-radius:7px;background:var(--white,#fff);color:var(--text,#111);">' + opts + '</select>';
+}
+function _cmpSetSlotCCT(i, cct) { if (_cmp.slots[i]) { _cmp.slots[i].cct = parseInt(cct); _cmpRenderRows(); } }
 function _cmpCCTRange(light) {
   if (light.dmx && light.dmx.cct) return light.dmx.cct;
   if (light.ccts && light.ccts.length) {
@@ -7599,12 +7616,20 @@ function _cmpBeamAngleAt(light, pct) {
   return Math.round(ba[0] * Math.pow(ba[1]/ba[0], (pct == null ? 50 : pct)/100));
 }
 function _cmpSlotBeam(slot) { return (slot && slot.beamPct != null) ? slot.beamPct : 50; }
-function _cmpSetBeam(i, val) { if (_cmp.slots[i]) { _cmp.slots[i].beamPct = Math.max(0, Math.min(100, parseInt(val) || 0)); renderCompare(); } }
+function _cmpSetBeam(i, val) {
+  if (!_cmp.slots[i]) return;
+  _cmp.slots[i].beamPct = Math.max(0, Math.min(100, parseInt(val) || 0));
+  // ラベルのみ更新し、スライダー要素は再構築しない（ドラッグを滑らかに）
+  var l = _cmpLightOf(_cmp.slots[i]);
+  var lbl = document.getElementById('_cmp_beamlbl_' + i);
+  if (lbl && l) { var a = _cmpBeamAngleAt(l, _cmp.slots[i].beamPct); lbl.textContent = '🔦 ' + (a != null ? a + '°' : '—'); }
+  _cmpRenderRows();
+}
 function _cmpBeamSliderHTML(i, light, pct) {
   var ang = _cmpBeamAngleAt(light, pct);
   return '<div style="margin-top:5px;">' +
     '<input type="range" min="0" max="100" step="1" value="' + pct + '" oninput="_cmpSetBeam(' + i + ',this.value)" style="width:100%;accent-color:var(--accent,#1976d2);">' +
-    '<div style="font-size:9.5px;font-weight:800;color:var(--text-dim,#777);margin-top:1px;">🔦 ' + (ang != null ? ang + '°' : '—') + '</div>' +
+    '<div id="_cmp_beamlbl_' + i + '" style="font-size:9.5px;font-weight:800;color:var(--text-dim,#777);margin-top:1px;">🔦 ' + (ang != null ? ang + '°' : '—') + '</div>' +
   '</div>';
 }
 // カメラタブ設定のサマリー（F値計算に使用中の設定を表示）
@@ -7623,73 +7648,84 @@ function renderCompare() {
   var body = document.getElementById('_cmp_body'); if (!body) return;
   var ctl = document.getElementById('_cmp_ctl');
   var dv = _cmp.dist;
-  // 制御バー（距離・CCT）
+  // 制御バー: 距離のみ（CCTはライトごとに設定）＋ カメラ設定サマリー
   if (ctl) {
-    var cctBtns = [3200, 4300, 5600].map(function(c){
-      var on = _cmp.cct === c;
-      return '<button onclick="_cmpSetCCT(' + c + ')" style="padding:5px 10px;border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;' +
-        (on ? 'background:var(--accent,#1976d2);color:#fff;' : 'background:var(--bg,#eee);color:var(--text-dim,#666);') + '">' + c + 'K</button>';
-    }).join('');
     ctl.innerHTML =
       '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
         '<span style="font-size:11px;font-weight:800;color:var(--text-dim,#666);">' + t('cmpDist') + '</span>' +
         '<button onclick="_cmpSetDist(-0.5)" style="width:28px;height:28px;border:none;border-radius:7px;background:var(--bg,#eee);color:var(--text,#333);font-size:16px;font-weight:800;cursor:pointer;">−</button>' +
-        '<span style="font-size:14px;font-weight:900;color:var(--accent,#1976d2);min-width:52px;text-align:center;">' + dv.toFixed(1) + 'm</span>' +
+        '<span id="_cmp_dist_val" style="font-size:14px;font-weight:900;color:var(--accent,#1976d2);min-width:52px;text-align:center;">' + dv.toFixed(1) + 'm</span>' +
         '<button onclick="_cmpSetDist(0.5)" style="width:28px;height:28px;border:none;border-radius:7px;background:var(--bg,#eee);color:var(--text,#333);font-size:16px;font-weight:800;cursor:pointer;">+</button>' +
-        '<div style="flex:1;"></div>' + cctBtns +
       '</div>' +
-      '<input type="range" min="0.5" max="30" step="0.5" value="' + dv + '" oninput="_cmpSetDistAbs(this.value)" style="width:100%;margin-top:6px;accent-color:var(--accent,#1976d2);">' +
+      '<input type="range" min="0.5" max="30" step="0.1" value="' + dv + '" oninput="_cmpSetDistAbs(this.value)" style="width:100%;margin-top:6px;accent-color:var(--accent,#1976d2);" ontouchstart="event.stopPropagation()" ontouchmove="event.stopPropagation()">' +
       '<div style="font-size:10px;font-weight:700;color:var(--text-dim,#888);margin-top:6px;">' + _cmpCamSummary() + ' <span style="color:var(--accent,#1976d2);">→ F値</span></div>';
   }
+  body.innerHTML = '<div id="_cmp_header"></div><div id="_cmp_rows"></div>' +
+    '<div style="text-align:center;font-size:10px;color:var(--text-dim,#999);margin-top:14px;padding:0 8px;">ℹ️ ' + t('cmpNote') + '</div>';
+  _cmpRenderHeader();
+  _cmpRenderRows();
+}
 
-  // 各スロットの lux を先に計算（最大値ハイライト用）。
-  // ビームアングルのスライダーを持つライトはビーム%で、そうでなければアクセサリー(配光)で計算。
+// スロットの計算パラメータをまとめて取得
+function _cmpParams() {
   var lights = _cmp.slots.map(_cmpLightOf);
   var beamOn = lights.map(function(l){ return l ? _cmpHasBeam(l) : false; });
-  var accs = lights.map(function(l,i){ return (l && !beamOn[i]) ? _cmpSlotAcc(_cmp.slots[i], l) : null; });
-  var bpcts = lights.map(function(l,i){ return beamOn[i] ? _cmpSlotBeam(_cmp.slots[i]) : null; });
-  var luxes = lights.map(function(l,i){
-    if (!l) return null;
-    return beamOn[i] ? _cmpBeamLux(l, _cmp.cct, dv, bpcts[i]) : _cmpLuxAt(l, _cmp.cct, dv, accs[i]);
-  });
-  var maxLux = -1, maxIdx = -1;
-  luxes.forEach(function(v,i){ if (v != null && v > maxLux) { maxLux = v; maxIdx = i; } });
+  var accs   = lights.map(function(l,i){ return (l && !beamOn[i]) ? _cmpSlotAcc(_cmp.slots[i], l) : null; });
+  var bpcts  = lights.map(function(l,i){ return beamOn[i] ? _cmpSlotBeam(_cmp.slots[i]) : null; });
+  var ccts   = lights.map(function(l,i){ return l ? _cmpSlotCCT(_cmp.slots[i], l) : null; });
+  return { lights:lights, beamOn:beamOn, accs:accs, bpcts:bpcts, ccts:ccts };
+}
 
-  // 上部: 3スロットのライトカード
-  var header = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;">';
+// 上部カード（メーカー絵文字・名前・配光/CCT選択・変更）
+function _cmpRenderHeader() {
+  var host = document.getElementById('_cmp_header'); if (!host) return;
+  var P = _cmpParams();
+  var html = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;">';
   for (var i = 0; i < 3; i++) {
-    var l = lights[i], slot = _cmp.slots[i];
+    var l = P.lights[i], slot = _cmp.slots[i];
     var mk = slot ? MAKERS[slot.maker] : null;
     if (l) {
-      header += '<div style="background:var(--bg,#f5f5f7);border-radius:14px;padding:12px 6px;text-align:center;position:relative;">' +
+      html += '<div style="background:var(--bg,#f5f5f7);border-radius:14px;padding:12px 6px;text-align:center;position:relative;">' +
         '<button onclick="_cmpClear(' + i + ')" style="position:absolute;top:4px;right:4px;width:20px;height:20px;border:none;border-radius:50%;background:rgba(0,0,0,0.12);color:#fff;font-size:11px;cursor:pointer;line-height:1;">✕</button>' +
         '<div style="font-size:26px;line-height:1;margin-bottom:6px;">' + (mk ? mk.emoji : '💡') + '</div>' +
         '<div style="font-size:12px;font-weight:800;color:var(--text,#111);line-height:1.25;min-height:30px;">' + l.name + '</div>' +
-        (beamOn[i] ? _cmpBeamSliderHTML(i, l, bpcts[i]) : _cmpAccSelectHTML(i, l, accs[i])) +
+        (P.beamOn[i] ? _cmpBeamSliderHTML(i, l, P.bpcts[i]) : _cmpAccSelectHTML(i, l, P.accs[i])) +
+        _cmpCCTSelectHTML(i, l, P.ccts[i]) +
         '<button onclick="_cmpPick(' + i + ')" style="margin-top:6px;padding:4px 10px;border:1px solid var(--accent,#1976d2);border-radius:20px;background:transparent;color:var(--accent,#1976d2);font-size:10px;font-weight:800;cursor:pointer;">' + t('cmpChange') + '</button>' +
       '</div>';
     } else {
-      header += '<div style="background:var(--bg,#f5f5f7);border-radius:14px;padding:12px 6px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:118px;">' +
+      html += '<div style="background:var(--bg,#f5f5f7);border-radius:14px;padding:12px 6px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:118px;">' +
         '<button onclick="_cmpPick(' + i + ')" style="width:44px;height:44px;border:2px dashed var(--accent,#1976d2);border-radius:50%;background:transparent;color:var(--accent,#1976d2);font-size:22px;font-weight:800;cursor:pointer;line-height:1;">+</button>' +
         '<div style="font-size:10px;font-weight:700;color:var(--text-dim,#888);margin-top:8px;">' + t('cmpAdd') + '</div>' +
       '</div>';
     }
   }
-  header += '</div>';
+  host.innerHTML = html + '</div>';
+}
 
-  // 仕様行の定義
+// 仕様行（距離/ビーム/CCT変更時はここだけ再描画＝ドラッグが滑らか）
+function _cmpRenderRows() {
+  var host = document.getElementById('_cmp_rows'); if (!host) return;
+  var dv = _cmp.dist;
+  var P = _cmpParams();
+  var lights = P.lights, beamOn = P.beamOn, accs = P.accs, bpcts = P.bpcts, ccts = P.ccts;
+  var luxes = lights.map(function(l,i){
+    if (!l) return null;
+    return beamOn[i] ? _cmpBeamLux(l, ccts[i], dv, bpcts[i]) : _cmpLuxAt(l, ccts[i], dv, accs[i]);
+  });
+  var maxLux = -1, maxIdx = -1;
+  luxes.forEach(function(v,i){ if (v != null && v > maxLux) { maxLux = v; maxIdx = i; } });
   var specs = [
     { label: t('cmpFstop'), hi: true, val: function(l,i){ var lx=luxes[i]; if(lx==null) return '—'; var f=luxToFstopCamera(lx); return f? ('f' + f.toFixed(1)) : '—'; } },
     { label: t('cmpLuxAt') + ' @' + dv.toFixed(1) + 'm', hi: true, val: function(l,i){ var lx=luxes[i]; return lx==null? '—' : (lx.toLocaleString() + ' lx'); } },
-    { label: t('cmpMaxLux'), val: function(l,i){ if(!l) return '—'; var lx=beamOn[i]?_cmpBeamLux(l,_cmp.cct,1,bpcts[i]):_cmpLuxAt(l,_cmp.cct,1,accs[i]); return lx==null?'—':(lx.toLocaleString()+' lx'); } },
+    { label: t('cmpMaxLux'), val: function(l,i){ if(!l) return '—'; var lx=beamOn[i]?_cmpBeamLux(l,ccts[i],1,bpcts[i]):_cmpLuxAt(l,ccts[i],1,accs[i]); return lx==null?'—':(lx.toLocaleString()+' lx'); } },
     { label: t('cmpPower'), val: function(l){ return l && l.watts ? (l.watts + 'W') : '—'; } },
-    { label: t('cmpCCT'), val: function(l){ return l ? _cmpCCTRange(l) : '—'; } },
+    { label: t('cmpCCT'), val: function(l,i){ return l ? (ccts[i] + 'K') : '—'; } },
     { label: t('cmpCRI'), val: function(l){ if(!l||!l.dmx) return '—'; var c=l.dmx.cri, tt=l.dmx.tlci; if(!c&&!tt) return '—'; return (c||'—') + ' / ' + (tt||'—'); } },
     { label: t('cmpBeam'), val: function(l,i){ if(!l) return '—'; if(beamOn[i]){ var ang=_cmpBeamAngleAt(l,bpcts[i]); return ang!=null?(ang+'°'):'—'; } var a=accs[i]; var ai=ACC_INFO[a]; return ai ? (ai.beam || (ai.angle!=null?ai.angle+'°':'—')) : _cmpBeam(l); } },
     { label: t('cmpIP'), val: function(l){ return (l&&l.dmx&&l.dmx.ip) ? l.dmx.ip : '—'; } },
     { label: t('cmpControl'), val: function(l){ return (l&&l.dmx&&l.dmx.control) ? l.dmx.control : '—'; } }
   ];
-
   var rows = '';
   specs.forEach(function(sp){
     rows += '<div style="border-top:1px solid var(--bg,#eee);padding:10px 2px 4px;">' +
@@ -7698,7 +7734,7 @@ function renderCompare() {
     for (var i = 0; i < 3; i++) {
       var l = lights[i];
       var v = l ? sp.val(l, i) : '—';
-      var isBest = sp.hi && maxIdx === i && l && luxes[i] != null && maxIdx >= 0 &&
+      var isBest = sp.hi && maxIdx === i && l && luxes[i] != null &&
                    luxes.filter(function(x){return x!=null;}).length > 1;
       rows += '<div style="text-align:center;font-size:12px;font-weight:' + (isBest?'900':'600') + ';' +
         'color:' + (isBest ? 'var(--accent,#1976d2)' : 'var(--text,#222)') + ';line-height:1.35;word-break:break-word;">' +
@@ -7706,14 +7742,20 @@ function renderCompare() {
     }
     rows += '</div></div>';
   });
-
-  var note = '<div style="text-align:center;font-size:10px;color:var(--text-dim,#999);margin-top:14px;padding:0 8px;">ℹ️ ' + t('cmpNote') + '</div>';
-  body.innerHTML = header + rows + note;
+  host.innerHTML = rows;
 }
 
-function _cmpSetDist(delta) { _cmp.dist = Math.max(0.5, Math.min(30, +(_cmp.dist + delta).toFixed(1))); renderCompare(); }
-function _cmpSetDistAbs(v) { _cmp.dist = Math.max(0.5, Math.min(30, parseFloat(v) || 3)); renderCompare(); }
-function _cmpSetCCT(c) { _cmp.cct = c; renderCompare(); }
+function _cmpSetDist(delta) {
+  _cmp.dist = Math.max(0.5, Math.min(30, +(_cmp.dist + delta).toFixed(1)));
+  var dvl = document.getElementById('_cmp_dist_val'); if (dvl) dvl.textContent = _cmp.dist.toFixed(1) + 'm';
+  var sl = document.querySelector('#_cmp_ctl input[type=range]'); if (sl) sl.value = _cmp.dist;
+  _cmpRenderRows();
+}
+function _cmpSetDistAbs(v) {
+  _cmp.dist = Math.max(0.5, Math.min(30, parseFloat(v) || 3));
+  var dvl = document.getElementById('_cmp_dist_val'); if (dvl) dvl.textContent = _cmp.dist.toFixed(1) + 'm';
+  _cmpRenderRows();
+}
 function _cmpClear(i) { _cmp.slots[i] = null; renderCompare(); }
 
 // メーカー分類の並び順（MAKERSの定義順＝通常のグリッドと同じ分類）
@@ -14771,7 +14813,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.15';
+var ver = 'v1.1.4.16';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
