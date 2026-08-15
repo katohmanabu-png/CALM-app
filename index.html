@@ -3059,16 +3059,20 @@ var LIGHTS = {
     evoke1200b: {
       group:'LED COB', name:'Evoke 1200B', desc:'1200W Bi-Color LED Fixture', emoji:'🔵', watts:1200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
       weight:'13.5 kg', size:'330×380×270 mm',
-      ccts:[2700,3200,5600,6500],
-      accessories:['none','r15','r30','r45'],
-      dmx:{led:'Bi-Color COB',power:'1200W',cct:'2700K–6500K',cri:'>96',tlci:'>96',ip:'IP54',
+      ccts:[2700,3200,4300,5600,6500],
+      accessories:['none','r26','r45','r60'],
+      dmx:{led:'Bi-Color COB',power:'1200W',cct:'2700K–6500K',cri:'≈96',tlci:'≈97',ip:'IP54',
         control:'On-board / NANLINK APP / DMX/RDM / LumenRadio CRMX',
         dimming:'0.0%–100%',effects:['Flash','Pulse','Storm','TV','Firework']},
       dmxUrl:'https://cdn-aliyun.nanlux.com/release/1701081200682-488419-11338834471-Evoke+1200B+DMX+REFERENCE+GUIDE%EF%BC%88NANLUX%EF%BC%89B+V2+20220830+W.pdf',
       dmxVer:'v2',
+      // Official Nanlux photometrics (nanlux.com) — Light Only / 26° / 45° / 60° reflectors, 3–9m
       refData:{
-        3200:{5:{none:4500,r15:48000,r30:22000,r45:9800},10:{none:1130,r15:12000,r30:5500,r45:2450}},
-        5600:{5:{none:4800,r15:51000,r30:24000,r45:10500},10:{none:1200,r15:12800,r30:6000,r45:2630}},
+        2700:{3:{none:4128,r26:46220,r45:14590,r60:9370},5:{none:1762,r26:14930,r45:5232,r60:3736},7:{none:997,r26:7480,r45:3014,r60:2186},9:{none:608,r26:4561,r45:1963,r60:1405}},
+        3200:{3:{none:4571,r26:51950,r45:15900,r60:10210},5:{none:1955,r26:16180,r45:5816,r60:4117},7:{none:1088,r26:8035,r45:3320,r60:2382},9:{none:670,r26:5089,r45:2183,r60:1558}},
+        4300:{3:{none:5158,r26:59870,r45:17870,r60:11530},5:{none:2208,r26:18140,r45:6578,r60:4493},7:{none:1214,r26:9074,r45:3752,r60:2693},9:{none:745,r26:5740,r45:2483,r60:1757}},
+        5600:{3:{none:5258,r26:61030,r45:18570,r60:12240},5:{none:2244,r26:18860,r45:6800,r60:4725},7:{none:1261,r26:9377,r45:3872,r60:2800},9:{none:770,r26:5882,r45:2547,r60:1808}},
+        6500:{3:{none:5214,r26:61049,r45:18720,r60:12370},5:{none:2231,r26:19030,r45:6774,r60:4834},7:{none:1259,r26:9444,r45:3873,r60:2844},9:{none:759,r26:5935,r45:2538,r60:1833}},
       }
     },
     evoke_2400b: {
@@ -4889,6 +4893,7 @@ var ACC_INFO = {
   round_diff:   { label:'Round Diffuser', beam:'145° Diffused', emoji:'🔦', angle:145 },
   flat_diff:   { label:'Flat Diffuser', beam:'130° Diffused', emoji:'🔦', angle:130 },
   intensifier:   { label:'Intensifier', beam:'60° Focused', emoji:'🔦', angle:60 },
+  r26:   { label:'26° Reflector', beam:'26°', emoji:'🔦', angle:26 },
   r30:   { label:'30° Reflector', beam:'30°', emoji:'🔦', angle:30 },
   r45:   { label:'45° Reflector', beam:'45°', emoji:'🔦', angle:45 },
   r60:   { label:'60° Reflector', beam:'60°', emoji:'🔦', angle:60 },
@@ -14574,7 +14579,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.3';
+var ver = 'v1.1.4.4';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
