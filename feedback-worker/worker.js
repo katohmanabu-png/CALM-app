@@ -82,6 +82,7 @@ export default {
     // Requires the token to also have Contents: Read and write.
     let attachMd = '';
     let attached = 0;
+    let attachErr = null;
     const atts = Array.isArray(payload.attachments) ? payload.attachments.slice(0, 4) : [];
     for (const a of atts) {
       const b64 = String((a && a.b64) || '');
@@ -96,12 +97,17 @@ export default {
           body: JSON.stringify({ message: 'feedback attachment: ' + safe, content: b64 })
         });
         const ud = await up.json().catch(() => ({}));
-        const url = ud && ud.content && ud.content.download_url;
+        const url  = ud && ud.content && ud.content.download_url;   // raw (embeds images)
+        const blob = ud && ud.content && ud.content.html_url;       // github.com blob (renders CSV as a table)
         if (up.ok && url) {
-          attachMd += (/\.(png|jpe?g|gif|webp)$/i.test(safe) ? '![' + safe + '](' + url + ')' : '[' + safe + '](' + url + ')') + '\n\n';
+          attachMd += (/\.(png|jpe?g|gif|webp)$/i.test(safe)
+            ? '![' + safe + '](' + url + ')'
+            : '[' + safe + '](' + (blob || url) + ')' + (blob ? ' · [raw](' + url + ')' : '')) + '\n\n';
           attached++;
+        } else {
+          attachErr = up.status + ': ' + String((ud && ud.message) || '').slice(0, 120);
         }
-      } catch (e) { /* skip this file */ }
+      } catch (e) { attachErr = 'exception: ' + String(e).slice(0, 120); }
     }
     const fullBody = body + (attachMd ? '\n\n## Attachments\n' + attachMd : '');
 
@@ -139,6 +145,6 @@ export default {
       } catch (e) { /* non-fatal */ }
     }
 
-    return json({ ok: true, url: data.html_url, number: data.number, attached: attached }, 200, origin);
+    return json({ ok: true, url: data.html_url, number: data.number, attached: attached, attachErr: attachErr }, 200, origin);
   }
 };
