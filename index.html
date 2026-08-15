@@ -5771,6 +5771,15 @@ function filterModels() {
   renderModels();
 }
 
+// アクセント色が明るい（白/淡色）か判定。選択タイルの文字色コントラスト用。
+function _accentIsLight(hex) {
+  if (!hex || hex[0] !== '#') return false;
+  var c = hex.slice(1);
+  if (c.length === 3) c = c.split('').map(function(x){ return x + x; }).join('');
+  if (c.length < 6) return false;
+  var r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
+  return (0.299*r + 0.587*g + 0.114*b) / 255 > 0.7;
+}
 function renderModels() {
   // ── 全メーカー横断検索 or 現在のメーカーのみ ──────────────────
   var q = (S.searchQ || '').trim();
@@ -5839,7 +5848,11 @@ function renderModels() {
     var k = e[0], m = e[1], mk = e._makerKey || S.maker;
     var makerColor = (MAKERS[mk] && MAKERS[mk].accent) || 'var(--accent)';
     var chip = document.createElement('div');
-    chip.className = 'model-chip' + (k === S.model && mk === S.maker ? ' active' : '');
+    var _isActive = (k === S.model && mk === S.maker);
+    // アクセントが明るい色（白・淡色）のメーカーは、選択タイルの白文字が背景に埋もれて
+    // 名前が消えるため、暗い文字＋見えるアウトラインに切り替える
+    var _lightAcc = _isActive && _accentIsLight((MAKERS[mk] && MAKERS[mk].accent) || '');
+    chip.className = 'model-chip' + (_isActive ? ' active' : '');
     chip.setAttribute('data-maker', mk);
     chip.setAttribute('data-key', k);
     chip.style.borderLeft = '4px solid ' + makerColor;
@@ -5859,14 +5872,15 @@ function renderModels() {
     chip.innerHTML =
       '<div class="model-chip-icon">' + iconSVG + '</div>' +
       '<div class="model-chip-info">' +
-        '<div class="model-chip-name">' + m.name + '</div>' +
-        '<div class="model-chip-sub">' +
+        '<div class="model-chip-name"' + (_lightAcc ? ' style="color:#1a1a1a;"' : '') + '>' + m.name + '</div>' +
+        '<div class="model-chip-sub"' + (_lightAcc ? ' style="color:#555;"' : '') + '>' +
           (makerLabel ? '<span style="color:' + makerColor + ';font-weight:800;">' + makerLabel + '</span> · ' : '') +
           (m.desc ? m.desc.replace(/^[0-9]+W /, '') : '') +
           (wattStr ? ' · ' + wattStr : '') +
         '</div>' +
       '</div>' +
       '<button class="fav-star-btn' + (isFaved?' active':'') + '" data-fav-key="' + favKey + '" onclick="toggleFav(\'' + mk + '\',\'' + k + '\',event)">' + (isFaved?'★':'☆') + '</button>';
+    if (_lightAcc) { chip.style.outline = '3px solid rgba(0,0,0,0.38)'; }
     scroll.appendChild(chip);
   }
 
@@ -14851,7 +14865,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.18';
+var ver = 'v1.1.4.19';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
