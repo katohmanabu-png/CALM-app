@@ -8419,10 +8419,11 @@ function fbUpdateFiles() {
   for (var i = 0; i < inp.files.length; i++) names.push('📎 ' + inp.files[i].name);
   out.innerHTML = names.join('<br>');
 }
-// ── GitHub Issues config ───────────────────────────────────
-var FB_GH_TOKEN = ['github','pat','11CFJRM3I0BiROKmKL4XHD','B9Nq2Dkf3Y6yK8zhcQEtGtDYh2NAq9HYf8P0zflQnF4TMMML4C53YSVfOyG'].join('_');
-var FB_GH_OWNER = 'katohmanabu-png';
-var FB_GH_REPO  = 'CALM-app';
+// ── Feedback config ────────────────────────────────────────
+// セキュリティ: GitHub トークンはクライアントに置かない。フィードバックは
+// サーバー側プロキシ（Cloudflare Worker 等）を経由し、トークンは Worker の
+// シークレットに保管する。FB_PROXY_URL に自分の Worker の URL を設定すること。
+var FB_PROXY_URL = 'REPLACE_WITH_YOUR_WORKER_URL';  // 例: https://calm-feedback.xxxxx.workers.dev
 var FB_TYPE_MAP = {
   bug:           { prefix:'[Bug]',        label:'bug' },
   feature:       { prefix:'[Feature]',    label:'enhancement' },
@@ -8440,8 +8441,8 @@ function fbSubmit() {
   var btn     = document.getElementById('fb-submit-btn');
 
   if (!titleEl.value.trim()) { alert('Please enter a title.'); titleEl.focus(); return; }
-  if (FB_GH_TOKEN === 'REPLACE_WITH_YOUR_FINE_GRAINED_PAT') {
-    alert('GitHub token not configured. Please set FB_GH_TOKEN in the source.'); return;
+  if (FB_PROXY_URL.indexOf('REPLACE') === 0) {
+    alert('Feedback endpoint not configured. Please set FB_PROXY_URL to your Worker URL.'); return;
   }
 
   var typeKey   = typeEl.value;
@@ -8473,50 +8474,33 @@ function fbSubmit() {
   btn.disabled = true;
   btn.textContent = '⏳ Sending…';
 
-  var apiUrl = 'https://api.github.com/repos/' + FB_GH_OWNER + '/' + FB_GH_REPO + '/issues';
-  var headers = {
-    'Authorization': 'Bearer ' + FB_GH_TOKEN,
-    'Accept': 'application/vnd.github+json',
-    'X-GitHub-Api-Version': '2022-11-28',
-    'Content-Type': 'application/json'
-  };
-
-  function createIssue(withLabels) {
-    var payload = { title: issueTitle, body: issueBody };
-    if (withLabels) payload.labels = [typeInfo.label];
-    return fetch(apiUrl, { method:'POST', headers:headers, body:JSON.stringify(payload) });
-  }
-
-  createIssue(true).then(function(res) {
-    if (res.status === 422) return createIssue(false); // label not found → retry without
-    return res;
+  // トークンを持たず、プロキシ(Worker)に本文だけ送る。Worker が Issue 作成＋通知を行う。
+  fetch(FB_PROXY_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title: issueTitle, body: issueBody, label: typeInfo.label })
   }).then(function(res) {
-    return res.json().then(function(data) { return {ok: res.ok, data: data}; });
+    return res.json().then(function(data) { return {ok: res.ok, data: data || {}}; })
+      .catch(function(){ return {ok: res.ok, data: {}}; });
   }).then(function(result) {
     btn.disabled = false;
     btn.textContent = '📨 Send Feedback';
-    if (result.ok && result.data.html_url) {
-      var link = result.data.html_url;
-      // ntfy.sh push notification
-      fetch('https://ntfy.sh/calm-katohmanabu', {
-        method: 'POST',
-        headers: { 'Title': 'CALM Feedback', 'Priority': 'high', 'Tags': 'bell' },
-        body: issueTitle + '\n' + link
-      }).catch(function(){});
+    if (result.ok && result.data.url) {
+      var link = result.data.url;
       document.getElementById('fb-issue-link').innerHTML =
         '<a href="' + link + '" target="_blank" rel="noopener" ' +
         'style="display:inline-flex;align-items:center;gap:6px;padding:9px 16px;' +
         'background:var(--accent-light);color:var(--accent);border-radius:8px;' +
         'font-size:12px;font-weight:800;text-decoration:none;">' +
-        '🔗 View Issue #' + result.data.number + '</a>' +
+        '🔗 View Issue' + (result.data.number ? ' #' + result.data.number : '') + '</a>' +
         '<div style="margin-top:10px;font-size:11px;color:#888;line-height:1.5;">' +
         '📸 写真を添付する場合は上のリンクを開き、コメント欄に画像をドラッグ＆ドロップまたは貼り付けてください。' +
         '</div>';
       document.getElementById('fb-form').style.display = 'none';
       document.getElementById('fb-thanks').style.display = 'block';
     } else {
-      var msg = (result.data && result.data.message) ? result.data.message : 'Unknown error';
-      alert('Failed to create issue: ' + msg);
+      var msg = (result.data && result.data.error) ? result.data.error : 'Unknown error';
+      alert('Failed to send feedback: ' + msg);
     }
   }).catch(function(err) {
     btn.disabled = false;
@@ -15012,7 +14996,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.22';
+var ver = 'v1.1.4.23';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
