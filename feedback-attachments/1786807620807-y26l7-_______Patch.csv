@@ -1,0 +1,25 @@
+FIXTURE_NUMBER,ADDRESS,ADDRESS_FOR_LABELS,MANUFACTURER,FIXTURE_TYPE,DMX_FOOTPRINT,DESCRIPTION,MODE,LABEL,LABEL_COLOR
+1,7 / 1-15,7/001,Aputure,LS 600c Pro II,15,CCT + RGB 16 bit,Mode 12,null,#eab308
+2,7 / 31,7/031,Aputure,LS 600D,1,Lighting 8-bit,Mode 1,null,#0284c7
+3,7 / 16-30,7/016,Aputure,LS 600c Pro II,15,CCT + RGB 16 bit,Mode 12,null,#eab308
+11,7 / 32,7/032,Aputure,LS 600D,1,Lighting 8-bit,Mode 1,null,#0284c7
+12,7 / 33-47,7/033,Aputure,STORM 400X,15,CCT | XY 16bit || Control,Mode 16,null,#16a34a
+21,7 / 48-61,7/048,Aputure,STORM 1000c,14,CCT RGB 16bit,Mode 2,null,#b91c1c
+22,7 / 62-75,7/062,Aputure,STORM 1000c,14,CCT RGB 16bit,Mode 2,null,#b91c1c
+31,7 / 76-98,7/076,Aputure,STORM 80c,23,CCT | RGB | XY 16bit || Control,Mode 46,null,#f9a8d4
+32,7 / 99-121,7/099,Aputure,STORM 80c,23,CCT | RGB | XY 16bit || Control,Mode 46,null,#f9a8d4
+33,7 / 122-144,7/122,Aputure,STORM 80c,23,CCT | RGB | XY 16bit || Control,Mode 46,null,#f9a8d4
+91,7 / 475-492,7/475,Kelvin,Play Pro,18,CCT + RGB 16bit,CCT + RGB 16bit,null,#facc15
+92,7 / 493-510,7/493,Kelvin,Play Pro,18,CCT + RGB 16bit,CCT + RGB 16bit,,#facc15
+100,7 / 511-512,7/511,Antari,Z 380 Faser,2,,2 channel,null,#a3a3a3
+201,7 / 445-459,7/445,Aputure,STORM 400X,15,CCT | XY 16bit || Control,Mode 16,null,#5aaa8b
+202,7 / 460-474,7/460,Aputure,STORM 400X,15,CCT | XY 16bit || Control,Mode 16,null,#5aaa8b
+211,7 / 422-444,7/422,Aputure,STORM 80c,23,CCT | RGB | XY 16bit || Control,Mode 46,null,#f9a8d4
+301,7 / 278-286,7/278,Astera,Titan Tube,9,D16 CCT GM C XY - Strobe Off,Mode 169,null,#86198f
+302,7 / 287-295,7/287,Astera,Titan Tube,9,D16 CCT GM C XY - Strobe Off,Mode 169,null,#86198f
+303,7 / 296-304,7/296,Astera,Titan Tube,9,D16 CCT GM C XY - Strobe Off,Mode 169,null,#86198f
+304,7 / 305-313,7/305,Astera,Titan Tube,9,D16 CCT GM C XY - Strobe Off,Mode 169,null,#86198f
+311,7 / 242-250,7/242,Astera,Helios Tube,9,D16 CCT GM C XY - Strobe Off,Mode 169,null,#ea580c
+312,7 / 251-259,7/251,Astera,Helios Tube,9,D16 CCT GM C XY - Strobe Off,Mode 169,null,#ea580c
+313,7 / 260-268,7/260,Astera,Helios Tube,9,D16 CCT GM C XY - Strobe Off,Mode 169,null,#ea580c
+314,7 / 269-277,7/269,Astera,Helios Tube,9,D16 CCT GM C XY - Strobe Off,Mode 169,null,#ea580c
