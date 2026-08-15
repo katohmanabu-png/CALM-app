@@ -7562,25 +7562,6 @@ function _cmpSetDistAbs(v) { _cmp.dist = Math.max(0.5, Math.min(30, parseFloat(v
 function _cmpSetCCT(c) { _cmp.cct = c; renderCompare(); }
 function _cmpClear(i) { _cmp.slots[i] = null; renderCompare(); }
 
-// スロット用ライト選択モーダル（検索リスト）
-function _cmpPick(i) {
-  _cmp.pickIdx = i;
-  var m = document.createElement('div');
-  m.id = '_cmp_pick';
-  m.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:flex-end;';
-  m.setAttribute('onclick', "if(event.target===this)this.remove()");
-  m.innerHTML =
-    '<div style="background:var(--white,#fff);border-radius:20px 20px 0 0;width:100%;max-height:82vh;display:flex;flex-direction:column;">' +
-      '<div style="padding:14px 16px 8px;flex-shrink:0;">' +
-        '<div style="font-size:14px;font-weight:800;color:var(--text,#111);margin-bottom:8px;">' + t('cmpSelectTitle') + '</div>' +
-        '<input id="_cmp_q" type="text" placeholder="' + t('cmpSearch') + '" oninput="_cmpFilter(this.value)" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1.5px solid var(--bg,#ddd);border-radius:10px;font-size:14px;background:var(--bg,#f5f5f7);color:var(--text,#111);outline:none;">' +
-      '</div>' +
-      '<div id="_cmp_list" style="overflow-y:auto;padding:0 10px 28px;flex:1;-webkit-overflow-scrolling:touch;"></div>' +
-    '</div>';
-  document.body.appendChild(m);
-  _cmpFilter('');
-  setTimeout(function(){ var q=document.getElementById('_cmp_q'); if(q) q.focus(); }, 60);
-}
 // メーカー分類の並び順（MAKERSの定義順＝通常のグリッドと同じ分類）
 function _cmpMakerOrder() {
   var order = [];
@@ -7588,35 +7569,95 @@ function _cmpMakerOrder() {
   for (var mk2 in LIGHTS) { if (order.indexOf(mk2) < 0) order.push(mk2); }
   return order;
 }
-function _cmpFilter(q) {
-  var list = document.getElementById('_cmp_list'); if (!list) return;
-  q = (q || '').toLowerCase().trim();
-  var html = '';
-  _cmpMakerOrder().forEach(function(mk) {
-    var mkObj = MAKERS[mk];
-    var mkName = mkObj ? mkObj.name : mk;
-    var emoji  = mkObj ? mkObj.emoji : '💡';
-    var lights = [];
-    for (var lk in LIGHTS[mk]) {
-      var l = LIGHTS[mk][lk];
-      if (!l || !l.name) continue;
-      if (q && l.name.toLowerCase().indexOf(q) < 0 && mkName.toLowerCase().indexOf(q) < 0) continue;
-      lights.push({ model: lk, name: l.name, desc: l.desc || '' });
-    }
-    if (!lights.length) return;
-    // メーカー見出し（スクロール追従）
-    html += '<div style="position:sticky;top:0;background:var(--white,#fff);padding:9px 8px 5px;z-index:1;' +
-      'font-size:11px;font-weight:900;color:var(--text-dim,#777);border-bottom:1.5px solid var(--bg,#eee);' +
-      'display:flex;align-items:center;gap:6px;"><span style="font-size:14px;">' + emoji + '</span>' + mkName + '</div>';
-    html += lights.map(function(it) {
-      return '<button onclick="_cmpChoose(\'' + mk + '\',\'' + it.model + '\')" style="display:block;width:100%;text-align:left;padding:9px 12px;border:none;border-bottom:1px solid var(--bg,#f2f2f2);background:transparent;cursor:pointer;">' +
-        '<span style="display:block;font-size:13px;font-weight:800;color:var(--text,#111);">' + it.name + '</span>' +
-        (it.desc ? '<span style="display:block;font-size:10px;color:var(--text-dim,#999);font-weight:600;margin-top:1px;">' + it.desc + '</span>' : '') +
-      '</button>';
-    }).join('');
-  });
-  list.innerHTML = html || '<div style="text-align:center;padding:20px;color:#888;font-size:12px;">—</div>';
+// スロット用ライト選択モーダル（通常と同じ「メーカー選択→機種選択」フロー）
+function _cmpPick(i) {
+  _cmp.pickIdx = i;
+  _cmp.pickMaker = null;
+  var m = document.createElement('div');
+  m.id = '_cmp_pick';
+  m.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:flex-end;';
+  m.setAttribute('onclick', "if(event.target===this)this.remove()");
+  m.innerHTML =
+    '<div style="background:var(--white,#fff);border-radius:20px 20px 0 0;width:100%;max-height:82vh;display:flex;flex-direction:column;">' +
+      '<div style="padding:14px 16px 8px;flex-shrink:0;">' +
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">' +
+          '<button id="_cmp_back" onclick="_cmpBackMaker()" style="display:none;border:none;background:var(--bg,#eee);color:var(--text,#333);border-radius:8px;padding:4px 10px;font-size:12px;font-weight:800;cursor:pointer;">‹ ' + t('makerTitle') + '</button>' +
+          '<div id="_cmp_pick_title" style="font-size:14px;font-weight:800;color:var(--text,#111);">' + t('cmpSelectTitle') + '</div>' +
+        '</div>' +
+        '<input id="_cmp_q" type="text" placeholder="' + t('cmpSearch') + '" oninput="_cmpRenderPicker()" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1.5px solid var(--bg,#ddd);border-radius:10px;font-size:14px;background:var(--bg,#f5f5f7);color:var(--text,#111);outline:none;">' +
+      '</div>' +
+      '<div id="_cmp_list" style="overflow-y:auto;padding:0 10px 28px;flex:1;-webkit-overflow-scrolling:touch;"></div>' +
+    '</div>';
+  document.body.appendChild(m);
+  _cmpRenderPicker();
 }
+function _cmpMakerTile(k) {
+  var m = MAKERS[k]; if (!m) return '';
+  var _dark = document.documentElement.classList.contains('dark');
+  var bg = _dark ? (m.accent + '33') : m.light;
+  var dotBg = m.accent3 ? 'linear-gradient(135deg,' + m.accent + ' 33%,' + m.accent2 + ' 33%,' + m.accent2 + ' 66%,' + m.accent3 + ' 66%)' :
+              m.accent2 ? 'linear-gradient(135deg,' + m.accent + ' 50%,' + m.accent2 + ' 50%)' : m.accent;
+  var emojiHtml = m.emojiFilter ? '<span style="filter:' + m.emojiFilter + ';display:inline-block;">' + m.emoji + '</span>' : m.emoji;
+  var nameColor = _dark ? '#e8e8f0' : '#212121';
+  return '<button class="maker-btn" onclick="_cmpSelMaker(\'' + k + '\')" style="background:' + bg + ';border-color:' + m.accent + ';">' +
+    '<div class="maker-dot" style="background:' + dotBg + ';color:#fff;">' + emojiHtml + '</div>' +
+    '<div class="maker-name" style="color:' + nameColor + ';">' + m.name + '</div></button>';
+}
+function _cmpModelBtn(mk, lk) {
+  var l = LIGHTS[mk][lk]; if (!l || !l.name) return '';
+  return '<button onclick="_cmpChoose(\'' + mk + '\',\'' + lk + '\')" style="display:block;width:100%;text-align:left;padding:10px 12px;border:none;border-bottom:1px solid var(--bg,#f2f2f2);background:transparent;cursor:pointer;">' +
+    '<span style="display:block;font-size:13px;font-weight:800;color:var(--text,#111);">' + l.name + '</span>' +
+    (l.desc ? '<span style="display:block;font-size:10px;color:var(--text-dim,#999);font-weight:600;margin-top:1px;">' + l.desc + '</span>' : '') +
+  '</button>';
+}
+function _cmpRenderPicker() {
+  var list = document.getElementById('_cmp_list'); if (!list) return;
+  var back = document.getElementById('_cmp_back');
+  var titleEl = document.getElementById('_cmp_pick_title');
+  var q = (document.getElementById('_cmp_q') || {}).value;
+  q = (q || '').toLowerCase().trim();
+
+  // 検索中は全メーカー横断のグループ表示
+  if (q) {
+    if (back) back.style.display = 'none';
+    if (titleEl) titleEl.textContent = t('cmpSelectTitle');
+    var html = '';
+    _cmpMakerOrder().forEach(function(mk) {
+      var mkObj = MAKERS[mk], mkName = mkObj ? mkObj.name : mk, emoji = mkObj ? mkObj.emoji : '💡';
+      var btns = '';
+      for (var lk in LIGHTS[mk]) {
+        var l = LIGHTS[mk][lk]; if (!l || !l.name) continue;
+        if (l.name.toLowerCase().indexOf(q) < 0 && mkName.toLowerCase().indexOf(q) < 0) continue;
+        btns += _cmpModelBtn(mk, lk);
+      }
+      if (!btns) return;
+      html += '<div style="position:sticky;top:0;background:var(--white,#fff);padding:9px 8px 5px;z-index:1;font-size:11px;font-weight:900;color:var(--text-dim,#777);border-bottom:1.5px solid var(--bg,#eee);display:flex;align-items:center;gap:6px;"><span style="font-size:14px;">' + emoji + '</span>' + mkName + '</div>' + btns;
+    });
+    list.innerHTML = html || '<div style="text-align:center;padding:20px;color:#888;font-size:12px;">—</div>';
+    return;
+  }
+
+  // 手順1: メーカー選択（通常のグリッドと同じ）
+  if (!_cmp.pickMaker) {
+    if (back) back.style.display = 'none';
+    if (titleEl) titleEl.textContent = t('makerTitle');
+    var grid = '<div class="maker-grid" style="padding-top:4px;">';
+    grid += _cmpMakerOrder().map(_cmpMakerTile).join('');
+    grid += '</div>';
+    list.innerHTML = grid;
+    return;
+  }
+
+  // 手順2: 機種選択
+  if (back) back.style.display = '';
+  var mObj = MAKERS[_cmp.pickMaker];
+  if (titleEl) titleEl.textContent = (mObj ? (mObj.emoji + ' ' + mObj.name) : _cmp.pickMaker);
+  var models = '';
+  for (var lk2 in LIGHTS[_cmp.pickMaker]) { models += _cmpModelBtn(_cmp.pickMaker, lk2); }
+  list.innerHTML = models || '<div style="text-align:center;padding:20px;color:#888;font-size:12px;">—</div>';
+}
+function _cmpSelMaker(k) { _cmp.pickMaker = k; _cmpRenderPicker(); }
+function _cmpBackMaker() { _cmp.pickMaker = null; _cmpRenderPicker(); }
 function _cmpChoose(maker, model) {
   _cmp.slots[_cmp.pickIdx] = { maker: maker, model: model };
   var m = document.getElementById('_cmp_pick'); if (m) m.remove();
@@ -14533,7 +14574,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.2';
+var ver = 'v1.1.4.3';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
