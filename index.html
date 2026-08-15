@@ -3079,17 +3079,17 @@ var LIGHTS = {
       group:'LED COB', name:'Evoke 2400B', desc:'2400W Bi-Color LED Fixture', emoji:'🔵', watts:2400, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
       weight:'22.5 kg', size:'450×380×340 mm',
       ccts:[2700,3200,5600,6500],
-      accessories:['none','r15','r30','r45','r60'],
-      dmx:{led:'Bi-Color COB',power:'2400W',cct:'2700K–6500K',cri:'Average 96',tlci:'Average 97',ip:'IP54',
+      accessories:['none','r26','r45','r60'],
+      dmx:{led:'Bi-Color COB',power:'2400W',cct:'2700K–6500K',cri:'Average 96',tlci:'Average 97',ip:'IP55',
         control:'On-board / NANLINK APP / DMX/RDM / LumenRadio CRMX',
         dimming:'0%–100%',effects:['Flash','Pulse','Storm','TV','Firework']},
       dmxUrl:'https://cdn-aliyun.nanlux.com/release/1715246546501-639074-11338836370-Evoke_2400B_DMX_REFERENCE_GUIDE_EN.pdf',
-      refData:{
-        3200:{5:{none:3200,r15:49000,r30:22500,r45:9800,r60:6500},
-              10:{none:800,r15:12250,r30:5620,r45:2450,r60:1625}},
-        5600:{5:{none:3500,r15:52000,r30:24000,r45:10400,r60:6900},
-              10:{none:875,r15:13000,r30:6000,r45:2600,r60:1725}}
-      }
+      // Estimated: Evoke 1200B official table scaled to the official 2400B anchor (45°@3m 5600K = 41,910 lx). Same NL 26/45/60 reflectors.
+      refData:{2700:{3:{none:9316,r26:104312,r45:32928,r60:21147},5:{none:3977,r26:33695,r45:11808,r60:8432},7:{none:2250,r26:16881,r45:6802,r60:4934},9:{none:1372,r26:10294,r45:4430,r60:3171}},
+        3200:{3:{none:10316,r26:117244,r45:35884,r60:23043},5:{none:4412,r26:36516,r45:13126,r60:9292},7:{none:2455,r26:18134,r45:7493,r60:5376},9:{none:1512,r26:11485,r45:4927,r60:3516}},
+        4300:{3:{none:11641,r26:135119,r45:40330,r60:26022},5:{none:4983,r26:40940,r45:14846,r60:10140},7:{none:2740,r26:20479,r45:8468,r60:6078},9:{none:1681,r26:12954,r45:5604,r60:3965}},
+        5600:{3:{none:11867,r26:137737,r45:41910,r60:27624},5:{none:5064,r26:42564,r45:15347,r60:10664},7:{none:2846,r26:21163,r45:8739,r60:6319},9:{none:1738,r26:13275,r45:5748,r60:4080}},
+        6500:{3:{none:11767,r26:137779,r45:42249,r60:27917},5:{none:5035,r26:42948,r45:15288,r60:10910},7:{none:2841,r26:21314,r45:8741,r60:6419},9:{none:1713,r26:13394,r45:5728,r60:4137}}}
     },
     forza_500b: {
       group:'LED COB', name:'Forza 500B II', desc:'500W Bi-Color LED Spot', emoji:'🔵', watts:500, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
@@ -14619,7 +14619,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.8';
+var ver = 'v1.1.4.9';
 (function(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
