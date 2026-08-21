@@ -14848,7 +14848,9 @@ function _calmSaveFile(filename, text, mime, onStatus) {
     try {
       var f = new File([blob], filename, {type: mime});
       if (navigator.share && navigator.canShare && navigator.canShare({files:[f]})) {
-        navigator.share({files:[f], title: filename})
+        // title は渡さない。iOS では title の文字列が別のテキスト項目として
+        // 共有され、「ファイルに保存」時に余計な .txt が一緒に保存されてしまう。
+        navigator.share({files:[f]})
           .then(function(){ say('\u{1F4E4} ' + filename); })
           .catch(function(){ say('\u26A0\uFE0F ' + t('exportCancel')); });
         return true;
@@ -15119,7 +15121,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.30';
+var ver = 'v1.1.4.31';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
