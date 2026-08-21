@@ -3703,10 +3703,11 @@ var LIGHTS = {
       weight:'48 kg', size:'765×1055×827 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
       dmx:{led:'HMI',power:'12000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        5: {spot:859135, sun_blue:307200, sun_black:151875, sun_green:76800,  sun_orange:37969, sun_white:27153},
-        8: {spot:307200, sun_blue:151875, sun_black:53696,  sun_green:27153,  sun_orange:12834, sun_white:12834},
-        12:{spot:108612, sun_blue:76800,  sun_black:27153,  sun_green:12834,  sun_orange:6788,  sun_white:4800},
-        15:{spot:76800,  sun_blue:37969,  sun_black:19200,  sun_green:9075,   sun_orange:4800,  sun_white:3208}
+        3: {sun_white:76000},
+        5: {sun_green:76000, sun_orange:38000, sun_white:27000},
+        8: {sun_black:54000, sun_green:27000, sun_orange:14000, sun_white:14000},
+        12:{sun_blue:76000, sun_black:27000, sun_green:14000, sun_orange:6800, sun_white:4800},
+        15:{spot:76000, sun_blue:38000, sun_black:19000, sun_green:9600, sun_orange:4800, sun_white:3400}
       }}
     },
     arrisun_6k: {
@@ -3714,11 +3715,11 @@ var LIGHTS = {
       weight:'43 kg', size:'590×915×640 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
       dmx:{led:'HMI',power:'6000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {spot:434446, sun_blue:151875, sun_black:76800, sun_green:37969, sun_orange:19200, sun_white:9075},
-        5: {spot:214784, sun_blue:76800,  sun_black:37969, sun_green:12834, sun_orange:6788,  sun_white:3208},
-        8: {spot:108612, sun_blue:27153,  sun_black:9075,  sun_green:6788,  sun_orange:3208,  sun_white:1200},
-        12:{spot:53696,  sun_blue:19200,  sun_black:6788,  sun_green:3208,  sun_orange:1697,  sun_white:588},
-        15:{spot:27153,  sun_blue:9075,   sun_black:3208,  sun_green:2269,  sun_orange:1200,  sun_white:208}
+        3: {sun_black:76000, sun_green:38000, sun_orange:19000, sun_white:9600},
+        5: {sun_blue:76000, sun_black:38000, sun_green:14000, sun_orange:6800, sun_white:3400},
+        8: {sun_blue:27000, sun_black:9600, sun_green:6800, sun_orange:3400, sun_white:1200},
+        12:{spot:54000, sun_blue:19000, sun_black:6800, sun_green:3400, sun_orange:1700, sun_white:600},
+        15:{spot:27000, sun_blue:9600, sun_black:3400, sun_green:2400, sun_orange:1200, sun_white:210}
       }}
     },
     arrisun_4k: {
@@ -3726,11 +3727,11 @@ var LIGHTS = {
       weight:'21 kg', size:'530×650×580 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
       dmx:{led:'HMI',power:'4000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {spot:307200, sun_blue:214784, sun_black:151875, sun_green:37969, sun_orange:27153, sun_white:12834},
-        5: {spot:108612, sun_blue:76800,  sun_black:53696,  sun_green:12834, sun_orange:6788,  sun_white:4800},
-        8: {spot:53696,  sun_blue:37969,  sun_black:19200,  sun_green:6788,  sun_orange:3208,  sun_white:1697},
-        12:{spot:27153,  sun_blue:12834,  sun_black:6788,   sun_green:3208,  sun_orange:1697,  sun_white:832},
-        15:{spot:12834,  sun_blue:6788,   sun_black:4800,   sun_green:1697,  sun_orange:832,   sun_white:588}
+        3: {sun_green:38000, sun_orange:27000, sun_white:14000},
+        5: {sun_blue:76000, sun_black:54000, sun_green:14000, sun_orange:6800, sun_white:4800},
+        8: {spot:54000, sun_blue:38000, sun_black:19000, sun_green:6800, sun_orange:3400, sun_white:1700},
+        12:{spot:27000, sun_blue:14000, sun_black:6800, sun_green:3400, sun_orange:1700, sun_white:840},
+        15:{spot:14000, sun_blue:6800, sun_black:4800, sun_green:1700, sun_orange:840, sun_white:600}
       }}
     },
     arrisun_2500: {
@@ -3738,11 +3739,11 @@ var LIGHTS = {
       weight:'21 kg', size:'530×650×580 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
       dmx:{led:'HMI',power:'2500W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {spot:108612, sun_blue:108612, sun_black:76800, sun_green:27153, sun_orange:12834, sun_white:6788},
-        5: {spot:53696,  sun_blue:53696,  sun_black:27153, sun_green:9075,  sun_orange:4800,  sun_white:3208},
-        8: {spot:27153,  sun_blue:19200,  sun_black:9075,  sun_green:3208,  sun_orange:1697,  sun_white:1200},
-        12:{spot:12834,  sun_blue:12834,  sun_black:4800,  sun_green:1697,  sun_orange:832,   sun_white:588},
-        15:{spot:6788,   sun_blue:6788,   sun_black:3208,  sun_green:1200,  sun_orange:588,   sun_white:424}
+        3: {sun_black:76000, sun_green:27000, sun_orange:14000, sun_white:4800},
+        5: {spot:54000, sun_blue:54000, sun_black:27000, sun_green:9600, sun_orange:4800, sun_white:3400},
+        8: {spot:27000, sun_blue:19000, sun_black:9600, sun_green:3400, sun_orange:1700, sun_white:1200},
+        12:{spot:14000, sun_blue:14000, sun_black:4800, sun_green:1700, sun_orange:840, sun_white:600},
+        15:{spot:6800, sun_blue:6800, sun_black:3400, sun_green:1200, sun_orange:600, sun_white:420}
       }}
     },
     arrisun_1200: {
@@ -3750,11 +3751,11 @@ var LIGHTS = {
       weight:'12 kg', size:'420×540×460 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
       dmx:{led:'HMI',power:'1200W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {spot:108612, sun_blue:76800, sun_black:27153, sun_green:12834, sun_orange:9075,  sun_white:3208},
-        5: {spot:53696,  sun_blue:27153, sun_black:12834, sun_green:4800,  sun_orange:2269,  sun_white:1200},
-        8: {spot:19200,  sun_blue:12834, sun_black:4800,  sun_green:1697,  sun_orange:1200,  sun_white:424},
-        12:{spot:9075,   sun_blue:6788,  sun_black:1697,  sun_green:832,   sun_orange:424,   sun_white:208},
-        15:{spot:6788,   sun_blue:3208,  sun_black:1200,  sun_green:588,   sun_orange:300,   sun_white:147}
+        3: {sun_blue:76000, sun_black:27000, sun_green:14000, sun_orange:9600, sun_white:3400},
+        5: {spot:54000, sun_blue:27000, sun_black:14000, sun_green:4800, sun_orange:2400, sun_white:1200},
+        8: {spot:19000, sun_blue:14000, sun_black:4800, sun_green:1700, sun_orange:1200, sun_white:420},
+        12:{spot:9600, sun_blue:6800, sun_black:1700, sun_green:840, sun_orange:420, sun_white:210},
+        15:{spot:6800, sun_blue:3400, sun_black:1200, sun_green:600, sun_orange:300, sun_white:150}
       }}
     },
     arrisun_575: {
@@ -3762,11 +3763,10 @@ var LIGHTS = {
       weight:'4.5 kg', size:'270×340×320 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
       dmx:{led:'HMI',power:'575W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        2: {spot:151875, sun_blue:108612, sun_black:37969, sun_green:19200, sun_orange:12834, sun_white:3208},
-        3: {spot:76800,  sun_blue:53696,  sun_black:19200, sun_green:9075,  sun_orange:4800,  sun_white:1697},
-        5: {spot:27153,  sun_blue:19200,  sun_black:6788,  sun_green:3208,  sun_orange:2269,  sun_white:588},
-        8: {spot:12834,  sun_blue:6788,   sun_black:3208,  sun_green:1200,  sun_orange:832,   sun_white:208},
-        12:{spot:4800,   sun_blue:3208,   sun_black:1200,  sun_green:424,   sun_orange:300,   sun_white:106}
+        3: {spot:76000, sun_blue:54000, sun_black:19000, sun_green:9600, sun_orange:4800, sun_white:1700},
+        5: {spot:27000, sun_blue:19000, sun_black:6800, sun_green:3400, sun_orange:2400, sun_white:600},
+        8: {spot:14000, sun_blue:6800, sun_black:3400, sun_green:1200, sun_orange:840, sun_white:210},
+        12:{spot:4800, sun_blue:3400, sun_black:1200, sun_green:420, sun_orange:300, sun_white:110}
       }}
     },
     arrisun_200: {
@@ -3774,35 +3774,45 @@ var LIGHTS = {
       weight:'2 kg', size:'210×270×270 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
       dmx:{led:'HMI',power:'200W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        1: {spot:214784, sun_blue:151875, sun_black:76800, sun_green:37969, sun_orange:19200, sun_white:9075},
-        2: {spot:76800,  sun_blue:53696,  sun_black:19200, sun_green:6788,  sun_orange:4800,  sun_white:1697},
-        3: {spot:27153,  sun_blue:19200,  sun_black:9075,  sun_green:3208,  sun_orange:2269,  sun_white:832},
-        5: {spot:12834,  sun_blue:6788,   sun_black:3208,  sun_green:1200,  sun_orange:832,   sun_white:300},
-        8: {spot:4800,   sun_blue:3208,   sun_black:1200,  sun_green:588,   sun_orange:300,   sun_white:208}
+        3: {spot:27000, sun_blue:19000, sun_black:9600, sun_green:3400, sun_orange:2400, sun_white:840},
+        5: {spot:14000, sun_blue:6800, sun_black:3400, sun_green:1200, sun_orange:840, sun_white:300},
+        8: {spot:4800, sun_blue:3400, sun_black:1200, sun_green:600, sun_orange:300, sun_white:210}
       }}
     },
     hmi_18k: {
       name:'ARRI 18kW HMI', group:'HMI', desc:'18000W HMI PAR', emoji:'⚫', watts:18000, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
       weight:'48 kg', size:'630×630×580 mm', ccts:[5600], accessories:["flat", "spot", "clear"],
       dmx:{led:'HMI',power:'18000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{flat:{5600:{3:76800,5:27153,8:12834,12:6788,15:4800}},spot:{5600:{3:607500,5:214784,8:108612,12:53696,15:37969}},clear:{5600:{3:27153,5:9075,8:3601,12:1697,15:1200}}}
+      refData:{5600:{
+        3: {flat:76000},
+        5: {flat:19000},
+        8: {flat:14000},
+        12:{flat:6800, spot:54000},
+        15:{flat:4800, spot:38000}
+      }}
     },
     hmi_18k_mame: {
       name:'ARRI 18kW MAME HMI', group:'HMI', desc:'18000W HMI Fresnel Lens', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:18000,
       weight:'42 kg', size:'580×580×520 mm', ccts:[5600], accessories:["flat", "spot"],
       dmx:{power:'18000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{flat:{5600:{3:76800,5:27153,8:12834,12:4800,15:3208}},spot:{5600:{3:307200,5:214784,8:76800,12:37969,15:27153}}}
+      refData:{5600:{
+        3: {flat:76000},
+        5: {flat:27000},
+        8: {flat:14000, spot:76000},
+        12:{flat:4800, spot:38000},
+        15:{flat:3400, spot:27000}
+      }}
     },
     arri_m40: {
       name:'ARRI M40', group:'HMI Open', desc:'4000W HMI Fresnel Open', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"43\"/><circle cx=\"75\" cy=\"84\" r=\"11\"/><path d=\"M75 41 C58 54 48 68 43 84 C49 101 59 115 75 127\"/><path d=\"M75 41 C92 54 102 68 107 84 C101 101 91 115 75 127\"/><path d=\"M38 58 C58 67 90 67 112 58\"/><path d=\"M38 110 C58 101 90 101 112 110\"/><path d=\"M48 48 L103 119\"/><path d=\"M103 48 L48 119\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:4000,
       weight:'22 kg', size:'480×480×500 mm', ccts:[5600], accessories:['flood','spot'],
       dmx:{led:'HMI',power:'4000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {spot:108619, flood:27146},
-        5: {spot:37969,  flood:9075},
-        8: {spot:19200,  flood:3208},
-        12:{spot:9075,   flood:1696},
-        15:{spot:4800,   flood:1200}
+        3: {flood:27000},
+        5: {flood:9600, spot:76000},
+        8: {flood:3400, spot:27000},
+        12:{flood:1700, spot:14000},
+        15:{flood:9600, spot:9600}
       }}
     },
     arrimax_18k: {
@@ -3824,13 +3834,11 @@ var LIGHTS = {
       weight:'52 kg', size:'580×580×560 mm', ccts:[5600], accessories:['flood','spot'],
       dmx:{led:'HMI',power:'12000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {spot:940100, flood:96900},
-        5: {spot:338436, flood:34884},
-        8: {spot:132202, flood:13627},
-        12:{spot:58756, flood:6056},
-        15:{spot:37604, flood:3876},
-        20:{spot:21152, flood:2180},
-        30:{spot:9401, flood:969}
+        3: {flood:76000},
+        5: {flood:38000},
+        8: {flood:9600},
+        12:{flood:6800, spot:76000},
+        15:{flood:4800, spot:54000}
       }}
     },
     arri_m90: {
@@ -3866,11 +3874,11 @@ var LIGHTS = {
       weight:'14 kg', size:'390×390×430 mm', ccts:[5600], accessories:['flood','spot'],
       dmx:{led:'HMI',power:'1800W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {spot:76800, flood:19200},
-        5: {spot:27146, flood:6790},
-        8: {spot:12843, flood:2269},
-        12:{spot:4800,  flood:1200},
-        15:{spot:2269,  flood:832}
+        3: {flood:19000, spot:76000},
+        5: {flood:6800, spot:27000},
+        8: {flood:2400, spot:14000},
+        12:{flood:1200, spot:4800},
+        15:{flood:840, spot:2400}
       }}
     },
     arri_m8: {
@@ -3888,13 +3896,23 @@ var LIGHTS = {
       name:'ARRI TRUE BLUE D25', group:'HMI', desc:'2500W HMI Fresnel Lens', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"18\"/><circle cx=\"42\" cy=\"40\" r=\"12\"/><circle cx=\"42\" cy=\"40\" r=\"6\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:2500,
       weight:'16 kg', size:'410×380×460 mm', ccts:[5600], accessories:['flat','spot'],
       dmx:{led:'HMI',power:'2500W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{flat:{5600:{2:27153,3:12834,5:4800,8:1697,12:424}},spot:{5600:{2:151875,3:108612,5:37969,8:19200,12:6788}}}
+      refData:{5600:{
+        3: {flat:14000},
+        5: {flat:4800, spot:54000},
+        8: {flat:2400, spot:19000},
+        12:{flat:1200, spot:9600}
+      }}
     },
     trueblue_d12: {
       name:'ARRI TRUE BLUE D12', group:'HMI', desc:'1200W HMI Fresnel Lens', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"18\"/><circle cx=\"42\" cy=\"40\" r=\"12\"/><circle cx=\"42\" cy=\"40\" r=\"6\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:1200,
       weight:'10 kg', size:'360×340×400 mm', ccts:[5600], accessories:['flat','spot'],
       dmx:{led:'HMI',power:'1200W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{flat:{5600:{2:12834,3:4800,5:2269,8:832,12:424}},spot:{5600:{2:76800,3:37969,5:12834,8:6788,12:2269}}}
+      refData:{5600:{
+        3: {flat:4800, spot:38000},
+        5: {flat:2400, spot:14000},
+        8: {flat:840, spot:6800},
+        12:{flat:420, spot:2400}
+      }}
     },
     trueblue_d5: {
       name:'ARRI TRUE BLUE D5', group:'HMI', desc:'575W HMI Fresnel Lens', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"18\"/><circle cx=\"42\" cy=\"40\" r=\"12\"/><circle cx=\"42\" cy=\"40\" r=\"6\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:575,
@@ -3905,17 +3923,28 @@ var LIGHTS = {
     pp_125: {
       group:'HMI', name:'Pocket Par 125W', emoji:'💡', watts:125,
       ccts:[5600], accessories:["spot"],
-      refData:{spot:{5600:{1:303750,2:76800,3:38400,5:18150,8:4800}}}
+      refData:{5600:{
+        3: {spot:27000},
+        5: {spot:14000},
+        8: {spot:4800}
+      }}
     },
     pp_125_cyl: {
       group:'HMI', name:'Pocket Par 125W Cyl', emoji:'💡', watts:125,
       ccts:[5600], accessories:["flat"],
-      refData:{flat:{5600:{0.5:2400,1:588,2:150}}}
+      refData:{5600:{
+        3: {flat:2400},
+        5: {flat:1200}
+      }}
     },
     pp_200: {
       group:'HMI', name:'Pocket Par 200W', emoji:'💡', watts:200,
       ccts:[5600, 3600], accessories:["spot"],
-      refData:{spot:{5600:{1:307200,2:76800,3:37969,5:9075,8:4800}}}
+      refData:{5600:{
+        3: {spot:38000},
+        5: {spot:9600},
+        8: {spot:4800}
+      }}
     },
     pp_200_cyl: {
       group:'HMI', name:'Pocket Par 200W Cyl', emoji:'💡', watts:200,
@@ -3925,7 +3954,11 @@ var LIGHTS = {
     pp_400: {
       group:'HMI', name:'Pocket Par 400W', emoji:'💡', watts:400,
       ccts:[5600, 3600], accessories:['spot','sf400'],
-      refData:{spot:{5600:{1:151875,2:76800,3:38400,5:18150,8:4800}},sf400:{5600:{1:75938,2:18150,3:4800,5:2400,8:588}}}
+      refData:{5600:{
+        3: {spot:76000},
+        5: {spot:27000},
+        8: {spot:4800}
+      }}
     },
     pp_400_cyl: {
       group:'HMI', name:'Pocket Par 400W Cyl', emoji:'💡', watts:400,
@@ -3935,12 +3968,23 @@ var LIGHTS = {
     true_blue_d40: {
       group:'HMI', name:'ARRI TRUE BLUE D40', desc:'HMI Fresnel Lens', emoji:'💡', watts:4000, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot','clear'],
-      refData:{flat:{5600:{2:47838,3:24190,5:7620,8:3208,12:1697}},spot:{5600:{2:434446,3:214784,5:96762,8:30478,12:14406}},clear:{5600:{2:9075,3:6048,5:1905,8:832,12:378}}}
+      refData:{5600:{
+        3: {flat:19000},
+        5: {flat:6800, spot:76000},
+        8: {flat:2400, spot:19000},
+        12:{flat:1200, spot:9600}
+      }}
     },
     arri_12k: {
       group:'HMI', name:'ARRI 12kW Compact HMI', emoji:'💡', watts:12000, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
       ccts:[5600], accessories:["flat", "spot"],
-      refData:{flat:{5600:{3:37969,5:19200,8:6788,12:3208,15:1697}},spot:{5600:{3:434446,5:214784,8:76800,12:37969,15:27153}}}
+      refData:{5600:{
+        3: {flat:54000},
+        5: {flat:19000},
+        8: {flat:6800},
+        12:{flat:3400, spot:54000},
+        15:{flat:2400, spot:38000}
+      }}
     },
     arri_12k_de: {
       group:'HMI', name:'ARRI 12kW Double End', emoji:'💡', watts:12000,
@@ -3950,30 +3994,50 @@ var LIGHTS = {
     arri_200: {
       group:'HMI', name:'ARRI 200W Compact HMI', emoji:'💡', watts:200, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
       ccts:[5600], accessories:["flat", "spot"],
-      refData:{flat:{5600:{1:6788,2:1697,3:832,5:300}},spot:{5600:{1:53696,2:19200,3:9075,5:3208}}}
+      refData:{5600:{
+        3: {flat:840, spot:9600},
+        5: {flat:300, spot:3400}
+      }}
     },
     arri_6k: {
       group:'HMI', name:'ARRI 6kW Compact HMI', emoji:'💡', watts:6000, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
       ccts:[5600], accessories:["flat", "spot", "clear"],
-      refData:{flat:{5600:{3:27153,5:12834,8:3208,12:1697,15:1200}},spot:{5600:{3:151875,5:76800,8:27153,12:12834,15:9075}},clear:{5600:{3:6788,5:2858,8:933,12:476,15:300}}}
+      refData:{5600:{
+        3: {flat:27000},
+        5: {flat:14000, spot:76000},
+        8: {flat:3400, spot:27000},
+        12:{flat:1700, spot:14000},
+        15:{flat:1200, spot:9600}
+      }}
     },
     arri_x_1200: {
       group:'HMI Open', name:'ARRI X 1.2kW HMI', emoji:'💡', watts:1200,
       ccts:[5600], accessories:["spot","flood"],
-      refData:{
-        spot:{5600:{2:4538,3:2400,5:588,8:300,12:150}},
-        flood:{5600:{2:1134,3:600,5:147,8:75,12:38}}
-      }
+      refData:{5600:{
+        3: {spot:1200},
+        5: {spot:600},
+        8: {spot:300},
+        12:{spot:110}
+      }}
     },
     arri_x_575: {
       group:'HMI Open', name:'ARRI X 575W HMI', emoji:'💡', watts:575,
       ccts:[5600], accessories:["spot"],
-      refData:{spot:{5600:{2:1200,3:588,5:300,8:150}}}
+      refData:{5600:{
+        3: {spot:600},
+        5: {spot:300},
+        8: {spot:110}
+      }}
     },
     arri_x_4k: {
       group:'HMI Open', name:'ARRI X 4kW HMI', emoji:'💡', watts:4000,
       ccts:[5600], accessories:["5600", "spot"],
-      refData:{spot:{5600:{2:307200,3:151875,5:76800,8:19200,12:9075}}}
+      refData:{5600:{
+        3: {spot:4800},
+        5: {spot:2400},
+        8: {spot:840},
+        12:{spot:300}
+      }}
     },
   
   
@@ -4217,12 +4281,23 @@ var LIGHTS = {
     alpha_12k: {
       group:'HMI', name:'Alpha 12kW HMI', emoji:'💡', watts:12000,
       ccts:[5600], accessories:["spot", "flat", "clear_spot", "clear_flat"],
-      refData:{spot:{5600:{3:153600,5:37969,8:19200,12:9075,15:4800}},flat:{5600:{3:75938,5:19200,8:9600,12:4538,15:2400}},clear_spot:{5600:{3:18150,5:4800,8:2269,12:1176,15:300}},clear_flat:{5600:{3:9075,5:4538,8:2400,12:588,15:294}}}
+      refData:{5600:{
+        3: {flat:54000, clear_spot:14000, clear_flat:9600},
+        5: {spot:38000, flat:19000, clear_spot:4800, clear_flat:4800},
+        8: {spot:19000, flat:6800, clear_spot:2400, clear_flat:1700},
+        12:{spot:9600, flat:3400, clear_spot:840, clear_flat:840},
+        15:{spot:4800, flat:1700, clear_spot:600, clear_flat:600}
+      }}
     },
     alpha_4k: {
       group:'HMI', name:'Alpha 4kW HMI', emoji:'💡', watts:4000,
       ccts:[5600], accessories:["flat", "spot"],
-      refData:{flat:{5600:{2:38400,3:18150,5:4800,8:2269,12:1200}},spot:{5600:{2:75938,3:38400,5:18150,8:4800,12:2269}}}
+      refData:{5600:{
+        3: {flat:4800},
+        5: {flat:2400},
+        8: {flat:840},
+        12:{flat:420}
+      }}
     },
     joker_1600: {
       group:'HMI', name:'Joker2 1600', desc:'1600W HMI Fresnel Lens', emoji:'💛', watts:1600,
@@ -4440,7 +4515,12 @@ var LIGHTS = {
     dedo_400: {
       group:'HMI', name:'Dedolight 400W HMI', emoji:'🟤', watts:400,
       ccts:[5600], accessories:["flat", "spot"],
-      refData:{flat:{5600:{2:9600,3:2269,5:1176,8:600,12:294}},spot:{5600:{2:151875,3:75938,5:38400,8:9600,12:2269}}}
+      refData:{5600:{
+        3: {flat:2400, spot:38000},
+        5: {flat:840, spot:19000},
+        8: {flat:420, spot:6800},
+        12:{flat:210, spot:2400}
+      }}
     },
   
   
@@ -15203,7 +15283,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.35';
+var ver = 'v1.1.4.36';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
