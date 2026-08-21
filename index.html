@@ -11016,7 +11016,7 @@ function mixAddLight() {
 
   // state
   var amk=''; // selected maker ('') = all
-  var activeTab='fav'; // 'fav' | 'maker' | 'name' | 'type'
+  var activeTab='maker'; // 'fav' | 'maker' | 'name' | 'type' — 既定はメーカー選択
   var activeType='all';
   var searchText='';
 
@@ -15139,7 +15139,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.32';
+var ver = 'v1.1.4.33';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
