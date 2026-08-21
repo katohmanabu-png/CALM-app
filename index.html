@@ -3810,12 +3810,13 @@ var LIGHTS = {
       weight:'68 kg', size:'660×660×610 mm', ccts:[5600], accessories:['flood','spot'],
       dmx:{led:'HMI',power:'18000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {spot:607500, flood:76800},
-        5: {spot:214784, flood:9075},
-        8: {spot:108612, flood:4800},
-        12:{spot:53696,  flood:2269},
-        15:{spot:37969,  flood:1697},
-        20:{spot:19200,  flood:1200}
+        3: {spot:1382500, flood:142500},
+        5: {spot:497700, flood:51300},
+        8: {spot:194414, flood:20039},
+        12:{spot:86406, flood:8906},
+        15:{spot:55300, flood:5700},
+        20:{spot:31106, flood:3206},
+        30:{spot:13825, flood:1425}
       }}
     },
     arrimax_12k: {
@@ -3823,12 +3824,13 @@ var LIGHTS = {
       weight:'52 kg', size:'580×580×560 mm', ccts:[5600], accessories:['flood','spot'],
       dmx:{led:'HMI',power:'12000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {spot:405000, flood:51200},
-        5: {spot:143333, flood:6050},
-        8: {spot:72400,  flood:3200},
-        12:{spot:35787,  flood:1513},
-        15:{spot:25313,  flood:1131},
-        20:{spot:12800,  flood:800}
+        3: {spot:940100, flood:96900},
+        5: {spot:338436, flood:34884},
+        8: {spot:132202, flood:13627},
+        12:{spot:58756, flood:6056},
+        15:{spot:37604, flood:3876},
+        20:{spot:21152, flood:2180},
+        30:{spot:9401, flood:969}
       }}
     },
     arri_m90: {
@@ -4526,19 +4528,40 @@ var LIGHTS = {
       group:'Tungsten', name:'ARRI 5000W Tungsten', desc:'5000W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:5000,
       weight:'16 kg', size:'380×380×480 mm', ccts:[3200], accessories:['spot','flood'],
       dmx:{power:'5000W',cct:'3200K (Tungsten)',cri:'>99',tlci:'>99',ip:'IP20',control:'Manual Dimmer',dimming:'0%–100%',effects:[]},
-      refData:{3200:{5:{spot:120000,flood:24000},10:{spot:30000,flood:6000},15:{spot:13300,flood:2670}}}
+      refData:{3200:{
+        3: {spot:26094, flood:5256},
+        5: {spot:9394, flood:1892},
+        8: {spot:3670, flood:739},
+        10:{spot:2348, flood:473},
+        15:{spot:1044, flood:210},
+        20:{spot:587, flood:118}
+      }}
     },
     arri_t2000: {
       group:'Tungsten', name:'ARRI 2000W Tungsten', desc:'2000W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:2000,
       weight:'8.5 kg', size:'290×290×380 mm', ccts:[3200], accessories:['spot','flood'],
       dmx:{power:'2000W',cct:'3200K (Tungsten)',cri:'>99',tlci:'>99',ip:'IP20',control:'Manual Dimmer',dimming:'0%–100%',effects:[]},
-      refData:{3200:{3:{spot:82000,flood:16000},5:{spot:30000,flood:5800},10:{spot:7500,flood:1450}}}
+      refData:{3200:{
+        3: {spot:41456, flood:4544},
+        5: {spot:14924, flood:1636},
+        8: {spot:5830, flood:639},
+        10:{spot:3731, flood:409},
+        15:{spot:1658, flood:182},
+        20:{spot:933, flood:102}
+      }}
     },
     arri_t1000: {
       group:'Tungsten', name:'ARRI 1000W Tungsten', desc:'1000W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:1000,
       weight:'5.2 kg', size:'250×250×310 mm', ccts:[3200], accessories:['spot','flood'],
       dmx:{power:'1000W',cct:'3200K (Tungsten)',cri:'>99',tlci:'>99',ip:'IP20',control:'Manual Dimmer',dimming:'0%–100%',effects:[]},
-      refData:{3200:{3:{spot:42000,flood:8400},5:{spot:15120,flood:3024},10:{spot:3780,flood:756}}}
+      refData:{3200:{
+        3: {spot:16633, flood:2033},
+        5: {spot:5988, flood:732},
+        8: {spot:2339, flood:286},
+        10:{spot:1497, flood:183},
+        15:{spot:665, flood:81},
+        20:{spot:374, flood:46}
+      }}
     },
     arri_t650: {
       group:'Tungsten', name:'ARRI 650W Tungsten', desc:'650W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:650,
@@ -4569,18 +4592,39 @@ var LIGHTS = {
     },
     arri_trueblue_st5: {
       group:'Tungsten', name:'ARRI TRUEBLUE ST5', desc:'5000W Tungsten Fresnel', emoji:'🔆', watts:5000,
-      ccts:[3200], accessories:['spot'],
-      refData:{3200:{1:{spot:194400},2:{spot:48600},3:{spot:21600},5:{spot:7776},8:{spot:3038}}}
+      ccts:[3200], accessories:['spot','medium','flood'],
+      refData:{3200:{
+        3: {spot:26094, medium:9950, flood:5256},
+        5: {spot:9394, medium:3582, flood:1892},
+        8: {spot:3670, medium:1399, flood:739},
+        10:{spot:2348, medium:896, flood:473},
+        15:{spot:1044, medium:398, flood:210},
+        20:{spot:587, medium:224, flood:118}
+      }}
     },
     arri_trueblue_st2: {
       group:'Tungsten', name:'ARRI TRUEBLUE ST2', desc:'2000W Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:2000,
-      ccts:[3200], accessories:['spot'],
-      refData:{3200:{1:{spot:98304},2:{spot:24576},3:{spot:10923},5:{spot:3932},8:{spot:1536}}}
+      ccts:[3200], accessories:['spot','medium','flood'],
+      refData:{3200:{
+        3: {spot:41456, medium:9233, flood:4544},
+        5: {spot:14924, medium:3324, flood:1636},
+        8: {spot:5830, medium:1298, flood:639},
+        10:{spot:3731, medium:831, flood:409},
+        15:{spot:1658, medium:369, flood:182},
+        20:{spot:933, medium:208, flood:102}
+      }}
     },
     arri_trueblue_st1: {
       group:'Tungsten', name:'ARRI TRUEBLUE ST1', desc:'1000W Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:1000,
-      ccts:[3200], accessories:['spot'],
-      refData:{3200:{1:{spot:24576},2:{spot:6144},3:{spot:2731},5:{spot:983},8:{spot:384}}}
+      ccts:[3200], accessories:['spot','medium','flood'],
+      refData:{3200:{
+        3: {spot:16633, medium:4333, flood:2033},
+        5: {spot:5988, medium:1560, flood:732},
+        8: {spot:2339, medium:609, flood:286},
+        10:{spot:1497, medium:390, flood:183},
+        15:{spot:665, medium:173, flood:81},
+        20:{spot:374, medium:98, flood:46}
+      }}
     },
     arri_junior_650: {
       group:'Tungsten', name:'ARRI Junior 650', desc:'650W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:650,
@@ -14443,8 +14487,8 @@ function _dftShowLightPicker(wx, wy) {
     '<div style="padding:14px 16px 8px;flex-shrink:0;">' +
     '<div style="font-size:14px;font-weight:800;color:#fff;margin-bottom:10px;">'+t('dftSelectLight')+'</div>' +
     '<div style="display:flex;gap:6px;margin-bottom:8px;">' +
-    '<button id="_lpt_fav"    onclick="_dftLPTab(\'fav\')"    style="'+_lpTabStyle(true) +'">⭐ Fav</button>' +
-    '<button id="_lpt_maker"  onclick="_dftLPTab(\'maker\')"  style="'+_lpTabStyle(false)+'">🏢 Manufacture</button>' +
+    '<button id="_lpt_fav"    onclick="_dftLPTab(\'fav\')"    style="'+_lpTabStyle(false)+'">⭐ Fav</button>' +
+    '<button id="_lpt_maker"  onclick="_dftLPTab(\'maker\')"  style="'+_lpTabStyle(true) +'">🏢 Manufacture</button>' +
     '<button id="_lpt_search" onclick="_dftLPTab(\'search\')" style="'+_lpTabStyle(false)+'">🔍 Search</button>' +
     '</div>' +
     '<div id="_dft_lp_srow" style="display:none;">' +
@@ -14456,11 +14500,11 @@ function _dftShowLightPicker(wx, wy) {
     '<button onclick="document.getElementById(\'_dft_lp\').remove()" style="width:100%;padding:10px;background:#2a2a2a;color:#888;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
     '</div></div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
-  _dftLP = {tab:'fav', maker:null};
+  _dftLP = {tab:'maker', maker:null};   // 既定はメーカー選択
   setTimeout(function(){ _dftLPRender(); }, 10);
 }
 
-var _dftLP = {tab:'fav', maker:null};
+var _dftLP = {tab:'maker', maker:null};
 
 function _dftLPTab(tab) {
   _dftLP.tab = tab;
@@ -15159,7 +15203,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.34';
+var ver = 'v1.1.4.35';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
