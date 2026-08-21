@@ -2543,7 +2543,9 @@ var MAKERS = {
   briese: {name:'Briese', emoji:'⬜', accent:'#eceff1', dark:'#cfd8dc', light:'#fafafa', glow:'rgba(200,200,200,0.25)', accent2:'#37474f', activeOutline:'#37474f'},
   broncolor: {name:'Broncolor', emoji:'🟥', accent:'#c62828', dark:'#8e0000', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121'},
   ushio: {name:'USHIO / サーチライト', emoji:'🔆', accent:'#f9a825', dark:'#f57f17', light:'#fffde7', glow:'rgba(249,168,37,0.25)', accent2:'#212121'},
-  kobold: {name:'KOBOLD', emoji:'🟦', accent:'#1565c0', dark:'#0d47a1', light:'#e3f2fd', glow:'rgba(21,101,192,0.25)', accent2:'#ffffff'},};
+  kobold: {name:'KOBOLD', emoji:'🟦', accent:'#1565c0', dark:'#0d47a1', light:'#e3f2fd', glow:'rgba(21,101,192,0.25)', accent2:'#ffffff'},
+  rds: {name:'RDS', emoji:'🟩', accent:'#2e7d32', dark:'#1b5e20', light:'#e8f5e9', glow:'rgba(46,125,50,0.25)', accent2:'#ffffff'},
+  arc_special: {name:'特殊光源 / Specials', emoji:'✨', accent:'#6a1b9a', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(106,27,154,0.25)', accent2:'#ffd54f'},};
 
 // ===== LIGHT DATA =====
 var LIGHTS = {
@@ -4041,6 +4043,80 @@ var LIGHTS = {
         12:{spot:300}
       }}
     },
+    // ── ARC SYSTEM 実測（ARRI X 2.5kw / 6kw）─────────────────────────
+    arri_x_2500: {
+      group:'HMI Open', name:'ARRI X 2.5kW HMI', emoji:'💡', watts:2500,
+      ccts:[5600], accessories:['spot'],
+      refData:{5600:{
+        3: {spot:3400},
+        5: {spot:1200},
+        8: {spot:600},
+        12:{spot:210}
+      }}
+    },
+    arri_x_6000: {
+      group:'HMI Open', name:'ARRI X 6kW HMI', emoji:'💡', watts:6000,
+      ccts:[5600], accessories:['spot'],
+      refData:{5600:{
+        3: {spot:9600},
+        5: {spot:3400},
+        8: {spot:1200},
+        12:{spot:600},
+        15:{spot:420}
+      }}
+    },
+    // ── ARC SYSTEM 実測（ARRI CP = Compact シリーズ）───────────────────
+    // 200W / 6kW / 12kW は arri_200 / arri_6k / arri_12k として既登録。
+    arri_125: {
+      group:'HMI', name:'ARRI 125W Compact HMI', emoji:'💡', watts:125,
+      ccts:[5600], accessories:['flat','spot'],
+      refData:{5600:{
+        3: {flat:150, spot:840},
+        5: {flat:75,  spot:300}
+      }}
+    },
+    arri_575: {
+      group:'HMI', name:'ARRI 575W Compact HMI', emoji:'💡', watts:575,
+      ccts:[5600], accessories:['flat','spot'],
+      refData:{5600:{
+        3: {flat:2400, spot:19000},
+        5: {flat:840,  spot:6800},
+        8: {flat:420,  spot:3400},
+        12:{flat:110,  spot:1200}
+      }}
+    },
+    arri_1200: {
+      group:'HMI', name:'ARRI 1.2kW Compact HMI', emoji:'💡', watts:1200,
+      ccts:[5600], accessories:['flat','spot'],
+      refData:{5600:{
+        3: {flat:6800, spot:54000},
+        5: {flat:2400, spot:19000},
+        8: {flat:840,  spot:6800},
+        12:{flat:420,  spot:3400}
+      }}
+    },
+    arri_2500: {
+      group:'HMI', name:'ARRI 2.5kW Compact HMI', emoji:'💡', watts:2500,
+      ccts:[5600], accessories:['flat','spot'],
+      refData:{5600:{
+        3: {flat:14000},
+        5: {flat:3400, spot:54000},
+        8: {flat:1700, spot:19000},
+        12:{flat:840,  spot:6800}
+      }}
+    },
+    // ARC のカタログでは TRUE BLUE D40 と全く同じ実測値が載っている（同じ4kW・同じ
+    // フレネルのため、F値刻みの丸めで一致したと見られる）。値は変更せず両方登録する。
+    arri_4k: {
+      group:'HMI', name:'ARRI 4kW Compact HMI', emoji:'💡', watts:4000,
+      ccts:[5600], accessories:['flat','spot'],
+      refData:{5600:{
+        3: {flat:19000},
+        5: {flat:6800, spot:76000},
+        8: {flat:2400, spot:19000},
+        12:{flat:1200, spot:9600}
+      }}
+    },
   
   
   
@@ -5193,6 +5269,88 @@ var LIGHTS = {
       refData:{5600:{3:{flat:6800}, 5:{flat:2400}, 8:{flat:840}}}
     },
   },
+
+  // ══ RDS ══ すべて ARC SYSTEM の実測値
+  rds: {
+    rds_575: {
+      group:'HMI', name:'RDS 575W', desc:'575W HMI (ARC measured)', emoji:'🟩', watts:575,
+      ccts:[5600], accessories:['flat','spot'],
+      refData:{5600:{
+        3: {flat:1200, spot:4800},
+        5: {flat:420,  spot:2400},
+        8: {flat:210,  spot:840},
+        12:{flat:75,   spot:420}
+      }}
+    },
+    rds_2500_pin: {
+      group:'HMI', name:'RDS 2.5kW Pin', desc:'2500W HMI pin spot (ARC measured)', emoji:'🟩', watts:2500,
+      // ARC のカタログではスポット／フラットが1列にまとめられているため単一カーブ。
+      ccts:[5600], accessories:['spot'],
+      refData:{5600:{3:{spot:6800}, 5:{spot:2400}, 8:{spot:1200}, 12:{spot:600}, 15:{spot:420}}}
+    },
+    rds_hr2: {
+      group:'HMI', name:'RDS HR-II', desc:'HMI (ARC measured) — 消費電力は未確認',
+      emoji:'🟩',
+      // watts は ARC のカタログに記載がないため意図的に省略（推測しない）。
+      ccts:[5600], accessories:['flat','spot'],
+      refData:{5600:{
+        3: {flat:1200, spot:3400},
+        5: {flat:420,  spot:1200},
+        8: {flat:210,  spot:420}
+      }}
+    },
+  },
+
+  // ══ 特殊光源 ══ すべて ARC SYSTEM の実測値
+  arc_special: {
+    hyper_blast_5k: {
+      group:'HMI', name:'Hyper Blast 5kW', desc:'ハイパーブラスト 5kW (ARC measured)', emoji:'✨', watts:5000,
+      ccts:[5600], accessories:['flat'],
+      refData:{5600:{3:{flat:6800}, 5:{flat:2400}, 8:{flat:840}, 12:{flat:420}, 15:{flat:300}}}
+    },
+    hyper_blast_3k: {
+      group:'HMI', name:'Hyper Blast 3kW', desc:'ハイパーブラスト 3kW (ARC measured)', emoji:'✨', watts:3000,
+      ccts:[5600], accessories:['flat'],
+      refData:{5600:{3:{flat:4800}, 5:{flat:2400}, 8:{flat:1200}, 12:{flat:600}}}
+    },
+    t_light: {
+      group:'HMI', name:'T-Light', desc:'T-Light フラット (ARC measured) — 消費電力は未確認', emoji:'✨',
+      // watts は ARC のカタログに記載がないため省略。
+      ccts:[5600], accessories:['flat'],
+      refData:{5600:{5:{flat:19000}, 8:{flat:9600}, 12:{flat:4800}, 15:{flat:2400}}}
+    },
+    par_strobe_1k: {
+      group:'HMI', name:'Par Strobe 1kW', desc:'パーストロボ 1kW (ARC measured)', emoji:'✨', watts:1000,
+      ccts:[5600], accessories:['flat'],
+      refData:{5600:{3:{flat:4800}, 5:{flat:1700}, 8:{flat:600}}}
+    },
+    cizarno_200: {
+      group:'Tungsten', name:'Cizarno 200W', desc:'チザーノ 200W (ARC measured)', emoji:'✨', watts:200,
+      ccts:[3200], accessories:['flat','spot'],
+      refData:{3200:{
+        3: {flat:2400, spot:3400},
+        5: {flat:840,  spot:1700},
+        8: {flat:300,  spot:840},
+        12:{flat:110,  spot:210}
+      }}
+    },
+    mercury_lamp: {
+      group:'Tungsten', name:'Mercury Lamp', desc:'水銀灯 (ARC measured) — 消費電力は未確認', emoji:'✨',
+      // 水銀灯の色温度は個体差が大きい。ARC の実測は 4300K 相当として扱う。
+      ccts:[4300], accessories:['flat'],
+      refData:{4300:{3:{flat:1200}, 5:{flat:300}, 8:{flat:150}}}
+    },
+    freegee_24: {
+      group:'LED', name:'Freegee Light 24W', desc:'フリージーライト 24W (ARC measured)', emoji:'✨', watts:24,
+      ccts:[5600], accessories:['flat'],
+      refData:{5600:{3:{flat:420}}}
+    },
+    black_light: {
+      group:'Tungsten', name:'Black Light', desc:'ブラックライト (ARC measured) — UV光源。lux値は参考程度', emoji:'✨',
+      ccts:[5600], accessories:['flat'],
+      refData:{5600:{3:{flat:75}}}
+    },
+  },
 };
 
 var ACC_INFO = {
@@ -5519,8 +5677,8 @@ var HMI_BEAM = {
   'ARRI HMI 1200':[12,55],
   'ARRI HMI 2500':[12,55],
   'ARRI HMI 6000':[8,50],
-  'dedolight 400W HMI':[4,50],
-  'dedolight 200W HMI':[4,50],
+  'Dedolight 400W HMI':[4,50],
+  'Dedolight 200W HMI':[4,50],
   'Joker 800':[9,50],
   'Joker 400':[9,50],
   'Joker 200':[9,50],
@@ -9787,7 +9945,7 @@ function renderFinderResults() {
       '<div style="flex:1;min-width:0;">' +
         '<div style="font-size:11px;color:' + makerAccent + ';font-weight:700;">' + (maker.emoji||'') + ' ' + (maker.name||res.mk) + '</div>' +
         '<div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + '</div>' +
-        '<div style="font-size:10px;color:var(--text-dim);">' + res.cct + 'K · ' + angleLabel + res.acc + ' · ' + res.watts + 'W</div>' +
+        '<div style="font-size:10px;color:var(--text-dim);">' + res.cct + 'K · ' + angleLabel + res.acc + (res.watts > 0 ? ' · ' + res.watts + 'W' : '') + '</div>' +
       '</div>' +
       '<div style="text-align:right;min-width:64px;padding-left:6px;">' +
         '<div style="font-size:20px;font-weight:900;color:var(--accent);font-family:\'JetBrains Mono\',monospace;">' + res.fStr + '</div>' +
@@ -15455,7 +15613,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.39';
+var ver = 'v1.1.4.40';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
