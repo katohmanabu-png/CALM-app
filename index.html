@@ -3979,17 +3979,23 @@ var LIGHTS = {
       group:'HMI', name:'ARRI 12kW Compact HMI', emoji:'💡', watts:12000, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
       ccts:[5600], accessories:["flat", "spot"],
       refData:{5600:{
+        3: {flat:38000},
+        5: {flat:19000},
+        8: {flat:4800, spot:76000},
+        12:{flat:3400, spot:38000},
+        15:{flat:1200, spot:27000}
+      }}
+    },
+    arri_12k_de: {
+      group:'HMI', name:'ARRI 12kW Double End', emoji:'💡', watts:12000,
+      ccts:[5600], accessories:["flat", "spot", "clear"],
+      refData:{5600:{
         3: {flat:54000},
         5: {flat:19000},
         8: {flat:6800},
         12:{flat:3400, spot:54000},
         15:{flat:2400, spot:38000}
       }}
-    },
-    arri_12k_de: {
-      group:'HMI', name:'ARRI 12kW Double End', emoji:'💡', watts:12000,
-      ccts:[5600], accessories:["flat", "spot", "clear"],
-      refData:{flat:{5600:{3:53696,5:19200,8:6788,12:3208,15:2269}},spot:{5600:{3:607500,5:307200,8:108612,12:53696,15:37969}},clear:{5600:{3:11434,5:4800,8:1905,12:832,15:588}}}
     },
     arri_200: {
       group:'HMI', name:'ARRI 200W Compact HMI', emoji:'💡', watts:200, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
@@ -15283,7 +15289,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.36';
+var ver = 'v1.1.4.37';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
