@@ -2537,7 +2537,13 @@ var MAKERS = {
   hudson_spider: { name:'Hudson Spider',      emoji:'🕷️', accent:'#c62828', dark:'#b71c1c', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121', emojiFilter:'brightness(0) invert(1)' },
   lightstar:     { name:'Lightstar',          emoji:'🎈', accent:'#f9c800', dark:'#e0a800', light:'#fffde7', glow:'rgba(249,200,0,0.25)', accent2:'#ffffff', activeOutline:'#f9c800' },
   optex: {name:'OPTEX', emoji:'💡', accent:'#0d47a1', dark:'#01337d', light:'#e3f2fd', glow:'rgba(13,71,161,0.25)', accent2:'#fdd835'},
-  etc: {name:'ETC', emoji:'💡', accent:'#ffffff', dark:'#e0e0e0', light:'#f5f5f5', glow:'rgba(200,200,200,0.25)', accent2:'#1565c0', accent3:'#212121', activeOutline:'#1565c0'},};
+
+  etc: {name:'ETC', emoji:'💡', accent:'#ffffff', dark:'#e0e0e0', light:'#f5f5f5', glow:'rgba(200,200,200,0.25)', accent2:'#1565c0', accent3:'#212121', activeOutline:'#1565c0'},
+  ltm: {name:'LTM', emoji:'🔷', accent:'#0277bd', dark:'#01579b', light:'#e1f5fe', glow:'rgba(2,119,189,0.25)', accent2:'#ffffff'},
+  briese: {name:'Briese', emoji:'⬜', accent:'#eceff1', dark:'#cfd8dc', light:'#fafafa', glow:'rgba(200,200,200,0.25)', accent2:'#37474f', activeOutline:'#37474f'},
+  broncolor: {name:'Broncolor', emoji:'🟥', accent:'#c62828', dark:'#8e0000', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121'},
+  ushio: {name:'USHIO / サーチライト', emoji:'🔆', accent:'#f9a825', dark:'#f57f17', light:'#fffde7', glow:'rgba(249,168,37,0.25)', accent2:'#212121'},
+  kobold: {name:'KOBOLD', emoji:'🟦', accent:'#1565c0', dark:'#0d47a1', light:'#e3f2fd', glow:'rgba(21,101,192,0.25)', accent2:'#ffffff'},};
 
 // ===== LIGHT DATA =====
 var LIGHTS = {
@@ -3668,9 +3674,7 @@ var LIGHTS = {
       accessories:['flood','spot','sun_1200'],
       dmx:{led:'HMI',power:'1200W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{
-        5600:{5:{spot:10514,flood:2057,sun_spot:13714,sun_flood:2743},10:{spot:2629,flood:514,sun_spot:3429,sun_flood:686},15:{spot:1166,flood:229,sun_spot:1524,sun_flood:305}},
-      }
+      refData:{5600:{3:{flood:6800, spot:54000}, 5:{flood:2400, spot:19000}, 8:{flood:840, spot:6800}, 12:{flood:420, spot:3400}}}
     },
     hmi_2500: {
       name:'ARRI HMI 2500', group:'HMI', desc:'2500W HMI Fresnel', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:2500,
@@ -3679,9 +3683,7 @@ var LIGHTS = {
       accessories:['flood','spot'],
       dmx:{led:'HMI',power:'2500W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{
-        5600:{5:{spot:24000,flood:4800},10:{spot:6000,flood:1200},15:{spot:2663,flood:534}},
-      }
+      refData:{5600:{3:{flood:14000}, 5:{flood:3400, spot:54000}, 8:{flood:1700, spot:19000}, 12:{flood:840, spot:6800}}}
     },
     hmi_6000: {
       name:'ARRI HMI 6000', group:'HMI', desc:'6000W HMI PAR / Fresnel', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:6000,
@@ -3807,13 +3809,7 @@ var LIGHTS = {
       name:'ARRI M40', group:'HMI Open', desc:'4000W HMI Fresnel Open', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"43\"/><circle cx=\"75\" cy=\"84\" r=\"11\"/><path d=\"M75 41 C58 54 48 68 43 84 C49 101 59 115 75 127\"/><path d=\"M75 41 C92 54 102 68 107 84 C101 101 91 115 75 127\"/><path d=\"M38 58 C58 67 90 67 112 58\"/><path d=\"M38 110 C58 101 90 101 112 110\"/><path d=\"M48 48 L103 119\"/><path d=\"M103 48 L48 119\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:4000,
       weight:'22 kg', size:'480×480×500 mm', ccts:[5600], accessories:['flood','spot'],
       dmx:{led:'HMI',power:'4000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{5600:{
-        3: {flood:27000},
-        5: {flood:9600, spot:76000},
-        8: {flood:3400, spot:27000},
-        12:{flood:1700, spot:14000},
-        15:{flood:9600, spot:9600}
-      }}
+      refData:{5600:{3:{flood:27000}, 5:{flood:9600, spot:76000}, 8:{flood:3400, spot:27000}, 12:{flood:1700, spot:14000}, 15:{spot:9600}}}
     },
     arrimax_18k: {
       name:'ARRIMAX 18kW', group:'HMI Open', desc:'18000W HMI Fresnel Open', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"43\"/><circle cx=\"75\" cy=\"84\" r=\"11\"/><path d=\"M75 41 C58 54 48 68 43 84 C49 101 59 115 75 127\"/><path d=\"M75 41 C92 54 102 68 107 84 C101 101 91 115 75 127\"/><path d=\"M38 58 C58 67 90 67 112 58\"/><path d=\"M38 110 C58 101 90 101 112 110\"/><path d=\"M48 48 L103 119\"/><path d=\"M103 48 L48 119\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:18000,
@@ -4273,7 +4269,7 @@ var LIGHTS = {
       accessories:['spot','flood','soft_tube'],
       dmx:{led:'HMI',power:'400W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{spot:{5600:{3:47000,5:16900,10:4230}},flood:{5600:{3:9400,5:3380,10:845}},soft_tube:{5600:{0.5:2269,1:1176,2:294,3:150}}}
+      refData:{5600:{5:{flood:76000}, 8:{flood:27000}}}
     },
     joker_200: {
       group:'HMI', name:'Joker 200', desc:'200W HMI Fresnel Lens', emoji:'💛', watts:200,
@@ -4282,7 +4278,13 @@ var LIGHTS = {
       accessories:['spot','flood','soft_tube'],
       dmx:{led:'HMI',power:'200W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{spot:{5600:{3:22000,5:7920,10:1980}},flood:{5600:{3:4400,5:1584,10:396}},soft_tube:{5600:{0.5:2269,1:1176,2:294,3:150}}}
+      refData:{5600:{3:{flood:38000}, 5:{flood:19000}, 8:{flood:6800}}}
+    },
+    alpha_6k: {
+      group:'HMI Fresnel', name:'Alpha 6kW HMI', desc:'6kW HMI, Fresnel / Clear lens (ARC measured)', emoji:'💡', watts:6000, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      ccts:[5600], accessories:['spot','flat','clear_spot','clear_flat'],
+      dmx:{power:'6000W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{spot:76000, flat:14000, clear_spot:6800, clear_flat:6800}, 5:{spot:38000, flat:6800, clear_spot:2400, clear_flat:2400}, 8:{spot:19000, flat:3400, clear_spot:1200, clear_flat:1200}, 12:{spot:4800, flat:1700, clear_spot:600, clear_flat:600}, 15:{spot:2400, flat:840, clear_spot:300, clear_flat:300}}}
     },
     alpha_12k: {
       group:'HMI', name:'Alpha 12kW HMI', emoji:'💡', watts:12000,
@@ -4750,7 +4752,7 @@ var LIGHTS = {
     etc_sf26: {
       group:'Tungsten', name:'ETC Source Four 26°', desc:'750W Tungsten Ellipsoidal 26°', emoji:'🎭', watts:750,
       ccts:[3200], accessories:['spot'],
-      refData:{3200:{1:{spot:6144},2:{spot:1536},3:{spot:683},5:{spot:246},8:{spot:96}}}
+      refData:{3200:{3:{spot:4800}, 5:{spot:1700}, 8:{spot:840}}}
     },
     etc_sf_zoom_25_50: {
       group:'Tungsten', name:'ETC Source Four Zoom 25-50°', desc:'750W Tungsten Zoom Ellipsoidal', emoji:'🎭', watts:750,
@@ -4988,7 +4990,7 @@ var LIGHTS = {
     etc_warp575: {
       group:'HMI', name:'ETC WarpZoom 575W', emoji:'💡', watts:575,
       ccts:[5600], accessories:["flat"],
-      refData:{flat:{5600:{1:76800,2:38400,3:18150,5:4800,8:2269}}}
+      refData:{5600:{3:{flat:14000}, 5:{flat:4800}, 8:{flat:2400}}}
     },
     etc_s4led_s2_lustr: {
       group:'LED Spot', name:'Source Four LED S2 Lustr2', desc:'LED Ellipsoidal Spot Full Color (26° lens)', emoji:'💡', watts:200,
@@ -5024,8 +5026,138 @@ var LIGHTS = {
     optex_2500: {
       group:'HMI', name:'OPTEX Aura Soft 2.5kW', emoji:'💡', watts:2500,
       ccts:[5600], accessories:["flat"],
-      refData:{flat:{5600:{2:4800,3:2269,5:1176,8:300}}}
+      refData:{3200:{3:{soft:2400}, 5:{soft:840}, 8:{soft:300}}}
     }
+  },
+  ltm: {
+    ltm_18k: {
+      group:'HMI Fresnel', name:'LTM 18kW', desc:'18kW HMI Fresnel (ARC measured)', emoji:'💡', watts:18000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat','spot'],
+      dmx:{power:'18000W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:76000}, 5:{flat:27000}, 8:{flat:14000}, 12:{flat:6800, spot:76000}, 15:{flat:3400, spot:54000}}}
+    },
+    ltm_12k: {
+      group:'HMI Fresnel', name:'LTM 12kW', desc:'12kW HMI Fresnel (ARC measured)', emoji:'💡', watts:12000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat','spot'],
+      dmx:{power:'12000W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:76000}, 5:{flat:27000}, 8:{flat:9600, spot:76000}, 12:{flat:4800, spot:38000}, 15:{flat:3400, spot:19000}}}
+    },
+    ltm_12k_b: {
+      group:'HMI Fresnel', name:'LTM 12kW (Type B)', desc:'12kW HMI Fresnel alt. head (ARC measured)', emoji:'💡', watts:12000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat','spot'],
+      dmx:{power:'12000W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:38000}, 5:{flat:19000}, 8:{flat:6800}, 12:{flat:3400, spot:54000}, 15:{flat:2400, spot:38000}}}
+    },
+  },
+  briese: {
+    briese_77: {
+      group:'HMI Parabolic', name:'Briese Light 77', desc:'1.2kW parabolic umbrella (ARC measured)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat','spot'],
+      dmx:{power:'1200W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:1200, spot:4800}, 5:{flat:600, spot:2400}, 8:{flat:210, spot:840}, 12:{flat:75, spot:300}}}
+    },
+    briese_100: {
+      group:'HMI Parabolic', name:'Briese Light 100', desc:'2.5kW parabolic umbrella (ARC measured)', emoji:'💡', watts:2500, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat','spot'],
+      dmx:{power:'2500W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:2400, spot:19000}, 5:{flat:840, spot:6800}, 8:{flat:300, spot:2400}, 12:{flat:150, spot:1200}}}
+    },
+    briese_140: {
+      group:'HMI Parabolic', name:'Briese Light 140', desc:'2.5kW parabolic umbrella (ARC measured)', emoji:'💡', watts:2500, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat','spot'],
+      dmx:{power:'2500W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:6800, spot:76000}, 5:{flat:2400, spot:27000}, 8:{flat:840, spot:9600}, 12:{flat:420, spot:4800}}}
+    },
+    briese_220: {
+      group:'HMI Parabolic', name:'Briese Light 220', desc:'4kW parabolic umbrella (ARC measured)', emoji:'💡', watts:4000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat'],
+      dmx:{power:'4000W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:27000}, 5:{flat:6800}, 8:{flat:1700}, 12:{flat:600}}}
+    },
+    briese_330: {
+      group:'HMI Parabolic', name:'Briese Light 330', desc:'4kW parabolic umbrella (ARC measured)', emoji:'💡', watts:4000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat'],
+      dmx:{power:'4000W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:19000}, 5:{flat:6800}, 8:{flat:1700}, 12:{flat:600}}}
+    },
+  },
+  broncolor: {
+    bron_575_p45: {
+      group:'HMI', name:'Broncolor 575W P45', desc:'575W HMI with P45 reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['clear'],
+      dmx:{power:'575W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{clear:19000}, 5:{clear:6800}, 8:{clear:2400}, 12:{clear:840}}}
+    },
+    bron_575_p65: {
+      group:'HMI', name:'Broncolor 575W P65', desc:'575W HMI with P65 reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['clear'],
+      dmx:{power:'575W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{clear:19000}, 5:{clear:6800}, 8:{clear:3400}, 12:{clear:1200}}}
+    },
+    bron_575_psoft: {
+      group:'HMI', name:'Broncolor 575W Psoft', desc:'575W HMI with Psoft reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['clear'],
+      dmx:{power:'575W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{clear:1700}, 5:{clear:840}, 8:{clear:300}, 12:{clear:150}}}
+    },
+  },
+  ushio: {
+    ushio_500: {
+      group:'Xenon', name:'USHIO Searchlight 500W', desc:'500W searchlight, very narrow beam (ARC measured)', emoji:'💡', watts:500, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['spot'],
+      dmx:{power:'500W',cct:'5600K',control:'Manual'},
+      refData:{5600:{5:{spot:76000}, 8:{spot:76000}, 12:{spot:38000}, 15:{spot:19000}}}
+    },
+    ushio_2k: {
+      group:'Xenon', name:'USHIO Searchlight 2kW', desc:'2kW searchlight, very narrow beam (ARC measured)', emoji:'💡', watts:2000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['spot'],
+      dmx:{power:'2000W',cct:'5600K',control:'Manual'},
+      refData:{5600:{5:{spot:54000}, 8:{spot:54000}, 12:{spot:54000}, 15:{spot:54000}}}
+    },
+    ushio_3k: {
+      group:'Xenon', name:'USHIO Searchlight 3kW', desc:'3kW searchlight, very narrow beam (ARC measured)', emoji:'💡', watts:3000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['spot'],
+      dmx:{power:'3000W',cct:'5600K',control:'Manual'},
+      refData:{5600:{5:{spot:54000}, 8:{spot:54000}, 12:{spot:54000}, 15:{spot:38000}}}
+    },
+    xenon_2k_pin: {
+      group:'Xenon', name:'Xenon 2kW Pin Spot', desc:'2kW xenon pin spot (ARC measured)', emoji:'💡', watts:2000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['spot'],
+      dmx:{power:'2000W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{spot:76000}, 5:{spot:38000}, 8:{spot:14000}, 12:{spot:4800}, 15:{spot:3400}}}
+    },
+    hand_search: {
+      group:'Xenon', name:'Hand Searchlight', desc:'Handheld searchlight (ARC measured)', emoji:'💡', watts:75, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat','spot'],
+      dmx:{power:'75W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:4800, spot:38000}, 5:{flat:1700, spot:14000}, 8:{flat:840, spot:6800}, 12:{flat:420, spot:2400}}}
+    },
+  },
+  kobold: {
+    kobold_800: {
+      group:'HMI', name:'KOBOLD 800W', desc:'800W HMI, lensless flat (ARC measured)', emoji:'💡', watts:800, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat'],
+      dmx:{power:'800W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:76000}, 5:{flat:27000}}}
+    },
+    kobold_400: {
+      group:'HMI', name:'KOBOLD 400W', desc:'400W HMI, lensless flat (ARC measured)', emoji:'💡', watts:400, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat'],
+      dmx:{power:'400W',cct:'5600K',control:'Manual'},
+      refData:{5600:{5:{flat:38000}}}
+    },
+    kobold_200: {
+      group:'HMI', name:'KOBOLD 200W', desc:'200W HMI, lensless flat (ARC measured)', emoji:'💡', watts:200, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat'],
+      dmx:{power:'200W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:27000}, 5:{flat:9600}}}
+    },
+    kobold_200_6: {
+      group:'HMI', name:'KOBOLD 200W 6-Light Frame', desc:'6x 200W HMI frame (ARC measured)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['flat'],
+      dmx:{power:'1200W',cct:'5600K',control:'Manual'},
+      refData:{5600:{3:{flat:6800}, 5:{flat:2400}, 8:{flat:840}}}
+    },
   },
 };
 
@@ -15289,7 +15421,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.37';
+var ver = 'v1.1.4.38';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
