@@ -4361,7 +4361,19 @@ var LIGHTS = {
     joker_800: {
       group:'HMI', name:'Joker2 800', desc:'800W HMI Fresnel Lens', emoji:'💛', watts:800,
       ccts:[5600], accessories:['open', 'lens1_vn', 'lens2_n', 'lens3_m', 'lens4_w', 'frost', 'frost_l1', 'frost_l2', 'frost_l3', 'frost_l4', 'sf_lens'],
-      refData:{frost:{5600:{2:78005,3:38817,5:9492,8:4982}},frost_l1:{5600:{2:19562,3:5229,5:2480,8:1292}},frost_l2:{5600:{2:20049,3:9492,5:4982,8:1419}},frost_l3:{5600:{2:5105,3:2480,5:1292,8:414}},frost_l4:{5600:{2:2480,3:1355,5:588,8:147}},lens1_vn:{5600:{2:20049,3:9492,5:4982,8:2269}},lens2_n:{5600:{2:38477,3:19805,5:9075,8:2480}},lens3_m:{5600:{2:9075,3:2567,5:1355,8:588}},lens4_w:{5600:{2:2480,3:1292,5:588,8:347}},open:{5600:{2:310569,3:154247,5:77522,8:20049}},sf_lens:{5600:{1:151875,2:38817,3:19562,5:5229,8:2480}}}
+      refData:{
+        open:{5600:{2:488000, 3:241000, 5:96800, 8:30500}},
+        lens1_vn:{5600:{2:30500, 3:12800, 5:6050, 8:2270}},
+        lens2_n:{5600:{2:60300, 3:27200, 5:9080, 8:3210}},
+        lens3_m:{5600:{2:9080, 3:3600, 5:1700, 8:741}},
+        lens4_w:{5600:{2:3600, 3:1900, 5:933, 8:378}},
+        frost:{5600:{2:109000, 3:53700, 5:12800, 8:6050}},
+        frost_l1:{5600:{2:24200, 3:7620, 5:3210, 8:1510}},
+        frost_l2:{5600:{2:30500, 3:12800, 5:6050, 8:1900}},
+        frost_l3:{5600:{2:6790, 3:3210, 5:1510, 8:476}},
+        frost_l4:{5600:{2:3210, 3:1700, 5:741, 8:233}},
+        sf_lens:{5600:{1:152000, 2:53700, 3:24200, 5:7620, 8:3210}}
+      }
     },
     joker_400: {
       group:'HMI', name:'Joker 400', desc:'400W HMI Fresnel Lens', emoji:'💛', watts:400,
@@ -4422,8 +4434,15 @@ var LIGHTS = {
     },
     joker_1600: {
       group:'HMI', name:'Joker2 1600', desc:'1600W HMI Fresnel Lens', emoji:'💛', watts:1600,
-      ccts:[5600], accessories:['open', 'lens1_vn', 'lens2_n', 'lens3_m', 'lens4_w', 'bb10', 'bb19', 'bb26'],
-      refData:{bb10:{5600:{2:38477,3:19562,5:5229,8:2480,15:414}},bb19:{5600:{2:152889,3:39159,5:19562,8:9075,15:2269}},bb26:{5600:{2:19562,3:9075,5:2480,8:1292,15:414}},lens1_vn:{5600:{2:38477,3:19562,5:5229,8:2480,15:2269}},lens2_n:{5600:{2:152889,3:39159,5:19562,8:9075,15:2480}},lens3_m:{5600:{2:19562,3:9075,5:2480,8:1292,15:414}},lens4_w:{5600:{2:19805,3:9324,5:2567,8:1355,15:414}},open:{5600:{2:310569,3:154247,5:78005,8:37969,15:9324}}}
+      ccts:[5600], accessories:['open', 'lens1_vn', 'lens2_n', 'lens3_m', 'lens4_w', 'bugbeam'],
+      refData:{
+        open:{5600:{2:488000, 3:241000, 5:109000, 8:38000, 15:11400}},
+        lens1_vn:{5600:{2:47800, 3:24200, 5:7620, 8:3210, 15:2270}},
+        lens2_n:{5600:{2:191000, 3:60300, 5:24200, 8:9080, 15:3210}},
+        lens3_m:{5600:{2:24200, 3:9080, 5:3210, 8:1510, 15:476}},
+        lens4_w:{5600:{2:27200, 3:11400, 5:3600, 8:1700, 15:476}},
+        bugbeam:{5600:{1:152000, 2:53700, 3:24200, 5:7620, 8:3210}}
+      }
     },
   
   
@@ -5831,6 +5850,7 @@ var ACC_INFO = {
   lens2_n:   { label:'Lens 2 Narrow',       beam:'Narrow',        emoji:'🔦', angle:19,   group:'clear' },
   lens3_m:   { label:'Lens 3 Medium',       beam:'Medium',        emoji:'🔦', angle:26,   group:'clear' },
   lens4_w:   { label:'Lens 4 Wide',         beam:'Wide',          emoji:'🔦', angle:40,   group:'clear' },
+  bugbeam:   { label:'Bug Beam',            beam:'Bug Beam',      emoji:'🐛', angle:26,   group:'bugbeam' },
   bb10:      { label:'Bug Beam 10°',         beam:'10°',           emoji:'🐛', angle:10,   group:'bugbeam' },
   bb19:      { label:'Bug Beam 19°',         beam:'19°',           emoji:'🐛', angle:19,   group:'bugbeam' },
   bb26:      { label:'Bug Beam 26°',         beam:'26°',           emoji:'🐛', angle:26,   group:'bugbeam' },
@@ -6819,13 +6839,14 @@ var BEAKER_LIGHTS = { 'k5600|joker_800': true, 'k5600|joker_1600': true };
 // Beaker → そのビーカーで使えるアクセサリ（全機種共通の上限リスト）。
 // 実際に表示するのは beakerAccFor() で器具が持つ accessories と積を取ったもの。
 var BEAKER_ACC = {
-  none:  ['open','bb10','bb19','bb26','sf_lens'],
+  // ビーカー無し: Source Four レンズ / Bug Beam（灯体を差し替える運用）
+  none:  ['bugbeam','sf_lens'],
   clear: ['open','lens1_vn','lens2_n','lens3_m','lens4_w'],
   frost: ['frost','frost_l1','frost_l2','frost_l3','frost_l4'],
 };
 
 // Default acc per beaker
-var BEAKER_DEFAULT_ACC = { none:'open', clear:'open', frost:'frost' };
+var BEAKER_DEFAULT_ACC = { none:'sf_lens', clear:'open', frost:'frost' };
 
 // そのビーカーで、この器具が実際に測光データを持つアクセサリだけを返す。
 // これをしないと Joker 800 の「None」に Bug Beam が並ぶ（800 は Bug Beam を持たない）。
@@ -16050,7 +16071,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.49';
+var ver = 'v1.1.4.50';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
