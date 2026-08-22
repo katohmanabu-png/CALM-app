@@ -3783,7 +3783,8 @@ var LIGHTS = {
       weight:'4.5 kg', size:'270×340×320 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
       dmx:{led:'HMI',power:'575W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {spot:76000, sun_blue:54000, sun_black:19000, sun_green:9600, sun_orange:4800, sun_white:1700},
+                2: {spot:152000, sun_blue:108000, sun_black:38000, sun_green:19000, sun_orange:14000, sun_white:3400},
+3: {spot:76000, sun_blue:54000, sun_black:19000, sun_green:9600, sun_orange:4800, sun_white:1700},
         5: {spot:27000, sun_blue:19000, sun_black:6800, sun_green:3400, sun_orange:2400, sun_white:600},
         8: {spot:14000, sun_blue:6800, sun_black:3400, sun_green:1200, sun_orange:840, sun_white:210},
         12:{spot:4800, sun_blue:3400, sun_black:1200, sun_green:420, sun_orange:300, sun_white:110}
@@ -5647,15 +5648,25 @@ var LIGHTS = {
     },
     kobold_400: {
       group:'HMI', name:'KOBOLD 400W', desc:'400W HMI, lensless flat (ARC measured)', emoji:'💡', watts:400, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
-      ccts:[5600], accessories:['flat'],
+      ccts:[5600], accessories:['flat', 'pp_vnarrow', 'pp_narrow', 'pp_medium', 'pp_wide', 'pp_frost', 'diffusion'],
       dmx:{power:'400W',cct:'5600K',control:'Manual'},
-      refData:{5600:{5:{flat:38000}}}
+      refData:{5600:{
+        1: {flat:305000, pp_vnarrow:38000, pp_narrow:38000, pp_medium:19000, pp_wide:14000, pp_frost:9600, diffusion:27000},
+        2: {flat:216000, pp_vnarrow:6800, pp_narrow:6800, pp_medium:4800, pp_wide:2400, pp_frost:2400, diffusion:4800},
+        3: {flat:108000, pp_vnarrow:2400, pp_narrow:2400, pp_medium:1700, pp_wide:1200, pp_frost:840, diffusion:2400},
+        5: {flat:38000, pp_vnarrow:840, pp_narrow:840, pp_medium:600, pp_wide:420, pp_frost:420, diffusion:840}
+      }}
     },
     kobold_200: {
       group:'HMI', name:'KOBOLD 200W', desc:'200W HMI, lensless flat (ARC measured)', emoji:'💡', watts:200, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
-      ccts:[5600], accessories:['flat'],
+      ccts:[5600], accessories:['flat', 'pp_vnarrow', 'pp_narrow', 'pp_medium', 'pp_wide', 'pp_frost'],
       dmx:{power:'200W',cct:'5600K',control:'Manual'},
-      refData:{5600:{3:{flat:27000}, 5:{flat:9600}}}
+      refData:{5600:{
+        1: {flat:152000, pp_vnarrow:38000, pp_narrow:38000, pp_medium:19000, pp_wide:4800, pp_frost:4800},
+        2: {flat:54000, pp_vnarrow:6800, pp_narrow:6800, pp_medium:4800, pp_wide:1200, pp_frost:1200},
+        3: {flat:27000, pp_vnarrow:2400, pp_narrow:2400, pp_medium:840, pp_wide:600, pp_frost:600},
+        5: {flat:9600, pp_vnarrow:840, pp_narrow:420, pp_medium:300, pp_wide:210, pp_frost:210}
+      }}
     },
     kobold_200_6: {
       group:'HMI', name:'KOBOLD 200W 6-Light Frame', desc:'6x 200W HMI frame (ARC measured)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
@@ -5752,6 +5763,7 @@ var LIGHTS = {
 var ACC_INFO = {
   none:     { label:'Light Only',          beam:'Bare Light',    emoji:'⭕', angle:120 },
   // ARRI Pocket PAR のレンズセット（ARC 実測）。角度は ARRI 公称の呼称に合わせた目安。
+  diffusion: { label:'Diffusion',           beam:'Diffused',      emoji:'☁️', angle:60 },
   pp_vnarrow:{ label:'Lens 1 Very Narrow',  beam:'Very Narrow',   emoji:'🔦', angle:9  },
   pp_narrow: { label:'Lens 2 Narrow',       beam:'Narrow',        emoji:'🔦', angle:15 },
   pp_medium: { label:'Lens 3 Medium',       beam:'Medium',        emoji:'🔦', angle:25 },
@@ -6066,6 +6078,8 @@ function _fSnap(f) {
 
 // ===== HMI BEAM =====
 var HMI_BEAM = {
+  'KOBOLD 400W':[9,60],
+  'KOBOLD 200W':[9,50],
   // ARRI Pocket PAR: レンズセットの実装角（Lens1 9° 〜 Lens5 Frost 50°）。
   // ACC_INFO の beam 文字列に 'Fresnel' を含まないため getBeamAngles の自動判定に乗らない。
   'Pocket Par 400W':[9,50],
@@ -16078,7 +16092,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.51';
+var ver = 'v1.1.4.52';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
