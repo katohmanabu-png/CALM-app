@@ -5571,27 +5571,36 @@ var LIGHTS = {
   },
   broncolor: {
     bron_575: {
-      group:'HMI', name:'Broncolor HMI 575W', desc:'P45 / P65 / Psoft opal reflector, clear or frost (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
-      ccts:[5600], accessories:['p45_clear', 'p45_frost', 'p65_clear', 'p65_frost', 'psoft_clear', 'psoft_frost'],
+      group:'HMI', name:'Broncolor HMI 575W', desc:'PAR (NSP/MFL/WFL/VWFL) + P70 spot/flood — broncolor 公式 System Catalogue p35', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['par_nsp', 'par_mfl', 'par_wfl', 'par_vwfl', 'p70_spot', 'p70_flood'],
+      url:'https://broncolor.swiss/assets/img/Support/Downloads/System-Catalogue/WEB_Bron_Dauerlicht-System_Katalog_EN.pdf',
       dmx:{power:'575W',cct:'5600K',control:'Manual'},
       refData:{5600:{
-        2: {p45_clear:54000, p45_frost:19000, p65_clear:54000, p65_frost:19000, psoft_clear:4800, psoft_frost:1700},
-        3: {p45_clear:19000, p45_frost:6800, p65_clear:19000, p65_frost:6800, psoft_clear:1700, psoft_frost:840},
-        5: {p45_clear:6800, p45_frost:2400, p65_clear:6800, p65_frost:3400, psoft_clear:840, psoft_frost:300},
-        8: {p45_clear:2400, p45_frost:840, p65_clear:3400, p65_frost:1200, psoft_clear:300, psoft_frost:150},
-        12:{p45_clear:840, p45_frost:420, p65_clear:1200, p65_frost:600, psoft_clear:150, psoft_frost:75}
+        2: {par_nsp:88420, par_mfl:31950, par_wfl:11360, par_vwfl:5180, p70_spot:7560, p70_flood:2300},
+        3: {par_nsp:39300, par_mfl:14200, par_wfl:5050, par_vwfl:2300, p70_spot:3360, p70_flood:1020},
+        5: {par_mfl:5120, par_wfl:1820, par_vwfl:830, p70_spot:1210, p70_flood:370},
+        10:{par_nsp:3540, par_mfl:1280, par_wfl:460, par_vwfl:210, p70_spot:300, p70_flood:85}
       }}
     },
     bron_800: {
-      group:'HMI', name:'Broncolor HMI 800W', desc:'同一灯体の800Wランプ。アガイ商事の公表値 f8 → f8 5/10 (2m,ISO100,P70) より575Wの半段上', emoji:'💡', watts:800, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
-      ccts:[5600], accessories:['p45_clear', 'p45_frost', 'p65_clear', 'p65_frost', 'psoft_clear', 'psoft_frost'],
+      group:'HMI', name:'Broncolor HMI 800W', desc:'PAR (NSP/MFL/WFL/VWFL) + P70 spot/flood — broncolor 公式 System Catalogue p35', emoji:'💡', watts:800, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['par_nsp', 'par_mfl', 'par_wfl', 'par_vwfl', 'p70_spot', 'p70_flood'],
+      url:'https://broncolor.swiss/assets/img/Support/Downloads/System-Catalogue/WEB_Bron_Dauerlicht-System_Katalog_EN.pdf',
       dmx:{power:'800W',cct:'5600K',control:'Manual'},
       refData:{5600:{
-        2: {p45_clear:76000, p45_frost:27000, p65_clear:76000, p65_frost:27000, psoft_clear:6800, psoft_frost:2400},
-        3: {p45_clear:27000, p45_frost:9600, p65_clear:27000, p65_frost:9600, psoft_clear:2400, psoft_frost:1200},
-        5: {p45_clear:9600, p45_frost:3400, p65_clear:9600, p65_frost:4800, psoft_clear:1200, psoft_frost:420},
-        8: {p45_clear:3400, p45_frost:1200, p65_clear:4800, p65_frost:1700, psoft_clear:420, psoft_frost:210},
-        12:{p45_clear:1200, p45_frost:600, p65_clear:1700, p65_frost:840, psoft_clear:210, psoft_frost:110}
+        2: {par_nsp:175725, par_mfl:61880, par_wfl:21380, par_vwfl:9950, p70_spot:15860, p70_flood:4100},
+        3: {par_nsp:78100, par_mfl:27500, par_wfl:9500, par_vwfl:4420, p70_spot:7050, p70_flood:1820},
+        5: {par_nsp:28120, par_mfl:9900, par_wfl:3420, par_vwfl:1590, p70_spot:2540, p70_flood:660},
+        10:{par_nsp:7030, par_mfl:2480, par_wfl:860, par_vwfl:400, p70_spot:640, p70_flood:165}
+      }}
+    },
+    bron_1600: {
+      group:'HMI', name:'Broncolor HMI 1600W + Para', desc:'Para 88/133/177/222 — broncolor 公式値は3mのみ (HMI F1600, focused/defocused)', emoji:'💡', watts:1600, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['para88_f', 'para88_d', 'para133_f', 'para133_d', 'para177_f', 'para177_d', 'para222_f', 'para222_d'],
+      url:'https://broncolor.swiss/products/para-133-reflector',
+      dmx:{power:'1600W',cct:'5600K',control:'Manual'},
+      refData:{5600:{
+        3: {para88_f:9800, para88_d:2520, para133_f:23000, para133_d:5300, para177_f:11900, para177_d:9750, para222_f:22000, para222_d:8650}
       }}
     },
   },
@@ -5757,6 +5766,20 @@ var ACC_INFO = {
   p65_frost: { label:'P65 Frost',           beam:'65° Soft',      emoji:'❄️', angle:70 },
   psoft_clear:{label:'Psoft Clear',         beam:'Soft',            emoji:'🔆', angle:90 },
   psoft_frost:{label:'Psoft Frost',         beam:'Soft Diffused',   emoji:'❄️', angle:95 },
+  par_nsp:   { label:'PAR NSP 8°',          beam:'8°',            emoji:'🔦', angle:8  },
+  par_mfl:   { label:'PAR MFL',             beam:'26°',           emoji:'🔦', angle:26 },
+  par_wfl:   { label:'PAR WFL',             beam:'28°',           emoji:'🔦', angle:28 },
+  par_vwfl:  { label:'PAR VWFL 66°',        beam:'66°',           emoji:'🔆', angle:66 },
+  p70_spot:  { label:'P70 Spot 40°',        beam:'40°',           emoji:'🔦', angle:40 },
+  p70_flood: { label:'P70 Flood 75°',       beam:'75°',           emoji:'🔆', angle:75 },
+  para88_f:  { label:'Para 88 Focused',     beam:'Para 88',       emoji:'☂️', angle:20 },
+  para88_d:  { label:'Para 88 Defocused',   beam:'Para 88 wide',  emoji:'☂️', angle:60 },
+  para133_f: { label:'Para 133 Focused',    beam:'Para 133',      emoji:'☂️', angle:18 },
+  para133_d: { label:'Para 133 Defocused',  beam:'Para 133 wide', emoji:'☂️', angle:60 },
+  para177_f: { label:'Para 177 Focused',    beam:'Para 177',      emoji:'☂️', angle:16 },
+  para177_d: { label:'Para 177 Defocused',  beam:'Para 177 wide', emoji:'☂️', angle:60 },
+  para222_f: { label:'Para 222 Focused',    beam:'Para 222',      emoji:'☂️', angle:14 },
+  para222_d: { label:'Para 222 Defocused',  beam:'Para 222 wide', emoji:'☂️', angle:60 },
   diffusion: { label:'Diffusion',           beam:'Diffused',      emoji:'☁️', angle:60 },
   pp_vnarrow:{ label:'Lens 1 Very Narrow',  beam:'Very Narrow',   emoji:'🔦', angle:9  },
   pp_narrow: { label:'Lens 2 Narrow',       beam:'Narrow',        emoji:'🔦', angle:15 },
@@ -6072,8 +6095,9 @@ function _fSnap(f) {
 
 // ===== HMI BEAM =====
 var HMI_BEAM = {
-  'Broncolor HMI 575W':[45,95],
-  'Broncolor HMI 800W':[45,95],
+  'Broncolor HMI 575W':[8,75],
+  'Broncolor HMI 800W':[8,75],
+  'Broncolor HMI 1600W + Para':[14,60],
   'KOBOLD 400W':[9,60],
   'KOBOLD 200W':[9,50],
   // ARRI Pocket PAR: レンズセットの実装角（Lens1 9° 〜 Lens5 Frost 50°）。
@@ -16098,7 +16122,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.53';
+var ver = 'v1.1.4.54';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
