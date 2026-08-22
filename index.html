@@ -3929,11 +3929,13 @@ var LIGHTS = {
     },
     pp_125: {
       group:'HMI', name:'Pocket Par 125W', emoji:'💡', watts:125,
-      ccts:[5600], accessories:["spot"],
+      ccts:[5600], accessories:['spot', 'pp_narrow', 'pp_medium', 'pp_wide', 'pp_frost'],
+      // ARC lux.pdf 実測（ポケットパー 125W スポットモード + レンズセット）。
+      // web カタログ p18 の 1m/2m は「125W エリレンズキット」という別製品のため取り込まない。
       refData:{5600:{
-        3: {spot:27000},
-        5: {spot:14000},
-        8: {spot:4800}
+        3: {spot:27000, pp_narrow:6800, pp_medium:2400, pp_wide:600, pp_frost:420},
+        5: {spot:14000, pp_narrow:2400, pp_medium:1200, pp_wide:210, pp_frost:150},
+        8: {spot:4800,  pp_narrow:1200, pp_medium:420,  pp_wide:75}
       }}
     },
     pp_125_cyl: {
@@ -3946,11 +3948,13 @@ var LIGHTS = {
     },
     pp_200: {
       group:'HMI', name:'Pocket Par 200W', emoji:'💡', watts:200,
-      ccts:[5600, 3600], accessories:["spot"],
+      ccts:[5600, 3600], accessories:['spot', 'pp_narrow', 'pp_medium', 'pp_wide', 'pp_frost'],
       refData:{5600:{
-        3: {spot:38000},
-        5: {spot:9600},
-        8: {spot:4800}
+        1: {spot:305000, pp_narrow:152000, pp_medium:54000, pp_wide:14000, pp_frost:14000},
+        2: {spot:76000, pp_narrow:38000, pp_medium:14000, pp_wide:3400, pp_frost:3400},
+        3: {spot:38000, pp_narrow:19000, pp_medium:6800, pp_wide:1700, pp_frost:1200},
+        5: {spot:9600, pp_narrow:4800, pp_medium:2400, pp_wide:600, pp_frost:420},
+        8: {spot:4800, pp_narrow:2400, pp_medium:840, pp_wide:300, pp_frost:210}
       }}
     },
     pp_200_cyl: {
@@ -3960,11 +3964,13 @@ var LIGHTS = {
     },
     pp_400: {
       group:'HMI', name:'Pocket Par 400W', emoji:'💡', watts:400,
-      ccts:[5600, 3600], accessories:['spot'],
+      ccts:[5600, 3600], accessories:['spot', 'pp_vnarrow', 'pp_narrow', 'pp_medium', 'pp_wide', 'pp_frost'],
       refData:{5600:{
-        3: {spot:76000},
-        5: {spot:27000},
-        8: {spot:4800}
+        1: {pp_vnarrow:216000, pp_narrow:108000, pp_medium:54000, pp_wide:27000, pp_frost:19000},
+        2: {spot:152000, pp_vnarrow:54000, pp_narrow:27000, pp_medium:14000, pp_wide:6800, pp_frost:4800},
+        3: {spot:76000, pp_vnarrow:27000, pp_narrow:14000, pp_medium:6800, pp_wide:3400, pp_frost:2400},
+        5: {spot:27000, pp_vnarrow:4800, pp_narrow:3400, pp_medium:1700, pp_wide:1200, pp_frost:600},
+        8: {spot:4800, pp_vnarrow:1700, pp_narrow:1700, pp_medium:600, pp_wide:600, pp_frost:420}
       }}
     },
     pp_400_cyl: {
@@ -5719,6 +5725,12 @@ var LIGHTS = {
 
 var ACC_INFO = {
   none:     { label:'Light Only',          beam:'Bare Light',    emoji:'⭕', angle:120 },
+  // ARRI Pocket PAR のレンズセット（ARC 実測）。角度は ARRI 公称の呼称に合わせた目安。
+  pp_vnarrow:{ label:'Lens 1 Very Narrow',  beam:'Very Narrow',   emoji:'🔦', angle:9  },
+  pp_narrow: { label:'Lens 2 Narrow',       beam:'Narrow',        emoji:'🔦', angle:15 },
+  pp_medium: { label:'Lens 3 Medium',       beam:'Medium',        emoji:'🔦', angle:25 },
+  pp_wide:   { label:'Lens 4 Wide',         beam:'Wide',          emoji:'🔦', angle:40 },
+  pp_frost:  { label:'Lens 5 Frost',        beam:'Soft',          emoji:'❄️', angle:50 },
   r30:      { label:'30° Reflector',       beam:'Spot 30°',      emoji:'🔆', angle:30 },
   fres16:   { label:'Fresnel 16°',         beam:'Spot 16°',      emoji:'🔬', angle:16 },
   fres48:   { label:'Fresnel 48°',         beam:'Flood 48°',     emoji:'🔆', angle:48 },
@@ -6027,6 +6039,11 @@ function _fSnap(f) {
 
 // ===== HMI BEAM =====
 var HMI_BEAM = {
+  // ARRI Pocket PAR: レンズセットの実装角（Lens1 9° 〜 Lens5 Frost 50°）。
+  // ACC_INFO の beam 文字列に 'Fresnel' を含まないため getBeamAngles の自動判定に乗らない。
+  'Pocket Par 400W':[9,50],
+  'Pocket Par 200W':[15,50],
+  'Pocket Par 125W':[15,50],
   'ARRI 18kW HMI':[15,60],
   'ARRI 24kW':[10,60],
   'ARRI STUDIO 12kW':[12,55],
@@ -16033,7 +16050,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.47';
+var ver = 'v1.1.4.48';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
