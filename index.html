@@ -3505,7 +3505,29 @@ var LIGHTS = {
       group:'LED', name:'QuikSpot', desc:'Wireless Zoom Fresnel', emoji:'🟣', watts:38,
       ccts:[2700,5600,6500], accessories:['zoom_min','zoom_mid','zoom_max'],
       dmxUrl:'https://astera-led.com/goto/quikspot_dmx_profiles/',
-      pendingPhotometric:true, status:'Pending Photometric Data'
+      refData:{
+      2700:{
+        1: {zoom_min:22347, zoom_mid:7810, zoom_max:1917},
+        2: {zoom_min:5587, zoom_mid:1952, zoom_max:479},
+        3: {zoom_min:2483, zoom_mid:868, zoom_max:213},
+        5: {zoom_min:894, zoom_mid:312, zoom_max:77},
+        8: {zoom_min:349, zoom_mid:122, zoom_max:30}
+      },
+      5600:{
+        1: {zoom_min:27092, zoom_mid:9627, zoom_max:2402},
+        2: {zoom_min:6773, zoom_mid:2407, zoom_max:600},
+        3: {zoom_min:3010, zoom_mid:1070, zoom_max:267},
+        5: {zoom_min:1084, zoom_mid:385, zoom_max:96},
+        8: {zoom_min:423, zoom_mid:150, zoom_max:38}
+      },
+      6500:{
+        1: {zoom_min:26876, zoom_mid:9692, zoom_max:2416},
+        2: {zoom_min:6719, zoom_mid:2423, zoom_max:604},
+        3: {zoom_min:2986, zoom_mid:1077, zoom_max:268},
+        5: {zoom_min:1075, zoom_mid:388, zoom_max:97},
+        8: {zoom_min:420, zoom_mid:151, zoom_max:38}
+      }
+      }
     },
     ax9: {
       group:'LED Spot', name:'AX9', desc:'55W IP65 RGBWW Tube', emoji:'💜', watts:55,
@@ -4551,16 +4573,24 @@ var LIGHTS = {
       }
     },
     p360: {
-      group:'LED', name:'Fiilex P360', desc:'360W LED Fresnel', emoji:'🔴', watts:360,
+      group:'LED', name:'Fiilex P360', desc:'360W LED Fresnel', emoji:'🔴', watts:90,
       weight:'7.8 kg', size:'340×300×260 mm',
       ccts:[3200,5600],
-      accessories:['spot','flood'],
+      accessories:['flood','spot'],
       dmx:{led:'RGBWW COB',power:'360W',cct:'3200K / 5600K',cri:'>93',tlci:'>93',ip:'IP20',
         control:'On-board / DMX',dimming:'0%–100%',effects:['Strobe','Pulse']},
       dmxUrl:'https://fiilex.com/downloads/P360/5870107%20A6%20P360%20Gen%20II%20MANUAL_FLXP360_SERIES.pdf',
       refData:{
-        3200:{5:{spot:12000,flood:3200},10:{spot:3000,flood:800}},
-        5600:{5:{spot:14000,flood:3600},10:{spot:3500,flood:900}},
+      3200:{
+        1: {flood:1305, spot:3427},
+        3: {flood:154, spot:381},
+        5: {flood:55, spot:137}
+      },
+      5600:{
+        1: {flood:1682, spot:4161},
+        3: {flood:187, spot:462},
+        5: {flood:67, spot:166}
+      }
       }
     },
     p180_set2: {
@@ -4575,16 +4605,24 @@ var LIGHTS = {
       }
     },
     p360_set2: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'LED', name:'Fiilex P360 ×2 set', desc:'90W LED ×2 set', emoji:'🔴', watts:180,
       weight:'0.8 kg', size:'150×168×150 mm',
-      ccts:[3200, 5600], accessories:['none'],
+      ccts:[3200, 5600], accessories:['flood','spot'],
       dmx:{led:'RGBWW COB',power:'180W',cct:'3200K / 5600K',cri:'>93',ip:'IP20',
         control:'On-board / DMX',dimming:'0%–100%',effects:['Strobe', 'Pulse']},
       dmxUrl:'https://fiilex.com/downloads/P360/5870107%20A6%20P360%20Gen%20II%20MANUAL_FLXP360_SERIES.pdf',
       refData:{
-        5600:{0.5:{none:9075},1:{none:2269},2:{none:588},3:{none:300}},
-        3200:{0.5:{none:4800},1:{none:1697},2:{none:424},3:{none:208}},
+      3200:{
+        1: {flood:2610, spot:6854},
+        3: {flood:308, spot:762},
+        5: {flood:110, spot:274}
+      },
+      5600:{
+        1: {flood:3364, spot:8322},
+        3: {flood:374, spot:924},
+        5: {flood:134, spot:332}
+      }
       }
     },
     p3_color_set2: {
@@ -16327,7 +16365,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.62';
+var ver = 'v1.1.4.63';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
