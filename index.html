@@ -2329,6 +2329,15 @@ try { LANG = localStorage.getItem('lmp_lang') || 'en'; } catch(e) {}
 if (!LANGS[LANG]) LANG = 'ja';
 function t(k) { return (LANGS[LANG]||LANGS.ja)[k] || LANGS.ja[k] || k; }
 
+// メーカー表示名。nameI18n があれば現在の言語のものを返す。
+// 引数はメーカーキー('ushio')でもMAKERSのオブジェクトでも可。
+function makerName(mk) {
+  var m = (mk && typeof mk === 'object') ? mk : (typeof MAKERS !== 'undefined' ? MAKERS[mk] : null);
+  if (!m) return (typeof mk === 'string') ? mk : '';
+  var n = m.nameI18n;
+  return (n && (n[LANG] || n.en || n.ja)) || m.name || (typeof mk === 'string' ? mk : '');
+}
+
 function setLang(lang) {
   if (!LANGS[lang]) return;
   LANG = lang;
@@ -2542,10 +2551,10 @@ var MAKERS = {
   ltm: {name:'LTM', emoji:'🔷', accent:'#0277bd', dark:'#01579b', light:'#e1f5fe', glow:'rgba(2,119,189,0.25)', accent2:'#ffffff'},
   briese: {name:'Briese', emoji:'⬜', accent:'#eceff1', dark:'#cfd8dc', light:'#fafafa', glow:'rgba(200,200,200,0.25)', accent2:'#37474f', activeOutline:'#37474f'},
   broncolor: {name:'Broncolor', emoji:'🟥', accent:'#c62828', dark:'#8e0000', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121'},
-  ushio: {name:'USHIO / サーチライト', emoji:'🔆', accent:'#f9a825', dark:'#f57f17', light:'#fffde7', glow:'rgba(249,168,37,0.25)', accent2:'#212121'},
+  ushio: {name:'USHIO / サーチライト', nameI18n:{ja:'USHIO / サーチライト', en:'USHIO / Searchlight', es:'USHIO / Reflectores'}, emoji:'🔆', accent:'#f9a825', dark:'#f57f17', light:'#fffde7', glow:'rgba(249,168,37,0.25)', accent2:'#212121'},
   kobold: {name:'KOBOLD', emoji:'🟦', accent:'#1565c0', dark:'#0d47a1', light:'#e3f2fd', glow:'rgba(21,101,192,0.25)', accent2:'#ffffff'},
   rds: {name:'RDS', emoji:'🟩', accent:'#2e7d32', dark:'#1b5e20', light:'#e8f5e9', glow:'rgba(46,125,50,0.25)', accent2:'#ffffff'},
-  arc_special: {name:'特殊光源 / Specials', emoji:'✨', accent:'#6a1b9a', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(106,27,154,0.25)', accent2:'#ffd54f'},};
+  arc_special: {name:'特殊光源 / Specials', nameI18n:{ja:'特殊光源', en:'Specials', es:'Especiales'}, emoji:'✨', accent:'#6a1b9a', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(106,27,154,0.25)', accent2:'#ffd54f'},};
 
 // ===== LIGHT DATA =====
 var LIGHTS = {
@@ -6044,7 +6053,7 @@ function applyTheme(mk) {
 // ===== MAKERS =====
 function sortedMakerKeys() {
   var keys = Object.keys(MAKERS);
-  if (S.makerSort === 'az') keys = keys.slice().sort(function(a,b){ return MAKERS[a].name.localeCompare(MAKERS[b].name); });
+  if (S.makerSort === 'az') keys = keys.slice().sort(function(a,b){ return makerName(a).localeCompare(makerName(b)); });
   return keys;
 }
 function setMakerSort(v) {
@@ -6084,7 +6093,7 @@ function initMakers() {
                 m.accent2 ? 'linear-gradient(135deg,' + m.accent + ' 50%,' + m.accent2 + ' 50%)' : m.accent;
     var emojiHtml = m.emojiFilter ? '<span style="filter:' + m.emojiFilter + ';display:inline-block;">' + m.emoji + '</span>' : m.emoji;
     btn.innerHTML = '<div class="maker-dot" style="background:' + dotBg + ';color:#fff;">' + emojiHtml + '</div>' +
-                    '<div class="maker-name" style="color:' + (_dark ? '#e8e8f0' : '#212121') + ';">' + m.name + '</div>';
+                    '<div class="maker-name" style="color:' + (_dark ? '#e8e8f0' : '#212121') + ';">' + makerName(m) + '</div>';
     grid.appendChild(btn);
   });
 }
@@ -6134,11 +6143,11 @@ function sortedModelEntries(mk) {
   if (q) {
     entries = entries.filter(function(e2) {
       var m = e2[1];
-      var makerName = (MAKERS[mk] && MAKERS[mk].name || mk).toLowerCase();
+      var _mkLabel = makerName(mk).toLowerCase();
       var modelName = (m.name  || '').toLowerCase();
       var grp       = (m.group || '').toLowerCase();
       var desc      = (m.desc  || '').toLowerCase();
-      return modelName.indexOf(q) >= 0 || makerName.indexOf(q) >= 0
+      return modelName.indexOf(q) >= 0 || _mkLabel.indexOf(q) >= 0
           || grp.indexOf(q) >= 0       || desc.indexOf(q) >= 0;
     });
   }
@@ -6343,7 +6352,7 @@ function renderModels() {
     var wattStr = m.watts
       ? (m.watts >= 1000 ? (m.watts/1000).toFixed(m.watts%1000===0?0:1)+'kW' : m.watts+'W')
       : '';
-    var makerLabel = q ? ((MAKERS[mk]&&MAKERS[mk].name)||mk) : '';
+    var makerLabel = q ? makerName(mk) : '';
     var favKey = mk + '|' + k;
     var isFaved = isFav(mk, k);
     chip.innerHTML =
@@ -6424,7 +6433,7 @@ function selectModel(k) {
 function updatePreview() {
   var light = LIGHTS[S.maker] && LIGHTS[S.maker][S.model]; if (!light) return;
   var maker = MAKERS[S.maker];
-  setText('prev-brand', maker.name.toUpperCase());
+  setText('prev-brand', makerName(maker).toUpperCase());
   setText('prev-model', light.name);
   setText('prev-desc', light.desc);
   if (light.svgIcon) {
@@ -8366,7 +8375,7 @@ function _cmpMakerTile(k) {
   var nameColor = _dark ? '#e8e8f0' : '#212121';
   return '<button class="maker-btn" onclick="_cmpSelMaker(\'' + k + '\')" style="background:' + bg + ';border-color:' + m.accent + ';">' +
     '<div class="maker-dot" style="background:' + dotBg + ';color:#fff;">' + emojiHtml + '</div>' +
-    '<div class="maker-name" style="color:' + nameColor + ';">' + m.name + '</div></button>';
+    '<div class="maker-name" style="color:' + nameColor + ';">' + makerName(m) + '</div></button>';
 }
 function _cmpModelBtn(mk, lk) {
   var l = LIGHTS[mk][lk]; if (!l || !l.name) return '';
@@ -9975,7 +9984,7 @@ function renderFinderResults() {
         '<div style="font-size:11px;font-weight:900;color:' + (isTop?'var(--accent)':'var(--text-dim)') + ';">#' + (ri+1) + '</div>' +
       '</div>' +
       '<div style="flex:1;min-width:0;">' +
-        '<div style="font-size:11px;color:' + makerAccent + ';font-weight:700;">' + (maker.emoji||'') + ' ' + (maker.name||res.mk) + '</div>' +
+        '<div style="font-size:11px;color:' + makerAccent + ';font-weight:700;">' + (maker.emoji||'') + ' ' + (makerName(maker)||res.mk) + '</div>' +
         '<div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + '</div>' +
         '<div style="font-size:10px;color:var(--text-dim);">' + res.cct + 'K · ' + angleLabel + res.acc + (res.watts > 0 ? ' · ' + res.watts + 'W' : '') + '</div>' +
       '</div>' +
@@ -10062,7 +10071,7 @@ function syncAltFromCalc() {
         makerSel.innerHTML = '';
         sortedMakerKeys().forEach(function(k) {
           var o = document.createElement('option');
-          o.value = k; o.textContent = (MAKERS[k]||{}).name || k;
+          o.value = k; o.textContent = makerName(k);
           makerSel.appendChild(o);
         });
         makerSel.value = savedMk;
@@ -10104,7 +10113,7 @@ function syncAltFromCalc() {
     makerSel.innerHTML = '';
     sortedMakerKeys().forEach(function(k) {
       var o = document.createElement('option');
-      o.value = k; o.textContent = (MAKERS[k]||{}).name || k;
+      o.value = k; o.textContent = makerName(k);
       makerSel.appendChild(o);
     });
     if (S.maker) makerSel.value = S.maker;
@@ -10212,7 +10221,7 @@ function populateAltMakers() {
   sel.innerHTML = '';
   sortedMakerKeys().forEach(function(k) {
     var o = document.createElement('option');
-    o.value = k; o.textContent = (MAKERS[k]||{}).name || k;
+    o.value = k; o.textContent = makerName(k);
     sel.appendChild(o);
   });
   if (sel.options.length) populateAltModels(sel.options[0].value);
@@ -10604,7 +10613,7 @@ function runAlternativeFinder() {
         '<div style="font-size:11px;font-weight:900;color:' + (idx===0?'var(--accent)':'var(--text-dim)') + ';">#' + rankIdx + '</div>' +
       '</div>' +
       '<div style="flex:1;min-width:0;">' +
-        '<div style="font-size:11px;color:var(--accent);font-weight:700;">' + (maker.emoji||'') + ' ' + (maker.name||res.mk) + '</div>' +
+        '<div style="font-size:11px;color:var(--accent);font-weight:700;">' + (maker.emoji||'') + ' ' + (makerName(maker)||res.mk) + '</div>' +
         '<div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + (res.isSelf ? ' ✓' : '') + '</div>' +
         '<div style="font-size:10px;color:var(--text-dim);">' + res.acc + ' · ' + getBeamAngle(res.acc) + '° · ' + res.watts + 'W</div>' +
       '</div>' +
@@ -11586,7 +11595,7 @@ function mixAddLight() {
       return '<div style="display:flex;align-items:center;border-radius:8px;margin-bottom:4px;border:1px solid #2a2a2a;background:#1a1a1a;overflow:hidden;">' +
         '<button onclick="window._mxadd(\'' + mk + '\',\'' + lk + '\')" style="flex:1;display:block;text-align:left;padding:10px 12px;background:transparent;border:none;cursor:pointer;box-sizing:border-box;">' +
           '<div style="font-size:13px;font-weight:700;color:#fff">' + lt.name + '</div>' +
-          '<div style="font-size:11px;color:#888">' + (MAKERS[mk]?MAKERS[mk].name+' · ':'')+  (lt.watts||'') + 'W · ' + typeLabel(lt.group) + '</div>' +
+          '<div style="font-size:11px;color:#888">' + (MAKERS[mk]?makerName(mk)+' · ':'')+  (lt.watts||'') + 'W · ' + typeLabel(lt.group) + '</div>' +
         '</button>' +
         '<button class="fav-star-btn'+(mxIsFav?' active':'')+'" data-fav-key="'+mxFavKey+'" onclick="toggleFav(\'' + mk + '\',\'' + lk + '\',event)" style="padding:8px 10px;font-size:20px;background:none;border:none;color:'+(mxIsFav?'#f5a623':'#888')+';cursor:pointer;">'+(mxIsFav?'★':'☆')+'</button>' +
         '</div>';
@@ -11600,7 +11609,7 @@ function mixAddLight() {
     mkBtns += sortedMakerKeys().map(function(k){
       var m=MAKERS[k]||{};
       return '<button onclick="window._mxmk(\''+k+'\')" style="padding:5px 10px;border:none;border-radius:7px;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;' +
-        (amk===k?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:#888;') + '">' + (m.emoji||'') + ' ' + (m.name||k) + '</button>';
+        (amk===k?'background:var(--accent);color:#fff;':'background:#2a2a2a;color:#888;') + '">' + (m.emoji||'') + ' ' + (makerName(m)||k) + '</button>';
     }).join('');
 
     // Filter tabs
@@ -11841,7 +11850,7 @@ function updateLightSelectorHdr() {
     return;
   }
   if (nameEl) nameEl.textContent = (light.emoji || '💡') + ' ' + light.name;
-  if (subEl)  subEl.textContent  = (maker.name || S.maker || '') + (light.watts ? '  ' + light.watts + 'W' : '');
+  if (subEl)  subEl.textContent  = (makerName(maker) || S.maker || '') + (light.watts ? '  ' + light.watts + 'W' : '');
   if (emoji)  emoji.textContent  = light.emoji || '💡';
 }
 function toggleDmxPanel() {
@@ -15010,7 +15019,7 @@ function _dftLPRenderFav(listEl) {
   var items = favs.map(function(f) {
     var mk=f.maker, lk=f.model, lt=LIGHTS[mk]&&LIGHTS[mk][lk];
     if (!lt) return null;
-    return {mk:mk, lk:lk, lt:lt, makerName:(MAKERS[mk]||{}).name||mk, count:counts[mk+'|'+lk]||0};
+    return {mk:mk, lk:lk, lt:lt, makerName:makerName(mk), count:counts[mk+'|'+lk]||0};
   }).filter(Boolean);
   if (!items.length) {
     listEl.innerHTML = '<div style="color:#888;text-align:center;padding:28px;font-size:13px;">⭐ No favorites yet<br><span style="font-size:11px;">Star lights in the Calc tab</span></div>';
@@ -15038,11 +15047,11 @@ function _dftLPRenderModels(listEl, mk) {
   var favSet={};
   var favArr = getFavs();
   var favSet = {}; favArr.forEach(function(f){ favSet[f.maker+'|'+f.model]=true; });
-  var back = '<div onclick="_dftLP.maker=null;_dftLPRender()" style="display:flex;align-items:center;gap:6px;padding:6px 0 10px;cursor:pointer;color:#888;font-size:12px;font-weight:800;">‹ '+m.name+'</div>';
+  var back = '<div onclick="_dftLP.maker=null;_dftLPRender()" style="display:flex;align-items:center;gap:6px;padding:6px 0 10px;cursor:pointer;color:#888;font-size:12px;font-weight:800;">‹ '+makerName(m)+'</div>';
   var rows = sortedModelEntries(mk).filter(function(e2){return !e2[1].pendingPhotometric;})
     .map(function(e2){
       var lk=e2[0],lt=e2[1];
-      return _dftLPItem(mk,lk,lt,m.name||mk,!!(favSet[mk+'|'+lk]));
+      return _dftLPItem(mk,lk,lt,makerName(m)||mk,!!(favSet[mk+'|'+lk]));
     }).join('');
   listEl.innerHTML = back + (rows||'<div style="color:#888;text-align:center;padding:16px;">No lights</div>');
 }
@@ -15064,12 +15073,12 @@ function _dftLPFilter(q) {
   q = (q || '').trim().toLowerCase();
   var items = [];
   sortedMakerKeys().forEach(function(mk) {
-    var makerName = (MAKERS[mk]||{}).name || mk;
+    var _mkLabel = makerName(mk);
     sortedModelEntries(mk).forEach(function(e2) {
       var lk = e2[0], lt = e2[1];
       if (lt.pendingPhotometric) return;
-      if (q && lt.name.toLowerCase().indexOf(q) < 0 && makerName.toLowerCase().indexOf(q) < 0) return;
-      items.push({mk:mk, lk:lk, lt:lt, fav:!!(favSet[mk+'|'+lk]), makerName:makerName});
+      if (q && lt.name.toLowerCase().indexOf(q) < 0 && _mkLabel.toLowerCase().indexOf(q) < 0) return;
+      items.push({mk:mk, lk:lk, lt:lt, fav:!!(favSet[mk+'|'+lk]), makerName:_mkLabel});
     });
   });
   items.sort(function(a,b){ return (b.fav?1:0)-(a.fav?1:0); });
@@ -15667,7 +15676,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.40';
+var ver = 'v1.1.4.41';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
