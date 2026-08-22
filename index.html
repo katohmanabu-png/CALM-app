@@ -4364,7 +4364,13 @@ var LIGHTS = {
       accessories:['flood'],
       dmx:{led:'HMI',power:'400W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{5600:{5:{flood:76000}, 8:{flood:27000}}}
+      refData:{5600:{
+        1: {flood:861000},
+        2: {flood:305000},
+        3: {flood:152000},
+        5: {flood:76000},
+        8: {flood:27000}
+      }}
     },
     joker_200: {
       group:'HMI', name:'Joker 200', desc:'200W HMI Fresnel Lens', emoji:'💛', watts:200,
@@ -4373,7 +4379,13 @@ var LIGHTS = {
       accessories:['flood'],
       dmx:{led:'HMI',power:'200W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
-      refData:{5600:{3:{flood:38000}, 5:{flood:19000}, 8:{flood:6800}}}
+      refData:{5600:{
+        1: {flood:431000},
+        2: {flood:108000},
+        3: {flood:38000},
+        5: {flood:19000},
+        8: {flood:6800}
+      }}
     },
     alpha_6k: {
       group:'HMI Fresnel', name:'Alpha 6kW HMI', desc:'6kW HMI, Fresnel / Clear lens (ARC measured)', emoji:'💡', watts:6000, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
@@ -5640,14 +5652,14 @@ var LIGHTS = {
       refData:{5600:{3:{spot:6800}, 5:{spot:2400}, 8:{spot:1200}, 12:{spot:600}, 15:{spot:420}}}
     },
     rds_hr2: {
-      group:'HMI', name:'RDS HR-II', desc:'HMI (ARC measured) — 消費電力は未確認',
-      emoji:'🟩',
-      // watts は ARC のカタログに記載がないため意図的に省略（推測しない）。
+      group:'HMI', name:'RDS HR-II', desc:'125W HMI (ARC measured)', emoji:'🟩', watts:125,
       ccts:[5600], accessories:['flat','spot'],
       refData:{5600:{
+        1: {flat:9600, spot:27000},
+        2: {flat:2400, spot:9600},
         3: {flat:1200, spot:3400},
-        5: {flat:420,  spot:1200},
-        8: {flat:210,  spot:420}
+        5: {flat:420, spot:1200},
+        8: {flat:210, spot:420}
       }}
     },
   },
@@ -5676,13 +5688,14 @@ var LIGHTS = {
       refData:{5600:{3:{flat:4800}, 5:{flat:1700}, 8:{flat:600}}}
     },
     cizarno_200: {
-      group:'Tungsten', name:'Cizarno 200W', desc:'チザーノ 200W (ARC measured)', emoji:'✨', watts:200,
+      group:'Tungsten', name:'DESISTI Cizarno 200W', desc:'DESISTI チザーノ 200W (ARC measured)', emoji:'✨', watts:200,
       ccts:[3200], accessories:['flat','spot'],
       refData:{3200:{
-        3: {flat:2400, spot:3400},
-        5: {flat:840,  spot:1700},
-        8: {flat:300,  spot:840},
-        12:{flat:110,  spot:210}
+        2:  {flat:9600, spot:19000},
+        3:  {flat:2400, spot:3400},
+        5:  {flat:840,  spot:1700},
+        8:  {flat:300,  spot:840},
+        12: {flat:110,  spot:210}
       }}
     },
     mercury_lamp: {
@@ -16006,7 +16019,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.44';
+var ver = 'v1.1.4.45';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
