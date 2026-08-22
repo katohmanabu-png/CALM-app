@@ -2331,6 +2331,13 @@ function t(k) { return (LANGS[LANG]||LANGS.ja)[k] || LANGS.ja[k] || k; }
 
 // メーカー表示名。nameI18n があれば現在の言語のものを返す。
 // 引数はメーカーキー('ushio')でもMAKERSのオブジェクトでも可。
+// メーカータイルのアイコン。MAKERS に svgIcon があればそれを、無ければ emoji を返す。
+function makerDotHtml(m) {
+  if (m && m.svgIcon) return '<span style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;">' + m.svgIcon + '</span>';
+  var e = (m && m.emoji) || '';
+  return (m && m.emojiFilter) ? '<span style="filter:' + m.emojiFilter + ';display:inline-block;">' + e + '</span>' : e;
+}
+
 function makerName(mk) {
   var m = (mk && typeof mk === 'object') ? mk : (typeof MAKERS !== 'undefined' ? MAKERS[mk] : null);
   if (!m) return (typeof mk === 'string') ? mk : '';
@@ -2549,7 +2556,7 @@ var MAKERS = {
 
   etc: {name:'ETC', emoji:'💡', accent:'#ffffff', dark:'#e0e0e0', light:'#f5f5f5', glow:'rgba(200,200,200,0.25)', accent2:'#1565c0', accent3:'#212121', activeOutline:'#1565c0'},
   ltm: {name:'LTM', emoji:'🔷', accent:'#0277bd', dark:'#01579b', light:'#e1f5fe', glow:'rgba(2,119,189,0.25)', accent2:'#ffffff'},
-  briese: {name:'Briese', emoji:'⬛', accent:'#ffc400', dark:'#ffab00', light:'#fff8e1', glow:'rgba(255,196,0,0.30)', accent2:'#111111', accent3:'#ffffff', activeOutline:'#111111'},
+  briese: {name:'Briese', emoji:'⬛', svgIcon:'<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"50\" cy=\"50\" r=\"38\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"2.5\" stroke-linecap=\"round\"><line x1=\"50\" y1=\"50\" x2=\"88.0\" y2=\"50.0\"/><line x1=\"50\" y1=\"50\" x2=\"85.1\" y2=\"64.5\"/><line x1=\"50\" y1=\"50\" x2=\"76.9\" y2=\"76.9\"/><line x1=\"50\" y1=\"50\" x2=\"64.5\" y2=\"85.1\"/><line x1=\"50\" y1=\"50\" x2=\"50.0\" y2=\"88.0\"/><line x1=\"50\" y1=\"50\" x2=\"35.5\" y2=\"85.1\"/><line x1=\"50\" y1=\"50\" x2=\"23.1\" y2=\"76.9\"/><line x1=\"50\" y1=\"50\" x2=\"14.9\" y2=\"64.5\"/><line x1=\"50\" y1=\"50\" x2=\"12.0\" y2=\"50.0\"/><line x1=\"50\" y1=\"50\" x2=\"14.9\" y2=\"35.5\"/><line x1=\"50\" y1=\"50\" x2=\"23.1\" y2=\"23.1\"/><line x1=\"50\" y1=\"50\" x2=\"35.5\" y2=\"14.9\"/><line x1=\"50\" y1=\"50\" x2=\"50.0\" y2=\"12.0\"/><line x1=\"50\" y1=\"50\" x2=\"64.5\" y2=\"14.9\"/><line x1=\"50\" y1=\"50\" x2=\"76.9\" y2=\"23.1\"/><line x1=\"50\" y1=\"50\" x2=\"85.1\" y2=\"35.5\"/></g><circle cx=\"50\" cy=\"50\" r=\"38\" stroke=\"#ffc400\" stroke-width=\"4\"/><circle cx=\"50\" cy=\"50\" r=\"23\" stroke=\"#ffc400\" stroke-width=\"1.5\" opacity=\"0.55\"/><circle cx=\"50\" cy=\"50\" r=\"8\" fill=\"#ffc400\"/><circle cx=\"50\" cy=\"50\" r=\"3.5\" fill=\"#111\"/></svg>', accent:'#ffc400', dark:'#ffab00', light:'#fff8e1', glow:'rgba(255,196,0,0.30)', accent2:'#111111', accent3:'#ffffff', activeOutline:'#111111'},
   broncolor: {name:'Broncolor', emoji:'🟥', accent:'#c62828', dark:'#8e0000', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121'},
   ushio: {name:'USHIO / サーチライト', nameI18n:{ja:'USHIO / サーチライト', en:'USHIO / Searchlight', es:'USHIO / Reflectores'}, emoji:'🔆', accent:'#f9a825', dark:'#f57f17', light:'#fffde7', glow:'rgba(249,168,37,0.25)', accent2:'#212121'},
   kobold: {name:'KOBOLD', emoji:'🟦', accent:'#1565c0', dark:'#0d47a1', light:'#e3f2fd', glow:'rgba(21,101,192,0.25)', accent2:'#ffffff'},
@@ -5563,7 +5570,7 @@ var LIGHTS = {
   },
   broncolor: {
     bron_575_p45: {
-      group:'HMI', name:'Broncolor 575W P45', desc:'575W HMI with P45 reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      group:'HMI', name:'Broncolor 575/800W P45', desc:'575W or 800W HMI, P45 opal reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
       ccts:[5600], accessories:['clear','frost'],
       dmx:{power:'575W',cct:'5600K',control:'Manual'},
       refData:{5600:{
@@ -5575,7 +5582,7 @@ var LIGHTS = {
       }}
     },
     bron_575_p65: {
-      group:'HMI', name:'Broncolor 575W P65', desc:'575W HMI with P65 reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      group:'HMI', name:'Broncolor 575/800W P65', desc:'575W or 800W HMI, P65 opal reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
       ccts:[5600], accessories:['clear','frost'],
       dmx:{power:'575W',cct:'5600K',control:'Manual'},
       refData:{5600:{
@@ -5587,7 +5594,7 @@ var LIGHTS = {
       }}
     },
     bron_575_psoft: {
-      group:'HMI', name:'Broncolor 575W Psoft', desc:'575W HMI with Psoft reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      group:'HMI', name:'Broncolor 575/800W Psoft', desc:'575W or 800W HMI, Psoft opal reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
       ccts:[5600], accessories:['clear','frost'],
       dmx:{power:'575W',cct:'5600K',control:'Manual'},
       refData:{5600:{
@@ -5692,17 +5699,17 @@ var LIGHTS = {
   // ══ 特殊光源 ══ すべて ARC SYSTEM の実測値
   arc_special: {
     hyper_blast_5k: {
-      group:'HMI', name:'Hyper Blast 5kW', desc:'ハイパーブラスト 5kW (ARC measured)', emoji:'✨', watts:5000,
+      group:'HMI', name:'Hyper Blast 5kW', desc:'ハイパーブラスト 5kW (ARC measured)', emoji:'⚡', watts:5000,
       ccts:[5600], accessories:['flat'],
       refData:{5600:{3:{flat:6800}, 5:{flat:2400}, 8:{flat:840}, 12:{flat:420}, 15:{flat:300}}}
     },
     hyper_blast_3k: {
-      group:'HMI', name:'Hyper Blast 3kW', desc:'ハイパーブラスト 3kW (ARC measured)', emoji:'✨', watts:3000,
+      group:'HMI', name:'Hyper Blast 3kW', desc:'ハイパーブラスト 3kW (ARC measured)', emoji:'⚡', watts:3000,
       ccts:[5600], accessories:['flat'],
       refData:{5600:{3:{flat:4800}, 5:{flat:2400}, 8:{flat:1200}, 12:{flat:600}}}
     },
     t_light: {
-      group:'HMI', name:'T-Light', desc:'T-Light フラット (ARC measured) — 消費電力は未確認', emoji:'✨',
+      group:'HMI', name:'T-Light', desc:'T-Light フラット (ARC measured) — 消費電力は未確認', emoji:'⚡',
       // watts は ARC のカタログに記載がないため省略。
       ccts:[5600], accessories:['flat'],
       refData:{5600:{5:{flat:19000}, 8:{flat:9600}, 12:{flat:4800}, 15:{flat:2400}}}
@@ -6471,7 +6478,7 @@ function initMakers() {
     if (_isActive && m.activeOutline) { btn.style.outline = '3px solid ' + m.activeOutline; btn.style.outlineOffset = '2px'; }
     var dotBg = m.accent3 ? 'linear-gradient(135deg,' + m.accent + ' 33%,' + m.accent2 + ' 33%,' + m.accent2 + ' 66%,' + m.accent3 + ' 66%)' :
                 m.accent2 ? 'linear-gradient(135deg,' + m.accent + ' 50%,' + m.accent2 + ' 50%)' : m.accent;
-    var emojiHtml = m.emojiFilter ? '<span style="filter:' + m.emojiFilter + ';display:inline-block;">' + m.emoji + '</span>' : m.emoji;
+    var emojiHtml = makerDotHtml(m);
     btn.innerHTML = '<div class="maker-dot" style="background:' + dotBg + ';color:#fff;">' + emojiHtml + '</div>' +
                     '<div class="maker-name" style="color:' + (_dark ? '#e8e8f0' : '#212121') + ';">' + makerName(m) + '</div>';
     grid.appendChild(btn);
@@ -8766,7 +8773,7 @@ function _cmpMakerTile(k) {
   var bg = _dark ? (m.accent + '33') : m.light;
   var dotBg = m.accent3 ? 'linear-gradient(135deg,' + m.accent + ' 33%,' + m.accent2 + ' 33%,' + m.accent2 + ' 66%,' + m.accent3 + ' 66%)' :
               m.accent2 ? 'linear-gradient(135deg,' + m.accent + ' 50%,' + m.accent2 + ' 50%)' : m.accent;
-  var emojiHtml = m.emojiFilter ? '<span style="filter:' + m.emojiFilter + ';display:inline-block;">' + m.emoji + '</span>' : m.emoji;
+  var emojiHtml = makerDotHtml(m);
   var nameColor = _dark ? '#e8e8f0' : '#212121';
   return '<button class="maker-btn" onclick="_cmpSelMaker(\'' + k + '\')" style="background:' + bg + ';border-color:' + m.accent + ';">' +
     '<div class="maker-dot" style="background:' + dotBg + ';color:#fff;">' + emojiHtml + '</div>' +
@@ -16071,7 +16078,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.50';
+var ver = 'v1.1.4.51';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
