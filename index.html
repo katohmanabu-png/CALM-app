@@ -5000,13 +5000,21 @@ var LIGHTS = {
     etc_sf_zoom_25_50: {
       group:'Tungsten', name:'ETC Source Four Zoom 25-50°', desc:'750W Tungsten Zoom Ellipsoidal', emoji:'🎭', watts:750,
       ccts:[3200], accessories:['spot_25','spot_50'],
-      refData:{3200:{1:{spot_25:6338,spot_50:3038},2:{spot_25:1585,spot_50:760},3:{spot_25:704,spot_50:338},5:{spot_25:254,spot_50:122}}}
+      refData:{3200:{
+        1: {spot_25:27000, spot_50:14000},
+        2: {spot_25:6800, spot_50:3400},
+        3: {spot_25:3400, spot_50:1700}
+      }}
     },
     etc_sf_mini: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'Tungsten', name:'ETC Source Four Mini', desc:'50W Mini Ellipsoidal', emoji:'🎭', watts:50,
       ccts:[3200], accessories:['spot'],
-      refData:{3200:{1:{spot:726},2:{spot:182},3:{spot:81},5:{spot:29}}}
+      refData:{3200:{
+        1: {spot:2400},
+        2: {spot:600},
+        3: {spot:210}
+      }}
     },
     par64: {
       pendingPhotometric:true, status:'Pending Photometric Data',
@@ -16319,7 +16327,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.61';
+var ver = 'v1.1.4.62';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
