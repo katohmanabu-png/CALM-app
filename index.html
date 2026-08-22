@@ -3005,7 +3005,7 @@ var LIGHTS = {
       weight:'17 kg', size:'40×23.5×40 cm', ccts:[2700,3200,4300,5600,6500],
       accessories:['none','fres16','fres48'],
       dmx:{led:'Nebula B4 (4× White LED)',power:'2500W',cct:'2700K–6500K (G/M±80)',cri:'98',tlci:'98',ip:'IP66',control:'On-board / NANLINK App / Wired Controller / DMX/RDM / Art-Net/sACN / CRMX / NFC',dimming:'0.0%–100%'},
-      refData:{5600:{3:{none:13470,fres16:103000,fres48:25240},10:{none:4630,fres16:35400,fres48:9160}}}
+      refData:{5600:{3:{none:13470,fres16:103000,fres48:25240},5:{none:4630,fres16:35400,fres48:9160}}}
     },
     matrix_2500c: {
       group:'LED COB', name:'Matrix 2500C', desc:'2500W 4-Head Full Color Array Fixture', emoji:'🔵', watts:2500,
@@ -3013,7 +3013,7 @@ var LIGHTS = {
       weight:'18.5 kg', size:'40×23.5×40 cm', ccts:[1000,2700,3200,4300,5600,6500,10000,20000],
       accessories:['none','fres16','fres48'],
       dmx:{led:'Nebula C8 (8-color)',power:'2500W',cct:'1000K–20000K (G/M±200)',cri:'98',tlci:'98',ip:'IP66',control:'On-board / NANLINK App / Wired Controller / DMX/RDM / Art-Net/sACN / CRMX / NFC',dimming:'0.0%–100%'},
-      refData:{5600:{3:{none:9570,fres16:67900,fres48:16300},10:{none:3380,fres16:23050,fres48:5810}}}
+      refData:{5600:{3:{none:9570,fres16:67900,fres48:16300},5:{none:3380,fres16:23050,fres48:5810}}}
     },
     pavoslim_60b: {
       group:'LED', name:'PavoSlim 60B', desc:'65W Bi-Color Slim Panel', emoji:'💡', watts:65, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
@@ -16019,7 +16019,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.45';
+var ver = 'v1.1.4.46';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
