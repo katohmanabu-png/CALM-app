@@ -3912,10 +3912,11 @@ var LIGHTS = {
       weight:'16 kg', size:'410×380×460 mm', ccts:[5600], accessories:['flat','spot'],
       dmx:{led:'HMI',power:'2500W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {flat:14000},
-        5: {flat:4800, spot:54000},
-        8: {flat:2400, spot:19000},
-        12:{flat:1200, spot:9600}
+        2:   {flat:27000},
+        3:   {flat:14000},
+        5:   {flat:4800, spot:54000},
+        8:   {flat:2400, spot:19000},
+        12:  {flat:1200, spot:9600}
       }}
     },
     trueblue_d12: {
@@ -3923,10 +3924,11 @@ var LIGHTS = {
       weight:'10 kg', size:'360×340×400 mm', ccts:[5600], accessories:['flat','spot'],
       dmx:{led:'HMI',power:'1200W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        3: {flat:4800, spot:38000},
-        5: {flat:2400, spot:14000},
-        8: {flat:840, spot:6800},
-        12:{flat:420, spot:2400}
+        2:   {flat:14000, spot:76000},
+        3:   {flat:4800, spot:38000},
+        5:   {flat:2400, spot:14000},
+        8:   {flat:840, spot:6800},
+        12:  {flat:420, spot:2400}
       }}
     },
     trueblue_d5: {
@@ -3990,10 +3992,11 @@ var LIGHTS = {
       group:'HMI', name:'ARRI TRUE BLUE D40', desc:'HMI Fresnel Lens', emoji:'💡', watts:4000, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       refData:{5600:{
-        3: {flat:19000},
-        5: {flat:6800, spot:76000},
-        8: {flat:2400, spot:19000},
-        12:{flat:1200, spot:9600}
+        2:   {flat:38000},
+        3:   {flat:19000},
+        5:   {flat:6800, spot:76000},
+        8:   {flat:2400, spot:19000},
+        12:  {flat:1200, spot:9600}
       }}
     },
     arri_12k: {
@@ -4022,8 +4025,10 @@ var LIGHTS = {
       group:'HMI', name:'ARRI 200W Compact HMI', emoji:'💡', watts:200, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
       ccts:[5600], accessories:["flat", "spot"],
       refData:{5600:{
-        3: {flat:840, spot:9600},
-        5: {flat:300, spot:3400}
+        1:   {flat:6800, spot:54000},
+        2:   {flat:1700, spot:19000},
+        3:   {flat:840, spot:9600},
+        5:   {flat:300, spot:3400}
       }}
     },
     arri_6k: {
@@ -4041,29 +4046,32 @@ var LIGHTS = {
       group:'HMI Open', name:'ARRI X 1.2kW HMI', emoji:'💡', watts:1200,
       ccts:[5600], accessories:['spot'],
       refData:{5600:{
-        3: {spot:1200},
-        5: {spot:600},
-        8: {spot:300},
-        12:{spot:110}
+        2:   {spot:3400},
+        3:   {spot:1200},
+        5:   {spot:600},
+        8:   {spot:300},
+        12:  {spot:110}
       }}
     },
     arri_x_575: {
       group:'HMI Open', name:'ARRI X 575W HMI', emoji:'💡', watts:575,
       ccts:[5600], accessories:["spot"],
       refData:{5600:{
-        3: {spot:600},
-        5: {spot:300},
-        8: {spot:110}
+        2:   {spot:1200},
+        3:   {spot:600},
+        5:   {spot:300},
+        8:   {spot:110}
       }}
     },
     arri_x_4k: {
       group:'HMI Open', name:'ARRI X 4kW HMI', emoji:'💡', watts:4000,
       ccts:[5600], accessories:['spot'],
       refData:{5600:{
-        3: {spot:4800},
-        5: {spot:2400},
-        8: {spot:840},
-        12:{spot:300}
+        2:   {spot:9600},
+        3:   {spot:4800},
+        5:   {spot:2400},
+        8:   {spot:840},
+        12:  {spot:300}
       }}
     },
     // ── ARC SYSTEM 実測（ARRI X 2.5kw / 6kw）─────────────────────────
@@ -4081,10 +4089,11 @@ var LIGHTS = {
       group:'HMI Open', name:'ARRI X 2.5kW HMI', emoji:'💡', watts:2500,
       ccts:[5600], accessories:['spot'],
       refData:{5600:{
-        3: {spot:3400},
-        5: {spot:1200},
-        8: {spot:600},
-        12:{spot:210}
+        2:   {spot:6800},
+        3:   {spot:3400},
+        5:   {spot:1200},
+        8:   {spot:600},
+        12:  {spot:210}
       }}
     },
     arri_x_6000: {
@@ -4104,38 +4113,44 @@ var LIGHTS = {
       group:'HMI', name:'ARRI 125W Compact HMI', emoji:'💡', watts:125,
       ccts:[5600], accessories:['flat','spot'],
       refData:{5600:{
-        3: {flat:150, spot:840},
-        5: {flat:75,  spot:300}
+        0.5: {flat:2400, spot:9600},
+        1:   {flat:840, spot:2400},
+        2:   {flat:420, spot:1200},
+        3:   {flat:150, spot:840},
+        5:   {flat:75, spot:300}
       }}
     },
     arri_575: {
       group:'HMI', name:'ARRI 575W Compact HMI', emoji:'💡', watts:575,
       ccts:[5600], accessories:['flat','spot'],
       refData:{5600:{
-        3: {flat:2400, spot:19000},
-        5: {flat:840,  spot:6800},
-        8: {flat:420,  spot:3400},
-        12:{flat:110,  spot:1200}
+        2:   {flat:4800, spot:38000},
+        3:   {flat:2400, spot:19000},
+        5:   {flat:840, spot:6800},
+        8:   {flat:420, spot:3400},
+        12:  {flat:110, spot:1200}
       }}
     },
     arri_1200: {
       group:'HMI', name:'ARRI 1.2kW Compact HMI', emoji:'💡', watts:1200,
       ccts:[5600], accessories:['flat','spot'],
       refData:{5600:{
-        3: {flat:6800, spot:54000},
-        5: {flat:2400, spot:19000},
-        8: {flat:840,  spot:6800},
-        12:{flat:420,  spot:3400}
+        2:   {flat:14000},
+        3:   {flat:6800, spot:54000},
+        5:   {flat:2400, spot:19000},
+        8:   {flat:840, spot:6800},
+        12:  {flat:420, spot:3400}
       }}
     },
     arri_2500: {
       group:'HMI', name:'ARRI 2.5kW Compact HMI', emoji:'💡', watts:2500,
       ccts:[5600], accessories:['flat','spot'],
       refData:{5600:{
-        3: {flat:14000},
-        5: {flat:3400, spot:54000},
-        8: {flat:1700, spot:19000},
-        12:{flat:840,  spot:6800}
+        2:   {flat:27000},
+        3:   {flat:14000},
+        5:   {flat:3400, spot:54000},
+        8:   {flat:1700, spot:19000},
+        12:  {flat:840, spot:6800}
       }}
     },
     // ARC のカタログでは TRUE BLUE D40 と全く同じ実測値が載っている（同じ4kW・同じ
@@ -4144,10 +4159,11 @@ var LIGHTS = {
       group:'HMI', name:'ARRI 4kW Compact HMI', emoji:'💡', watts:4000,
       ccts:[5600], accessories:['flat','spot'],
       refData:{5600:{
-        3: {flat:19000},
-        5: {flat:6800, spot:76000},
-        8: {flat:2400, spot:19000},
-        12:{flat:1200, spot:9600}
+        2:   {flat:38000},
+        3:   {flat:19000},
+        5:   {flat:6800, spot:76000},
+        8:   {flat:2400, spot:19000},
+        12:  {flat:1200, spot:9600}
       }}
     },
   
@@ -4664,10 +4680,11 @@ var LIGHTS = {
       ccts:[5600], accessories:["flat", "spot"],
       // ARC SYSTEM 実測（dedolight 200w）
       refData:{5600:{
-        3: {flat:1700, spot:38000},
-        5: {flat:840,  spot:19000},
-        8: {flat:300,  spot:6800},
-        12:{flat:150,  spot:2400}
+        2:   {flat:6800},
+        3:   {flat:1700, spot:38000},
+        5:   {flat:840, spot:19000},
+        8:   {flat:300, spot:6800},
+        12:  {flat:150, spot:2400}
       }}
     },
     dedo_400: {
@@ -4675,10 +4692,11 @@ var LIGHTS = {
       ccts:[5600], accessories:["flat", "spot"],
       // ARC SYSTEM 実測（dedolight 400w）。旧データの spot 列は 200W の値だった。
       refData:{5600:{
-        3: {flat:2400, spot:54000},
-        5: {flat:840,  spot:27000},
-        8: {flat:420,  spot:6800},
-        12:{flat:210,  spot:2400}
+        2:   {flat:6800},
+        3:   {flat:2400, spot:54000},
+        5:   {flat:840, spot:27000},
+        8:   {flat:420, spot:6800},
+        12:  {flat:210, spot:2400}
       }}
     },
   
@@ -4908,7 +4926,13 @@ var LIGHTS = {
     etc_sf26: {
       group:'Tungsten', name:'ETC Source Four 26°', desc:'750W Tungsten Ellipsoidal 26°', emoji:'🎭', watts:750,
       ccts:[3200], accessories:['spot'],
-      refData:{3200:{3:{spot:4800}, 5:{spot:1700}, 8:{spot:840}}}
+      refData:{3200:{
+        1:   {spot:54000},
+        2:   {spot:14000},
+        3:   {spot:4800},
+        5:   {spot:1700},
+        8:   {spot:840}
+      }}
     },
     etc_sf_zoom_25_50: {
       group:'Tungsten', name:'ETC Source Four Zoom 25-50°', desc:'750W Tungsten Zoom Ellipsoidal', emoji:'🎭', watts:750,
@@ -5164,7 +5188,13 @@ var LIGHTS = {
     etc_warp575: {
       group:'HMI', name:'ETC WarpZoom 575W', emoji:'💡', watts:575,
       ccts:[5600], accessories:["flat"],
-      refData:{5600:{3:{flat:14000}, 5:{flat:4800}, 8:{flat:2400}}}
+      refData:{5600:{
+        1:   {flat:76000},
+        2:   {flat:27000},
+        3:   {flat:14000},
+        5:   {flat:4800},
+        8:   {flat:2400}
+      }}
     },
     etc_s4led_s2_lustr: {
       group:'LED Spot', name:'Source Four LED S2 Lustr2', desc:'LED Ellipsoidal Spot Full Color (26° lens)', emoji:'💡', watts:200,
@@ -5195,12 +5225,22 @@ var LIGHTS = {
     optex_1200: {
       group:'HMI', name:'OPTEX Aura Soft 1.2kW', emoji:'💡', watts:1200,
       ccts:[5600], accessories:["flat"],
-      refData:{flat:{5600:{3:1200,5:420,8:210}}}
+      refData:{5600:{
+        2:   {flat:2400},
+        3:   {flat:1200},
+        5:   {flat:420},
+        8:   {flat:210}
+      }}
     },
     optex_2500: {
       group:'HMI', name:'OPTEX Aura Soft 2.5kW', emoji:'💡', watts:2500,
       ccts:[5600], accessories:["flat"],
-      refData:{3200:{3:{flat:2400}, 5:{flat:840}, 8:{flat:300}}}
+      refData:{5600:{
+        2:   {flat:4800},
+        3:   {flat:2400},
+        5:   {flat:840},
+        8:   {flat:300}
+      }}
     }
   },
   ltm: {
@@ -5669,7 +5709,13 @@ var LIGHTS = {
       group:'HMI', name:'KOBOLD 200W 6-Light Frame', desc:'6x 200W HMI frame (measured)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
       ccts:[5600], accessories:['flat'],
       dmx:{power:'1200W',cct:'5600K',control:'Manual'},
-      refData:{5600:{3:{flat:6800}, 5:{flat:2400}, 8:{flat:840}}}
+      refData:{5600:{
+        1:   {flat:38000},
+        2:   {flat:14000},
+        3:   {flat:6800},
+        5:   {flat:2400},
+        8:   {flat:840}
+      }}
     },
   },
 
@@ -5679,10 +5725,11 @@ var LIGHTS = {
       group:'HMI', name:'RDS 575W', desc:'575W HMI (measured)', emoji:'🟩', watts:575,
       ccts:[5600], accessories:['flat','spot'],
       refData:{5600:{
-        3: {flat:1200, spot:4800},
-        5: {flat:420,  spot:2400},
-        8: {flat:210,  spot:840},
-        12:{flat:75,   spot:420}
+        2:   {flat:2400, spot:14000},
+        3:   {flat:1200, spot:4800},
+        5:   {flat:420, spot:2400},
+        8:   {flat:210, spot:840},
+        12:  {flat:75, spot:420}
       }}
     },
     rds_2500_pin: {
@@ -5725,7 +5772,12 @@ var LIGHTS = {
     par_strobe_1k: {
       group:'HMI', name:'Par Strobe 1kW', desc:'パーストロボ 1kW (measured)', emoji:'✨', watts:1000,
       ccts:[5600], accessories:['flat'],
-      refData:{5600:{3:{flat:4800}, 5:{flat:1700}, 8:{flat:600}}}
+      refData:{5600:{
+        2:   {flat:9600},
+        3:   {flat:4800},
+        5:   {flat:1700},
+        8:   {flat:600}
+      }}
     },
     cizarno_200: {
       group:'Tungsten', name:'DESISTI Cizarno 200W', desc:'DESISTI チザーノ 200W (measured)', emoji:'✨', watts:200,
@@ -5742,17 +5794,31 @@ var LIGHTS = {
       group:'Tungsten', name:'Mercury Lamp', desc:'水銀灯 (measured) — 消費電力は未確認', emoji:'✨',
       // 水銀灯の色温度は個体差が大きい。ARC の実測は 4300K 相当として扱う。
       ccts:[4300], accessories:['flat'],
-      refData:{4300:{3:{flat:1200}, 5:{flat:300}, 8:{flat:150}}}
+      refData:{4300:{
+        1:   {flat:9600},
+        2:   {flat:2400},
+        3:   {flat:1200},
+        5:   {flat:300},
+        8:   {flat:150}
+      }}
     },
     freegee_24: {
       group:'LED', name:'Freegee Light 24W', desc:'フリージーライト 24W (measured)', emoji:'✨', watts:24,
       ccts:[5600], accessories:['flat'],
-      refData:{5600:{3:{flat:420}}}
+      refData:{5600:{
+        1:   {flat:3400},
+        2:   {flat:840},
+        3:   {flat:420}
+      }}
     },
     black_light: {
       group:'Tungsten', name:'Black Light', desc:'ブラックライト (measured) — UV光源。lux値は参考程度', emoji:'✨',
       ccts:[5600], accessories:['flat'],
-      refData:{5600:{3:{flat:75}}}
+      refData:{5600:{
+        1:   {flat:840},
+        2:   {flat:150},
+        3:   {flat:75}
+      }}
     },
   },
 };
@@ -16122,7 +16188,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.55';
+var ver = 'v1.1.4.56';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
