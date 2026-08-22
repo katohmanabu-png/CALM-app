@@ -5022,16 +5022,28 @@ var LIGHTS = {
       refData:{3200:{1:{spot:12150,med:4050,flood:1350},2:{spot:3038,med:1013,flood:338},3:{spot:1350,med:450,flood:150},5:{spot:486,med:162,flood:54}}}
     },
     par36: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'Tungsten', name:'PAR36', desc:'500W Tungsten PAR36', emoji:'💡', watts:500,
-      ccts:[3200], accessories:['spot','flood'],
-      refData:{3200:{1:{spot:2904,flood:726},2:{spot:726,flood:182},3:{spot:323,flood:81},5:{spot:116,flood:29}}}
+      ccts:[3200], accessories:['flat', 'spot'],
+      refData:{3200:{
+        1: {flat:4800, spot:9600},
+        2: {flat:1200, spot:4800},
+        3: {flat:600, spot:2400},
+        5: {flat:150, spot:1200},
+        8: {flat:110, spot:300}
+      }}
     },
     par36_short: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'Tungsten', name:'PAR36 Short', desc:'500W Tungsten Short PAR36', emoji:'💡', watts:500,
-      ccts:[3200], accessories:['spot','flood'],
-      refData:{3200:{1:{spot:2904,flood:726},2:{spot:726,flood:182},3:{spot:323,flood:81},5:{spot:116,flood:29}}}
+      ccts:[3200], accessories:['flat'],
+      refData:{3200:{
+        1: {flat:4800},
+        2: {flat:1200},
+        3: {flat:600},
+        5: {flat:150},
+        8: {flat:110}
+      }}
     },
     par16: {
       pendingPhotometric:true, status:'Pending Photometric Data',
@@ -5040,34 +5052,60 @@ var LIGHTS = {
       refData:{3200:{1:{spot:384},2:{spot:96},3:{spot:43},5:{spot:15}}}
     },
     mole_mini_brute_1: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
-      group:'Tungsten', name:'Mini Brute 1 Light', desc:'1000W Tungsten Single Mole', emoji:'🟠', watts:1000,
-      ccts:[3200], accessories:['spot','flood'],
-      refData:{3200:{1:{spot:12150,flood:3038},2:{spot:3038,flood:760},3:{spot:1350,flood:338},5:{spot:486,flood:122}}}
+
+      group:'Tungsten', name:'Mini Brute 1 Light', desc:'1000W Tungsten Single Mole', emoji:'🟠', watts:500,
+      ccts:[3200], accessories:['flat'],
+      refData:{3200:{
+        1: {flat:14000},
+        2: {flat:3400},
+        3: {flat:1700},
+        5: {flat:600}
+      }}
     },
     mole_mini_brute_2: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
-      group:'Tungsten', name:'Mini Brute 2 Light', desc:'2000W Tungsten Double Mole', emoji:'🟠', watts:2000,
-      ccts:[3200], accessories:['spot','flood'],
-      refData:{3200:{1:{spot:12422,flood:3106},2:{spot:3106,flood:777},3:{spot:1380,flood:345},5:{spot:497,flood:124}}}
+
+      group:'Tungsten', name:'Mini Brute 2 Light', desc:'2000W Tungsten Double Mole', emoji:'🟠', watts:1000,
+      ccts:[3200], accessories:['flat', 'spot'],
+      refData:{3200:{
+        1: {flat:27000, spot:54000},
+        2: {flat:6800, spot:19000},
+        3: {flat:3400, spot:6800},
+        5: {flat:840, spot:2400}
+      }}
     },
     mole_spacelight_3k: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'Tungsten', name:'Mole Space Light 3k', desc:'3000W Tungsten Space Light', emoji:'🟠', watts:3000,
-      ccts:[3200], accessories:['soft'],
-      refData:{3200:{1:{soft:3176},2:{soft:794},3:{soft:353},5:{soft:127},8:{soft:50}}}
+      ccts:[3200], accessories:['flat'],
+      refData:{3200:{
+        2: {flat:3400},
+        3: {flat:1200},
+        5: {flat:300},
+        8: {flat:210}
+      }}
     },
     mole_spacelight_4k5: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'Tungsten', name:'Mole Space Light 4.5k', desc:'4500W Tungsten Space Light', emoji:'🟠', watts:4500,
-      ccts:[3200], accessories:['soft'],
-      refData:{3200:{1:{soft:6538},2:{soft:1635},3:{soft:726},5:{soft:261},8:{soft:102}}}
+      ccts:[3200], accessories:['flat'],
+      refData:{3200:{
+        2: {flat:6800},
+        3: {flat:3400},
+        5: {flat:600},
+        8: {flat:420}
+      }}
     },
     mole_octalite_4k: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'Tungsten', name:'Mole 4k Octalite', desc:'4000W Tungsten Octalite Soft', emoji:'🟠', watts:4000,
-      ccts:[3200], accessories:['soft'],
-      refData:{3200:{1:{soft:1635},2:{soft:409},3:{soft:182},5:{soft:65},8:{soft:26}}}
+      ccts:[3200], accessories:['flat'],
+      refData:{3200:{
+        1: {flat:6800},
+        2: {flat:2400},
+        3: {flat:1200},
+        5: {flat:420},
+        8: {flat:210}
+      }}
     },
     mole_4k_broad: {
       pendingPhotometric:true, status:'Pending Photometric Data',
@@ -16272,7 +16310,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.58';
+var ver = 'v1.1.4.59';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
