@@ -6441,10 +6441,14 @@ function updatePreview() {
 
 // ===== ACCESSORIES =====
 
-// Lights using Beaker system (None/Clear/Frost tabs)
-var BEAKER_LIGHTS = { 'k5600|joker_800': true };
+// Beaker system (None/Clear/Frost tabs).
+// K5600 Joker の実際の運用に合わせた2段選択:
+//   ビーカー(クリア/フロスト)を付けてからレンズを選ぶ。
+//   ビーカーを付けずに Source Four レンズや Bug Beam を装着することもできる。
+var BEAKER_LIGHTS = { 'k5600|joker_800': true, 'k5600|joker_1600': true };
 
-// Beaker → available accessory keys
+// Beaker → そのビーカーで使えるアクセサリ（全機種共通の上限リスト）。
+// 実際に表示するのは beakerAccFor() で器具が持つ accessories と積を取ったもの。
 var BEAKER_ACC = {
   none:  ['open','bb10','bb19','bb26','sf_lens'],
   clear: ['open','lens1_vn','lens2_n','lens3_m','lens4_w'],
@@ -6453,6 +6457,13 @@ var BEAKER_ACC = {
 
 // Default acc per beaker
 var BEAKER_DEFAULT_ACC = { none:'open', clear:'open', frost:'frost' };
+
+// そのビーカーで、この器具が実際に測光データを持つアクセサリだけを返す。
+// これをしないと Joker 800 の「None」に Bug Beam が並ぶ（800 は Bug Beam を持たない）。
+function beakerAccFor(light, beaker) {
+  var have = (light && light.accessories) || [];
+  return (BEAKER_ACC[beaker] || []).filter(function(a){ return have.indexOf(a) >= 0; });
+}
 function renderAccessories() {
   var light = LIGHTS[S.maker] && LIGHTS[S.maker][S.model]; if (!light) return;
   var grid = el('accessory-grid'); if (!grid) return;
@@ -6466,10 +6477,19 @@ function renderAccessories() {
 
   var accs;
   if (isBeaker) {
+    // データのあるビーカーだけタブを出す（Joker 1600 はフロストの実測がない）。
+    var avail = ['none','clear','frost'].filter(function(b){ return beakerAccFor(light, b).length > 0; });
+    ['none','clear','frost'].forEach(function(b){
+      var btn = el('beaker-' + b);
+      if (btn) btn.style.display = avail.indexOf(b) >= 0 ? '' : 'none';
+    });
     var beaker = S.beaker || 'none';
-    accs = BEAKER_ACC[beaker] || light.accessories || [];
+    if (avail.indexOf(beaker) < 0) beaker = avail[0] || 'none';
+    accs = beakerAccFor(light, beaker);
+    if (!accs.length) accs = light.accessories || [];
     // Sync button visuals
-    selectBeaker(beaker);
+    S.beaker = beaker;
+    selectBeakerVisual(beaker);
   } else {
     // Check for group-based layout (Joker2 1600)
     var allAccs = light.accessories || [];
@@ -11835,13 +11855,35 @@ function toggleDmxPanel() {
 function stepMulti(id,dir,mn,mx,step){var inp=document.getElementById(id);if(!inp)return;inp.value=Math.min(mx,Math.max(mn,(parseFloat(inp.value)||0)+dir*step));inp.dispatchEvent(new Event('input'));}
 function tryUnlockPro(){showToast('Pro features coming soon');}
 function onCCTFinderChange(){try{renderFinderResults();}catch(e){}}
-var BEAKER_LIGHTS={'k5600|joker_800':true};
-var BEAKER_ACC={none:['open','bb10','bb19','bb26','sf_lens'],clear:['open','lens1_vn','lens2_n','lens3_m','lens4_w'],frost:['frost','frost_l1','frost_l2','frost_l3','frost_l4']};
-var BEAKER_DEFAULT_ACC={none:'open',clear:'open',frost:'frost'};
+// BEAKER_LIGHTS / BEAKER_ACC / BEAKER_DEFAULT_ACC はアクセサリ節（上方）で定義済み。
+// ここに同名の var が重複しており、後勝ちで上書きしていたため削除した。
+
+// ボタンの見た目だけを更新する。renderAccessories() から呼ぶのはこちら。
+// （selectBeaker() を呼ぶと renderAccessories() → selectBeaker() → … と無限再帰する）
+function selectBeakerVisual(beaker){
+  ['none','clear','frost'].forEach(function(b){
+    var btn=document.getElementById('beaker-'+b); if(!btn)return;
+    var color=b==='frost'?'#1565c0':'var(--accent)';
+    btn.style.background=(b===beaker)?color:'transparent';
+    btn.style.color=(b===beaker)?'white':color;
+    btn.style.borderColor=color;
+  });
+}
 function selectBeaker(beaker){
+  var light=LIGHTS[S.maker]&&LIGHTS[S.maker][S.model];
+  // その器具にデータのないビーカーは選ばせない（1600 にフロストの実測はない）。
+  if(!beakerAccFor(light,beaker).length){
+    var alt=['none','clear','frost'].filter(function(b){return beakerAccFor(light,b).length>0;});
+    if(!alt.length) return;
+    beaker=alt[0];
+  }
   S.beaker=beaker;
-  ['none','clear','frost'].forEach(function(b){var btn=document.getElementById('beaker-'+b);if(!btn)return;var color=b==='frost'?'#1565c0':'var(--accent)';btn.style.background=(b===beaker)?color:'transparent';btn.style.color=(b===beaker)?'white':color;btn.style.borderColor=color;});
-  S.accKey=BEAKER_DEFAULT_ACC[beaker]||'open';S.accGroup=beaker;
+  selectBeakerVisual(beaker);
+  // そのビーカーで実データのある先頭アクセサリを選ぶ（既定が無い機種もあるため）。
+  var avail=beakerAccFor(light,beaker);
+  var def=BEAKER_DEFAULT_ACC[beaker];
+  S.accKey=(avail.indexOf(def)>=0?def:avail[0])||def||'open';
+  S.accGroup=beaker;
   renderAccessories();renderBeamSlider();calculate();
 }
 var LIGHT_TYPE_MAP = {
