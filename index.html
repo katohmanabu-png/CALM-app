@@ -2072,7 +2072,7 @@ var LANGS = {
     favSave:'保存する', favCancel:'キャンセル',
     favAdded:'⭐ お気に入りに追加しました', favRemoved:'お気に入りを削除しました',
     tableNote:'逆二乗則で1〜20m全距離を計算（✓=実測値、〜=計算値）',
-    measured:'✓ 実測', estimated:'〜 推算',
+    measured:'✓ 実測', estimated:'〜 推算', extrapolated:'⚠ 範囲外',
     finderDesc:'カメラ設定と撮影条件から、目標F値に最も近いライトをランキング表示します。',
     finderHeight:'💡 ライト高さ (m)',
     finderHoriz:'↔️ 水平距離 (m)',
@@ -2168,7 +2168,7 @@ var LANGS = {
     favSave:'Save', favCancel:'Cancel',
     favAdded:'⭐ Added to favorites', favRemoved:'Removed from favorites',
     tableNote:'Inverse square law 1–20m (✓=measured, ~=calculated)',
-    measured:'✓ Measured', estimated:'~ Calculado',
+    measured:'✓ Measured', estimated:'~ Calculado', extrapolated:'⚠ Out of range',
     finderDesc:'Ranks all lights closest to your target F-stop based on camera settings and conditions.',
     finderHeight:'💡 Light Height (m)',
     finderHoriz:'↔️ Horizontal Dist. (m)',
@@ -2258,7 +2258,7 @@ var LANGS = {
     favSave:'Guardar', favCancel:'Cancelar',
     favAdded:'⭐ Guardado en favoritos', favRemoved:'Eliminado de favoritos',
     tableNote:'Ley de cuadrado inverso 1–20m (✓=medido, ~=calculado)',
-    measured:'✓ Medido', estimated:'~ Calculado',
+    measured:'✓ Medido', estimated:'~ Calculado', extrapolated:'⚠ Fuera de rango',
     finderDesc:'Clasifica las luces más cercanas a tu F-stop objetivo.',
     finderHeight:'🔦 Altura del foco (m)',
     finderHoriz:'↔️ Distancia horizontal (m)',
@@ -7878,7 +7878,9 @@ function renderDistTable() {
     if (r && r.lux) {
       html += '<td>' + r.lux.toLocaleString() + '</td>';
       html += '<td style="color:#888">' + Math.round(r.lux/10.764).toLocaleString() + '</td>';
-      html += '<td style="font-size:9px;color:#888">' + (r.exact ? t('measured') : t('estimated')) + '</td>';
+      var _lab = r.exact ? t('measured') : ((r.below||r.above) ? t('extrapolated') : t('estimated'));
+      var _col = (r.below||r.above) ? '#c77' : '#888';
+      html += '<td style="font-size:9px;color:' + _col + '">' + _lab + '</td>';
     } else {
       html += '<td colspan="3" style="color:#888;font-size:9px">' + t('noData') + '</td>';
     }
@@ -7931,7 +7933,9 @@ function luxForCCTAndDist(refData, cct, acc, dist) {
         ? Math.round(Math.exp(Math.log(vl) * (1-logT) + Math.log(vh) * logT))
         : Math.round(vl * (1-logT) + vh * logT);
     }
-    return { lux: lx, exactCCT: nc===cct, exactDist: lo===dist&&hi===dist };
+    return { lux: lx, exactCCT: nc===cct, exactDist: ds.indexOf(dist) >= 0,
+             below: dist < ds[0], above: dist > ds[ds.length-1],
+             minDist: ds[0], maxDist: ds[ds.length-1] };
   }
 
   // Branch 2: cct-keyed refData → refData[cct][dist] or refData[cct][dist][acc]
@@ -7967,7 +7971,9 @@ function luxForCCTAndDist(refData, cct, acc, dist) {
       ? Math.round(Math.exp(Math.log(vl2) * (1-logT2) + Math.log(vh2) * logT2))
       : Math.round(vl2 * (1-logT2) + vh2 * logT2);
   }
-  return { lux: lx2, exactCCT: nc2===cct, exactDist: lo2===dist&&hi2===dist };
+  return { lux: lx2, exactCCT: nc2===cct, exactDist: ds2.indexOf(dist) >= 0,
+           below: dist < ds2[0], above: dist > ds2[ds2.length-1],
+           minDist: ds2[0], maxDist: ds2[ds2.length-1] };
 }
 
 
@@ -8002,7 +8008,12 @@ function luxAtBeamAngle(light, dist, beamPctOverride) {
   if (rF && !rS) return rF;
   var pct = (beamPctOverride !== undefined ? beamPctOverride : S.beamPct) / 100;
   var logLux = Math.log(rS.lux) * (1-pct) + Math.log(rF.lux) * pct;
-  return { lux: Math.round(Math.exp(logLux)), exact: false };
+  // 測定範囲外かどうかは、混合元のどちらかが範囲外なら範囲外として引き継ぐ。
+  // これを落とすと Calc が外挿値を通常の補間値として表示してしまう。
+  return { lux: Math.round(Math.exp(logLux)), exact: false,
+           below: !!(rS.below || rF.below), above: !!(rS.above || rF.above),
+           minDist: Math.min(rS.minDist, rF.minDist),
+           maxDist: Math.max(rS.maxDist, rF.maxDist) };
 }
 
 function luxToFstop(lux, iso, fps) {
@@ -8307,7 +8318,10 @@ function calculate() {
   if (S.useTriDist && S.triDist!=null) distNote='📐 '+distVal+unit;
   else if (S.manualDist) distNote='✏️ '+distVal+unit;
   else distNote=distVal+unit;
-  if (!r.exactDist) distNote+=' (~)';
+  // 測定点の「間」の補間(~)と、測定範囲の「外」の外挿(⚠)を区別する。
+  // 外挿はスポット系で過大評価になりやすい（実測が逆二乗より暗いため）。
+  if (r.below || r.above) distNote += ' ⚠';
+  else if (!r.exactDist) distNote += ' (~)';
 
   inner.innerHTML =
     '<div style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:2px 2px;">' +
@@ -16019,7 +16033,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.46';
+var ver = 'v1.1.4.47';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
