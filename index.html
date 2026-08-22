@@ -4913,14 +4913,13 @@ var LIGHTS = {
     arri_trueblue_st2: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/tungsten/true-blue-st',
       group:'Tungsten', name:'ARRI TRUEBLUE ST2', desc:'2000W Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:2000,
-      ccts:[3200], accessories:['spot','medium','flood'],
+      ccts:[3200], accessories:['flat', 'spot'],
       refData:{3200:{
-        3: {spot:41456, medium:9233, flood:4544},
-        5: {spot:14924, medium:3324, flood:1636},
-        8: {spot:5830, medium:1298, flood:639},
-        10:{spot:3731, medium:831, flood:409},
-        15:{spot:1658, medium:369, flood:182},
-        20:{spot:933, medium:208, flood:102}
+        2: {flat:9600, spot:76000},
+        3: {flat:4800, spot:38000},
+        5: {flat:1700, spot:14000},
+        8: {flat:840, spot:6800},
+        12:{flat:420, spot:2400}
       }}
     },
     arri_trueblue_st1: {
@@ -5036,20 +5035,24 @@ var LIGHTS = {
     par36_short: {
 
       group:'Tungsten', name:'PAR36 Short', desc:'500W Tungsten Short PAR36', emoji:'💡', watts:500,
-      ccts:[3200], accessories:['flat'],
+      ccts:[3200], accessories:['flat', 'spot'],
       refData:{3200:{
-        1: {flat:4800},
-        2: {flat:1200},
-        3: {flat:600},
-        5: {flat:150},
-        8: {flat:110}
+        1: {flat:4800, spot:9600},
+        2: {flat:1200, spot:4800},
+        3: {flat:600, spot:2400},
+        5: {flat:150, spot:1200},
+        8: {flat:110, spot:300}
       }}
     },
     par16: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'Tungsten', name:'PAR16', desc:'100W Tungsten PAR16', emoji:'💡', watts:100,
-      ccts:[3200], accessories:['spot'],
-      refData:{3200:{1:{spot:384},2:{spot:96},3:{spot:43},5:{spot:15}}}
+      ccts:[3200], accessories:['flat'],
+      refData:{3200:{
+        1: {flat:1200},
+        2: {flat:600},
+        3: {flat:150}
+      }}
     },
     mole_mini_brute_1: {
 
@@ -5143,8 +5146,14 @@ var LIGHTS = {
     },
     dedo_dlh650: {
       group:'Tungsten', name:'Dedolight DLH650', desc:'650W Tungsten Focusable Spot', emoji:'🟤', watts:650,
-      ccts:[3200], accessories:['spot','flood'],
-      refData:{3200:{1:{spot:12422,flood:2484},2:{spot:3106,flood:621},3:{spot:1380,flood:276},5:{spot:497,flood:99}}}
+      ccts:[3200], accessories:['flat', 'spot'],
+      refData:{3200:{
+        1: {flat:6800, spot:54000},
+        2: {flat:1700, spot:14000},
+        3: {flat:840, spot:6800},
+        5: {flat:210, spot:2400},
+        8: {flat:75, spot:840}
+      }}
     },
     dedo_150: {
       group:'Tungsten', name:'Dedolight 150 Kit', desc:'150W Tungsten Focusable Spot', emoji:'🟤', watts:150,
@@ -16310,7 +16319,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.59';
+var ver = 'v1.1.4.60';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
