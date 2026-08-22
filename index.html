@@ -2072,7 +2072,7 @@ var LANGS = {
     favSave:'保存する', favCancel:'キャンセル',
     favAdded:'⭐ お気に入りに追加しました', favRemoved:'お気に入りを削除しました',
     tableNote:'逆二乗則で1〜20m全距離を計算（✓=実測値、〜=計算値）',
-    measured:'✓ 実測', estimated:'〜 推算', extrapolated:'⚠ 範囲外',
+    makerSite:'メーカー公式サイト', measured:'✓ 実測', estimated:'〜 推算', extrapolated:'⚠ 範囲外',
     finderDesc:'カメラ設定と撮影条件から、目標F値に最も近いライトをランキング表示します。',
     finderHeight:'💡 ライト高さ (m)',
     finderHoriz:'↔️ 水平距離 (m)',
@@ -2168,7 +2168,7 @@ var LANGS = {
     favSave:'Save', favCancel:'Cancel',
     favAdded:'⭐ Added to favorites', favRemoved:'Removed from favorites',
     tableNote:'Inverse square law 1–20m (✓=measured, ~=calculated)',
-    measured:'✓ Measured', estimated:'~ Calculado', extrapolated:'⚠ Out of range',
+    makerSite:'Manufacturer site', measured:'✓ Measured', estimated:'~ Calculado', extrapolated:'⚠ Out of range',
     finderDesc:'Ranks all lights closest to your target F-stop based on camera settings and conditions.',
     finderHeight:'💡 Light Height (m)',
     finderHoriz:'↔️ Horizontal Dist. (m)',
@@ -2258,7 +2258,7 @@ var LANGS = {
     favSave:'Guardar', favCancel:'Cancelar',
     favAdded:'⭐ Guardado en favoritos', favRemoved:'Eliminado de favoritos',
     tableNote:'Ley de cuadrado inverso 1–20m (✓=medido, ~=calculado)',
-    measured:'✓ Medido', estimated:'~ Calculado', extrapolated:'⚠ Fuera de rango',
+    makerSite:'Sitio del fabricante', measured:'✓ Medido', estimated:'~ Calculado', extrapolated:'⚠ Fuera de rango',
     finderDesc:'Clasifica las luces más cercanas a tu F-stop objetivo.',
     finderHeight:'🔦 Altura del foco (m)',
     finderHoriz:'↔️ Distancia horizontal (m)',
@@ -2537,31 +2537,31 @@ function updateDraftI18n(){
 
 // ===== MAKERS =====
 var MAKERS = {
-  aputure:     { name:'Aputure',            emoji:'⬛', accent:'#212121', dark:'#000000', light:'#f5f5f5', glow:'rgba(33,33,33,0.25)', accent2:'#e53935', accent3:'#ffffff', activeOutline:'#e53935' },
-  nanlite_lux: { name:'Nanlite / Nanlux',   emoji:'🔵', accent:'#1976d2', dark:'#0d47a1', light:'#e3f2fd', glow:'rgba(25,118,210,0.25)', accent2:'#ffffff' },
-  creamsource:  { name:'Creamsource',        emoji:'⬛', accent:'#212121', dark:'#000000', light:'#f5f5f5', glow:'rgba(33,33,33,0.25)', activeOutline:'#ffffff', accent2:'#ffffff' },
-  astera:       { name:'Astera',             emoji:'🟣', accent:'#7b1fa2', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(123,31,162,0.25)', accent2:'#f57c00' },
-  arri_led:     { name:'ARRI LED',           emoji:'🩵', accent:'#7ec8f0', dark:'#4aaed8', light:'#e8f6fd', glow:'rgba(126,200,240,0.30)', accent2:'#ffffff' },
-  arri_hmi:     { name:'ARRI HMI',           emoji:'🩵', accent:'#7ec8f0', dark:'#4aaed8', light:'#e8f6fd', glow:'rgba(126,200,240,0.30)', accent2:'#ffffff' },
-  kinoflo:      { name:'Kino Flo / Litegear',emoji:'🟨', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)', accent2:'#ffffff', accent3:'#212121' },
-  fiilex:       { name:'Fiilex',             emoji:'🔴', accent:'#c62828', dark:'#b71c1c', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121', accent3:'#ffffff' },
-  godox:        { name:'Godox',              emoji:'🔴', accent:'#e53935', dark:'#b71c1c', light:'#ffebee', glow:'rgba(229,57,53,0.25)', accent2:'#212121' },
-  dedolight:    { name:'Dedolight',          emoji:'🟡', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)', accent2:'#212121' },
-  k5600:        { name:'K5600 Lighting',     emoji:'⬜', accent:'#ffffff', dark:'#e0e0e0', light:'#f5f5f5', glow:'rgba(200,200,200,0.25)', accent2:'#212121', activeOutline:'#212121' },
-  tungsten:     { name:'Tungsten',           emoji:'🔥', accent:'#f57c00', dark:'#e65100', light:'#fff3e0', glow:'rgba(245,124,0,0.25)' },
-  amaran:       { name:'amaran',             emoji:'🔵', accent:'#ffffff', dark:'#e0e0e0', light:'#f5f5f5', glow:'rgba(200,200,200,0.25)', accent2:'#1565c0', activeOutline:'#1565c0' },
-  hudson_spider: { name:'Hudson Spider',      emoji:'🕷️', accent:'#c62828', dark:'#b71c1c', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121', emojiFilter:'brightness(0) invert(1)' },
-  lightstar:     { name:'Lightstar',          emoji:'🎈', accent:'#f9c800', dark:'#e0a800', light:'#fffde7', glow:'rgba(249,200,0,0.25)', accent2:'#ffffff', activeOutline:'#f9c800' },
-  optex: {name:'OPTEX', emoji:'💡', accent:'#0d47a1', dark:'#01337d', light:'#e3f2fd', glow:'rgba(13,71,161,0.25)', accent2:'#fdd835'},
+  aputure:     { name:'Aputure', url:'https://www.aputure.com/',            emoji:'⬛', accent:'#212121', dark:'#000000', light:'#f5f5f5', glow:'rgba(33,33,33,0.25)', accent2:'#e53935', accent3:'#ffffff', activeOutline:'#e53935' },
+  nanlite_lux: { name:'Nanlite / Nanlux', url:'https://www.nanlux.com/',   emoji:'🔵', accent:'#1976d2', dark:'#0d47a1', light:'#e3f2fd', glow:'rgba(25,118,210,0.25)', accent2:'#ffffff' },
+  creamsource:  { name:'Creamsource', url:'https://www.creamsource.com/',        emoji:'⬛', accent:'#212121', dark:'#000000', light:'#f5f5f5', glow:'rgba(33,33,33,0.25)', activeOutline:'#ffffff', accent2:'#ffffff' },
+  astera:       { name:'Astera', url:'https://astera-led.com/',             emoji:'🟣', accent:'#7b1fa2', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(123,31,162,0.25)', accent2:'#f57c00' },
+  arri_led:     { name:'ARRI LED', url:'https://www.arri.com/en/lighting',           emoji:'🩵', accent:'#7ec8f0', dark:'#4aaed8', light:'#e8f6fd', glow:'rgba(126,200,240,0.30)', accent2:'#ffffff' },
+  arri_hmi:     { name:'ARRI HMI', url:'https://www.arri.com/en/lighting',           emoji:'🩵', accent:'#7ec8f0', dark:'#4aaed8', light:'#e8f6fd', glow:'rgba(126,200,240,0.30)', accent2:'#ffffff' },
+  kinoflo:      { name:'Kino Flo / Litegear', url:'https://kinoflo.com/',emoji:'🟨', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)', accent2:'#ffffff', accent3:'#212121' },
+  fiilex:       { name:'Fiilex', url:'https://www.fiilex.com/',             emoji:'🔴', accent:'#c62828', dark:'#b71c1c', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121', accent3:'#ffffff' },
+  godox:        { name:'Godox', url:'https://www.godox.com/',              emoji:'🔴', accent:'#e53935', dark:'#b71c1c', light:'#ffebee', glow:'rgba(229,57,53,0.25)', accent2:'#212121' },
+  dedolight:    { name:'Dedolight', url:'https://www.dedolight.com/',          emoji:'🟡', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)', accent2:'#212121' },
+  k5600:        { name:'K5600 Lighting', url:'https://k5600.com/',     emoji:'⬜', accent:'#ffffff', dark:'#e0e0e0', light:'#f5f5f5', glow:'rgba(200,200,200,0.25)', accent2:'#212121', activeOutline:'#212121' },
+  tungsten:     { name:'Tungsten', url:'https://www.arc-system.co.jp/',           emoji:'🔥', accent:'#f57c00', dark:'#e65100', light:'#fff3e0', glow:'rgba(245,124,0,0.25)' },
+  amaran:       { name:'amaran', url:'https://www.amaran.com/',             emoji:'🔵', accent:'#ffffff', dark:'#e0e0e0', light:'#f5f5f5', glow:'rgba(200,200,200,0.25)', accent2:'#1565c0', activeOutline:'#1565c0' },
+  hudson_spider: { name:'Hudson Spider', url:'https://hudsonspider.com/',      emoji:'🕷️', accent:'#c62828', dark:'#b71c1c', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121', emojiFilter:'brightness(0) invert(1)' },
+  lightstar:     { name:'Lightstar', url:'https://www.arc-system.co.jp/',          emoji:'🎈', accent:'#f9c800', dark:'#e0a800', light:'#fffde7', glow:'rgba(249,200,0,0.25)', accent2:'#ffffff', activeOutline:'#f9c800' },
+  optex: {name:'OPTEX', url:'https://www.arc-system.co.jp/', emoji:'💡', accent:'#0d47a1', dark:'#01337d', light:'#e3f2fd', glow:'rgba(13,71,161,0.25)', accent2:'#fdd835'},
 
-  etc: {name:'ETC', emoji:'💡', accent:'#ffffff', dark:'#e0e0e0', light:'#f5f5f5', glow:'rgba(200,200,200,0.25)', accent2:'#1565c0', accent3:'#212121', activeOutline:'#1565c0'},
-  ltm: {name:'LTM', emoji:'🔷', accent:'#0277bd', dark:'#01579b', light:'#e1f5fe', glow:'rgba(2,119,189,0.25)', accent2:'#ffffff'},
-  briese: {name:'Briese', emoji:'⬛', svgIcon:'<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"50\" cy=\"50\" r=\"38\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"2.5\" stroke-linecap=\"round\"><line x1=\"50\" y1=\"50\" x2=\"88.0\" y2=\"50.0\"/><line x1=\"50\" y1=\"50\" x2=\"85.1\" y2=\"64.5\"/><line x1=\"50\" y1=\"50\" x2=\"76.9\" y2=\"76.9\"/><line x1=\"50\" y1=\"50\" x2=\"64.5\" y2=\"85.1\"/><line x1=\"50\" y1=\"50\" x2=\"50.0\" y2=\"88.0\"/><line x1=\"50\" y1=\"50\" x2=\"35.5\" y2=\"85.1\"/><line x1=\"50\" y1=\"50\" x2=\"23.1\" y2=\"76.9\"/><line x1=\"50\" y1=\"50\" x2=\"14.9\" y2=\"64.5\"/><line x1=\"50\" y1=\"50\" x2=\"12.0\" y2=\"50.0\"/><line x1=\"50\" y1=\"50\" x2=\"14.9\" y2=\"35.5\"/><line x1=\"50\" y1=\"50\" x2=\"23.1\" y2=\"23.1\"/><line x1=\"50\" y1=\"50\" x2=\"35.5\" y2=\"14.9\"/><line x1=\"50\" y1=\"50\" x2=\"50.0\" y2=\"12.0\"/><line x1=\"50\" y1=\"50\" x2=\"64.5\" y2=\"14.9\"/><line x1=\"50\" y1=\"50\" x2=\"76.9\" y2=\"23.1\"/><line x1=\"50\" y1=\"50\" x2=\"85.1\" y2=\"35.5\"/></g><circle cx=\"50\" cy=\"50\" r=\"38\" stroke=\"#ffc400\" stroke-width=\"4\"/><circle cx=\"50\" cy=\"50\" r=\"23\" stroke=\"#ffc400\" stroke-width=\"1.5\" opacity=\"0.55\"/><circle cx=\"50\" cy=\"50\" r=\"8\" fill=\"#ffc400\"/><circle cx=\"50\" cy=\"50\" r=\"3.5\" fill=\"#111\"/></svg>', accent:'#ffc400', dark:'#ffab00', light:'#fff8e1', glow:'rgba(255,196,0,0.30)', accent2:'#111111', accent3:'#ffffff', activeOutline:'#111111'},
-  broncolor: {name:'Broncolor', emoji:'🟥', accent:'#c62828', dark:'#8e0000', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121'},
-  ushio: {name:'USHIO / サーチライト', nameI18n:{ja:'USHIO / サーチライト', en:'USHIO / Searchlight', es:'USHIO / Reflectores'}, emoji:'🔆', accent:'#f9a825', dark:'#f57f17', light:'#fffde7', glow:'rgba(249,168,37,0.25)', accent2:'#212121'},
-  kobold: {name:'KOBOLD', emoji:'🟦', accent:'#1565c0', dark:'#0d47a1', light:'#e3f2fd', glow:'rgba(21,101,192,0.25)', accent2:'#ffffff'},
-  rds: {name:'RDS', emoji:'🟩', accent:'#2e7d32', dark:'#1b5e20', light:'#e8f5e9', glow:'rgba(46,125,50,0.25)', accent2:'#ffffff'},
-  arc_special: {name:'特殊光源 / Specials', nameI18n:{ja:'特殊光源', en:'Specials', es:'Especiales'}, emoji:'✨', accent:'#6a1b9a', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(106,27,154,0.25)', accent2:'#ffd54f'},};
+  etc: {name:'ETC', url:'https://www.etcconnect.com/', emoji:'💡', accent:'#ffffff', dark:'#e0e0e0', light:'#f5f5f5', glow:'rgba(200,200,200,0.25)', accent2:'#1565c0', accent3:'#212121', activeOutline:'#1565c0'},
+  ltm: {name:'LTM', url:'https://www.arc-system.co.jp/', emoji:'🔷', accent:'#0277bd', dark:'#01579b', light:'#e1f5fe', glow:'rgba(2,119,189,0.25)', accent2:'#ffffff'},
+  briese: {name:'Briese', url:'https://www.briese-lighting.de/', emoji:'⬛', svgIcon:'<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"50\" cy=\"50\" r=\"38\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"2.5\" stroke-linecap=\"round\"><line x1=\"50\" y1=\"50\" x2=\"88.0\" y2=\"50.0\"/><line x1=\"50\" y1=\"50\" x2=\"85.1\" y2=\"64.5\"/><line x1=\"50\" y1=\"50\" x2=\"76.9\" y2=\"76.9\"/><line x1=\"50\" y1=\"50\" x2=\"64.5\" y2=\"85.1\"/><line x1=\"50\" y1=\"50\" x2=\"50.0\" y2=\"88.0\"/><line x1=\"50\" y1=\"50\" x2=\"35.5\" y2=\"85.1\"/><line x1=\"50\" y1=\"50\" x2=\"23.1\" y2=\"76.9\"/><line x1=\"50\" y1=\"50\" x2=\"14.9\" y2=\"64.5\"/><line x1=\"50\" y1=\"50\" x2=\"12.0\" y2=\"50.0\"/><line x1=\"50\" y1=\"50\" x2=\"14.9\" y2=\"35.5\"/><line x1=\"50\" y1=\"50\" x2=\"23.1\" y2=\"23.1\"/><line x1=\"50\" y1=\"50\" x2=\"35.5\" y2=\"14.9\"/><line x1=\"50\" y1=\"50\" x2=\"50.0\" y2=\"12.0\"/><line x1=\"50\" y1=\"50\" x2=\"64.5\" y2=\"14.9\"/><line x1=\"50\" y1=\"50\" x2=\"76.9\" y2=\"23.1\"/><line x1=\"50\" y1=\"50\" x2=\"85.1\" y2=\"35.5\"/></g><circle cx=\"50\" cy=\"50\" r=\"38\" stroke=\"#ffc400\" stroke-width=\"4\"/><circle cx=\"50\" cy=\"50\" r=\"23\" stroke=\"#ffc400\" stroke-width=\"1.5\" opacity=\"0.55\"/><circle cx=\"50\" cy=\"50\" r=\"8\" fill=\"#ffc400\"/><circle cx=\"50\" cy=\"50\" r=\"3.5\" fill=\"#111\"/></svg>', accent:'#ffc400', dark:'#ffab00', light:'#fff8e1', glow:'rgba(255,196,0,0.30)', accent2:'#111111', accent3:'#ffffff', activeOutline:'#111111'},
+  broncolor: {name:'Broncolor', url:'https://www.bron.ch/', emoji:'🟥', accent:'#c62828', dark:'#8e0000', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121'},
+  ushio: {name:'USHIO / サーチライト', url:'https://www.ushio.com/', nameI18n:{ja:'USHIO / サーチライト', en:'USHIO / Searchlight', es:'USHIO / Reflectores'}, emoji:'🔆', accent:'#f9a825', dark:'#f57f17', light:'#fffde7', glow:'rgba(249,168,37,0.25)', accent2:'#212121'},
+  kobold: {name:'KOBOLD', url:'https://www.arc-system.co.jp/', emoji:'🟦', accent:'#1565c0', dark:'#0d47a1', light:'#e3f2fd', glow:'rgba(21,101,192,0.25)', accent2:'#ffffff'},
+  rds: {name:'RDS', url:'https://www.arc-system.co.jp/', emoji:'🟩', accent:'#2e7d32', dark:'#1b5e20', light:'#e8f5e9', glow:'rgba(46,125,50,0.25)', accent2:'#ffffff'},
+  arc_special: {name:'特殊光源 / Specials', url:'https://www.arc-system.co.jp/', nameI18n:{ja:'特殊光源', en:'Specials', es:'Especiales'}, emoji:'✨', accent:'#6a1b9a', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(106,27,154,0.25)', accent2:'#ffd54f'},};
 
 // ===== LIGHT DATA =====
 var LIGHTS = {
@@ -5570,40 +5570,28 @@ var LIGHTS = {
     },
   },
   broncolor: {
-    bron_575_p45: {
-      group:'HMI', name:'Broncolor 575/800W P45', desc:'575W or 800W HMI, P45 opal reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
-      ccts:[5600], accessories:['clear','frost'],
+    bron_575: {
+      group:'HMI', name:'Broncolor HMI 575W', desc:'P45 / P65 / Psoft opal reflector, clear or frost (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['p45_clear', 'p45_frost', 'p65_clear', 'p65_frost', 'psoft_clear', 'psoft_frost'],
       dmx:{power:'575W',cct:'5600K',control:'Manual'},
       refData:{5600:{
-        2: {clear:54000, frost:19000},
-        3: {clear:19000, frost:6800},
-        5: {clear:6800, frost:2400},
-        8: {clear:2400, frost:840},
-        12:{clear:840, frost:420}
+        2: {p45_clear:54000, p45_frost:19000, p65_clear:54000, p65_frost:19000, psoft_clear:4800, psoft_frost:1700},
+        3: {p45_clear:19000, p45_frost:6800, p65_clear:19000, p65_frost:6800, psoft_clear:1700, psoft_frost:840},
+        5: {p45_clear:6800, p45_frost:2400, p65_clear:6800, p65_frost:3400, psoft_clear:840, psoft_frost:300},
+        8: {p45_clear:2400, p45_frost:840, p65_clear:3400, p65_frost:1200, psoft_clear:300, psoft_frost:150},
+        12:{p45_clear:840, p45_frost:420, p65_clear:1200, p65_frost:600, psoft_clear:150, psoft_frost:75}
       }}
     },
-    bron_575_p65: {
-      group:'HMI', name:'Broncolor 575/800W P65', desc:'575W or 800W HMI, P65 opal reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
-      ccts:[5600], accessories:['clear','frost'],
-      dmx:{power:'575W',cct:'5600K',control:'Manual'},
+    bron_800: {
+      group:'HMI', name:'Broncolor HMI 800W', desc:'同一灯体の800Wランプ。アガイ商事の公表値 f8 → f8 5/10 (2m,ISO100,P70) より575Wの半段上', emoji:'💡', watts:800, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      ccts:[5600], accessories:['p45_clear', 'p45_frost', 'p65_clear', 'p65_frost', 'psoft_clear', 'psoft_frost'],
+      dmx:{power:'800W',cct:'5600K',control:'Manual'},
       refData:{5600:{
-        2: {clear:54000, frost:19000},
-        3: {clear:19000, frost:6800},
-        5: {clear:6800, frost:3400},
-        8: {clear:3400, frost:1200},
-        12:{clear:1200, frost:600}
-      }}
-    },
-    bron_575_psoft: {
-      group:'HMI', name:'Broncolor 575/800W Psoft', desc:'575W or 800W HMI, Psoft opal reflector (ARC measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
-      ccts:[5600], accessories:['clear','frost'],
-      dmx:{power:'575W',cct:'5600K',control:'Manual'},
-      refData:{5600:{
-        2: {clear:4800, frost:1700},
-        3: {clear:1700, frost:840},
-        5: {clear:840, frost:300},
-        8: {clear:300, frost:150},
-        12:{clear:150, frost:75}
+        2: {p45_clear:76000, p45_frost:27000, p65_clear:76000, p65_frost:27000, psoft_clear:6800, psoft_frost:2400},
+        3: {p45_clear:27000, p45_frost:9600, p65_clear:27000, p65_frost:9600, psoft_clear:2400, psoft_frost:1200},
+        5: {p45_clear:9600, p45_frost:3400, p65_clear:9600, p65_frost:4800, psoft_clear:1200, psoft_frost:420},
+        8: {p45_clear:3400, p45_frost:1200, p65_clear:4800, p65_frost:1700, psoft_clear:420, psoft_frost:210},
+        12:{p45_clear:1200, p45_frost:600, p65_clear:1700, p65_frost:840, psoft_clear:210, psoft_frost:110}
       }}
     },
   },
@@ -5763,6 +5751,12 @@ var LIGHTS = {
 var ACC_INFO = {
   none:     { label:'Light Only',          beam:'Bare Light',    emoji:'⭕', angle:120 },
   // ARRI Pocket PAR のレンズセット（ARC 実測）。角度は ARRI 公称の呼称に合わせた目安。
+  p45_clear: { label:'P45 Clear',           beam:'45°',           emoji:'🔆', angle:45 },
+  p45_frost: { label:'P45 Frost',           beam:'45° Soft',      emoji:'❄️', angle:50 },
+  p65_clear: { label:'P65 Clear',           beam:'65°',           emoji:'🔆', angle:65 },
+  p65_frost: { label:'P65 Frost',           beam:'65° Soft',      emoji:'❄️', angle:70 },
+  psoft_clear:{label:'Psoft Clear',         beam:'Soft',            emoji:'🔆', angle:90 },
+  psoft_frost:{label:'Psoft Frost',         beam:'Soft Diffused',   emoji:'❄️', angle:95 },
   diffusion: { label:'Diffusion',           beam:'Diffused',      emoji:'☁️', angle:60 },
   pp_vnarrow:{ label:'Lens 1 Very Narrow',  beam:'Very Narrow',   emoji:'🔦', angle:9  },
   pp_narrow: { label:'Lens 2 Narrow',       beam:'Narrow',        emoji:'🔦', angle:15 },
@@ -6078,6 +6072,8 @@ function _fSnap(f) {
 
 // ===== HMI BEAM =====
 var HMI_BEAM = {
+  'Broncolor HMI 575W':[45,95],
+  'Broncolor HMI 800W':[45,95],
   'KOBOLD 400W':[9,60],
   'KOBOLD 200W':[9,50],
   // ARRI Pocket PAR: レンズセットの実装角（Lens1 9° 〜 Lens5 Frost 50°）。
@@ -7908,6 +7904,16 @@ function renderDMX() {
       '<span style="font-size:18px;">📄</span>' +
       '<span style="flex:1;min-width:0;"><span class="dmx-lbl" style="color:var(--accent);">'+t('dmxChart')+_verTag+'</span>' +
       '<span class="dmx-val" style="color:var(--accent);font-weight:800;">'+t('dmxChartOpen')+' ↗</span></span></a>';
+  }
+  // メーカー公式サイトへのリンク（ライト側 url があればそちらを優先）
+  var _mk = MAKERS[S.maker] || {};
+  var _site = light.url || _mk.url;
+  if (_site) {
+    html += '<a href="' + _site + '" target="_blank" rel="noopener noreferrer" class="dmx-item dmx-wide" ' +
+      'style="display:flex;align-items:center;gap:8px;text-decoration:none;">' +
+      '<span style="font-size:18px;">\ud83c\udf10</span>' +
+      '<span style="flex:1;min-width:0;"><span class="dmx-lbl">'+t('makerSite')+'</span>' +
+      '<span class="dmx-val" style="font-weight:800;">'+makerName(S.maker)+' ↗</span></span></a>';
   }
   grid.innerHTML = html;
 }
@@ -16092,7 +16098,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.52';
+var ver = 'v1.1.4.53';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
