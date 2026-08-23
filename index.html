@@ -4656,16 +4656,20 @@ var LIGHTS = {
       }
     },
     q1000: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'LED', name:'Fiilex Q1000', desc:'340W LED Bi-Color Fresnel', emoji:'🔴', watts:340,
       weight:'5.8 kg', size:'350×325×400 mm',
-      ccts:[3200, 5600], accessories:['none'],
+      ccts:[3200,5600], accessories:['spot','flood'],
       dmx:{led:'Bi-Color COB',power:'340W',cct:'2800K–6500K',cri:'>93',ip:'IP20',
         control:'On-board / DMX',dimming:'0%–100%',effects:['Strobe', 'Pulse']},
       dmxUrl:'https://fiilex.com/downloads/Q8_TR/DMXTable_Q8Travel-Q10002.pdf',
+      // Fiilex 公式データシート（Q1000, 2017-09-22）5インチ フレネル装着時。
+      // 3m は fc 表記のみのため fc×10.764 で換算（3000K spot 167fc / flood 52fc、
+      // 5600K spot 296fc / flood 95fc）。5m・7m は同シートの Lux 表記をそのまま採用。
+      // データシートの 3000K を 3200K 枠に割り当てている。
       refData:{
-        5600:{0.5:{none:9075},1:{none:2269},2:{none:588},3:{none:300}},
-        3200:{0.5:{none:4800},1:{none:1697},2:{none:424},3:{none:208}},
+        3200:{3:{spot:1798, flood:560},  5:{spot:646,  flood:205}, 7:{spot:330, flood:114}},
+        5600:{3:{spot:3186, flood:1023}, 5:{spot:1146, flood:365}, 7:{spot:585, flood:203}}
       }
     },
     q5: {
@@ -4773,11 +4777,18 @@ var LIGHTS = {
       }
     },
     dedo_1200: {
-      // ARC SYSTEM のカタログに 1200W の実測値がないため保留。
-      // 旧データは 3m=151875 → 5m=153600 と距離が伸びて明るくなる破綻値だった。
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'HMI', name:'Dedolight 1200W HMI', emoji:'🟤', watts:1200,
-      ccts:[5600], accessories:["spot"]
+      ccts:[5600], accessories:['spot','med','flood'],
+      // Dedolight 公式測光表（DLH1200D Focusing Light Head, Daylight 5600K）
+      refData:{5600:{
+        1:  {spot:783000, med:366183, flood:62100},
+        2:  {spot:195750, med:91546,  flood:15525},
+        3:  {spot:87000,  med:40687,  flood:6900},
+        5:  {spot:31320,  med:14647,  flood:2484},
+        10: {spot:7830,   med:3662,   flood:621},
+        15: {spot:3480,   med:1627,   flood:276}
+      }}
     },
     dedo_200: {
       group:'HMI', name:'Dedolight 200W HMI', emoji:'🟤', watts:200,
@@ -4991,22 +5002,37 @@ var LIGHTS = {
       }}
     },
     arri_junior_650: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'Tungsten', name:'ARRI Junior 650', desc:'650W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:650,
-      ccts:[3200], accessories:['spot','flood'],
-      refData:{3200:{1:{spot:12150,flood:2430},2:{spot:3038,flood:608},3:{spot:1350,flood:270},5:{spot:486,flood:97}}}
+      ccts:[3200], accessories:['spot','med','flood'],
+      // ARRI 公式 Junior Lampheads Technical Data (Aug 2022)
+      refData:{3200:{
+        1: {spot:52750, med:22750, flood:10750},
+        3: {spot:5861, med:2528, flood:1194},
+        5: {spot:2110, med:910, flood:430}
+      }}
     },
     arri_junior_300: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'Tungsten', name:'ARRI Junior 300', desc:'300W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:300,
-      ccts:[3200], accessories:['spot','flood'],
-      refData:{3200:{1:{spot:12150,flood:2430},2:{spot:3038,flood:608},3:{spot:1350,flood:270},5:{spot:486,flood:97}}}
+      ccts:[3200], accessories:['spot','med','flood'],
+      // ARRI 公式 Junior Lampheads Technical Data (Aug 2022)
+      refData:{3200:{
+        1: {spot:16803, med:9000, flood:4500},
+        3: {spot:1867, med:1000, flood:500},
+        5: {spot:672, med:360, flood:180}
+      }}
     },
     arri_junior_150: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
+
       group:'Tungsten', name:'ARRI Junior 150', desc:'150W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:150,
-      ccts:[3200], accessories:['spot','flood'],
-      refData:{3200:{0.5:{spot:2904,flood:581},1:{spot:726,flood:145},2:{spot:182,flood:36},3:{spot:81,flood:16}}}
+      ccts:[3200], accessories:['spot','med','flood'],
+      // ARRI 公式 Junior Lampheads Technical Data (Aug 2022)
+      refData:{3200:{
+        1: {spot:4104, med:1899, flood:1503},
+        3: {spot:456, med:211, flood:167},
+        5: {spot:164, med:76, flood:60}
+      }}
     },
     arri_arrilite_750: {
       group:'Tungsten', name:'ARRI ARRILITE 750 Plus', desc:'750W Tungsten Open Face', emoji:'🟠', watts:750,
@@ -6362,6 +6388,11 @@ function _fSnap(f) {
 
 // ===== HMI BEAM =====
 var HMI_BEAM = {
+  'ARRI Junior 650':[13,54],
+  'ARRI Junior 300':[15,55],
+  'ARRI Junior 150':[14,44],
+  'Fiilex Q1000':[32,57],
+  'Dedolight 1200W HMI':[5,56],
   'Broncolor HMI 575W':[8,75],
   'Broncolor HMI 800W':[8,75],
   'Broncolor HMI 1600W + Para':[14,60],
@@ -16465,7 +16496,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.70';
+var ver = 'v1.1.4.71';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
