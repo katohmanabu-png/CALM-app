@@ -10188,13 +10188,16 @@ var S_finderBeamMax = 60;   // Beam Angle 最大値 (デフォルト: ≤60°)
 
 // Beam Angleスライダーのステップ定義
 // 0=All, 1=≤10°(Spot), 2=≤20°, 3=≤30°, 4=≤60°(Medium), 5=60°+(Wide/Flood)
+// ビーム角フィルタは「重複しない帯域」。以前は全段が min:0 だったため
+// 「≤60°」が 0〜60° を意味し、ワイドを探しているのに 12° のスポットが
+// 常に候補に並んでいた。各段はその角度帯の器具だけを返す。
 var BEAM_STEPS = [
-  { label:'All',   min:0,  max:999 },
-  { label:'≤10°', min:0,  max:10  },
-  { label:'≤20°', min:0,  max:20  },
-  { label:'≤30°', min:0,  max:30  },
-  { label:'≤60°', min:0,  max:60  },
-  { label:'60°+',  min:61, max:999 }
+  { label:'All',    min:0,  max:999 },
+  { label:'≤10°',  min:0,  max:10  },
+  { label:'10-20°', min:10, max:20  },
+  { label:'20-30°', min:20, max:30  },
+  { label:'30-60°', min:30, max:60  },
+  { label:'60°+',   min:60, max:999 }
 ];
 
 function onFinderBeamChange() {
@@ -10428,7 +10431,9 @@ function renderFinderResults() {
   var beamMin = bs.min, beamMax = bs.max;
   var useBeamFilter = beamMin > 0 || beamMax < 999;
   // ±15°の許容範囲（useBeamFilterのときのみ適用）
-  var BEAM_TOLERANCE = 15;
+  // 帯域が重複しなくなったので許容は 0。境界値(10/20/30/60°)は隣り合う
+  // 2つの帯域どちらにも出るが、それは実際にどちらの用途にも使えるということ。
+  var BEAM_TOLERANCE = 0;
 
   // カメラ設定ノート更新
   var noteWrap = el('finder-cam-note');
@@ -16418,7 +16423,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.67';
+var ver = 'v1.1.4.68';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
