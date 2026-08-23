@@ -8242,12 +8242,12 @@ function renderDistTable() {
   var html = '<table class="dist-table"><thead><tr><th>m</th><th>Lux</th><th>fc</th><th></th></tr></thead><tbody>';
   for (var d = 1; d <= 20; d++) {
     var r = luxForCCTAndDist(light.refData, cct, S.accKey, d);
-    html += '<tr' + (r&&r.exact ? ' class="exact"' : '') + '>';
+    html += '<tr' + (r&&r.exactDist ? ' class="exact"' : '') + '>';
     html += '<td style="color:var(--accent)">' + d + 'm</td>';
     if (r && r.lux) {
       html += '<td>' + r.lux.toLocaleString() + '</td>';
       html += '<td style="color:#888">' + Math.round(r.lux/10.764).toLocaleString() + '</td>';
-      var _lab = r.exact ? t('measured') : ((r.below||r.above) ? t('extrapolated') : t('estimated'));
+      var _lab = r.exactDist ? t('measured') : ((r.below||r.above) ? t('extrapolated') : t('estimated'));
       var _col = (r.below||r.above) ? '#c77' : '#888';
       html += '<td style="font-size:9px;color:' + _col + '">' + _lab + '</td>';
     } else {
@@ -8311,18 +8311,22 @@ function luxForCCTAndDist(refData, cct, acc, dist) {
   var ck2 = Object.keys(refData).map(Number).sort(function(a,b){return a-b;});
   var nc2 = ck2.reduce(function(p,c){return Math.abs(c-cct)<Math.abs(p-cct)?c:p;});
   var dm2 = refData[nc2]||refData[String(nc2)]; if (!dm2) return null;
-  var ds2 = Object.keys(dm2).map(Number).sort(function(a,b){return a-b;});
-  if (!ds2.length) return null;
-  var lo2 = ds2[0], hi2 = ds2[ds2.length-1];
-  for (var k=0; k<ds2.length-1; k++) {
-    if (ds2[k] <= dist && ds2[k+1] >= dist) { lo2=ds2[k]; hi2=ds2[k+1]; break; }
-    if (ds2[k] > dist) { hi2=ds2[k]; lo2=(k>0?ds2[k-1]:ds2[k]); break; }
-  }
   function gv(d) {
     var v=dm2[d]||dm2[String(d)];
     if (v===null||v===undefined) return null;
     if (typeof v==='object') return v[acc]||v[String(acc)]||null;
     return v;
+  }
+  // 距離一覧は「このアクセサリが値を持つ距離」だけで作る。
+  // 全アクセサリ共通の一覧を使うと、そのaccに測定が無い距離でも隣の値をそのまま
+  // 返してしまい（値が平らに伸びる）、しかも exactDist が true になっていた。
+  var ds2 = Object.keys(dm2).map(Number).filter(function(d){ return gv(d) != null; })
+                            .sort(function(a,b){return a-b;});
+  if (!ds2.length) return null;
+  var lo2 = ds2[0], hi2 = ds2[ds2.length-1];
+  for (var k=0; k<ds2.length-1; k++) {
+    if (ds2[k] <= dist && ds2[k+1] >= dist) { lo2=ds2[k]; hi2=ds2[k+1]; break; }
+    if (ds2[k] > dist) { hi2=ds2[k]; lo2=(k>0?ds2[k-1]:ds2[k]); break; }
   }
   var vl2=gv(lo2), vh2=gv(hi2);
   if (!vl2&&!vh2) return null;
@@ -8379,7 +8383,11 @@ function luxAtBeamAngle(light, dist, beamPctOverride) {
   var logLux = Math.log(rS.lux) * (1-pct) + Math.log(rF.lux) * pct;
   // 測定範囲外かどうかは、混合元のどちらかが範囲外なら範囲外として引き継ぐ。
   // これを落とすと Calc が外挿値を通常の補間値として表示してしまう。
-  return { lux: Math.round(Math.exp(logLux)), exact: false,
+  // 呼び出し側は exactDist を見るため、キー名を合わせる（exact では常に undefined になり
+  // 実測値でも「(~)」と表示されていた）。スライダーが両端にある時は混合が起きず
+  // 片方の実測値そのものなので、その実測フラグを引き継ぐ。
+  var _exact = (pct <= 0) ? !!rS.exactDist : (pct >= 1) ? !!rF.exactDist : false;
+  return { lux: Math.round(Math.exp(logLux)), exactDist: _exact,
            below: !!(rS.below || rF.below), above: !!(rS.above || rF.above),
            minDist: Math.min(rS.minDist, rF.minDist),
            maxDist: Math.max(rS.maxDist, rF.maxDist) };
@@ -16402,7 +16410,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.65';
+var ver = 'v1.1.4.66';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
