@@ -4476,18 +4476,14 @@ var LIGHTS = {
     joker_800: {
       url:'https://k5600.com/collections/800/Joker',
       group:'HMI', name:'Joker2 800', desc:'800W HMI Fresnel Lens', emoji:'💛', watts:800,
-      ccts:[5600], accessories:['joker_open', 'lens1_vn', 'lens2_n', 'lens3_m', 'lens4_w', 'frost', 'frost_l1', 'frost_l2', 'frost_l3', 'frost_l4', 'sf_lens'],
+      ccts:[5600], accessories:['sf_lens'],
       refData:{
-        joker_open:{5600:{2:488000, 3:241000, 5:96800, 8:30500}},
-        lens1_vn:{5600:{2:30500, 3:12800, 5:6050, 8:2270}},
-        lens2_n:{5600:{2:60300, 3:27200, 5:9080, 8:3210}},
-        lens3_m:{5600:{2:9080, 3:3600, 5:1700, 8:741}},
-        lens4_w:{5600:{2:3600, 3:1900, 5:933, 8:378}},
-        frost:{5600:{2:109000, 3:53700, 5:12800, 8:6050}},
-        frost_l1:{5600:{2:24200, 3:7620, 5:3210, 8:1510}},
-        frost_l2:{5600:{2:30500, 3:12800, 5:6050, 8:1900}},
-        frost_l3:{5600:{2:6790, 3:3210, 5:1510, 8:476}},
-        frost_l4:{5600:{2:3210, 3:1700, 5:741, 8:233}},
+        // カタログ p23「800W ジョーカー2 ソースフォー」の実測のみ採用。
+        // レンズ／フロスト系10種は出典を確認できず、100°が10°より明るいなど
+        // 物理的に成立しない並びだった。レンズ角 10/19/26/40° も K5600 の実機構成
+        // （Medium / Wide / Super Wide / Fresnel）ではなく Source Four の規格値。
+        // joker_open は 2m/3m が 1600W と完全同値で、出力が2倍違う灯体が
+        // 同じ値になることはないため採用できない。
         sf_lens:{5600:{1:152000, 2:53700, 3:24200, 5:7620, 8:3210}}
       }
     },
@@ -4554,13 +4550,9 @@ var LIGHTS = {
     joker_1600: {
       url:'https://k5600.com/collections/1600/Joker',
       group:'HMI', name:'Joker2 1600', desc:'1600W HMI Fresnel Lens', emoji:'💛', watts:1600,
-      ccts:[5600], accessories:['joker_open', 'lens1_vn', 'lens2_n', 'lens3_m', 'lens4_w', 'bugbeam'],
+      ccts:[5600], accessories:['bugbeam'],
       refData:{
-        joker_open:{5600:{2:488000, 3:241000, 5:109000, 8:38000, 15:11400}},
-        lens1_vn:{5600:{2:47800, 3:24200, 5:7620, 8:3210, 15:2270}},
-        lens2_n:{5600:{2:191000, 3:60300, 5:24200, 8:9080, 15:3210}},
-        lens3_m:{5600:{2:24200, 3:9080, 5:3210, 8:1510, 15:476}},
-        lens4_w:{5600:{2:27200, 3:11400, 5:3600, 8:1700, 15:476}},
+        // カタログ p23「1600W バグビーム」の実測のみ採用。除外の理由は joker_800 と同じ。
         bugbeam:{5600:{1:152000, 2:53700, 3:24200, 5:7620, 8:3210}}
       }
     },
@@ -6398,8 +6390,6 @@ var HMI_BEAM = {
   'Dedolight 200W HMI':[4,50],
   // 'Joker 800' は実際の機種名が 'Joker2 800' で一致せず無効だった。
   // 範囲は各機種が実際に持つアクセサリの角度から求めたもの。
-  'Joker2 800':[10,100],
-  'Joker2 1600':[10,40],
   // Joker 400 / 200 はレンズ無し(12°)の実測しか無く、ズーム範囲を持たないため登録しない。
   // 以前は [9,50] としていたため、Finder が 50° の広角でも使える器具と誤認していた。
   'Alpha 1800':[10,55]
@@ -7153,7 +7143,8 @@ function updatePreview() {
 // K5600 Joker の実際の運用に合わせた2段選択:
 //   ビーカー(クリア/フロスト)を付けてからレンズを選ぶ。
 //   ビーカーを付けずに Source Four レンズや Bug Beam を装着することもできる。
-var BEAKER_LIGHTS = { 'k5600|joker_800': true, 'k5600|joker_1600': true };
+// Joker2 800/1600 は検証できたアクセサリが1つずつのため、ビーカー選択は無効。
+var BEAKER_LIGHTS = {};
 
 // Beaker → そのビーカーで使えるアクセサリ（全機種共通の上限リスト）。
 // 実際に表示するのは beakerAccFor() で器具が持つ accessories と積を取ったもの。
@@ -16474,7 +16465,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.69';
+var ver = 'v1.1.4.70';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
