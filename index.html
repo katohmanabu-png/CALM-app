@@ -4476,9 +4476,9 @@ var LIGHTS = {
     joker_800: {
       url:'https://k5600.com/collections/800/Joker',
       group:'HMI', name:'Joker2 800', desc:'800W HMI Fresnel Lens', emoji:'💛', watts:800,
-      ccts:[5600], accessories:['open', 'lens1_vn', 'lens2_n', 'lens3_m', 'lens4_w', 'frost', 'frost_l1', 'frost_l2', 'frost_l3', 'frost_l4', 'sf_lens'],
+      ccts:[5600], accessories:['joker_open', 'lens1_vn', 'lens2_n', 'lens3_m', 'lens4_w', 'frost', 'frost_l1', 'frost_l2', 'frost_l3', 'frost_l4', 'sf_lens'],
       refData:{
-        open:{5600:{2:488000, 3:241000, 5:96800, 8:30500}},
+        joker_open:{5600:{2:488000, 3:241000, 5:96800, 8:30500}},
         lens1_vn:{5600:{2:30500, 3:12800, 5:6050, 8:2270}},
         lens2_n:{5600:{2:60300, 3:27200, 5:9080, 8:3210}},
         lens3_m:{5600:{2:9080, 3:3600, 5:1700, 8:741}},
@@ -4496,15 +4496,15 @@ var LIGHTS = {
       group:'HMI', name:'Joker 400', desc:'400W HMI Fresnel Lens', emoji:'💛', watts:400,
       weight:'3.8 kg', size:'240×210×280 mm',
       ccts:[5600],
-      accessories:['flood'],
+      accessories:['joker_open'],
       dmx:{led:'HMI',power:'400W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        1: {flood:861000},
-        2: {flood:305000},
-        3: {flood:152000},
-        5: {flood:76000},
-        8: {flood:27000}
+        1: {joker_open:861000},
+        2: {joker_open:305000},
+        3: {joker_open:152000},
+        5: {joker_open:76000},
+        8: {joker_open:27000}
       }}
     },
     joker_200: {
@@ -4512,15 +4512,15 @@ var LIGHTS = {
       group:'HMI', name:'Joker 200', desc:'200W HMI Fresnel Lens', emoji:'💛', watts:200,
       weight:'2.6 kg', size:'210×190×240 mm',
       ccts:[5600],
-      accessories:['flood'],
+      accessories:['joker_open'],
       dmx:{led:'HMI',power:'200W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',
         control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
-        1: {flood:431000},
-        2: {flood:108000},
-        3: {flood:38000},
-        5: {flood:19000},
-        8: {flood:6800}
+        1: {joker_open:431000},
+        2: {joker_open:108000},
+        3: {joker_open:38000},
+        5: {joker_open:19000},
+        8: {joker_open:6800}
       }}
     },
     alpha_6k: {
@@ -4554,9 +4554,9 @@ var LIGHTS = {
     joker_1600: {
       url:'https://k5600.com/collections/1600/Joker',
       group:'HMI', name:'Joker2 1600', desc:'1600W HMI Fresnel Lens', emoji:'💛', watts:1600,
-      ccts:[5600], accessories:['open', 'lens1_vn', 'lens2_n', 'lens3_m', 'lens4_w', 'bugbeam'],
+      ccts:[5600], accessories:['joker_open', 'lens1_vn', 'lens2_n', 'lens3_m', 'lens4_w', 'bugbeam'],
       refData:{
-        open:{5600:{2:488000, 3:241000, 5:109000, 8:38000, 15:11400}},
+        joker_open:{5600:{2:488000, 3:241000, 5:109000, 8:38000, 15:11400}},
         lens1_vn:{5600:{2:47800, 3:24200, 5:7620, 8:3210, 15:2270}},
         lens2_n:{5600:{2:191000, 3:60300, 5:24200, 8:9080, 15:3210}},
         lens3_m:{5600:{2:24200, 3:9080, 5:3210, 8:1510, 15:476}},
@@ -6029,6 +6029,11 @@ var LIGHTS = {
 
 var ACC_INFO = {
   none:     { label:'Light Only',          beam:'Bare Light',    emoji:'⭕', angle:120 },
+  // K5600 Joker の「レンズ無し」= リフレクターのみ。カタログはビーム角を明記していないが、
+  // 実測lux・ランプ光束・距離から逆算すると 9〜15° の狭角（Joker 400 で 8.7°、1600 で 14.5°）。
+  // これを flood(55°) / open(110°) として登録していたため、Finder が広角の超高輝度光源と
+  // 誤認して不当に上位に並んでいた。
+  joker_open:{ label:'Lensless (reflector)', beam:'Narrow',        emoji:'🔦', angle:12 },
   // ARRI Pocket PAR のレンズセット（ARC 実測）。角度は ARRI 公称の呼称に合わせた目安。
   p45_clear: { label:'P45 Clear',           beam:'45°',           emoji:'🔆', angle:45 },
   p45_frost: { label:'P45 Frost',           beam:'45° Soft',      emoji:'❄️', angle:50 },
@@ -6391,9 +6396,12 @@ var HMI_BEAM = {
   'ARRI HMI 6000':[8,50],
   'Dedolight 400W HMI':[4,50],
   'Dedolight 200W HMI':[4,50],
-  'Joker 800':[9,50],
-  'Joker 400':[9,50],
-  'Joker 200':[9,50],
+  // 'Joker 800' は実際の機種名が 'Joker2 800' で一致せず無効だった。
+  // 範囲は各機種が実際に持つアクセサリの角度から求めたもの。
+  'Joker2 800':[10,100],
+  'Joker2 1600':[10,40],
+  // Joker 400 / 200 はレンズ無し(12°)の実測しか無く、ズーム範囲を持たないため登録しない。
+  // 以前は [9,50] としていたため、Finder が 50° の広角でも使える器具と誤認していた。
   'Alpha 1800':[10,55]
 };;
 // Fresnel accessory keys (support beam angle interpolation)
@@ -7152,12 +7160,12 @@ var BEAKER_LIGHTS = { 'k5600|joker_800': true, 'k5600|joker_1600': true };
 var BEAKER_ACC = {
   // ビーカー無し: Source Four レンズ / Bug Beam（灯体を差し替える運用）
   none:  ['bugbeam','sf_lens'],
-  clear: ['open','lens1_vn','lens2_n','lens3_m','lens4_w'],
+  clear: ['joker_open','lens1_vn','lens2_n','lens3_m','lens4_w'],
   frost: ['frost','frost_l1','frost_l2','frost_l3','frost_l4'],
 };
 
 // Default acc per beaker
-var BEAKER_DEFAULT_ACC = { none:'sf_lens', clear:'open', frost:'frost' };
+var BEAKER_DEFAULT_ACC = { none:'sf_lens', clear:'joker_open', frost:'frost' };
 
 // そのビーカーで、この器具が実際に測光データを持つアクセサリだけを返す。
 // これをしないと Joker 800 の「None」に Bug Beam が並ぶ（800 は Bug Beam を持たない）。
@@ -16410,7 +16418,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.66';
+var ver = 'v1.1.4.67';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
