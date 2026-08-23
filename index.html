@@ -2072,7 +2072,7 @@ var LANGS = {
     favSave:'保存する', favCancel:'キャンセル',
     favAdded:'⭐ お気に入りに追加しました', favRemoved:'お気に入りを削除しました',
     tableNote:'逆二乗則で1〜20m全距離を計算（✓=実測値、〜=計算値）',
-    makerSite:'メーカー公式サイト', measured:'✓ 実測', estimated:'〜 推算', extrapolated:'⚠ 範囲外',
+    finderAccUnit:'種', makerSite:'メーカー公式サイト', measured:'✓ 実測', estimated:'〜 推算', extrapolated:'⚠ 範囲外',
     finderDesc:'カメラ設定と撮影条件から、目標F値に最も近いライトをランキング表示します。',
     finderHeight:'💡 ライト高さ (m)',
     finderHoriz:'↔️ 水平距離 (m)',
@@ -2168,7 +2168,7 @@ var LANGS = {
     favSave:'Save', favCancel:'Cancel',
     favAdded:'⭐ Added to favorites', favRemoved:'Removed from favorites',
     tableNote:'Inverse square law 1–20m (✓=measured, ~=calculated)',
-    makerSite:'Manufacturer site', measured:'✓ Measured', estimated:'~ Calculado', extrapolated:'⚠ Out of range',
+    finderAccUnit:' opts', makerSite:'Manufacturer site', measured:'✓ Measured', estimated:'~ Calculado', extrapolated:'⚠ Out of range',
     finderDesc:'Ranks all lights closest to your target F-stop based on camera settings and conditions.',
     finderHeight:'💡 Light Height (m)',
     finderHoriz:'↔️ Horizontal Dist. (m)',
@@ -2258,7 +2258,7 @@ var LANGS = {
     favSave:'Guardar', favCancel:'Cancelar',
     favAdded:'⭐ Guardado en favoritos', favRemoved:'Eliminado de favoritos',
     tableNote:'Ley de cuadrado inverso 1–20m (✓=medido, ~=calculado)',
-    makerSite:'Sitio del fabricante', measured:'✓ Medido', estimated:'~ Calculado', extrapolated:'⚠ Fuera de rango',
+    finderAccUnit:' op.', makerSite:'Sitio del fabricante', measured:'✓ Medido', estimated:'~ Calculado', extrapolated:'⚠ Fuera de rango',
     finderDesc:'Clasifica las luces más cercanas a tu F-stop objetivo.',
     finderHeight:'🔦 Altura del foco (m)',
     finderHoriz:'↔️ Distancia horizontal (m)',
@@ -10498,6 +10498,7 @@ function renderFinderResults() {
 
       // ── Beam Angle: ±15°許容でbestAccを選ぶ ──
       var accs = light.accessories || ['none'];
+      var altAccs = null;
       var bestLux = 0, bestAcc = 'none', bestAngle = null;
 
       if (!useBeamFilter) {
@@ -10517,6 +10518,16 @@ function renderFinderResults() {
             if (r0 && r0.lux > bestLux) { bestLux = r0.lux; bestAcc = accs[ai]; }
           }
         }
+        // フィルタ無しでも、データのある全アクセサリを内訳用に集める
+        var _alt = [];
+        for (var aj = 0; aj < accs.length; aj++) {
+          var _ri = luxForCCTAndDist(light.refData, matchCCT, accs[aj], dist);
+          if (!_ri || !(_ri.lux > 0)) continue;
+          var _ii = (typeof ACC_INFO !== 'undefined') ? ACC_INFO[accs[aj]] : null;
+          _alt.push({acc:accs[aj], angle:(_ii && _ii.angle != null) ? _ii.angle : null, lux:_ri.lux});
+        }
+        _alt.sort(function(a,b){ return (b.angle==null?-1:b.angle) - (a.angle==null?-1:a.angle); });
+        altAccs = _alt;
       } else {
         // 「≤60°」は 0°〜60°（+許容15°）を意味する。上限値を中心に±15°としていた
         // ため、≤60° が 45〜75° になり、スポット系(10°など)が丸ごと外れていた。
@@ -10549,6 +10560,8 @@ function renderFinderResults() {
           bestAcc = candAngle[0].acc;
           bestLux = candAngle[0].lux;
           bestAngle = candAngle[0].angle;
+          // 条件に合った他のアクセサリも残す（行を展開して内訳を見せるため）
+          altAccs = candAngle;
         } else if (candNull.length > 0) {
           // angle:null フォールバック（最大lux）
           candNull.sort(function(a,b){ return b.lux - a.lux; });
@@ -10650,7 +10663,8 @@ function renderFinderResults() {
         units: bestUnits, priority: priority,
         stopDiff: bestUnits === 1 ? stopDiff1 : stopDiffU,
         angle: bestAngle, angleForSort: angleForSort,
-        angleDiff: finderAngleDiff
+        angleDiff: finderAngleDiff,
+        altAccs: (altAccs && altAccs.length > 1) ? altAccs : null
       });
     }
   }
@@ -10733,17 +10747,54 @@ function renderFinderResults() {
       '<div style="flex:1;min-width:0;">' +
         '<div style="font-size:11px;color:' + makerAccent + ';font-weight:700;">' + (maker.emoji||'') + ' ' + (makerName(maker)||res.mk) + '</div>' +
         '<div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + '</div>' +
-        '<div style="font-size:10px;color:var(--text-dim);">' + res.cct + 'K · ' + angleLabel + res.acc + (res.watts > 0 ? ' · ' + res.watts + 'W' : '') + '</div>' +
+        '<div style="font-size:10px;color:var(--text-dim);">' + res.cct + 'K · ' + angleLabel + res.acc + (res.watts > 0 ? ' · ' + res.watts + 'W' : '') +
+          (res.altAccs ? '<span class="finder-alt-toggle" style="margin-left:6px;color:var(--accent);font-weight:800;cursor:pointer;">▾ ' + res.altAccs.length + t('finderAccUnit') + '</span>' : '') + '</div>' +
       '</div>' +
       '<div style="text-align:right;min-width:64px;padding-left:6px;">' +
         '<div style="font-size:20px;font-weight:900;color:var(--accent);font-family:\'JetBrains Mono\',monospace;">' + res.fStr + '</div>' +
         (stopStr ? '<div style="font-size:10px;font-weight:700;color:' + stopColor + ';">' + stopStr + '</div>' : '') +
       '</div>' +
       '<button class="fav-star-btn' + (isFav(res.mk,res.lk)?' active':'') + '" data-fav-key="' + res.mk + '|' + res.lk + '" onclick="toggleFav(\'' + res.mk + '\',\'' + res.lk + '\',event)" style="margin-left:4px;">' + (isFav(res.mk,res.lk)?'★':'☆') + '</button>';
-    (function(mk2, lk2) {
-      row.addEventListener('click', function() { try { selectMakerModel(mk2, lk2); } catch(e) {} });
-    })(res.mk, res.lk);
+    (function(mk2, lk2, r2) {
+      row.addEventListener('click', function(ev) {
+        // 「▾ アクセサリn種」を押した時は展開だけ行い、機種は開かない
+        if (ev.target && ev.target.classList && ev.target.classList.contains('finder-alt-toggle')) {
+          ev.stopPropagation();
+          // row は for ループの var 変数でクロージャが最後の行を掴んでしまうため、
+          // リスナが張られた要素そのもの（currentTarget）から辿る。
+          var panel = (ev.currentTarget || row).nextElementSibling;
+          if (panel && panel.classList && panel.classList.contains('finder-alt-panel')) {
+            var open = panel.style.display !== 'none';
+            panel.style.display = open ? 'none' : 'block';
+            ev.target.textContent = (open ? '\u25BE ' : '\u25B4 ') + r2.altAccs.length + t('finderAccUnit');
+          }
+          return;
+        }
+        try { selectMakerModel(mk2, lk2); } catch(e) {}
+      });
+    })(res.mk, res.lk, res);
     out.appendChild(row);
+
+    if (res.altAccs) {
+      var panel = document.createElement('div');
+      panel.className = 'finder-alt-panel';
+      panel.style.cssText = 'display:none;padding:2px 12px 8px 46px;border-bottom:1px solid var(--bg);border-left:4px solid ' + makerAccent + ';background:' + makerRowBg + ';';
+      panel.innerHTML = res.altAccs.map(function(c) {
+        var fv = 0;
+        try { fv = luxToFstopCamera(c.lux); } catch(e) { fv = 0; }
+        var isCur = (c.acc === res.acc);
+        return '<div style="display:flex;align-items:center;gap:8px;padding:3px 0;font-size:11px;' +
+               (isCur ? 'font-weight:800;color:var(--text);' : 'color:var(--text-dim);') + '">' +
+               '<span style="min-width:38px;text-align:right;">' + (c.angle != null ? c.angle + '\u00B0' : '\u2014') + '</span>' +
+               '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' +
+                 ((ACC_INFO[c.acc] && ACC_INFO[c.acc].label) || c.acc) + '</span>' +
+               '<span style="min-width:64px;text-align:right;font-family:monospace;">' +
+                 c.lux.toLocaleString() + ' lx</span>' +
+               '<span style="min-width:44px;text-align:right;font-weight:900;color:var(--accent);font-family:monospace;">' +
+                 (fv > 0 ? fLab(fv) : '\u2014') + '</span></div>';
+      }).join('');
+      out.appendChild(panel);
+    }
   }
 
   // 30件で打ち切った場合は「もっと見る」を表示（全件↔上位30件をトグル）
@@ -16423,7 +16474,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.68';
+var ver = 'v1.1.4.69';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
