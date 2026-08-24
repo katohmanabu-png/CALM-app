@@ -8904,7 +8904,46 @@ function calculate() {
 }
 
 // ===== FAVORITES =====
-function getFavs() { try { return JSON.parse(localStorage.getItem('lmp_favs')||'[]'); } catch(e) { return []; } }
+// お気に入りは手で集めたものなので、消えたら作り直しになる。
+// 図面と同じく控えを持ち、本体が壊れていたら控えから読む。
+// 控え(バックアップ)へ退避してよい文字列か。中身のある正しい配列だけを通す。
+// 壊れた本体をそのまま控えに写すと、直前の正しい控えを潰してしまう。
+function _okArrayJson(str) {
+  if (!str) return false;
+  try { var v = JSON.parse(str); return Array.isArray(v) && v.length > 0; } catch(e) { return false; }
+}
+
+function getFavs() {
+  try {
+    var raw = localStorage.getItem('lmp_favs');
+    // 本体が「空の正しい配列」なのは全部外したという意思表示。控えから戻してはいけない。
+    // 控えを使うのは本体が存在しない（＝ストレージごと失われた）ときだけ。
+    if (raw !== null) {
+      var v = JSON.parse(raw);
+      return Array.isArray(v) ? v : [];
+    }
+    var bak = localStorage.getItem('lmp_favs_bak');
+    if (bak) {
+      var b = JSON.parse(bak);
+      if (Array.isArray(b) && b.length) {
+        try { localStorage.setItem('lmp_favs', bak); } catch(e2) {}
+        return b;
+      }
+    }
+    return [];
+  } catch(e) {
+    // 本体が壊れている。控えから読み、本体も直しておく（直さないと毎回ここに来る）
+    try {
+      var rawBak = localStorage.getItem('lmp_favs_bak') || '[]';
+      var b2 = JSON.parse(rawBak);
+      if (Array.isArray(b2)) {
+        try { localStorage.setItem('lmp_favs', rawBak); } catch(e3) {}
+        return b2;
+      }
+      return [];
+    } catch(e2) { return []; }
+  }
+}
 // メーカー分類の変更（例: aputure→amaran へ移動）で保存済みのお気に入り／参照が
 // 元のメーカーキーで解決できない場合、全メーカーから同じ型番を探して正しいライトを返す。
 function _resolveLightRef(maker, model) {
@@ -8912,7 +8951,14 @@ function _resolveLightRef(maker, model) {
   for (var mk in LIGHTS) { if (LIGHTS[mk] && LIGHTS[mk][model]) return { maker: mk, light: LIGHTS[mk][model] }; }
   return { maker: maker, light: null };
 }
-function saveFavs(f) { try { localStorage.setItem('lmp_favs', JSON.stringify(f)); } catch(e) {} }
+function saveFavs(f) {
+  try {
+    var prev = localStorage.getItem('lmp_favs');
+    // 空で上書きしてしまう事故を防ぐため、中身があったものを控えに残す
+    if (_okArrayJson(prev)) localStorage.setItem('lmp_favs_bak', prev);
+    localStorage.setItem('lmp_favs', JSON.stringify(f));
+  } catch(e) { console.log('favs save failed', e); }
+}
 var _pendingMemo = null;
 function updateFavStar() {}
 function showFavPanel() { el('fav-panel').classList.add('open'); renderFavList(); }
@@ -13017,8 +13063,12 @@ document.addEventListener('keydown', function(e){
 
 function loadCalcState() {
   try {
-    var ver = localStorage.getItem('calm_db_ver');
-    if (ver === 'v20260610') {
+    // 以前は calm_db_ver が特定の文字列と完全一致しないと、灯体・アクセサリー・
+    // 距離・色温度の復元を丸ごと捨てていた。バージョン文字列を更新するだけで
+    // 設定がリセットされてしまうため、この一括ゲートは外した。
+    // 各項目は下で個別に妥当性を検証している（存在しない灯体は採用しない等）ので、
+    // バージョンで捨てる必要がない。
+    {
       var mk = localStorage.getItem('calm_maker');
       if (mk && LIGHTS[mk]) {
         S.maker = mk;
@@ -13027,13 +13077,12 @@ function loadCalcState() {
       }
       var dist = localStorage.getItem('calm_dist');
       if (dist !== null) S.dist = parseFloat(dist) || 5;
+      var lgt0 = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
       var cct = localStorage.getItem('calm_cctIdx');
-      if (cct !== null) {
-        var lgt0 = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
-        S.cctIdx = parseInt(cct) || cctIdxFor5600(lgt0);
-      }
+      // 保存が無いのは初回起動。その場合は 5600K 相当を既定にする
+      S.cctIdx = (cct !== null) ? (parseInt(cct) || cctIdxFor5600(lgt0)) : cctIdxFor5600(lgt0);
       var imp = localStorage.getItem('calm_imperial');
-      S.imperial = (imp === '1');
+      if (imp !== null) S.imperial = (imp === '1');
       // Restore accKey only if it's valid for current model
       var savedAcc = localStorage.getItem('calm_acc');
       var lgt2 = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
@@ -13042,11 +13091,6 @@ function loadCalcState() {
       } else {
         S.accKey = defaultWidestAcc(lgt2);
       }
-    } else {
-      // 初回起動 / バージョン不一致
-      var lgt = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
-      S.accKey = defaultWidestAcc(lgt);
-      if (!localStorage.getItem('calm_cctIdx')) S.cctIdx = cctIdxFor5600(lgt);
     }
   } catch(e) {}
 
@@ -13768,11 +13812,13 @@ function dftInit() {
 
   try {
     var ds = localStorage.getItem('calm_drafts');
+    var dsOk = false;
     try {
-      if (ds) _dft.drafts = JSON.parse(ds);
-    } catch(e) { ds = null; }
-    // 本体が無い/壊れているときは控えから戻す（バージョン更新後の取りこぼし対策）
-    if (!_dft.drafts.length) {
+      if (ds !== null) { _dft.drafts = JSON.parse(ds) || []; dsOk = Array.isArray(_dft.drafts); }
+    } catch(e) { dsOk = false; _dft.drafts = []; }
+    // 控えから戻すのは本体が無い/壊れているときだけ。
+    // 中身が空でも正しく読めたなら「全部消した」という意思なので復活させない。
+    if (!dsOk) {
       try {
         var bak = localStorage.getItem('calm_drafts_bak');
         if (bak) {
@@ -16699,11 +16745,17 @@ function _dftIncrFavCount(mk, lk) {
 function _dftLPRenderFav(listEl) {
   var favs = getFavs();
   var counts = _dftGetUsageCounts();
+  var migrated = false;
   var items = favs.map(function(f) {
-    var mk=f.maker, lk=f.model, lt=LIGHTS[mk]&&LIGHTS[mk][lk];
-    if (!lt) return null;
-    return {mk:mk, lk:lk, lt:lt, makerName:makerName(mk), count:counts[mk+'|'+lk]||0};
+    // Calc タブと同じ解決を使う。以前はここだけ LIGHTS[maker][model] を直に見ていたため、
+    // メーカー分類を変えた版に上げるとお気に入りがこの一覧から消えていた。
+    var _rl = _resolveLightRef(f.maker, f.model);
+    if (!_rl.light) return null;
+    if (_rl.maker !== f.maker) { f.maker = _rl.maker; f.key = f.maker + '|' + f.model; migrated = true; }
+    var mk = f.maker, lk = f.model;
+    return {mk:mk, lk:lk, lt:_rl.light, makerName:makerName(mk), count:counts[mk+'|'+lk]||0};
   }).filter(Boolean);
+  if (migrated) saveFavs(favs);   // 解決できたものは保存キーも直しておく
   if (!items.length) {
     listEl.innerHTML = '<div style="color:#888;text-align:center;padding:28px;font-size:13px;">⭐ No favorites yet<br><span style="font-size:11px;">Star lights in the Calc tab</span></div>';
     return;
@@ -17074,7 +17126,7 @@ function _dftWriteDrafts() {
   var prev = null;
   try { prev = localStorage.getItem('calm_drafts'); } catch(e) {}
   try {
-    if (prev) localStorage.setItem('calm_drafts_bak', prev);
+    if (_okArrayJson(prev)) localStorage.setItem('calm_drafts_bak', prev);
     localStorage.setItem('calm_drafts', json);
     // 本当に書けたか読み直して確かめる
     var back = JSON.parse(localStorage.getItem('calm_drafts') || 'null');
@@ -17560,7 +17612,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.89';
+var ver = 'v1.1.4.90';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
