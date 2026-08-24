@@ -2144,7 +2144,8 @@ var LANGS = {
     dftSelectLight:'💡 ライト選択', dftSearchPlaceholder:'検索...',
     dftCancel:'キャンセル', dftClose:'閉じる', dftApply:'適用',
     camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定',
-    dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ', dftPresetMore:'すべて表示', dftPresetLess:'たたむ',
+    dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
+    expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     dftPanelH:'幕の高さ', dftPanelHHint:'← 距離計算に使う高さ(中心)', dftObjSettings:'設定',
     dftPeopleTitle:'🧍 人を配置', dftManLabel:'男性', dftWomanLabel:'女性',
     dftSavePrompt:'名前を付けて保存:', dftSaved:'💾 保存: ',
@@ -2236,7 +2237,8 @@ var LANGS = {
     dftSelectLight:'💡 Select Light', dftSearchPlaceholder:'Search...',
     dftCancel:'Cancel', dftClose:'Close', dftApply:'Apply',
     camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop',
-    dftSize:'Size', dftPresetPick:'Pick a preset', dftPresetMore:'Show all', dftPresetLess:'Collapse',
+    dftSize:'Size', dftPresetPick:'Pick a preset',
+    expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
     dftPanelH:'Panel height', dftPanelHHint:'← height used for distance (centre)', dftObjSettings:'Settings',
     dftPeopleTitle:'🧍 People', dftManLabel:'Man', dftWomanLabel:'Woman',
     dftSavePrompt:'Save as:', dftSaved:'💾 Saved: ',
@@ -2325,7 +2327,8 @@ var LANGS = {
     dftSelectLight:'💡 Seleccionar Luz', dftSearchPlaceholder:'Buscar...',
     dftCancel:'Cancelar', dftClose:'Cerrar', dftApply:'Aplicar',
     camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f',
-    dftSize:'Tamaño', dftPresetPick:'Elegir preajuste', dftPresetMore:'Mostrar todo', dftPresetLess:'Contraer',
+    dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
+    expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
     dftPanelH:'Altura del panel', dftPanelHHint:'← altura usada para la distancia (centro)', dftObjSettings:'Ajustes',
     dftPeopleTitle:'🧍 Personas', dftManLabel:'Hombre', dftWomanLabel:'Mujer',
     dftSavePrompt:'Guardar como:', dftSaved:'💾 Guardado: ',
@@ -2542,7 +2545,8 @@ function updateDraftI18n(){
     dist:{ja:'距離',en:'Dist',es:'Dist.'}, save:{ja:'保存',en:'Save',es:'Guardar'},
     load:{ja:'読込',en:'Load',es:'Cargar'}, people:{ja:'人',en:'People',es:'Person.'},
     bounce:{ja:'反射',en:'Bounce',es:'Rebote'}, photo:{ja:'写真',en:'Photo',es:'Foto'},
-    unit:{ja:'単位',en:'Unit',es:'Unidad'}, reset:{ja:'リセット',en:'Reset',es:'Reiniciar'}
+    unit:{ja:'単位',en:'Unit',es:'Unidad'}, reset:{ja:'リセット',en:'Reset',es:'Reiniciar'},
+    expBtn:{ja:'露出',en:'Exposure',es:'Exposic.'}
   };
   var L=(typeof LANG!=='undefined')?LANG:'ja';
   document.querySelectorAll('[data-dfti18n]').forEach(function(el){
@@ -14072,32 +14076,10 @@ function _dftDrawLightFstops(ctx) {
   var sb = people[0];
   var R = Math.max(8, Math.min(36, (_dft.zoom/_dft.scale)*0.15));
 
-  // Build nearest-configured-light map for bounces
-  var bnNearestLt = {};
-  bounces.forEach(function(bn) {
-    var nl = lights.reduce(function(best, lt) {
-      return _dftDist(lt, bn) < _dftDist(best, bn) ? lt : best;
-    }, lights[0]);
-    if (nl) bnNearestLt[bn.id] = nl.id;
-  });
-
-  lights.forEach(function(lt) {
-    var myBounces = bounces.filter(function(bn){ return bnNearestLt[bn.id] === lt.id; });
-    var dist, bnExtra = 0, illuminated;
-
-    if (myBounces.length > 0) {
-      var bn = myBounces[0];
-      // Light is linked to bounce — treat as illuminated (auto-orient points light at bounce)
-      illuminated = true;
-      dist = _dftDist(lt, bn) + _dftDist(bn, sb);
-      bnExtra = getTotalFactorStops(bn.factors || []);
-    } else {
-      illuminated = _dftInBeam(lt, sb.wx, sb.wy);
-      dist = _dftDist(lt, sb);
-    }
-    if (!illuminated) return;
-
-    var fv = _dftCalcFstop(lt, dist, bnExtra);
+  // 直射 / 反射経由の判定は _dftLightPaths に集約している
+  _dftLightPaths(sb).forEach(function(p) {
+    var lt = p.light;
+    var fv = _dftCalcFstop(lt, p.dist, p.extraStops);
     if (!fv) return;
 
     var sp = _dftW2S(lt.wx, lt.wy);
@@ -14854,7 +14836,8 @@ function _dftDistLine(ctx, a, b, color, showFstop, lightObj, totalDist, thin) {
   _dft.distLabels.push({mx:mx, my:my, hw:lw/2+6, hh:lh/2+6, aObj:a, bObj:b});
 }
 
-function _dftCalcFstop(lightObj, distM, extraStops) {
+/** その距離に届く照度(lx)。Factor の減光を掛けたあとの値を返す。 */
+function _dftLuxAt(lightObj, distM, extraStops) {
   try {
     if (!lightObj.makerKey || !lightObj.modelKey) return null;
     var lt = LIGHTS[lightObj.makerKey] && LIGHTS[lightObj.makerKey][lightObj.modelKey];
@@ -14865,8 +14848,46 @@ function _dftCalcFstop(lightObj, distM, extraStops) {
     if (!r || !r.lux) { r = luxForCCTAndDist(lt.refData, 5600, defaultWidestAcc(lt), distM); }
     if (!r || !r.lux) return null;
     var stops = getTotalFactorStops(lightObj.factors || []) + (extraStops || 0);
-    return luxToFstopCamera(r.lux * Math.pow(2, -stops));
+    return r.lux * Math.pow(2, -stops);
   } catch(e) { return null; }
+}
+
+function _dftCalcFstop(lightObj, distM, extraStops) {
+  var lx = _dftLuxAt(lightObj, distM, extraStops);
+  return (lx == null) ? null : luxToFstopCamera(lx);
+}
+
+// ── 被写体への到達経路 ───────────────────────────────────────
+// 直射か、最寄りの反射板経由かを一箇所で決める。F値バッジと Exposure
+// ツールが同じ判定を使うようにして、両者の答えが食い違わないようにする。
+function _dftLightPaths(sb) {
+  var lights  = _dft.objects.filter(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
+  var bounces = _dft.objects.filter(function(o){ return o.type==='bounce'; });
+  if (!lights.length || !sb) return [];
+
+  // 各反射板は最も近いライトに紐づく
+  var bnNearestLt = {};
+  bounces.forEach(function(bn) {
+    var nl = lights.reduce(function(best, lt) {
+      return _dftDist(lt, bn) < _dftDist(best, bn) ? lt : best;
+    }, lights[0]);
+    if (nl) bnNearestLt[bn.id] = nl.id;
+  });
+
+  var out = [];
+  lights.forEach(function(lt) {
+    var mine = bounces.filter(function(bn){ return bnNearestLt[bn.id] === lt.id; });
+    if (mine.length) {
+      var bn = mine[0];
+      // 反射経由。被写体から見た「光源」は反射板の位置になる
+      out.push({ light:lt, via:bn, from:bn,
+                 dist:_dftDist(lt, bn) + _dftDist(bn, sb),
+                 extraStops:getTotalFactorStops(bn.factors || []) });
+    } else if (_dftInBeam(lt, sb.wx, sb.wy)) {
+      out.push({ light:lt, via:null, from:lt, dist:_dftDist(lt, sb), extraStops:0 });
+    }
+  });
+  return out;
 }
 
 function _dftEditDist(dl) {
@@ -15688,6 +15709,9 @@ function _dftApplyBeam(oid) {
 // いなかった。実際の factor 表には反射 6 / 透過 50 件以上あるので、
 // タップできるチップとして全部見せる。
 var DFT_ND_STOPS = {'ND 0.3':1.0, 'ND 0.6':2.0, 'ND 0.9':3.0, 'ND 1.2':4.0, 'ND 1.5':5.0, 'ND 1.8':6.0};
+// チップに出すのは FACTOR_NAMES_BY_TYPE の定番だけ（反射6 / 透過7 / その他）。
+// 表(DIFF_FACTOR_STOPS)には50件以上あるが、全部並べると現場で選びにくい。
+// 定番以外は名前欄に直接入力すれば factorPresetLookup が拾ってストップ値が入る。
 function _dftPresetsFor(type) {
   var tbl = (type === 'bounce') ? BOUNCE_FACTOR_STOPS
           : (type === 'diffuse') ? DIFF_FACTOR_STOPS : DFT_ND_STOPS;
@@ -15697,10 +15721,7 @@ function _dftPresetsFor(type) {
   var saved = [];
   try { var a = JSON.parse(localStorage.getItem('calm_factor_names') || '{}'); saved = Array.isArray(a[type]) ? a[type] : []; } catch(e) {}
   saved.forEach(function(n) { if (!seen[n]) { out.push({n:n, s:(n in tbl) ? tbl[n] : null}); seen[n] = 1; } });
-  // 次に国際的に通りのよい名前（FACTOR_NAMES_BY_TYPE の並び順）
   order.forEach(function(n) { if (!seen[n]) { out.push({n:n, s:(n in tbl) ? tbl[n] : null}); seen[n] = 1; } });
-  // 残りは表にあるものすべて
-  Object.keys(tbl).forEach(function(n) { if (!seen[n]) { out.push({n:n, s:tbl[n]}); seen[n] = 1; } });
   return out;
 }
 function _dftEsc(s) {
@@ -15723,18 +15744,15 @@ function _dftFactorRowsHTML(factors, cbPrefix) {
     var dataList = '<datalist id="'+dlId+'">'+allNames.map(function(n){ return '<option value="'+n.replace(/"/g,'&quot;')+'">'; }).join('')+'</datalist>';
 
     // タップできるプリセットチップ。名前とストップ値を同時に入れる。
-    // 件数が多いので既定は折りたたみ、ボタンで全件に広げる。
+    // 定番だけなので折りたたまず全部見せる。
     var pList = _dftPresetsFor(nameKey);
     _dft._fPresets = _dft._fPresets || {};
     _dft._fPresets[cbPrefix+'_'+fi] = pList;
     var curName = (f.memo||'').trim();
     var chipsId = '_dftchips_'+cbPrefix+'_'+fi;
     var presetChips = pList.length ? (
-      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">'+
-        '<span style="font-size:10px;font-weight:800;color:#888;">'+t('dftPresetPick')+' ('+pList.length+')</span>'+
-        '<button onclick="window._dftFChips(\''+chipsId+'\',this)" style="background:none;border:none;color:'+color+';font-size:10px;font-weight:800;cursor:pointer;padding:0;">'+t('dftPresetMore')+'</button>'+
-      '</div>'+
-      '<div id="'+chipsId+'" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;max-height:56px;overflow:hidden;">'+
+      '<div style="font-size:10px;font-weight:800;color:#888;margin-bottom:4px;">'+t('dftPresetPick')+'</div>'+
+      '<div id="'+chipsId+'" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">'+
         pList.map(function(p, pi) {
           var act = curName === p.n;
           var sTxt = (p.s == null) ? '' : ' <span style="opacity:.7;">'+(p.s>0?'-':'')+p.s.toFixed(1)+'</span>';
@@ -15812,15 +15830,6 @@ function _dftFSetter(cbPrefix, getObj) {
     if(p.s!=null) o.factors[fi].stops=p.s;
     _dftFRefresh_all(cbPrefix,getObj); };
 }
-
-// チップ一覧の折りたたみ / 全件表示
-window._dftFChips = function(id, btn) {
-  var el = document.getElementById(id); if (!el) return;
-  var open = el.style.maxHeight === 'none';
-  el.style.maxHeight = open ? '56px' : 'none';
-  el.style.overflow  = open ? 'hidden' : 'visible';
-  btn.textContent = open ? t('dftPresetMore') : t('dftPresetLess');
-};
 
 function _dftFRefresh_all(cbPrefix, getObj) {
   if (cbPrefix === 'lt') _dftFRefresh();
@@ -16010,6 +16019,222 @@ window._dftBFAdd = function() {
   o.factors.push({ stops: 0, type: 'bounce', memo: '' });
   _dftBFRefresh(); _dftUpdateInfoBar(); dftRender();
 };
+
+// ══ EXPOSURE TOOL ════════════════════════════════════════════
+// 被写体のまわりを一周して、向きごとの入射光量を出す。
+// 想定しているのは入射光式露出計のフラットディスクを縦に構え、
+// 各方向へ向けたときの読み。したがって
+//     E(φ) = Σ lux_i · max(0, n(φ)·u_i)
+// n(φ) は水平面内の向き、u_i は被写体から見た光源方向（高さも含む3D）。
+// lux_i は光線に垂直な面の照度なので、cos を掛けるのが正しい。
+var DFT_EXP_STEPS = [15, 30, 45];
+
+/** 被写体から見た各光源の方向・距離・照度。角度は画面座標（+x=右, +y=下）。 */
+function _dftExpSources(sb) {
+  return _dftLightPaths(sb).map(function(p) {
+    var lux = _dftLuxAt(p.light, p.dist, p.extraStops);
+    if (lux == null) return null;
+    var dx = p.from.wx - sb.wx, dy = p.from.wy - sb.wy;
+    var dz = _dftZ(p.from) - _dftZ(sb);
+    var h  = Math.hypot(dx, dy);
+    var len = Math.hypot(h, dz);
+    if (len < 0.01) return null;
+    return {
+      name: (p.light.label || 'Light') + (p.via ? ' → ' + (p.via.label || 'Bounce') : ''),
+      lux: lux,
+      dist: p.dist,
+      ux: dx/len, uy: dy/len, uz: dz/len,
+      azim: Math.atan2(dy, dx),                        // 水平方向
+      elev: Math.atan2(dz, h) * 180 / Math.PI,         // 仰角(度)
+      via: !!p.via
+    };
+  }).filter(Boolean);
+}
+
+/** 基準方向（0°）。カメラがあればカメラ向き、なければ被写体の正面。 */
+function _dftExpRefAngle(sb) {
+  var cam = _dft.objects.filter(function(o){ return o.type==='camera'; })[0];
+  if (cam) return Math.atan2(cam.wy - sb.wy, cam.wx - sb.wx);
+  return (sb.rot || 0) + Math.PI/2;   // 人物の +y が正面
+}
+
+// 角度の向き。0°=カメラ方向として、90°がカメラの右手側になるよう取る。
+// 図面は y が下向きなので、画面上の回転とは逆回りになる（ここを間違えると
+// 「右サイド」と「左サイド」が入れ替わる）。
+function _dftExpRelAngle(azim, ref) {
+  return ((ref - azim) * 180 / Math.PI + 720) % 360;
+}
+
+/** 角度ごとの読み。angle は 0°=カメラ方向、90°=カメラ右。 */
+function _dftExpReadings(sb, stepDeg) {
+  var srcs = _dftExpSources(sb);
+  var ref  = _dftExpRefAngle(sb);
+  var out  = [];
+  for (var a = 0; a < 360; a += stepDeg) {
+    var phi = ref - a * Math.PI / 180;
+    var nx = Math.cos(phi), ny = Math.sin(phi);
+    var sum = 0, parts = [];
+    srcs.forEach(function(s) {
+      var c = nx * s.ux + ny * s.uy;      // 縦構えなので z 成分は掛からない
+      if (c > 1e-9) { var e = s.lux * c; sum += e; parts.push({name:s.name, lux:e}); }
+    });
+    // 真横〜背面は cos がほぼ 0 になり、浮動小数の残りが 0 より大きくなって
+    // f0.0 と表示されてしまう。実用上意味のない 0.5lx 未満は無光として扱う。
+    if (sum < 0.5) { sum = 0; parts = []; }
+    out.push({ angle:a, lux:sum, fstop:(sum > 0 ? luxToFstopCamera(sum) : null), parts:parts });
+  }
+  return { readings:out, sources:srcs, ref:ref };
+}
+
+function dftExposureTool() {
+  var ex = document.getElementById('_dft_exp'); if (ex) ex.remove();
+  var people = _dft.objects.filter(function(o){ return o.type==='people'; });
+  var lights = _dft.objects.filter(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
+
+  var body;
+  if (!people.length || !lights.length) {
+    body = '<div style="padding:24px 8px;text-align:center;font-size:12px;color:#888;line-height:1.8;">' + t('expNoScene') + '</div>';
+  } else {
+    var si = Math.min(_dft._expSubj || 0, people.length - 1);
+    _dft._expSubj = si;
+    var sb = people[si];
+    var step = _dft._expStep || 30;
+    var d = _dftExpReadings(sb, step);
+
+    var lit = d.readings.filter(function(r){ return r.lux > 0; });
+    var maxR = lit.length ? lit.reduce(function(p,c){ return c.lux > p.lux ? c : p; }) : null;
+    var minR = lit.length ? lit.reduce(function(p,c){ return c.lux < p.lux ? c : p; }) : null;
+    var atCam = d.readings[0];
+    var ratio = (maxR && minR && minR.lux > 0) ? Math.log2(maxR.lux / minR.lux) : null;
+
+    // 被写体切替
+    var subjBtns = people.length > 1 ? '<div style="display:flex;gap:6px;margin-bottom:12px;">' +
+      people.map(function(p, i) {
+        return '<button onclick="_dftExpSetSubj('+i+')" style="flex:1;padding:7px;border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;' +
+          (i===si ? 'background:#e65100;color:#fff;' : 'background:#eceff3;color:#555;') + '">' + _dftEsc(p.label || ('#'+(i+1))) + '</button>';
+      }).join('') + '</div>' : '';
+
+    var stepBtns = '<div style="display:flex;gap:6px;margin-bottom:14px;">' +
+      DFT_EXP_STEPS.map(function(s) {
+        return '<button onclick="_dftExpSetStep('+s+')" style="flex:1;padding:7px;border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;' +
+          (s===step ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#555;') + '">'+s+'°</button>';
+      }).join('') + '</div>';
+
+    body =
+      subjBtns + stepBtns +
+      _dftExpPolarSVG(d, maxR) +
+      // まとめ
+      '<div style="display:flex;gap:6px;margin:14px 0 4px;">' +
+        _dftExpStat(t('expAtCamera'), atCam && atCam.fstop ? 'f'+atCam.fstop.toFixed(1) : '—', Math.round(atCam?atCam.lux:0)+' lx', '#e65100') +
+        _dftExpStat(t('expKey'), maxR && maxR.fstop ? 'f'+maxR.fstop.toFixed(1) : '—', maxR ? maxR.angle+'°' : '—', '#f9a825') +
+        _dftExpStat(t('expFill'), minR && minR.fstop ? 'f'+minR.fstop.toFixed(1) : '—', minR ? minR.angle+'°' : '—', '#0288d1') +
+        _dftExpStat(t('expRatio'), ratio!=null ? ratio.toFixed(1)+' stop' : '—', ratio!=null ? '1:'+Math.pow(2,ratio).toFixed(1) : '—', '#5e35b1') +
+      '</div>' +
+      // 角度ごとの表
+      '<div style="max-height:34vh;overflow-y:auto;margin-top:12px;border:1px solid #eee;border-radius:10px;">' +
+      '<table style="width:100%;border-collapse:collapse;font-size:11px;">' +
+      '<thead><tr style="background:#f5f5f7;">' +
+        '<th style="padding:6px 8px;text-align:left;font-weight:800;">'+t('expAngle')+'</th>' +
+        '<th style="padding:6px 8px;text-align:right;font-weight:800;">lx</th>' +
+        '<th style="padding:6px 8px;text-align:right;font-weight:800;">F</th>' +
+        '<th style="padding:6px 8px;text-align:right;font-weight:800;">'+t('expVsKey')+'</th>' +
+      '</tr></thead><tbody>' +
+      d.readings.map(function(r) {
+        var isMax = maxR && r.angle === maxR.angle;
+        var rel = (maxR && r.lux > 0) ? Math.log2(r.lux / maxR.lux) : null;
+        return '<tr style="border-top:1px solid #f0f0f0;'+(isMax?'background:#fff8e1;':'')+(r.angle===0?'font-weight:800;':'')+'">' +
+          '<td style="padding:5px 8px;">' + _dftExpAngleLabel(r.angle) + '</td>' +
+          '<td style="padding:5px 8px;text-align:right;font-family:monospace;">' + (r.lux>0?Math.round(r.lux).toLocaleString():'—') + '</td>' +
+          '<td style="padding:5px 8px;text-align:right;font-family:monospace;color:#e65100;font-weight:800;">' + (r.fstop?'f'+r.fstop.toFixed(1):'—') + '</td>' +
+          '<td style="padding:5px 8px;text-align:right;font-family:monospace;color:#888;">' + (rel!=null ? (rel>=-0.05?'±0.0':rel.toFixed(1)) : '—') + '</td>' +
+        '</tr>';
+      }).join('') +
+      '</tbody></table></div>' +
+      // 光源の内訳
+      '<div style="font-size:11px;font-weight:800;color:#555;margin:14px 0 6px;">'+t('expSources')+' ('+d.sources.length+')</div>' +
+      (d.sources.length ? d.sources.map(function(s) {
+        var relA = Math.round(_dftExpRelAngle(s.azim, d.ref));
+        return '<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:#f8f8f8;border-radius:8px;margin-bottom:4px;font-size:11px;">' +
+          '<span style="font-weight:800;flex:1;">' + (s.via?'🔲 ':'💡 ') + _dftEsc(s.name) + '</span>' +
+          '<span style="font-family:monospace;color:#888;">' + relA + '°</span>' +
+          '<span style="font-family:monospace;color:#5e35b1;">↗' + s.elev.toFixed(0) + '°</span>' +
+          '<span style="font-family:monospace;">' + _dftFmt(s.dist) + '</span>' +
+          '<span style="font-family:monospace;font-weight:800;color:#e65100;">f' + (luxToFstopCamera(s.lux)||0).toFixed(1) + '</span>' +
+        '</div>';
+      }).join('') : '<div style="font-size:11px;color:#888;padding:6px;">'+t('expNoSource')+'</div>') +
+      '<div style="font-size:10px;line-height:1.6;color:#888;margin-top:12px;">ℓ ' + t('expNote') + '</div>';
+  }
+
+  var html =
+    '<div id="_dft_exp" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_exp\').remove()">' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:92vh;overflow-y:auto;" onclick="event.stopPropagation()">' +
+    '<div style="font-size:15px;font-weight:800;margin-bottom:14px;">📊 ' + t('expTitle') + '</div>' +
+    body +
+    '<button onclick="document.getElementById(\'_dft_exp\').remove()" style="width:100%;padding:11px;margin-top:14px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">' + t('dftClose') + '</button>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function _dftExpStat(label, big, sub, color) {
+  return '<div style="flex:1;padding:8px 6px;background:#f8f8f8;border-radius:10px;border-top:3px solid '+color+';text-align:center;">' +
+    '<div style="font-size:9px;font-weight:800;color:#888;margin-bottom:2px;">'+label+'</div>' +
+    '<div style="font-size:15px;font-weight:900;color:'+color+';">'+big+'</div>' +
+    '<div style="font-size:9px;color:#999;">'+sub+'</div>' +
+  '</div>';
+}
+
+/** 0°=カメラ方向。撮影で使う呼び方に寄せる。 */
+function _dftExpAngleLabel(a) {
+  var names = {0:t('expFront'), 90:t('expSideR'), 180:t('expBack'), 270:t('expSideL')};
+  return a + '°' + (names[a] ? ' <span style="color:#888;font-weight:600;">'+names[a]+'</span>' : '');
+}
+
+/** 極座標プロット。半径は √lux（＝F値に比例）にして段差が読めるようにする。 */
+function _dftExpPolarSVG(d, maxR) {
+  // 左右のラベル（左サイド/右サイド）が切れないよう、横に余白を取った
+  // viewBox にする。円は中央、ラベルは円の外側に置く。
+  var S = 240, C = S/2, RMAX = C - 26;
+  var PAD = 34;
+  var mx = maxR ? maxR.lux : 0;
+  var pts = d.readings.map(function(r) {
+    var rad = mx > 0 ? Math.sqrt(r.lux / mx) * RMAX : 0;
+    var th  = (90 - r.angle) * Math.PI / 180;   // 0°=下(カメラ), 90°=右(カメラ右)
+    return [C + Math.cos(th)*rad, C + Math.sin(th)*rad];
+  });
+  var poly = pts.map(function(p){ return p[0].toFixed(1)+','+p[1].toFixed(1); }).join(' ');
+
+  var rings = [0.25, 0.5, 0.75, 1].map(function(f) {
+    return '<circle cx="'+C+'" cy="'+C+'" r="'+(RMAX*f).toFixed(1)+'" fill="none" stroke="#e8e8ee" stroke-width="1"/>';
+  }).join('');
+  var spokes = [0,45,90,135,180,225,270,315].map(function(a) {
+    var th=(90-a)*Math.PI/180;
+    return '<line x1="'+C+'" y1="'+C+'" x2="'+(C+Math.cos(th)*RMAX).toFixed(1)+'" y2="'+(C+Math.sin(th)*RMAX).toFixed(1)+'" stroke="#eeeef4" stroke-width="1"/>';
+  }).join('');
+  // 真横のラベルは中央揃えだと円にかぶるので、外向きに寄せる
+  var labels = [[0,t('expFront'),'middle'],[90,t('expSideR'),'start'],[180,t('expBack'),'middle'],[270,t('expSideL'),'end']].map(function(p) {
+    var th=(90-p[0])*Math.PI/180, r=RMAX+(p[2]==='middle'?14:8);
+    return '<text x="'+(C+Math.cos(th)*r).toFixed(1)+'" y="'+(C+Math.sin(th)*r+3).toFixed(1)+'" font-size="9" font-weight="700" fill="#888" text-anchor="'+p[2]+'">'+p[1]+'</text>';
+  }).join('');
+  // 光源の実際の方向を短い線で示す
+  var srcMarks = d.sources.map(function(s) {
+    var rel = _dftExpRelAngle(s.azim, d.ref);
+    var th  = (90 - rel) * Math.PI / 180;
+    return '<line x1="'+(C+Math.cos(th)*(RMAX-6)).toFixed(1)+'" y1="'+(C+Math.sin(th)*(RMAX-6)).toFixed(1)+'" ' +
+           'x2="'+(C+Math.cos(th)*RMAX).toFixed(1)+'" y2="'+(C+Math.sin(th)*RMAX).toFixed(1)+'" ' +
+           'stroke="'+(s.via?'#0288d1':'#f9a825')+'" stroke-width="3"/>';
+  }).join('');
+
+  return '<div style="text-align:center;">' +
+    '<svg viewBox="'+(-PAD)+' 0 '+(S+PAD*2)+' '+S+'" style="width:100%;max-width:300px;height:auto;">' +
+      rings + spokes + labels + srcMarks +
+      '<polygon points="'+poly+'" fill="rgba(230,81,0,0.18)" stroke="#e65100" stroke-width="1.8"/>' +
+      pts.map(function(p){ return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="2" fill="#e65100"/>'; }).join('') +
+      '<circle cx="'+C+'" cy="'+C+'" r="3" fill="#333"/>' +
+    '</svg></div>';
+}
+
+window._dftExpSetSubj = function(i) { _dft._expSubj = i; dftExposureTool(); };
+window._dftExpSetStep = function(s) { _dft._expStep = s; dftExposureTool(); };
 
 // ── 汎用オブジェクト設定（フラッグ / 人物 / 写真）────────────────
 // Diff/Bounce は Factor を持つので専用シート、こちらは寸法と高さだけ。
@@ -16930,7 +17155,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.82';
+var ver = 'v1.1.4.83';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -17342,6 +17567,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
         <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftRectStart('diffuser')" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⬜<br><span style="font-size:8px;">DIFF</span></button>
         <button class="draft-tool-btn" id="dft-btn-bounce"   onclick="dftRectStart('bounce')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔲<br><span style="font-size:8px;" data-dfti18n="bounce">反射</span></button>
         <button class="draft-tool-btn" id="dft-btn-flag"     onclick="dftMode('flag')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">▬<br><span style="font-size:8px;">Flag</span></button>
+        <button class="draft-tool-btn" onclick="dftExposureTool()" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📊<br><span style="font-size:8px;" data-dfti18n="expBtn">露出</span></button>
         <button class="draft-tool-btn" onclick="dftImportPDF()"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📄<br><span style="font-size:8px;">PDF</span></button>
         <button class="draft-tool-btn" onclick="dftImportPhoto()"  style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🖼<br><span style="font-size:8px;" data-dfti18n="photo">写真</span></button>
         <button class="draft-tool-btn" onclick="dftSetScaleUI()"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📐<br><span style="font-size:8px;">Scale</span></button>
