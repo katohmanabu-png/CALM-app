@@ -14456,8 +14456,12 @@ function _dftDrawBounceBeams(ctx) {
     var halfBeam = ((lt.beamAngle || 75) / 2) * Math.PI / 180;
     if (cosAngle < Math.cos(halfBeam)) return; // bounce not illuminated — no reflection
 
-    // Bounce surface normal: board long-axis at rot=0 is vertical → normal is horizontal
-    var nx = Math.cos(bn.rot || 0), ny = Math.sin(bn.rot || 0);
+    // Bounce surface normal. _dftRectDims() puts the board's face along its local
+    // x axis (width / floor-contact edge) and the thickness along local y, so the
+    // normal is the local y axis — same convention as a light's aim direction.
+    // (Previously this used the local x axis, i.e. the board's face itself, which
+    //  threw every reflection off by 90°.)
+    var nx = -Math.sin(bn.rot || 0), ny = Math.cos(bn.rot || 0);
     // Flip so normal faces the incoming ray (d·n < 0)
     var dot = gdx*nx + gdy*ny;
     if (dot > 0) { nx = -nx; ny = -ny; dot = -dot; }
@@ -16586,7 +16590,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.80';
+var ver = 'v1.1.4.81';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
