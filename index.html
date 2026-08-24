@@ -5397,13 +5397,28 @@ var LIGHTS = {
       accessories:['flood'],
       dmx:{led:'Bi-Color',power:'1620W',cct:'2800K–6500K',cri:'≥95',tlci:'≥95',ip:'IP20',control:'DMX / LumenRadio CRMX'},
       dmxUrl:'https://www.lightstarusa.com/product-category/luxed/',
+      // Lightstar 公式カタログ（LUXED PRO-P9）の距離別照度表
       refData: {
         'flood':{
-          3200:{4:13200, 5:8500, 6:6200},
-          5600:{4:13200, 5:8500, 6:6200}
+          3200:{3:18000, 5:6800, 7:3500},
+          5600:{3:19500, 5:7000, 7:3700}
         }
       }
-    }
+    },
+    luxed12: {
+      group:'LED', name:'LUXED PRO-P12', desc:'2160W RGB LED Panel', emoji:'💡', watts:2160,
+      ccts:[3200,5600],
+      accessories:['flood'],
+      dmx:{led:'RGBWW',power:'2160W',cct:'2700K–10000K',cri:'≥95',tlci:'≥97',ip:'IP20',control:'DMX / LumenRadio CRMX'},
+      url:'https://www.lightstarusa.com/product-category/luxed/',
+      // Lightstar 公式カタログ（LUXED PRO-P12）の距離別照度表
+      refData: {
+        'flood':{
+          3200:{3:24000, 5:8800, 7:4500},
+          5600:{3:26000, 5:9400, 7:4800}
+        }
+      }
+    },
   },
 
   etc: {
@@ -16541,7 +16556,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.74';
+var ver = 'v1.1.4.75';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
