@@ -715,9 +715,9 @@ body {
 /* Draft の設定シートは背景を白で固定しているため、ダークテーマの
    文字色・入力欄の色をそのまま継承すると白地に白文字になって読めない。
    インラインで色を指定している要素（青いボタン等）はそちらが勝つので影響しない。 */
-#_dft_bs,#_dft_ls,#_dft_cam,#_dft_os,#_dft_sz,#_dft_sc,#_dft_exp,#_dft_dedit,#_dft_cedit { color:#111; }
-#_dft_bs button,#_dft_ls button,#_dft_cam button,#_dft_os button,#_dft_sz button,#_dft_sc button,#_dft_exp button,#_dft_dedit button,#_dft_cedit button { color:#111; }
-#_dft_bs input,#_dft_ls input,#_dft_cam input,#_dft_os input,#_dft_sz input,#_dft_sc input,#_dft_exp input,#_dft_dedit input,#_dft_cedit input { background:#fff;color:#111; }
+#_dft_bs,#_dft_ls,#_dft_cam,#_dft_os,#_dft_sz,#_dft_sc,#_dft_exp,#_dft_dv,#_dft_dedit,#_dft_cedit { color:#111; }
+#_dft_bs button,#_dft_ls button,#_dft_cam button,#_dft_os button,#_dft_sz button,#_dft_sc button,#_dft_exp button,#_dft_dv button,#_dft_dedit button,#_dft_cedit button { color:#111; }
+#_dft_bs input,#_dft_ls input,#_dft_cam input,#_dft_os input,#_dft_sz input,#_dft_sc input,#_dft_exp input,#_dft_dv input,#_dft_dedit input,#_dft_cedit input { background:#fff;color:#111; }
 /* inactive state hints */
 #dft-btn-delete { border-color:#e57373;color:#c62828; }
 #dft-btn-rotate { border-color:#ffb74d;color:#e65100; }
@@ -2152,9 +2152,13 @@ var LANGS = {
     dftNewConfirm:'新しいドラフトを開始しますか？未保存の変更は失われます。',
     dftDraftsList:'📂 ドラフト一覧', dftObjects:'個のオブジェクト',
     dftScaleTitle:'📐 スケール設定', dftScaleOr:'— または — フロアプランで2点タップ',
+    dvTitle:'表示の切り替え', dvHint:'線が多くて読みにくいときに、要素ごとに薄くしたり消したりできます。',
+    dvOn:'表示', dvDim:'半透明', dvOff:'非表示',
+    dvGrpLines:'距離線', dvGrpCones:'ビーム・画角', dvGrpBadges:'ラベル', dvGrpOther:'その他',
+    dvAllOn:'全部表示', dvAllDim:'全部薄く', dvClean:'すっきり',
+    dvUnhide:'個別に隠した線を戻す',
     dftGridPill:'1マス', dftGridLabel:'グリッド1マスの大きさ', dftGridHint:'方眼1つの実寸。図面の読み方がこれで決まります。',
     dftCalibLabel:'読み込んだ図面の実寸合わせ', dftCalibHint:'PDFや写真を下敷きにしたとき、既知の2点をタップして実寸を教えます。',
-    dftZoomLabel:'表示倍率', dftZoomHint:'画面上の大きさだけを変えます。グリッドの大きさや実寸は変わりません（ピンチ操作と同じ）。',
     dftCalibBtn:'📍 2点キャリブレーション', dftCalibStep1:'📍 1点目をタップ...',
     dftCalibDist:'2点間の実際の距離（m）:',
     dftScaleSet:'スケール設定完了 · ', dftPxPerM:'px / m',
@@ -2248,9 +2252,13 @@ var LANGS = {
     dftNewConfirm:'Start new draft? Unsaved changes will be lost.',
     dftDraftsList:'📂 Drafts', dftObjects:' objects',
     dftScaleTitle:'📐 Set Scale', dftScaleOr:'— or — tap 2 points on the floor plan',
+    dvTitle:'Display', dvHint:'When the plan gets crowded, dim or hide each kind of overlay.',
+    dvOn:'Show', dvDim:'Dim', dvOff:'Hide',
+    dvGrpLines:'Distance lines', dvGrpCones:'Beams & FOV', dvGrpBadges:'Labels', dvGrpOther:'Other',
+    dvAllOn:'All on', dvAllDim:'All dim', dvClean:'Declutter',
+    dvUnhide:'Restore individually hidden lines',
     dftGridPill:'Grid', dftGridLabel:'Size of one grid square', dftGridHint:'What one square measures. This is how the plan reads.',
     dftCalibLabel:'Match an imported plan to real size', dftCalibHint:'With a PDF or photo underneath, tap two points you know the distance between.',
-    dftZoomLabel:'Screen magnification', dftZoomHint:'Changes on-screen size only. Grid size and real dimensions stay the same (same as pinching).',
     dftCalibBtn:'📍 2-Point Calibration', dftCalibStep1:'📍 Tap point 1 on canvas...',
     dftCalibDist:'Real distance between the 2 tapped points (meters):',
     dftScaleSet:'Scale set · ', dftPxPerM:'px/m',
@@ -2341,9 +2349,13 @@ var LANGS = {
     dftNewConfirm:'¿Iniciar nuevo plano? Los cambios sin guardar se perderán.',
     dftDraftsList:'📂 Planos', dftObjects:' objetos',
     dftScaleTitle:'📐 Configurar Escala', dftScaleOr:'— o — toca 2 puntos en el plano',
+    dvTitle:'Visualización', dvHint:'Si el plano se llena, atenúa u oculta cada tipo de superposición.',
+    dvOn:'Ver', dvDim:'Atenuar', dvOff:'Ocultar',
+    dvGrpLines:'Líneas de distancia', dvGrpCones:'Haces y ángulo', dvGrpBadges:'Etiquetas', dvGrpOther:'Otros',
+    dvAllOn:'Todo', dvAllDim:'Atenuar todo', dvClean:'Despejar',
+    dvUnhide:'Restaurar líneas ocultadas',
     dftGridPill:'Cuadro', dftGridLabel:'Tamaño de un cuadro', dftGridHint:'Cuánto mide un cuadro. Así se lee el plano.',
     dftCalibLabel:'Ajustar un plano importado al tamaño real', dftCalibHint:'Con un PDF o foto de fondo, toca dos puntos cuya distancia conozcas.',
-    dftZoomLabel:'Ampliación en pantalla', dftZoomHint:'Solo cambia el tamaño en pantalla. El cuadro y las medidas reales no cambian (igual que pinchar).',
     dftCalibBtn:'📍 Calibración de 2 Puntos', dftCalibStep1:'📍 Toca el punto 1...',
     dftCalibDist:'Distancia real entre los 2 puntos (metros):',
     dftScaleSet:'Escala configurada · ', dftPxPerM:'px/m',
@@ -13594,7 +13606,11 @@ var _dft = {
   groups:[],
   nextGroupId:1,
   // distance line visibility
-  distVis:{direct:true, bounceIn:true, bounceOut:true, sum:true, diffuser:true, camera:true},
+  // 表示の濃さ。1=表示 / 0.28=半透明 / 0=非表示。
+  // 以前は距離線6種の on/off だけだったが、実際に図面を埋めるのは
+  // ビームコーンやバッジのほうなので、それらも同じ仕組みで薄くできるようにした。
+  vis:{ direct:1, bounceIn:1, bounceOut:1, sum:1, diffuser:1, camera:1,
+        beam:1, fov:1, refl:1, fstop:1, stopBadge:1, grid:1 },
   // persistence
   drafts:[],
   draftId:null,
@@ -13738,6 +13754,7 @@ function dftInit() {
         _dft.layers      = ad.layers ? JSON.parse(JSON.stringify(ad.layers)) : [{id:1,name:'L1',visible:true}];
         _dft.activeLayer = ad.activeLayer || 1;
         _dft.scale       = ad.scale  || 0.05;
+        if (ad.vis) _dft.vis = Object.assign({}, _dft.vis, ad.vis);
         _dft.gridM       = ad.gridM || 0.3048;
         _dft.gridN       = (ad.gridN != null) ? ad.gridN : 1;
         _dft.gridUnit    = ad.gridUnit || 'ft';
@@ -13766,6 +13783,7 @@ function _dftQueueAutoSave() {
         activeLayer: _dft.activeLayer,
         scale:       _dft.scale,
         unit:        _dft.unit,
+        vis:         _dft.vis,
         gridM:       _dft.gridM,
         gridN:       _dft.gridN,
         gridUnit:    _dft.gridUnit,
@@ -13995,10 +14013,10 @@ function dftRender() {
     ctx.drawImage(_dft.pdfImg, ps.x, ps.y, pe.x - ps.x, pe.y - ps.y);
   }
 
-  _dftDrawGrid(ctx, W, H);
+  _dftWithVis(ctx, 'grid', function(){ _dftDrawGrid(ctx, W, H); });
 
   // bounce reflected beams (under distance lines and objects)
-  _dftDrawBounceBeams(ctx);
+  _dftWithVis(ctx, 'refl', function(){ _dftDrawBounceBeams(ctx); });
 
   // distance lines (under objects)
   _dftDrawDistances(ctx);
@@ -14071,7 +14089,7 @@ function dftRender() {
   }
 
   // F-stop badges for each configured light
-  _dftDrawLightFstops(ctx);
+  _dftDrawLightFstops(ctx);   // F値バッジと stopバッジは中で別々に濃さを持つ
 
   _dftUpdatePill();
 }
@@ -14095,6 +14113,7 @@ function _dftDrawLightFstops(ctx) {
   var R = Math.max(8, Math.min(36, (_dft.zoom/_dft.scale)*0.15));
 
   // 直射 / 反射経由の判定は _dftLightPaths に集約している
+  _dftWithVis(ctx, 'fstop', function(){
   _dftLightPaths(sb).forEach(function(p) {
     var lt = p.light;
     var fv = _dftCalcFstop(lt, p.dist, p.extraStops);
@@ -14116,8 +14135,10 @@ function _dftDrawLightFstops(ctx) {
     ctx.fillText(label, sp.x, py + ph/2);
     ctx.restore();
   });
+  });
 
   // Bounce factor badge — placed below bounce name label
+  _dftWithVis(ctx, 'stopBadge', function(){
   bounces.forEach(function(bn) {
     if (!bn.factors || !bn.factors.length) return;
     var stops = getTotalFactorStops(bn.factors);
@@ -14137,9 +14158,28 @@ function _dftDrawLightFstops(ctx) {
     ctx.fillText(label, sp.x, py + ph/2);
     ctx.restore();
   });
+  });
+}
+
+// ── 表示の濃さ ──────────────────────────────────────────────
+var DFT_VIS_STATES = [1, 0.28, 0];   // 表示 / 半透明 / 非表示
+function _dftVA(key) {
+  var v = _dft.vis ? _dft.vis[key] : 1;
+  if (v === true  || v == null) return 1;   // 旧データ(boolean)からの移行
+  if (v === false) return 0;
+  return v;
+}
+/** key の濃さで fn を描く。0 なら何も描かない。 */
+function _dftWithVis(ctx, key, fn) {
+  var a = _dftVA(key);
+  if (a <= 0) return;
+  var prev = ctx.globalAlpha;
+  ctx.globalAlpha = prev * a;
+  try { fn(); } finally { ctx.globalAlpha = prev; }
 }
 
 function _dftDrawGrid(ctx, W, H) {
+  if (_dftVA('grid') <= 0) return;
   var gm = _dft.gridM || 0.3048;
   // 細線が詰まりすぎると真っ黒になるので、6px を下回るマスは間引く
   var pxPerCell = gm / _dft.scale * _dft.zoom;
@@ -14284,13 +14324,15 @@ function _dftDrawObj(ctx, o) {
     // 指定した距離まで実寸で描く。ここを打ち切ると「6mで4.3m幅」の表示と
     // 図面上の長さが合わなくなり、画角を図面で読む意味がなくなる。
     var fovL = (o.fovLen || 5) / _dft.scale * _dft.zoom;
-    ctx.fillStyle   = 'rgba(100,180,255,0.14)';
-    ctx.strokeStyle = 'rgba(60,140,220,0.35)';
-    ctx.lineWidth   = 1;
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.arc(0, 0, fovL, Math.PI/2 - fov/2, Math.PI/2 + fov/2);
-    ctx.closePath(); ctx.fill(); ctx.stroke();
+    _dftWithVis(ctx, 'fov', function(){
+      ctx.fillStyle   = 'rgba(100,180,255,0.14)';
+      ctx.strokeStyle = 'rgba(60,140,220,0.35)';
+      ctx.lineWidth   = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.arc(0, 0, fovL, Math.PI/2 - fov/2, Math.PI/2 + fov/2);
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+    });
     // Camera body (horizontal rectangle, lens faces +y / "forward")
     ctx.fillStyle   = sel ? '#e65100' : '#37474f';
     ctx.strokeStyle = sel ? '#b71c1c' : '#263238';
@@ -14318,13 +14360,15 @@ function _dftDrawObj(ctx, o) {
     // beam cone (pointing down = +y direction, rotated by obj.rot)
     var ba = ((o.beamAngle || 75) * Math.PI / 180);
     var bl = Math.min(120, (o.beamLen || 4) / _dft.scale * _dft.zoom);
-    ctx.fillStyle   = 'rgba(255,210,0,0.13)';
-    ctx.strokeStyle = 'rgba(220,150,0,0.35)';
-    ctx.lineWidth   = 1;
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.arc(0, 0, bl, Math.PI/2 - ba/2, Math.PI/2 + ba/2);
-    ctx.closePath(); ctx.fill(); ctx.stroke();
+    _dftWithVis(ctx, 'beam', function(){
+      ctx.fillStyle   = 'rgba(255,210,0,0.13)';
+      ctx.strokeStyle = 'rgba(220,150,0,0.35)';
+      ctx.lineWidth   = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.arc(0, 0, bl, Math.PI/2 - ba/2, Math.PI/2 + ba/2);
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+    });
     // body
     ctx.fillStyle   = sel ? '#e65100' : '#f9a825';
     ctx.strokeStyle = sel ? '#b71c1c' : '#e65100';
@@ -14446,6 +14490,7 @@ function _dftDrawObj(ctx, o) {
     ctx.fillText(lstr, sx, lby + lbh/2);
 
     // 画角の到達端に「その距離で入る横幅」を出す。フレーミングの判断に使う
+    _dftWithVis(ctx, 'fov', function(){
     var _cfL = (o.fovLen || 5);
     var _cfw = _dftCamFrameW(o, _cfL);
     var _fwd2 = (o.rot || 0) + Math.PI/2;
@@ -14460,6 +14505,7 @@ function _dftDrawObj(ctx, o) {
     ctx.fillStyle = '#fff';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(_wstr, wcx, wcy);
+    });
   }
 
   // Rotation handle — 選択中のオブジェクトにのみ表示（雑然さ回避）
@@ -14753,39 +14799,39 @@ function _dftDrawDistances(ctx) {
     // Only show bounce lines for bounces whose nearest light is this one
     var myBounces = bounces.filter(function(bn){ return bounceNearestLight[bn.id] === lt.id; });
 
-    var dv = _dft.distVis;
     if (myBounces.length > 0) {
       myBounces.forEach(function(bn) {
         var d1 = _dftDist(lt, bn);
-        if (dv.bounceIn !== false) _dftDistLine(ctx, lt, bn, '#f9a825', false, null, null);
+        _dftWithVis(ctx, 'bounceIn', function(){ _dftDistLine(ctx, lt, bn, '#f9a825', false, null, null); });
         subjects.forEach(function(sb) {
-          var d2 = _dftDist(bn, sb);
-          var total = d1 + d2;
-          if (dv.direct  !== false) _dftDistLine(ctx, lt, sb, 'rgba(150,150,150,0.6)', false, null, null, true);
-          if (dv.bounceOut !== false) _dftDistLine(ctx, bn, sb, '#26a69a', false, null, null);
-          if (dv.sum !== false) _dftSumLabel(ctx, lt, sb, total, bn);
+          var total = d1 + _dftDist(bn, sb);
+          _dftWithVis(ctx, 'direct',    function(){ _dftDistLine(ctx, lt, sb, 'rgba(150,150,150,0.6)', false, null, null, true); });
+          _dftWithVis(ctx, 'bounceOut', function(){ _dftDistLine(ctx, bn, sb, '#26a69a', false, null, null); });
+          _dftWithVis(ctx, 'sum',       function(){ _dftSumLabel(ctx, lt, sb, total, bn); });
         });
       });
     } else {
-      if (dv.direct !== false) subjects.forEach(function(sb) { _dftDistLine(ctx, lt, sb, '#f9a825', true, null, null); });
+      _dftWithVis(ctx, 'direct', function(){
+        subjects.forEach(function(sb) { _dftDistLine(ctx, lt, sb, '#f9a825', true, null, null); });
+      });
     }
-    if (dv.diffuser !== false) diffusers.forEach(function(df) { _dftDistLine(ctx, lt, df, '#ab47bc', false, null, null); });
+    _dftWithVis(ctx, 'diffuser', function(){
+      diffusers.forEach(function(df) { _dftDistLine(ctx, lt, df, '#ab47bc', false, null, null); });
+    });
   });
   // Diffuser → Person
-  var dv2 = _dft.distVis;
-  if (dv2.diffuser !== false) {
+  _dftWithVis(ctx, 'diffuser', function(){
     diffusers.forEach(function(df) {
       var srcLight = lights.length > 0 ? lights[0] : null;
       subjects.forEach(function(sb) { _dftDistLine(ctx, df, sb, '#26a69a', !!srcLight, srcLight, null); });
     });
-  }
+  });
   // Camera → Person
-  if (dv2.camera !== false) {
-    var cameras = _dft.objects.filter(function(o){ return o.type==='camera'; });
-    cameras.forEach(function(cam) {
+  _dftWithVis(ctx, 'camera', function(){
+    _dft.objects.filter(function(o){ return o.type==='camera'; }).forEach(function(cam) {
       subjects.forEach(function(sb) { _dftDistLine(ctx, cam, sb, 'rgba(100,149,237,0.7)', false, null, null, true); });
     });
-  }
+  });
 }
 
 // Draw a floating sum label near person showing total bounce path + f-stop
@@ -16760,7 +16806,6 @@ var DFT_GRID_PRESETS = [
 ];
 
 function dftSetScaleUI() {
-  var pxPerM = (_dft.zoom / _dft.scale).toFixed(1);
 
   var gridBtns = DFT_GRID_PRESETS.map(function(g, i) {
     var act = Math.abs((_dft.gridM || 0.3048) - g.m) < 1e-6;
@@ -16786,17 +16831,6 @@ function dftSetScaleUI() {
     '<div style="font-size:10px;color:#888;margin-bottom:8px;">'+t('dftCalibHint')+'</div>' +
     '<button onclick="document.getElementById(\'_dft_sc\').remove();_dftStartCalib();" style="width:100%;padding:10px;background:#1565c0;color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:14px;">'+t('dftCalibBtn')+'</button>' +
     '</div>' +
-
-    // ③ 表示倍率（旧「1m = ? px」）。グリッドとは別物だと分かるように独立させた
-    '<div style="border-top:1px solid #eee;padding-top:14px;">' +
-    '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:2px;">'+t('dftZoomLabel')+'</div>' +
-    '<div style="font-size:10px;color:#888;margin-bottom:8px;">'+t('dftZoomHint')+'</div>' +
-    '<div style="display:flex;gap:6px;align-items:center;margin-bottom:10px;">' +
-    '<span style="font-size:13px;font-weight:700;">1m =</span>' +
-    '<input id="_sc_v" type="number" step="1" min="1" value="'+pxPerM+'" style="flex:1;padding:7px;border:1.5px solid #eee;border-radius:8px;font-size:14px;background:#fff;color:#111;">' +
-    '<span style="font-size:13px;font-weight:700;">px</span>' +
-    '<button onclick="var v=+document.getElementById(\'_sc_v\').value;if(v>0){_dft.scale=_dft.zoom/v;dftRender();}" style="padding:7px 12px;background:#eceff3;color:#333;border:none;border-radius:8px;font-weight:800;cursor:pointer;">'+t('dftApply')+'</button>' +
-    '</div></div>' +
 
     '<button onclick="document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:10px;background:#eee;border:none;border-radius:9px;font-weight:700;cursor:pointer;">'+t('dftClose')+'</button>' +
     '</div></div>';
@@ -16887,7 +16921,7 @@ function _dftSaveCommit() {
     layers:      JSON.parse(JSON.stringify(_dft.layers)),
     activeLayer: _dft.activeLayer,
     scale: _dft.scale, unit: _dft.unit, nextId: _dft.nextId,
-    gridM: _dft.gridM, gridN: _dft.gridN, gridUnit: _dft.gridUnit,
+    gridM: _dft.gridM, gridN: _dft.gridN, gridUnit: _dft.gridUnit, vis: _dft.vis,
     savedAt: new Date().toISOString(),
   };
   var idx = _dft.drafts.findIndex(function(d){ return d.id===id; });
@@ -16934,6 +16968,7 @@ function _dftLoadDraft(d, skipRender) {
   _dft.layers        = d.layers ? JSON.parse(JSON.stringify(d.layers)) : [{id:1,name:'L1',visible:true}];
   _dft.activeLayer   = d.activeLayer || 1;
   _dft.scale         = d.scale  || 0.05;
+  if (d.vis) _dft.vis = Object.assign({}, _dft.vis, d.vis);
   _dft.gridM         = d.gridM  || 0.3048;
   _dft.gridN         = (d.gridN != null) ? d.gridN : 1;
   _dft.gridUnit      = d.gridUnit || 'ft';
@@ -17014,7 +17049,7 @@ function dftExport() {
     layers:      JSON.parse(JSON.stringify(_dft.layers)),
     activeLayer: _dft.activeLayer,
     scale: _dft.scale, unit: _dft.unit, nextId: _dft.nextId,
-    gridM: _dft.gridM, gridN: _dft.gridN, gridUnit: _dft.gridUnit,
+    gridM: _dft.gridM, gridN: _dft.gridN, gridUnit: _dft.gridUnit, vis: _dft.vis,
     exportedAt: new Date().toISOString(),
   };
   var safeName = (_dft.draftName || 'draft').replace(/[^a-zA-Z0-9぀-鿿_\-]/g, '_');
@@ -17117,37 +17152,108 @@ function dftToolsMoreMenu() {
   );
 }
 
-function dftDistVisMenu() {
-  var v = _dft.distVis;
-  var items = [
-    {key:'direct',   label:'💡→🧍 ライト → 人物（直接）'},
-    {key:'bounceIn', label:'💡→🔲 ライト → バウンス'},
-    {key:'bounceOut',label:'🔲→🧍 バウンス → 人物'},
-    {key:'sum',      label:'∑ 合算ラベル（F値）'},
-    {key:'diffuser', label:'⬜ Diffusion 距離'},
-    {key:'camera',   label:'🎥 カメラ 距離'},
-  ];
-  var rows = items.map(function(it) {
-    var on = v[it.key] !== false;
-    return '<label style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer;" onclick="window._dftDistVisToggle(\''+it.key+'\')">' +
-      '<span style="font-size:13px;font-weight:600;color:#555;">'+it.label+'</span>' +
-      '<span id="_dv_'+it.key+'" style="font-size:22px;">'+(on?'✅':'⬜')+'</span>' +
-    '</label>';
+// 図面が線で埋まったときに、要素ごとに 表示 / 半透明 / 非表示 を選ぶ。
+// 「消す」だけだと位置関係が読めなくなるので、薄く残せる段を用意している。
+var DFT_VIS_GROUPS = [
+  { title:'dvGrpLines', items:[
+    {key:'direct',    label:'💡→🧍 ライト → 人物'},
+    {key:'bounceIn',  label:'💡→🔲 ライト → 反射板'},
+    {key:'bounceOut', label:'🔲→🧍 反射板 → 人物'},
+    {key:'diffuser',  label:'⬜ Diffusion 距離'},
+    {key:'camera',    label:'🎥 カメラ 距離'}
+  ]},
+  { title:'dvGrpCones', items:[
+    {key:'beam', label:'🔶 ライトのビーム'},
+    {key:'refl', label:'🔷 反射板の反射光'},
+    {key:'fov',  label:'🎥 カメラの画角'}
+  ]},
+  { title:'dvGrpBadges', items:[
+    {key:'fstop',     label:'🟠 ライトのF値'},
+    {key:'sum',       label:'∑ 合算ラベル（F値）'},
+    {key:'stopBadge', label:'🔵 反射板のstop'}
+  ]},
+  { title:'dvGrpOther', items:[
+    {key:'grid', label:'▦ グリッド'}
+  ]}
+];
+
+function _dftVisRowHTML(it) {
+  var a = _dftVA(it.key);
+  var labels = [t('dvOn'), t('dvDim'), t('dvOff')];
+  var segs = DFT_VIS_STATES.map(function(st, i) {
+    var act = Math.abs(a - st) < 0.01;
+    return '<button onclick="window._dftSetVis(\''+it.key+'\','+st+')" style="' +
+      'flex:1;padding:6px 2px;border:none;border-radius:7px;font-size:10px;font-weight:800;cursor:pointer;' +
+      (act ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#666;') + '">' + labels[i] + '</button>';
   }).join('');
+  return '<div style="display:flex;align-items:center;gap:10px;padding:7px 16px;">' +
+    '<span style="flex:1;font-size:12px;font-weight:600;color:#444;">'+it.label+'</span>' +
+    '<span style="display:flex;gap:3px;width:150px;flex:0 0 150px;">'+segs+'</span>' +
+  '</div>';
+}
+
+function dftDistVisMenu() {
+  var ex = document.getElementById('_dft_dv'); if (ex) ex.remove();
+  var hiddenN = Object.keys(_dft.hiddenLines || {}).filter(function(k){ return _dft.hiddenLines[k]; }).length;
+
+  var body = DFT_VIS_GROUPS.map(function(g) {
+    return '<div style="font-size:10px;font-weight:800;color:#999;padding:12px 16px 2px;">'+t(g.title)+'</div>' +
+      g.items.map(_dftVisRowHTML).join('');
+  }).join('');
+
   var html = '<div id="_dft_dv" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_dv\').remove()">' +
-    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;padding:16px 0 32px;">' +
-    '<div style="font-size:14px;font-weight:800;padding:0 16px 12px;border-bottom:1px solid #eee;">📏 距離表示の切り替え</div>' +
-    rows +
-    '<button onclick="document.getElementById(\'_dft_dv\').remove()" style="display:block;width:calc(100% - 32px);margin:14px 16px 0;padding:12px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">閉じる</button>' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;max-height:88vh;overflow-y:auto;padding:16px 0 32px;" onclick="event.stopPropagation()">' +
+    '<div style="font-size:14px;font-weight:800;padding:0 16px 4px;">👁 '+t('dvTitle')+'</div>' +
+    '<div style="font-size:10px;color:#888;padding:0 16px 10px;border-bottom:1px solid #eee;">'+t('dvHint')+'</div>' +
+    // よく使う一括操作
+    '<div style="display:flex;gap:6px;padding:12px 16px 4px;">' +
+      '<button onclick="window._dftVisPreset(\'all\')" style="flex:1;padding:8px;border:none;border-radius:8px;background:#eceff3;color:#333;font-size:11px;font-weight:800;cursor:pointer;">'+t('dvAllOn')+'</button>' +
+      '<button onclick="window._dftVisPreset(\'dim\')" style="flex:1;padding:8px;border:none;border-radius:8px;background:#eceff3;color:#333;font-size:11px;font-weight:800;cursor:pointer;">'+t('dvAllDim')+'</button>' +
+      '<button onclick="window._dftVisPreset(\'clean\')" style="flex:1;padding:8px;border:none;border-radius:8px;background:#1565c0;color:#fff;font-size:11px;font-weight:800;cursor:pointer;">'+t('dvClean')+'</button>' +
+    '</div>' +
+    body +
+    // 個別にタップで隠した線を戻す
+    (hiddenN ? '<div style="padding:14px 16px 0;">' +
+      '<button onclick="window._dftUnhideAll()" style="width:100%;padding:10px;border:1.5px solid #e65100;border-radius:10px;background:#fff3e0;color:#e65100;font-size:12px;font-weight:800;cursor:pointer;">' +
+      t('dvUnhide') + ' (' + hiddenN + ')</button></div>' : '') +
+    '<button onclick="document.getElementById(\'_dft_dv\').remove()" style="display:block;width:calc(100% - 32px);margin:14px 16px 0;padding:12px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftClose')+'</button>' +
     '</div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
 }
 
-window._dftDistVisToggle = function(key) {
-  _dft.distVis[key] = _dft.distVis[key] === false ? true : false;
-  var el = document.getElementById('_dv_' + key);
-  if (el) el.textContent = _dft.distVis[key] !== false ? '✅' : '⬜';
+window._dftSetVis = function(key, val) {
+  if (!_dft.vis) _dft.vis = {};
+  _dft.vis[key] = val;
   dftRender();
+  var el = document.getElementById('_dft_dv');
+  if (el) { el.remove(); dftDistVisMenu(); }
+};
+
+window._dftVisPreset = function(kind) {
+  if (!_dft.vis) _dft.vis = {};
+  var keys = [];
+  DFT_VIS_GROUPS.forEach(function(g){ g.items.forEach(function(it){ keys.push(it.key); }); });
+  keys.forEach(function(k) {
+    if (kind === 'all')      _dft.vis[k] = 1;
+    else if (kind === 'dim') _dft.vis[k] = 0.28;
+    else {
+      // clean: 位置関係の読み取りに必要なものだけ残し、混みやすいものを落とす
+      var keep  = {direct:1, camera:1, fstop:1, grid:1};
+      var faint = {beam:1, fov:1, refl:1};
+      _dft.vis[k] = keep[k] ? 1 : (faint[k] ? 0.28 : 0);
+    }
+  });
+  dftRender();
+  var el = document.getElementById('_dft_dv');
+  if (el) { el.remove(); dftDistVisMenu(); }
+};
+
+window._dftUnhideAll = function() {
+  _dft.hiddenLines = {};
+  _dftUpdateHiddenLinesBtn && _dftUpdateHiddenLinesBtn();
+  dftRender();
+  var el = document.getElementById('_dft_dv');
+  if (el) { el.remove(); dftDistVisMenu(); }
 };
 
 function dftReset() {
@@ -17245,7 +17351,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.85';
+var ver = 'v1.1.4.86';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
