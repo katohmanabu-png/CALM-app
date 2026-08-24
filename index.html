@@ -712,6 +712,12 @@ body {
 /* placement modes */
 #dft-btn-people.active,#dft-btn-camera.active,#dft-btn-light.active,
 #dft-btn-diffuser.active,#dft-btn-bounce.active,#dft-btn-flag.active { background:#2e7d32;color:#fff;border-color:#2e7d32;box-shadow:0 0 0 2px rgba(46,125,50,.25); }
+/* Draft の設定シートは背景を白で固定しているため、ダークテーマの
+   文字色・入力欄の色をそのまま継承すると白地に白文字になって読めない。
+   インラインで色を指定している要素（青いボタン等）はそちらが勝つので影響しない。 */
+#_dft_bs,#_dft_ls,#_dft_cam,#_dft_os,#_dft_sz,#_dft_dedit,#_dft_cedit { color:#111; }
+#_dft_bs button,#_dft_ls button,#_dft_cam button,#_dft_os button,#_dft_sz button,#_dft_dedit button,#_dft_cedit button { color:#111; }
+#_dft_bs input,#_dft_ls input,#_dft_cam input,#_dft_os input,#_dft_sz input,#_dft_dedit input,#_dft_cedit input { background:#fff;color:#111; }
 /* inactive state hints */
 #dft-btn-delete { border-color:#e57373;color:#c62828; }
 #dft-btn-rotate { border-color:#ffb74d;color:#e65100; }
@@ -2137,6 +2143,9 @@ var LANGS = {
     dftBtnSave:'💾 保存', dftBtnLoad:'📂 読込', dftBtnNew:'＋ 新規',
     dftSelectLight:'💡 ライト選択', dftSearchPlaceholder:'検索...',
     dftCancel:'キャンセル', dftClose:'閉じる', dftApply:'適用',
+    camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定',
+    dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ', dftPresetMore:'すべて表示', dftPresetLess:'たたむ',
+    dftPanelH:'幕の高さ', dftPanelHHint:'← 距離計算に使う高さ(中心)', dftObjSettings:'設定',
     dftPeopleTitle:'🧍 人を配置', dftManLabel:'男性', dftWomanLabel:'女性',
     dftSavePrompt:'名前を付けて保存:', dftSaved:'💾 保存: ',
     dftNewConfirm:'新しいドラフトを開始しますか？未保存の変更は失われます。',
@@ -2226,6 +2235,9 @@ var LANGS = {
     dftBtnSave:'💾 Save', dftBtnLoad:'📂 Load', dftBtnNew:'＋ New',
     dftSelectLight:'💡 Select Light', dftSearchPlaceholder:'Search...',
     dftCancel:'Cancel', dftClose:'Close', dftApply:'Apply',
+    camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop',
+    dftSize:'Size', dftPresetPick:'Pick a preset', dftPresetMore:'Show all', dftPresetLess:'Collapse',
+    dftPanelH:'Panel height', dftPanelHHint:'← height used for distance (centre)', dftObjSettings:'Settings',
     dftPeopleTitle:'🧍 People', dftManLabel:'Man', dftWomanLabel:'Woman',
     dftSavePrompt:'Save as:', dftSaved:'💾 Saved: ',
     dftNewConfirm:'Start new draft? Unsaved changes will be lost.',
@@ -2312,6 +2324,9 @@ var LANGS = {
     dftBtnSave:'💾 Guardar', dftBtnLoad:'📂 Cargar', dftBtnNew:'＋ Nuevo',
     dftSelectLight:'💡 Seleccionar Luz', dftSearchPlaceholder:'Buscar...',
     dftCancel:'Cancelar', dftClose:'Cerrar', dftApply:'Aplicar',
+    camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f',
+    dftSize:'Tamaño', dftPresetPick:'Elegir preajuste', dftPresetMore:'Mostrar todo', dftPresetLess:'Contraer',
+    dftPanelH:'Altura del panel', dftPanelHHint:'← altura usada para la distancia (centro)', dftObjSettings:'Ajustes',
     dftPeopleTitle:'🧍 Personas', dftManLabel:'Hombre', dftWomanLabel:'Mujer',
     dftSavePrompt:'Guardar como:', dftSaved:'💾 Guardado: ',
     dftNewConfirm:'¿Iniciar nuevo plano? Los cambios sin guardar se perderán.',
@@ -13895,7 +13910,8 @@ function _dftAddObj(type, wx, wy, extra) {
   if (extra) for (var k in extra) obj[k] = extra[k];
   if (type === 'people')   { obj.label = obj.gender==='female'?'Woman':'Man'; }
   else if (type === 'image') { obj.label=obj.label||'Photo'; obj.wm=obj.wm||2; obj.hm=obj.hm||2; obj.imgSrc=obj.imgSrc||null; if (!obj.imgEl && obj.imgSrc) _dftLoadImgEl(obj); }
-  else if (type === 'camera')   { obj.label = 'Camera'; obj.fstopIdx = (typeof S !== 'undefined' && S.fstop != null) ? S.fstop : 21; }
+  else if (type === 'camera')   { obj.label = 'Camera'; obj.fstopIdx = (typeof S !== 'undefined' && S.fstop != null) ? S.fstop : 21;
+                                  obj.focalMm = obj.focalMm || 35; obj.sensorKey = obj.sensorKey || 's35'; obj.fovLen = obj.fovLen || 5; }
   else if (type === 'light')    { obj.label = obj.lightName || 'Light'; obj.beamAngle = obj.beamAngle || 75; if (!obj.factors) obj.factors = []; }
   else if (type === 'diffuser') { obj.label = 'Diffusion'; obj.w = obj.w||1.2; obj.h = obj.h||1.2; }
   else if (type === 'bounce')   { obj.label = 'Bounce';   obj.w = obj.w||1.2; obj.h = obj.h||1.2; }
@@ -13904,9 +13920,24 @@ function _dftAddObj(type, wx, wy, extra) {
   return obj;
 }
 
-function _dftDist(a, b) {
+// ── 高さを含めた実距離（三角形計算）─────────────────────────────
+// 俯瞰図は水平投影なので、高さ差があるとき本当の光路長は斜辺になる。
+// 露出計算は光路長で決まるため、_dftDist は斜辺を返す（表示ラベルも同じ）。
+// 立てたパネル(stand)は光が面の中央に当たるものとして扱う。
+function _dftZ(o) {
+  if (!o) return 0;
+  var z = (o.zHeight != null) ? o.zHeight : 0;
+  if (o.stand) z += (_dftRectDims(o).vert || 0) / 2;
+  return z;
+}
+// 水平距離（図面上の見た目の長さ）。位置合わせや当たり判定はこちらを使う
+function _dftDist2D(a, b) {
   var dx = a.wx - b.wx, dy = a.wy - b.wy;
   return Math.sqrt(dx*dx + dy*dy);
+}
+function _dftDist(a, b) {
+  var dx = a.wx - b.wx, dy = a.wy - b.wy, dz = _dftZ(a) - _dftZ(b);
+  return Math.sqrt(dx*dx + dy*dy + dz*dz);
 }
 
 function _dftFmt(m) {
@@ -14165,6 +14196,33 @@ function _dftRR(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
+// ── カメラの画角 ────────────────────────────────────────────
+// センサー横幅(mm)。俯瞰図に描くのは水平画角なので、横幅だけで足りる。
+var DFT_SENSORS = [
+  { key:'s35',    label:'Super 35',      w:24.89 },
+  { key:'a35og',  label:'ALEXA 35 OG',   w:27.99 },
+  { key:'ff',     label:'Full Frame',    w:36.00 },
+  { key:'ff_og',  label:'FF Open Gate',  w:36.70 },
+  { key:'a65',    label:'65mm',          w:54.12 },
+  { key:'mft',    label:'MFT',           w:17.30 },
+  { key:'s16',    label:'Super 16',      w:12.52 }
+];
+function _dftCamSensorW(o) {
+  var k = (o && o.sensorKey) || 's35';
+  for (var i = 0; i < DFT_SENSORS.length; i++) if (DFT_SENSORS[i].key === k) return DFT_SENSORS[i].w;
+  return 24.89;
+}
+/** 水平画角(度)。2·atan(センサー横幅 / 2f) */
+function _dftCamHFov(o) {
+  var f = (o && o.focalMm) || 35;
+  if (f < 1) f = 1;
+  return 2 * Math.atan(_dftCamSensorW(o) / (2 * f)) * 180 / Math.PI;
+}
+/** 指定距離での画角の横幅(m)。「この画に何が入るか」を数字で出すため */
+function _dftCamFrameW(o, distM) {
+  return 2 * distM * Math.tan(_dftCamHFov(o) * Math.PI / 360);
+}
+
 function _dftDrawObj(ctx, o) {
   var sp = _dftW2S(o.wx, o.wy);
   var sx = sp.x, sy = sp.y;
@@ -14216,8 +14274,11 @@ function _dftDrawObj(ctx, o) {
 
   } else if (o.type === 'camera') {
     // Field-of-view cone (pointing in +y = "down" at rot=0, user rotates to aim)
-    var fov  = 50 * Math.PI / 180;
-    var fovL = Math.min(110, 5 / _dft.scale * _dft.zoom);
+    // 画角はレンズの焦点距離とセンサー横幅から求める（俯瞰図なので水平画角）
+    var fov  = _dftCamHFov(o) * Math.PI / 180;
+    // 指定した距離まで実寸で描く。ここを打ち切ると「6mで4.3m幅」の表示と
+    // 図面上の長さが合わなくなり、画角を図面で読む意味がなくなる。
+    var fovL = (o.fovLen || 5) / _dft.scale * _dft.zoom;
     ctx.fillStyle   = 'rgba(100,180,255,0.14)';
     ctx.strokeStyle = 'rgba(60,140,220,0.35)';
     ctx.lineWidth   = 1;
@@ -14358,7 +14419,7 @@ function _dftDrawObj(ctx, o) {
   if (o.type === 'camera') {
     var fidx = (o.fstopIdx != null) ? o.fstopIdx : 21;
     var fval = FSTOPS13[fidx] || FSTOPS13[21];
-    var fstr = 'f' + fLab(fval);
+    var fstr = fLab(fval);   // fLab は 'f2.8' の形で返す（'f' を足すと二重になる）
     ctx.font = 'bold 10px -apple-system,Arial';
     var bw = ctx.measureText(fstr).width + 10, bh = 16;
     var bx = sx - bw/2, by = sy + R + 15;
@@ -14367,6 +14428,33 @@ function _dftDrawObj(ctx, o) {
     ctx.fillStyle = '#fff';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(fstr, sx, by + bh/2);
+
+    // レンズバッジ — 焦点距離と水平画角。図面上で「その画に何が入るか」を読むため
+    var lstr = Math.round(o.focalMm || 35) + 'mm · ' + _dftCamHFov(o).toFixed(0) + '°';
+    ctx.font = 'bold 10px -apple-system,Arial';
+    var lbw = ctx.measureText(lstr).width + 10, lbh = 15;
+    var lby = by + bh + 3;
+    ctx.fillStyle = 'rgba(2,119,189,0.92)';
+    _dftRoundRect(ctx, sx - lbw/2, lby, lbw, lbh, 5); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(lstr, sx, lby + lbh/2);
+
+    // 画角の到達端に「その距離で入る横幅」を出す。フレーミングの判断に使う
+    var _cfL = (o.fovLen || 5);
+    var _cfw = _dftCamFrameW(o, _cfL);
+    var _fwd2 = (o.rot || 0) + Math.PI/2;
+    var _cfpx = _cfL / _dft.scale * _dft.zoom;
+    var _wstr = '↔ ' + _dftFmt(_cfw) + ' @ ' + _dftFmt(_cfL);
+    ctx.font = 'bold 9px -apple-system,Arial';
+    var wbw = ctx.measureText(_wstr).width + 8, wbh = 13;
+    var wcx = sx + Math.cos(_fwd2) * (_cfpx + 10);
+    var wcy = sy + Math.sin(_fwd2) * (_cfpx + 10);
+    ctx.fillStyle = 'rgba(2,119,189,0.75)';
+    _dftRoundRect(ctx, wcx - wbw/2, wcy - wbh/2, wbw, wbh, 4); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(_wstr, wcx, wcy);
   }
 
   // Rotation handle — 選択中のオブジェクトにのみ表示（雑然さ回避）
@@ -14745,7 +14833,8 @@ function _dftDistLine(ctx, a, b, color, showFstop, lightObj, totalDist, thin) {
   ctx.setLineDash([]);
 
   var mx = (as.x+bs.x)/2, my = (as.y+bs.y)/2;
-  var label = _dftFmt(dm);
+  // 高さ差があるときは斜辺を表示している。図面上の長さと違うので ↗ で示す
+  var label = (Math.abs(_dftZ(a) - _dftZ(b)) > 0.05 ? '↗' : '') + _dftFmt(dm);
   if (totalDist != null) label += ' (∑' + _dftFmt(totalDist) + ')';
   if (showFstop && fstopLight && fstopLight.makerKey) {
     var fv = _dftCalcFstop(fstopLight, fstopDist);
@@ -14788,7 +14877,7 @@ function _dftEditDist(dl) {
   var bName = dl.bObj.label || dl.bObj.type;
   var html =
     '<div id="_dft_dedit" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_dedit\').remove()">' +
-    '<div style="background:#fff;border-radius:18px;padding:22px 20px 18px;width:280px;box-shadow:0 8px 40px rgba(0,0,0,.3);">' +
+    '<div style="background:#fff;color:#111;border-radius:18px;padding:22px 20px 18px;width:280px;box-shadow:0 8px 40px rgba(0,0,0,.3);">' +
     '<div style="font-size:13px;font-weight:800;margin-bottom:4px;">距離を編集</div>' +
     '<div style="font-size:11px;color:#888;margin-bottom:14px;">' + aName + ' → ' + bName + '</div>' +
     '<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">' +
@@ -14813,11 +14902,11 @@ function _dftCamFstopEdit(camObj) {
   var fval = FSTOPS13[fidx];
   var html =
     '<div id="_dft_cedit" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_cedit\').remove()">' +
-    '<div style="background:#fff;border-radius:18px;padding:22px 20px 18px;width:300px;box-shadow:0 8px 40px rgba(0,0,0,.3);">' +
+    '<div style="background:#fff;color:#111;border-radius:18px;padding:22px 20px 18px;width:300px;box-shadow:0 8px 40px rgba(0,0,0,.3);">' +
     '<div style="font-size:13px;font-weight:800;margin-bottom:2px;">🎥 ' + (camObj.label||'Camera') + '</div>' +
     '<div style="font-size:11px;color:#888;margin-bottom:16px;">F値を設定 (ダブルタップで編集)</div>' +
     '<div style="text-align:center;margin-bottom:12px;">' +
-    '<span id="_dft_cedit_disp" style="font-size:42px;font-weight:900;color:#1976d2;letter-spacing:-1px;">f' + fLab(fval) + '</span>' +
+    '<span id="_dft_cedit_disp" style="font-size:42px;font-weight:900;color:#1976d2;letter-spacing:-1px;">' + fLab(fval) + '</span>' +
     '</div>' +
     '<input type="range" id="_dft_cedit_sl" min="0" max="' + (FSTOPS13.length-1) + '" step="1" value="' + fidx + '" ' +
     'oninput="_dftCamFslide(this.value)" ' +
@@ -14839,7 +14928,7 @@ function _dftCamFslide(v) {
   var disp = document.getElementById('_dft_cedit_disp');
   var num  = document.getElementById('_dft_cedit_num');
   var fval = FSTOPS13[idx];
-  if (disp) disp.textContent = 'f' + fLab(fval);
+  if (disp) disp.textContent = fLab(fval);
   if (num)  num.value = fval;
 }
 function _dftCamFnum(v) {
@@ -14851,7 +14940,7 @@ function _dftCamFnum(v) {
   var sl   = document.getElementById('_dft_cedit_sl');
   var disp = document.getElementById('_dft_cedit_disp');
   if (sl)   sl.value = best;
-  if (disp) disp.textContent = 'f' + fLab(FSTOPS13[best]);
+  if (disp) disp.textContent = fLab(FSTOPS13[best]);
 }
 function _dftCamFapply(oid) {
   var sl = document.getElementById('_dft_cedit_sl');
@@ -14876,8 +14965,16 @@ function _dftApplyDist() {
   var dy = dl.bObj.wy - dl.aObj.wy;
   var cur = Math.sqrt(dx*dx + dy*dy);
   if (cur < 0.001) return;
+  // 入力値は光路長（斜辺）。高さ差ぶんを引いた水平距離までしか図面上では動かせない。
+  var dz = _dftZ(dl.aObj) - _dftZ(dl.bObj);
+  var wantH = Math.sqrt(Math.max(0, newM*newM - dz*dz));
+  if (wantH < 0.01) {
+    // 高さ差だけで指定距離に達している（真下・真上）。水平に動かす余地がない
+    _dftSetStatus('⚠ ' + _dftFmt(Math.abs(dz)) + ' の高さ差があるため ' + _dftFmt(newM) + ' には縮められません');
+    return;
+  }
   _dftPushHistory();
-  var sc = newM / cur;
+  var sc = wantH / cur;
   dl.bObj.wx = dl.aObj.wx + dx * sc;
   dl.bObj.wy = dl.aObj.wy + dy * sc;
   _dftUpdateInfoBar();
@@ -15129,6 +15226,10 @@ function _dftOpenSettings(o) {
     dftBounceSettings(o.id);
   } else if (o.type === 'camera') {
     dftCameraEdit(o.id);
+  } else if (o.type === 'flag' || o.type === 'people' || o.type === 'image') {
+    // フラッグ(黒)は Diff/Bounce と同じくサイズ・向き・高さを持つ。
+    // 人物は高さ（顔の高さ）を入れると三角形計算に効く。
+    dftObjSettings(o.id);
   }
   _dftUpdateInfoBar();
   dftRender();
@@ -15383,8 +15484,119 @@ function _dftUpdateInfoBar() {
     var _ba = o.beamAngle || (_ai && _ai.angle) || 75;
     info += ' <button onclick="dftLightSettings(\''+oid+'\')" style="padding:2px 8px;background:#e65100;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">'+(_ai?_ai.emoji:'●')+' '+_ba+'°</button>';
   }
+  // カメラはレンズ、フラッグ/人物/写真は寸法と高さ。ダブルタップだけでは気付けないので出す
+  if (o.type==='camera') {
+    info += ' <button onclick="dftCameraEdit(\''+oid+'\')" style="padding:2px 8px;background:#0277bd;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">🎥 '+Math.round(o.focalMm||35)+'mm</button>';
+  }
+  if (o.type==='flag'||o.type==='people'||o.type==='image') {
+    info += ' <button onclick="dftObjSettings(\''+oid+'\')" style="padding:2px 8px;background:#5e35b1;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">⚙ '+t('dftObjSettings')+'</button>';
+  }
   status.innerHTML = info;
 }
+
+// ── CAMERA SETTINGS（レンズ・センサー・画角）───────────────────
+// _dftOpenSettings から呼ばれる。焦点距離とセンサーを決めると図面の画角が変わる。
+var DFT_FOCALS = [12, 14, 16, 18, 21, 25, 27, 32, 35, 40, 50, 65, 75, 85, 100, 135];
+
+function dftCameraEdit(oid) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o || o.type !== 'camera') return;
+  var ex = document.getElementById('_dft_cam'); if (ex) ex.remove();
+  _dft._editCamId = oid;
+
+  var focal = o.focalMm || 35;
+  var sensorBtns = DFT_SENSORS.map(function(s) {
+    var active = (o.sensorKey || 's35') === s.key;
+    return '<button onclick="_dftCamSetSensor(\''+oid+'\',\''+s.key+'\')" style="' +
+      'padding:7px 9px;border-radius:9px;border:2px solid '+(active?'#0277bd':'rgba(0,0,0,0.12)')+';' +
+      'background:'+(active?'#e1f5fe':'#f8f8f8')+';cursor:pointer;text-align:center;">' +
+      '<div style="font-size:11px;font-weight:800;color:#333;white-space:nowrap;">'+s.label+'</div>' +
+      '<div style="font-size:9px;color:#0277bd;font-weight:700;">'+s.w.toFixed(1)+'mm</div>' +
+      '</button>';
+  }).join('');
+
+  var focalBtns = DFT_FOCALS.map(function(f) {
+    var active = Math.round(focal) === f;
+    return '<button onclick="_dftCamSetFocal(\''+oid+'\','+f+')" style="' +
+      'padding:6px 0;min-width:44px;border-radius:8px;border:1.5px solid '+(active?'#0277bd':'rgba(0,0,0,0.12)')+';' +
+      'background:'+(active?'#0277bd':'#f8f8f8')+';color:'+(active?'#fff':'#333')+';' +
+      'font-size:11px;font-weight:800;cursor:pointer;">'+f+'</button>';
+  }).join('');
+
+  var html =
+    '<div id="_dft_cam" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_cam\').remove()">' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:82vh;overflow-y:auto;" onclick="event.stopPropagation()">' +
+    '<div style="font-size:14px;font-weight:800;margin-bottom:12px;">🎥 ' + (o.label || 'Camera') + '</div>' +
+
+    '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:6px;">' + t('camFocal') + '</div>' +
+    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">' +
+      '<input id="_dft_cam_f" type="number" min="4" max="1200" step="1" value="'+focal+'" ' +
+        'oninput="_dftCamSetFocal(\''+oid+'\',this.value,true)" ' +
+        'style="width:96px;padding:10px;font-size:22px;font-weight:700;border:2px solid #0277bd;border-radius:12px;text-align:center;box-sizing:border-box;">' +
+      '<span style="font-size:16px;color:#888;font-weight:700;">mm</span>' +
+      '<div style="flex:1;"></div>' +
+      '<div id="_dft_cam_fov" style="font-size:13px;font-weight:800;color:#0277bd;text-align:right;"></div>' +
+    '</div>' +
+    '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px;">'+focalBtns+'</div>' +
+
+    '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:6px;">' + t('camSensor') + '</div>' +
+    '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;">'+sensorBtns+'</div>' +
+
+    '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:6px;">' + t('camFovLen') + ' <span style="font-weight:600;color:#888;font-size:10px;">' + t('camFovLenHint') + '</span></div>' +
+    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:18px;">' +
+      '<input id="_dft_cam_l" type="number" min="0.5" max="60" step="0.5" value="'+(o.fovLen||5)+'" ' +
+        'oninput="_dftCamSetFovLen(\''+oid+'\',this.value)" ' +
+        'style="width:84px;padding:8px;font-size:15px;font-weight:700;border:1.5px solid #ddd;border-radius:8px;text-align:center;box-sizing:border-box;">' +
+      '<span style="font-size:12px;color:#888;font-weight:700;">m</span>' +
+      '<div style="flex:1;"></div>' +
+      '<div id="_dft_cam_fw" style="font-size:12px;font-weight:800;color:#0277bd;"></div>' +
+    '</div>' +
+
+    _dftHeightFieldHTML(o) +
+
+    '<button onclick="_dftCamFstopEdit(_dft.objects.find(function(x){return x.id===\''+oid+'\';}))" style="width:100%;padding:10px;margin-bottom:8px;background:#e3f2fd;border:1.5px solid #1976d2;border-radius:11px;color:#1976d2;font-size:13px;font-weight:800;cursor:pointer;">' + fLab(FSTOPS13[(o.fstopIdx!=null?o.fstopIdx:21)]) + ' — ' + t('camSetFstop') + '</button>' +
+    '<button onclick="document.getElementById(\'_dft_cam\').remove()" style="width:100%;padding:11px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">' + t('dftClose') + '</button>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+  _dftCamRefreshInfo(oid);
+}
+
+function _dftCamRefreshInfo(oid) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  var fv = document.getElementById('_dft_cam_fov');
+  if (fv) fv.textContent = t('camHFov') + ' ' + _dftCamHFov(o).toFixed(1) + '°';
+  var fw = document.getElementById('_dft_cam_fw');
+  if (fw) fw.textContent = '↔ ' + _dftFmt(_dftCamFrameW(o, o.fovLen || 5));
+}
+
+window._dftCamSetFocal = function(oid, v, typed) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  var n = parseFloat(v);
+  if (!isFinite(n) || n < 1) return;
+  o.focalMm = n;
+  // ボタンで選んだときは数値欄も追従させる（手入力中は書き戻さない）
+  if (!typed) { var i = document.getElementById('_dft_cam_f'); if (i) i.value = n; dftCameraEdit(oid); return; }
+  _dftCamRefreshInfo(oid);
+  _dftUpdateInfoBar(); dftRender();
+};
+window._dftCamSetSensor = function(oid, key) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  o.sensorKey = key;
+  dftRender(); _dftUpdateInfoBar();
+  dftCameraEdit(oid);
+};
+window._dftCamSetFovLen = function(oid, v) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  var n = parseFloat(v);
+  if (!isFinite(n) || n <= 0) return;
+  o.fovLen = n;
+  _dftCamRefreshInfo(oid);
+  dftRender();
+};
 
 function dftLightSettings(oid) {
   var o = _dft.objects.find(function(x){ return x.id === oid; });
@@ -15411,7 +15623,7 @@ function dftLightSettings(oid) {
 
   var html =
     '<div id="_dft_ls" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_ls\').remove()">' +
-    '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
     '<div style="font-size:14px;font-weight:800;margin-bottom:2px;">'+(lt?lt.name:o.label||'Light')+'</div>' +
     (accs.length ? '<div style="font-size:11px;color:#888;margin-bottom:12px;">Accessory</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">'+accBtns+'</div>' : '') +
     '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:8px;">Beam Angle</div>' +
@@ -15471,6 +15683,30 @@ function _dftApplyBeam(oid) {
   _dftUpdateCalcFromDraft();
 }
 
+// ── プリセット一覧 ───────────────────────────────────────────
+// datalist は iOS でほとんど候補が出ず、しかも候補名は 6〜7 件しか登録して
+// いなかった。実際の factor 表には反射 6 / 透過 50 件以上あるので、
+// タップできるチップとして全部見せる。
+var DFT_ND_STOPS = {'ND 0.3':1.0, 'ND 0.6':2.0, 'ND 0.9':3.0, 'ND 1.2':4.0, 'ND 1.5':5.0, 'ND 1.8':6.0};
+function _dftPresetsFor(type) {
+  var tbl = (type === 'bounce') ? BOUNCE_FACTOR_STOPS
+          : (type === 'diffuse') ? DIFF_FACTOR_STOPS : DFT_ND_STOPS;
+  var order = FACTOR_NAMES_BY_TYPE[type] || [];
+  var out = [], seen = {};
+  // ユーザーが★保存した名前を最優先
+  var saved = [];
+  try { var a = JSON.parse(localStorage.getItem('calm_factor_names') || '{}'); saved = Array.isArray(a[type]) ? a[type] : []; } catch(e) {}
+  saved.forEach(function(n) { if (!seen[n]) { out.push({n:n, s:(n in tbl) ? tbl[n] : null}); seen[n] = 1; } });
+  // 次に国際的に通りのよい名前（FACTOR_NAMES_BY_TYPE の並び順）
+  order.forEach(function(n) { if (!seen[n]) { out.push({n:n, s:(n in tbl) ? tbl[n] : null}); seen[n] = 1; } });
+  // 残りは表にあるものすべて
+  Object.keys(tbl).forEach(function(n) { if (!seen[n]) { out.push({n:n, s:tbl[n]}); seen[n] = 1; } });
+  return out;
+}
+function _dftEsc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 // ── Shared slider-based factor row builder for draft sheets ──────────────
 function _dftFactorRowsHTML(factors, cbPrefix) {
   if (!factors.length) return '<p style="font-size:11px;color:#888;text-align:center;padding:8px 0;">No factors yet</p>';
@@ -15485,6 +15721,30 @@ function _dftFactorRowsHTML(factors, cbPrefix) {
     var allNames = saved.concat(presets.filter(function(n){ return saved.indexOf(n)<0; }));
     var dlId = '_dftfndl_'+cbPrefix+'_'+fi;
     var dataList = '<datalist id="'+dlId+'">'+allNames.map(function(n){ return '<option value="'+n.replace(/"/g,'&quot;')+'">'; }).join('')+'</datalist>';
+
+    // タップできるプリセットチップ。名前とストップ値を同時に入れる。
+    // 件数が多いので既定は折りたたみ、ボタンで全件に広げる。
+    var pList = _dftPresetsFor(nameKey);
+    _dft._fPresets = _dft._fPresets || {};
+    _dft._fPresets[cbPrefix+'_'+fi] = pList;
+    var curName = (f.memo||'').trim();
+    var chipsId = '_dftchips_'+cbPrefix+'_'+fi;
+    var presetChips = pList.length ? (
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">'+
+        '<span style="font-size:10px;font-weight:800;color:#888;">'+t('dftPresetPick')+' ('+pList.length+')</span>'+
+        '<button onclick="window._dftFChips(\''+chipsId+'\',this)" style="background:none;border:none;color:'+color+';font-size:10px;font-weight:800;cursor:pointer;padding:0;">'+t('dftPresetMore')+'</button>'+
+      '</div>'+
+      '<div id="'+chipsId+'" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;max-height:56px;overflow:hidden;">'+
+        pList.map(function(p, pi) {
+          var act = curName === p.n;
+          var sTxt = (p.s == null) ? '' : ' <span style="opacity:.7;">'+(p.s>0?'-':'')+p.s.toFixed(1)+'</span>';
+          return '<button onclick="window._dftFPreset_'+cbPrefix+'('+fi+','+pi+')" style="'+
+            'padding:3px 7px;border-radius:11px;border:1px solid '+(act?color:'#ddd')+';'+
+            'background:'+(act?color:'#fff')+';color:'+(act?'#fff':'#444')+';'+
+            'font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap;">'+_dftEsc(p.n)+sTxt+'</button>';
+        }).join('')+
+      '</div>'
+    ) : '';
     var typeBtns = ['bounce','diffuse','none'].map(function(t) {
       var active = (f.type===t)||(t==='none'&&!f.type);
       var lbl = t==='bounce'?'Bounce':t==='diffuse'?'Diffusion':'Other';
@@ -15497,8 +15757,9 @@ function _dftFactorRowsHTML(factors, cbPrefix) {
       '</div>'+
       '<input type="text" list="'+dlId+'" placeholder="Name (e.g. UltraBounce)" value="'+(f.memo||'').replace(/"/g,'&quot;')+'" '+
         'oninput="window._dftFMemo_'+cbPrefix+'('+fi+',this.value)" '+
-        'style="width:100%;box-sizing:border-box;padding:5px 8px;border-radius:7px;border:1px solid #ddd;font-size:11px;margin-bottom:8px;">'+
+        'style="width:100%;box-sizing:border-box;padding:5px 8px;border-radius:7px;border:1px solid #ddd;font-size:11px;margin-bottom:6px;">'+
       dataList+
+      presetChips+
       '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">'+
         '<button class="step-btn" onclick="window._dftFStep_'+cbPrefix+'('+fi+',-0.1)" style="background:#fff;border:1px solid #ddd;border-radius:6px;width:30px;height:30px;font-size:16px;cursor:pointer;">‹</button>'+
         '<span id="_dftfv_'+cbPrefix+'_'+fi+'" style="min-width:54px;text-align:center;font-size:16px;font-weight:800;color:'+color+';">'+(stops>0?'-':'')+stops.toFixed(1)+'s</span>'+
@@ -15544,7 +15805,22 @@ function _dftFSetter(cbPrefix, getObj) {
     var v=Math.max(0,Math.min(10,Math.round((parseFloat(o.factors[fi].stops||0)+d)*10)/10));
     window['_dftFSl_'+cbPrefix](fi,v);
     var sl=document.getElementById('_dftfsl_'+cbPrefix+'_'+fi); if(sl) sl.value=v; };
+  // プリセットチップ: 名前とストップ値をまとめて入れる（表に値がなければ名前だけ）
+  window['_dftFPreset_'+cbPrefix] = function(fi,pi){ var o=getObj(); if(!o||!o.factors||!o.factors[fi])return;
+    var list=(_dft._fPresets||{})[cbPrefix+'_'+fi]||[]; var p=list[pi]; if(!p)return;
+    o.factors[fi].memo=p.n;
+    if(p.s!=null) o.factors[fi].stops=p.s;
+    _dftFRefresh_all(cbPrefix,getObj); };
 }
+
+// チップ一覧の折りたたみ / 全件表示
+window._dftFChips = function(id, btn) {
+  var el = document.getElementById(id); if (!el) return;
+  var open = el.style.maxHeight === 'none';
+  el.style.maxHeight = open ? '56px' : 'none';
+  el.style.overflow  = open ? 'hidden' : 'visible';
+  btn.textContent = open ? t('dftPresetMore') : t('dftPresetLess');
+};
 
 function _dftFRefresh_all(cbPrefix, getObj) {
   if (cbPrefix === 'lt') _dftFRefresh();
@@ -15637,7 +15913,7 @@ function dftRectStart(type) {
   }).join('');
   var html =
     '<div id="_dft_rs" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_rs\').remove()">' +
-    '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:82vh;overflow-y:auto;">' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:82vh;overflow-y:auto;">' +
     '<div style="font-size:14px;font-weight:800;margin-bottom:14px;">' + typeLabel + ' · ' + t('rectSizeTitle') + '</div>' +
     '<div style="font-size:11px;font-weight:800;color:#888;margin-bottom:8px;">' + t('rectPreset') + '</div>' +
     '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px;">' + presetBtns + '</div>' +
@@ -15694,7 +15970,7 @@ function dftBounceSettings(oid) {
   var typeLabel = o.type === 'bounce' ? 'Bounce' : 'Diffusion';
   var html =
     '<div id="_dft_bs" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_bs\').remove()">' +
-    '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
     '<div style="font-size:14px;font-weight:800;margin-bottom:12px;">' + typeLabel + ' &nbsp;<span style="font-size:11px;color:#888;font-weight:600;">' + (o.label||'') + '</span></div>' +
     _dftOrientFieldHTML(o) +
     _dftHeightFieldHTML(o) +
@@ -15735,13 +16011,51 @@ window._dftBFAdd = function() {
   _dftBFRefresh(); _dftUpdateInfoBar(); dftRender();
 };
 
+// ── 汎用オブジェクト設定（フラッグ / 人物 / 写真）────────────────
+// Diff/Bounce は Factor を持つので専用シート、こちらは寸法と高さだけ。
+function dftObjSettings(oid) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  var ex = document.getElementById('_dft_os'); if (ex) ex.remove();
+  var isRect = (o.type === 'flag' || o.type === 'image');
+  var icon = o.type === 'flag' ? '▬' : o.type === 'people' ? '🧍' : '🖼';
+  var html =
+    '<div id="_dft_os" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_os\').remove()">' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:82vh;overflow-y:auto;" onclick="event.stopPropagation()">' +
+    '<div style="font-size:14px;font-weight:800;margin-bottom:14px;">' + icon + ' ' + (o.label || o.type) + '</div>' +
+    (isRect
+      ? '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:6px;">' + t('dftSize') + '</div>' +
+        '<button onclick="_dft.selected=\''+oid+'\';dftSizeDialog()" style="width:100%;padding:10px;margin-bottom:16px;background:#e3f2fd;border:1.5px solid #1565c0;border-radius:11px;color:#1565c0;font-size:13px;font-weight:800;cursor:pointer;">' +
+          '📐 ' + _dftFmt(o.wm||o.w||1.2) + ' × ' + _dftFmt(o.hm||o.h||1.2) + '</button>' +
+        _dftOrientFieldHTML(o)
+      : '') +
+    _dftHeightFieldHTML(o) +
+    (isRect ? _dftAlphaFieldHTML(o) : '') +
+    '<button onclick="document.getElementById(\'_dft_os\').remove()" style="width:100%;padding:11px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">' + t('dftClose') + '</button>' +
+    '</div></div>';
+  _dft._editObjId = oid;
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
 function dftSizeDialog() {
   var o = _dft.objects.find(function(x){ return x.id === _dft.selected; });
   if (!o) return;
-  var presets = [
+  // フラッグ(黒)は幕とは実際に使う寸法が違うので、種類ごとにプリセットを出す
+  var presets = (o.type === 'flag') ? [
+    {l:'18×24" (0.46×0.61m)', w:0.46, h:0.61},
+    {l:'24×36" (0.61×0.91m)', w:0.61, h:0.91},
+    {l:'4×4ft floppy (1.22m)', w:1.22, h:1.22},
+    {l:'4×8ft (1.22×2.44m)',   w:1.22, h:2.44},
+    {l:'6×6ft (1.83m)',        w:1.83, h:1.83},
+    {l:'8×8ft (2.44m)',        w:2.44, h:2.44},
+    {l:'12×12ft (3.66m)',      w:3.66, h:3.66},
+    {l:'20×20ft (6.10m)',      w:6.10, h:6.10}
+  ] : [
     {l:'4×4ft (1.22m)', w:1.22, h:1.22},
+    {l:'6×6ft (1.83m)', w:1.83, h:1.83},
     {l:'8×8ft (2.44m)', w:2.44, h:2.44},
     {l:'12×12ft (3.66m)', w:3.66, h:3.66},
+    {l:'20×20ft (6.10m)', w:6.10, h:6.10},
     {l:'1.2m × 0.6m', w:1.2, h:0.6},
     {l:'2m × 2m', w:2, h:2},
     {l:'3m × 3m', w:3, h:3},
@@ -15765,7 +16079,16 @@ function dftSizeDialog() {
 
 function dftApplySize(id, w, h) {
   var o = _dft.objects.find(function(x){ return x.id===id; });
-  if (o) { _dftPushHistory(); o.w=w; o.h=h; dftRender(); }
+  if (!o) return;
+  _dftPushHistory();
+  // 写真は wm/hm を使い、_dftRectDims が wm を優先する。w/h だけ入れても効かない。
+  if (o.wm != null || o.hm != null) { o.wm = w; o.hm = h; }
+  else { o.w = w; o.h = h; }
+  _dftUpdateInfoBar();
+  dftRender();
+  // 開いているシートの寸法表示を更新する
+  if (document.getElementById('_dft_os')) { document.getElementById('_dft_os').remove(); dftObjSettings(id); }
+  else if (document.getElementById('_dft_bs')) { document.getElementById('_dft_bs').remove(); dftBounceSettings(id); }
 }
 
 // ── 設置高さ(床からの高さ / elevation) ──────────────────────
@@ -15838,12 +16161,29 @@ function _dftOrientFieldHTML(o) {
       seg(edge==='w', _dftFmt(w), '_dftSetStandEdge(\'' + o.id + '\',\'w\')') +
       seg(edge==='h', _dftFmt(h), '_dftSetStandEdge(\'' + o.id + '\',\'h\')') +
     '</div>';
+    // 立てた幕は「下端の高さ」から丈ぶん立ち上がる。距離計算には中心を使うので、
+    // どの高さで計算されているかをそのまま見せる（設置高さ欄だけでは読めない）。
+    var _rd   = _dftRectDims(o);
+    var _bot  = (o.zHeight != null) ? o.zHeight : 0;
+    var _top  = _bot + (_rd.vert || 0);
+    var _mid  = (_bot + _top) / 2;
+    html += '<div style="margin-top:8px;padding:8px 10px;background:#f3f0fa;border-radius:9px;font-size:10px;line-height:1.6;color:#5e35b1;font-weight:700;">' +
+      t('dftPanelH') + ': ' + _dftFmt(_bot) + ' → ' + _dftFmt(_top) +
+      '（' + t('orientStand') + ' ' + _dftFmt(_rd.vert || 0) + '）<br>' +
+      '↗ ' + _dftFmt(_mid) + ' ' + t('dftPanelHHint') +
+    '</div>';
   }
   return html + '</div>';
 }
+// 向きを変えると寸法表示も変わるのでシートを開き直す。
+// Diff/Bounce は専用シート、フラッグ等は汎用シート。開いていない方は触らない。
 function _dftReopenBounceSettings(id) {
-  var el = document.getElementById('_dft_bs'); if (el) el.remove();
-  dftBounceSettings(id);
+  var o = _dft.objects.find(function(x){ return x.id === id; });
+  var bs = document.getElementById('_dft_bs');
+  var os = document.getElementById('_dft_os');
+  if (os) { os.remove(); dftObjSettings(id); return; }
+  if (bs) bs.remove();
+  if (o && (o.type === 'bounce' || o.type === 'diffuser')) dftBounceSettings(id);
 }
 window._dftSetOrient = function(id, stand) {
   var o = _dft.objects.find(function(x){ return x.id===id; });
@@ -16196,7 +16536,7 @@ function dftSave() {
   var today = new Date().toISOString().slice(0,10);
   var html =
     '<div id="_dft_sv" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.58);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sv\').remove()">' +
-    '<div style="background:#fff;border-radius:18px;padding:22px 20px 18px;width:88%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.3);" onclick="event.stopPropagation()">' +
+    '<div style="background:#fff;color:#111;border-radius:18px;padding:22px 20px 18px;width:88%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.3);" onclick="event.stopPropagation()">' +
     '<div style="font-size:15px;font-weight:800;margin-bottom:16px;">💾 保存</div>' +
     '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">プロジェクト名</div>' +
     '<input id="_sv_name" type="text" value="'+(_dft.draftName||'').replace(/"/g,'&quot;')+'" placeholder="例: Wedding Reception" ' +
@@ -16480,7 +16820,7 @@ function dftDistVisMenu() {
     '</label>';
   }).join('');
   var html = '<div id="_dft_dv" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_dv\').remove()">' +
-    '<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;padding:16px 0 32px;">' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;padding:16px 0 32px;">' +
     '<div style="font-size:14px;font-weight:800;padding:0 16px 12px;border-bottom:1px solid #eee;">📏 距離表示の切り替え</div>' +
     rows +
     '<button onclick="document.getElementById(\'_dft_dv\').remove()" style="display:block;width:calc(100% - 32px);margin:14px 16px 0;padding:12px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">閉じる</button>' +
@@ -16590,7 +16930,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.81';
+var ver = 'v1.1.4.82';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
