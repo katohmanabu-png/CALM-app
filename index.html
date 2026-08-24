@@ -2578,7 +2578,7 @@ function updateDraftI18n(){
   var M={
     sel:{ja:'選択',en:'Select',es:'Sel.'}, multi:{ja:'複数',en:'Multi',es:'Múlt.'},
     del:{ja:'削除',en:'Delete',es:'Borrar'}, rot:{ja:'回転',en:'Rotate',es:'Girar'},
-    dist:{ja:'距離',en:'Dist',es:'Dist.'}, save:{ja:'保存',en:'Save',es:'Guardar'},
+    dist:{ja:'距離',en:'Dist',es:'Dist.'}, show:{ja:'表示',en:'Show',es:'Ver'}, save:{ja:'保存',en:'Save',es:'Guardar'},
     load:{ja:'読込',en:'Load',es:'Cargar'}, people:{ja:'人',en:'People',es:'Person.'},
     bounce:{ja:'反射',en:'Bounce',es:'Rebote'}, photo:{ja:'写真',en:'Photo',es:'Foto'},
     unit:{ja:'単位',en:'Unit',es:'Unidad'}, reset:{ja:'リセット',en:'Reset',es:'Reiniciar'},
@@ -17467,24 +17467,24 @@ function dftToolsMoreMenu() {
 // 「消す」だけだと位置関係が読めなくなるので、薄く残せる段を用意している。
 var DFT_VIS_GROUPS = [
   { title:'dvGrpLines', items:[
-    {key:'direct',    label:'💡→🧍 ライト → 人物'},
-    {key:'bounceIn',  label:'💡→🔲 ライト → 反射板'},
-    {key:'bounceOut', label:'🔲→🧍 反射板 → 人物'},
-    {key:'diffuser',  label:'⬜ Diffusion 距離'},
-    {key:'camera',    label:'🎥 カメラ 距離'}
+    {key:'direct',    label:'ライト → 人物',   sample:'↗4.2m f24.6', col:'#f9a825'},
+    {key:'bounceIn',  label:'ライト → 反射板', sample:'↗3.1m',       col:'#f9a825'},
+    {key:'bounceOut', label:'反射板 → 人物',   sample:'↗2.8m',       col:'#26a69a'},
+    {key:'diffuser',  label:'Diffusion の距離', sample:'↗3.5m',      col:'#ab47bc'},
+    {key:'camera',    label:'カメラ の距離',    sample:'↗5.5m',      col:'#6495ed'}
   ]},
   { title:'dvGrpCones', items:[
-    {key:'beam', label:'🔶 ライトのビーム'},
-    {key:'refl', label:'🔷 反射板の反射光'},
-    {key:'fov',  label:'🎥 カメラの画角'}
+    {key:'beam', label:'ライトのビーム',   sample:'◣ 扇形',  col:'#f9a825'},
+    {key:'refl', label:'反射板の反射光',   sample:'◣ 扇形',  col:'#0288d1'},
+    {key:'fov',  label:'カメラの画角',     sample:'◣ 扇形',  col:'#6495ed'}
   ]},
   { title:'dvGrpBadges', items:[
-    {key:'fstop',     label:'🟠 ライトのF値'},
-    {key:'sum',       label:'∑ 合算ラベル（F値）'},
-    {key:'stopBadge', label:'🔵 反射板のstop'}
+    {key:'fstop',     label:'ライトのF値',        sample:'f24.6',      col:'#e65100'},
+    {key:'sum',       label:'反射経路の合算',      sample:'∑36.3m f0.5', col:'#e65100'},
+    {key:'stopBadge', label:'反射板・DIFFの減光',  sample:'-2.0 stop',  col:'#0288d1'}
   ]},
   { title:'dvGrpOther', items:[
-    {key:'grid', label:'▦ グリッド'}
+    {key:'grid', label:'グリッド', sample:'▦', col:'#999'}
   ]}
 ];
 
@@ -17497,8 +17497,16 @@ function _dftVisRowHTML(it) {
       'flex:1;padding:6px 2px;border:none;border-radius:7px;font-size:10px;font-weight:800;cursor:pointer;' +
       (act ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#666;') + '">' + labels[i] + '</button>';
   }).join('');
-  return '<div style="display:flex;align-items:center;gap:10px;padding:7px 16px;">' +
-    '<span style="flex:1;font-size:12px;font-weight:600;color:#444;">'+it.label+'</span>' +
+  // 図面での見た目を並べる。文字だけだとどの表示を指すのか分からなかった
+  var chip = it.sample
+    ? '<span style="display:inline-block;padding:1px 6px;border-radius:5px;border:1px solid '+it.col+';' +
+      'color:'+it.col+';font-size:9px;font-weight:800;font-family:monospace;white-space:nowrap;">'+_dftEsc(it.sample)+'</span>'
+    : '';
+  return '<div style="display:flex;align-items:center;gap:8px;padding:7px 16px;">' +
+    '<span style="flex:1;min-width:0;">' +
+      '<span style="font-size:12px;font-weight:600;color:#444;">'+it.label+'</span>' +
+      (chip ? '<br>' + chip : '') +
+    '</span>' +
     '<span style="display:flex;gap:3px;width:150px;flex:0 0 150px;">'+segs+'</span>' +
   '</div>';
 }
@@ -17717,7 +17725,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.92';
+var ver = 'v1.1.4.93';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -18066,7 +18074,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
         <button class="draft-tool-btn" id="dft-btn-multi"  onclick="dftMode('multi')"         style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⊞<br><span style="font-size:8px;" data-dfti18n="multi">複数</span></button>
         <button class="draft-tool-btn" id="dft-btn-delete" onclick="dftMode('delete')"        style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🗑<br><span style="font-size:8px;" data-dfti18n="del">削除</span></button>
         <button class="draft-tool-btn" id="dft-btn-rotate" onclick="dftMode('rotate')"        style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔄<br><span style="font-size:8px;" data-dfti18n="rot">回転</span></button>
-        <button class="draft-tool-btn" onclick="dftDistVisMenu()"                             style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📏<br><span style="font-size:8px;" data-dfti18n="dist">距離</span></button>
+        <button class="draft-tool-btn" onclick="dftDistVisMenu()" title="表示/非表示" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">👁<br><span style="font-size:8px;" data-dfti18n="show">表示</span></button>
         <button class="draft-tool-btn dft-undo-btn" onclick="dftUndo()" id="dft-btn-undo" disabled style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">↩<br><span style="font-size:8px;">Undo</span></button>
         <button class="draft-tool-btn dft-undo-btn" onclick="dftRedo()" id="dft-btn-redo" disabled style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">↪<br><span style="font-size:8px;">Redo</span></button>
         <button class="draft-tool-btn" onclick="dftCopy()"       style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⎘<br><span style="font-size:8px;">Copy</span></button>
