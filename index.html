@@ -5370,6 +5370,7 @@ var LIGHTS = {
 
   lightstar: {
     airlite_tube_1000: {
+      url:'https://www.lightstarusa.com/product/airlite-tube-1000w/',
       group:'LED', name:'Airlite Tube 1000', desc:'1000W LED Tube Balloon', emoji:'🎈', watts:1000,
       weight:'11 kg', size:'900×2000 mm',
       ccts:[2700, 3200, 5600, 10000], accessories:['none'],
@@ -5381,6 +5382,7 @@ var LIGHTS = {
       }
     },
     airlite_balloon_1000: {
+      url:'https://www.lightstarusa.com/product/airlite-bi-color-balloon-1000w/',
       group:'LED', name:'Airlite Balloon 1000', desc:'1000W LED Balloon Light', emoji:'🎈', watts:1000,
       weight:'8 kg', size:'1800×1330 mm',
       ccts:[2700, 3200, 5600, 10000], accessories:['none'],
@@ -5392,6 +5394,7 @@ var LIGHTS = {
       }
     },
     luxed9: {
+      url:'https://www.lightstarusa.com/product/certified-lightstar-luxed-9-bi-color-led-spotlight-1620w-w-lumenradio/',
       group:'LED', name:'LUXED-9', desc:'1620W IP20 Bi-Color LED Panel (3×3)', emoji:'💡', watts:1620,
       weight:'39 kg', size:'1256×1218×216 mm', ccts:[3200,5600],
       accessories:['flood'],
@@ -5410,7 +5413,7 @@ var LIGHTS = {
       ccts:[3200,5600],
       accessories:['flood'],
       dmx:{led:'RGBWW',power:'2160W',cct:'2700K–10000K',cri:'≥95',tlci:'≥97',ip:'IP20',control:'DMX / LumenRadio CRMX'},
-      url:'https://www.lightstarusa.com/product-category/luxed/',
+      url:'https://www.lightstarusa.com/product/luxed-pro-p12-ip65/',
       // Lightstar 公式カタログ（LUXED PRO-P12）の距離別照度表
       refData: {
         'flood':{
@@ -5424,7 +5427,7 @@ var LIGHTS = {
       ccts:[3200,5600],
       accessories:['flood'],
       dmx:{led:'RGBWW',power:'1620W',cct:'2700K–10000K',cri:'≥95',tlci:'≥97',ip:'IP20',control:'DMX / LumenRadio CRMX'},
-      url:'https://www.lightstarusa.com/product-category/luxed/',
+      url:'https://www.lightstarusa.com/product/luxed-pro-p9-ip65/',
       // Lightstar 公式カタログ（LUXED PRO-P9, RGB版）。Bi-Color の LUXED-9 とは別機種。
       refData: {
         'flood':{
@@ -16570,7 +16573,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.77';
+var ver = 'v1.1.4.78';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
