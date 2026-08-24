@@ -2159,6 +2159,7 @@ var LANGS = {
     dvGrpLines:'距離線', dvGrpCones:'ビーム・画角', dvGrpBadges:'ラベル', dvGrpOther:'その他',
     dvAllOn:'全部表示', dvAllDim:'全部薄く', dvClean:'すっきり',
     dvUnhide:'個別に隠した線を戻す',
+    dftSaveFailed:'保存できませんでした。端末の空き容量が足りない可能性があります。写真やPDFを含む図面を削除してから、もう一度お試しください。',
     dvGrpObjects:'置いたもの', dvObjHint:'非表示にすると図面から消え、F値や露出の計算からも外れます。', dvObjAllOn:'すべて表示に戻す',
     dftGridPill:'1マス', dftGridLabel:'グリッド1マスの大きさ', dftGridHint:'方眼1つの実寸。図面の読み方がこれで決まります。',
     dftCalibLabel:'読み込んだ図面の実寸合わせ', dftCalibHint:'PDFや写真を下敷きにしたとき、既知の2点をタップして実寸を教えます。',
@@ -2262,6 +2263,7 @@ var LANGS = {
     dvGrpLines:'Distance lines', dvGrpCones:'Beams & FOV', dvGrpBadges:'Labels', dvGrpOther:'Other',
     dvAllOn:'All on', dvAllDim:'All dim', dvClean:'Declutter',
     dvUnhide:'Restore individually hidden lines',
+    dftSaveFailed:'Could not save. The device may be out of storage. Try deleting a draft that contains a photo or PDF, then save again.',
     dvGrpObjects:'Placed items', dvObjHint:'Hiding one removes it from the plan and from the f-stop / exposure maths.', dvObjAllOn:'Show all again',
     dftGridPill:'Grid', dftGridLabel:'Size of one grid square', dftGridHint:'What one square measures. This is how the plan reads.',
     dftCalibLabel:'Match an imported plan to real size', dftCalibHint:'With a PDF or photo underneath, tap two points you know the distance between.',
@@ -2362,6 +2364,7 @@ var LANGS = {
     dvGrpLines:'Líneas de distancia', dvGrpCones:'Haces y ángulo', dvGrpBadges:'Etiquetas', dvGrpOther:'Otros',
     dvAllOn:'Todo', dvAllDim:'Atenuar todo', dvClean:'Despejar',
     dvUnhide:'Restaurar líneas ocultadas',
+    dftSaveFailed:'No se pudo guardar. Puede que no haya espacio. Borra un plano con foto o PDF e inténtalo de nuevo.',
     dvGrpObjects:'Elementos colocados', dvObjHint:'Al ocultarlo sale del plano y de los cálculos de f y exposición.', dvObjAllOn:'Mostrar todo de nuevo',
     dftGridPill:'Cuadro', dftGridLabel:'Tamaño de un cuadro', dftGridHint:'Cuánto mide un cuadro. Así se lee el plano.',
     dftCalibLabel:'Ajustar un plano importado al tamaño real', dftCalibHint:'Con un PDF o foto de fondo, toca dos puntos cuya distancia conozcas.',
@@ -12926,9 +12929,24 @@ function saveCalcState() {
 // 状態スナップショット = localStorageのcalm_*キー + Mix(mixLights)/Calc factors。
 // 復元は既存の loadCalcState() + refreshAllTabs() を再利用。Draftは独自Undoで別管理。
 var _undoStack=[], _redoStack=[], _undoReady=false, _undoRestoring=false, _undoTimer=null;
+// Undo が管理してよいのは Calc/Camera/Mix/Alt の「設定値」だけ。
+// 以前は calm_* を総なめして、スナップショットに無いキーを消していたため、
+// 「スナップショット取得 → 図面を保存 → Undo」の順で calm_drafts や
+// calm_projects（保存した図面・プロジェクト）が丸ごと消えていた。
+// 消してよいものを列挙する方式に変える。列挙漏れは「消えない」側に転ぶ。
+var UNDO_OWNED_KEYS = [
+  'calm_maker','calm_model','calm_acc','calm_dist','calm_cctIdx',
+  'calm_iso','calm_fps','calm_fstop','calm_imperial','calm_camType',
+  'calm_shutterAngleIdx','calm_filmFPS','calm_filmAngleIdx','calm_filmStockIdx',
+  'calm_stillISO','calm_stillSS',
+  'calm_alt_maker','calm_alt_model','calm_alt_acc','calm_alt_dist','calm_alt_imperial'
+];
 function _undoSnapshot(){
   var ls={};
-  try{ for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && k.indexOf('calm_')===0 && k!=='calm_dark') ls[k]=localStorage.getItem(k); } }catch(e){}
+  try{ UNDO_OWNED_KEYS.forEach(function(k){
+    var v = localStorage.getItem(k);
+    if (v !== null) ls[k] = v;
+  }); }catch(e){}
   return JSON.stringify({
     ls: ls,
     mix: (typeof mixLights!=='undefined'?mixLights:[]),
@@ -12941,9 +12959,12 @@ function _undoApply(str){
   var snap; try{ snap=JSON.parse(str); }catch(e){ return; }
   _undoRestoring=true;
   try{
-    var cur=[]; for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && k.indexOf('calm_')===0 && k!=='calm_dark') cur.push(k); }
-    cur.forEach(function(k){ if(!(k in snap.ls)) localStorage.removeItem(k); });
-    Object.keys(snap.ls).forEach(function(k){ localStorage.setItem(k, snap.ls[k]); });
+    // Undo が所有するキーだけを対象にする。図面・プロジェクト・保存名などの
+    // 「書類」は絶対に触らない
+    UNDO_OWNED_KEYS.forEach(function(k){ if(!(k in snap.ls)) localStorage.removeItem(k); });
+    Object.keys(snap.ls).forEach(function(k){
+      if (UNDO_OWNED_KEYS.indexOf(k) >= 0) localStorage.setItem(k, snap.ls[k]);
+    });
     if (typeof mixLights!=='undefined'){ mixLights.length=0; (snap.mix||[]).forEach(function(m){ mixLights.push(JSON.parse(JSON.stringify(m))); }); }
     if (typeof S_calcFactors!=='undefined'){ S_calcFactors.length=0; (snap.factors||[]).forEach(function(f){ S_calcFactors.push(JSON.parse(JSON.stringify(f))); }); }
     if (typeof S_mixPerLightDist!=='undefined') S_mixPerLightDist=snap.mixPer;
@@ -13747,7 +13768,19 @@ function dftInit() {
 
   try {
     var ds = localStorage.getItem('calm_drafts');
-    if (ds) _dft.drafts = JSON.parse(ds);
+    try {
+      if (ds) _dft.drafts = JSON.parse(ds);
+    } catch(e) { ds = null; }
+    // 本体が無い/壊れているときは控えから戻す（バージョン更新後の取りこぼし対策）
+    if (!_dft.drafts.length) {
+      try {
+        var bak = localStorage.getItem('calm_drafts_bak');
+        if (bak) {
+          var b = JSON.parse(bak);
+          if (b && b.length) { _dft.drafts = b; localStorage.setItem('calm_drafts', bak); }
+        }
+      } catch(e) {}
+    }
     var da = localStorage.getItem('calm_draft_active');
     var loadedNamed = false;
     if (da) {
@@ -14175,8 +14208,17 @@ function _dftDrawLightFstops(ctx) {
 // ── 表示の濃さ ──────────────────────────────────────────────
 // 非表示にしたオブジェクトを除いた一覧。描画からも計算からも外れるので、
 // 「使わないバウンスを一旦どけて考える」ができる。
+/** レイヤーが非表示になっているか */
+function _dftLayerHidden(o) {
+  var L = _dft.layers.find(function(l){ return l.id === (o.layer || 1); });
+  return !!(L && !L.visible);
+}
 function _dftVisObjs(pred) {
-  return _dft.objects.filter(function(o){ return !o.hidden && pred(o); });
+  // レイヤー非表示も個別非表示と同じ扱いにする。以前はレイヤーを見ていなかったため、
+  // レイヤーで反射板を隠しても反射光のコーンだけ残り、計算にも入り続けていた。
+  return _dft.objects.filter(function(o){
+    return !o.hidden && !_dftLayerHidden(o) && pred(o);
+  });
 }
 var DFT_VIS_STATES = [1, 0.28, 0];   // 表示 / 半透明 / 非表示
 function _dftVA(key) {
@@ -17010,11 +17052,39 @@ function _dftSaveCommit() {
   };
   var idx = _dft.drafts.findIndex(function(d){ return d.id===id; });
   if (idx >= 0) _dft.drafts[idx] = data; else _dft.drafts.push(data);
+  if (_dftWriteDrafts()) {
+    try { localStorage.setItem('calm_draft_active', id); } catch(e) {}
+    _dftSetStatus('💾 保存: ' + name + (loc ? '  📍' + loc : ''));
+  } else {
+    // 以前はここで失敗を握りつぶし、保存できていないのに「保存」と表示していた。
+    if (idx < 0) _dft.drafts.pop();   // 保存できなかったものを一覧に残さない
+    alert(t('dftSaveFailed'));
+  }
+}
+
+// ── 保存図面の書き込み ────────────────────────────────────────
+// 図面は書類なので、消えたら作り直しになる。そこで
+//   ・書く前に直前の内容を控え(calm_drafts_bak)へ退避
+//   ・書いたあと読み直して件数を検証
+//   ・失敗したら控えから戻して false を返す
+// 容量超過(QuotaExceeded)でも黙って失敗しないようにする。
+function _dftWriteDrafts() {
+  var json;
+  try { json = JSON.stringify(_dft.drafts); } catch(e) { return false; }
+  var prev = null;
+  try { prev = localStorage.getItem('calm_drafts'); } catch(e) {}
   try {
-    localStorage.setItem('calm_drafts', JSON.stringify(_dft.drafts));
-    localStorage.setItem('calm_draft_active', id);
-  } catch(e) {}
-  _dftSetStatus('💾 保存: ' + name + (loc ? '  📍' + loc : ''));
+    if (prev) localStorage.setItem('calm_drafts_bak', prev);
+    localStorage.setItem('calm_drafts', json);
+    // 本当に書けたか読み直して確かめる
+    var back = JSON.parse(localStorage.getItem('calm_drafts') || 'null');
+    if (!back || back.length !== _dft.drafts.length) throw new Error('verify failed');
+    return true;
+  } catch(e) {
+    try { if (prev !== null) localStorage.setItem('calm_drafts', prev); } catch(e2) {}
+    console.log('draft write failed', e);
+    return false;
+  }
 }
 
 function dftLoadMenu() {
@@ -17170,7 +17240,7 @@ function dftImport() {
         // Add to drafts list if not already there
         var existing = _dft.drafts.findIndex(function(x){ return x.id===d.id; });
         if (existing >= 0) _dft.drafts[existing] = d; else _dft.drafts.push(d);
-        try { localStorage.setItem('calm_drafts', JSON.stringify(_dft.drafts)); } catch(e) {}
+        _dftWriteDrafts();
         _dftLoadDraft(d, false);
         _dftSetStatus('📥 インポート完了: ' + (d.name||'Draft'));
       } catch(err) { alert('ファイルの読み込みに失敗しました。\n' + err.message); }
@@ -17184,7 +17254,7 @@ function dftImport() {
 function _dftDelDraft(id) {
   _dft.drafts = _dft.drafts.filter(function(d){ return d.id!==id; });
   if (_dft.draftId === id) { _dft.draftId=null; _dft.draftName='Draft 1'; }
-  try { localStorage.setItem('calm_drafts', JSON.stringify(_dft.drafts)); } catch(e) {}
+  _dftWriteDrafts();
 }
 
 function dftNew() {
@@ -17490,7 +17560,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.88';
+var ver = 'v1.1.4.89';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
