@@ -2146,6 +2146,8 @@ var LANGS = {
     camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定',
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
+    expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
+    expLegNote:'角度の読み方：カメラのある向きを0°として時計回りに数えます。90°がカメラから見て右、270°が左、180°が真後ろ（逆光）です。下のグラフも同じ向きで、外に張り出すほど光が強いことを示します。',
     dftPanelH:'幕の高さ', dftPanelHHint:'← 距離計算に使う高さ(中心)', dftObjSettings:'設定',
     dftPeopleTitle:'🧍 人を配置', dftManLabel:'男性', dftWomanLabel:'女性',
     dftSavePrompt:'名前を付けて保存:', dftSaved:'💾 保存: ',
@@ -2157,6 +2159,7 @@ var LANGS = {
     dvGrpLines:'距離線', dvGrpCones:'ビーム・画角', dvGrpBadges:'ラベル', dvGrpOther:'その他',
     dvAllOn:'全部表示', dvAllDim:'全部薄く', dvClean:'すっきり',
     dvUnhide:'個別に隠した線を戻す',
+    dvGrpObjects:'置いたもの', dvObjHint:'非表示にすると図面から消え、F値や露出の計算からも外れます。', dvObjAllOn:'すべて表示に戻す',
     dftGridPill:'1マス', dftGridLabel:'グリッド1マスの大きさ', dftGridHint:'方眼1つの実寸。図面の読み方がこれで決まります。',
     dftCalibLabel:'読み込んだ図面の実寸合わせ', dftCalibHint:'PDFや写真を下敷きにしたとき、既知の2点をタップして実寸を教えます。',
     dftCalibBtn:'📍 2点キャリブレーション', dftCalibStep1:'📍 1点目をタップ...',
@@ -2246,6 +2249,8 @@ var LANGS = {
     camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop',
     dftSize:'Size', dftPresetPick:'Pick a preset',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
+    expLegFace:'Face', expLegCam:'Camera', expLegKey:'Key', expLegBack:'Back',
+    expLegNote:'How to read the angles: 0° is the direction of the camera, counted clockwise from there. 90° is camera-right, 270° is camera-left, 180° is straight behind (backlight). The chart below uses the same orientation — the further it reaches out, the stronger the light.',
     dftPanelH:'Panel height', dftPanelHHint:'← height used for distance (centre)', dftObjSettings:'Settings',
     dftPeopleTitle:'🧍 People', dftManLabel:'Man', dftWomanLabel:'Woman',
     dftSavePrompt:'Save as:', dftSaved:'💾 Saved: ',
@@ -2257,6 +2262,7 @@ var LANGS = {
     dvGrpLines:'Distance lines', dvGrpCones:'Beams & FOV', dvGrpBadges:'Labels', dvGrpOther:'Other',
     dvAllOn:'All on', dvAllDim:'All dim', dvClean:'Declutter',
     dvUnhide:'Restore individually hidden lines',
+    dvGrpObjects:'Placed items', dvObjHint:'Hiding one removes it from the plan and from the f-stop / exposure maths.', dvObjAllOn:'Show all again',
     dftGridPill:'Grid', dftGridLabel:'Size of one grid square', dftGridHint:'What one square measures. This is how the plan reads.',
     dftCalibLabel:'Match an imported plan to real size', dftCalibHint:'With a PDF or photo underneath, tap two points you know the distance between.',
     dftCalibBtn:'📍 2-Point Calibration', dftCalibStep1:'📍 Tap point 1 on canvas...',
@@ -2343,6 +2349,8 @@ var LANGS = {
     camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f',
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
+    expLegFace:'Cara', expLegCam:'Cámara', expLegKey:'Key', expLegBack:'Contra',
+    expLegNote:'Cómo leer los ángulos: 0° es la dirección de la cámara, contando en sentido horario. 90° es a la derecha de cámara, 270° a la izquierda, 180° justo detrás (contraluz). El gráfico usa la misma orientación: cuanto más se extiende, más fuerte es la luz.',
     dftPanelH:'Altura del panel', dftPanelHHint:'← altura usada para la distancia (centro)', dftObjSettings:'Ajustes',
     dftPeopleTitle:'🧍 Personas', dftManLabel:'Hombre', dftWomanLabel:'Mujer',
     dftSavePrompt:'Guardar como:', dftSaved:'💾 Guardado: ',
@@ -2354,6 +2362,7 @@ var LANGS = {
     dvGrpLines:'Líneas de distancia', dvGrpCones:'Haces y ángulo', dvGrpBadges:'Etiquetas', dvGrpOther:'Otros',
     dvAllOn:'Todo', dvAllDim:'Atenuar todo', dvClean:'Despejar',
     dvUnhide:'Restaurar líneas ocultadas',
+    dvGrpObjects:'Elementos colocados', dvObjHint:'Al ocultarlo sale del plano y de los cálculos de f y exposición.', dvObjAllOn:'Mostrar todo de nuevo',
     dftGridPill:'Cuadro', dftGridLabel:'Tamaño de un cuadro', dftGridHint:'Cuánto mide un cuadro. Así se lee el plano.',
     dftCalibLabel:'Ajustar un plano importado al tamaño real', dftCalibHint:'Con un PDF o foto de fondo, toca dos puntos cuya distancia conozcas.',
     dftCalibBtn:'📍 Calibración de 2 Puntos', dftCalibStep1:'📍 Toca el punto 1...',
@@ -13886,6 +13895,7 @@ function _dftObjAt(sx, sy) {
   var RECT_TYPES = {image:1, diffuser:1, bounce:1, flag:1};
   for (var i = _dft.objects.length - 1; i >= 0; i--) {
     var o = _dft.objects[i];
+    if (o.hidden) continue;
     var oLayer = _dft.layers.find(function(l){return l.id===(o.layer||1);});
     if (!oLayer || !oLayer.visible) continue;
     if ((o.layer||1) !== _dft.activeLayer) continue;
@@ -14026,6 +14036,7 @@ function dftRender() {
 
   // objects (skip hidden layers)
   _dft.objects.forEach(function(o) {
+    if (o.hidden) return;
     var oLayer = _dft.layers.find(function(l){return l.id===(o.layer||1);});
     if (oLayer && !oLayer.visible) return;
     _dftDrawObj(ctx, o);
@@ -14105,9 +14116,9 @@ function _dftInBeam(lt, tx, ty) {
 }
 
 function _dftDrawLightFstops(ctx) {
-  var lights  = _dft.objects.filter(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
-  var people  = _dft.objects.filter(function(o){ return o.type==='people'; });
-  var bounces = _dft.objects.filter(function(o){ return o.type==='bounce'; });
+  var lights  = _dftVisObjs(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
+  var people  = _dftVisObjs(function(o){ return o.type==='people'; });
+  var bounces = _dftVisObjs(function(o){ return o.type==='bounce'; });
   if (!lights.length || !people.length) return;
   var sb = people[0];
   var R = Math.max(8, Math.min(36, (_dft.zoom/_dft.scale)*0.15));
@@ -14162,6 +14173,11 @@ function _dftDrawLightFstops(ctx) {
 }
 
 // ── 表示の濃さ ──────────────────────────────────────────────
+// 非表示にしたオブジェクトを除いた一覧。描画からも計算からも外れるので、
+// 「使わないバウンスを一旦どけて考える」ができる。
+function _dftVisObjs(pred) {
+  return _dft.objects.filter(function(o){ return !o.hidden && pred(o); });
+}
 var DFT_VIS_STATES = [1, 0.28, 0];   // 表示 / 半透明 / 非表示
 function _dftVA(key) {
   var v = _dft.vis ? _dft.vis[key] : 1;
@@ -14565,7 +14581,7 @@ function _dftDrawObj(ctx, o) {
 
 // Returns the nearest light to a given object (or null)
 function _dftNearestLight(obj) {
-  var lights = _dft.objects.filter(function(o){ return o.type==='light'; });
+  var lights = _dftVisObjs(function(o){ return o.type==='light'; });
   if (!lights.length) return null;
   return lights.reduce(function(best, lt) {
     return _dftDist(lt, obj) < _dftDist(best, obj) ? lt : best;
@@ -14573,7 +14589,7 @@ function _dftNearestLight(obj) {
 }
 
 function _dftDrawBounceBeams(ctx) {
-  var bounces = _dft.objects.filter(function(o){ return o.type==='bounce'; });
+  var bounces = _dftVisObjs(function(o){ return o.type==='bounce'; });
   if (!bounces.length) return;
 
   bounces.forEach(function(bn) {
@@ -14696,10 +14712,10 @@ function _dftDrawGroups(ctx) {
 // Sync draft distances → S.dist → calculate() so the result panel updates live
 function _dftUpdateCalcFromDraft() {
   try {
-    var lights  = _dft.objects.filter(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
-    var people  = _dft.objects.filter(function(o){ return o.type==='people'; });
-    var bounces = _dft.objects.filter(function(o){ return o.type==='bounce'; });
-    var diffs   = _dft.objects.filter(function(o){ return o.type==='diffuser'; });
+    var lights  = _dftVisObjs(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
+    var people  = _dftVisObjs(function(o){ return o.type==='people'; });
+    var bounces = _dftVisObjs(function(o){ return o.type==='bounce'; });
+    var diffs   = _dftVisObjs(function(o){ return o.type==='diffuser'; });
     if (!lights.length || !people.length) return;
     // Prefer the currently selected light; fall back to first
     var selObj = _dft.selected && _dft.objects.find(function(o){ return o.id===_dft.selected && o.type==='light' && o.makerKey && o.modelKey; });
@@ -14759,12 +14775,12 @@ function _dftUpdateCalcFromDraft() {
 }
 
 function _dftAutoOrient(obj) {
-  var people = _dft.objects.filter(function(o){ return o.type==='people'; });
+  var people = _dftVisObjs(function(o){ return o.type==='people'; });
   if (!people.length) return;
   var target = null;
   // For lights: if a bounce's nearest light is this light, orient toward the bounce instead of person
   if (obj.type === 'light') {
-    var bounces = _dft.objects.filter(function(o){ return o.type==='bounce'; });
+    var bounces = _dftVisObjs(function(o){ return o.type==='bounce'; });
     bounces.forEach(function(bn) {
       var nl = _dftNearestLight(bn);
       if (nl && nl.id === obj.id) { target = bn; }
@@ -14783,10 +14799,10 @@ function _dftAutoOrient(obj) {
 function _dftDrawDistances(ctx) {
   _dft.distLabels = [];
   _dft.distSegs = [];
-  var lights    = _dft.objects.filter(function(o){ return o.type==='light'; });
-  var subjects  = _dft.objects.filter(function(o){ return o.type==='people'; });
-  var diffusers = _dft.objects.filter(function(o){ return o.type==='diffuser'; });
-  var bounces   = _dft.objects.filter(function(o){ return o.type==='bounce'; });
+  var lights    = _dftVisObjs(function(o){ return o.type==='light'; });
+  var subjects  = _dftVisObjs(function(o){ return o.type==='people'; });
+  var diffusers = _dftVisObjs(function(o){ return o.type==='diffuser'; });
+  var bounces   = _dftVisObjs(function(o){ return o.type==='bounce'; });
 
   // Collect each bounce's nearest light once
   var bounceNearestLight = {};
@@ -14828,7 +14844,7 @@ function _dftDrawDistances(ctx) {
   });
   // Camera → Person
   _dftWithVis(ctx, 'camera', function(){
-    _dft.objects.filter(function(o){ return o.type==='camera'; }).forEach(function(cam) {
+    _dftVisObjs(function(o){ return o.type==='camera'; }).forEach(function(cam) {
       subjects.forEach(function(sb) { _dftDistLine(ctx, cam, sb, 'rgba(100,149,237,0.7)', false, null, null, true); });
     });
   });
@@ -14930,8 +14946,8 @@ function _dftCalcFstop(lightObj, distM, extraStops) {
 // 直射か、最寄りの反射板経由かを一箇所で決める。F値バッジと Exposure
 // ツールが同じ判定を使うようにして、両者の答えが食い違わないようにする。
 function _dftLightPaths(sb) {
-  var lights  = _dft.objects.filter(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
-  var bounces = _dft.objects.filter(function(o){ return o.type==='bounce'; });
+  var lights  = _dftVisObjs(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
+  var bounces = _dftVisObjs(function(o){ return o.type==='bounce'; });
   if (!lights.length || !sb) return [];
 
   // 各反射板は最も近いライトに紐づく
@@ -15566,7 +15582,8 @@ function _dftUpdateInfoBar() {
     return '<option value="'+l.id+'"'+(l.id===(o.layer||1)?' selected':'')+'>'+l.name+'</option>';
   }).join('');
   info += ' <select onchange="_dftMoveLayer(\''+oid+'\',+this.value)" style="padding:2px 4px;border:1px solid rgba(0,0,0,0.18);border-radius:6px;font-size:11px;font-weight:700;background:rgba(255,255,255,0.85);color:#111;outline:none;">'+layerOpts+'</select>';
-  info += ' &nbsp;<button onclick="dftDeleteSelected()" style="padding:2px 8px;background:#e53935;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">Del</button>';
+  info += ' &nbsp;<button onclick="window._dftToggleObj(\''+oid+'\')" style="padding:2px 8px;background:'+(o.hidden?'#9e9e9e':'#455a64')+';color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">'+(o.hidden?'🙈':'👁')+'</button>';
+  info += ' <button onclick="dftDeleteSelected()" style="padding:2px 8px;background:#e53935;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">Del</button>';
   if (o.groupId) {
     info += ' <button onclick="dftUngroup()" style="padding:2px 8px;background:#1565c0;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;">⊟ Ungroup</button>';
   }
@@ -15846,9 +15863,11 @@ function _dftFactorRowsHTML(factors, cbPrefix) {
       var lbl = t==='bounce'?'Bounce':t==='diffuse'?'Diffusion':'Other';
       return '<button onclick="window._dftFType_'+cbPrefix+'('+fi+',\''+t+'\')" style="padding:2px 10px;border-radius:12px;border:1px solid '+(active?color:'#ccc')+';font-size:10px;font-weight:700;cursor:pointer;background:'+(active?color:'#fff')+';color:'+(active?'#fff':'#555')+';">'+lbl+'</button>';
     }).join('');
-    return '<div style="padding:10px;background:#f8f8f8;border-radius:10px;margin-bottom:8px;border-left:3px solid '+color+';">'+
+    var fOn = f.enabled !== false;
+    return '<div style="padding:10px;background:'+(fOn?'#f8f8f8':'#f0f0f0')+';border-radius:10px;margin-bottom:8px;border-left:3px solid '+(fOn?color:'#bbb')+';'+(fOn?'':'opacity:.55;')+'">'+
       '<div style="display:flex;gap:4px;margin-bottom:8px;align-items:center;">'+typeBtns+
         '<div style="flex:1;"></div>'+
+        '<button onclick="window._dftFOn_'+cbPrefix+'('+fi+')" style="padding:2px 8px;border-radius:8px;border:1.5px solid '+color+';font-size:10px;font-weight:800;cursor:pointer;background:'+(fOn?color:'transparent')+';color:'+(fOn?'#fff':color)+';">'+(fOn?'ON':'OFF')+'</button>'+
         '<button onclick="window._dftFDel_'+cbPrefix+'('+fi+')" style="background:none;border:none;color:#e53935;font-size:16px;cursor:pointer;padding:0 4px;">✕</button>'+
       '</div>'+
       '<input type="text" list="'+dlId+'" placeholder="Name (e.g. UltraBounce)" value="'+(f.memo||'').replace(/"/g,'&quot;')+'" '+
@@ -15901,6 +15920,10 @@ function _dftFSetter(cbPrefix, getObj) {
     var v=Math.max(0,Math.min(10,Math.round((parseFloat(o.factors[fi].stops||0)+d)*10)/10));
     window['_dftFSl_'+cbPrefix](fi,v);
     var sl=document.getElementById('_dftfsl_'+cbPrefix+'_'+fi); if(sl) sl.value=v; };
+  // Factor の一時無効化。消さずに「無しの場合」を見比べられるようにする
+  window['_dftFOn_'+cbPrefix] = function(fi){ var o=getObj(); if(!o||!o.factors||!o.factors[fi])return;
+    o.factors[fi].enabled = (o.factors[fi].enabled === false);
+    _dftFRefresh_all(cbPrefix,getObj); };
   // プリセットチップ: 名前とストップ値をまとめて入れる（表に値がなければ名前だけ）
   window['_dftFPreset_'+cbPrefix] = function(fi,pi){ var o=getObj(); if(!o||!o.factors||!o.factors[fi])return;
     var list=(_dft._fPresets||{})[cbPrefix+'_'+fi]||[]; var p=list[pi]; if(!p)return;
@@ -16131,7 +16154,7 @@ function _dftExpSources(sb) {
 
 /** 基準方向（0°）。カメラがあればカメラ向き、なければ被写体の正面。 */
 function _dftExpRefAngle(sb) {
-  var cam = _dft.objects.filter(function(o){ return o.type==='camera'; })[0];
+  var cam = _dftVisObjs(function(o){ return o.type==='camera'; })[0];
   if (cam) return Math.atan2(cam.wy - sb.wy, cam.wx - sb.wx);
   return (sb.rot || 0) + Math.PI/2;   // 人物の +y が正面
 }
@@ -16166,8 +16189,8 @@ function _dftExpReadings(sb, stepDeg) {
 
 function dftExposureTool() {
   var ex = document.getElementById('_dft_exp'); if (ex) ex.remove();
-  var people = _dft.objects.filter(function(o){ return o.type==='people'; });
-  var lights = _dft.objects.filter(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
+  var people = _dftVisObjs(function(o){ return o.type==='people'; });
+  var lights = _dftVisObjs(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
 
   var body;
   if (!people.length || !lights.length) {
@@ -16200,6 +16223,7 @@ function dftExposureTool() {
 
     body =
       subjBtns + stepBtns +
+      _dftExpLegendSVG() +
       _dftExpPolarSVG(d, maxR) +
       // まとめ
       '<div style="display:flex;gap:6px;margin:14px 0 4px;">' +
@@ -16265,6 +16289,65 @@ function _dftExpStat(label, big, sub, color) {
 function _dftExpAngleLabel(a) {
   var names = {0:t('expFront'), 90:t('expSideR'), 180:t('expBack'), 270:t('expSideL')};
   return a + '°' + (names[a] ? ' <span style="color:#888;font-weight:600;">'+names[a]+'</span>' : '');
+}
+
+/**
+ * 角度の読み方を示す説明図。文章だけでは 0°/90° がどちら向きか伝わらないので、
+ * 俯瞰図のまま「顔・カメラ・キーライト」を実際の角度に置いて見せる。
+ * 下のプロットと同じ向き（0°=下=カメラ側、90°=右=カメラの右手側）に描く。
+ */
+function _dftExpLegendSVG() {
+  var W = 300, H = 190, cx = W/2, cy = 84, R = 62;
+  // 読みの角度 → 画面角。プロットと同じ変換
+  function pt(angDeg, r) {
+    var th = (90 - angDeg) * Math.PI / 180;
+    return [cx + Math.cos(th)*r, cy + Math.sin(th)*r];
+  }
+  var camP = pt(0, R);        // カメラは 0°（下）
+  var keyP = pt(45, R);       // キーは右前 45°
+  var bakP = pt(180, R*0.86); // 逆光は 180°（上）
+
+  function label(x, y, txt, col, anchor) {
+    return '<text x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" font-size="9" font-weight="800" fill="'+col+'" text-anchor="'+(anchor||'middle')+'">'+txt+'</text>';
+  }
+  // 顔から各要素への線
+  function ray(p, col, dash) {
+    return '<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" stroke="'+col+'" stroke-width="1.4"'+(dash?' stroke-dasharray="4 3"':'')+'/>';
+  }
+  // 0°→45° の角度弧（キーの位置が45°だと分かるように）
+  var a0 = pt(0, 26), a1 = pt(45, 26);
+  var arc = '<path d="M '+a0[0].toFixed(1)+' '+a0[1].toFixed(1)+' A 26 26 0 0 0 '+a1[0].toFixed(1)+' '+a1[1].toFixed(1)+'" fill="none" stroke="#f9a825" stroke-width="1.3"/>';
+
+  return '<div style="text-align:center;margin-bottom:6px;">' +
+    '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:300px;height:auto;">' +
+      '<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="none" stroke="#eeeef4" stroke-width="1" stroke-dasharray="3 3"/>' +
+      ray(camP, '#6495ed') + ray(keyP, '#f9a825') + ray(bakP, '#bbb', true) +
+      arc + label(pt(22,34)[0], pt(22,34)[1]+3, '45°', '#f9a825') +
+
+      // 顔（俯瞰）。鼻をカメラ側に向けて「どちらを向いているか」を示す
+      '<circle cx="'+cx+'" cy="'+cy+'" r="11" fill="#fce4ec" stroke="#ad1457" stroke-width="1.5"/>' +
+      '<path d="M '+(cx-11)+' '+cy+' A 11 11 0 0 1 '+(cx+11)+' '+cy+'" fill="#c2185b"/>' +
+      '<circle cx="'+cx+'" cy="'+(cy+11)+'" r="2.6" fill="#ad1457"/>' +
+      label(cx, cy-16, t('expLegFace'), '#ad1457') +
+
+      // カメラ（0°）
+      '<rect x="'+(camP[0]-11)+'" y="'+(camP[1]-7)+'" width="22" height="14" rx="3" fill="#37474f"/>' +
+      '<circle cx="'+camP[0].toFixed(1)+'" cy="'+(camP[1]-4).toFixed(1)+'" r="4" fill="#78909c"/>' +
+      label(camP[0], camP[1]+20, '0° ' + t('expLegCam'), '#37474f') +
+
+      // キーライト（45°）
+      '<circle cx="'+keyP[0].toFixed(1)+'" cy="'+keyP[1].toFixed(1)+'" r="8" fill="#f9a825" stroke="#e65100" stroke-width="1.5"/>' +
+      label(keyP[0]+14, keyP[1]-6, '45° ' + t('expLegKey'), '#e65100', 'start') +
+
+      // 逆光（180°）
+      label(bakP[0], bakP[1]-6, '180° ' + t('expLegBack'), '#999') +
+
+      // 左右のサイド
+      label(pt(90, R+6)[0], pt(90, R+6)[1]+3, '90° ' + t('expSideR'), '#888', 'start') +
+      label(pt(270, R+6)[0], pt(270, R+6)[1]+3, '270° ' + t('expSideL'), '#888', 'end') +
+    '</svg>' +
+    '<div style="font-size:10px;line-height:1.6;color:#888;padding:0 4px;text-align:left;">' + t('expLegNote') + '</div>' +
+  '</div>';
 }
 
 /** 極座標プロット。半径は √lux（＝F値に比例）にして段差が読めるようにする。 */
@@ -17192,12 +17275,64 @@ function _dftVisRowHTML(it) {
   '</div>';
 }
 
+// 置いたもの一覧。個別に非表示にすると描画も計算も外れる。
+var DFT_OBJ_ICONS = {light:'💡', bounce:'🔲', diffuser:'⬜', flag:'▬', people:'🧍', camera:'🎥', image:'🖼'};
+function _dftVisObjListHTML() {
+  var objs = _dft.objects;
+  if (!objs.length) return '';
+  var rows = objs.map(function(o) {
+    var on = !o.hidden;
+    var stops = (o.factors && o.factors.length) ? getTotalFactorStops(o.factors) : 0;
+    var sub = [];
+    if (o.type === 'light' && o.makerKey) {
+      var lt = LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
+      if (lt) sub.push(lt.name);
+    }
+    if (stops) sub.push((stops > 0 ? '-' : '') + Math.abs(stops).toFixed(1) + ' stop');
+    return '<div style="display:flex;align-items:center;gap:8px;padding:6px 16px;' + (on ? '' : 'opacity:.45;') + '">' +
+      '<span style="font-size:15px;">' + (DFT_OBJ_ICONS[o.type] || '●') + '</span>' +
+      '<span style="flex:1;min-width:0;">' +
+        '<span style="font-size:12px;font-weight:700;color:#333;">' + _dftEsc(o.label || o.type) + '</span>' +
+        (sub.length ? '<span style="font-size:10px;color:#999;"> · ' + _dftEsc(sub.join(' · ')) + '</span>' : '') +
+      '</span>' +
+      '<button onclick="window._dftToggleObj(\'' + o.id + '\')" style="flex:0 0 66px;padding:5px 0;border:none;border-radius:7px;' +
+        'font-size:10px;font-weight:800;cursor:pointer;' +
+        (on ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#666;') + '">' +
+        (on ? t('dvOn') : t('dvOff')) + '</button>' +
+    '</div>';
+  }).join('');
+  var offN = objs.filter(function(o){ return o.hidden; }).length;
+  return '<div style="font-size:10px;font-weight:800;color:#999;padding:14px 16px 2px;">' +
+      t('dvGrpObjects') + ' (' + objs.length + (offN ? ' · ' + offN + ' ' + t('dvOff') : '') + ')</div>' +
+    '<div style="font-size:10px;color:#888;padding:0 16px 6px;">' + t('dvObjHint') + '</div>' +
+    rows +
+    (offN ? '<div style="padding:8px 16px 0;"><button onclick="window._dftShowAllObjs()" style="width:100%;padding:9px;border:1.5px solid #1565c0;border-radius:9px;background:#e3f2fd;color:#1565c0;font-size:11px;font-weight:800;cursor:pointer;">' + t('dvObjAllOn') + '</button></div>' : '');
+}
+
+window._dftToggleObj = function(id) {
+  var o = _dft.objects.find(function(x){ return x.id === id; });
+  if (!o) return;
+  o.hidden = !o.hidden;
+  if (o.hidden && _dft.selected === id) _dft.selected = null;
+  _dftUpdateInfoBar(); dftRender(); _dftUpdateCalcFromDraft();
+  var el = document.getElementById('_dft_dv');
+  if (el) { el.remove(); dftDistVisMenu(); }
+};
+
+window._dftShowAllObjs = function() {
+  _dft.objects.forEach(function(o){ delete o.hidden; });
+  _dftUpdateInfoBar(); dftRender(); _dftUpdateCalcFromDraft();
+  var el = document.getElementById('_dft_dv');
+  if (el) { el.remove(); dftDistVisMenu(); }
+};
+
 function dftDistVisMenu() {
   var ex = document.getElementById('_dft_dv'); if (ex) ex.remove();
   var hiddenN = Object.keys(_dft.hiddenLines || {}).filter(function(k){ return _dft.hiddenLines[k]; }).length;
 
-  var body = DFT_VIS_GROUPS.map(function(g) {
-    return '<div style="font-size:10px;font-weight:800;color:#999;padding:12px 16px 2px;">'+t(g.title)+'</div>' +
+  var body = DFT_VIS_GROUPS.map(function(g, gi) {
+    return '<div style="font-size:10px;font-weight:800;color:#999;padding:12px 16px 2px;' +
+      (gi === 0 ? 'border-top:1px solid #eee;margin-top:12px;' : '') + '">'+t(g.title)+'</div>' +
       g.items.map(_dftVisRowHTML).join('');
   }).join('');
 
@@ -17211,6 +17346,9 @@ function dftDistVisMenu() {
       '<button onclick="window._dftVisPreset(\'dim\')" style="flex:1;padding:8px;border:none;border-radius:8px;background:#eceff3;color:#333;font-size:11px;font-weight:800;cursor:pointer;">'+t('dvAllDim')+'</button>' +
       '<button onclick="window._dftVisPreset(\'clean\')" style="flex:1;padding:8px;border:none;border-radius:8px;background:#1565c0;color:#fff;font-size:11px;font-weight:800;cursor:pointer;">'+t('dvClean')+'</button>' +
     '</div>' +
+    // 置いたもの個別の表示/非表示を先に出す。使わないバウンスをどけるのが
+    // 一番よくある用途で、下の重ね表示の設定より探されやすい。
+    _dftVisObjListHTML() +
     body +
     // 個別にタップで隠した線を戻す
     (hiddenN ? '<div style="padding:14px 16px 0;">' +
@@ -17351,7 +17489,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.86';
+var ver = 'v1.1.4.87';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
