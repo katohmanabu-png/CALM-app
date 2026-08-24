@@ -7853,6 +7853,81 @@ function triSetVal(slId, dispId, unitId, suffix, value) {
   triDisp(slId, dispId, unitId, suffix);
 }
 
+/**
+ * 三角形（高さ・水平距離・仰角）を解く。自由度は1つ。
+ *
+ * 動かした項目は固定。残り2つのうち「ロックされている方」を保ち、もう一方を導く。
+ * ロックが無いときは従来どおり、角度を保って水平距離を動かす。
+ *
+ * 以前は各画面に同じ処理が4つ書かれていて、いずれも
+ *   ・高さを動かすと必ず水平距離を書き換えようとし、角度は更新しない
+ *   ・ロック中は triSetVal が書き込みを弾くのに、ローカル変数だけ計算値に
+ *     書き換わるので、画面に出ていない値で斜辺を計算していた
+ * という状態だった。ここに集約して両方を直す。
+ *
+ * 返り値は「スライダーに実際に入っている値」から求めたもの。
+ */
+function triSolve(ids, changed) {
+  var hEl = el(ids.h), dEl = el(ids.d), aEl = el(ids.a);
+  if (!hEl || !dEl) return null;
+  var lockD = !!_triLocks[ids.d], lockA = !!_triLocks[ids.a];
+
+  var h = parseFloat(hEl.value);
+  var d = parseFloat(dEl.value);
+  var a = aEl ? parseFloat(aEl.value) : null;
+
+  function clamp(elm, v) {
+    var mn = parseFloat(elm.min), mx = parseFloat(elm.max);
+    if (isFinite(mn)) v = Math.max(mn, v);
+    if (isFinite(mx)) v = Math.min(mx, v);
+    return v;
+  }
+
+  // どれを導くか
+  var derive;
+  if (a === null)           derive = 'a';                    // 角度スライダーが無い画面
+  else if (changed === 'a') derive = lockD ? 'h' : 'd';
+  else if (changed === 'd') derive = lockA ? 'h' : 'a';
+  else                      derive = lockD ? 'a' : 'd';      // 高さを動かした
+
+  if (derive === 'd') {
+    d = clamp(dEl, Math.round(h / Math.tan(a * Math.PI / 180) * 100) / 100);
+    triSetVal(ids.d, ids.dDisp, ids.dUnit, null, d);
+  } else if (derive === 'h') {
+    h = clamp(hEl, Math.round(d * Math.tan(a * Math.PI / 180) * 100) / 100);
+    triSetVal(ids.h, ids.hDisp, ids.hUnit, null, h);
+  } else if (aEl) {
+    triSetVal(ids.a, ids.aDisp, null, '°',
+      clamp(aEl, Math.round(Math.atan2(h, d) * 180 / Math.PI * 10) / 10));
+  }
+
+  // ロックで書き込みが弾かれた場合もあるので、必ず画面の実値で締める
+  h = parseFloat(hEl.value);
+  d = parseFloat(dEl.value);
+  var ang = Math.round(Math.atan2(h, d) * 180 / Math.PI * 10) / 10;
+  // 端で丸められて角度がずれたときは、ロックされていない角度スライダーを実態に合わせる
+  if (aEl && !lockA && derive !== 'a' && Math.abs(parseFloat(aEl.value) - ang) > 0.05) {
+    triSetVal(ids.a, ids.aDisp, null, '°', clamp(aEl, ang));
+  }
+  return { h:h, d:d, a:ang, hyp: Math.round(Math.sqrt(h*h + d*d) * 100) / 100 };
+}
+
+// 各画面のスライダーID。triSolve に渡す
+var TRI_IDS = {
+  calc:   { h:'tri-height',        hDisp:'tri-height-disp',        hUnit:'tri-unit-h',
+            d:'tri-horiz',         dDisp:'tri-horiz-disp',         dUnit:'tri-unit-hz',
+            a:'tri-angle',         aDisp:'tri-angle-disp' },
+  alt:    { h:'alt-tri-height',    hDisp:'alt-tri-height-disp',    hUnit:'alt-tri-unit-h',
+            d:'alt-tri-horiz',     dDisp:'alt-tri-horiz-disp',     dUnit:'alt-tri-unit-hz',
+            a:'alt-tri-angle',     aDisp:'alt-tri-angle-disp' },
+  finder: { h:'finder-tri-height', hDisp:'finder-tri-height-disp', hUnit:'finder-tri-unit-h',
+            d:'finder-tri-horiz',  dDisp:'finder-tri-horiz-disp',  dUnit:'finder-tri-unit-hz',
+            a:'finder-tri-angle',  aDisp:'finder-tri-angle-disp' },
+  mix:    { h:'mix-tri-h',         hDisp:'mix-tri-h-disp',         hUnit:'mix-tri-unit-h',
+            d:'mix-tri-hz',        dDisp:'mix-tri-hz-disp',        dUnit:'mix-tri-unit-hz',
+            a:'mix-tri-angle',     aDisp:'mix-tri-angle-disp2' }
+};
+
 // ===== TRIANGLE =====
 function triDisp(slId, dispId, unitId, suffix) {
   var sl = el(slId); var disp = el(dispId); if (!sl || !disp) return;
@@ -7942,31 +8017,9 @@ function calcTriangle(changed) {
   if (uh)  uh.textContent  = unit;
   if (uhz) uhz.textContent = unit;
 
-  var h  = parseFloat(hEl.value);
-  var di = parseFloat(dEl.value);
-  var a  = aEl ? parseFloat(aEl.value) : null;
-
-  // スライダー: changed フィールド以外を再計算
-  var hyp = 0;
-  if (changed === 'a' && a !== null) {
-    var ar = a * Math.PI / 180;
-    di = Math.round(h / Math.tan(ar) * 100) / 100;
-    triSetVal('tri-horiz','tri-horiz-disp','tri-unit-hz',null, di);
-  } else if (changed === 'di') {
-    a = Math.round(Math.atan2(h, di) * 180 / Math.PI * 10) / 10;
-    triSetVal('tri-angle','tri-angle-disp',null,'°', a);
-  } else { // 'h' or init
-    if (a !== null) {
-      var ar2 = a * Math.PI / 180;
-      di = Math.round(h / Math.tan(ar2) * 100) / 100;
-      triSetVal('tri-horiz','tri-horiz-disp','tri-unit-hz',null, di);
-    } else {
-      a = Math.round(Math.atan2(h, di) * 180 / Math.PI * 10) / 10;
-      triSetVal('tri-angle','tri-angle-disp',null,'°', a);
-    }
-  }
-  hyp = Math.round(Math.sqrt(h*h + di*di) * 100) / 100;
-  a   = Math.round(Math.atan2(h, di) * 180 / Math.PI * 10) / 10;
+  var r = triSolve(TRI_IDS.calc, changed === 'di' ? 'd' : changed);
+  if (!r) return;
+  var hyp = r.hyp, a = r.a;
   if (resEl)  resEl.textContent = hyp + ' ' + unit + '  (' + a + '°)';
   if (useBtn) useBtn.disabled = false;
   S.triDist  = S.imperial ? hyp / 3.28084 : hyp;
@@ -8243,27 +8296,9 @@ function calcAltTriangle(changed) {
   var hEl = el('alt-tri-height'), dEl = el('alt-tri-horiz'), aEl = el('alt-tri-angle');
   var resEl = el('alt-tri-result'), useBtn = el('alt-tri-use-btn');
   if (!hEl || !dEl) return;
-  var h = parseFloat(hEl.value), di = parseFloat(dEl.value);
-  var a = aEl ? parseFloat(aEl.value) : null;
-  if (changed === 'a' && a !== null) {
-    var ar = a * Math.PI / 180;
-    di = Math.round(h / Math.tan(ar) * 100) / 100;
-    triSetVal('alt-tri-horiz','alt-tri-horiz-disp','alt-tri-unit-hz',null, di);
-  } else if (changed === 'di') {
-    a = Math.round(Math.atan2(h, di) * 180 / Math.PI * 10) / 10;
-    triSetVal('alt-tri-angle','alt-tri-angle-disp',null,'°', a);
-  } else {
-    if (a !== null) {
-      var ar2 = a * Math.PI / 180;
-      di = Math.round(h / Math.tan(ar2) * 100) / 100;
-      triSetVal('alt-tri-horiz','alt-tri-horiz-disp','alt-tri-unit-hz',null, di);
-    } else {
-      a = Math.round(Math.atan2(h, di) * 180 / Math.PI * 10) / 10;
-      triSetVal('alt-tri-angle','alt-tri-angle-disp',null,'°', a);
-    }
-  }
-  var hyp = Math.round(Math.sqrt(h*h + di*di) * 100) / 100;
-  a = Math.round(Math.atan2(h, di) * 180 / Math.PI * 10) / 10;
+  var r = triSolve(TRI_IDS.alt, changed === 'di' ? 'd' : changed);
+  if (!r) return;
+  var hyp = r.hyp, a = r.a;
   var unit = S_altImperial ? 'ft' : 'm';
   if (resEl)  resEl.textContent = hyp + ' ' + unit + '  (' + a + '°)';
   if (useBtn) useBtn.disabled = false;
@@ -10548,27 +10583,9 @@ function calcFinderTriangle(changed) {
   var hEl = el('finder-tri-height'), dEl = el('finder-tri-horiz'), aEl = el('finder-tri-angle');
   var resEl = el('finder-tri-result'), useBtn = el('finder-tri-use-btn');
   if (!hEl || !dEl) return;
-  var h = parseFloat(hEl.value), di = parseFloat(dEl.value);
-  var a = aEl ? parseFloat(aEl.value) : null;
-  if (changed === 'a' && a !== null) {
-    var ar = a * Math.PI / 180;
-    di = Math.round(h / Math.tan(ar) * 100) / 100;
-    triSetVal('finder-tri-horiz','finder-tri-horiz-disp','finder-tri-unit-hz',null, di);
-  } else if (changed === 'di') {
-    a = Math.round(Math.atan2(h, di) * 180 / Math.PI * 10) / 10;
-    triSetVal('finder-tri-angle','finder-tri-angle-disp',null,'°', a);
-  } else {
-    if (a !== null) {
-      var ar2 = a * Math.PI / 180;
-      di = Math.round(h / Math.tan(ar2) * 100) / 100;
-      triSetVal('finder-tri-horiz','finder-tri-horiz-disp','finder-tri-unit-hz',null, di);
-    } else {
-      a = Math.round(Math.atan2(h, di) * 180 / Math.PI * 10) / 10;
-      triSetVal('finder-tri-angle','finder-tri-angle-disp',null,'°', a);
-    }
-  }
-  var hyp = Math.round(Math.sqrt(h*h + di*di) * 100) / 100;
-  a = Math.round(Math.atan2(h, di) * 180 / Math.PI * 10) / 10;
+  var r = triSolve(TRI_IDS.finder, changed === 'di' ? 'd' : changed);
+  if (!r) return;
+  var hyp = r.hyp, a = r.a;
   var unit = S_finderImperial ? 'ft' : 'm';
   if (resEl)  resEl.textContent = hyp + ' ' + unit + '  (' + a + '°)';
   if (useBtn) useBtn.disabled = false;
@@ -13542,27 +13559,9 @@ function calcMixTri(changed) {
   var resEl = el('mix-tri-val'), angEl = el('mix-tri-angle-disp');
   var unit = S.imperial ? 'ft' : 'm';
   ['mix-tri-unit-h','mix-tri-unit-hz'].forEach(function(id){ var e2=el(id); if(e2) e2.textContent=unit; });
-  var h = parseFloat(hEl.value), d = parseFloat(dEl.value);
-  var a = aEl ? parseFloat(aEl.value) : null;
-  if (changed === 'a' && a !== null) {
-    var ar = a * Math.PI / 180;
-    d = Math.round(h / Math.tan(ar) * 100) / 100;
-    triSetVal('mix-tri-hz','mix-tri-hz-disp','mix-tri-unit-hz',null, d);
-  } else if (changed === 'd') {
-    a = Math.round(Math.atan2(h, d) * 180 / Math.PI * 10) / 10;
-    triSetVal('mix-tri-angle','mix-tri-angle-disp2',null,'°', a);
-  } else {
-    if (a !== null) {
-      var ar2 = a * Math.PI / 180;
-      d = Math.round(h / Math.tan(ar2) * 100) / 100;
-      triSetVal('mix-tri-hz','mix-tri-hz-disp','mix-tri-unit-hz',null, d);
-    } else {
-      a = Math.round(Math.atan2(h, d) * 180 / Math.PI * 10) / 10;
-      triSetVal('mix-tri-angle','mix-tri-angle-disp2',null,'°', a);
-    }
-  }
-  var hyp = Math.round(Math.sqrt(h*h + d*d) * 100) / 100;
-  var ang = Math.round(Math.atan2(h, d) * 180 / Math.PI * 10) / 10;
+  var r = triSolve(TRI_IDS.mix, changed);
+  if (!r) return;
+  var hyp = r.hyp, ang = r.a;
   if (resEl)  resEl.textContent = hyp + ' ' + unit;
   if (angEl)  angEl.textContent = ang + '°  (tilt angle)';
 }
@@ -17612,7 +17611,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.90';
+var ver = 'v1.1.4.91';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
