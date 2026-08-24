@@ -3048,6 +3048,7 @@ var LIGHTS = {
       refData:{5600:{3:{none:9570,fres16:67900,fres48:16300},5:{none:3380,fres16:23050,fres48:5810}}}
     },
     pavoslim_60b: {
+      dmxUrl:'https://cdn-aliyun.nanlite.com/release/1703218446937-428764-1124121241519342-PavoSlim_60B_120B_DMX_REFERENCE_GUIDE_EN.pdf',
       group:'LED', name:'PavoSlim 60B', desc:'65W Bi-Color Slim Panel', emoji:'💡', watts:65, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
       dmx:{led:'Bi-Color',power:'65W',cct:'2700K–7500K',cri:'≥95',tlci:'≥95',ip:'IP20',control:'On-board / App / DMX / RDM',dimming:'0%–100%',effects:['Flash','Pulse','Fire','TV','Cop Car']},
@@ -3068,6 +3069,7 @@ var LIGHTS = {
       refData:{ 5600:{1:{none:7094},2:{none:1774},3:{none:788},5:{none:284},8:{none:111}}, 3200:{1:{none:6385},2:{none:1597},3:{none:709},5:{none:256},8:{none:100}} }
     },
     pavoslim_120b: {
+      dmxUrl:'https://cdn-aliyun.nanlite.com/release/1703218446937-428764-1124121241519342-PavoSlim_60B_120B_DMX_REFERENCE_GUIDE_EN.pdf',
       group:'LED', name:'PavoSlim 120B', desc:'130W Bi-Color Slim Panel', emoji:'💡', watts:130, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
       dmx:{led:'Bi-Color',power:'130W',cct:'2700K–7500K',cri:'≥95',tlci:'≥95',ip:'IP20',control:'On-board / App / DMX / RDM',dimming:'0%–100%',effects:['Flash','Pulse','Fire','TV','Cop Car']},
@@ -5451,24 +5453,32 @@ var LIGHTS = {
       }}
     },
     etc_s4led_s2_lustr: {
+      dmxUrl:'https://www.etcconnect.com/WorkArea/DownloadAsset.aspx?id=10737510448',
+      dmxVer:'v1.8.2',
       group:'LED Spot', name:'Source Four LED S2 Lustr2', desc:'LED Ellipsoidal Spot Full Color (26° lens)', emoji:'💡', watts:200,
       ccts:[5600], accessories:['none'],
       dmx:{led:'Lustr2 (7-color)',power:'≈180W',cct:'Full Color',cri:'-',ip:'IP20',control:'DMX / RDM'},
       refData:{ 5600:{1:37969,2:9075,3:3208,5:1200,8:588} }
     },
     etc_s4led_s2_daylight: {
+      dmxUrl:'https://www.etcconnect.com/WorkArea/DownloadAsset.aspx?id=10737510448',
+      dmxVer:'v1.8.2',
       group:'LED Spot', name:'Source Four LED S2 Daylight', desc:'LED Ellipsoidal Spot Daylight (26° lens)', emoji:'💡', watts:200,
       ccts:[5600], accessories:['none'],
       dmx:{led:'Daylight HDR',power:'≈180W',cct:'5600K',cri:'-',ip:'IP20',control:'DMX / RDM'},
       refData:{ 5600:{1:76800,2:12831,3:4800,5:1696,8:588} }
     },
     etc_s4led_s2_tungsten: {
+      dmxUrl:'https://www.etcconnect.com/WorkArea/DownloadAsset.aspx?id=10737510448',
+      dmxVer:'v1.8.2',
       group:'LED Spot', name:'Source Four LED S2 Tungsten', desc:'LED Ellipsoidal Spot Tungsten (26° lens)', emoji:'💡', watts:200,
       ccts:[3200], accessories:['none'],
       dmx:{led:'Tungsten HDR',power:'≈180W',cct:'3200K',cri:'-',ip:'IP20',control:'DMX / RDM'},
       refData:{ 3200:{1:37969,2:9075,3:3208,5:1200,8:588} }
     },
     etc_s4led_s2_bicolor: {
+      dmxUrl:'https://www.etcconnect.com/WorkArea/DownloadAsset.aspx?id=10737510448',
+      dmxVer:'v1.8.2',
       group:'LED Spot', name:'Source Four LED S2 BiColor', desc:'LED Ellipsoidal Spot Bi-Color (26° lens)', emoji:'💡', watts:200,
       ccts:[3200,5600], accessories:['none'],
       dmx:{led:'Bi-Color',power:'≈180W',cct:'3200K–5600K',cri:'-',ip:'IP20',control:'DMX / RDM'},
@@ -16573,7 +16583,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.78';
+var ver = 'v1.1.4.79';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
