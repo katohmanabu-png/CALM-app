@@ -5397,11 +5397,11 @@ var LIGHTS = {
       accessories:['flood'],
       dmx:{led:'Bi-Color',power:'1620W',cct:'2800K–6500K',cri:'≥95',tlci:'≥95',ip:'IP20',control:'DMX / LumenRadio CRMX'},
       dmxUrl:'https://www.lightstarusa.com/product-category/luxed/',
-      // Lightstar 公式カタログ（LUXED PRO-P9）の距離別照度表
+      // Lightstar 公式サイト（LUXED-9 PHOTOMETRICS）。Bi-Color のため両CCT同値。
       refData: {
         'flood':{
-          3200:{3:18000, 5:6800, 7:3500},
-          5600:{3:19500, 5:7000, 7:3700}
+          3200:{4:13200, 5:8500, 6:6200},
+          5600:{4:13200, 5:8500, 6:6200}
         }
       }
     },
@@ -5416,6 +5416,20 @@ var LIGHTS = {
         'flood':{
           3200:{3:24000, 5:8800, 7:4500},
           5600:{3:26000, 5:9400, 7:4800}
+        }
+      }
+    },
+    luxed_pro_p9: {
+      group:'LED', name:'LUXED PRO-P9', desc:'1620W RGB LED Panel (3×3)', emoji:'💡', watts:1620,
+      ccts:[3200,5600],
+      accessories:['flood'],
+      dmx:{led:'RGBWW',power:'1620W',cct:'2700K–10000K',cri:'≥95',tlci:'≥97',ip:'IP20',control:'DMX / LumenRadio CRMX'},
+      url:'https://www.lightstarusa.com/product-category/luxed/',
+      // Lightstar 公式カタログ（LUXED PRO-P9, RGB版）。Bi-Color の LUXED-9 とは別機種。
+      refData: {
+        'flood':{
+          3200:{3:18000, 5:6800, 7:3500},
+          5600:{3:19500, 5:7000, 7:3700}
         }
       }
     },
@@ -16556,7 +16570,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.75';
+var ver = 'v1.1.4.76';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
