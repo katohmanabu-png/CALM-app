@@ -14804,33 +14804,25 @@ function _dftDrawDistances(ctx) {
   var diffusers = _dftVisObjs(function(o){ return o.type==='diffuser'; });
   var bounces   = _dftVisObjs(function(o){ return o.type==='bounce'; });
 
-  // Collect each bounce's nearest light once
-  var bounceNearestLight = {};
-  bounces.forEach(function(bn) {
-    var nl = _dftNearestLight(bn);
-    if (nl) bounceNearestLight[bn.id] = nl.id;
-  });
+  // 経路の判定は _dftLightPaths と同じものを使う。ここで別に判定していたため、
+  // 「線は反射経由・バッジは別の値」という食い違いが起きていた。
+  var pathsBySb = {};
+  subjects.forEach(function(sb) { pathsBySb[sb.id] = _dftLightPaths(sb); });
 
   lights.forEach(function(lt) {
-    // Only show bounce lines for bounces whose nearest light is this one
-    var myBounces = bounces.filter(function(bn){ return bounceNearestLight[bn.id] === lt.id; });
-
-    if (myBounces.length > 0) {
-      myBounces.forEach(function(bn) {
-        var d1 = _dftDist(lt, bn);
-        _dftWithVis(ctx, 'bounceIn', function(){ _dftDistLine(ctx, lt, bn, '#f9a825', false, null, null); });
-        subjects.forEach(function(sb) {
-          var total = d1 + _dftDist(bn, sb);
-          _dftWithVis(ctx, 'direct',    function(){ _dftDistLine(ctx, lt, sb, 'rgba(150,150,150,0.6)', false, null, null, true); });
-          _dftWithVis(ctx, 'bounceOut', function(){ _dftDistLine(ctx, bn, sb, '#26a69a', false, null, null); });
-          _dftWithVis(ctx, 'sum',       function(){ _dftSumLabel(ctx, lt, sb, total, bn); });
-        });
-      });
-    } else {
-      _dftWithVis(ctx, 'direct', function(){
-        subjects.forEach(function(sb) { _dftDistLine(ctx, lt, sb, '#f9a825', true, null, null); });
-      });
-    }
+    subjects.forEach(function(sb) {
+      var p = (pathsBySb[sb.id] || []).find(function(x){ return x.light.id === lt.id; });
+      if (!p) return;                      // このライトは被写体に届いていない
+      if (p.via) {
+        var bn = p.via;
+        _dftWithVis(ctx, 'bounceIn',  function(){ _dftDistLine(ctx, lt, bn, '#f9a825', false, null, null); });
+        _dftWithVis(ctx, 'direct',    function(){ _dftDistLine(ctx, lt, sb, 'rgba(150,150,150,0.6)', false, null, null, true); });
+        _dftWithVis(ctx, 'bounceOut', function(){ _dftDistLine(ctx, bn, sb, '#26a69a', false, null, null); });
+        _dftWithVis(ctx, 'sum',       function(){ _dftSumLabel(ctx, lt, sb, p.dist, bn); });
+      } else {
+        _dftWithVis(ctx, 'direct', function(){ _dftDistLine(ctx, lt, sb, '#f9a825', true, null, null); });
+      }
+    });
     _dftWithVis(ctx, 'diffuser', function(){
       diffusers.forEach(function(df) { _dftDistLine(ctx, lt, df, '#ab47bc', false, null, null); });
     });
@@ -14961,15 +14953,24 @@ function _dftLightPaths(sb) {
 
   var out = [];
   lights.forEach(function(lt) {
-    var mine = bounces.filter(function(bn){ return bnNearestLt[bn.id] === lt.id; });
-    if (mine.length) {
-      var bn = mine[0];
+    // ライトが実際にどこを向いているかで決める。
+    // 以前は「近くに反射板があれば必ず反射経由」としていたため、被写体に
+    // 直接当てているライトまで長い反射経路＋反射板の減光で計算され、
+    // 24kW を 10.9m で当てているのに f1.1 のような値が出ていた。
+    if (_dftInBeam(lt, sb.wx, sb.wy)) {
+      out.push({ light:lt, via:null, from:lt, dist:_dftDist(lt, sb), extraStops:0 });
+      return;
+    }
+    // 被写体がビームの外なら、ビーム内にある自分の反射板を経由した光を見る
+    var aimed = bounces.filter(function(bn) {
+      return bnNearestLt[bn.id] === lt.id && _dftInBeam(lt, bn.wx, bn.wy);
+    });
+    if (aimed.length) {
+      var bn = aimed[0];
       // 反射経由。被写体から見た「光源」は反射板の位置になる
       out.push({ light:lt, via:bn, from:bn,
                  dist:_dftDist(lt, bn) + _dftDist(bn, sb),
                  extraStops:getTotalFactorStops(bn.factors || []) });
-    } else if (_dftInBeam(lt, sb.wx, sb.wy)) {
-      out.push({ light:lt, via:null, from:lt, dist:_dftDist(lt, sb), extraStops:0 });
     }
   });
   return out;
@@ -17489,7 +17490,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.87';
+var ver = 'v1.1.4.88';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
