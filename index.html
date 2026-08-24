@@ -2147,7 +2147,8 @@ var LANGS = {
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
-    expLegNote:'角度の読み方：カメラのある向きを0°として時計回りに数えます。90°がカメラから見て右、270°が左、180°が真後ろ（逆光）です。下のグラフも同じ向きで、外に張り出すほど光が強いことを示します。',
+    expProbeAt:'この向きの読み', expProbeNone:'この向きには光が来ていません',
+    expLegNote:'オレンジの丸をドラッグすると、その向きに露出計を向けたときの読みが出ます。カメラのある向きが0°で、90°がカメラから見て右、270°が左、180°が真後ろ（逆光）。図の光源は、いま配置しているライトの実際の到来角です。',
     dftPanelH:'幕の高さ', dftPanelHHint:'← 距離計算に使う高さ(中心)', dftObjSettings:'設定',
     dftPeopleTitle:'🧍 人を配置', dftManLabel:'男性', dftWomanLabel:'女性',
     dftSavePrompt:'名前を付けて保存:', dftSaved:'💾 保存: ',
@@ -2251,7 +2252,8 @@ var LANGS = {
     dftSize:'Size', dftPresetPick:'Pick a preset',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
     expLegFace:'Face', expLegCam:'Camera', expLegKey:'Key', expLegBack:'Back',
-    expLegNote:'How to read the angles: 0° is the direction of the camera, counted clockwise from there. 90° is camera-right, 270° is camera-left, 180° is straight behind (backlight). The chart below uses the same orientation — the further it reaches out, the stronger the light.',
+    expProbeAt:'Reading at', expProbeNone:'no light from this direction',
+    expLegNote:'Drag the orange dot to read what a meter aimed that way would show. 0° is the camera direction, 90° is camera-right, 270° camera-left, 180° straight behind (backlight). The sources on the dial are the real arrival angles of the lights you have placed.',
     dftPanelH:'Panel height', dftPanelHHint:'← height used for distance (centre)', dftObjSettings:'Settings',
     dftPeopleTitle:'🧍 People', dftManLabel:'Man', dftWomanLabel:'Woman',
     dftSavePrompt:'Save as:', dftSaved:'💾 Saved: ',
@@ -2352,7 +2354,8 @@ var LANGS = {
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
     expLegFace:'Cara', expLegCam:'Cámara', expLegKey:'Key', expLegBack:'Contra',
-    expLegNote:'Cómo leer los ángulos: 0° es la dirección de la cámara, contando en sentido horario. 90° es a la derecha de cámara, 270° a la izquierda, 180° justo detrás (contraluz). El gráfico usa la misma orientación: cuanto más se extiende, más fuerte es la luz.',
+    expProbeAt:'Lectura a', expProbeNone:'no llega luz desde esta dirección',
+    expLegNote:'Arrastra el punto naranja para ver la lectura de un fotómetro orientado en esa dirección. 0° es la cámara, 90° derecha de cámara, 270° izquierda, 180° justo detrás (contraluz). Las fuentes del dial son los ángulos reales de las luces colocadas.',
     dftPanelH:'Altura del panel', dftPanelHHint:'← altura usada para la distancia (centro)', dftObjSettings:'Ajustes',
     dftPeopleTitle:'🧍 Personas', dftManLabel:'Hombre', dftWomanLabel:'Mujer',
     dftSavePrompt:'Guardar como:', dftSaved:'💾 Guardado: ',
@@ -16255,23 +16258,27 @@ function _dftExpRelAngle(azim, ref) {
 }
 
 /** 角度ごとの読み。angle は 0°=カメラ方向、90°=カメラ右。 */
+/** 任意の角度1点の読み。表の集計もドラッグ計測も必ずここを通す。 */
+function _dftExpReadAt(srcs, ref, angDeg) {
+  var phi = ref - angDeg * Math.PI / 180;
+  var nx = Math.cos(phi), ny = Math.sin(phi);
+  var sum = 0, parts = [];
+  srcs.forEach(function(s) {
+    var c = nx * s.ux + ny * s.uy;        // 縦構えなので z 成分は掛からない
+    if (c > 1e-9) { var e = s.lux * c; sum += e; parts.push({name:s.name, lux:e}); }
+  });
+  // 真横〜背面は cos がほぼ 0 になり、浮動小数の残りが 0 より大きくなって
+  // f0.0 と表示されてしまう。実用上意味のない 0.5lx 未満は無光として扱う。
+  if (sum < 0.5) { sum = 0; parts = []; }
+  parts.sort(function(a,b){ return b.lux - a.lux; });
+  return { angle:angDeg, lux:sum, fstop:(sum > 0 ? luxToFstopCamera(sum) : null), parts:parts };
+}
+
 function _dftExpReadings(sb, stepDeg) {
   var srcs = _dftExpSources(sb);
   var ref  = _dftExpRefAngle(sb);
   var out  = [];
-  for (var a = 0; a < 360; a += stepDeg) {
-    var phi = ref - a * Math.PI / 180;
-    var nx = Math.cos(phi), ny = Math.sin(phi);
-    var sum = 0, parts = [];
-    srcs.forEach(function(s) {
-      var c = nx * s.ux + ny * s.uy;      // 縦構えなので z 成分は掛からない
-      if (c > 1e-9) { var e = s.lux * c; sum += e; parts.push({name:s.name, lux:e}); }
-    });
-    // 真横〜背面は cos がほぼ 0 になり、浮動小数の残りが 0 より大きくなって
-    // f0.0 と表示されてしまう。実用上意味のない 0.5lx 未満は無光として扱う。
-    if (sum < 0.5) { sum = 0; parts = []; }
-    out.push({ angle:a, lux:sum, fstop:(sum > 0 ? luxToFstopCamera(sum) : null), parts:parts });
-  }
+  for (var a = 0; a < 360; a += stepDeg) out.push(_dftExpReadAt(srcs, ref, a));
   return { readings:out, sources:srcs, ref:ref };
 }
 
@@ -16309,9 +16316,11 @@ function dftExposureTool() {
           (s===step ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#555;') + '">'+s+'°</button>';
       }).join('') + '</div>';
 
+    // 計測点の初期位置は、いちばん強い方向にしておく（意味のある場所から始める）
+    if (_dft._expProbe == null) _dft._expProbe = maxR ? maxR.angle : 0;
     body =
       subjBtns + stepBtns +
-      _dftExpLegendSVG() +
+      '<div id="_dft_exp_dialwrap">' + _dftExpProbeSVG(d) + '</div>' +
       _dftExpPolarSVG(d, maxR) +
       // まとめ
       '<div style="display:flex;gap:6px;margin:14px 0 4px;">' +
@@ -16363,6 +16372,8 @@ function dftExposureTool() {
     '<button onclick="document.getElementById(\'_dft_exp\').remove()" style="width:100%;padding:11px;margin-top:14px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">' + t('dftClose') + '</button>' +
     '</div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
+  // ダイヤルは innerHTML で作っているので、挿入後にイベントを繋ぐ
+  try { if (people.length && lights.length) _dftExpBindDial(_dftExpReadings(people[Math.min(_dft._expSubj||0, people.length-1)], _dft._expStep || 30)); } catch(e) {}
 }
 
 function _dftExpStat(label, big, sub, color) {
@@ -16380,62 +16391,157 @@ function _dftExpAngleLabel(a) {
 }
 
 /**
- * 角度の読み方を示す説明図。文章だけでは 0°/90° がどちら向きか伝わらないので、
- * 俯瞰図のまま「顔・カメラ・キーライト」を実際の角度に置いて見せる。
- * 下のプロットと同じ向き（0°=下=カメラ側、90°=右=カメラの右手側）に描く。
+ * 角度の読み方を示す図。説明用の作り物ではなく、いま図面に置いてある
+ * カメラ・ライト・反射板を実際の角度で描く。
+ * オレンジの丸（計測点）をドラッグすると、その向きに露出計を向けたときの
+ * 読みが出る。0°=下=カメラ方向、90°=右=カメラの右手側（下のグラフと同じ向き）。
  */
-function _dftExpLegendSVG() {
-  var W = 300, H = 190, cx = W/2, cy = 84, R = 62;
-  // 読みの角度 → 画面角。プロットと同じ変換
-  function pt(angDeg, r) {
-    var th = (90 - angDeg) * Math.PI / 180;
-    return [cx + Math.cos(th)*r, cy + Math.sin(th)*r];
+var DFT_EXP_GEO = { W:320, H:250, cx:160, cy:112, R:78 };
+
+function _dftExpPt(angDeg, r) {
+  var g = DFT_EXP_GEO;
+  var th = (90 - angDeg) * Math.PI / 180;
+  return [g.cx + Math.cos(th)*r, g.cy + Math.sin(th)*r];
+}
+
+function _dftExpProbeSVG(d) {
+  var g = DFT_EXP_GEO, cx = g.cx, cy = g.cy, R = g.R;
+  var probe = (_dft._expProbe != null) ? _dft._expProbe : 0;
+  var read  = _dftExpReadAt(d.sources, d.ref, probe);
+
+  function label(x, y, txt, col, anchor, size) {
+    return '<text x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" font-size="'+(size||9)+'" font-weight="800" fill="'+col+'" text-anchor="'+(anchor||'middle')+'" style="pointer-events:none;">'+txt+'</text>';
   }
-  var camP = pt(0, R);        // カメラは 0°（下）
-  var keyP = pt(45, R);       // キーは右前 45°
-  var bakP = pt(180, R*0.86); // 逆光は 180°（上）
 
-  function label(x, y, txt, col, anchor) {
-    return '<text x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" font-size="9" font-weight="800" fill="'+col+'" text-anchor="'+(anchor||'middle')+'">'+txt+'</text>';
-  }
-  // 顔から各要素への線
-  function ray(p, col, dash) {
-    return '<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" stroke="'+col+'" stroke-width="1.4"'+(dash?' stroke-dasharray="4 3"':'')+'/>';
-  }
-  // 0°→45° の角度弧（キーの位置が45°だと分かるように）
-  var a0 = pt(0, 26), a1 = pt(45, 26);
-  var arc = '<path d="M '+a0[0].toFixed(1)+' '+a0[1].toFixed(1)+' A 26 26 0 0 0 '+a1[0].toFixed(1)+' '+a1[1].toFixed(1)+'" fill="none" stroke="#f9a825" stroke-width="1.3"/>';
+  // 目安の円と十字
+  var rings = '<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="none" stroke="#e8e8ee" stroke-width="1"/>' +
+              '<circle cx="'+cx+'" cy="'+cy+'" r="'+(R*0.55).toFixed(1)+'" fill="none" stroke="#f2f2f7" stroke-width="1"/>';
+  var spokes = [0,90,180,270].map(function(a){
+    var p = _dftExpPt(a, R);
+    return '<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" stroke="#f0f0f6" stroke-width="1"/>';
+  }).join('');
 
-  return '<div style="text-align:center;margin-bottom:6px;">' +
-    '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:300px;height:auto;">' +
-      '<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="none" stroke="#eeeef4" stroke-width="1" stroke-dasharray="3 3"/>' +
-      ray(camP, '#6495ed') + ray(keyP, '#f9a825') + ray(bakP, '#bbb', true) +
-      arc + label(pt(22,34)[0], pt(22,34)[1]+3, '45°', '#f9a825') +
+  // 実際の光源。到来角の位置に置く
+  var srcMarks = d.sources.map(function(sc) {
+    var rel = _dftExpRelAngle(sc.azim, d.ref);
+    var p   = _dftExpPt(rel, R);
+    var col = sc.via ? '#0288d1' : '#f9a825';
+    var edge= sc.via ? '#01579b' : '#e65100';
+    var out = _dftExpPt(rel, R + 13);
+    var anchor = (out[0] > cx + 6) ? 'start' : (out[0] < cx - 6) ? 'end' : 'middle';
+    var nm  = (sc.name.length > 12) ? sc.name.slice(0,12) + '…' : sc.name;
+    return '<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" stroke="'+col+'" stroke-width="1.4"/>' +
+      '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="7" fill="'+col+'" stroke="'+edge+'" stroke-width="1.5"/>' +
+      label(out[0], out[1]+3, Math.round(rel)+'° '+_dftEsc(nm), edge, anchor);
+  }).join('');
 
-      // 顔（俯瞰）。鼻をカメラ側に向けて「どちらを向いているか」を示す
-      '<circle cx="'+cx+'" cy="'+cy+'" r="11" fill="#fce4ec" stroke="#ad1457" stroke-width="1.5"/>' +
-      '<path d="M '+(cx-11)+' '+cy+' A 11 11 0 0 1 '+(cx+11)+' '+cy+'" fill="#c2185b"/>' +
-      '<circle cx="'+cx+'" cy="'+(cy+11)+'" r="2.6" fill="#ad1457"/>' +
-      label(cx, cy-16, t('expLegFace'), '#ad1457') +
+  // 顔（俯瞰）。髪を奥、鼻をカメラ側にして向きを示す
+  var face = '<circle cx="'+cx+'" cy="'+cy+'" r="12" fill="#fce4ec" stroke="#ad1457" stroke-width="1.5"/>' +
+    '<path d="M '+(cx-12)+' '+cy+' A 12 12 0 0 1 '+(cx+12)+' '+cy+'" fill="#c2185b"/>' +
+    '<circle cx="'+cx+'" cy="'+(cy+12)+'" r="2.8" fill="#ad1457"/>';
 
-      // カメラ（0°）
-      '<rect x="'+(camP[0]-11)+'" y="'+(camP[1]-7)+'" width="22" height="14" rx="3" fill="#37474f"/>' +
-      '<circle cx="'+camP[0].toFixed(1)+'" cy="'+(camP[1]-4).toFixed(1)+'" r="4" fill="#78909c"/>' +
-      label(camP[0], camP[1]+20, '0° ' + t('expLegCam'), '#37474f') +
+  // カメラ（0°）
+  var camP = _dftExpPt(0, R);
+  var cam = '<rect x="'+(camP[0]-11)+'" y="'+(camP[1]-7)+'" width="22" height="14" rx="3" fill="#37474f"/>' +
+    '<circle cx="'+camP[0].toFixed(1)+'" cy="'+(camP[1]-4).toFixed(1)+'" r="4" fill="#78909c"/>' +
+    label(camP[0], camP[1]+22, '0° '+t('expLegCam'), '#37474f');
 
-      // キーライト（45°）
-      '<circle cx="'+keyP[0].toFixed(1)+'" cy="'+keyP[1].toFixed(1)+'" r="8" fill="#f9a825" stroke="#e65100" stroke-width="1.5"/>' +
-      label(keyP[0]+14, keyP[1]-6, '45° ' + t('expLegKey'), '#e65100', 'start') +
+  // 方向の目印
+  var sideLbl =
+    label(_dftExpPt(90,  R+16)[0], _dftExpPt(90,  R+16)[1]+3, t('expSideR'), '#aaa', 'start') +
+    label(_dftExpPt(270, R+16)[0], _dftExpPt(270, R+16)[1]+3, t('expSideL'), '#aaa', 'end') +
+    label(_dftExpPt(180, R+14)[0], _dftExpPt(180, R+14)[1],   t('expBack'),  '#aaa', 'middle');
 
-      // 逆光（180°）
-      label(bakP[0], bakP[1]-6, '180° ' + t('expLegBack'), '#999') +
+  // 計測点（ドラッグできる）。cos で落ちた向きは灰色にする
+  var pp = _dftExpPt(probe, R);
+  var live = read.lux > 0;
+  var probeCol = live ? '#e65100' : '#9e9e9e';
+  var probeMark =
+    '<line id="_dft_exp_pline" x1="'+cx+'" y1="'+cy+'" x2="'+pp[0].toFixed(1)+'" y2="'+pp[1].toFixed(1)+'" stroke="'+probeCol+'" stroke-width="2.5" stroke-dasharray="5 3" style="pointer-events:none;"/>' +
+    '<circle id="_dft_exp_probe" cx="'+pp[0].toFixed(1)+'" cy="'+pp[1].toFixed(1)+'" r="12" fill="'+probeCol+'" stroke="#fff" stroke-width="2.5" style="cursor:grab;"/>' +
+    '<text id="_dft_exp_ptxt" x="'+pp[0].toFixed(1)+'" y="'+(pp[1]+3.5).toFixed(1)+'" font-size="10" font-weight="900" fill="#fff" text-anchor="middle" style="pointer-events:none;">↕</text>';
 
-      // 左右のサイド
-      label(pt(90, R+6)[0], pt(90, R+6)[1]+3, '90° ' + t('expSideR'), '#888', 'start') +
-      label(pt(270, R+6)[0], pt(270, R+6)[1]+3, '270° ' + t('expSideL'), '#888', 'end') +
+  // 読み値
+  var vTxt = live ? (t('expProbeAt') + ' ' + Math.round(probe) + '°') : (Math.round(probe) + '° — ' + t('expProbeNone'));
+  var readout =
+    '<div id="_dft_exp_readout" style="display:flex;align-items:center;gap:10px;justify-content:center;padding:8px 10px;margin:2px 0 8px;background:#fff8f2;border:1.5px solid #ffcc80;border-radius:10px;">' +
+      '<span id="_dft_exp_rlbl" style="font-size:10px;font-weight:800;color:#8d6e63;">'+vTxt+'</span>' +
+      '<span id="_dft_exp_rf"   style="font-size:20px;font-weight:900;color:#e65100;font-family:monospace;">'+(read.fstop ? 'f'+read.fstop.toFixed(1) : '—')+'</span>' +
+      '<span id="_dft_exp_rlx"  style="font-size:11px;color:#999;font-family:monospace;">'+(read.lux ? Math.round(read.lux).toLocaleString()+' lx' : '')+'</span>' +
+    '</div>';
+
+  return '<div style="text-align:center;">' +
+    '<svg id="_dft_exp_dial" viewBox="0 0 '+g.W+' '+g.H+'" style="width:100%;max-width:320px;height:auto;touch-action:none;">' +
+      rings + spokes + srcMarks + cam + face + probeMark + sideLbl +
     '</svg>' +
-    '<div style="font-size:10px;line-height:1.6;color:#888;padding:0 4px;text-align:left;">' + t('expLegNote') + '</div>' +
+    readout +
+    '<div style="font-size:10px;line-height:1.6;color:#888;padding:0 4px 2px;text-align:left;">' + t('expLegNote') + '</div>' +
   '</div>';
+}
+
+/** ダイヤルのドラッグを繋ぐ。シートを作り直したら毎回呼ぶ。 */
+function _dftExpBindDial(d) {
+  var svg = document.getElementById('_dft_exp_dial');
+  if (!svg || svg._bound) return;
+  svg._bound = true;
+  var g = DFT_EXP_GEO;
+
+  function angleAt(ev) {
+    var r  = svg.getBoundingClientRect();
+    var vb = svg.viewBox.baseVal;
+    var x  = (ev.clientX - r.left) / r.width  * vb.width;
+    var y  = (ev.clientY - r.top)  / r.height * vb.height;
+    var scr = Math.atan2(y - g.cy, x - g.cx) * 180 / Math.PI;   // 0=右, 90=下
+    return ((90 - scr) % 360 + 360) % 360;                      // 0=下, 90=右
+  }
+
+  function apply(ev) {
+    _dft._expProbe = Math.round(angleAt(ev) * 2) / 2;   // 0.5°刻み
+    _dftExpRefreshDial(d);
+  }
+
+  var dragging = false;
+  svg.addEventListener('pointerdown', function(ev) {
+    dragging = true;
+    try { svg.setPointerCapture(ev.pointerId); } catch(e) {}
+    apply(ev); ev.preventDefault();
+  });
+  svg.addEventListener('pointermove', function(ev) {
+    if (!dragging) return;
+    apply(ev); ev.preventDefault();
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(t2) {
+    svg.addEventListener(t2, function(){ dragging = false; });
+  });
+}
+
+/**
+ * ドラッグ中の更新。要素は作り直さず、位置と文字だけ書き換える。
+ * innerHTML で作り直すと、イベントを繋いだ SVG 自体が消えて
+ * ドラッグが1回で切れてしまうため。
+ */
+function _dftExpRefreshDial(d) {
+  var probe = (_dft._expProbe != null) ? _dft._expProbe : 0;
+  var read  = _dftExpReadAt(d.sources, d.ref, probe);
+  var g = DFT_EXP_GEO;
+  var pp = _dftExpPt(probe, g.R);
+  var col = read.lux > 0 ? '#e65100' : '#9e9e9e';
+
+  var ln = document.getElementById('_dft_exp_pline');
+  if (ln) { ln.setAttribute('x2', pp[0].toFixed(1)); ln.setAttribute('y2', pp[1].toFixed(1)); ln.setAttribute('stroke', col); }
+  var ci = document.getElementById('_dft_exp_probe');
+  if (ci) { ci.setAttribute('cx', pp[0].toFixed(1)); ci.setAttribute('cy', pp[1].toFixed(1)); ci.setAttribute('fill', col); }
+  var tx = document.getElementById('_dft_exp_ptxt');
+  if (tx) { tx.setAttribute('x', pp[0].toFixed(1)); tx.setAttribute('y', (pp[1]+3.5).toFixed(1)); }
+
+  var lbl = document.getElementById('_dft_exp_rlbl');
+  if (lbl) lbl.textContent = read.lux > 0
+    ? (t('expProbeAt') + ' ' + Math.round(probe) + '°')
+    : (Math.round(probe) + '° — ' + t('expProbeNone'));
+  var fEl = document.getElementById('_dft_exp_rf');
+  if (fEl) fEl.textContent = read.fstop ? 'f' + read.fstop.toFixed(1) : '—';
+  var lxEl = document.getElementById('_dft_exp_rlx');
+  if (lxEl) lxEl.textContent = read.lux ? Math.round(read.lux).toLocaleString() + ' lx' : '';
 }
 
 /** 極座標プロット。半径は √lux（＝F値に比例）にして段差が読めるようにする。 */
@@ -17611,7 +17717,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.91';
+var ver = 'v1.1.4.92';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
