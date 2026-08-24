@@ -715,9 +715,9 @@ body {
 /* Draft の設定シートは背景を白で固定しているため、ダークテーマの
    文字色・入力欄の色をそのまま継承すると白地に白文字になって読めない。
    インラインで色を指定している要素（青いボタン等）はそちらが勝つので影響しない。 */
-#_dft_bs,#_dft_ls,#_dft_cam,#_dft_os,#_dft_sz,#_dft_dedit,#_dft_cedit { color:#111; }
-#_dft_bs button,#_dft_ls button,#_dft_cam button,#_dft_os button,#_dft_sz button,#_dft_dedit button,#_dft_cedit button { color:#111; }
-#_dft_bs input,#_dft_ls input,#_dft_cam input,#_dft_os input,#_dft_sz input,#_dft_dedit input,#_dft_cedit input { background:#fff;color:#111; }
+#_dft_bs,#_dft_ls,#_dft_cam,#_dft_os,#_dft_sz,#_dft_sc,#_dft_exp,#_dft_dedit,#_dft_cedit { color:#111; }
+#_dft_bs button,#_dft_ls button,#_dft_cam button,#_dft_os button,#_dft_sz button,#_dft_sc button,#_dft_exp button,#_dft_dedit button,#_dft_cedit button { color:#111; }
+#_dft_bs input,#_dft_ls input,#_dft_cam input,#_dft_os input,#_dft_sz input,#_dft_sc input,#_dft_exp input,#_dft_dedit input,#_dft_cedit input { background:#fff;color:#111; }
 /* inactive state hints */
 #dft-btn-delete { border-color:#e57373;color:#c62828; }
 #dft-btn-rotate { border-color:#ffb74d;color:#e65100; }
@@ -2152,6 +2152,9 @@ var LANGS = {
     dftNewConfirm:'新しいドラフトを開始しますか？未保存の変更は失われます。',
     dftDraftsList:'📂 ドラフト一覧', dftObjects:'個のオブジェクト',
     dftScaleTitle:'📐 スケール設定', dftScaleOr:'— または — フロアプランで2点タップ',
+    dftGridPill:'1マス', dftGridLabel:'グリッド1マスの大きさ', dftGridHint:'方眼1つの実寸。図面の読み方がこれで決まります。',
+    dftCalibLabel:'読み込んだ図面の実寸合わせ', dftCalibHint:'PDFや写真を下敷きにしたとき、既知の2点をタップして実寸を教えます。',
+    dftZoomLabel:'表示倍率', dftZoomHint:'画面上の大きさだけを変えます。グリッドの大きさや実寸は変わりません（ピンチ操作と同じ）。',
     dftCalibBtn:'📍 2点キャリブレーション', dftCalibStep1:'📍 1点目をタップ...',
     dftCalibDist:'2点間の実際の距離（m）:',
     dftScaleSet:'スケール設定完了 · ', dftPxPerM:'px / m',
@@ -2245,6 +2248,9 @@ var LANGS = {
     dftNewConfirm:'Start new draft? Unsaved changes will be lost.',
     dftDraftsList:'📂 Drafts', dftObjects:' objects',
     dftScaleTitle:'📐 Set Scale', dftScaleOr:'— or — tap 2 points on the floor plan',
+    dftGridPill:'Grid', dftGridLabel:'Size of one grid square', dftGridHint:'What one square measures. This is how the plan reads.',
+    dftCalibLabel:'Match an imported plan to real size', dftCalibHint:'With a PDF or photo underneath, tap two points you know the distance between.',
+    dftZoomLabel:'Screen magnification', dftZoomHint:'Changes on-screen size only. Grid size and real dimensions stay the same (same as pinching).',
     dftCalibBtn:'📍 2-Point Calibration', dftCalibStep1:'📍 Tap point 1 on canvas...',
     dftCalibDist:'Real distance between the 2 tapped points (meters):',
     dftScaleSet:'Scale set · ', dftPxPerM:'px/m',
@@ -2335,6 +2341,9 @@ var LANGS = {
     dftNewConfirm:'¿Iniciar nuevo plano? Los cambios sin guardar se perderán.',
     dftDraftsList:'📂 Planos', dftObjects:' objetos',
     dftScaleTitle:'📐 Configurar Escala', dftScaleOr:'— o — toca 2 puntos en el plano',
+    dftGridPill:'Cuadro', dftGridLabel:'Tamaño de un cuadro', dftGridHint:'Cuánto mide un cuadro. Así se lee el plano.',
+    dftCalibLabel:'Ajustar un plano importado al tamaño real', dftCalibHint:'Con un PDF o foto de fondo, toca dos puntos cuya distancia conozcas.',
+    dftZoomLabel:'Ampliación en pantalla', dftZoomHint:'Solo cambia el tamaño en pantalla. El cuadro y las medidas reales no cambian (igual que pinchar).',
     dftCalibBtn:'📍 Calibración de 2 Puntos', dftCalibStep1:'📍 Toca el punto 1...',
     dftCalibDist:'Distancia real entre los 2 puntos (metros):',
     dftScaleSet:'Escala configurada · ', dftPxPerM:'px/m',
@@ -13537,6 +13546,9 @@ var _dft = {
   ox:0, oy:0, zoom:1,
   scale:0.05,   // meters per pixel at zoom=1
   unit:'m',
+  // グリッド1マスの大きさ。以前は 1ft 固定で、しかもどこにも表示されていなかった。
+  // gridM が実体（メートル）、gridN/gridUnit は表示用（「1マス 1ft」と出すため）。
+  gridM:0.3048, gridN:1, gridUnit:'ft',
   mode:'select',
   objects:[],
   selected:null,
@@ -13726,6 +13738,9 @@ function dftInit() {
         _dft.layers      = ad.layers ? JSON.parse(JSON.stringify(ad.layers)) : [{id:1,name:'L1',visible:true}];
         _dft.activeLayer = ad.activeLayer || 1;
         _dft.scale       = ad.scale  || 0.05;
+        _dft.gridM       = ad.gridM || 0.3048;
+        _dft.gridN       = (ad.gridN != null) ? ad.gridN : 1;
+        _dft.gridUnit    = ad.gridUnit || 'ft';
         _dft.unit        = ad.unit   || 'm';
         _dft.nextId      = ad.nextId || (_dft.objects.length + 1);
         var ubtn = document.getElementById('dft-btn-unit');
@@ -13751,6 +13766,9 @@ function _dftQueueAutoSave() {
         activeLayer: _dft.activeLayer,
         scale:       _dft.scale,
         unit:        _dft.unit,
+        gridM:       _dft.gridM,
+        gridN:       _dft.gridN,
+        gridUnit:    _dft.gridUnit,
         nextId:      _dft.nextId,
         savedAt:     new Date().toISOString(),
       };
@@ -14122,7 +14140,12 @@ function _dftDrawLightFstops(ctx) {
 }
 
 function _dftDrawGrid(ctx, W, H) {
-  var gm = 0.3048; // always 1 ft
+  var gm = _dft.gridM || 0.3048;
+  // 細線が詰まりすぎると真っ黒になるので、6px を下回るマスは間引く
+  var pxPerCell = gm / _dft.scale * _dft.zoom;
+  var skip = 1;
+  while (pxPerCell * skip < 6) skip *= 2;
+  gm *= skip;
 
   var sw = _dftS2W(0, 0), ew = _dftS2W(W, H);
   var x0 = Math.floor(sw.x / gm) * gm;
@@ -14141,8 +14164,8 @@ function _dftDrawGrid(ctx, W, H) {
   }
   ctx.stroke();
 
-  // major lines every 6 ft
-  var gm6 = gm * 6;
+  // 太線の間隔。ft は6マス（6ft＝現場の基準寸法）、m は5マスごと
+  var gm6 = gm * ((_dft.gridUnit === 'ft') ? 6 : 5);
   var x0m = Math.floor(sw.x / gm6) * gm6;
   var y0m = Math.floor(sw.y / gm6) * gm6;
   ctx.strokeStyle = 'rgba(0,0,0,0.2)';
@@ -15006,8 +15029,9 @@ function _dftUpdatePill() {
   var pill = document.getElementById('dft-scale-pill');
   if (!pill) return;
   var pxPerM = _dft.zoom / _dft.scale;
-  var disp   = _dft.unit === 'ft' ? (pxPerM * 0.3048).toFixed(0) + 'px/ft' : pxPerM.toFixed(0) + 'px/m';
-  pill.textContent = disp;
+  var mag    = _dft.unit === 'ft' ? (pxPerM * 0.3048).toFixed(0) + 'px/ft' : pxPerM.toFixed(0) + 'px/m';
+  // 1マスの大きさを常に出す。これが分からないと図面が読めない
+  pill.textContent = t('dftGridPill') + ' ' + _dftGridLabel() + ' · ' + mag;
   _dftSyncZoomSlider();
 }
 function _dftSyncZoomSlider() {
@@ -16718,24 +16742,77 @@ function _dftRenderPDF(file) {
 }
 
 // ── SCALE ─────────────────────────────────────────────────
+// グリッド1マスの表示ラベル（「1ft」「50cm」など）
+function _dftGridLabel() {
+  var n = _dft.gridN, u = _dft.gridUnit || 'ft';
+  if (u === 'm' && n < 1) return Math.round(n * 100) + 'cm';
+  return (Number.isInteger(n) ? n : n.toFixed(1)) + u;
+}
+
+// 選べる1マスの大きさ。現場で使う刻みだけに絞る
+var DFT_GRID_PRESETS = [
+  { n:1,   u:'ft', m:0.3048 },
+  { n:2,   u:'ft', m:0.6096 },
+  { n:5,   u:'ft', m:1.524  },
+  { n:0.5, u:'m',  m:0.5    },
+  { n:1,   u:'m',  m:1      },
+  { n:2,   u:'m',  m:2      }
+];
+
 function dftSetScaleUI() {
   var pxPerM = (_dft.zoom / _dft.scale).toFixed(1);
+
+  var gridBtns = DFT_GRID_PRESETS.map(function(g, i) {
+    var act = Math.abs((_dft.gridM || 0.3048) - g.m) < 1e-6;
+    var lbl = (g.u === 'm' && g.n < 1) ? (g.n*100)+'cm' : g.n + g.u;
+    return '<button onclick="_dftSetGrid('+i+')" style="flex:1;padding:9px 2px;border-radius:9px;border:2px solid ' +
+      (act ? '#1565c0' : 'rgba(0,0,0,0.12)') + ';background:' + (act ? '#1565c0' : '#f4f4f7') + ';' +
+      'color:' + (act ? '#fff' : '#444') + ';font-size:13px;font-weight:800;cursor:pointer;">' + lbl + '</button>';
+  });
+
   var html = '<div id="_dft_sc" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sc\').remove()">' +
-    '<div style="background:var(--bg,#fff);border-radius:16px;padding:18px;width:88%;max-width:310px;" onclick="event.stopPropagation()">' +
-    '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">'+t('dftScaleTitle')+'</div>' +
-    '<div style="font-size:12px;color:#888;margin-bottom:8px;">1m = ? px</div>' +
-    '<div style="display:flex;gap:6px;align-items:center;margin-bottom:12px;">' +
-    '<span style="font-size:13px;font-weight:700;">1m =</span>' +
-    '<input id="_sc_v" type="number" step="1" min="1" value="'+pxPerM+'" style="flex:1;padding:7px;border:1.5px solid var(--border,#eee);border-radius:8px;font-size:14px;background:var(--bg);color:var(--text);">' +
-    '<span style="font-size:13px;font-weight:700;">px</span>' +
+    '<div style="background:#fff;color:#111;border-radius:16px;padding:18px;width:90%;max-width:330px;max-height:88vh;overflow-y:auto;" onclick="event.stopPropagation()">' +
+    '<div style="font-weight:800;font-size:15px;margin-bottom:4px;">'+t('dftScaleTitle')+'</div>' +
+
+    // ① 1マスの大きさ — これが一番聞かれること
+    '<div style="font-size:11px;font-weight:800;color:#555;margin:14px 0 2px;">'+t('dftGridLabel')+'</div>' +
+    '<div style="font-size:10px;color:#888;margin-bottom:8px;">'+t('dftGridHint')+'</div>' +
+    '<div style="display:flex;gap:5px;margin-bottom:6px;">' + gridBtns.slice(0,3).join('') + '</div>' +
+    '<div style="display:flex;gap:5px;margin-bottom:14px;">' + gridBtns.slice(3).join('') + '</div>' +
+
+    // ② 図面を読み込んだときの実寸合わせ
+    '<div style="border-top:1px solid #eee;padding-top:14px;">' +
+    '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:2px;">'+t('dftCalibLabel')+'</div>' +
+    '<div style="font-size:10px;color:#888;margin-bottom:8px;">'+t('dftCalibHint')+'</div>' +
+    '<button onclick="document.getElementById(\'_dft_sc\').remove();_dftStartCalib();" style="width:100%;padding:10px;background:#1565c0;color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:14px;">'+t('dftCalibBtn')+'</button>' +
     '</div>' +
-    '<button onclick="var v=+document.getElementById(\'_sc_v\').value;if(v>0){_dft.scale=_dft.zoom/v;dftRender();}document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">'+t('dftApply')+'</button>' +
-    '<div style="font-size:12px;color:#888;margin-bottom:8px;">'+t('dftScaleOr')+'</div>' +
-    '<button onclick="document.getElementById(\'_dft_sc\').remove();_dftStartCalib();" style="width:100%;padding:9px;background:#1565c0;color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-bottom:8px;">'+t('dftCalibBtn')+'</button>' +
-    '<button onclick="document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:9px;background:var(--bg-secondary,#eee);border:none;border-radius:9px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
+
+    // ③ 表示倍率（旧「1m = ? px」）。グリッドとは別物だと分かるように独立させた
+    '<div style="border-top:1px solid #eee;padding-top:14px;">' +
+    '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:2px;">'+t('dftZoomLabel')+'</div>' +
+    '<div style="font-size:10px;color:#888;margin-bottom:8px;">'+t('dftZoomHint')+'</div>' +
+    '<div style="display:flex;gap:6px;align-items:center;margin-bottom:10px;">' +
+    '<span style="font-size:13px;font-weight:700;">1m =</span>' +
+    '<input id="_sc_v" type="number" step="1" min="1" value="'+pxPerM+'" style="flex:1;padding:7px;border:1.5px solid #eee;border-radius:8px;font-size:14px;background:#fff;color:#111;">' +
+    '<span style="font-size:13px;font-weight:700;">px</span>' +
+    '<button onclick="var v=+document.getElementById(\'_sc_v\').value;if(v>0){_dft.scale=_dft.zoom/v;dftRender();}" style="padding:7px 12px;background:#eceff3;color:#333;border:none;border-radius:8px;font-weight:800;cursor:pointer;">'+t('dftApply')+'</button>' +
+    '</div></div>' +
+
+    '<button onclick="document.getElementById(\'_dft_sc\').remove();" style="width:100%;padding:10px;background:#eee;border:none;border-radius:9px;font-weight:700;cursor:pointer;">'+t('dftClose')+'</button>' +
     '</div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
 }
+
+window._dftSetGrid = function(i) {
+  var g = DFT_GRID_PRESETS[i];
+  if (!g) return;
+  _dft.gridM = g.m; _dft.gridN = g.n; _dft.gridUnit = g.u;
+  dftRender();
+  _dftSetStatus(t('dftGridPill') + ' = ' + _dftGridLabel());
+  // 選択状態を反映するため開き直す
+  var el = document.getElementById('_dft_sc');
+  if (el) { el.remove(); dftSetScaleUI(); }
+};
 
 function _dftStartCalib() {
   _dft.calibMode = true; _dft.calibPts = [];
@@ -16810,6 +16887,7 @@ function _dftSaveCommit() {
     layers:      JSON.parse(JSON.stringify(_dft.layers)),
     activeLayer: _dft.activeLayer,
     scale: _dft.scale, unit: _dft.unit, nextId: _dft.nextId,
+    gridM: _dft.gridM, gridN: _dft.gridN, gridUnit: _dft.gridUnit,
     savedAt: new Date().toISOString(),
   };
   var idx = _dft.drafts.findIndex(function(d){ return d.id===id; });
@@ -16856,6 +16934,9 @@ function _dftLoadDraft(d, skipRender) {
   _dft.layers        = d.layers ? JSON.parse(JSON.stringify(d.layers)) : [{id:1,name:'L1',visible:true}];
   _dft.activeLayer   = d.activeLayer || 1;
   _dft.scale         = d.scale  || 0.05;
+  _dft.gridM         = d.gridM  || 0.3048;
+  _dft.gridN         = (d.gridN != null) ? d.gridN : 1;
+  _dft.gridUnit      = d.gridUnit || 'ft';
   _dft.unit          = d.unit   || 'm';
   _dft.nextId        = d.nextId || (_dft.objects.length + 1);
   _dft.draftId       = d.id;
@@ -16933,6 +17014,7 @@ function dftExport() {
     layers:      JSON.parse(JSON.stringify(_dft.layers)),
     activeLayer: _dft.activeLayer,
     scale: _dft.scale, unit: _dft.unit, nextId: _dft.nextId,
+    gridM: _dft.gridM, gridN: _dft.gridN, gridUnit: _dft.gridUnit,
     exportedAt: new Date().toISOString(),
   };
   var safeName = (_dft.draftName || 'draft').replace(/[^a-zA-Z0-9぀-鿿_\-]/g, '_');
@@ -17163,7 +17245,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.84';
+var ver = 'v1.1.4.85';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
