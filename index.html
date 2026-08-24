@@ -15053,9 +15053,12 @@ function _dftMD(e) {
       }
     }
     if (_dlHit) { _dftEditDist(_dlHit); return; }
-    // Double-tap on camera object → edit f-stop
+    // Double-tap on camera object → レンズ(mm)・センサー・画角の設定
     var _camHit = _dftObjAt(mx, my);
-    if (_camHit && _camHit.type === 'camera') { _dftCamFstopEdit(_camHit); return; }
+    if (_camHit && _camHit.type === 'camera') {
+      _dft.selected = _camHit.id; _dftUpdateInfoBar(); dftRender();
+      dftCameraEdit(_camHit.id); return;
+    }
   }
   _dft._lastTapT = _now; _dft._lastTapX = mx; _dft._lastTapY = my;
 
@@ -15400,7 +15403,12 @@ function _dftDbl(e) {
     _dft.selected = hit.id; _dftUpdateInfoBar(); dftRender();
     dftBounceSettings(hit.id); return;
   }
-  if (hit.type === 'camera') { _dftCamFstopEdit(hit); return; }
+  // カメラはレンズ(mm)・センサー・画角・高さをまとめた設定画面。
+  // F値はその中のボタンから開く（以前はF値だけに直行していた）。
+  if (hit.type === 'camera') {
+    _dft.selected = hit.id; _dftUpdateInfoBar(); dftRender();
+    dftCameraEdit(hit.id); return;
+  }
   var nl = prompt('Label:', hit.label || hit.type);
   if (nl !== null) { hit.label = nl; dftRender(); }
 }
@@ -17155,7 +17163,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.83';
+var ver = 'v1.1.4.84';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
