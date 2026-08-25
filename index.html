@@ -6621,7 +6621,7 @@ var S = {
   dist:5, manualDist:null, useTriDist:false, triDist:null,
   iso:9, fps:24, fstop:9,
   customISO:null, customFPS:null, customFstop:null,
-  digCustomSS:50,
+  digCustomSS:null,   // 既定はシャッター角基準。コマ数を変えると露出が動く
   makerSort:'def', modelSort:'wdesc',
   favoriteFilter:false,
   useBeam:false, beamPct:50,
@@ -8631,7 +8631,13 @@ function onCamChange() {
   if (type === 'cinema') {
     var isoEl=el('iso'), fpsEl=el('fps'), fstopEl=el('fstop');
     if(isoEl)   S.iso   = parseInt(isoEl.value);
-    if(fpsEl)   S.fps   = parseInt(fpsEl.value);
+    // コマ数を変えたらシャッター時間の固定を外す。
+    // シャッター角を保ったままコマ数が上がるので、露出が段数どおりに動く。
+    if(fpsEl) {
+      var _newFps = parseInt(fpsEl.value);
+      if (_newFps !== S.fps) clearDigSS();
+      S.fps = _newFps;
+    }
     if(fstopEl) S.fstop = parseInt(fstopEl.value);
     S.customISO=null; S.customFPS=null; S.customFstop=null;
     ['iso-direct','fps-direct','fstop-direct'].forEach(function(id){ var e2=el(id); if(e2) e2.value=''; });
@@ -8697,6 +8703,7 @@ function onFPSDirect() {
   var v = parseInt(el('fps-direct').value); if (!v || v < 1) return;
   v = Math.min(1000, Math.max(1, v));
   var sl = el('fps'); if (sl) sl.value = v;
+  if (v !== S.fps) clearDigSS();      // コマ数優先
   S.fps = v; S.customFPS = null;
   setHTML('fps-disp', v + '<span>fps</span>');
   var SA=[360,270,180,172.8,144,90,45];
@@ -18704,7 +18711,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.5.5';
+var ver = 'v1.1.5.6';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
