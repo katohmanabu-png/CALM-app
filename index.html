@@ -4131,7 +4131,7 @@ var LIGHTS = {
     },
     arri_12k: {
       group:'HMI', name:'ARRI 12kW Compact HMI', emoji:'💡', watts:12000, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
-      ccts:[5600], accessories:["flat", "spot"],
+      ccts:[5600], accessories:["flat", "spot"], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         3: {flat:38000},
         5: {flat:19000},
@@ -4142,7 +4142,7 @@ var LIGHTS = {
     },
     arri_12k_de: {
       group:'HMI', name:'ARRI 12kW Double End', emoji:'💡', watts:12000,
-      ccts:[5600], accessories:['flat','spot'],
+      ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         3: {flat:54000},
         5: {flat:19000},
@@ -4153,7 +4153,7 @@ var LIGHTS = {
     },
     arri_200: {
       group:'HMI', name:'ARRI 200W Compact HMI', emoji:'💡', watts:200, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
-      ccts:[5600], accessories:["flat", "spot"],
+      ccts:[5600], accessories:["flat", "spot"], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         1:   {flat:6800, spot:54000},
         2:   {flat:1700, spot:19000},
@@ -4163,7 +4163,7 @@ var LIGHTS = {
     },
     arri_6k: {
       group:'HMI', name:'ARRI 6kW Compact HMI', emoji:'💡', watts:6000, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
-      ccts:[5600], accessories:['flat','spot'],
+      ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         3: {flat:27000},
         5: {flat:14000, spot:76000},
@@ -4241,7 +4241,7 @@ var LIGHTS = {
     // 200W / 6kW / 12kW は arri_200 / arri_6k / arri_12k として既登録。
     arri_125: {
       group:'HMI', name:'ARRI 125W Compact HMI', emoji:'💡', watts:125,
-      ccts:[5600], accessories:['flat','spot'],
+      ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         0.5: {flat:2400, spot:9600},
         1:   {flat:840, spot:2400},
@@ -4252,7 +4252,7 @@ var LIGHTS = {
     },
     arri_575: {
       group:'HMI', name:'ARRI 575W Compact HMI', emoji:'💡', watts:575,
-      ccts:[5600], accessories:['flat','spot'],
+      ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         2:   {flat:4800, spot:38000},
         3:   {flat:2400, spot:19000},
@@ -4263,7 +4263,7 @@ var LIGHTS = {
     },
     arri_1200: {
       group:'HMI', name:'ARRI 1.2kW Compact HMI', emoji:'💡', watts:1200,
-      ccts:[5600], accessories:['flat','spot'],
+      ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         2:   {flat:14000},
         3:   {flat:6800, spot:54000},
@@ -4274,7 +4274,7 @@ var LIGHTS = {
     },
     arri_2500: {
       group:'HMI', name:'ARRI 2.5kW Compact HMI', emoji:'💡', watts:2500,
-      ccts:[5600], accessories:['flat','spot'],
+      ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         2:   {flat:27000},
         3:   {flat:14000},
@@ -4287,7 +4287,7 @@ var LIGHTS = {
     // フレネルのため、F値刻みの丸めで一致したと見られる）。値は変更せず両方登録する。
     arri_4k: {
       group:'HMI', name:'ARRI 4kW Compact HMI', emoji:'💡', watts:4000,
-      ccts:[5600], accessories:['flat','spot'],
+      ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         2:   {flat:38000},
         3:   {flat:19000},
@@ -4586,7 +4586,7 @@ var LIGHTS = {
     },
     alpha_12k: {
       group:'HMI', name:'Alpha 12kW HMI', emoji:'💡', watts:12000,
-      ccts:[5600], accessories:["spot", "flat", "clear_spot", "clear_flat"],
+      ccts:[5600], accessories:["spot", "flat", "clear_spot", "clear_flat"], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         3: {flat:54000, clear_spot:14000, clear_flat:9600},
         5: {spot:38000, flat:19000, clear_spot:4800, clear_flat:4800},
@@ -4598,7 +4598,7 @@ var LIGHTS = {
     alpha_4k: {
       url:'https://k5600.com/collections/4k/Alpha',
       group:'HMI', name:'Alpha 4kW HMI', emoji:'💡', watts:4000,
-      ccts:[5600], accessories:['flat'],
+      ccts:[5600], accessories:['flat'], accAngles:{flat:60}, accLabels:{flat:'FLOOD'},
       refData:{5600:{
         3: {flat:4800},
         5: {flat:2400},
@@ -5009,13 +5009,13 @@ var LIGHTS = {
     },
     arri_studio_t12: {
       group:'Tungsten', name:'ARRI Studio T12', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:12000,
-      ccts:[3200], accessories:['flat','spot'],
+      ccts:[3200], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{flat:{3200:{2:39159,3:20049,5:9075,8:4800,12:1200}},spot:{3200:{2:307200,3:151875,5:76800,8:19200,12:9075}}}
     },
     arri_true_blue_st5: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/tungsten/true-blue-st',
       group:'Tungsten', name:'ARRI True Blue ST5', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:5000,
-      ccts:[3200], accessories:['flat','spot'],
+      ccts:[3200], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{flat:{3200:{2:19200,3:9075,5:2480,8:1355,12:588}},spot:{3200:{2:151875,3:76800,5:19805,8:9075,12:2480}}}
     },
     arri_t300: {
@@ -6590,8 +6590,27 @@ function isFresnel(accKey) { return !!FRESNEL_ACC_KEYS[accKey]; }
  * オープンフェイスや LED パネルの 90°/120° とは別物。
  * 機種側に accAngles があればそれを優先する。
  */
+/** その機種の SPOT 端 / FLOOD 端になるアクセサリのキー */
+function accPairKeys(light) {
+  var accs = (light && light.accessories) || [];
+  var sp = (accs.indexOf('spot') >= 0) ? 'spot' : null;
+  var fl = null;
+  if (accs.indexOf('flat')  >= 0) fl = 'flat';
+  if (accs.indexOf('flood') >= 0) fl = 'flood';
+  if (accs.indexOf('open')  >= 0) fl = 'open';
+  return { spot: sp, flood: fl };
+}
 function accAngle(light, key) {
   if (light && light.accAngles && light.accAngles[key] != null) return light.accAngles[key];
+  // HMI_BEAM に機種ごとの実測レンジがあるなら、その両端をそのまま使う。
+  // ここを見ていなかったので、ボタンは 90°/10°（ACC_INFO の汎用値）なのに
+  // スライダーは 4〜50°（HMI_BEAM）という食い違いが出ていた。
+  var hb = light && HMI_BEAM[light.name];
+  if (hb && hb.length >= 2) {
+    var pk = accPairKeys(light);
+    if (key === pk.spot)  return hb[0];
+    if (key === pk.flood) return hb[1];
+  }
   var ai = ACC_INFO[key];
   return (ai && ai.angle != null) ? ai.angle : null;
 }
@@ -15622,8 +15641,16 @@ function _dftLuxAt(lightObj, distM, extraStops) {
     // 実測値のあいだで log 補間する（luxAtBeamAngle）。
     // 以前は選んでいるアクセサリの実測値そのままで、図面でビーム角を
     // 絞っても F値が動かず、Calc と答えが違っていた。
+    // ただし補間できるのは SPOT〜FLOOD を連続で振れる機種だけ。
+    // リフレクターやランタンを差し替える LED は、アクセサリごとに
+    // 別々の実測値を持っているので、選んでいるものの値をそのまま使う
+    // （STORM 80c で lantern30 を選んでいるのに 525lx が出ていた。実測は 34lx）。
     var r = null;
-    var _bp = beamPctFor(lt, lightObj.beamAngle);
+    var _pk = accPairKeys(lt);
+    var _canMix = _pk.spot && _pk.flood &&
+                  (!lightObj.accKey || lightObj.accKey === 'none' ||
+                   lightObj.accKey === _pk.spot || lightObj.accKey === _pk.flood);
+    var _bp = _canMix ? beamPctFor(lt, lightObj.beamAngle) : null;
     if (_bp != null) r = luxAtBeamAngle(lt, distM, _bp, cct);
     if (!r || !r.lux) r = luxForCCTAndDist(lt.refData, cct, accKey, distM);
     // If still no data (e.g. accKey not in refData), try widest
@@ -19761,7 +19788,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.6.9';
+var ver = 'v1.1.7.0';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
