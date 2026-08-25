@@ -2147,7 +2147,7 @@ var LANGS = {
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
-    expProbeAt:'この向きの読み', expElevLabel:'露出計の仰角（上下の向き）', expTableNote:'以下の表とグラフは、Aの仰角で計算しています：', expElevFlat:'水平', expElevUp45:'↑45°', expElevUp90:'↑真上', expElevDown45:'↓45°', expProbeBOn:'＋ 2点目(B)を出して比べる', expProbeBOff:'− 2点目(B)を消す', expProbeNone:'この向きには光が来ていません',
+    expProbeAt:'この向きの読み', faceTitle:'顔への当たり方（カメラから見た向き）', faceLegend:'いちばん明るい面：', faceScale:'白＝いちばん明るい面、暗いほど段数が落ちます（全体で約3段）', expElevLabel:'露出計の仰角（上下の向き）', expTableNote:'以下の表とグラフは、Aの仰角で計算しています：', expElevFlat:'水平', expElevUp45:'↑45°', expElevUp90:'↑真上', expElevDown45:'↓45°', expProbeBOn:'＋ 2点目(B)を出して比べる', expProbeBOff:'− 2点目(B)を消す', expProbeNone:'この向きには光が来ていません',
     expLegNote:'丸（A）をドラッグすると、その向きに露出計を向けたときの読みが出ます。Bを足すと2点の差＝コントラストが出ます。カメラのある向きが0°で、90°がカメラから見て右、270°が左、180°が真後ろ（逆光）。図の光源は、いま配置しているライトの実際の到来角で、色は図面上のライトと対応しています。',
     dftPanelH:'幕の高さ', dftPanelHHint:'← 距離計算に使う高さ(中心)', dftObjSettings:'設定',
     dftPeopleTitle:'🧍 人を配置', dftManLabel:'男性', dftWomanLabel:'女性',
@@ -2252,7 +2252,7 @@ var LANGS = {
     dftSize:'Size', dftPresetPick:'Pick a preset',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
     expLegFace:'Face', expLegCam:'Camera', expLegKey:'Key', expLegBack:'Back',
-    expProbeAt:'Reading at', expElevLabel:'Meter tilt (up / down)', expTableNote:'The table and chart below use probe A\u2019s tilt:', expElevFlat:'Level', expElevUp45:'↑45°', expElevUp90:'↑Straight up', expElevDown45:'↓45°', expProbeBOn:'+ Add a 2nd probe (B) to compare', expProbeBOff:'− Remove probe B', expProbeNone:'no light from this direction',
+    expProbeAt:'Reading at', faceTitle:'How it falls on the face (as the camera sees it)', faceLegend:'Brightest surface:', faceScale:'White = brightest surface; darker = further down in stops (about 3 stops across)', expElevLabel:'Meter tilt (up / down)', expTableNote:'The table and chart below use probe A\u2019s tilt:', expElevFlat:'Level', expElevUp45:'↑45°', expElevUp90:'↑Straight up', expElevDown45:'↓45°', expProbeBOn:'+ Add a 2nd probe (B) to compare', expProbeBOff:'− Remove probe B', expProbeNone:'no light from this direction',
     expLegNote:'Drag probe A to read what a meter aimed that way would show; add B to get the difference between two directions (contrast). 0° is the camera direction, 90° camera-right, 270° camera-left, 180° straight behind (backlight). The sources on the dial are the real arrival angles of your lights, colour-matched to the plan.',
     dftPanelH:'Panel height', dftPanelHHint:'← height used for distance (centre)', dftObjSettings:'Settings',
     dftPeopleTitle:'🧍 People', dftManLabel:'Man', dftWomanLabel:'Woman',
@@ -2354,7 +2354,7 @@ var LANGS = {
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
     expLegFace:'Cara', expLegCam:'Cámara', expLegKey:'Key', expLegBack:'Contra',
-    expProbeAt:'Lectura a', expElevLabel:'Inclinación del fotómetro', expTableNote:'La tabla y el gráfico usan la inclinación de A:', expElevFlat:'Nivel', expElevUp45:'↑45°', expElevUp90:'↑Cenital', expElevDown45:'↓45°', expProbeBOn:'+ Añadir 2ª sonda (B)', expProbeBOff:'− Quitar sonda B', expProbeNone:'no llega luz desde esta dirección',
+    expProbeAt:'Lectura a', faceTitle:'Cómo cae en el rostro (visto por la cámara)', faceLegend:'Superficie más brillante:', faceScale:'Blanco = superficie más brillante; más oscuro = más pasos abajo (unos 3 pasos)', expElevLabel:'Inclinación del fotómetro', expTableNote:'La tabla y el gráfico usan la inclinación de A:', expElevFlat:'Nivel', expElevUp45:'↑45°', expElevUp90:'↑Cenital', expElevDown45:'↓45°', expProbeBOn:'+ Añadir 2ª sonda (B)', expProbeBOff:'− Quitar sonda B', expProbeNone:'no llega luz desde esta dirección',
     expLegNote:'Arrastra la sonda A para ver la lectura en esa dirección; añade B para obtener la diferencia entre dos direcciones (contraste). 0° es la cámara, 90° derecha, 270° izquierda, 180° detrás (contraluz). Las fuentes del dial son los ángulos reales de tus luces, con el color del plano.',
     dftPanelH:'Altura del panel', dftPanelHHint:'← altura usada para la distancia (centro)', dftObjSettings:'Ajustes',
     dftPeopleTitle:'🧍 Personas', dftManLabel:'Hombre', dftWomanLabel:'Mujer',
@@ -16490,6 +16490,7 @@ function dftExposureTool() {
     if (_dft._expProbe == null) _dft._expProbe = maxR ? maxR.angle : 0;
     body =
       subjBtns + stepBtns +
+      _dftExpFaceHTML() +
       '<div id="_dft_exp_dialwrap">' + _dftExpProbeSVG(d) + '</div>' +
       _dftExpPolarSVG(d, maxR) +
       // まとめ
@@ -16545,7 +16546,13 @@ function dftExposureTool() {
     '</div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
   // ダイヤルは innerHTML で作っているので、挿入後にイベントを繋ぐ
-  try { if (people.length && lights.length) _dftExpBindDial(_dftExpReadings(people[Math.min(_dft._expSubj||0, people.length-1)], _dft._expStep || 30)); } catch(e) {}
+  try {
+    if (people.length && lights.length) {
+      var _d = _dftExpReadings(people[Math.min(_dft._expSubj||0, people.length-1)], _dft._expStep || 30);
+      _dftExpBindDial(_d);
+      _dftExpBindFace(_d);
+    }
+  } catch(e) {}
 }
 
 function _dftExpStat(label, big, sub, color) {
@@ -16578,6 +16585,148 @@ function _dftExpPt(angDeg, r) {
 
 // 計測点は2つ持てる。A と B の差がそのままキー／フィルの比になる。
 var DFT_PROBE_COL = { A:'#e65100', B:'#0288d1', off:'#9e9e9e' };
+
+
+// ══ 顔への当たり方のプレビュー ═══════════════════════════════
+// 頭を球+鼻の簡易モデルとして、実際の光源方向から面ごとの照度を計算し、
+// カメラから見た絵として描く。どちら側が起きてどこに影が落ちるかを見る。
+// あくまで球で近似したモデルであり、実物の顔の陰影そのものではない。
+var DFT_FACE_PX = 224;                       // 描画解像度（正方形）
+
+/**
+ * 被写体を中心とした「カメラから見た」直交基底を返す。
+ *   F = カメラ方向（画面手前）, Rv = カメラの右, U = 上(+z)
+ * ダイヤルの角度規約（0°=カメラ, 90°=カメラ右）と一致させる。
+ */
+function _dftFaceBasis(ref) {
+  function dirAt(relDeg) {
+    var phi = ref - relDeg * Math.PI / 180;
+    return [Math.cos(phi), Math.sin(phi), 0];
+  }
+  return { F: dirAt(0), Rv: dirAt(90), U: [0, 0, 1] };
+}
+
+/**
+ * 顔プレビューを canvas に描く。
+ *
+ * 頭は縦長の回転楕円体で近似し、鼻・眉・頬の起伏を法線に足す。
+ * 各点で E = Σ lux·max(0, n·u) を計算し、キー面からの「段差」で
+ * 明るさを割り当てる（0段=明るい, -3段=暗い）。
+ * 段でそのまま塗るので、見えている濃淡差がそのままライティング比になる。
+ */
+function _dftDrawFace(cv, d) {
+  var N = DFT_FACE_PX;
+  cv.width = N; cv.height = N;
+  var ctx = cv.getContext('2d');
+  var img = ctx.createImageData(N, N);
+  var b = _dftFaceBasis(d.ref);
+  var srcs = d.sources;
+  var AX = 1.30;                 // 横を詰めて縦長の頭にする
+
+  // 面ごとの照度
+  function luxAtNormal(nx, ny, nz) {
+    var lx = 0;
+    for (var i = 0; i < srcs.length; i++) {
+      var s2 = srcs[i];
+      var c = nx*s2.ux + ny*s2.uy + nz*s2.uz;
+      if (c > 0) lx += s2.lux * c;
+    }
+    return lx;
+  }
+
+  // 起伏を足した法線を返す（顔の作りをおおまかに再現）
+  function normalAt(sx, sy, sz) {
+    var nx = sx*b.Rv[0] + sy*b.U[0] + sz*b.F[0];
+    var ny = sx*b.Rv[1] + sy*b.U[1] + sz*b.F[1];
+    var nz = sx*b.Rv[2] + sy*b.U[2] + sz*b.F[2];
+    function bump(cx, cy, r, amt, outward) {
+      var dx = sx - cx, dy = sy - cy;
+      var dd = Math.sqrt(dx*dx + dy*dy);
+      if (dd >= r) return;
+      var k = (1 - dd/r) * amt;
+      var mx = dx/(dd || 1), my = dy/(dd || 1);
+      nx += k*(mx*b.Rv[0] + my*b.U[0]) + k*outward*b.F[0];
+      ny += k*(mx*b.Rv[1] + my*b.U[1]) + k*outward*b.F[1];
+      nz += k*(mx*b.Rv[2] + my*b.U[2]) + k*outward*b.F[2];
+    }
+    bump(0,    -0.04, 0.15, 1.25, 1.25);   // 鼻（正面に張り出す）
+    bump(0,     0.30, 0.42, 0.32, 0.25);   // 眉・額の張り
+    bump(-0.36,-0.06, 0.26, 0.26, 0.18);   // 頬
+    bump( 0.36,-0.06, 0.26, 0.26, 0.18);
+    bump(0,    -0.52, 0.24, 0.30, 0.30);   // 顎
+    var ln = Math.sqrt(nx*nx + ny*ny + nz*nz) || 1;
+    return [nx/ln, ny/ln, nz/ln];
+  }
+
+  // 基準は正面〜キー側でいちばん明るい面
+  var peak = 0;
+  for (var ty = -0.8; ty <= 0.8; ty += 0.1) {
+    for (var tx = -0.8; tx <= 0.8; tx += 0.1) {
+      var r2 = (tx*AX)*(tx*AX) + ty*ty;
+      if (r2 > 1) continue;
+      var tz = Math.sqrt(1 - r2);
+      var n2 = normalAt(tx, ty, tz);
+      var lv = luxAtNormal(n2[0], n2[1], n2[2]);
+      if (lv > peak) peak = lv;
+    }
+  }
+  if (peak <= 0) peak = 1;
+
+  var RANGE = 3;                 // 何段ぶんを濃淡に割り当てるか
+  for (var py = 0; py < N; py++) {
+    for (var px = 0; px < N; px++) {
+      var sx = (px + 0.5) / N * 2 - 1;
+      var sy = 1 - (py + 0.5) / N * 2;
+      var i4 = (py*N + px) * 4;
+      var xx = sx * AX;
+      var rr = xx*xx + sy*sy;
+      if (rr > 1) { img.data[i4+3] = 0; continue; }
+      var sz = Math.sqrt(1 - rr);
+      // 輪郭のギザつきを抑える（外周だけ薄める）
+      var edge = (rr > 0.965) ? (1 - rr) / 0.035 : 1;
+      var n = normalAt(sx, sy, sz);
+      var lux = luxAtNormal(n[0], n[1], n[2]);
+
+      var g;
+      if (lux > 0.5) {
+        var st = Math.log2(lux / peak);          // 0 が最大、負が暗い
+        var v = 1 + st / RANGE;
+        if (v < 0) v = 0; if (v > 1) v = 1;
+        g = 26 + v * 219;                        // 段差がそのまま濃淡差になる
+      } else {
+        g = 20;                                  // 光が回っていない面
+      }
+      img.data[i4]   = Math.round(g);
+      img.data[i4+1] = Math.round(g * 0.95);
+      img.data[i4+2] = Math.round(g * 0.88);     // わずかに暖色
+      img.data[i4+3] = Math.round(255 * edge);
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  return peak;
+}
+
+/** 顔プレビューの枠。canvas は挿入後に描く */
+function _dftExpFaceHTML() {
+  return '<div style="text-align:center;margin:4px 0 10px;">' +
+    '<div style="font-size:10px;font-weight:800;color:#888;margin-bottom:4px;">' + t('faceTitle') + '</div>' +
+    '<canvas id="_dft_exp_face" style="width:100%;max-width:180px;height:auto;background:transparent;"></canvas>' +
+    '<div id="_dft_exp_faceleg" style="font-size:9px;color:#999;margin-top:4px;"></div>' +
+  '</div>';
+}
+
+function _dftExpBindFace(d) {
+  var cv = document.getElementById('_dft_exp_face');
+  if (!cv) return;
+  var peak = _dftDrawFace(cv, d);
+  var leg = document.getElementById('_dft_exp_faceleg');
+  if (leg) {
+    var fv = luxToFstopCamera(peak);
+    leg.innerHTML = t('faceLegend') + ' <b>f' + (fv ? fv.toFixed(1) : '—') + '</b> · ' +
+      Math.round(peak).toLocaleString() + ' lx<br>' +
+      '<span style="opacity:.8;">' + t('faceScale') + '</span>';
+  }
+}
 
 function _dftExpProbeSVG(d) {
   var g = DFT_EXP_GEO, cx = g.cx, cy = g.cy, R = g.R;
@@ -18078,7 +18227,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.98';
+var ver = 'v1.1.4.99';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
