@@ -7537,7 +7537,7 @@ function renderBeamSlider() {
     if (k === 'spot') S.beamPct = 0;
     // flood/flat選択中: 最大端
     if (k === 'flood' || k === 'flat') S.beamPct = 100;
-    var curDeg = Math.round(ba[0] + S.beamPct / 100 * (ba[1] - ba[0]));
+    var curDeg = beamAngleAt(light, S.beamPct);
     sl.value = curDeg;
     var valEl = el('beam-val');
     if (valEl) valEl.textContent = curDeg + '°';
@@ -7564,7 +7564,7 @@ function renderBeamSlider() {
   sl.value = S.beamPct;
 
   if (ba) {
-    var curAngle = Math.round(ba[0] + S.beamPct / 100 * (ba[1] - ba[0]));
+    var curAngle = beamAngleAt(light, S.beamPct);
     var valEl = el('beam-val');
     if (valEl) valEl.textContent = curAngle + '°';
   }
@@ -7613,17 +7613,35 @@ function onBeamSlider() {
   } else {
     S.beamPct = parseInt(sl.value) || 0;
     if (ba) {
-      var curAngle = Math.round(ba[0] + S.beamPct / 100 * (ba[1] - ba[0]));
+      var curAngle = beamAngleAt(light, S.beamPct);
       var valEl2 = el('beam-val');
       if (valEl2) valEl2.textContent = curAngle + '°';
     }
   }
   calculate();
 }
+/**
+ * SPOT〜FLOOD のつまみ位置(%)に対応するビーム角。
+ *
+ * lux は log で混ぜている（luxAtBeamAngle）ので、角度も同じく log で取る。
+ * 以前は表示だけ線形（ba0 + pct/100*(ba1-ba0)）で、同じ 50% でも
+ * ラベルは 37.5° / 計算は 30° と食い違っていた。Calc・Compare・Draft の
+ * どこから見ても同じ値になるよう、ここ一箇所に集める。
+ */
+function beamAngleAt(light, pct) {
+  var ba = getBeamAngles(light); if (!ba || ba.length < 2) return null;
+  if (pct == null) pct = 50;
+  return Math.round(ba[0] * Math.pow(ba[1]/ba[0], pct/100) * 10) / 10;
+}
+/** 上の逆。ビーム角からつまみ位置(%)へ */
+function beamPctFor(light, angle) {
+  var ba = getBeamAngles(light); if (!ba || ba.length < 2 || !angle) return null;
+  if (ba[1] === ba[0]) return 50;
+  var pct = 100 * Math.log(angle/ba[0]) / Math.log(ba[1]/ba[0]);
+  return Math.max(0, Math.min(100, pct));
+}
 function currentBeamAngle() {
-  var light = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
-  var ba = getBeamAngles(light); if (!ba) return null;
-  return Math.round(ba[0] * Math.pow(ba[1]/ba[0], S.beamPct/100) * 10) / 10;
+  return beamAngleAt(LIGHTS[S.maker] && LIGHTS[S.maker][S.model], S.beamPct);
 }
 
 // ===== CCT =====
@@ -8591,9 +8609,11 @@ function luxForCCTAndDist(refData, cct, acc, dist) {
 }
 
 
-function luxAtBeamAngle(light, dist, beamPctOverride) {
+function luxAtBeamAngle(light, dist, beamPctOverride, cctOverride) {
   var ba = getBeamAngles(light); if (!ba) return null;
-  var cct = getActiveCCT();
+  // Draft から呼ぶときは、その機種自身の CCT を渡す
+  // （Calc タブで別機種の色温度が選ばれていても引きずられないように）
+  var cct = (cctOverride != null) ? cctOverride : getActiveCCT();
   var accs = light.accessories || [];
   // Find spot and wide accessories
   // Priority: spot < flat/flood (wide end)
@@ -9198,8 +9218,8 @@ function _cmpBeamLux(light, cct, dist, pct) {
 }
 function _cmpHasBeam(light) { return !!getBeamAngles(light) && _cmpBeamLux(light, 5600, 3, 50) != null; }
 function _cmpBeamAngleAt(light, pct) {
-  var ba = getBeamAngles(light); if (!ba || ba.length < 2) return null;
-  return Math.round(ba[0] * Math.pow(ba[1]/ba[0], (pct == null ? 50 : pct)/100));
+  var a = beamAngleAt(light, pct);
+  return (a == null) ? null : Math.round(a);
 }
 function _cmpSlotBeam(slot) { return (slot && slot.beamPct != null) ? slot.beamPct : 50; }
 function _cmpSetBeam(i, val) {
@@ -15416,11 +15436,16 @@ function _dftUpdateCalcFromDraft() {
     // 以前はライトの factors に減光を足していたが、calculate() はそれを見ないので
     // 効果はなく、F値バッジ・Exposure 側だけが二重に減光していた。
     var keepMaker = S.maker, keepModel = S.model, keepAcc = S.accKey;
+    var keepPct = S.beamPct;
     if (lt.makerKey && LIGHTS[lt.makerKey] && LIGHTS[lt.makerKey][lt.modelKey]) {
       S.maker = lt.makerKey; S.model = lt.modelKey;
       var _lg = LIGHTS[lt.makerKey][lt.modelKey];
       S.accKey = (lt.accKey && _lg.accessories && _lg.accessories.indexOf(lt.accKey) >= 0)
         ? lt.accKey : defaultWidestAcc(_lg);
+      // 図面のビーム角を Calc のつまみ位置に写す。ここを合わせないと
+      // Result は Calc タブに残っている別の開き（既定 50%）で出てしまう。
+      var _bp = beamPctFor(_lg, lt.beamAngle);
+      if (_bp != null) S.beamPct = _bp;
     }
 
     // 経路の減光（反射板の Factor と、板の向きによる cos 分）を
@@ -15437,6 +15462,7 @@ function _dftUpdateCalcFromDraft() {
     finally {
       if (pushed) S_calcFactors.pop();
       S.maker = keepMaker; S.model = keepModel; S.accKey = keepAcc;
+      S.beamPct = keepPct;
     }
   } catch(e) {}
 }
@@ -15587,9 +15613,21 @@ function _dftLuxAt(lightObj, distM, extraStops) {
     var lt = LIGHTS[lightObj.makerKey] && LIGHTS[lightObj.makerKey][lightObj.modelKey];
     if (!lt || !lt.refData) return null;
     var accKey = (!lightObj.accKey || lightObj.accKey === 'none') ? defaultWidestAcc(lt) : lightObj.accKey;
-    var r = luxForCCTAndDist(lt.refData, 5600, accKey, distM);
+    // その機種の色温度で引く。5600 固定だと 3200K のタングステンでも
+    // 5600 を要求していた（近い値に落ちるので偶然合っていただけ）
+    var _cc = lt.ccts || [5600];
+    var cct = _cc[Math.min(cctIdxFor5600(lt), _cc.length - 1)] || _cc[0];
+
+    // ビーム角ぶんの明るさは Calc と同じ式で出す。SPOT〜FLOOD を
+    // 実測値のあいだで log 補間する（luxAtBeamAngle）。
+    // 以前は選んでいるアクセサリの実測値そのままで、図面でビーム角を
+    // 絞っても F値が動かず、Calc と答えが違っていた。
+    var r = null;
+    var _bp = beamPctFor(lt, lightObj.beamAngle);
+    if (_bp != null) r = luxAtBeamAngle(lt, distM, _bp, cct);
+    if (!r || !r.lux) r = luxForCCTAndDist(lt.refData, cct, accKey, distM);
     // If still no data (e.g. accKey not in refData), try widest
-    if (!r || !r.lux) { r = luxForCCTAndDist(lt.refData, 5600, defaultWidestAcc(lt), distM); }
+    if (!r || !r.lux) { r = luxForCCTAndDist(lt.refData, cct, defaultWidestAcc(lt), distM); }
     if (!r || !r.lux) return null;
     var stops = getTotalFactorStops(lightObj.factors || []) + (extraStops || 0);
     return r.lux * Math.pow(2, -stops);
@@ -16334,7 +16372,7 @@ function _dftMM(e) {
     var _bhd = _dft._beamHandle || _dftBeamHandle(_dft.beamObj);
     if (_bhd) {
       var _bang = _dftBeamAngleFromHandle(_dft.beamObj, _bhd, mx, my);
-      _dft.beamObj.beamAngle = Math.max(5, Math.min(170, _bang));
+      _dft.beamObj.beamAngle = _dftClampBeam(_dft.beamObj, _bang);
     }
     dftRender();
     // ドラッグ中も情報バーの角度と Result を追従させる。
@@ -16718,7 +16756,9 @@ function dftLightSettings(oid) {
     return arr.indexOf(a) === i;
   });
   var curAcc = o.accKey || allAccs[0] || 'none';
-  var beamVal = o.beamAngle || accAngle(lt, curAcc) || 75;
+  // 入力できる範囲も Calc と同じ SPOT〜FLOOD にする
+  var _br = _dftBeamRange(o);
+  var beamVal = _dftClampBeam(o, o.beamAngle || accAngle(lt, curAcc) || 75);
 
   var accBtns = allAccs.map(function(ak) {
     var ai = ACC_INFO[ak] || {label:ak, emoji:'●'};
@@ -16742,16 +16782,19 @@ function dftLightSettings(oid) {
     _dftAimFieldHTML(o) +
     '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:8px;">Beam Angle</div>' +
     '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">' +
-    '<input id="_dft_ls_ba" type="number" min="1" max="180" step="1" value="'+beamVal+'" ' +
+    '<input id="_dft_ls_ba" type="number" min="'+_br[0]+'" max="'+_br[1]+'" step="1" value="'+beamVal+'" ' +
     'oninput="_dftLiveBeam(\''+oid+'\',this.value,true)" ' +
     'style="width:90px;padding:10px;font-size:22px;font-weight:700;border:2px solid #1976d2;border-radius:12px;text-align:center;box-sizing:border-box;">' +
     '<span style="font-size:18px;color:#888;">°</span>' +
     '<div style="flex:1;"></div>' +
     '<span id="_dft_ls_bafs" style="font-size:15px;font-weight:900;color:#e65100;font-family:monospace;"></span>' +
     '</div>' +
-    // スライダーでも変えられるように。動かした瞬間に図面と Result に反映する
-    '<input id="_dft_ls_basl" type="range" min="5" max="180" step="1" value="'+beamVal+'" ' +
-    'oninput="_dftLiveBeam(\''+oid+'\',this.value)" style="width:100%;margin-bottom:18px;accent-color:#1976d2;">' +
+    // スライダーでも変えられるように。動かした瞬間に図面と Result に反映する。
+    // 範囲は Calc と同じ SPOT〜FLOOD。その外は Calc に対応する値が無い
+    '<input id="_dft_ls_basl" type="range" min="'+_br[0]+'" max="'+_br[1]+'" step="1" value="'+beamVal+'" ' +
+    'oninput="_dftLiveBeam(\''+oid+'\',this.value)" style="width:100%;margin-bottom:4px;accent-color:#1976d2;">' +
+    '<div style="display:flex;justify-content:space-between;font-size:9px;color:#999;margin-bottom:14px;">' +
+    '<span>SPOT '+_br[0]+'°</span><span>FLOOD '+_br[1]+'°</span></div>' +
     _dftHeightFieldHTML(o) +
     '<div style="border-top:1px solid #eee;margin:0 -16px;padding:14px 16px 0;">' +
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
@@ -16858,6 +16901,26 @@ function _dftBeamHandle(o) {
   var a   = (o.rot || 0) + Math.PI/2 + hp;
   return { kind:'fan', x: sp.x + Math.cos(a)*len*0.78, y: sp.y + Math.sin(a)*len*0.78,
            cosT: cosT };
+}
+
+/**
+ * ビーム角を、その機種が実際に出せる範囲に収める。
+ * SPOT〜FLOOD の外は Calc 側に対応する値が無く、Result と食い違うため。
+ * 機種が分からないもの（機種未設定のライト）だけ 1〜180° を許す。
+ */
+function _dftClampBeam(o, deg) {
+  var lt = o && o.makerKey && LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
+  var ba = lt && getBeamAngles(lt);
+  if (ba && ba.length >= 2) {
+    return Math.round(Math.max(ba[0], Math.min(ba[1], deg)) * 10) / 10;
+  }
+  return Math.max(1, Math.min(180, deg));
+}
+/** 図面のスライダー・数値欄に出す範囲 */
+function _dftBeamRange(o) {
+  var lt = o && o.makerKey && LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
+  var ba = lt && getBeamAngles(lt);
+  return (ba && ba.length >= 2) ? ba : [1, 180];
 }
 
 /** つまみを動かした先から、立体のビームアングル(度)を出す */
@@ -17053,11 +17116,11 @@ window._dftLiveBeam = function(oid, v, fromNumber) {
   if (!o) return;
   var n = parseFloat(v);
   if (!isFinite(n)) return;
-  n = Math.max(1, Math.min(180, n));   // 円錐の開きなので 180°まで
+  n = _dftClampBeam(o, n);
   o.beamAngle = n;
   // 数値欄とスライダーを相互に追従（手入力中は数値欄を書き戻さない）
   var sl = document.getElementById('_dft_ls_basl');
-  if (sl && fromNumber) sl.value = Math.max(5, Math.min(180, n));
+  if (sl && fromNumber) sl.value = n;
   var nm = document.getElementById('_dft_ls_ba');
   if (nm && !fromNumber) nm.value = n;
   dftRender();
@@ -18580,10 +18643,12 @@ function _dftLPSelect(mk, lk) {
   // 既定は「その機種のいちばん広いアクセサリ」の実角度。75° 固定だと
   // フレネル（FLOOD 60°）でも 75° で置かれてしまう
   var _dak = defaultWidestAcc(lt) || 'none';
+  var _dba = getBeamAngles(lt);
   var no = _dftAddObj('light', _dft.pendingLightWx, _dft.pendingLightWy, {
     makerKey: mk, modelKey: lk,
     lightName: lt.name, label: lt.name,
-    beamAngle: accAngle(lt, _dak) || 75, accKey: _dak,
+    // FLOOD 側（Calc のつまみ 100%）で置く
+    beamAngle: (_dba && _dba[1]) || accAngle(lt, _dak) || 75, accKey: _dak,
   });
   _dftAutoOrient(no);
   _dft.selected = no.id;
@@ -19696,7 +19761,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.6.8';
+var ver = 'v1.1.6.9';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
