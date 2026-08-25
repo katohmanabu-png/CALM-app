@@ -14971,6 +14971,30 @@ function _dftDrawObj(ctx, o) {
 }
 
 // Returns the nearest light to a given object (or null)
+/**
+ * その反射板を実際に照らしているライト。
+ *
+ * 1. その板を狙いに指定している灯（明示指定がいちばん強い）
+ * 2. 板がビームの中に入っている灯のうち、いちばん近いもの
+ * 3. どれも当たっていなければ null（反射は描かない）
+ *
+ * 「いちばん近い灯」で決めていたため、当てていない灯が選ばれて
+ * 法線が逆側にそろい、反射の向きが見当違いになることがあった。
+ */
+function _dftLightForBounce(bn) {
+  var lights = _dftVisObjs(function(o){ return o.type === 'light'; });
+  if (!lights.length) return null;
+  var aimed = lights.filter(function(lt){ return lt.aimId === bn.id; });
+  if (aimed.length) {
+    return aimed.reduce(function(a, b){ return _dftDist(a, bn) <= _dftDist(b, bn) ? a : b; });
+  }
+  var lit = lights.filter(function(lt){
+    return !lt.aimId && _dftInBeam(lt, bn.wx, bn.wy);
+  });
+  if (!lit.length) return null;
+  return lit.reduce(function(a, b){ return _dftDist(a, bn) <= _dftDist(b, bn) ? a : b; });
+}
+
 function _dftNearestLight(obj) {
   var lights = _dftVisObjs(function(o){ return o.type==='light'; });
   if (!lights.length) return null;
@@ -15270,8 +15294,10 @@ function _dftDrawBounceBeams(ctx) {
   if (!bounces.length) return;
 
   bounces.forEach(function(bn) {
-    // Each bounce links only to its nearest light
-    var lt = _dftNearestLight(bn);
+    // その板を実際に照らしているライトで描く。
+    // 以前は「いちばん近いライト」だった。灯が何台もあると、当てていない
+    // 灯が選ばれて法線が逆側にそろい、反射の向きが見当違いになっていた。
+    var lt = _dftLightForBounce(bn);
     if (!lt) return;
 
     var bns = _dftW2S(bn.wx, bn.wy);
@@ -15280,13 +15306,6 @@ function _dftDrawBounceBeams(ctx) {
     var gdx = bn.wx - lt.wx, gdy = bn.wy - lt.wy;
     var glen = Math.hypot(gdx, gdy); if (!glen) return;
     gdx /= glen; gdy /= glen;
-
-    // Check: is bounce within the light's beam cone?
-    var beamDirX = -Math.sin(lt.rot || 0);
-    var beamDirY =  Math.cos(lt.rot || 0);
-    var cosAngle = gdx * beamDirX + gdy * beamDirY;
-    var halfBeam = ((lt.beamAngle || 75) / 2) * Math.PI / 180;
-    if (cosAngle < Math.cos(halfBeam)) return; // bounce not illuminated — no reflection
 
     // 12x12 のような板は反射光の向きを見たい。一方 10m クラスの天バンや
     // 大きな布は面全体が光源になるので、1本のローブで描くと嘘になる。
@@ -19862,7 +19881,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.7';
+var ver = 'v1.1.7.8';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
