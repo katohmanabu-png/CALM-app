@@ -6617,6 +6617,13 @@ function accAngle(light, key) {
 /** 表示名も機種で上書きできる。フレネルの 'flat' は Flat Mode ではなく FLOOD */
 function accLabel(light, key) {
   if (light && light.accLabels && light.accLabels[key]) return light.accLabels[key];
+  // HMI_BEAM から角度を取っている両端は SPOT / FLOOD と呼ぶ。
+  // 60° なのに「Flat Mode」と出ていて、角度と名前が噛み合っていなかった。
+  if (light && HMI_BEAM[light.name] && !(light.accAngles && light.accAngles[key] != null)) {
+    var pk = accPairKeys(light);
+    if (key === pk.spot)  return 'SPOT';
+    if (key === pk.flood) return 'FLOOD';
+  }
   var ai = ACC_INFO[key];
   return (ai && ai.label) ? ai.label : key;
 }
@@ -6868,7 +6875,19 @@ function formatSliderDist(v) {
 }
 
 
-function getBeamAngle(acc) {
+/**
+ * アクセサリの角度。light を渡せる場所では必ず渡すこと。
+ *
+ * 機種を渡すと accAngle（機種ごとの上書き → HMI_BEAM → ACC_INFO）を先に見る。
+ * 下の MAP は、ACC_INFO に無い LED のリフレクター名などを名前から拾うための
+ * 最後の手段。ここが機種を見ていなかったので、ALT だけ 24kW の FLOOD を
+ * 90° と思い込み、実際に 60° の機種と組み合わせられなかった。
+ */
+function getBeamAngle(acc, light) {
+  if (light) {
+    var _a = accAngle(light, acc);
+    if (_a != null) return _a;
+  }
   // 数字が含まれるaccから角度を抽出
   var MAP = {
     // 明示的マッピング
@@ -11059,7 +11078,7 @@ function renderFinderResults() {
       '<div style="flex:1;min-width:0;">' +
         '<div style="font-size:11px;color:' + makerAccent + ';font-weight:700;">' + (maker.emoji||'') + ' ' + (makerName(maker)||res.mk) + '</div>' +
         '<div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + '</div>' +
-        '<div style="font-size:10px;color:var(--text-dim);">' + res.cct + 'K · ' + angleLabel + res.acc + (res.watts > 0 ? ' · ' + res.watts + 'W' : '') +
+        '<div style="font-size:10px;color:var(--text-dim);">' + res.cct + 'K · ' + angleLabel + accLabel(LIGHTS[res.mk] && LIGHTS[res.mk][res.lk], res.acc) + (res.watts > 0 ? ' · ' + res.watts + 'W' : '') +
           (res.altAccs ? '<span class="finder-alt-toggle" style="margin-left:6px;color:var(--accent);font-weight:800;cursor:pointer;">▾ ' + res.altAccs.length + t('finderAccUnit') + '</span>' : '') + '</div>' +
       '</div>' +
       '<div style="text-align:right;min-width:64px;padding-left:6px;">' +
@@ -11502,11 +11521,11 @@ function runAlternativeFinder() {
       var rcct = (rlight.ccts || [5600])[0];
       var raccs = rlight.accessories || ['none'];
       var bestLux = 0, bestAcc = 'none', bestAngleDiff = 9999;
-      var srcAngle = getBeamAngle(acc);
+      var srcAngle = getBeamAngle(acc, light);
       var isFstopMode = (S_altSort === 'fstop' || S_altSort === 'fstop_multi');
       for (var ai = 0; ai < raccs.length; ai++) {
         var candAcc = raccs[ai];
-        var candAngle = getBeamAngle(candAcc);
+        var candAngle = getBeamAngle(candAcc, rlight);
         var angleDiff = Math.abs(srcAngle - candAngle);
         var rr = luxForCCTAndDist(rlight.refData, rcct, candAcc, dist);
         if (!rr || !rr.lux) continue;
@@ -11517,9 +11536,9 @@ function runAlternativeFinder() {
           }
         } else {
           // 角度優先: 角度差が小さい→広角優先、同角度ならsrcLuxRawに近い方
-          var sameAngle = angleDiff === bestAngleDiff && candAngle === getBeamAngle(bestAcc);
+          var sameAngle = angleDiff === bestAngleDiff && candAngle === getBeamAngle(bestAcc, rlight);
           var closerLux = sameAngle && Math.abs(rr.lux - srcLuxRaw) < Math.abs(bestLux - srcLuxRaw);
-          if (angleDiff < bestAngleDiff || (angleDiff === bestAngleDiff && candAngle > getBeamAngle(bestAcc)) || closerLux) {
+          if (angleDiff < bestAngleDiff || (angleDiff === bestAngleDiff && candAngle > getBeamAngle(bestAcc, rlight)) || closerLux) {
             bestLux = rr.lux; bestAcc = candAcc; bestAngleDiff = angleDiff;
           }
         }
@@ -11736,7 +11755,7 @@ function runAlternativeFinder() {
       '<div style="flex:1;min-width:0;">' +
         '<div style="font-size:11px;color:var(--accent);font-weight:700;">' + (maker.emoji||'') + ' ' + (makerName(maker)||res.mk) + '</div>' +
         '<div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + unitsLabel + res.name + (res.isSelf ? ' ✓' : '') + '</div>' +
-        '<div style="font-size:10px;color:var(--text-dim);">' + res.acc + ' · ' + getBeamAngle(res.acc) + '° · ' + res.watts + 'W</div>' +
+        '<div style="font-size:10px;color:var(--text-dim);">' + accLabel(LIGHTS[res.mk] && LIGHTS[res.mk][res.lk], res.acc) + ' · ' + getBeamAngle(res.acc, LIGHTS[res.mk] && LIGHTS[res.mk][res.lk]) + '° · ' + res.watts + 'W</div>' +
       '</div>' +
       '<div style="text-align:right;min-width:70px;padding-left:8px;">' +
         '<div style="font-size:20px;font-weight:900;color:var(--accent);font-family:\'JetBrains Mono\',monospace;">' + res.fStr + '</div>' +
@@ -19802,7 +19821,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.1';
+var ver = 'v1.1.7.2';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
