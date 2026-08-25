@@ -14556,16 +14556,59 @@ function _dftDrawObj(ctx, o) {
 
   } else if (o.type === 'light') {
     // beam cone (pointing down = +y direction, rotated by obj.rot)
+    // 平面図なので、上下の振りのぶんを落として描く。以前は振りを見ずに
+    // いつも真横向きの扇を描いていたので、TILT と当たる範囲と食い違っていた。
     var ba = ((o.beamAngle || 75) * Math.PI / 180);
     var bl = Math.min(120, (o.beamLen || 4) / _dft.scale * _dft.zoom);
     _dftWithVis(ctx, 'beam', function(){
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.fillStyle   = 'rgba(255,210,0,0.13)';
       ctx.strokeStyle = 'rgba(220,150,0,0.35)';
       ctx.lineWidth   = 1;
       ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.arc(0, 0, bl, Math.PI/2 - ba/2, Math.PI/2 + ba/2);
-      ctx.closePath(); ctx.fill(); ctx.stroke();
+      var _at = _dftLightAimTarget(o);
+      if (_at && !_at.tgt.stand) {
+        // 面からはみ出したぶんは届いていないので、当たる範囲と同じく面で切る
+        var _rd2 = _dftRectDims(_at.tgt);
+        var _ts2 = _dftW2S(_at.tgt.wx, _at.tgt.wy);
+        ctx.translate(_ts2.x, _ts2.y);
+        ctx.rotate(_at.tgt.rot || 0);
+        ctx.rect(-_rd2.w/2*pxPerM, -_rd2.h/2*pxPerM, _rd2.w*pxPerM, _rd2.h*pxPerM);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clip();
+        ctx.beginPath();
+        // 狙う面があるなら、そこに当たる範囲まで伸ばす。ライトと範囲の外周を
+        // 結ぶと、それが上から見たコーンの形になる（真上に向ければ円）。
+        var _bp = _dftBeamPool(o, _at.pt);
+        var _bc = _dftW2S(_at.pt.wx, _at.pt.wy);
+        var _ca = Math.cos(_bp.ang), _sa = Math.sin(_bp.ang);
+        ctx.moveTo(sx, sy);
+        for (var _i = 0; _i <= 48; _i++) {
+          var _th = _i / 48 * Math.PI * 2;
+          var _ex = Math.cos(_th) * _bp.rMajor * pxPerM;
+          var _ey = Math.sin(_th) * _bp.rMinor * pxPerM;
+          ctx.lineTo(_bc.x + _ex*_ca - _ey*_sa, _bc.y + _ex*_sa + _ey*_ca);
+        }
+        ctx.closePath();
+      } else {
+        // 狙う面が無いときは、コーンを水平面へ落としたぶんだけ描く。
+        // 平面での開きは asin(sin(半角)/cos(振り))。真上へ向けば全方位になる。
+        var _tl   = _dftLightPanTilt(o).tilt * Math.PI / 180;
+        var _cosT = Math.cos(_tl);
+        var _rch  = bl * Math.max(0.06, _cosT);
+        if (Math.sin(ba/2) >= _cosT - 1e-6) {
+          ctx.arc(sx, sy, _rch, 0, Math.PI*2);
+        } else {
+          var _hp  = Math.asin(Math.sin(ba/2) / _cosT);
+          var _dir = (o.rot || 0) + Math.PI/2;
+          ctx.moveTo(sx, sy);
+          ctx.arc(sx, sy, _rch, _dir - _hp, _dir + _hp);
+          ctx.closePath();
+        }
+      }
+      ctx.fill(); ctx.stroke();
+      ctx.restore();
     });
     // body — Exposure ダイヤル上の光源と同じ色にして対応が付くようにする。
     // カメラ(R*1.8幅)に比べて小さく見えていたので、ライトも同等の大きさにする。
@@ -14771,23 +14814,22 @@ function _dftDrawObj(ctx, o) {
     }
     // beam angle handle for lights
     if (o.type === 'light') {
-      var _ba  = ((o.beamAngle||75)*Math.PI/180);
-      var _bl  = Math.min(120, (o.beamLen||4)/_dft.scale*_dft.zoom);
-      var _fwd = (o.rot||0) + Math.PI/2;
-      var _bha = _fwd + _ba/2;
-      var _bhx = sx + Math.cos(_bha)*_bl*0.78;
-      var _bhy = sy + Math.sin(_bha)*_bl*0.78;
-      ctx.fillStyle = '#ff9800';
-      ctx.strokeStyle = '#e65100'; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.arc(_bhx, _bhy, 8, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = '#fff';
-      ctx.font = 'bold 10px Arial';
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText('↔', _bhx, _bhy);
+      // つまみは描いた形の上に置く（_dftBeamHandle が唯一の決め所）
+      var _bh = _dftBeamHandle(o);
+      if (_bh) {
+        ctx.fillStyle = '#ff9800';
+        ctx.strokeStyle = '#e65100'; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.arc(_bh.x, _bh.y, 8, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 10px Arial';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('↔', _bh.x, _bh.y);
+      }
       // show beam angle label
       ctx.fillStyle = '#e65100';
       ctx.font = 'bold 10px -apple-system,Arial';
-      ctx.fillText(Math.round(o.beamAngle||75)+'°', sx, sy - R - 10);
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(Math.round(o.beamAngle||75)+'°', sx, sy - _labR - 10);
     }
   }
 }
@@ -16085,14 +16127,13 @@ function _dftMD(e) {
       }
       // beam-angle handle (lights only)
       if (so.type === 'light') {
-        var _ba2 = ((so.beamAngle||75)*Math.PI/180);
-        var _bl2 = Math.min(120, (so.beamLen||4)/_dft.scale*_dft.zoom);
-        var _bhA = (so.rot||0) + Math.PI/2 + _ba2/2;
-        var _bhx = ssp.x + Math.cos(_bhA)*_bl2*0.78;
-        var _bhy = ssp.y + Math.sin(_bhA)*_bl2*0.78;
-        if (Math.sqrt((mx-_bhx)*(mx-_bhx)+(my-_bhy)*(my-_bhy)) < 14) {
+        var _bh2 = _dftBeamHandle(so);
+        if (_bh2 && Math.hypot(mx - _bh2.x, my - _bh2.y) < 14) {
           _dftPushHistory();
           _dft.beamActive = true; _dft.beamObj = so;
+          // 掴んだ時点の形を覚える。角度を変えるとつまみ自体が動くので、
+          // 毎フレーム引き直すと途中でつまみを見失う
+          _dft._beamHandle = _bh2;
           return;
         }
       }
@@ -16164,15 +16205,13 @@ function _dftMM(e) {
     dftRender(); return;
   }
   if (_dft.beamActive && _dft.beamObj) {
-    var bsp = _dftW2S(_dft.beamObj.wx, _dft.beamObj.wy);
-    var fwd = (_dft.beamObj.rot||0) + Math.PI/2;
-    var cur = Math.atan2(my - bsp.y, mx - bsp.x);
-    var diff = cur - fwd;
-    while (diff >  Math.PI) diff -= 2*Math.PI;
-    while (diff < -Math.PI) diff += 2*Math.PI;
-    var half = Math.abs(diff);
-    half = Math.max(2.5*Math.PI/180, Math.min(85*Math.PI/180, half));
-    _dft.beamObj.beamAngle = half * 2 * 180 / Math.PI;
+    // つまみを掴んだときの形から逆算する。狙う面があるときは
+    // 「当たる範囲の大きさ」を直に掴んでいることになる。
+    var _bhd = _dft._beamHandle || _dftBeamHandle(_dft.beamObj);
+    if (_bhd) {
+      var _bang = _dftBeamAngleFromHandle(_dft.beamObj, _bhd, mx, my);
+      _dft.beamObj.beamAngle = Math.max(5, Math.min(170, _bang));
+    }
     dftRender();
     // ドラッグ中も情報バーの角度と Result を追従させる。
     // 以前は指を離すまで更新されず、ビームから被写体が外れても気付けなかった。
@@ -16273,7 +16312,7 @@ function _dftMU() {
     _dft._pendingLineHit = null;
   }
   _dft.resizeActive= false; _dft.resizeObj = null;
-  _dft.beamActive  = false; _dft.beamObj = null;
+  _dft.beamActive  = false; _dft.beamObj = null; _dft._beamHandle = null;
   _dft.pointerDown = false; _dft.dragObj = null;
   _dft.panActive   = false;
   _dft.rotActive   = false; _dft.rotObj = null;
@@ -16644,6 +16683,52 @@ function _dftAimFieldHTML(o) {
 // TILT : + が上振り。90° で真上
 
 /** pan/tilt(度) から 3D の向き */
+/**
+ * ビームアングルのつまみを、平面図に描いた形の上に置くための位置。
+ * 描いた形とつまみと数値が三つとも一致するように、ここ一箇所で決める。
+ *
+ *  ・狙う面があるとき … 当たる範囲の横の縁（つまむと範囲の大きさが変わる）
+ *  ・無いとき         … 平面へ落とした扇の縁
+ *  ・真上に近いとき   … 平面では開きが出ないので、つまみは出さない
+ */
+function _dftBeamHandle(o) {
+  var half = ((o.beamAngle || 75) / 2) * Math.PI / 180;
+  var sp   = _dftW2S(o.wx, o.wy);
+  var k    = _dft.zoom / _dft.scale;
+  var at   = _dftLightAimTarget(o);
+  if (at && !at.tgt.stand) {
+    var bp = _dftBeamPool(o, at.pt);
+    var c  = _dftW2S(at.pt.wx, at.pt.wy);
+    var pa = bp.ang + Math.PI/2;                 // 進行方向と直角＝範囲の短径
+    return { kind:'pool', x: c.x + Math.cos(pa)*bp.rMinor*k,
+             y: c.y + Math.sin(pa)*bp.rMinor*k,
+             cx: c.x, cy: c.y, perp: pa, dist: bp.dist };
+  }
+  var cosT = Math.cos(_dftLightPanTilt(o).tilt * Math.PI / 180);
+  if (Math.sin(half) >= cosT - 1e-6) return null;
+  var hp  = Math.asin(Math.sin(half) / cosT);
+  var len = Math.min(120, (o.beamLen || 4) / _dft.scale * _dft.zoom) * Math.max(0.06, cosT);
+  var a   = (o.rot || 0) + Math.PI/2 + hp;
+  return { kind:'fan', x: sp.x + Math.cos(a)*len*0.78, y: sp.y + Math.sin(a)*len*0.78,
+           cosT: cosT };
+}
+
+/** つまみを動かした先から、立体のビームアングル(度)を出す */
+function _dftBeamAngleFromHandle(o, h, mx, my) {
+  if (h.kind === 'pool') {
+    // 範囲の中心からの、進行方向と直角の距離が短径
+    var dx = mx - h.cx, dy = my - h.cy;
+    var r  = Math.abs(dx*Math.cos(h.perp) + dy*Math.sin(h.perp)) / (_dft.zoom/_dft.scale);
+    return 2 * Math.atan(Math.max(0.05, r) / Math.max(0.2, h.dist)) * 180 / Math.PI;
+  }
+  var sp   = _dftW2S(o.wx, o.wy);
+  var diff = Math.atan2(my - sp.y, mx - sp.x) - ((o.rot || 0) + Math.PI/2);
+  while (diff >  Math.PI) diff -= 2*Math.PI;
+  while (diff < -Math.PI) diff += 2*Math.PI;
+  // 平面の開き → 立体の半角に戻す
+  return 2 * Math.asin(Math.min(1, Math.sin(Math.abs(diff)) * h.cosT)) * 180 / Math.PI;
+}
+
 function _dftPanTiltDir(pan, tilt) {
   var p = pan * Math.PI / 180, t = tilt * Math.PI / 180;
   return [Math.cos(t) * Math.sin(p), -Math.cos(t) * Math.cos(p), Math.sin(t)];
@@ -19441,7 +19526,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.6.5';
+var ver = 'v1.1.6.6';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
