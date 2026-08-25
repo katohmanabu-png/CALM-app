@@ -712,6 +712,7 @@ body {
 /* placement modes */
 #dft-btn-people.active,#dft-btn-camera.active,#dft-btn-light.active,
 #dft-btn-diffuser.active,#dft-btn-bounce.active,#dft-btn-flag.active { background:#2e7d32;color:#fff;border-color:#2e7d32;box-shadow:0 0 0 2px rgba(46,125,50,.25); }
+#dft-btn-aim.active { background:#6a1b9a;color:#fff;border-color:#6a1b9a;box-shadow:0 0 0 2px rgba(106,27,154,.25); }
 /* Draft の設定シートは背景を白で固定しているため、ダークテーマの
    文字色・入力欄の色をそのまま継承すると白地に白文字になって読めない。
    インラインで色を指定している要素（青いボタン等）はそちらが勝つので影響しない。 */
@@ -2143,7 +2144,7 @@ var LANGS = {
     dftBtnSave:'💾 保存', dftBtnLoad:'📂 読込', dftBtnNew:'＋ 新規',
     dftSelectLight:'💡 ライト選択', dftSearchPlaceholder:'検索...',
     dftCancel:'キャンセル', exportTitle:'書き出し', exportPNG:'画像で書き出す (PNG)', exportPNGHint:'図面全体を1枚の画像に。共有や印刷に', exportPDF:'PDFで書き出す', exportPDFHint:'A4に収めて書き出します', exportCalm:'データで書き出す (.calm)', exportCalmHint:'CALMで開き直せる形式', exportEmpty:'図面が空です', saveTitle:'保存', saveOverwrite:'上書き保存', saveOverwriteHint:'いま開いている図面を更新します', saveAsNew:'別名で保存', saveAsNewHint:'新しい図面として残します（元はそのまま）', saveLastAt:'前回', dftClose:'閉じる', dftApply:'適用',
-    beamOutOfCone:'ビーム外', aimLabel:'このライトが狙う先', aimHint:'天バンなど真上の反射板は、ここで選ぶと計算に入ります（↑＝真上）。', aimAuto:'自動', aimSubject:'人物', camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定',
+    beamOutOfCone:'ビーム外', aimPickLight:'🎯 狙いを決めるライトをタップ', aimPickTarget:'次に、狙う先をタップ（人物 / 反射板 / DIFF）', aimBadTarget:'狙えるのは 人物・反射板・DIFF です', aimLabel:'このライトが狙う先', aimHint:'天バンなど真上の反射板は、ここで選ぶと計算に入ります（↑＝真上）。', aimAuto:'自動', aimSubject:'人物', camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定',
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
@@ -2248,7 +2249,7 @@ var LANGS = {
     dftBtnSave:'💾 Save', dftBtnLoad:'📂 Load', dftBtnNew:'＋ New',
     dftSelectLight:'💡 Select Light', dftSearchPlaceholder:'Search...',
     dftCancel:'Cancel', exportTitle:'Export', exportPNG:'Export as image (PNG)', exportPNGHint:'The whole plan as one picture — for sharing or printing', exportPDF:'Export as PDF', exportPDFHint:'Fitted to A4', exportCalm:'Export data (.calm)', exportCalmHint:'Re-openable in CALM', exportEmpty:'The plan is empty', saveTitle:'Save', saveOverwrite:'Overwrite', saveOverwriteHint:'Update the draft you have open', saveAsNew:'Save as new', saveAsNewHint:'Keep this as a separate draft (the original stays)', saveLastAt:'last', dftClose:'Close', dftApply:'Apply',
-    beamOutOfCone:'outside beam', aimLabel:'What this light aims at', aimHint:'Pick it here for an overhead bounce — the beam cone alone cannot see straight up (↑ = overhead).', aimAuto:'Auto', aimSubject:'Subject', camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop',
+    beamOutOfCone:'outside beam', aimPickLight:'🎯 Tap the light to aim', aimPickTarget:'Now tap what it aims at (subject / bounce / diffusion)', aimBadTarget:'Aim at a subject, bounce or diffusion', aimLabel:'What this light aims at', aimHint:'Pick it here for an overhead bounce — the beam cone alone cannot see straight up (↑ = overhead).', aimAuto:'Auto', aimSubject:'Subject', camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop',
     dftSize:'Size', dftPresetPick:'Pick a preset',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
     expLegFace:'Face', expLegCam:'Camera', expLegKey:'Key', expLegBack:'Back',
@@ -2350,7 +2351,7 @@ var LANGS = {
     dftBtnSave:'💾 Guardar', dftBtnLoad:'📂 Cargar', dftBtnNew:'＋ Nuevo',
     dftSelectLight:'💡 Seleccionar Luz', dftSearchPlaceholder:'Buscar...',
     dftCancel:'Cancelar', exportTitle:'Exportar', exportPNG:'Exportar como imagen (PNG)', exportPNGHint:'Todo el plano en una imagen', exportPDF:'Exportar como PDF', exportPDFHint:'Ajustado a A4', exportCalm:'Exportar datos (.calm)', exportCalmHint:'Se puede reabrir en CALM', exportEmpty:'El plano está vacío', saveTitle:'Guardar', saveOverwrite:'Sobrescribir', saveOverwriteHint:'Actualiza el plano abierto', saveAsNew:'Guardar como nuevo', saveAsNewHint:'Se guarda aparte (el original se conserva)', saveLastAt:'último', dftClose:'Cerrar', dftApply:'Aplicar',
-    beamOutOfCone:'fuera del haz', aimLabel:'A qué apunta esta luz', aimHint:'Elígelo aquí para un rebote cenital: el cono no ve hacia arriba (↑ = cenital).', aimAuto:'Auto', aimSubject:'Sujeto', camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f',
+    beamOutOfCone:'fuera del haz', aimPickLight:'🎯 Toca la luz que quieres apuntar', aimPickTarget:'Ahora toca el objetivo (sujeto / rebote / difusión)', aimBadTarget:'Apunta a sujeto, rebote o difusión', aimLabel:'A qué apunta esta luz', aimHint:'Elígelo aquí para un rebote cenital: el cono no ve hacia arriba (↑ = cenital).', aimAuto:'Auto', aimSubject:'Sujeto', camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f',
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
     expLegFace:'Cara', expLegCam:'Cámara', expLegKey:'Key', expLegBack:'Contra',
@@ -2578,7 +2579,7 @@ function updateDraftI18n(){
   var M={
     sel:{ja:'選択',en:'Select',es:'Sel.'}, multi:{ja:'複数',en:'Multi',es:'Múlt.'},
     del:{ja:'削除',en:'Delete',es:'Borrar'}, rot:{ja:'回転',en:'Rotate',es:'Girar'},
-    dist:{ja:'距離',en:'Dist',es:'Dist.'}, show:{ja:'表示',en:'Show',es:'Ver'}, save:{ja:'保存',en:'Save',es:'Guardar'},
+    dist:{ja:'距離',en:'Dist',es:'Dist.'}, show:{ja:'表示',en:'Show',es:'Ver'}, aim:{ja:'狙い',en:'Aim',es:'Apuntar'}, save:{ja:'保存',en:'Save',es:'Guardar'},
     load:{ja:'読込',en:'Load',es:'Cargar'}, people:{ja:'人',en:'People',es:'Person.'},
     bounce:{ja:'反射',en:'Bounce',es:'Rebote'}, photo:{ja:'写真',en:'Photo',es:'Foto'},
     unit:{ja:'単位',en:'Unit',es:'Unidad'}, reset:{ja:'リセット',en:'Reset',es:'Reiniciar'},
@@ -13688,7 +13689,7 @@ var _dft = {
   // 以前は距離線6種の on/off だけだったが、実際に図面を埋めるのは
   // ビームコーンやバッジのほうなので、それらも同じ仕組みで薄くできるようにした。
   vis:{ direct:1, bounceIn:1, bounceOut:1, sum:1, diffuser:1, camera:1,
-        beam:1, fov:1, refl:1, fstop:1, stopBadge:1, grid:1 },
+        beam:1, fov:1, refl:1, fstop:1, stopBadge:1, grid:1, aim:1 },
   // persistence
   drafts:[],
   draftId:null,
@@ -13943,9 +13944,11 @@ var _DFT_MODE_META = {
   bounce:   {label:'DRAW',    color:'#2e7d32', cls:'dft-mode-place'},
   flag:     {label:'DRAW',    color:'#2e7d32', cls:'dft-mode-place'},
   image:    {label:'PLACE',   color:'#2e7d32', cls:'dft-mode-place'},
+  aim:      {label:'AIM',     color:'#6a1b9a', cls:'dft-mode-aim'},
 };
 function dftMode(m) {
   _dft.mode = m;
+  if (m !== 'aim') _dft._aimFrom = null;   // 狙い指定の途中で抜けたら忘れる
   _dft.selected = null;
   document.querySelectorAll('.draft-tool-btn[id^="dft-btn-"]').forEach(function(b){ b.classList.remove('active'); });
   var ab = document.getElementById('dft-btn-' + m);
@@ -13963,6 +13966,7 @@ function dftMode(m) {
   var hint = m === 'select'  ? 'Tap to select · Drag to move' :
              m === 'multi'   ? 'Tap objects to select · Group / Ungroup in info bar' :
              m === 'delete'  ? 'Tap object to delete' :
+             m === 'aim'     ? t('aimPickLight') :
              m === 'rotate'  ? 'Drag ↻ handle to rotate' :
              m === 'diffuser'|| m === 'bounce' || m === 'flag' ? 'Drag to draw' :
              'Tap canvas to place';
@@ -13993,6 +13997,37 @@ function _dftObjAt(sx, sy) {
       var hw = _hd.w/_dft.scale*_dft.zoom/2;
       var hh = _hd.h/_dft.scale*_dft.zoom/2;
       if (_hd.stand) hh = Math.max(hh, 12); // 立てた薄いバーはタップしやすいよう余裕を持たせる
+      if (Math.abs(lx)<=hw && Math.abs(ly)<=hh) return o;
+    } else {
+      if (Math.hypot(sp.x-sx, sp.y-sy) < 24) return o;
+    }
+  }
+  return null;
+}
+
+/**
+ * 条件に合うオブジェクトだけを拾う当たり判定。
+ * 天バンはライトの真上に来るので、俯瞰では両者が重なって別々に選べない。
+ * 狙い指定では「1つ目はライト」「2つ目はそれ以外」と絞る必要がある。
+ */
+function _dftObjAtFiltered(sx, sy, pred) {
+  var RECT_TYPES = {image:1, diffuser:1, bounce:1, flag:1};
+  for (var i = _dft.objects.length - 1; i >= 0; i--) {
+    var o = _dft.objects[i];
+    if (o.hidden) continue;
+    if (!pred(o)) continue;
+    var oLayer = _dft.layers.find(function(l){return l.id===(o.layer||1);});
+    if (!oLayer || !oLayer.visible) continue;
+    if ((o.layer||1) !== _dft.activeLayer) continue;
+    var sp = _dftW2S(o.wx, o.wy);
+    if (RECT_TYPES[o.type]) {
+      var dx = sx-sp.x, dy = sy-sp.y, rot = -(o.rot||0);
+      var lx = dx*Math.cos(rot)-dy*Math.sin(rot);
+      var ly = dx*Math.sin(rot)+dy*Math.cos(rot);
+      var _hd = _dftRectDims(o);
+      var hw = _hd.w/_dft.scale*_dft.zoom/2;
+      var hh = _hd.h/_dft.scale*_dft.zoom/2;
+      if (_hd.stand) hh = Math.max(hh, 12);
       if (Math.abs(lx)<=hw && Math.abs(ly)<=hh) return o;
     } else {
       if (Math.hypot(sp.x-sx, sp.y-sy) < 24) return o;
@@ -14116,6 +14151,9 @@ function dftRender() {
 
   // distance lines (under objects)
   _dftDrawDistances(ctx);
+
+  // 狙いの指定を線で見せる
+  _dftWithVis(ctx, 'aim', function(){ _dftDrawAimLinks(ctx); });
 
   // group outlines (behind objects)
   _dftDrawGroups(ctx);
@@ -14731,6 +14769,58 @@ function _dftNearestLight(obj) {
   });
 }
 
+/**
+ * 狙いを指定したライトから対象へ、細い矢印と角度を描く。
+ * 天バンのように真上を狙っている場合は俯瞰では線が短くなるので、
+ * 仰角を数字で添えて「上を向いている」ことが分かるようにする。
+ */
+function _dftDrawAimLinks(ctx) {
+  _dftVisObjs(function(o){ return o.type === 'light' && o.aimId; }).forEach(function(lt) {
+    var tgt = (lt.aimId === 'subject')
+      ? _dftVisObjs(function(o){ return o.type === 'people'; })[0]
+      : _dft.objects.find(function(o){ return o.id === lt.aimId && !o.hidden && !_dftLayerHidden(o); });
+    if (!tgt) return;
+
+    var a = _dftW2S(lt.wx, lt.wy), b = _dftW2S(tgt.wx, tgt.wy);
+    var ang = _dftAimAngles(lt, tgt);
+    var up  = ang.tilt >= 30;                       // ほぼ真上（天バン等）
+
+    ctx.save();
+    ctx.strokeStyle = up ? 'rgba(106,27,154,0.9)' : 'rgba(106,27,154,0.65)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([2, 4]);
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // 矢じり
+    var th = Math.atan2(b.y - a.y, b.x - a.x);
+    var L = Math.hypot(b.x-a.x, b.y-a.y);
+    if (L > 24) {
+      var hx = b.x - Math.cos(th)*14, hy = b.y - Math.sin(th)*14;
+      ctx.fillStyle = 'rgba(106,27,154,0.9)';
+      ctx.beginPath();
+      ctx.moveTo(b.x - Math.cos(th)*4, b.y - Math.sin(th)*4);
+      ctx.lineTo(hx - Math.sin(th)*5, hy + Math.cos(th)*5);
+      ctx.lineTo(hx + Math.sin(th)*5, hy - Math.cos(th)*5);
+      ctx.closePath(); ctx.fill();
+    }
+
+    // 角度と距離のラベル
+    var lbl = _dftFmt(ang.dist);
+    if (Math.abs(ang.tilt) >= 1) lbl += ' ' + (ang.tilt > 0 ? '↑' : '↓') + Math.abs(Math.round(ang.tilt)) + '°';
+    ctx.font = 'bold 10px -apple-system,Arial';
+    var tw = ctx.measureText(lbl).width, pw = tw + 10, ph = 15;
+    var mx2 = (a.x + b.x)/2, my2 = (a.y + b.y)/2;
+    if (L < 30) { mx2 = a.x; my2 = a.y - 26; }      // 真上狙いで重なる場合
+    ctx.fillStyle = 'rgba(106,27,154,0.92)';
+    _dftRoundRect(ctx, mx2 - pw/2, my2 - ph/2, pw, ph, 5); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(lbl, mx2, my2);
+    ctx.restore();
+  });
+}
+
 function _dftDrawBounceBeams(ctx) {
   var bounces = _dftVisObjs(function(o){ return o.type==='bounce'; });
   if (!bounces.length) return;
@@ -15099,6 +15189,26 @@ function _dftCalcFstop(lightObj, distM, extraStops) {
 // 直射か、最寄りの反射板経由かを一箇所で決める。F値バッジと Exposure
 // ツールが同じ判定を使うようにして、両者の答えが食い違わないようにする。
 /**
+ * ライト→対象の角度を、位置から計算して文字にする。
+ * 水平の振り（真上から見た向き）と、高さ差から出る仰角の両方。
+ */
+function _dftAimAngles(src, tgt) {
+  var dx = tgt.wx - src.wx, dy = tgt.wy - src.wy;
+  var h  = Math.hypot(dx, dy);
+  var dz = _dftZ(tgt) - _dftZ(src);
+  // 図面の向き規約（+y が rot=0 の照射方向）に合わせた方位
+  var pan  = Math.atan2(dx, -dy) * 180 / Math.PI;      // 0=上, +が右回り
+  var tilt = Math.atan2(dz, h) * 180 / Math.PI;
+  return { pan: ((pan % 360) + 360) % 360, tilt: tilt, horiz: h, dist: Math.sqrt(h*h + dz*dz) };
+}
+function _dftAimAngleText(src, tgt) {
+  var a = _dftAimAngles(src, tgt);
+  var s2 = _dftFmt(a.dist);
+  if (Math.abs(a.tilt) >= 1) s2 += '  ' + (a.tilt > 0 ? '↑' : '↓') + Math.abs(Math.round(a.tilt)) + '°';
+  return s2;
+}
+
+/**
  * 反射板の法線のうち、ライト側を向いている方を返す。
  * 板は表裏の区別を持たないので、当たっている側を表とみなす。
  */
@@ -15400,6 +15510,35 @@ function _dftMD(e) {
     }
     _dftUpdateInfoBar();
     dftRender();
+    return;
+  }
+
+  // 狙い指定モード：ライトを選び、次に狙う対象をタップする。
+  // 向きは2点の位置から計算するので、手で回す必要がない。
+  if (_dft.mode === 'aim') {
+    if (!_dft._aimFrom) {
+      // 1つ目はライトだけを拾う（真上の板が重なっていても選べるように）
+      var lHit = _dftObjAtFiltered(mx, my, function(o){ return o.type === 'light'; });
+      if (!lHit) { _dftSetStatus('🎯 ' + t('aimPickLight')); return; }
+      _dft._aimFrom = lHit.id;
+      _dft.selected = lHit.id;
+      _dftSetStatus('🎯 ' + t('aimPickTarget'));
+      _dftUpdateInfoBar(); dftRender();
+      return;
+    }
+    var src = _dft.objects.find(function(o){ return o.id === _dft._aimFrom; });
+    // 2つ目は狙える対象だけを拾う（自分自身は除く）
+    var aHit = _dftObjAtFiltered(mx, my, function(o){
+      return o.id !== _dft._aimFrom &&
+             (o.type === 'people' || o.type === 'bounce' || o.type === 'diffuser');
+    });
+    _dft._aimFrom = null;
+    if (!src || !aHit) { _dftSetStatus('🎯 ' + t('aimBadTarget')); dftRender(); return; }
+    var ok = (aHit.type === 'people') ? 'subject' : aHit.id;
+    _dftSetAim(src.id, ok);
+    _dftSetStatus('🎯 ' + (src.label || 'Light') + ' → ' + (aHit.label || aHit.type) +
+                  '  ' + _dftAimAngleText(src, aHit));
+    dftMode('select');
     return;
   }
 
@@ -18274,6 +18413,7 @@ var DFT_VIS_GROUPS = [
     {key:'stopBadge', label:'反射板・DIFFの減光',  sample:'-2.0 stop',  col:'#0288d1'}
   ]},
   { title:'dvGrpOther', items:[
+    {key:'aim',  label:'狙いの線',  sample:'↗ 4.0m ↑52°', col:'#6a1b9a'},
     {key:'grid', label:'グリッド', sample:'▦', col:'#999'}
   ]}
 ];
@@ -18515,7 +18655,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.5.2';
+var ver = 'v1.1.5.3';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -18864,6 +19004,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
         <button class="draft-tool-btn" id="dft-btn-multi"  onclick="dftMode('multi')"         style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⊞<br><span style="font-size:8px;" data-dfti18n="multi">複数</span></button>
         <button class="draft-tool-btn" id="dft-btn-delete" onclick="dftMode('delete')"        style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🗑<br><span style="font-size:8px;" data-dfti18n="del">削除</span></button>
         <button class="draft-tool-btn" id="dft-btn-rotate" onclick="dftMode('rotate')"        style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔄<br><span style="font-size:8px;" data-dfti18n="rot">回転</span></button>
+        <button class="draft-tool-btn" id="dft-btn-aim"    onclick="dftMode('aim')"           style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🎯<br><span style="font-size:8px;" data-dfti18n="aim">狙い</span></button>
         <button class="draft-tool-btn" onclick="dftDistVisMenu()" title="表示/非表示" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">👁<br><span style="font-size:8px;" data-dfti18n="show">表示</span></button>
         <button class="draft-tool-btn dft-undo-btn" onclick="dftUndo()" id="dft-btn-undo" disabled style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">↩<br><span style="font-size:8px;">Undo</span></button>
         <button class="draft-tool-btn dft-undo-btn" onclick="dftRedo()" id="dft-btn-redo" disabled style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">↪<br><span style="font-size:8px;">Redo</span></button>
