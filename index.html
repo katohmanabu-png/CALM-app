@@ -16441,15 +16441,6 @@ function dftPaste() {
   dftRender();
 }
 
-function _dftMoveLayer(oid, layerId) {
-  var o = _dft.objects.find(function(x){ return x.id === oid; });
-  if (!o) return;
-  _dftPushHistory();
-  o.layer = layerId;
-  _dftUpdateInfoBar();
-  dftRender();
-}
-
 function _dftLabelInput(val, oid) {
   var o = _dft.objects.find(function(x){ return x.id === oid; });
   if (o) { o.label = val; dftRender(); }
@@ -18442,39 +18433,96 @@ function _dftVisRowHTML(it) {
   '</div>';
 }
 
-// 置いたもの一覧。個別に非表示にすると描画も計算も外れる。
+// 置いたもの一覧をレイヤーごとの木で出す。
+// レイヤーの表示切替と、その中の1つずつの表示切替を同じ場所で扱えるようにする。
+// 非表示にしたものは描画も計算も外れる。
 var DFT_OBJ_ICONS = {light:'💡', bounce:'🔲', diffuser:'⬜', flag:'▬', people:'🧍', camera:'🎥', image:'🖼'};
+
+/** 1件ぶんの行 */
+function _dftVisObjRow(o, layerOff) {
+  var on = !o.hidden;
+  var dim = (!on || layerOff);
+  var stops = (o.factors && o.factors.length) ? getTotalFactorStops(o.factors) : 0;
+  var sub = [];
+  if (o.type === 'light' && o.makerKey) {
+    var lt = LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
+    if (lt) sub.push(lt.name);
+  }
+  if (stops) sub.push((stops > 0 ? '-' : '') + Math.abs(stops).toFixed(1) + ' stop');
+  if (o.zHeight != null) sub.push('↕' + _dftFmt(o.zHeight));
+
+  // レイヤー移動用
+  var opts = _dft.layers.map(function(l) {
+    return '<option value="'+l.id+'"'+(l.id===(o.layer||1)?' selected':'')+'>'+_dftEsc(l.name)+'</option>';
+  }).join('');
+
+  return '<div style="display:flex;align-items:center;gap:7px;padding:5px 16px 5px 30px;' + (dim ? 'opacity:.45;' : '') + '">' +
+    '<span style="font-size:14px;">' + (DFT_OBJ_ICONS[o.type] || '●') + '</span>' +
+    '<span style="flex:1;min-width:0;">' +
+      '<span style="font-size:12px;font-weight:700;color:#333;">' + _dftEsc(o.label || o.type) + '</span>' +
+      (sub.length ? '<span style="font-size:10px;color:#999;"> · ' + _dftEsc(sub.join(' · ')) + '</span>' : '') +
+    '</span>' +
+    (_dft.layers.length > 1
+      ? '<select onchange="window._dftMoveLayer(\'' + o.id + '\',+this.value)" ' +
+        'style="flex:0 0 auto;padding:2px 3px;border:1px solid #ddd;border-radius:6px;font-size:10px;font-weight:700;background:#fff;color:#333;">' + opts + '</select>'
+      : '') +
+    '<button onclick="window._dftToggleObj(\'' + o.id + '\')" style="flex:0 0 54px;padding:5px 0;border:none;border-radius:7px;' +
+      'font-size:10px;font-weight:800;cursor:pointer;' +
+      (on ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#666;') + '">' +
+      (on ? t('dvOn') : t('dvOff')) + '</button>' +
+  '</div>';
+}
+
 function _dftVisObjListHTML() {
   var objs = _dft.objects;
   if (!objs.length) return '';
-  var rows = objs.map(function(o) {
-    var on = !o.hidden;
-    var stops = (o.factors && o.factors.length) ? getTotalFactorStops(o.factors) : 0;
-    var sub = [];
-    if (o.type === 'light' && o.makerKey) {
-      var lt = LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
-      if (lt) sub.push(lt.name);
-    }
-    if (stops) sub.push((stops > 0 ? '-' : '') + Math.abs(stops).toFixed(1) + ' stop');
-    return '<div style="display:flex;align-items:center;gap:8px;padding:6px 16px;' + (on ? '' : 'opacity:.45;') + '">' +
-      '<span style="font-size:15px;">' + (DFT_OBJ_ICONS[o.type] || '●') + '</span>' +
-      '<span style="flex:1;min-width:0;">' +
-        '<span style="font-size:12px;font-weight:700;color:#333;">' + _dftEsc(o.label || o.type) + '</span>' +
-        (sub.length ? '<span style="font-size:10px;color:#999;"> · ' + _dftEsc(sub.join(' · ')) + '</span>' : '') +
-      '</span>' +
-      '<button onclick="window._dftToggleObj(\'' + o.id + '\')" style="flex:0 0 66px;padding:5px 0;border:none;border-radius:7px;' +
-        'font-size:10px;font-weight:800;cursor:pointer;' +
-        (on ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#666;') + '">' +
-        (on ? t('dvOn') : t('dvOff')) + '</button>' +
-    '</div>';
-  }).join('');
   var offN = objs.filter(function(o){ return o.hidden; }).length;
+
+  var body = _dft.layers.map(function(L) {
+    var mine = objs.filter(function(o){ return (o.layer || 1) === L.id; });
+    var isActive = (L.id === _dft.activeLayer);
+    var layerOff = !L.visible;
+    // レイヤーの見出し
+    var head = '<div style="display:flex;align-items:center;gap:7px;padding:8px 16px 6px;' +
+        (isActive ? 'background:#f2f7fd;' : '') + '">' +
+      '<button onclick="dftSelectLayer(' + L.id + ');window._dftVisRefresh()" style="flex:1;text-align:left;border:none;background:none;cursor:pointer;padding:0;">' +
+        '<span style="font-size:12px;font-weight:900;color:' + (isActive ? '#1565c0' : '#555') + ';">' +
+          (isActive ? '▸ ' : '') + _dftEsc(L.name) + '</span>' +
+        '<span style="font-size:10px;color:#999;font-weight:700;"> · ' + mine.length + '</span>' +
+      '</button>' +
+      '<button onclick="dftToggleLayerVis(' + L.id + ');window._dftVisRefresh()" style="flex:0 0 54px;padding:5px 0;border:none;border-radius:7px;' +
+        'font-size:10px;font-weight:800;cursor:pointer;' +
+        (L.visible ? 'background:#455a64;color:#fff;' : 'background:#eceff3;color:#666;') + '">' +
+        (L.visible ? t('dvOn') : t('dvOff')) + '</button>' +
+    '</div>';
+    var rows = mine.length
+      ? mine.map(function(o){ return _dftVisObjRow(o, layerOff); }).join('')
+      : '<div style="padding:2px 16px 6px 30px;font-size:10px;color:#bbb;">—</div>';
+    return head + rows;
+  }).join('');
+
   return '<div style="font-size:10px;font-weight:800;color:#999;padding:14px 16px 2px;">' +
       t('dvGrpObjects') + ' (' + objs.length + (offN ? ' · ' + offN + ' ' + t('dvOff') : '') + ')</div>' +
-    '<div style="font-size:10px;color:#888;padding:0 16px 6px;">' + t('dvObjHint') + '</div>' +
-    rows +
+    '<div style="font-size:10px;color:#888;padding:0 16px 4px;">' + t('dvObjHint') + '</div>' +
+    body +
     (offN ? '<div style="padding:8px 16px 0;"><button onclick="window._dftShowAllObjs()" style="width:100%;padding:9px;border:1.5px solid #1565c0;border-radius:9px;background:#e3f2fd;color:#1565c0;font-size:11px;font-weight:800;cursor:pointer;">' + t('dvObjAllOn') + '</button></div>' : '');
 }
+
+/** パネルを開いたまま中身だけ作り直す */
+window._dftVisRefresh = function() {
+  var el = document.getElementById('_dft_dv');
+  if (el) { el.remove(); dftDistVisMenu(); }
+};
+
+/** 一覧からレイヤーを移す */
+window._dftMoveLayer = function(id, layerId) {
+  var o = _dft.objects.find(function(x){ return x.id === id; });
+  if (!o) return;
+  _dftPushHistory();
+  o.layer = layerId;
+  _dftUpdateInfoBar(); dftRender(); _dftQueueCalcSync();
+  window._dftVisRefresh();
+};
 
 window._dftToggleObj = function(id) {
   var o = _dft.objects.find(function(x){ return x.id === id; });
@@ -18656,7 +18704,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.5.4';
+var ver = 'v1.1.5.5';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
