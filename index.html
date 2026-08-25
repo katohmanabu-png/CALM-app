@@ -14186,6 +14186,9 @@ function dftRender() {
     _dftDrawObj(ctx, o);
   });
 
+  // 狙いのつまみは灯体の絵の上に
+  _dftDrawAimGrips(ctx);
+
   // multi-select highlight
   if (_dft.mode === 'multi' && _dft.multiSelected.length) {
     _dft.multiSelected.forEach(function(id) {
@@ -14848,6 +14851,69 @@ function _dftNearestLight(obj) {
  * 天バンのように真上を狙っている場合は俯瞰では線が短くなるので、
  * 仰角を数字で添えて「上を向いている」ことが分かるようにする。
  */
+/**
+ * 狙いの点を図面上でつまめるか。つまめるならその位置と対象を返す。
+ * 面の上の点だけ。人物や立てたパネルは平面図で動かす意味がない。
+ */
+function _dftAimGripAt(lt) {
+  if (!lt || lt.type !== 'light' || _dft.selected !== lt.id) return null;
+  if (_dft.mode !== 'select') return null;
+  var at = _dftLightAimTarget(lt);
+  if (!at || !at.tgt || at.tgt.stand) return null;
+  if (at.tgt.type !== 'bounce' && at.tgt.type !== 'diffuser') return null;
+  var s  = _dftW2S(at.pt.wx, at.pt.wy);
+  var ls = _dftW2S(lt.wx, lt.wy);
+  // 真上寄りだと点が灯体の絵の下に潜ってつまめない。外へ逃がして、
+  // 掴んだ時のずれを覚えて動かす（指の下で点が飛ばないように）
+  var LR = Math.max(11, Math.min(32, 7.8 + (_dft.zoom/_dft.scale) * 0.47)) + 12;
+  var d  = Math.hypot(s.x - ls.x, s.y - ls.y);
+  var gx = s.x, gy = s.y, off = false;
+  if (d < LR) {
+    var a = (d > 0.5) ? Math.atan2(s.y - ls.y, s.x - ls.x)
+                      : (lt.rot || 0) + Math.PI/2;
+    gx = ls.x + Math.cos(a) * LR; gy = ls.y + Math.sin(a) * LR; off = true;
+  }
+  return { x: gx, y: gy, px: s.x, py: s.y, off: off, tgt: at.tgt, pt: at.pt };
+}
+
+/** つまみだけは灯体の絵より後に描く（下に隠れると掴めない） */
+function _dftDrawAimGrips(ctx) {
+  if (!_dft.vis.aim) return;
+  var lt = _dft.objects.find(function(x){ return x.id === _dft.selected; });
+  var g = _dftAimGripAt(lt);
+  if (!g) return;
+  ctx.save();
+  ctx.globalAlpha = _dft.vis.aim;
+  if (g.off) {                       // 逃がした先と本当の点を細い線で結ぶ
+    ctx.strokeStyle = 'rgba(106,27,154,0.5)';
+    ctx.lineWidth = 1; ctx.setLineDash([2, 3]);
+    ctx.beginPath(); ctx.moveTo(g.x, g.y); ctx.lineTo(g.px, g.py); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  ctx.fillStyle = 'rgba(106,27,154,0.95)';
+  ctx.beginPath(); ctx.arc(g.x, g.y, 10, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 11px Arial';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('✥', g.x, g.y);
+  ctx.restore();
+}
+
+/**
+ * 面の上の一点を狙いに据える。PAN / TILT はその点から出し直す。
+ * 図面でつまんで動かすのも、スライダーを動かすのも、行き着く先はここ。
+ */
+function _dftAimPtToWorld(lt, tgt, wx, wy) {
+  var p = _dftClampToRect(tgt, wx, wy);
+  lt.aimId = tgt.id;
+  lt.aimPt = { x: p.x, y: p.y };
+  var a = _dftAimAngles(lt, { wx: p.x, wy: p.y, zHeight: _dftZ(tgt) });
+  if (a.horiz > 0.3) lt.rot = _dftPanToRot(a.pan);
+  lt.ptPan  = (a.horiz > 0.3) ? a.pan : _dftRotToPan(lt.rot || 0);
+  lt.ptTilt = a.tilt;
+}
+
 function _dftDrawAimLinks(ctx) {
   _dftVisObjs(function(o){ return o.type === 'light' && o.aimId; }).forEach(function(lt) {
     var tgt = (lt.aimId === 'subject')
@@ -14880,20 +14946,26 @@ function _dftDrawAimLinks(ctx) {
       ctx.closePath(); ctx.fill();
     }
 
-    // 当てる場所を指定しているときは、その点に印を出す
-    if (lt.aimPt && lt.aimId === tgt.id) {
+    // 当てる場所を指定しているときは、その点に印を出す。
+    // 選んでいるライトのつまみは _dftDrawAimGrips が灯体より後に描く
+    var grip = _dftAimGripAt(lt);
+    if (!grip && lt.aimPt && lt.aimId === tgt.id) {
       ctx.fillStyle = 'rgba(106,27,154,0.95)';
       ctx.beginPath(); ctx.arc(b.x, b.y, 5, 0, Math.PI*2); ctx.fill();
       ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
     }
 
-    // 角度と距離のラベル
+    // 角度と距離のラベル。つまめる状態では PAN / TILT も出す
     var lbl = _dftFmt(ang.dist);
+    if (grip) {
+      lbl += '  PAN' + Math.round(_dftLightPanTilt(lt).pan) + '° TILT' + Math.round(ang.tilt) + '°';
+    } else
     if (Math.abs(ang.tilt) >= 1) lbl += ' ' + (ang.tilt > 0 ? '↑' : '↓') + Math.abs(Math.round(ang.tilt)) + '°';
     ctx.font = 'bold 10px -apple-system,Arial';
     var tw = ctx.measureText(lbl).width, pw = tw + 10, ph = 15;
     var mx2 = (a.x + b.x)/2, my2 = (a.y + b.y)/2;
-    if (L < 30) { mx2 = a.x; my2 = a.y - 26; }      // 真上狙いで重なる場合
+    // 真上狙いで重なる場合。つまみを逃がしているときはその上に出す
+    if (L < 30) { mx2 = a.x; my2 = a.y - (grip && grip.off ? 46 : 26); }
     ctx.fillStyle = 'rgba(106,27,154,0.92)';
     _dftRoundRect(ctx, mx2 - pw/2, my2 - ph/2, pw, ph, 5); ctx.fill();
     ctx.fillStyle = '#fff';
@@ -16126,6 +16198,18 @@ function _dftMD(e) {
         }
       }
       // beam-angle handle (lights only)
+      // 狙いの点のつまみ（PAN と TILT を図面上で動かす）。
+      // ビームのつまみより先に見る。狙いの点のほうが内側にあって隠れやすい
+      if (so.type === 'light') {
+        var _ag = _dftAimGripAt(so);
+        if (_ag && Math.hypot(mx - _ag.x, my - _ag.y) < 16) {
+          _dftPushHistory();
+          _dft.aimDragActive = true; _dft.aimDragObj = so; _dft.aimDragTgt = _ag.tgt;
+          // つまみと本当の点のずれ。逃がして描いているときに点が飛ばないように
+          _dft.aimDragOff = { dx: _ag.px - mx, dy: _ag.py - my };
+          return;
+        }
+      }
       if (so.type === 'light') {
         var _bh2 = _dftBeamHandle(so);
         if (_bh2 && Math.hypot(mx - _bh2.x, my - _bh2.y) < 14) {
@@ -16196,6 +16280,15 @@ function _dftMM(e) {
     dftRender();
     return;
   }
+  // 狙いの点をつまんで動かす。PAN も TILT もこの点から出し直す
+  if (_dft.aimDragActive && _dft.aimDragObj && _dft.aimDragTgt) {
+    var _ao = _dft.aimDragOff || { dx:0, dy:0 };
+    var _aw = _dftS2W(mx + _ao.dx, my + _ao.dy);
+    _dftAimPtToWorld(_dft.aimDragObj, _dft.aimDragTgt, _aw.x, _aw.y);
+    _dftPanTiltRefresh(_dft.aimDragObj.id);
+    dftRender(); _dftUpdateInfoBar(); _dftQueueCalcSync();
+    return;
+  }
   if (_dft.resizeActive && _dft.resizeObj) {
     var _rsp=_dftW2S(_dft.resizeObj.wx,_dft.resizeObj.wy);
     var _nd=Math.hypot(mx-_rsp.x,my-_rsp.y)||1;
@@ -16205,6 +16298,7 @@ function _dftMM(e) {
     dftRender(); return;
   }
   if (_dft.beamActive && _dft.beamObj) {
+    // ここはビームアングルのつまみ。狙いの点は別（下の aimDragActive）
     // つまみを掴んだときの形から逆算する。狙う面があるときは
     // 「当たる範囲の大きさ」を直に掴んでいることになる。
     var _bhd = _dft._beamHandle || _dftBeamHandle(_dft.beamObj);
@@ -16243,6 +16337,20 @@ function _dftMM(e) {
       });
     } else {
       ro.rot = newAngle;
+      // 面を狙っているライトの回転は PAN そのもの。TILT は保ったまま
+      // 当てる点を振り回す（回しても点が置いていかれると角度と食い違う）
+      if (ro.type === 'light') {
+        var _rg = _dftAimGripAt(ro);
+        var _rt = (ro.ptTilt != null) ? ro.ptTilt : (_rg ? _dftAimAngles(ro, _rg.pt).tilt : null);
+        if (_rg && _rt != null) {
+          var _rp = _dftAimPtFromPanTilt(ro, _rg.tgt, _dftRotToPan(newAngle), _rt);
+          if (_rp) {
+            ro.aimId = _rg.tgt.id;
+            ro.aimPt = { x: _rp.x, y: _rp.y };
+            ro.ptPan = _dftRotToPan(newAngle); ro.ptTilt = _rt;
+          }
+        }
+      }
     }
     dftRender(); return;
   }
@@ -16313,6 +16421,8 @@ function _dftMU() {
   }
   _dft.resizeActive= false; _dft.resizeObj = null;
   _dft.beamActive  = false; _dft.beamObj = null; _dft._beamHandle = null;
+  _dft.aimDragActive = false; _dft.aimDragObj = null; _dft.aimDragTgt = null;
+  _dft.aimDragOff = null;
   _dft.pointerDown = false; _dft.dragObj = null;
   _dft.panActive   = false;
   _dft.rotActive   = false; _dft.rotObj = null;
@@ -16769,8 +16879,12 @@ function _dftAimPtFromPanTilt(o, tgt, pan, tilt) {
   var dz = _dftZ(tgt) - _dftZ(o);
   // 面のある高さへ向いていなければ、その面には当たらない
   if (Math.abs(d[2]) < 0.02 || (dz * d[2]) <= 0) return null;
-  var s = dz / d[2];
-  return _dftClampToRect(tgt, o.wx + d[0]*s, o.wy + d[1]*s);
+  var s  = dz / d[2];
+  var rx = o.wx + d[0]*s, ry = o.wy + d[1]*s;
+  var p  = _dftClampToRect(tgt, rx, ry);
+  // 面の外へ出て縁で止まったかどうか。止まったなら指定した角度では届いていない
+  p.clamped = (Math.hypot(p.x - rx, p.y - ry) > 0.01);
+  return p;
 }
 
 function _dftSetPanTilt(oid, pan, tilt) {
@@ -16788,6 +16902,13 @@ function _dftSetPanTilt(oid, pan, tilt) {
     if (p) {
       o.aimId = at.tgt.id;
       o.aimPt = { x: p.x, y: p.y };
+      if (p.clamped) {
+        // 布の縁で止まったので、実際に届いている角度を覚える。
+        // 指定値のまま覚えると、図面のラベルと設定シートが食い違う
+        var _a2 = _dftAimAngles(o, { wx:p.x, wy:p.y, zHeight:_dftZ(at.tgt) });
+        o.ptPan  = (_a2.horiz > 0.3) ? _a2.pan : pan;
+        o.ptTilt = _a2.tilt;
+      }
     } else {
       // その振りではこの面に当たらない。狙いを外して自動判定に戻す
       delete o.aimId; delete o.aimPt;
@@ -16800,13 +16921,22 @@ function _dftSetPanTilt(oid, pan, tilt) {
   _dftUpdateCalcFromDraft();
 }
 
+/**
+ * 片方を動かしたとき、もう片方はスライダーに出ている値をそのまま使う。
+ * 布の端で止まった角度を読み直すと、動かしていない側まで連れて動いてしまう。
+ */
+function _dftPtOther(oid, id, fallback) {
+  var e = document.getElementById(id);
+  if (e && e.value !== '' && isFinite(parseFloat(e.value))) return parseFloat(e.value);
+  return fallback;
+}
 function _dftLivePan(oid, v) {
   var cur = _dftLightPanTilt(_dft.objects.find(function(x){ return x.id === oid; }));
-  _dftSetPanTilt(oid, parseFloat(v), cur.tilt);
+  _dftSetPanTilt(oid, parseFloat(v), _dftPtOther(oid, '_dft_tlt_sl', cur.tilt));
 }
 function _dftLiveTilt(oid, v) {
   var cur = _dftLightPanTilt(_dft.objects.find(function(x){ return x.id === oid; }));
-  _dftSetPanTilt(oid, cur.pan, parseFloat(v));
+  _dftSetPanTilt(oid, _dftPtOther(oid, '_dft_pan_sl', cur.pan), parseFloat(v));
 }
 
 /** スライダーと読みを今の値に合わせる */
@@ -19526,7 +19656,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.6.6';
+var ver = 'v1.1.6.7';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
