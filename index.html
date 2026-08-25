@@ -16414,7 +16414,7 @@ window._dftBFAdd = function() {
 //     E(φ) = Σ lux_i · max(0, n(φ)·u_i)
 // n(φ) は水平面内の向き、u_i は被写体から見た光源方向（高さも含む3D）。
 // lux_i は光線に垂直な面の照度なので、cos を掛けるのが正しい。
-var DFT_EXP_STEPS = [15, 30, 45];
+var DFT_EXP_STEP = 15;          // 角度の刻み。細かい方だけあればよいので固定
 
 /** 被写体から見た各光源の方向・距離・照度。角度は画面座標（+x=右, +y=下）。 */
 function _dftExpSources(sb) {
@@ -16504,7 +16504,7 @@ function dftExposureTool() {
     var si = Math.min(_dft._expSubj || 0, people.length - 1);
     _dft._expSubj = si;
     var sb = people[si];
-    var step = _dft._expStep || 30;
+    var step = DFT_EXP_STEP;
     var d = _dftExpReadings(sb, step);
 
     var lit = d.readings.filter(function(r){ return r.lux > 0; });
@@ -16520,16 +16520,10 @@ function dftExposureTool() {
           (i===si ? 'background:#e65100;color:#fff;' : 'background:#eceff3;color:#555;') + '">' + _dftEsc(p.label || ('#'+(i+1))) + '</button>';
       }).join('') + '</div>' : '';
 
-    var stepBtns = '<div style="display:flex;gap:6px;margin-bottom:14px;">' +
-      DFT_EXP_STEPS.map(function(s) {
-        return '<button onclick="_dftExpSetStep('+s+')" style="flex:1;padding:7px;border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;' +
-          (s===step ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#555;') + '">'+s+'°</button>';
-      }).join('') + '</div>';
-
     // 計測点の初期位置は、いちばん強い方向にしておく（意味のある場所から始める）
     if (_dft._expProbe == null) _dft._expProbe = maxR ? maxR.angle : 0;
     body =
-      subjBtns + stepBtns +
+      subjBtns +
       _dftExpFaceHTML() +
       '<div id="_dft_exp_dialwrap">' + _dftExpProbeSVG(d) + '</div>' +
       _dftExpPolarSVG(d, maxR) +
@@ -16588,7 +16582,7 @@ function dftExposureTool() {
   // ダイヤルは innerHTML で作っているので、挿入後にイベントを繋ぐ
   try {
     if (people.length && lights.length) {
-      var _d = _dftExpReadings(people[Math.min(_dft._expSubj||0, people.length-1)], _dft._expStep || 30);
+      var _d = _dftExpReadings(people[Math.min(_dft._expSubj||0, people.length-1)], DFT_EXP_STEP);
       _dftExpBindDial(_d);
       _dftExpBindFace(_d);
     }
@@ -17082,7 +17076,6 @@ function _dftExpPolarSVG(d, maxR) {
 }
 
 window._dftExpSetSubj = function(i) { _dft._expSubj = i; dftExposureTool(); };
-window._dftExpSetStep = function(s) { _dft._expStep = s; dftExposureTool(); };
 
 // ── 汎用オブジェクト設定（フラッグ / 人物 / 写真）────────────────
 // Diff/Bounce は Factor を持つので専用シート、こちらは寸法と高さだけ。
@@ -18482,7 +18475,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.5.0';
+var ver = 'v1.1.5.1';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
