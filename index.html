@@ -16222,7 +16222,7 @@ window._dftLiveBeam = function(oid, v, fromNumber) {
   if (!o) return;
   var n = parseFloat(v);
   if (!isFinite(n)) return;
-  n = Math.max(1, Math.min(360, n));
+  n = Math.max(1, Math.min(180, n));   // 円錐の開きなので 180°まで
   o.beamAngle = n;
   // 数値欄とスライダーを相互に追従（手入力中は数値欄を書き戻さない）
   var sl = document.getElementById('_dft_ls_basl');
@@ -16742,7 +16742,8 @@ function dftExposureTool() {
         return '<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:#f8f8f8;border-radius:8px;margin-bottom:4px;font-size:11px;">' +
           '<span style="font-weight:800;flex:1;">' + (s.via?'🔲 ':'💡 ') + _dftEsc(s.name) + '</span>' +
           '<span style="font-family:monospace;color:#888;">' + relA + '°</span>' +
-          '<span style="font-family:monospace;color:#5e35b1;">↗' + s.elev.toFixed(0) + '°</span>' +
+          '<span style="font-family:monospace;color:#5e35b1;">' +
+            (Math.abs(s.elev) < 1 ? '→0°' : (s.elev > 0 ? '↑' : '↓') + Math.abs(s.elev).toFixed(0) + '°') + '</span>' +
           '<span style="font-family:monospace;">' + _dftFmt(s.dist) + '</span>' +
           '<span style="font-family:monospace;font-weight:800;color:#e65100;">f' + (luxToFstopCamera(s.lux)||0).toFixed(1) + '</span>' +
         '</div>';
@@ -18655,7 +18656,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.5.3';
+var ver = 'v1.1.5.4';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
