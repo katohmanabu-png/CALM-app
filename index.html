@@ -3934,7 +3934,7 @@ var LIGHTS = {
     hmi_18k_mame: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/daylight/arri-daylight-18-12',
       name:'ARRI 18kW MAME HMI', group:'HMI', desc:'18000W HMI Fresnel Lens', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:18000,
-      weight:'42 kg', size:'580×580×520 mm', ccts:[5600], accessories:["flat", "spot"],
+      weight:'42 kg', size:'580×580×520 mm', ccts:[5600], accessories:["flat", "spot"], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       dmx:{power:'18000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
         3: {flat:76000},
@@ -4036,7 +4036,7 @@ var LIGHTS = {
     trueblue_d25: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/daylight/true-blue-d/d25',
       name:'ARRI TRUE BLUE D25', group:'HMI', desc:'2500W HMI Fresnel Lens', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"18\"/><circle cx=\"42\" cy=\"40\" r=\"12\"/><circle cx=\"42\" cy=\"40\" r=\"6\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:2500,
-      weight:'16 kg', size:'410×380×460 mm', ccts:[5600], accessories:['flat','spot'],
+      weight:'16 kg', size:'410×380×460 mm', ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       dmx:{led:'HMI',power:'2500W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
         2:   {flat:27000},
@@ -4049,7 +4049,7 @@ var LIGHTS = {
     trueblue_d12: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/daylight/true-blue-d/d12',
       name:'ARRI TRUE BLUE D12', group:'HMI', desc:'1200W HMI Fresnel Lens', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"18\"/><circle cx=\"42\" cy=\"40\" r=\"12\"/><circle cx=\"42\" cy=\"40\" r=\"6\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:1200,
-      weight:'10 kg', size:'360×340×400 mm', ccts:[5600], accessories:['flat','spot'],
+      weight:'10 kg', size:'360×340×400 mm', ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       dmx:{led:'HMI',power:'1200W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
         2:   {flat:14000, spot:76000},
@@ -4062,7 +4062,7 @@ var LIGHTS = {
     trueblue_d5: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/daylight/true-blue-d/d5',
       name:'ARRI TRUE BLUE D5', group:'HMI', desc:'575W HMI Fresnel Lens', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"18\"/><circle cx=\"42\" cy=\"40\" r=\"12\"/><circle cx=\"42\" cy=\"40\" r=\"6\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:575,
-      weight:'5.8 kg', size:'280×270×320 mm', ccts:[5600], accessories:['flat','spot'],
+      weight:'5.8 kg', size:'280×270×320 mm', ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       dmx:{led:'HMI',power:'575W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{flat:{5600:{2:6788,3:2269,5:832,12:208}},spot:{5600:{2:76800,3:37969,5:12834,8:4800,12:2269}}}
     },
@@ -4120,7 +4120,7 @@ var LIGHTS = {
     true_blue_d40: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/daylight/true-blue-d/d40',
       group:'HMI', name:'ARRI TRUE BLUE D40', desc:'HMI Fresnel Lens', emoji:'💡', watts:4000, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
-      ccts:[5600], accessories:['flat','spot'],
+      ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         2:   {flat:38000},
         3:   {flat:19000},
@@ -4580,7 +4580,7 @@ var LIGHTS = {
     },
     alpha_6k: {
       group:'HMI Fresnel', name:'Alpha 6kW HMI', desc:'6kW HMI, Fresnel / Clear lens (measured)', emoji:'💡', watts:6000, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
-      ccts:[5600], accessories:['spot','flat','clear_spot','clear_flat'],
+      ccts:[5600], accessories:['spot','flat','clear_spot','clear_flat'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       dmx:{power:'6000W',cct:'5600K',control:'Manual'},
       refData:{5600:{3:{spot:76000, flat:14000, clear_spot:6800, clear_flat:6800}, 5:{spot:38000, flat:6800, clear_spot:2400, clear_flat:2400}, 8:{spot:19000, flat:3400, clear_spot:1200, clear_flat:1200}, 12:{spot:4800, flat:1700, clear_spot:600, clear_flat:600}, 15:{spot:2400, flat:840, clear_spot:300, clear_flat:300}}}
     },
@@ -5004,7 +5004,7 @@ var LIGHTS = {
     },
     arri_24k_tungsten: {
       group:'Tungsten', name:'ARRI 24kW Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:24000,
-      ccts:[3200], accessories:['flat','spot'],
+      ccts:[3200], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{3200:{3:{flat:37969,spot:153567},5:{flat:19200,spot:76800},8:{flat:5105,spot:37969},12:{flat:2480,spot:19200},15:{flat:1355,spot:9075}}}
     },
     arri_studio_t12: {
@@ -5027,7 +5027,7 @@ var LIGHTS = {
     arri_trueblue_st5: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/tungsten/true-blue-st',
       group:'Tungsten', name:'ARRI TRUEBLUE ST5', desc:'5000W Tungsten Fresnel', emoji:'🔆', watts:5000,
-      ccts:[3200], accessories:['spot','medium','flood'],
+      ccts:[3200], accessories:['spot','medium','flood'], accAngles:{spot:15,medium:30,flood:60}, accLabels:{spot:'SPOT',medium:'MEDIUM',flood:'FLOOD'},
       refData:{3200:{
         3: {spot:26094, medium:9950, flood:5256},
         5: {spot:9394, medium:3582, flood:1892},
@@ -5040,7 +5040,7 @@ var LIGHTS = {
     arri_trueblue_st2: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/tungsten/true-blue-st',
       group:'Tungsten', name:'ARRI TRUEBLUE ST2', desc:'2000W Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:2000,
-      ccts:[3200], accessories:['flat', 'spot'],
+      ccts:[3200], accessories:['flat', 'spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{3200:{
         2: {flat:9600, spot:76000},
         3: {flat:4800, spot:38000},
@@ -5052,7 +5052,7 @@ var LIGHTS = {
     arri_trueblue_st1: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/tungsten/true-blue-st',
       group:'Tungsten', name:'ARRI TRUEBLUE ST1', desc:'1000W Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:1000,
-      ccts:[3200], accessories:['spot','medium','flood'],
+      ccts:[3200], accessories:['spot','medium','flood'], accAngles:{spot:15,medium:30,flood:60}, accLabels:{spot:'SPOT',medium:'MEDIUM',flood:'FLOOD'},
       refData:{3200:{
         3: {spot:16633, medium:4333, flood:2033},
         5: {spot:5988, medium:1560, flood:732},
@@ -5103,7 +5103,7 @@ var LIGHTS = {
     arri_quartz_2k: {
 
       group:'Tungsten', name:'ARRI Quartz 2k', desc:'2000W Quartz Tungsten Fresnel', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"43\"/><circle cx=\"75\" cy=\"84\" r=\"11\"/><path d=\"M75 41 C58 54 48 68 43 84 C49 101 59 115 75 127\"/><path d=\"M75 41 C92 54 102 68 107 84 C101 101 91 115 75 127\"/><path d=\"M38 58 C58 67 90 67 112 58\"/><path d=\"M38 110 C58 101 90 101 112 110\"/><path d=\"M48 48 L103 119\"/><path d=\"M103 48 L48 119\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:2000,
-      ccts:[3200], accessories:['flat', 'spot'],
+      ccts:[3200], accessories:['flat', 'spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{3200:{
         2: {flat:9600, spot:27000},
         3: {flat:3400, spot:9600},
@@ -5115,7 +5115,7 @@ var LIGHTS = {
     arri_quartz_1k: {
 
       group:'Tungsten', name:'ARRI Quartz 1k', desc:'1000W Quartz Tungsten Fresnel', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"43\"/><circle cx=\"75\" cy=\"84\" r=\"11\"/><path d=\"M75 41 C58 54 48 68 43 84 C49 101 59 115 75 127\"/><path d=\"M75 41 C92 54 102 68 107 84 C101 101 91 115 75 127\"/><path d=\"M38 58 C58 67 90 67 112 58\"/><path d=\"M38 110 C58 101 90 101 112 110\"/><path d=\"M48 48 L103 119\"/><path d=\"M103 48 L48 119\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:1000,
-      ccts:[3200], accessories:['flat', 'spot'],
+      ccts:[3200], accessories:['flat', 'spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{3200:{
         2: {flat:1700, spot:14000},
         3: {flat:840, spot:6800},
@@ -5569,19 +5569,19 @@ var LIGHTS = {
   ltm: {
     ltm_18k: {
       group:'HMI Fresnel', name:'LTM 18kW', desc:'18kW HMI Fresnel (measured)', emoji:'💡', watts:18000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
-      ccts:[5600], accessories:['flat','spot'],
+      ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       dmx:{power:'18000W',cct:'5600K',control:'Manual'},
       refData:{5600:{3:{flat:76000}, 5:{flat:27000}, 8:{flat:14000}, 12:{flat:6800, spot:76000}, 15:{flat:3400, spot:54000}}}
     },
     ltm_12k: {
       group:'HMI Fresnel', name:'LTM 12kW', desc:'12kW HMI Fresnel (measured)', emoji:'💡', watts:12000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
-      ccts:[5600], accessories:['flat','spot'],
+      ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       dmx:{power:'12000W',cct:'5600K',control:'Manual'},
       refData:{5600:{3:{flat:76000}, 5:{flat:27000}, 8:{flat:9600, spot:76000}, 12:{flat:4800, spot:38000}, 15:{flat:3400, spot:19000}}}
     },
     ltm_12k_b: {
       group:'HMI Fresnel', name:'LTM 12kW (Type B)', desc:'12kW HMI Fresnel alt. head (measured)', emoji:'💡', watts:12000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
-      ccts:[5600], accessories:['flat','spot'],
+      ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       dmx:{power:'12000W',cct:'5600K',control:'Manual'},
       refData:{5600:{3:{flat:38000}, 5:{flat:19000}, 8:{flat:6800}, 12:{flat:3400, spot:54000}, 15:{flat:2400, spot:38000}}}
     },
@@ -6231,6 +6231,9 @@ var ACC_INFO = {
   native20: { label:'Native 20° Beam',     beam:'20° Native',   emoji:'🔦', angle:20 },
   flood:    { label:'FLOOD',               beam:'Flood',         emoji:'🔆', angle:55 },
   spot:     { label:'SPOT',               beam:'Spot ~10°',     emoji:'🎯', angle:10 },
+  // TRUEBLUE ST1 / ST5 が使っているが定義が無く、75° に化けていた。
+  // フレネルの SPOT(15°前後) と FLOOD(60°前後) の中間。
+  medium:   { label:'MEDIUM',              beam:'Medium 30°',    emoji:'🔦', angle:30 },
   spot9:    { label:'NOVA 9° Spot Lens', beam:'9° Spot', emoji:'🔬', angle:9 },
   deg19:    { label:'19° Beam',  beam:'Spot 19°',   emoji:'🔦', angle:19 },
   deg36:    { label:'36° Beam',  beam:'Medium 36°', emoji:'🔦', angle:36 },
@@ -6578,13 +6581,33 @@ var FRESNEL_ACC_KEYS = {
   fresnel18:1,fresnel50:1,fl16:1,fl50:1,spot:1,flat:1
 };
 function isFresnel(accKey) { return !!FRESNEL_ACC_KEYS[accKey]; }
+
+/**
+ * そのアクセサリの実際のビーム角。
+ *
+ * 同じ 'flat' / 'spot' という名前でも、機種によって角度が違う。
+ * フレネルの FLOOD は 60° 前後まで、SPOT は 15° 程度で、
+ * オープンフェイスや LED パネルの 90°/120° とは別物。
+ * 機種側に accAngles があればそれを優先する。
+ */
+function accAngle(light, key) {
+  if (light && light.accAngles && light.accAngles[key] != null) return light.accAngles[key];
+  var ai = ACC_INFO[key];
+  return (ai && ai.angle != null) ? ai.angle : null;
+}
+/** 表示名も機種で上書きできる。フレネルの 'flat' は Flat Mode ではなく FLOOD */
+function accLabel(light, key) {
+  if (light && light.accLabels && light.accLabels[key]) return light.accLabels[key];
+  var ai = ACC_INFO[key];
+  return (ai && ai.label) ? ai.label : key;
+}
 function defaultWidestAcc(light) {
   if (!light || !light.accessories || !light.accessories.length) return 'none';
   var best = light.accessories[0];
-  var bestAngle = (ACC_INFO[best] && ACC_INFO[best].angle) || 0;
+  var bestAngle = accAngle(light, best) || 0;
   for (var i = 1; i < light.accessories.length; i++) {
     var k = light.accessories[i];
-    var a = (ACC_INFO[k] && ACC_INFO[k].angle) || 0;
+    var a = accAngle(light, k) || 0;
     if (a > bestAngle) { bestAngle = a; best = k; }
   }
   return best;
@@ -6594,10 +6617,17 @@ function getBeamAngles(light) {
   // HMI_BEAM lookup by name
   if (HMI_BEAM[light.name]) return HMI_BEAM[light.name];
   var accs = light.accessories || [];
-  // Classic spot/flat pair
-  if (accs.indexOf('flat') >= 0 && accs.indexOf('spot') >= 0) return [10, 60];
-  // spot/flood pair (TRUE BLUE style)
-  if (accs.indexOf('flood') >= 0 && accs.indexOf('spot') >= 0) return [5, 25];
+  // その機種が持っているアクセサリの実角度から範囲を作る。
+  // 以前は flat+spot なら [10,60]、flood+spot なら [5,25] の決め打ちで、
+  // アクセサリのボタンに出ている角度と食い違っていた
+  // （TRUEBLUE ST は FLOOD 60° なのにスライダーは 25° 止まり）。
+  var _sa = accs.filter(function(a){ return a !== 'none'; })
+                .map(function(a){ return accAngle(light, a); })
+                .filter(function(v){ return typeof v === 'number'; });
+  if (_sa.length >= 2) {
+    var _lo = Math.min.apply(null, _sa), _hi = Math.max.apply(null, _sa);
+    if (_hi - _lo >= 3) return [_lo, _hi];
+  }
   // Fresnel only: beam field must contain 'Fresnel'
   var fresnelAccs = accs.filter(function(a) {
     return ACC_INFO[a]
@@ -16680,21 +16710,27 @@ function dftLightSettings(oid) {
   if (!o || o.type !== 'light') return;
   var lt = LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
   var accs = (lt && lt.accessories && lt.accessories.length) ? lt.accessories : [];
-  var allAccs = ['none'].concat(accs);
-  var curAcc = o.accKey || 'none';
-  var curAi  = ACC_INFO[curAcc] || {angle:75};
-  var beamVal = o.beamAngle || curAi.angle || 75;
+  // フレネルにはレンズを外した「素の 120°」という状態が無い。
+  // 実測データも持っていないので、選べる形で出すと角度を誤らせる。
+  var bareOk = !accs.some(function(a){ return isFresnel(a); });
+  // 機種側が既に 'none' を持っていることがあり、二重に出ていた
+  var allAccs = (bareOk ? ['none'] : []).concat(accs).filter(function(a, i, arr) {
+    return arr.indexOf(a) === i;
+  });
+  var curAcc = o.accKey || allAccs[0] || 'none';
+  var beamVal = o.beamAngle || accAngle(lt, curAcc) || 75;
 
   var accBtns = allAccs.map(function(ak) {
-    var ai = ACC_INFO[ak] || {label:ak, emoji:'●', angle:75};
+    var ai = ACC_INFO[ak] || {label:ak, emoji:'●'};
+    var aAng = accAngle(lt, ak);
     var active = curAcc === ak;
     return '<button onclick="_dftSetAcc(\''+oid+'\',\''+ak+'\')" style="' +
       'padding:8px 10px;border-radius:10px;border:2px solid '+(active?'#1976d2':'rgba(0,0,0,0.12)')+';' +
       'background:'+(active?'#e3f2fd':'#f8f8f8')+';cursor:pointer;text-align:center;' +
       'display:flex;flex-direction:column;align-items:center;gap:2px;min-width:70px;">' +
       '<span style="font-size:20px;">'+ai.emoji+'</span>' +
-      '<span style="font-size:10px;font-weight:700;color:#333;white-space:nowrap;">'+ai.label+'</span>' +
-      '<span style="font-size:10px;color:#1976d2;font-weight:800;">'+ai.angle+'°</span>' +
+      '<span style="font-size:10px;font-weight:700;color:#333;white-space:nowrap;">'+_dftEsc(accLabel(lt, ak))+'</span>' +
+      '<span style="font-size:10px;color:#1976d2;font-weight:800;">'+(aAng!=null?aAng+'°':'—')+'</span>' +
       '</button>';
   }).join('');
 
@@ -16741,8 +16777,9 @@ function _dftSetAcc(oid, accKey) {
   if (!o) return;
   _dftPushHistory();
   o.accKey = accKey;
-  var ai = ACC_INFO[accKey];
-  if (ai && typeof ai.angle === 'number') o.beamAngle = ai.angle;
+  var _alt = LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
+  var _aa  = accAngle(_alt, accKey);
+  if (typeof _aa === 'number') o.beamAngle = _aa;
   var sh = document.getElementById('_dft_ls');
   if (sh) sh.remove();
   dftLightSettings(oid);
@@ -18540,10 +18577,13 @@ function _dftLPSelect(mk, lk) {
   var lt = LIGHTS[mk] && LIGHTS[mk][lk];
   if (!lt) return;
   _dftPushHistory();
+  // 既定は「その機種のいちばん広いアクセサリ」の実角度。75° 固定だと
+  // フレネル（FLOOD 60°）でも 75° で置かれてしまう
+  var _dak = defaultWidestAcc(lt) || 'none';
   var no = _dftAddObj('light', _dft.pendingLightWx, _dft.pendingLightWy, {
     makerKey: mk, modelKey: lk,
     lightName: lt.name, label: lt.name,
-    beamAngle: 75, accKey: defaultWidestAcc(lt) || 'none',
+    beamAngle: accAngle(lt, _dak) || 75, accKey: _dak,
   });
   _dftAutoOrient(no);
   _dft.selected = no.id;
@@ -19656,7 +19696,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.6.7';
+var ver = 'v1.1.6.8';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
