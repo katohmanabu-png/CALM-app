@@ -14751,7 +14751,7 @@ function _dftDrawObj(ctx, o) {
     var _si = _dftSrcIndexOf(o);
     // 灯体は実寸ではなく記号。絵が判別できる下限は要るが、20m まで引いたときに
     // 21px 固定だと図面が灯体で埋まってしまうので、縮尺に応じて緩やかに変える。
-    var _LR = Math.max(11, Math.min(32, 7.8 + pxPerM * 0.47));
+    var _LR = _dftLightR(pxPerM);
     // 背後に白い縁を敷いて、グリッドや線の上でも輪郭が立つようにする
     ctx.fillStyle = 'rgba(255,255,255,0.9)';
     ctx.beginPath(); ctx.arc(0, 0, _LR + 2.5, 0, Math.PI*2); ctx.fill();
@@ -14999,6 +14999,16 @@ function _dftLightForBounce(bn) {
   return lit.reduce(function(a, b){ return _dftDist(a, bn) <= _dftDist(b, bn) ? a : b; });
 }
 
+/**
+ * 灯体アイコンの半径。大きさの決め所はここ一箇所。
+ * 灯体は実寸ではなく記号なので、絵が判別できる下限は要るが、
+ * 引いたときに図面が灯体で埋まらないよう縮尺に追従させる。
+ * タップの当たり判定は 24px 固定なので、小さくしても選びにくくはならない。
+ */
+function _dftLightR(pxPerM) {
+  return Math.max(10, Math.min(28, 6.5 + pxPerM * 0.40));
+}
+
 function _dftNearestLight(obj) {
   var lights = _dftVisObjs(function(o){ return o.type==='light'; });
   if (!lights.length) return null;
@@ -15026,7 +15036,7 @@ function _dftAimGripAt(lt) {
   var ls = _dftW2S(lt.wx, lt.wy);
   // 真上寄りだと点が灯体の絵の下に潜ってつまめない。外へ逃がして、
   // 掴んだ時のずれを覚えて動かす（指の下で点が飛ばないように）
-  var LR = Math.max(11, Math.min(32, 7.8 + (_dft.zoom/_dft.scale) * 0.47)) + 12;
+  var LR = _dftLightR(_dft.zoom / _dft.scale) + 12;
   var d  = Math.hypot(s.x - ls.x, s.y - ls.y);
   var gx = s.x, gy = s.y, off = false;
   if (d < LR) {
@@ -20018,7 +20028,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.67';
+var ver = 'v1.1.7.68';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
