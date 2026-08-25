@@ -14471,7 +14471,7 @@ function _dftDrawObj(ctx, o) {
   var sx = sp.x, sy = sp.y;
   var sel = (_dft.selected === o.id);
   var pxPerM = _dft.zoom / _dft.scale;
-  var R = Math.max(8, Math.min(36, pxPerM * 0.15));
+  var R = Math.max(7, Math.min(33, pxPerM * 0.15));
 
   ctx.save();
   ctx.translate(sx, sy);
@@ -14570,8 +14570,9 @@ function _dftDrawObj(ctx, o) {
     // body — Exposure ダイヤル上の光源と同じ色にして対応が付くようにする。
     // カメラ(R*1.8幅)に比べて小さく見えていたので、ライトも同等の大きさにする。
     var _si = _dftSrcIndexOf(o);
-    // 灯体は実寸ではなく記号なので、引いたときも絵が判別できる大きさを保つ
-    var _LR = Math.max(21, R * 1.45);
+    // 灯体は実寸ではなく記号。絵が判別できる下限は要るが、20m まで引いたときに
+    // 21px 固定だと図面が灯体で埋まってしまうので、縮尺に応じて緩やかに変える。
+    var _LR = Math.max(11, Math.min(32, 7.8 + pxPerM * 0.47));
     // 背後に白い縁を敷いて、グリッドや線の上でも輪郭が立つようにする
     ctx.fillStyle = 'rgba(255,255,255,0.9)';
     ctx.beginPath(); ctx.arc(0, 0, _LR + 2.5, 0, Math.PI*2); ctx.fill();
@@ -14660,18 +14661,21 @@ function _dftDrawObj(ctx, o) {
   var _RCTH = {diffuser:1, bounce:1, flag:1, image:1};
   var _isRectT = !!_RCTH[o.type];
   var _halfHpx = _isRectT ? _dftRectDims(o).h/_dft.scale*_dft.zoom/2 : R;
+  // ライトの丸は R より大きい。R で置くと寄ったときに丸の中へ潜るので、
+  // 実際に描いた半径を使って外側に出す。
+  var _labR = (o.type === 'light' && _LR) ? _LR : R;
 
   // label — 四角(D/B/F)は中の文字で識別できるので名前ラベルは省略（スッキリ）
   if (!_isRectT) {
     ctx.fillStyle = sel ? '#e53500' : '#1a1a1a';
     ctx.font = 'bold 9px -apple-system,Arial';
     ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-    ctx.fillText(o.label || '', sx, sy + R + 3);           // 点: 下側
+    ctx.fillText(o.label || '', sx, sy + _labR + 3);        // 点: 下側
   }
 
   // 点オブジェクトのバッジは名前ラベルの下に積む。
   // 以前は高さ(sy+R+15)とF値(sy+R+18)が同じ場所に描かれ、高さが読めなかった。
-  var _badgeY = sy + R + 14;
+  var _badgeY = sy + _labR + 14;
 
   // 設置高さ(床から)バッジ — 紫のピルで他の情報と区別
   if (o.zHeight != null) {
@@ -15037,42 +15041,117 @@ function _dftDrawBounceBeams(ctx) {
     var halfBeam = ((lt.beamAngle || 75) / 2) * Math.PI / 180;
     if (cosAngle < Math.cos(halfBeam)) return; // bounce not illuminated — no reflection
 
-    // 反射板は拡散反射（UltraBounce・モスリン等）。鏡ではない。
-    // 以前は反射の法則で鏡面方向へ細いコーンを描いていたが、
-    // 実際の板は法線まわりへ広く散るので、その形（ランバートのローブ）で描く。
+    // 12x12 のような板は反射光の向きを見たい。一方 10m クラスの天バンや
+    // 大きな布は面全体が光源になるので、1本のローブで描くと嘘になる。
+    // （そういう面は『布に当たる範囲』で見る）
+    if (_dftBounceIsBroad(bn)) return;
+
+    // 板は鏡ではないので法線まわりに散る。ただしそれだけで描くと
+    // 前方 180° に広がる「ディフュージョン」と同じ形になってしまう。
+    // 実際は反射の法則の向きがいちばん強いので、その形で描く。
+    // 半径は _dftBounceCosOut と同じ式にしてある（絵と数値を一致させる）。
     var n = _dftBounceNormal(lt, bn);
-    var outAngle = Math.atan2(n[1], n[0]);
-    var beamLen  = Math.min(240, 10 / _dft.scale * _dft.zoom);
+    var m = _dftBounceMirrorDir(lt, bn);
+    var nAngle = Math.atan2(n[1], n[0]);
+    var mAngle = Math.atan2(m[1], m[0]);
+    var beamLen = Math.min(240, 10 / _dft.scale * _dft.zoom);
 
     ctx.save();
     ctx.translate(bns.x, bns.y);
 
-    // 拡散のローブ。法線方向がいちばん強く、真横に向かって cos で落ちる。
-    // 半径を cos に比例させると、そのまま強さの分布の形になる。
-    ctx.fillStyle   = 'rgba(255,200,60,0.16)';
-    ctx.strokeStyle = 'rgba(200,130,0,0.45)';
-    ctx.lineWidth   = 1.2;
-    ctx.setLineDash([6, 4]);
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    for (var _t = -88; _t <= 88; _t += 4) {
-      var _a = outAngle + _t * Math.PI / 180;
-      var _r = beamLen * Math.cos(_t * Math.PI / 180);
-      ctx.lineTo(Math.cos(_a)*_r, Math.sin(_a)*_r);
+    // ローブの半径は _dftBounceCosOut と同じ式（絵と数値を一致させる）。
+    function lobeR(a) {
+      var cm = Math.max(0, Math.cos(a - mAngle));
+      return beamLen * _dftBounceGate(Math.cos(a - nAngle))
+                     * (DFT_BOUNCE_SCATTER + (1-DFT_BOUNCE_SCATTER) * cm);
     }
-    ctx.closePath(); ctx.fill(); ctx.stroke();
-
-    // 法線（いちばん強い向き）
+    // 散っていくぶん全体は薄く敷くだけ。濃く塗ると
+    // ディフュージョンと同じ「前に広がる面」に見えてしまう。
+    function lobePath(fromDeg, toDeg) {
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      for (var t = fromDeg; t <= toDeg; t += 2) {
+        var a = mAngle + t * Math.PI / 180, r = lobeR(a);
+        ctx.lineTo(Math.cos(a)*r, Math.sin(a)*r);
+      }
+      ctx.closePath();
+    }
     ctx.setLineDash([]);
-    ctx.strokeStyle = 'rgba(200,130,0,0.8)';
-    ctx.lineWidth   = 1.5;
+    ctx.fillStyle = 'rgba(255,200,60,0.07)';
+    lobePath(-96, 96); ctx.fill();
+
+    // 使える明るさが残っている範囲だけ濃く。境目は鏡方向から -0.5段（59°）。
+    // 「反射光はこの向きへ出ていく」が一目で分かるようにする。
+    var HALF = 59;
+    ctx.fillStyle   = 'rgba(255,190,40,0.20)';
+    ctx.strokeStyle = 'rgba(200,130,0,0.5)';
+    ctx.lineWidth   = 1.2;
+    lobePath(-HALF, HALF); ctx.fill();
+    ctx.setLineDash([6, 4]); ctx.stroke();
+
+    // 反射の法則の向き（いちばん強いところ）に矢印
+    var mLen = lobeR(mAngle);
+    ctx.setLineDash([]);
+    ctx.strokeStyle = 'rgba(190,110,0,0.95)';
+    ctx.fillStyle   = 'rgba(190,110,0,0.95)';
+    ctx.lineWidth   = 2.2;
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.lineTo(Math.cos(outAngle)*beamLen, Math.sin(outAngle)*beamLen);
+    ctx.lineTo(Math.cos(mAngle)*mLen, Math.sin(mAngle)*mLen);
     ctx.stroke();
+    ctx.save();
+    ctx.translate(Math.cos(mAngle)*mLen, Math.sin(mAngle)*mLen);
+    ctx.rotate(mAngle);
+    ctx.beginPath();
+    ctx.moveTo(0, 0); ctx.lineTo(-11, 5); ctx.lineTo(-11, -5);
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+
+    // 入射光と法線。入射角=反射角が図で読めるようにする
+    var iAngle = Math.atan2(bn.wy - lt.wy, bn.wx - lt.wx);
+    var refLen = Math.min(mLen * 0.5, 60);
+    ctx.strokeStyle = 'rgba(120,120,120,0.55)';
+    ctx.lineWidth   = 1;
+    ctx.setLineDash([3, 3]);
+    ctx.beginPath();
+    ctx.moveTo(0, 0); ctx.lineTo(Math.cos(nAngle)*refLen, Math.sin(nAngle)*refLen);
+    ctx.moveTo(0, 0); ctx.lineTo(-Math.cos(iAngle)*refLen, -Math.sin(iAngle)*refLen);
+    ctx.stroke();
+
+    // 入射角（=反射角）を数値で
+    var incDeg = Math.abs(_dftNormDeg((iAngle - nAngle) * 180/Math.PI));
+    incDeg = Math.round(Math.min(incDeg, 180 - incDeg));
+    var istr = incDeg + '°';
+    ctx.setLineDash([]);
+    ctx.font = 'bold 9px -apple-system,Arial';
+    var ibw = ctx.measureText(istr).width + 8;
+    var ilx = Math.cos(nAngle + (mAngle - nAngle) * 0.5) * refLen * 0.62;
+    var ily = Math.sin(nAngle + (mAngle - nAngle) * 0.5) * refLen * 0.62;
+    ctx.fillStyle = 'rgba(190,110,0,0.9)';
+    _dftRoundRect(ctx, ilx - ibw/2, ily - 7, ibw, 14, 4); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(istr, ilx, ily);
 
     ctx.restore();
   });
+}
+
+/** 角度を -180〜180 に丸める */
+function _dftNormDeg(d) {
+  d = d % 360;
+  if (d > 180) d -= 360;
+  if (d < -180) d += 360;
+  return d;
+}
+
+/**
+ * 面全体が光源になるような大きい面か。
+ * 12x12ft(3.7m)は「板」、10m 超の布は「天空光」。境目は 6m に置いた。
+ */
+function _dftBounceIsBroad(bn) {
+  var rd = _dftRectDims(bn);
+  return Math.max(rd.w || 0, rd.h || 0) >= 6;
 }
 
 // ── Group / Ungroup ────────────────────────────────────────────────────────
@@ -15412,13 +15491,60 @@ function _dftBounceNormal(lt, bn) {
   return [nx, ny];
 }
 
-/** 板→被写体の向きと法線の cos（拡散反射の出方） */
+/**
+ * 入射光が鏡なら進む向き（反射の法則の向き）。板を振って狙いを付ける基準。
+ *   m = i - 2(i·n)n
+ */
+function _dftBounceMirrorDir(lt, bn) {
+  var n = _dftBounceNormal(lt, bn);
+  var ix = bn.wx - lt.wx, iy = bn.wy - lt.wy;
+  var il = Math.hypot(ix, iy); if (il < 0.01) return n;
+  ix /= il; iy /= il;
+  var d = ix*n[0] + iy*n[1];
+  return [ix - 2*d*n[0], iy - 2*d*n[1]];
+}
+
+/**
+ * 天バン（ライトより上に張った面）かどうか。
+ * 天バンは平面図に落とした法線が意味を持たないので、指向性を足さない。
+ */
+function _dftBounceIsOverhead(lt, bn) {
+  return (_dftZ(bn) - _dftZ(lt)) > 0.5;
+}
+
+/** 反射光の散り具合。鏡方向から真横へ向かってここまで落ちる。 */
+var DFT_BOUNCE_SCATTER = 0.4;
+
+/**
+ * 板から被写体へ出ていく光の強さ。反射の法則の向きで 1。
+ *
+ * 以前は法線まわりの cos だけで出していたが、それだと前方 180° へ
+ * 均等に散る「ディフュージョン」と同じ形で、板を振っても向きが変わらない。
+ * 実際の板は反射の法則の向きがいちばん強いので、そこを軸にする。
+ * 法線の cos は「板の裏へは出ない」ための門としてだけ使う。
+ *
+ * 鏡方向で 1 としているのは、UltraBounce 等のファクター（-1.2段など）が
+ * 板を狙って測った値で、そのぶんの損失をすでに含んでいるため。
+ * ここで cos を重ねると二重に暗くなる。
+ *
+ * 天バンは平面図に落とした法線・鏡方向が意味を持たないので従来どおり。
+ */
 function _dftBounceCosOut(lt, bn, sb) {
   var n = _dftBounceNormal(lt, bn);
   var tx = sb.wx - bn.wx, ty = sb.wy - bn.wy;
   var tl = Math.hypot(tx, ty);
   if (tl < 0.01) return 1;
-  return (n[0]*tx + n[1]*ty) / tl;
+  tx /= tl; ty /= tl;
+  var cosN = n[0]*tx + n[1]*ty;
+  if (_dftBounceIsOverhead(lt, bn)) return cosN;
+  var m = _dftBounceMirrorDir(lt, bn);
+  var cosM = Math.max(0, m[0]*tx + m[1]*ty);
+  return _dftBounceGate(cosN) * (DFT_BOUNCE_SCATTER + (1 - DFT_BOUNCE_SCATTER) * cosM);
+}
+
+/** 板の裏へは光が出ない。板の面すれすれで急に切れないよう少しなまらせる。 */
+function _dftBounceGate(cosN) {
+  return Math.min(1, Math.max(0, cosN) / 0.15);
 }
 
 /**
@@ -19175,7 +19301,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.6.3';
+var ver = 'v1.1.6.4';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
