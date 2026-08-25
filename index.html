@@ -2148,7 +2148,7 @@ var LANGS = {
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
-    expProbeAt:'この向きの読み', faceTitle:'顔への当たり方（カメラから見た向き）', faceLegend:'いちばん明るい面：', faceScale:'白＝いちばん明るい面、暗いほど段数が落ちます（全体で約3段）', expElevLabel:'露出計の仰角（上下の向き）', expTableNote:'以下の表とグラフは、Aの仰角で計算しています：', expElevFlat:'水平', expElevUp45:'↑45°', expElevUp90:'↑真上', expElevDown45:'↓45°', expProbeBOn:'＋ 2点目(B)を出して比べる', expProbeBOff:'− 2点目(B)を消す', expProbeNone:'この向きには光が来ていません',
+    expProbeAt:'この向きの読み', faceTitle:'顔への当たり方（カメラから見た向き）', faceLegend:'いちばん明るい面：', faceScale:'白＝いちばん明るい面、暗いほど段数が落ちます（全体で約4.5段）。鼻や眉の影も計算しています。', expElevLabel:'露出計の仰角（上下の向き）', expTableNote:'以下の表とグラフは、Aの仰角で計算しています：', expElevFlat:'水平', expElevUp45:'↑45°', expElevUp90:'↑真上', expElevDown45:'↓45°', expProbeBOn:'＋ 2点目(B)を出して比べる', expProbeBOff:'− 2点目(B)を消す', expProbeNone:'この向きには光が来ていません',
     expLegNote:'丸（A）をドラッグすると、その向きに露出計を向けたときの読みが出ます。Bを足すと2点の差＝コントラストが出ます。カメラのある向きが0°で、90°がカメラから見て右、270°が左、180°が真後ろ（逆光）。図の光源は、いま配置しているライトの実際の到来角で、色は図面上のライトと対応しています。',
     dftPanelH:'幕の高さ', dftPanelHHint:'← 距離計算に使う高さ(中心)', dftObjSettings:'設定',
     dftPeopleTitle:'🧍 人を配置', dftManLabel:'男性', dftWomanLabel:'女性',
@@ -2253,7 +2253,7 @@ var LANGS = {
     dftSize:'Size', dftPresetPick:'Pick a preset',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
     expLegFace:'Face', expLegCam:'Camera', expLegKey:'Key', expLegBack:'Back',
-    expProbeAt:'Reading at', faceTitle:'How it falls on the face (as the camera sees it)', faceLegend:'Brightest surface:', faceScale:'White = brightest surface; darker = further down in stops (about 3 stops across)', expElevLabel:'Meter tilt (up / down)', expTableNote:'The table and chart below use probe A\u2019s tilt:', expElevFlat:'Level', expElevUp45:'↑45°', expElevUp90:'↑Straight up', expElevDown45:'↓45°', expProbeBOn:'+ Add a 2nd probe (B) to compare', expProbeBOff:'− Remove probe B', expProbeNone:'no light from this direction',
+    expProbeAt:'Reading at', faceTitle:'How it falls on the face (as the camera sees it)', faceLegend:'Brightest surface:', faceScale:'White = brightest surface; darker = further down in stops (about 4.5 across). Nose and brow shadows are included.', expElevLabel:'Meter tilt (up / down)', expTableNote:'The table and chart below use probe A\u2019s tilt:', expElevFlat:'Level', expElevUp45:'↑45°', expElevUp90:'↑Straight up', expElevDown45:'↓45°', expProbeBOn:'+ Add a 2nd probe (B) to compare', expProbeBOff:'− Remove probe B', expProbeNone:'no light from this direction',
     expLegNote:'Drag probe A to read what a meter aimed that way would show; add B to get the difference between two directions (contrast). 0° is the camera direction, 90° camera-right, 270° camera-left, 180° straight behind (backlight). The sources on the dial are the real arrival angles of your lights, colour-matched to the plan.',
     dftPanelH:'Panel height', dftPanelHHint:'← height used for distance (centre)', dftObjSettings:'Settings',
     dftPeopleTitle:'🧍 People', dftManLabel:'Man', dftWomanLabel:'Woman',
@@ -2355,7 +2355,7 @@ var LANGS = {
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
     expLegFace:'Cara', expLegCam:'Cámara', expLegKey:'Key', expLegBack:'Contra',
-    expProbeAt:'Lectura a', faceTitle:'Cómo cae en el rostro (visto por la cámara)', faceLegend:'Superficie más brillante:', faceScale:'Blanco = superficie más brillante; más oscuro = más pasos abajo (unos 3 pasos)', expElevLabel:'Inclinación del fotómetro', expTableNote:'La tabla y el gráfico usan la inclinación de A:', expElevFlat:'Nivel', expElevUp45:'↑45°', expElevUp90:'↑Cenital', expElevDown45:'↓45°', expProbeBOn:'+ Añadir 2ª sonda (B)', expProbeBOff:'− Quitar sonda B', expProbeNone:'no llega luz desde esta dirección',
+    expProbeAt:'Lectura a', faceTitle:'Cómo cae en el rostro (visto por la cámara)', faceLegend:'Superficie más brillante:', faceScale:'Blanco = superficie más brillante; más oscuro = más pasos abajo (unos 4,5). Incluye sombras de nariz y cejas.', expElevLabel:'Inclinación del fotómetro', expTableNote:'La tabla y el gráfico usan la inclinación de A:', expElevFlat:'Nivel', expElevUp45:'↑45°', expElevUp90:'↑Cenital', expElevDown45:'↓45°', expProbeBOn:'+ Añadir 2ª sonda (B)', expProbeBOff:'− Quitar sonda B', expProbeNone:'no llega luz desde esta dirección',
     expLegNote:'Arrastra la sonda A para ver la lectura en esa dirección; añade B para obtener la diferencia entre dos direcciones (contraste). 0° es la cámara, 90° derecha, 270° izquierda, 180° detrás (contraluz). Las fuentes del dial son los ángulos reales de tus luces, con el color del plano.',
     dftPanelH:'Altura del panel', dftPanelHHint:'← altura usada para la distancia (centro)', dftObjSettings:'Ajustes',
     dftPeopleTitle:'🧍 Personas', dftManLabel:'Hombre', dftWomanLabel:'Mujer',
@@ -14564,7 +14564,8 @@ function _dftDrawObj(ctx, o) {
     // body — Exposure ダイヤル上の光源と同じ色にして対応が付くようにする。
     // カメラ(R*1.8幅)に比べて小さく見えていたので、ライトも同等の大きさにする。
     var _si = _dftSrcIndexOf(o);
-    var _LR = R * 1.35;
+    // 灯体は実寸ではなく記号なので、引いたときも絵が判別できる大きさを保つ
+    var _LR = Math.max(21, R * 1.45);
     // 背後に白い縁を敷いて、グリッドや線の上でも輪郭が立つようにする
     ctx.fillStyle = 'rgba(255,255,255,0.9)';
     ctx.beginPath(); ctx.arc(0, 0, _LR + 2.5, 0, Math.PI*2); ctx.fill();
@@ -14577,7 +14578,7 @@ function _dftDrawObj(ctx, o) {
     var _lt = o.makerKey && LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
     var _icon = _dftLightIconImg(_lt);
     if (_icon && _icon.complete && _icon.naturalWidth) {
-      var _fit = _LR * 1.42;                      // 円の中に収める
+      var _fit = _LR * 1.72;   // 円からわずかにはみ出させて絵を大きく見せる
       var _ar  = _icon.naturalWidth / _icon.naturalHeight;
       var _iw  = _ar >= 1 ? _fit : _fit * _ar;
       var _ih  = _ar >= 1 ? _fit / _ar : _fit;
@@ -16981,11 +16982,48 @@ function _dftFaceBasis(ref) {
 /**
  * 顔プレビューを canvas に描く。
  *
- * 頭は縦長の回転楕円体で近似し、鼻・眉・頬の起伏を法線に足す。
- * 各点で E = Σ lux·max(0, n·u) を計算し、キー面からの「段差」で
- * 明るさを割り当てる（0段=明るい, -3段=暗い）。
- * 段でそのまま塗るので、見えている濃淡差がそのままライティング比になる。
+ * 顔を「高さの地図」（height field）として持ち、その傾きから法線を出す。
+ * 前の実装は球にこぶを足しただけで、鼻や眼窩の形が出ず、
+ * 何より鼻の影が落ちなかった。バタフライかループかレンブラントか、という
+ * 現場で読みたい情報がまったく出ていなかった。
+ *
+ * ・法線は高さの地図の傾きから計算する（手置きのこぶではなく形から出す）
+ * ・光源方向へ地図をたどって、手前の隆起に遮られていれば影にする
+ *   （鼻の影・眼窩の影・顎の影がこれで出る）
  */
+function _dftFaceHeight(x, y) {
+  // x,y は -1..1。顔の外は null
+  var ax = x / 0.74, ay = y / 1.0;              // 縦長の輪郭
+  var r2 = ax*ax + ay*ay;
+  if (r2 > 1) return null;
+
+  // 頭の基本形（前に張り出した楕円体）
+  var h = Math.sqrt(Math.max(0, 1 - r2)) * 0.78;
+
+  // 顎に向かって細くする
+  if (y < -0.25) h *= 1 - Math.min(0.42, (-y - 0.25) * 0.75);
+
+  function lump(cx, cy, rx, ry, amt) {          // なだらかな隆起
+    var dx = (x-cx)/rx, dy = (y-cy)/ry, dd = dx*dx + dy*dy;
+    if (dd >= 1) return 0;
+    return amt * Math.pow(1 - dd, 1.6);
+  }
+  function dent(cx, cy, rx, ry, amt) { return -lump(cx, cy, rx, ry, amt); }
+
+  h += lump( 0.00,  0.46, 0.60, 0.30, 0.10);    // 額
+  h += lump(-0.26,  0.26, 0.26, 0.10, 0.07);    // 眉
+  h += lump( 0.26,  0.26, 0.26, 0.10, 0.07);
+  h += dent(-0.26,  0.13, 0.22, 0.12, 0.06);    // 眼窩
+  h += dent( 0.26,  0.13, 0.22, 0.12, 0.06);
+  h += lump( 0.00,  0.06, 0.10, 0.42, 0.13);    // 鼻すじ
+  h += lump( 0.00, -0.20, 0.14, 0.10, 0.10);    // 鼻先
+  h += lump(-0.40, -0.10, 0.26, 0.22, 0.06);    // 頬
+  h += lump( 0.40, -0.10, 0.26, 0.22, 0.06);
+  h += lump( 0.00, -0.42, 0.20, 0.07, 0.05);    // 口
+  h += lump( 0.00, -0.62, 0.18, 0.12, 0.05);    // 顎
+  return h;
+}
+
 function _dftDrawFace(cv, d) {
   var N = DFT_FACE_PX;
   cv.width = N; cv.height = N;
@@ -16993,85 +17031,113 @@ function _dftDrawFace(cv, d) {
   var img = ctx.createImageData(N, N);
   var b = _dftFaceBasis(d.ref);
   var srcs = d.sources;
-  var AX = 1.30;                 // 横を詰めて縦長の頭にする
+  var st = 2 / N;                                // 1画素ぶんの座標差
 
-  // 面ごとの照度
-  function luxAtNormal(nx, ny, nz) {
-    var lx = 0;
-    for (var i = 0; i < srcs.length; i++) {
-      var s2 = srcs[i];
-      var c = nx*s2.ux + ny*s2.uy + nz*s2.uz;
-      if (c > 0) lx += s2.lux * c;
+  // 高さの地図をあらかじめ作る（法線と影の両方で使う）
+  var H = new Float32Array(N*N);
+  var IN = new Uint8Array(N*N);
+  for (var j = 0; j < N; j++) {
+    for (var i = 0; i < N; i++) {
+      var x = (i + 0.5)/N*2 - 1, y = 1 - (j + 0.5)/N*2;
+      var hv = _dftFaceHeight(x, y);
+      if (hv === null) { IN[j*N+i] = 0; H[j*N+i] = 0; }
+      else { IN[j*N+i] = 1; H[j*N+i] = hv; }
     }
-    return lx;
+  }
+  function hAt(i, j) { return (i<0||j<0||i>=N||j>=N||!IN[j*N+i]) ? -9 : H[j*N+i]; }
+
+  // 光源方向を「顔の面での向き」に直す（右=+x, 上=+y, 手前=+z）
+  var L = srcs.map(function(s) {
+    return {
+      lux: s.lux,
+      x: s.ux*b.Rv[0] + s.uy*b.Rv[1] + s.uz*b.Rv[2],
+      y: s.ux*b.U[0]  + s.uy*b.U[1]  + s.uz*b.U[2],
+      z: s.ux*b.F[0]  + s.uy*b.F[1]  + s.uz*b.F[2]
+    };
+  });
+
+  /**
+   * その画素が光源 k から見えているか。
+   * 実際の光源には大きさがあり影の縁はぼけるので、少しずらした
+   * 3本の光線の平均を返す（0=完全な影, 1=当たっている）。
+   */
+  function lit(i, j, k) {
+    var l = L[k];
+    if (l.z <= 0.02) return 1;                   // 真横〜後ろは遮蔽を見ない
+    var len0 = Math.hypot(l.x, l.y);
+    if (len0 < 0.06) return 1;                   // ほぼ正面光は影が出ない
+    var base = Math.atan2(l.y, l.x);
+    var slope = l.z / len0;
+    var h0 = H[j*N+i];
+    var open = 0;
+    var OFF = [-0.16, 0, 0.16];                  // 光源の見かけの大きさ
+    for (var o = 0; o < OFF.length; o++) {
+      var ang = base + OFF[o];
+      var hx = Math.cos(ang), hy = Math.sin(ang);
+      var blocked = 0;
+      for (var t = 1; t <= 24; t++) {
+        var ii = Math.round(i + hx*t), jj = Math.round(j - hy*t);
+        var hh = hAt(ii, jj);
+        if (hh < -1) break;                      // 顔の外に出た
+        if (hh > h0 + slope*(t*st) + 0.014) { blocked = 1; break; }
+      }
+      if (!blocked) open++;
+    }
+    return open / OFF.length;
   }
 
-  // 起伏を足した法線を返す（顔の作りをおおまかに再現）
-  function normalAt(sx, sy, sz) {
-    var nx = sx*b.Rv[0] + sy*b.U[0] + sz*b.F[0];
-    var ny = sx*b.Rv[1] + sy*b.U[1] + sz*b.F[1];
-    var nz = sx*b.Rv[2] + sy*b.U[2] + sz*b.F[2];
-    function bump(cx, cy, r, amt, outward) {
-      var dx = sx - cx, dy = sy - cy;
-      var dd = Math.sqrt(dx*dx + dy*dy);
-      if (dd >= r) return;
-      var k = (1 - dd/r) * amt;
-      var mx = dx/(dd || 1), my = dy/(dd || 1);
-      nx += k*(mx*b.Rv[0] + my*b.U[0]) + k*outward*b.F[0];
-      ny += k*(mx*b.Rv[1] + my*b.U[1]) + k*outward*b.F[1];
-      nz += k*(mx*b.Rv[2] + my*b.U[2]) + k*outward*b.F[2];
-    }
-    bump(0,    -0.04, 0.15, 1.25, 1.25);   // 鼻（正面に張り出す）
-    bump(0,     0.30, 0.42, 0.32, 0.25);   // 眉・額の張り
-    bump(-0.36,-0.06, 0.26, 0.26, 0.18);   // 頬
-    bump( 0.36,-0.06, 0.26, 0.26, 0.18);
-    bump(0,    -0.52, 0.24, 0.30, 0.30);   // 顎
-    var ln = Math.sqrt(nx*nx + ny*ny + nz*nz) || 1;
-    return [nx/ln, ny/ln, nz/ln];
-  }
-
-  // 基準は正面〜キー側でいちばん明るい面
+  // 明るさの基準
   var peak = 0;
-  for (var ty = -0.8; ty <= 0.8; ty += 0.1) {
-    for (var tx = -0.8; tx <= 0.8; tx += 0.1) {
-      var r2 = (tx*AX)*(tx*AX) + ty*ty;
-      if (r2 > 1) continue;
-      var tz = Math.sqrt(1 - r2);
-      var n2 = normalAt(tx, ty, tz);
-      var lv = luxAtNormal(n2[0], n2[1], n2[2]);
-      if (lv > peak) peak = lv;
+  var lux = new Float32Array(N*N);
+  for (var j2 = 0; j2 < N; j2++) {
+    for (var i2 = 0; i2 < N; i2++) {
+      var idx = j2*N + i2;
+      if (!IN[idx]) continue;
+      // 高さの地図の傾きから法線
+      var hL = hAt(i2-1, j2), hR = hAt(i2+1, j2);
+      var hD = hAt(i2, j2+1), hU = hAt(i2, j2-1);
+      if (hL < -1) hL = H[idx]; if (hR < -1) hR = H[idx];
+      if (hD < -1) hD = H[idx]; if (hU < -1) hU = H[idx];
+      var nx = -(hR - hL) / (2*st), ny = -(hU - hD) / (2*st), nz = 1;
+      var nl = Math.sqrt(nx*nx + ny*ny + 1) || 1;
+      nx/=nl; ny/=nl; nz/=nl;
+
+      var sum = 0, openSum = 0;
+      for (var k = 0; k < L.length; k++) {
+        var c = nx*L[k].x + ny*L[k].y + nz*L[k].z;
+        if (c > 0) {
+          var vis = lit(i2, j2, k);
+          sum += L[k].lux * c * vis;
+          // 影の中でも壁や床からの回り込みで完全な黒にはならない。
+          // 遮られたぶんの一部を弱い環境光として戻す。
+          sum += L[k].lux * c * (1 - vis) * 0.10;
+        }
+      }
+      lux[idx] = sum;
+      if (sum > peak) peak = sum;
     }
   }
   if (peak <= 0) peak = 1;
 
-  var RANGE = 3;                 // 何段ぶんを濃淡に割り当てるか
-  for (var py = 0; py < N; py++) {
-    for (var px = 0; px < N; px++) {
-      var sx = (px + 0.5) / N * 2 - 1;
-      var sy = 1 - (py + 0.5) / N * 2;
-      var i4 = (py*N + px) * 4;
-      var xx = sx * AX;
-      var rr = xx*xx + sy*sy;
-      if (rr > 1) { img.data[i4+3] = 0; continue; }
-      var sz = Math.sqrt(1 - rr);
-      // 輪郭のギザつきを抑える（外周だけ薄める）
-      var edge = (rr > 0.965) ? (1 - rr) / 0.035 : 1;
-      var n = normalAt(sx, sy, sz);
-      var lux = luxAtNormal(n[0], n[1], n[2]);
-
-      var g;
-      if (lux > 0.5) {
-        var st = Math.log2(lux / peak);          // 0 が最大、負が暗い
-        var v = 1 + st / RANGE;
+  var RANGE = 4.5;                               // 何段ぶんを濃淡に割り当てるか
+  for (var j3 = 0; j3 < N; j3++) {
+    for (var i3 = 0; i3 < N; i3++) {
+      var id3 = j3*N + i3, o4 = id3*4;
+      if (!IN[id3]) { img.data[o4+3] = 0; continue; }
+      var v = 0;
+      if (lux[id3] > 0.5) {
+        v = 1 + Math.log2(lux[id3] / peak) / RANGE;
         if (v < 0) v = 0; if (v > 1) v = 1;
-        g = 26 + v * 219;                        // 段差がそのまま濃淡差になる
-      } else {
-        g = 20;                                  // 光が回っていない面
       }
-      img.data[i4]   = Math.round(g);
-      img.data[i4+1] = Math.round(g * 0.95);
-      img.data[i4+2] = Math.round(g * 0.88);     // わずかに暖色
-      img.data[i4+3] = Math.round(255 * edge);
+      var g = 22 + v * 223;
+      // 輪郭をなめらかに
+      var x3 = (i3 + 0.5)/N*2 - 1, y3 = 1 - (j3 + 0.5)/N*2;
+      var rr = (x3/0.74)*(x3/0.74) + y3*y3;
+      var edge = (rr > 0.94) ? Math.max(0, (1 - rr) / 0.06) : 1;
+      img.data[o4]   = Math.round(g);
+      img.data[o4+1] = Math.round(g * 0.94);
+      img.data[o4+2] = Math.round(g * 0.86);
+      img.data[o4+3] = Math.round(255 * edge);
     }
   }
   ctx.putImageData(img, 0, 0);
@@ -18871,7 +18937,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.5.9';
+var ver = 'v1.1.6.0';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
