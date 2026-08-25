@@ -2143,7 +2143,7 @@ var LANGS = {
     dftBtnSave:'💾 保存', dftBtnLoad:'📂 読込', dftBtnNew:'＋ 新規',
     dftSelectLight:'💡 ライト選択', dftSearchPlaceholder:'検索...',
     dftCancel:'キャンセル', dftClose:'閉じる', dftApply:'適用',
-    camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定',
+    beamOutOfCone:'ビーム外', camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定',
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
@@ -2248,7 +2248,7 @@ var LANGS = {
     dftBtnSave:'💾 Save', dftBtnLoad:'📂 Load', dftBtnNew:'＋ New',
     dftSelectLight:'💡 Select Light', dftSearchPlaceholder:'Search...',
     dftCancel:'Cancel', dftClose:'Close', dftApply:'Apply',
-    camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop',
+    beamOutOfCone:'outside beam', camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop',
     dftSize:'Size', dftPresetPick:'Pick a preset',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
     expLegFace:'Face', expLegCam:'Camera', expLegKey:'Key', expLegBack:'Back',
@@ -2350,7 +2350,7 @@ var LANGS = {
     dftBtnSave:'💾 Guardar', dftBtnLoad:'📂 Cargar', dftBtnNew:'＋ Nuevo',
     dftSelectLight:'💡 Seleccionar Luz', dftSearchPlaceholder:'Buscar...',
     dftCancel:'Cancelar', dftClose:'Cerrar', dftApply:'Aplicar',
-    camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f',
+    beamOutOfCone:'fuera del haz', camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f',
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
     expLegFace:'Cara', expLegCam:'Cámara', expLegKey:'Key', expLegBack:'Contra',
@@ -13755,7 +13755,9 @@ function _dftSyncResultPanel() {
   if (di && ri) di.innerHTML = ri.innerHTML;
   if (dc && rc) dc.innerHTML = rc.innerHTML;
   var hasContent = di && di.textContent.trim().length > 0;
-  p.style.display = (typeof S !== 'undefined' && S.page === 'draft' && hasContent) ? 'block' : 'none';
+  // 被写体に光が届いていないときは中身があっても出さない（前回の値が残るため）
+  var lit = !_dft._resultUnlit;
+  p.style.display = (typeof S !== 'undefined' && S.page === 'draft' && hasContent && lit) ? 'block' : 'none';
   // Ensure sticky-result stays hidden in draft mode
   var sr = document.getElementById('sticky-result');
   if (sr && typeof S !== 'undefined' && S.page === 'draft') sr.style.display = 'none';
@@ -14800,6 +14802,22 @@ function _dftDrawGroups(ctx) {
 }
 
 // Sync draft distances → S.dist → calculate() so the result panel updates live
+// ドラッグ中に毎イベント calculate() を呼ぶと重いので、1フレームに1回へまとめる。
+// requestAnimationFrame だけだと、描画されていない状態（背面タブ等）で
+// 発火せず更新を取りこぼすので、タイマーの保険を併走させる。
+var _dftCalcSyncPending = false;
+function _dftQueueCalcSync() {
+  if (_dftCalcSyncPending) return;
+  _dftCalcSyncPending = true;
+  var run = function() {
+    if (!_dftCalcSyncPending) return;   // どちらか先に走った方だけ実行
+    _dftCalcSyncPending = false;
+    _dftUpdateCalcFromDraft();
+  };
+  requestAnimationFrame(run);
+  setTimeout(run, 80);
+}
+
 function _dftUpdateCalcFromDraft() {
   try {
     var lights  = _dftVisObjs(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
@@ -14814,29 +14832,28 @@ function _dftUpdateCalcFromDraft() {
     var dist;
     var activeBounce = null;
     var illuminated = false;
-    // Find nearest bounce linked to this light (among configured lights)
-    var myBounce = null;
-    bounces.forEach(function(b) {
-      var nl = lights.reduce(function(best, x) { return _dftDist(x,b)<_dftDist(best,b)?x:best; }, lights[0]);
-      if (nl && nl.id === lt.id) myBounce = b;
-    });
-    if (myBounce) {
-      illuminated = true; // light linked to bounce — always show result
-      activeBounce = myBounce;
-      dist = _dftDist(lt, myBounce) + _dftDist(myBounce, sb);
-    } else if (diffs.length > 0) {
-      illuminated = _dftInBeam(lt, diffs[0].wx, diffs[0].wy);
+    // 経路判定は _dftLightPaths に集約している。ここに古い判定
+    // （反射板が紐づけば必ず点灯扱い）が残っていたため、被写体に直接当てて
+    // いるライトでも Result だけ反射経路の値になっていた。
+    var _p = _dftLightPaths(sb).find(function(x){ return x.light.id === lt.id; });
+    if (_p) {
+      illuminated  = true;
+      dist         = _p.dist;
+      activeBounce = _p.via;
+    } else if (diffs.length > 0 && _dftInBeam(lt, diffs[0].wx, diffs[0].wy)) {
+      // ディフューズ越し。透過材の位置から被写体までを見る
+      illuminated = true;
       dist = _dftDist(diffs[0], sb);
-    } else {
-      illuminated = _dftInBeam(lt, sb.wx, sb.wy);
-      dist = _dftDist(lt, sb);
     }
-    if (!dist || dist <= 0) return;
-    if (!illuminated) {
+    // 届いていないときに Result を隠す処理を先に置く。
+    // 以前は dist 未定義の early return が手前にあり、ここへ到達しなかった。
+    if (!illuminated || !dist || dist <= 0) {
+      _dft._resultUnlit = true;
       var _rp = document.getElementById('dft-result-panel');
       if (_rp) _rp.style.display = 'none';
       return;
     }
+    _dft._resultUnlit = false;
     // Apply bounce factor to S.factors so calculate() picks it up
     if (activeBounce && activeBounce.factors && activeBounce.factors.length) {
       var bnStops = getTotalFactorStops(activeBounce.factors);
@@ -15457,7 +15474,12 @@ function _dftMM(e) {
     var half = Math.abs(diff);
     half = Math.max(2.5*Math.PI/180, Math.min(85*Math.PI/180, half));
     _dft.beamObj.beamAngle = half * 2 * 180 / Math.PI;
-    dftRender(); return;
+    dftRender();
+    // ドラッグ中も情報バーの角度と Result を追従させる。
+    // 以前は指を離すまで更新されず、ビームから被写体が外れても気付けなかった。
+    _dftUpdateInfoBar();
+    _dftQueueCalcSync();
+    return;
   }
   if (_dft.rectDraw) {
     var wp = _dftS2W(mx, my);
@@ -15834,13 +15856,17 @@ function dftLightSettings(oid) {
     '<div style="font-size:14px;font-weight:800;margin-bottom:2px;">'+(lt?lt.name:o.label||'Light')+'</div>' +
     (accs.length ? '<div style="font-size:11px;color:#888;margin-bottom:12px;">Accessory</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">'+accBtns+'</div>' : '') +
     '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:8px;">Beam Angle</div>' +
-    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">' +
-    '<input id="_dft_ls_ba" type="number" min="1" max="360" step="1" value="'+beamVal+'" ' +
-    'style="width:90px;padding:10px;font-size:22px;font-weight:700;border:2px solid #1976d2;border-radius:12px;text-align:center;box-sizing:border-box;" ' +
-    'onkeydown="if(event.key===\'Enter\')_dftApplyBeam(\''+oid+'\')">' +
+    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">' +
+    '<input id="_dft_ls_ba" type="number" min="1" max="180" step="1" value="'+beamVal+'" ' +
+    'oninput="_dftLiveBeam(\''+oid+'\',this.value,true)" ' +
+    'style="width:90px;padding:10px;font-size:22px;font-weight:700;border:2px solid #1976d2;border-radius:12px;text-align:center;box-sizing:border-box;">' +
     '<span style="font-size:18px;color:#888;">°</span>' +
-    '<button onclick="_dftApplyBeam(\''+oid+'\')" style="padding:10px 18px;background:#1976d2;color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">Apply</button>' +
+    '<div style="flex:1;"></div>' +
+    '<span id="_dft_ls_bafs" style="font-size:15px;font-weight:900;color:#e65100;font-family:monospace;"></span>' +
     '</div>' +
+    // スライダーでも変えられるように。動かした瞬間に図面と Result に反映する
+    '<input id="_dft_ls_basl" type="range" min="5" max="180" step="1" value="'+beamVal+'" ' +
+    'oninput="_dftLiveBeam(\''+oid+'\',this.value)" style="width:100%;margin-bottom:18px;accent-color:#1976d2;">' +
     _dftHeightFieldHTML(o) +
     '<div style="border-top:1px solid #eee;margin:0 -16px;padding:14px 16px 0;">' +
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
@@ -15856,6 +15882,7 @@ function dftLightSettings(oid) {
   _dft._editLightId = oid;
   document.body.insertAdjacentHTML('beforeend', html);
   _dftFRefresh();
+  _dftLsBeamFstop(oid);
   setTimeout(function(){ var i=document.getElementById('_dft_ls_ba'); if(i){i.focus();i.select();} }, 80);
 }
 
@@ -15872,6 +15899,38 @@ function _dftSetAcc(oid, accKey) {
   _dftUpdateInfoBar();
   dftRender();
   _dftUpdateCalcFromDraft();
+}
+
+/** ビーム角を即反映。図面・情報バー・Result をまとめて更新する。 */
+window._dftLiveBeam = function(oid, v, fromNumber) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  var n = parseFloat(v);
+  if (!isFinite(n)) return;
+  n = Math.max(1, Math.min(360, n));
+  o.beamAngle = n;
+  // 数値欄とスライダーを相互に追従（手入力中は数値欄を書き戻さない）
+  var sl = document.getElementById('_dft_ls_basl');
+  if (sl && fromNumber) sl.value = Math.max(5, Math.min(180, n));
+  var nm = document.getElementById('_dft_ls_ba');
+  if (nm && !fromNumber) nm.value = n;
+  dftRender();
+  _dftUpdateInfoBar();
+  _dftQueueCalcSync();
+  _dftLsBeamFstop(oid);
+};
+
+/** 設定シート内に、いまのビーム角での被写体のF値を出す（外れたら「範囲外」） */
+function _dftLsBeamFstop(oid) {
+  var out = document.getElementById('_dft_ls_bafs');
+  if (!out) return;
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  var people = _dftVisObjs(function(x){ return x.type==='people'; });
+  if (!o || !people.length) { out.textContent = ''; return; }
+  var p = _dftLightPaths(people[0]).find(function(x){ return x.light.id === oid; });
+  if (!p) { out.textContent = '— ' + t('beamOutOfCone'); return; }
+  var fv = _dftCalcFstop(p.light, p.dist, p.extraStops);
+  out.textContent = fv ? ('f' + fv.toFixed(1) + (p.via ? ' ↩' : '')) : '';
 }
 
 function _dftApplyBeam(oid) {
@@ -17725,7 +17784,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.93';
+var ver = 'v1.1.4.94';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
