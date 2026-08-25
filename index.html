@@ -14561,18 +14561,23 @@ function _dftDrawObj(ctx, o) {
       ctx.arc(0, 0, bl, Math.PI/2 - ba/2, Math.PI/2 + ba/2);
       ctx.closePath(); ctx.fill(); ctx.stroke();
     });
-    // body — Exposure ダイヤル上の光源と同じ色にして対応が付くようにする
+    // body — Exposure ダイヤル上の光源と同じ色にして対応が付くようにする。
+    // カメラ(R*1.8幅)に比べて小さく見えていたので、ライトも同等の大きさにする。
     var _si = _dftSrcIndexOf(o);
+    var _LR = R * 1.35;
+    // 背後に白い縁を敷いて、グリッドや線の上でも輪郭が立つようにする
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    ctx.beginPath(); ctx.arc(0, 0, _LR + 2.5, 0, Math.PI*2); ctx.fill();
     ctx.fillStyle   = sel ? '#e65100' : (_si >= 0 ? _dftSrcColor(_si) : '#f9a825');
     ctx.strokeStyle = sel ? '#b71c1c' : (_si >= 0 ? _dftSrcEdge(_si)  : '#e65100');
-    ctx.lineWidth   = sel ? 2.5 : 1.5;
-    ctx.beginPath(); ctx.arc(0, 0, R, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.lineWidth   = sel ? 3 : 2;
+    ctx.beginPath(); ctx.arc(0, 0, _LR, 0, Math.PI*2); ctx.fill(); ctx.stroke();
 
     // Calc と同じ機種アイコンを上に載せる。無い機種は従来の輪で表す
     var _lt = o.makerKey && LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
     var _icon = _dftLightIconImg(_lt);
     if (_icon && _icon.complete && _icon.naturalWidth) {
-      var _fit = R * 1.42;                        // 円の中に収める
+      var _fit = _LR * 1.42;                      // 円の中に収める
       var _ar  = _icon.naturalWidth / _icon.naturalHeight;
       var _iw  = _ar >= 1 ? _fit : _fit * _ar;
       var _ih  = _ar >= 1 ? _fit / _ar : _fit;
@@ -14582,9 +14587,9 @@ function _dftDrawObj(ctx, o) {
       ctx.restore();
     } else {
       // inner ring
-      ctx.strokeStyle = 'rgba(255,255,255,0.5)';
-      ctx.lineWidth   = 1.5;
-      ctx.beginPath(); ctx.arc(0, 0, R*0.55, 0, Math.PI*2); ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+      ctx.lineWidth   = 2;
+      ctx.beginPath(); ctx.arc(0, 0, _LR*0.55, 0, Math.PI*2); ctx.stroke();
     }
 
   } else if (o.type === 'image') {
@@ -14797,8 +14802,9 @@ function _dftDrawAimLinks(ctx) {
       : _dft.objects.find(function(o){ return o.id === lt.aimId && !o.hidden && !_dftLayerHidden(o); });
     if (!tgt) return;
 
-    var a = _dftW2S(lt.wx, lt.wy), b = _dftW2S(tgt.wx, tgt.wy);
-    var ang = _dftAimAngles(lt, tgt);
+    var pt  = _dftAimPointOf(lt, tgt);
+    var a = _dftW2S(lt.wx, lt.wy), b = _dftW2S(pt.wx, pt.wy);
+    var ang = _dftAimAngles(lt, pt);
     var up  = ang.tilt >= 30;                       // ほぼ真上（天バン等）
 
     ctx.save();
@@ -14819,6 +14825,13 @@ function _dftDrawAimLinks(ctx) {
       ctx.lineTo(hx - Math.sin(th)*5, hy + Math.cos(th)*5);
       ctx.lineTo(hx + Math.sin(th)*5, hy - Math.cos(th)*5);
       ctx.closePath(); ctx.fill();
+    }
+
+    // 当てる場所を指定しているときは、その点に印を出す
+    if (lt.aimPt && lt.aimId === tgt.id) {
+      ctx.fillStyle = 'rgba(106,27,154,0.95)';
+      ctx.beginPath(); ctx.arc(b.x, b.y, 5, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
     }
 
     // 角度と距離のラベル
@@ -15301,15 +15314,42 @@ function _dftBounceCosOut(lt, bn, sb) {
 }
 
 /**
+ * 反射板のうち、実際に光を当てる点。
+ * 20m×15m のような大きな面では、中心と端で被写体までの距離も向きも
+ * 大きく変わる。狙いを指定するときにタップした位置を覚えておき、
+ * 経路の計算はその点で行う。指定が無ければ従来どおり中心。
+ */
+function _dftAimPointOf(lt, tgt) {
+  if (lt && lt.aimId === tgt.id && lt.aimPt) {
+    return { wx: lt.aimPt.x, wy: lt.aimPt.y, zHeight: _dftZ(tgt), stand: false };
+  }
+  return tgt;
+}
+
+/** ワールド座標を矩形オブジェクトの内側に収める */
+function _dftClampToRect(o, wx, wy) {
+  var rd = _dftRectDims(o);
+  var rot = -(o.rot || 0);
+  var dx = wx - o.wx, dy = wy - o.wy;
+  var lx = dx*Math.cos(rot) - dy*Math.sin(rot);
+  var ly = dx*Math.sin(rot) + dy*Math.cos(rot);
+  lx = Math.max(-rd.w/2, Math.min(rd.w/2, lx));
+  ly = Math.max(-rd.h/2, Math.min(rd.h/2, ly));
+  var c = Math.cos(o.rot || 0), s2 = Math.sin(o.rot || 0);
+  return { x: o.wx + lx*c - ly*s2, y: o.wy + lx*s2 + ly*c };
+}
+
+/**
  * ライトが「真上のバウンス」を狙っているか。
  * 俯瞰のビーム判定は水平方向しか見ないので、天バンのように真上にある板は
  * どう向けても永久にビーム外になる。水平距離より高さ差が勝っていて、
  * 水平方向には十分近い場合は、上を向けているものとして扱う。
  */
 function _dftAimsOverhead(lt, target) {
-  var dz = _dftZ(target) - _dftZ(lt);
+  var pt = _dftAimPointOf(lt, target);
+  var dz = _dftZ(pt) - _dftZ(lt);
   if (dz <= 0.3) return false;                 // 上にない
-  var h  = _dftDist2D(lt, target);
+  var h  = _dftDist2D(lt, pt);
   return dz > h;                               // 仰角45°より上
 }
 
@@ -15343,10 +15383,12 @@ function _dftLightPaths(sb) {
    * 正対（cos=1）のときは従来と同じ値なので、通常の使い方では変わらない。
    */
   function viaPath(lt, bn) {
+    // 当てる点を指定していればそこを使う（大きな面では中心と大きく違う）
+    var pt = _dftAimPointOf(lt, bn);
     var cosOut = _dftBounceCosOut(lt, bn, sb);
     if (cosOut <= 0.05) return null;              // 板の裏側 or ほぼ真横
-    return { light:lt, via:bn, from:bn,
-             dist:_dftDist(lt, bn) + _dftDist(bn, sb),
+    return { light:lt, via:bn, from:pt,
+             dist:_dftDist(lt, pt) + _dftDist(pt, sb),
              cosOut: cosOut,
              extraStops:getTotalFactorStops(bn.factors || []) - Math.log2(cosOut) };
   }
@@ -15600,17 +15642,20 @@ function _dftMD(e) {
       return;
     }
     var src = _dft.objects.find(function(o){ return o.id === _dft._aimFrom; });
-    // 同じライトをもう一度押したら取り消し
-    if (_dftObjAtFiltered(mx, my, function(o){ return o.id === _dft._aimFrom; })) {
-      _dft._aimFrom = null; _dft._aimCur = null;
-      _dftSetStatus('🎯 ' + t('aimPickLight'));
-      dftRender(); return;
-    }
-    // 2つ目は狙える対象だけを拾う（自分自身は除く）
+    // 2つ目は狙える対象だけを拾う（自分自身は除く）。
+    // 先に対象を探すのが肝心。天バンはライトの真上に広がっているので、
+    // 「同じライトを押したら取り消し」を先に見ると、天井を狙うたびに
+    // 取り消しになってしまう。
     var aHit = _dftObjAtFiltered(mx, my, function(o){
       return o.id !== _dft._aimFrom &&
              (o.type === 'people' || o.type === 'bounce' || o.type === 'diffuser');
     });
+    // 対象が無いところで元のライトを押したときだけ取り消し
+    if (!aHit && _dftObjAtFiltered(mx, my, function(o){ return o.id === _dft._aimFrom; })) {
+      _dft._aimFrom = null; _dft._aimCur = null;
+      _dftSetStatus('🎯 ' + t('aimPickLight'));
+      dftRender(); return;
+    }
     if (!src || !aHit) {
       // 空振りしても選び直しにはせず、対象待ちのまま続ける
       _dftSetStatus('🎯 ' + t('aimBadTarget'));
@@ -15618,7 +15663,16 @@ function _dftMD(e) {
       dftRender(); return;
     }
     _dft._aimFrom = null; _dft._aimCur = null;
+    // 先に狙い先を設定する。_dftSetAim は対象が変わると aimPt を捨てるので、
+    // 当てる点はそのあとに入れる（順序を逆にすると消えてしまう）。
     _dftSetAim(src.id, (aHit.type === 'people') ? 'subject' : aHit.id);
+    if (aHit.type === 'bounce' || aHit.type === 'diffuser') {
+      var _w = _dftS2W(mx, my);
+      src.aimPt = _dftClampToRect(aHit, _w.x, _w.y);
+      // 当てる点に向け直す
+      src.rot = Math.atan2(-(src.aimPt.x - src.wx), (src.aimPt.y - src.wy));
+      dftRender(); _dftQueueCalcSync();
+    }
     _dftSetStatus('🎯 ' + (src.label || 'Light') + ' → ' + (aHit.label || aHit.type) +
                   '  ' + _dftAimAngleText(src, aHit) + '   ' + t('aimAgain'));
     // 続けて別のライトを狙えるよう、モードは維持する
@@ -16293,11 +16347,15 @@ window._dftSetAim = function(oid, aimId) {
   var o = _dft.objects.find(function(x){ return x.id === oid; });
   if (!o) return;
   _dftPushHistory();
+  if (o.aimId !== aimId) delete o.aimPt;   // 対象が変わったら当てる点は捨てる
   if (aimId === 'auto') delete o.aimId; else o.aimId = aimId;
   // 実在する対象を選んだら、図面上でもそちらを向ける
   if (aimId && aimId !== 'auto' && aimId !== 'subject') {
     var tg = _dft.objects.find(function(x){ return x.id === aimId; });
-    if (tg) o.rot = Math.atan2(-(tg.wx - o.wx), (tg.wy - o.wy));
+    if (tg) {
+      var _p = _dftAimPointOf(o, tg);
+      o.rot = Math.atan2(-(_p.wx - o.wx), (_p.wy - o.wy));
+    }
   } else if (aimId === 'subject') {
     var sb = _dftVisObjs(function(x){ return x.type==='people'; })[0];
     if (sb) o.rot = Math.atan2(-(sb.wx - o.wx), (sb.wy - o.wy));
@@ -18795,7 +18853,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.5.7';
+var ver = 'v1.1.5.8';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
