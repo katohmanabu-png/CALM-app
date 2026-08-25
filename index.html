@@ -14989,7 +14989,11 @@ function _dftLightForBounce(bn) {
     return aimed.reduce(function(a, b){ return _dftDist(a, bn) <= _dftDist(b, bn) ? a : b; });
   }
   var lit = lights.filter(function(lt){
-    return !lt.aimId && _dftInBeam(lt, bn.wx, bn.wy);
+    // 「別の面」を狙うと明示している灯だけ除く。人物狙いや自動の灯は、
+    // 途中にある板を普通に照らすので候補に残す（ここを !lt.aimId にすると
+    // 人物狙いの灯が受けている板の反射が丸ごと消えてしまう）。
+    if (lt.aimId && lt.aimId !== 'subject' && lt.aimId !== bn.id) return false;
+    return _dftInBeam(lt, bn.wx, bn.wy);
   });
   if (!lit.length) return null;
   return lit.reduce(function(a, b){ return _dftDist(a, bn) <= _dftDist(b, bn) ? a : b; });
@@ -15398,6 +15402,28 @@ function _dftDrawBounceBeams(ctx) {
     ctx.fillStyle = '#fff';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(istr, ilx, ily);
+
+    // 立てたパネルは反射しても上下角が変わらない。平面図では見えないので、
+    // 反射光がどこへ抜けていくかを数字で出す。床へ向かっていれば分かる。
+    if (_dftRectDims(bn).stand) {
+      var _dz = _dftZ(bn) - _dftZ(lt);
+      var _dh = _dftDist2D(lt, bn);
+      var _out = Math.round(Math.atan2(_dz, _dh) * 180 / Math.PI);
+      var _sb2 = _dftVisObjs(function(o){ return o.type === 'people'; })[0];
+      var _str = (_out < 0 ? '↓' : '↑') + Math.abs(_out) + '°';
+      if (_sb2) {
+        var _need = Math.round(Math.atan2(_dftZ(_sb2) - _dftZ(bn), _dftDist2D(bn, _sb2)) * 180/Math.PI);
+        _str += '（人物は' + (_need < 0 ? '↓' : '↑') + Math.abs(_need) + '°）';
+      }
+      ctx.font = 'bold 9px -apple-system,Arial';
+      var _sw = ctx.measureText(_str).width + 8;
+      var _sx2 = Math.cos(mAngle) * mLen * 0.55;
+      var _sy2 = Math.sin(mAngle) * mLen * 0.55;
+      ctx.fillStyle = 'rgba(120,60,0,0.88)';
+      _dftRoundRect(ctx, _sx2 - _sw/2, _sy2 - 7, _sw, 14, 4); ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.fillText(_str, _sx2, _sy2);
+    }
 
     ctx.restore();
   });
@@ -15829,9 +15855,33 @@ function _dftBounceCosOut(lt, bn, sb) {
   tx /= tl; ty /= tl;
   var cosN = n[0]*tx + n[1]*ty;
   if (_dftBounceIsOverhead(lt, bn)) return cosN;
+
+  // 立てたパネルは面が垂直なので、反射しても光の上下角は変わらない。
+  // 高い位置の灯を受けると、反射光もその角度で下へ抜けていく。
+  // 平面だけで見ていたため、床へ向かっている光まで満額で数えていた
+  // （8m の灯 → 板 0.6m は 34° 下向き。人物は板から 18° 上）。
+  if (_dftRectDims(bn).stand) return _dftBounceCosOut3D(lt, bn, sb, n);
+
   var m = _dftBounceMirrorDir(lt, bn);
   var cosM = Math.max(0, m[0]*tx + m[1]*ty);
   return _dftBounceGate(cosN) * (DFT_BOUNCE_SCATTER + (1 - DFT_BOUNCE_SCATTER) * cosM);
+}
+
+/** 立てたパネルの反射を、上下も入れて出す。法線は水平（nz=0）。 */
+function _dftBounceCosOut3D(lt, bn, sb, n) {
+  var n3 = [n[0], n[1], 0];
+  var i  = _dftVecNorm([bn.wx - lt.wx, bn.wy - lt.wy, _dftZ(bn) - _dftZ(lt)]);
+  var d  = i[0]*n3[0] + i[1]*n3[1];
+  // 鏡の向き。水平成分だけが折り返り、上下成分はそのまま残る
+  var m3 = [i[0] - 2*d*n3[0], i[1] - 2*d*n3[1], i[2]];
+  var t3 = _dftVecNorm([sb.wx - bn.wx, sb.wy - bn.wy, _dftZ(sb) - _dftZ(bn)]);
+  var cosN = n3[0]*t3[0] + n3[1]*t3[1];
+  var cosM = Math.max(0, m3[0]*t3[0] + m3[1]*t3[1] + m3[2]*t3[2]);
+  return _dftBounceGate(cosN) * (DFT_BOUNCE_SCATTER + (1 - DFT_BOUNCE_SCATTER) * cosM);
+}
+function _dftVecNorm(v) {
+  var L = Math.sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]) || 1;
+  return [v[0]/L, v[1]/L, v[2]/L];
 }
 
 /** 板の裏へは光が出ない。板の面すれすれで急に切れないよう少しなまらせる。 */
@@ -19881,7 +19931,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.8';
+var ver = 'v1.1.7.9';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
