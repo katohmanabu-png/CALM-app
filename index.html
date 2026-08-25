@@ -5097,7 +5097,7 @@ var LIGHTS = {
     },
     arri_arrilite_750: {
       group:'Tungsten', name:'ARRI ARRILITE 750 Plus', desc:'750W Tungsten Open Face', emoji:'🟠', watts:750,
-      ccts:[3200], accessories:['spot','flood'],
+      ccts:[3200], accessories:['spot','flood'], accUnknown:['spot'],
       refData:{3200:{1:{spot:24576,flood:6144},2:{spot:6144,flood:1536},3:{spot:2731,flood:683},5:{spot:983,flood:246}}}
     },
     arri_quartz_2k: {
@@ -5125,12 +5125,12 @@ var LIGHTS = {
     },
     arri_ruby_seven: {
       group:'Tungsten', name:'ARRI Ruby Seven', desc:'7000W Tungsten 7-Light Multi Lamp', emoji:'🔆', watts:7000,
-      ccts:[3200], accessories:['spot','flood'],
+      ccts:[3200], accessories:['spot','flood'], accUnknown:['spot'],
       refData:{3200:{1:{spot:194400,flood:38880},2:{spot:48600,flood:9720},3:{spot:21600,flood:4320},5:{spot:7776,flood:1555},8:{spot:3038,flood:608}}}
     },
     etc_sf26: {
       group:'Tungsten', name:'ETC Source Four 26°', desc:'750W Tungsten Ellipsoidal 26°', emoji:'🎭', watts:750,
-      ccts:[3200], accessories:['spot'],
+      ccts:[3200], accessories:['spot'], accAngles:{spot:26}, accLabels:{spot:'26° Lens'},
       refData:{3200:{
         1:   {spot:54000},
         2:   {spot:14000},
@@ -5218,7 +5218,7 @@ var LIGHTS = {
     mole_mini_brute_2: {
 
       group:'Tungsten', name:'Mini Brute 2 Light', desc:'2000W Tungsten Double Mole', emoji:'🟠', watts:1000,
-      ccts:[3200], accessories:['flat', 'spot'],
+      ccts:[3200], accessories:['flat', 'spot'], accUnknown:['spot'],
       refData:{3200:{
         1: {flat:27000, spot:54000},
         2: {flat:6800, spot:19000},
@@ -5515,7 +5515,7 @@ var LIGHTS = {
       dmxUrl:'https://www.etcconnect.com/WorkArea/DownloadAsset.aspx?id=10737510448',
       dmxVer:'v1.8.2',
       group:'LED Spot', name:'Source Four LED S2 Lustr2', desc:'LED Ellipsoidal Spot Full Color (26° lens)', emoji:'💡', watts:200,
-      ccts:[5600], accessories:['none'],
+      ccts:[5600], accessories:['none'], accAngles:{none:26}, accLabels:{none:'26° Lens'},
       dmx:{led:'Lustr2 (7-color)',power:'≈180W',cct:'Full Color',cri:'-',ip:'IP20',control:'DMX / RDM'},
       refData:{ 5600:{1:37969,2:9075,3:3208,5:1200,8:588} }
     },
@@ -5523,7 +5523,7 @@ var LIGHTS = {
       dmxUrl:'https://www.etcconnect.com/WorkArea/DownloadAsset.aspx?id=10737510448',
       dmxVer:'v1.8.2',
       group:'LED Spot', name:'Source Four LED S2 Daylight', desc:'LED Ellipsoidal Spot Daylight (26° lens)', emoji:'💡', watts:200,
-      ccts:[5600], accessories:['none'],
+      ccts:[5600], accessories:['none'], accAngles:{none:26}, accLabels:{none:'26° Lens'},
       dmx:{led:'Daylight HDR',power:'≈180W',cct:'5600K',cri:'-',ip:'IP20',control:'DMX / RDM'},
       refData:{ 5600:{1:76800,2:12831,3:4800,5:1696,8:588} }
     },
@@ -5531,7 +5531,7 @@ var LIGHTS = {
       dmxUrl:'https://www.etcconnect.com/WorkArea/DownloadAsset.aspx?id=10737510448',
       dmxVer:'v1.8.2',
       group:'LED Spot', name:'Source Four LED S2 Tungsten', desc:'LED Ellipsoidal Spot Tungsten (26° lens)', emoji:'💡', watts:200,
-      ccts:[3200], accessories:['none'],
+      ccts:[3200], accessories:['none'], accAngles:{none:26}, accLabels:{none:'26° Lens'},
       dmx:{led:'Tungsten HDR',power:'≈180W',cct:'3200K',cri:'-',ip:'IP20',control:'DMX / RDM'},
       refData:{ 3200:{1:37969,2:9075,3:3208,5:1200,8:588} }
     },
@@ -5539,7 +5539,7 @@ var LIGHTS = {
       dmxUrl:'https://www.etcconnect.com/WorkArea/DownloadAsset.aspx?id=10737510448',
       dmxVer:'v1.8.2',
       group:'LED Spot', name:'Source Four LED S2 BiColor', desc:'LED Ellipsoidal Spot Bi-Color (26° lens)', emoji:'💡', watts:200,
-      ccts:[3200,5600], accessories:['none'],
+      ccts:[3200,5600], accessories:['none'], accAngles:{none:26}, accLabels:{none:'26° Lens'},
       dmx:{led:'Bi-Color',power:'≈180W',cct:'3200K–5600K',cri:'-',ip:'IP20',control:'DMX / RDM'},
       refData:{ 5600:{1:108581,2:19200,3:6789,5:2269,8:588}, 3200:{1:37969,2:12831,3:3208,5:1200,8:832} }
     }
@@ -19859,7 +19859,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.5';
+var ver = 'v1.1.7.6';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
