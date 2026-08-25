@@ -2142,7 +2142,7 @@ var LANGS = {
     dftBtnPdf:'📄 PDF', dftBtnPhoto:'🖼 写真', dftBtnScale:'📐 スケール',
     dftBtnSave:'💾 保存', dftBtnLoad:'📂 読込', dftBtnNew:'＋ 新規',
     dftSelectLight:'💡 ライト選択', dftSearchPlaceholder:'検索...',
-    dftCancel:'キャンセル', dftClose:'閉じる', dftApply:'適用',
+    dftCancel:'キャンセル', saveTitle:'保存', saveOverwrite:'上書き保存', saveOverwriteHint:'いま開いている図面を更新します', saveAsNew:'別名で保存', saveAsNewHint:'新しい図面として残します（元はそのまま）', saveLastAt:'前回', dftClose:'閉じる', dftApply:'適用',
     beamOutOfCone:'ビーム外', aimLabel:'このライトが狙う先', aimHint:'天バンなど真上の反射板は、ここで選ぶと計算に入ります（↑＝真上）。', aimAuto:'自動', aimSubject:'人物', camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定',
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
@@ -2247,7 +2247,7 @@ var LANGS = {
     dftBtnPdf:'📄 PDF', dftBtnPhoto:'🖼 Photo', dftBtnScale:'📐 Scale',
     dftBtnSave:'💾 Save', dftBtnLoad:'📂 Load', dftBtnNew:'＋ New',
     dftSelectLight:'💡 Select Light', dftSearchPlaceholder:'Search...',
-    dftCancel:'Cancel', dftClose:'Close', dftApply:'Apply',
+    dftCancel:'Cancel', saveTitle:'Save', saveOverwrite:'Overwrite', saveOverwriteHint:'Update the draft you have open', saveAsNew:'Save as new', saveAsNewHint:'Keep this as a separate draft (the original stays)', saveLastAt:'last', dftClose:'Close', dftApply:'Apply',
     beamOutOfCone:'outside beam', aimLabel:'What this light aims at', aimHint:'Pick it here for an overhead bounce — the beam cone alone cannot see straight up (↑ = overhead).', aimAuto:'Auto', aimSubject:'Subject', camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop',
     dftSize:'Size', dftPresetPick:'Pick a preset',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
@@ -2349,7 +2349,7 @@ var LANGS = {
     dftBtnPdf:'📄 PDF', dftBtnPhoto:'🖼 Foto', dftBtnScale:'📐 Escala',
     dftBtnSave:'💾 Guardar', dftBtnLoad:'📂 Cargar', dftBtnNew:'＋ Nuevo',
     dftSelectLight:'💡 Seleccionar Luz', dftSearchPlaceholder:'Buscar...',
-    dftCancel:'Cancelar', dftClose:'Cerrar', dftApply:'Aplicar',
+    dftCancel:'Cancelar', saveTitle:'Guardar', saveOverwrite:'Sobrescribir', saveOverwriteHint:'Actualiza el plano abierto', saveAsNew:'Guardar como nuevo', saveAsNewHint:'Se guarda aparte (el original se conserva)', saveLastAt:'último', dftClose:'Cerrar', dftApply:'Aplicar',
     beamOutOfCone:'fuera del haz', aimLabel:'A qué apunta esta luz', aimHint:'Elígelo aquí para un rebote cenital: el cono no ve hacia arriba (↑ = cenital).', aimAuto:'Auto', aimSubject:'Sujeto', camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f',
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
@@ -17463,7 +17463,49 @@ function dftToggleUnit() {
 }
 
 // ── SAVE / LOAD ───────────────────────────────────────────
+/**
+ * 保存。開いている図面があるときは「上書き」か「別名」かを先に選ばせる。
+ * 以前は常に名前ダイアログを出しつつ _dft.draftId を使い回していたため、
+ * 名前を変えても新規保存ではなく元の図面の改名になっていた。
+ */
 function dftSave() {
+  if (_dft.draftId && _dft.drafts.some(function(d){ return d.id === _dft.draftId; })) {
+    _dftSaveChoice();
+    return;
+  }
+  _dftSaveDialog('new');
+}
+
+/** 上書き / 別名 の選択 */
+function _dftSaveChoice() {
+  var ex = document.getElementById('_dft_svc'); if (ex) ex.remove();
+  var cur = _dft.drafts.find(function(d){ return d.id === _dft.draftId; }) || {};
+  var when = cur.savedAt ? new Date(cur.savedAt).toLocaleString() : '';
+  var html =
+    '<div id="_dft_svc" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.58);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_svc\').remove()">' +
+    '<div style="background:#fff;color:#111;border-radius:18px;padding:22px 20px 18px;width:88%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.3);" onclick="event.stopPropagation()">' +
+    '<div style="font-size:15px;font-weight:800;margin-bottom:4px;">💾 ' + t('saveTitle') + '</div>' +
+    '<div style="font-size:11px;color:#888;margin-bottom:16px;">' + _dftEsc(cur.name || '') +
+      (when ? ' · ' + t('saveLastAt') + ' ' + when : '') + '</div>' +
+    '<button onclick="_dftSaveOverwrite()" style="width:100%;padding:13px;margin-bottom:8px;border:none;background:#1976d2;color:#fff;border-radius:11px;font-size:13px;font-weight:800;cursor:pointer;text-align:left;">' +
+      '⤴ ' + t('saveOverwrite') + '<div style="font-size:10px;font-weight:600;opacity:.85;margin-top:2px;">' + t('saveOverwriteHint') + '</div></button>' +
+    '<button onclick="document.getElementById(\'_dft_svc\').remove();_dftSaveDialog(\'new\')" style="width:100%;padding:13px;margin-bottom:14px;border:2px solid #1976d2;background:#fff;color:#1976d2;border-radius:11px;font-size:13px;font-weight:800;cursor:pointer;text-align:left;">' +
+      '✚ ' + t('saveAsNew') + '<div style="font-size:10px;font-weight:600;opacity:.8;margin-top:2px;">' + t('saveAsNewHint') + '</div></button>' +
+    '<button onclick="document.getElementById(\'_dft_svc\').remove()" style="width:100%;padding:11px;border:none;background:#eee;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;">' + t('dftCancel') + '</button>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+/** 名前を聞かずにそのまま上書き */
+window._dftSaveOverwrite = function() {
+  var dlg = document.getElementById('_dft_svc'); if (dlg) dlg.remove();
+  _dftCommitDraft(_dft.draftId, _dft.draftName || 'Draft',
+                  _dft.draftDate || new Date().toISOString().slice(0,10),
+                  _dft.draftLocation || '');
+};
+
+function _dftSaveDialog(mode) {
+  _dft._saveMode = mode;
   var today = new Date().toISOString().slice(0,10);
   var html =
     '<div id="_dft_sv" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.58);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sv\').remove()">' +
@@ -17500,8 +17542,15 @@ function _dftSaveCommit() {
   _dft.draftDate     = date;
   _dft.draftLocation = loc;
 
-  var id = _dft.draftId || ('dft_' + Date.now());
+  // 「別名で保存」なら必ず新しい ID にする（元の図面はそのまま残す）
+  var id = (_dft._saveMode === 'new' || !_dft.draftId) ? ('dft_' + Date.now()) : _dft.draftId;
+  _dftCommitDraft(id, name, date, loc);
+}
+
+/** 実際の書き出し。上書き・別名の両方から呼ぶ */
+function _dftCommitDraft(id, name, date, loc) {
   _dft.draftId = id;
+  _dft.draftName = name; _dft.draftDate = date; _dft.draftLocation = loc;
   var data = {
     id: id, name: name, date: date, location: loc,
     objects:     JSON.parse(JSON.stringify(_dft.objects)),
@@ -18029,7 +18078,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.97';
+var ver = 'v1.1.4.98';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
