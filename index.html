@@ -2147,8 +2147,8 @@ var LANGS = {
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
-    expProbeAt:'この向きの読み', expProbeNone:'この向きには光が来ていません',
-    expLegNote:'オレンジの丸をドラッグすると、その向きに露出計を向けたときの読みが出ます。カメラのある向きが0°で、90°がカメラから見て右、270°が左、180°が真後ろ（逆光）。図の光源は、いま配置しているライトの実際の到来角です。',
+    expProbeAt:'この向きの読み', expProbeBOn:'＋ 2点目(B)を出して比べる', expProbeBOff:'− 2点目(B)を消す', expProbeNone:'この向きには光が来ていません',
+    expLegNote:'丸（A）をドラッグすると、その向きに露出計を向けたときの読みが出ます。Bを足すと2点の差＝コントラストが出ます。カメラのある向きが0°で、90°がカメラから見て右、270°が左、180°が真後ろ（逆光）。図の光源は、いま配置しているライトの実際の到来角で、色は図面上のライトと対応しています。',
     dftPanelH:'幕の高さ', dftPanelHHint:'← 距離計算に使う高さ(中心)', dftObjSettings:'設定',
     dftPeopleTitle:'🧍 人を配置', dftManLabel:'男性', dftWomanLabel:'女性',
     dftSavePrompt:'名前を付けて保存:', dftSaved:'💾 保存: ',
@@ -2252,8 +2252,8 @@ var LANGS = {
     dftSize:'Size', dftPresetPick:'Pick a preset',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
     expLegFace:'Face', expLegCam:'Camera', expLegKey:'Key', expLegBack:'Back',
-    expProbeAt:'Reading at', expProbeNone:'no light from this direction',
-    expLegNote:'Drag the orange dot to read what a meter aimed that way would show. 0° is the camera direction, 90° is camera-right, 270° camera-left, 180° straight behind (backlight). The sources on the dial are the real arrival angles of the lights you have placed.',
+    expProbeAt:'Reading at', expProbeBOn:'+ Add a 2nd probe (B) to compare', expProbeBOff:'− Remove probe B', expProbeNone:'no light from this direction',
+    expLegNote:'Drag probe A to read what a meter aimed that way would show; add B to get the difference between two directions (contrast). 0° is the camera direction, 90° camera-right, 270° camera-left, 180° straight behind (backlight). The sources on the dial are the real arrival angles of your lights, colour-matched to the plan.',
     dftPanelH:'Panel height', dftPanelHHint:'← height used for distance (centre)', dftObjSettings:'Settings',
     dftPeopleTitle:'🧍 People', dftManLabel:'Man', dftWomanLabel:'Woman',
     dftSavePrompt:'Save as:', dftSaved:'💾 Saved: ',
@@ -2354,8 +2354,8 @@ var LANGS = {
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
     expLegFace:'Cara', expLegCam:'Cámara', expLegKey:'Key', expLegBack:'Contra',
-    expProbeAt:'Lectura a', expProbeNone:'no llega luz desde esta dirección',
-    expLegNote:'Arrastra el punto naranja para ver la lectura de un fotómetro orientado en esa dirección. 0° es la cámara, 90° derecha de cámara, 270° izquierda, 180° justo detrás (contraluz). Las fuentes del dial son los ángulos reales de las luces colocadas.',
+    expProbeAt:'Lectura a', expProbeBOn:'+ Añadir 2ª sonda (B)', expProbeBOff:'− Quitar sonda B', expProbeNone:'no llega luz desde esta dirección',
+    expLegNote:'Arrastra la sonda A para ver la lectura en esa dirección; añade B para obtener la diferencia entre dos direcciones (contraste). 0° es la cámara, 90° derecha, 270° izquierda, 180° detrás (contraluz). Las fuentes del dial son los ángulos reales de tus luces, con el color del plano.',
     dftPanelH:'Altura del panel', dftPanelHHint:'← altura usada para la distancia (centro)', dftObjSettings:'Ajustes',
     dftPeopleTitle:'🧍 Personas', dftManLabel:'Hombre', dftWomanLabel:'Mujer',
     dftSavePrompt:'Guardar como:', dftSaved:'💾 Guardado: ',
@@ -14480,9 +14480,10 @@ function _dftDrawObj(ctx, o) {
       ctx.arc(0, 0, bl, Math.PI/2 - ba/2, Math.PI/2 + ba/2);
       ctx.closePath(); ctx.fill(); ctx.stroke();
     });
-    // body
-    ctx.fillStyle   = sel ? '#e65100' : '#f9a825';
-    ctx.strokeStyle = sel ? '#b71c1c' : '#e65100';
+    // body — Exposure ダイヤル上の光源と同じ色にして対応が付くようにする
+    var _si = _dftSrcIndexOf(o);
+    ctx.fillStyle   = sel ? '#e65100' : (_si >= 0 ? _dftSrcColor(_si) : '#f9a825');
+    ctx.strokeStyle = sel ? '#b71c1c' : (_si >= 0 ? _dftSrcEdge(_si)  : '#e65100');
     ctx.lineWidth   = sel ? 2.5 : 1.5;
     ctx.beginPath(); ctx.arc(0, 0, R, 0, Math.PI*2); ctx.fill(); ctx.stroke();
     // inner ring
@@ -16558,10 +16559,16 @@ function _dftExpPt(angDeg, r) {
   return [g.cx + Math.cos(th)*r, g.cy + Math.sin(th)*r];
 }
 
+// 計測点は2つ持てる。A と B の差がそのままキー／フィルの比になる。
+var DFT_PROBE_COL = { A:'#e65100', B:'#0288d1', off:'#9e9e9e' };
+
 function _dftExpProbeSVG(d) {
   var g = DFT_EXP_GEO, cx = g.cx, cy = g.cy, R = g.R;
   var probe = (_dft._expProbe != null) ? _dft._expProbe : 0;
   var read  = _dftExpReadAt(d.sources, d.ref, probe);
+  var useB  = !!_dft._expProbeB2;
+  var probeB= (_dft._expProbeB != null) ? _dft._expProbeB : 180;
+  var readB = _dftExpReadAt(d.sources, d.ref, probeB);
 
   function label(x, y, txt, col, anchor, size) {
     return '<text x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" font-size="'+(size||9)+'" font-weight="800" fill="'+col+'" text-anchor="'+(anchor||'middle')+'" style="pointer-events:none;">'+txt+'</text>';
@@ -16575,12 +16582,12 @@ function _dftExpProbeSVG(d) {
     return '<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" stroke="#f0f0f6" stroke-width="1"/>';
   }).join('');
 
-  // 実際の光源。到来角の位置に置く
-  var srcMarks = d.sources.map(function(sc) {
+  // 実際の光源。到来角の位置に置く。色は図面上のライトアイコンと共通
+  var srcMarks = d.sources.map(function(sc, si) {
     var rel = _dftExpRelAngle(sc.azim, d.ref);
     var p   = _dftExpPt(rel, R);
-    var col = sc.via ? '#0288d1' : '#f9a825';
-    var edge= sc.via ? '#01579b' : '#e65100';
+    var col = _dftSrcColor(si);
+    var edge= _dftSrcEdge(si);
     var out = _dftExpPt(rel, R + 13);
     var anchor = (out[0] > cx + 6) ? 'start' : (out[0] < cx - 6) ? 'end' : 'middle';
     var nm  = (sc.name.length > 12) ? sc.name.slice(0,12) + '…' : sc.name;
@@ -16607,22 +16614,37 @@ function _dftExpProbeSVG(d) {
     label(_dftExpPt(180, R+14)[0], _dftExpPt(180, R+14)[1],   t('expBack'),  '#aaa', 'middle');
 
   // 計測点（ドラッグできる）。cos で落ちた向きは灰色にする
-  var pp = _dftExpPt(probe, R);
-  var live = read.lux > 0;
-  var probeCol = live ? '#e65100' : '#9e9e9e';
-  var probeMark =
-    '<line id="_dft_exp_pline" x1="'+cx+'" y1="'+cy+'" x2="'+pp[0].toFixed(1)+'" y2="'+pp[1].toFixed(1)+'" stroke="'+probeCol+'" stroke-width="2.5" stroke-dasharray="5 3" style="pointer-events:none;"/>' +
-    '<circle id="_dft_exp_probe" cx="'+pp[0].toFixed(1)+'" cy="'+pp[1].toFixed(1)+'" r="12" fill="'+probeCol+'" stroke="#fff" stroke-width="2.5" style="cursor:grab;"/>' +
-    '<text id="_dft_exp_ptxt" x="'+pp[0].toFixed(1)+'" y="'+(pp[1]+3.5).toFixed(1)+'" font-size="10" font-weight="900" fill="#fff" text-anchor="middle" style="pointer-events:none;">↕</text>';
+  function probeSVG(tag, ang, rd) {
+    var pt = _dftExpPt(ang, R);
+    var col = rd.lux > 0 ? DFT_PROBE_COL[tag] : DFT_PROBE_COL.off;
+    return '<line id="_dft_exp_pline'+tag+'" x1="'+cx+'" y1="'+cy+'" x2="'+pt[0].toFixed(1)+'" y2="'+pt[1].toFixed(1)+'" stroke="'+col+'" stroke-width="2.5" stroke-dasharray="5 3" style="pointer-events:none;"/>' +
+      '<circle id="_dft_exp_probe'+tag+'" data-probe="'+tag+'" cx="'+pt[0].toFixed(1)+'" cy="'+pt[1].toFixed(1)+'" r="12" fill="'+col+'" stroke="#fff" stroke-width="2.5" style="cursor:grab;"/>' +
+      '<text id="_dft_exp_ptxt'+tag+'" x="'+pt[0].toFixed(1)+'" y="'+(pt[1]+3.5).toFixed(1)+'" font-size="10" font-weight="900" fill="#fff" text-anchor="middle" style="pointer-events:none;">'+tag+'</text>';
+  }
+  var probeMark = probeSVG('A', probe, read) + (useB ? probeSVG('B', probeB, readB) : '');
 
-  // 読み値
-  var vTxt = live ? (t('expProbeAt') + ' ' + Math.round(probe) + '°') : (Math.round(probe) + '° — ' + t('expProbeNone'));
-  var readout =
-    '<div id="_dft_exp_readout" style="display:flex;align-items:center;gap:10px;justify-content:center;padding:8px 10px;margin:2px 0 8px;background:#fff8f2;border:1.5px solid #ffcc80;border-radius:10px;">' +
-      '<span id="_dft_exp_rlbl" style="font-size:10px;font-weight:800;color:#8d6e63;">'+vTxt+'</span>' +
-      '<span id="_dft_exp_rf"   style="font-size:20px;font-weight:900;color:#e65100;font-family:monospace;">'+(read.fstop ? 'f'+read.fstop.toFixed(1) : '—')+'</span>' +
-      '<span id="_dft_exp_rlx"  style="font-size:11px;color:#999;font-family:monospace;">'+(read.lux ? Math.round(read.lux).toLocaleString()+' lx' : '')+'</span>' +
+  // 読み値。B を出しているときは差（＝コントラスト）も並べる
+  function card(tag, ang, rd) {
+    var col = DFT_PROBE_COL[tag];
+    return '<div style="flex:1;padding:6px 4px;background:#fff;border:1.5px solid '+col+';border-radius:9px;text-align:center;">' +
+      '<div style="font-size:9px;font-weight:800;color:'+col+';">'+tag+' · <span id="_dft_exp_ang'+tag+'">'+Math.round(ang)+'</span>°</div>' +
+      '<div id="_dft_exp_rf'+tag+'" style="font-size:18px;font-weight:900;color:'+col+';font-family:monospace;">'+(rd.fstop ? 'f'+rd.fstop.toFixed(1) : '—')+'</div>' +
+      '<div id="_dft_exp_rlx'+tag+'" style="font-size:9px;color:#999;font-family:monospace;">'+(rd.lux ? Math.round(rd.lux).toLocaleString()+' lx' : t('expProbeNone'))+'</div>' +
     '</div>';
+  }
+  var diffTxt = _dftExpDiffText(read, readB);
+  var readout =
+    '<div id="_dft_exp_readout" style="display:flex;align-items:stretch;gap:6px;margin:2px 0 8px;">' +
+      card('A', probe, read) +
+      (useB ? card('B', probeB, readB) : '') +
+      (useB ? '<div style="flex:1;padding:6px 4px;background:#f3f0fa;border:1.5px solid #5e35b1;border-radius:9px;text-align:center;">' +
+                '<div style="font-size:9px;font-weight:800;color:#5e35b1;">'+t('expRatio')+'</div>' +
+                '<div id="_dft_exp_rdiff" style="font-size:18px;font-weight:900;color:#5e35b1;font-family:monospace;">'+diffTxt.big+'</div>' +
+                '<div id="_dft_exp_rdiff2" style="font-size:9px;color:#999;font-family:monospace;">'+diffTxt.sub+'</div>' +
+              '</div>' : '') +
+    '</div>' +
+    '<button onclick="window._dftExpToggleB()" style="width:100%;padding:7px;margin-bottom:8px;border:1.5px dashed '+(useB?'#0288d1':'#bbb')+';border-radius:9px;background:transparent;color:'+(useB?'#0288d1':'#888')+';font-size:11px;font-weight:800;cursor:pointer;">' +
+      (useB ? t('expProbeBOff') : t('expProbeBOn')) + '</button>';
 
   return '<div style="text-align:center;">' +
     '<svg id="_dft_exp_dial" viewBox="0 0 '+g.W+' '+g.H+'" style="width:100%;max-width:320px;height:auto;touch-action:none;">' +
@@ -16632,6 +16654,42 @@ function _dftExpProbeSVG(d) {
     '<div style="font-size:10px;line-height:1.6;color:#888;padding:0 4px 2px;text-align:left;">' + t('expLegNote') + '</div>' +
   '</div>';
 }
+
+/** A と B の差。stop と比で返す。 */
+function _dftExpDiffText(a, b) {
+  if (!a.lux || !b.lux) return { big:'—', sub:'' };
+  var st = Math.abs(Math.log2(a.lux / b.lux));
+  return { big: st.toFixed(1) + ' stop', sub: '1:' + Math.pow(2, st).toFixed(1) };
+}
+
+/**
+ * ダイヤル上で何番目の光源か。図面のアイコンと同じ色を引くために使う。
+ * 並びは _dftExpSources（= _dftLightPaths）と同じ順。
+ */
+function _dftSrcIndexOf(lightObj) {
+  var sb = _dftVisObjs(function(o){ return o.type==='people'; })[0];
+  if (!sb) return -1;
+  var paths = _dftLightPaths(sb);
+  for (var i = 0; i < paths.length; i++) if (paths[i].light.id === lightObj.id) return i;
+  return -1;
+}
+
+/** 光源の色。ダイヤルと図面上のライトアイコンで共通に使う */
+var DFT_SRC_COLORS = ['#f9a825','#8e24aa','#43a047','#e53935','#00897b','#fb8c00'];
+function _dftSrcColor(i) { return DFT_SRC_COLORS[i % DFT_SRC_COLORS.length]; }
+function _dftSrcEdge(i) {
+  var e = ['#e65100','#4a148c','#1b5e20','#b71c1c','#004d40','#e65100'];
+  return e[i % e.length];
+}
+
+window._dftExpToggleB = function() {
+  _dft._expProbeB2 = !_dft._expProbeB2;
+  if (_dft._expProbeB2 && _dft._expProbeB == null) {
+    // 反対側から始めると、キー／フィルの比がすぐ読める
+    _dft._expProbeB = ((_dft._expProbe || 0) + 180) % 360;
+  }
+  dftExposureTool();
+};
 
 /** ダイヤルのドラッグを繋ぐ。シートを作り直したら毎回呼ぶ。 */
 function _dftExpBindDial(d) {
@@ -16649,14 +16707,28 @@ function _dftExpBindDial(d) {
     return ((90 - scr) % 360 + 360) % 360;                      // 0=下, 90=右
   }
 
+  var active = 'A';        // いま掴んでいる計測点
+
   function apply(ev) {
-    _dft._expProbe = Math.round(angleAt(ev) * 2) / 2;   // 0.5°刻み
+    var v = Math.round(angleAt(ev) * 2) / 2;            // 0.5°刻み
+    if (active === 'B') _dft._expProbeB = v; else _dft._expProbe = v;
     _dftExpRefreshDial(d);
+  }
+
+  /** 押した位置に近い方の計測点を掴む。B が出ていないときは常に A。 */
+  function pick(ev) {
+    if (!_dft._expProbeB2) return 'A';
+    var a = angleAt(ev);
+    function gap(x) { var dd = Math.abs(((a - x) % 360 + 540) % 360 - 180); return 180 - dd; }
+    return gap(_dft._expProbeB != null ? _dft._expProbeB : 180) < gap(_dft._expProbe || 0) ? 'B' : 'A';
   }
 
   var dragging = false;
   svg.addEventListener('pointerdown', function(ev) {
     dragging = true;
+    // 掴んだ丸そのものが分かればそれを、なければ近い方を動かす
+    var tag = ev.target && ev.target.getAttribute && ev.target.getAttribute('data-probe');
+    active = tag || pick(ev);
     try { svg.setPointerCapture(ev.pointerId); } catch(e) {}
     apply(ev); ev.preventDefault();
   });
@@ -16675,27 +16747,37 @@ function _dftExpBindDial(d) {
  * ドラッグが1回で切れてしまうため。
  */
 function _dftExpRefreshDial(d) {
+  var g = DFT_EXP_GEO;
+
+  function one(tag, ang, rd) {
+    var pt  = _dftExpPt(ang, g.R);
+    var col = rd.lux > 0 ? DFT_PROBE_COL[tag] : DFT_PROBE_COL.off;
+    var ln = document.getElementById('_dft_exp_pline'+tag);
+    if (ln) { ln.setAttribute('x2', pt[0].toFixed(1)); ln.setAttribute('y2', pt[1].toFixed(1)); ln.setAttribute('stroke', col); }
+    var ci = document.getElementById('_dft_exp_probe'+tag);
+    if (ci) { ci.setAttribute('cx', pt[0].toFixed(1)); ci.setAttribute('cy', pt[1].toFixed(1)); ci.setAttribute('fill', col); }
+    var tx = document.getElementById('_dft_exp_ptxt'+tag);
+    if (tx) { tx.setAttribute('x', pt[0].toFixed(1)); tx.setAttribute('y', (pt[1]+3.5).toFixed(1)); }
+    var an = document.getElementById('_dft_exp_ang'+tag);
+    if (an) an.textContent = Math.round(ang);
+    var fEl = document.getElementById('_dft_exp_rf'+tag);
+    if (fEl) fEl.textContent = rd.fstop ? 'f' + rd.fstop.toFixed(1) : '—';
+    var lxEl = document.getElementById('_dft_exp_rlx'+tag);
+    if (lxEl) lxEl.textContent = rd.lux ? Math.round(rd.lux).toLocaleString() + ' lx' : t('expProbeNone');
+  }
+
   var probe = (_dft._expProbe != null) ? _dft._expProbe : 0;
   var read  = _dftExpReadAt(d.sources, d.ref, probe);
-  var g = DFT_EXP_GEO;
-  var pp = _dftExpPt(probe, g.R);
-  var col = read.lux > 0 ? '#e65100' : '#9e9e9e';
+  one('A', probe, read);
 
-  var ln = document.getElementById('_dft_exp_pline');
-  if (ln) { ln.setAttribute('x2', pp[0].toFixed(1)); ln.setAttribute('y2', pp[1].toFixed(1)); ln.setAttribute('stroke', col); }
-  var ci = document.getElementById('_dft_exp_probe');
-  if (ci) { ci.setAttribute('cx', pp[0].toFixed(1)); ci.setAttribute('cy', pp[1].toFixed(1)); ci.setAttribute('fill', col); }
-  var tx = document.getElementById('_dft_exp_ptxt');
-  if (tx) { tx.setAttribute('x', pp[0].toFixed(1)); tx.setAttribute('y', (pp[1]+3.5).toFixed(1)); }
-
-  var lbl = document.getElementById('_dft_exp_rlbl');
-  if (lbl) lbl.textContent = read.lux > 0
-    ? (t('expProbeAt') + ' ' + Math.round(probe) + '°')
-    : (Math.round(probe) + '° — ' + t('expProbeNone'));
-  var fEl = document.getElementById('_dft_exp_rf');
-  if (fEl) fEl.textContent = read.fstop ? 'f' + read.fstop.toFixed(1) : '—';
-  var lxEl = document.getElementById('_dft_exp_rlx');
-  if (lxEl) lxEl.textContent = read.lux ? Math.round(read.lux).toLocaleString() + ' lx' : '';
+  if (_dft._expProbeB2) {
+    var pb = (_dft._expProbeB != null) ? _dft._expProbeB : 180;
+    var rb = _dftExpReadAt(d.sources, d.ref, pb);
+    one('B', pb, rb);
+    var df = _dftExpDiffText(read, rb);
+    var d1 = document.getElementById('_dft_exp_rdiff');  if (d1) d1.textContent = df.big;
+    var d2 = document.getElementById('_dft_exp_rdiff2'); if (d2) d2.textContent = df.sub;
+  }
 }
 
 /** 極座標プロット。半径は √lux（＝F値に比例）にして段差が読めるようにする。 */
@@ -17879,7 +17961,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.95';
+var ver = 'v1.1.4.96';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
