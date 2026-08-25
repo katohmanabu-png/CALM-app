@@ -13696,7 +13696,7 @@ var _dft = {
   // 以前は距離線6種の on/off だけだったが、実際に図面を埋めるのは
   // ビームコーンやバッジのほうなので、それらも同じ仕組みで薄くできるようにした。
   vis:{ direct:1, bounceIn:1, bounceOut:1, sum:1, diffuser:1, camera:1,
-        beam:1, fov:1, refl:1, fstop:1, stopBadge:1, grid:1, aim:1 },
+        beam:1, fov:1, refl:1, fstop:1, stopBadge:1, grid:1, aim:1, pool:1 },
   // persistence
   drafts:[],
   draftId:null,
@@ -14164,6 +14164,9 @@ function dftRender() {
 
   // bounce reflected beams (under distance lines and objects)
   _dftWithVis(ctx, 'refl', function(){ _dftDrawBounceBeams(ctx); });
+
+  // 布の上で光が当たる範囲（重なりと隙間を見るため）
+  _dftWithVis(ctx, 'pool', function(){ _dftDrawBeamPools(ctx); });
 
   // distance lines (under objects)
   _dftDrawDistances(ctx);
@@ -14911,6 +14914,104 @@ function _dftDrawAimHints(ctx) {
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   ctx.fillText(lbl, mx2, my2);
   ctx.restore();
+}
+
+/**
+ * そのライトが狙っている面と、その上の当てる点を返す。
+ * 明示指定が無ければ、真上にある面を自動で拾う。
+ */
+function _dftLightAimTarget(lt) {
+  var tgt = null;
+  if (lt.aimId && lt.aimId !== 'subject') {
+    tgt = _dft.objects.find(function(o){
+      return o.id === lt.aimId && !o.hidden && !_dftLayerHidden(o); });
+  }
+  if (!tgt) {
+    tgt = _dftVisObjs(function(o){
+      return (o.type === 'bounce' || o.type === 'diffuser') && _dftAimsOverhead(lt, o);
+    })[0];
+  }
+  if (!tgt) return null;
+  return { tgt: tgt, pt: _dftAimPointOf(lt, tgt) };
+}
+
+/**
+ * ライトが面に作る「光の当たる範囲」。
+ *   直径 = 2 × 距離 × tan(ビーム角/2)
+ * 斜めから当たるぶん、進行方向へ伸びた楕円になるので長短2軸で返す。
+ */
+function _dftBeamPool(lt, pt) {
+  var dh = _dftDist2D(lt, pt);
+  var dz = _dftZ(pt) - _dftZ(lt);
+  var d  = Math.sqrt(dh*dh + dz*dz);
+  var half = ((lt.beamAngle || 75) / 2) * Math.PI / 180;
+  var rMinor = d * Math.tan(Math.min(half, 85*Math.PI/180));
+  // 面への入射が浅いほど進行方向へ伸びる（真上から当てれば円）
+  var sinEl = (d > 0.01) ? Math.abs(dz) / d : 1;
+  var rMajor = rMinor / Math.max(sinEl, 0.22);
+  return { dist:d, dh:dh, dz:dz, rMinor:rMinor, rMajor:rMajor,
+           ang: Math.atan2(pt.wy - lt.wy, pt.wx - lt.wx) };
+}
+
+/**
+ * 光の当たる範囲を面の上に描く。
+ * 12灯で大きな布を覆うようなとき、重なりと隙間が目で見て分かる。
+ */
+function _dftDrawBeamPools(ctx) {
+  var lts = _dftVisObjs(function(o){ return o.type === 'light'; });
+  // 灯が多いと数値が重なって読めない。選択中の1灯だけ数値を出す。
+  // どれも選んでいないときは、3灯までなら全部に出す。
+  var anySel = lts.some(function(o){ return o.id === _dft.selected; });
+  lts.forEach(function(lt, li) {
+    var at = _dftLightAimTarget(lt);
+    if (!at) return;
+    // 立てた面に当たる光は平面図では楕円にならない。誤解を招くので描かない。
+    if (at.tgt.stand) return;
+    var isSel  = (lt.id === _dft.selected);
+    var showNum = anySel ? isSel : (lts.length <= 3);
+    var emph = anySel ? (isSel ? 1 : 0.45) : 1;
+    var p = _dftBeamPool(lt, at.pt);
+    var c = _dftW2S(at.pt.wx, at.pt.wy);
+    var k = _dft.zoom / _dft.scale;              // m → px
+    var col = _dftSrcColor(li % DFT_SRC_COLORS.length);
+
+    // 面の内側だけに描く（布からはみ出した光は届いていない）
+    ctx.save();
+    var rd = _dftRectDims(at.tgt);
+    var ts = _dftW2S(at.tgt.wx, at.tgt.wy);
+    ctx.translate(ts.x, ts.y);
+    ctx.rotate(at.tgt.rot || 0);
+    ctx.beginPath();
+    ctx.rect(-rd.w/2*k, -rd.h/2*k, rd.w*k, rd.h*k);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clip();
+
+    ctx.translate(c.x, c.y);
+    ctx.rotate(p.ang);
+    var prevA = ctx.globalAlpha;
+    ctx.fillStyle = col;
+    ctx.globalAlpha = prevA * 0.18 * emph;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, p.rMajor*k, p.rMinor*k, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.globalAlpha = prevA * 0.8 * emph;
+    ctx.strokeStyle = col; ctx.lineWidth = isSel ? 2.2 : 1.4; ctx.setLineDash([5,4]);
+    ctx.stroke();
+    ctx.restore();
+
+    if (!showNum) return;
+    // 距離と直径
+    ctx.save();
+    var lbl = _dftFmt(p.dist) + ' · ⌀' + _dftFmt(p.rMinor*2);
+    ctx.font = 'bold 9px -apple-system,Arial';
+    var tw = ctx.measureText(lbl).width, pw = tw + 9, ph = 14;
+    ctx.fillStyle = col;
+    _dftRoundRect(ctx, c.x - pw/2, c.y - ph/2, pw, ph, 4); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(lbl, c.x, c.y);
+    ctx.restore();
+  });
 }
 
 function _dftDrawBounceBeams(ctx) {
@@ -18766,6 +18867,7 @@ var DFT_VIS_GROUPS = [
   { title:'dvGrpCones', items:[
     {key:'beam', label:'ライトのビーム',   sample:'◣ 扇形',  col:'#f9a825'},
     {key:'refl', label:'反射板の反射光',   sample:'◣ 扇形',  col:'#0288d1'},
+    {key:'pool', label:'布に当たる範囲',   sample:'⌀8.4m',   col:'#6a1b9a'},
     {key:'fov',  label:'カメラの画角',     sample:'◣ 扇形',  col:'#6495ed'}
   ]},
   { title:'dvGrpBadges', items:[
@@ -19073,7 +19175,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.6.2';
+var ver = 'v1.1.6.3';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
