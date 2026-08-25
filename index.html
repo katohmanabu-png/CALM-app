@@ -19393,11 +19393,36 @@ function _dftSaveCommit() {
 // 1図面=1ファイルで置き、開いたときに両方を見て新しい方を採る。
 // （Web 版は iCloud に触れないので、この処理は丸ごと素通りする）
 
+/**
+ * ネイティブの CalmCloud を呼ぶ入口。
+ *
+ * Capacitor.Plugins は @capacitor/core（npm の JS）が埋めるもので、
+ * このアプリのように単一 HTML をそのまま読ませる作りでは空のままになる。
+ * ネイティブ側が用意している Capacitor.nativePromise を直に使う。
+ * （最初 Capacitor.Plugins を見ていたので、実機で雲ボタンが出なかった）
+ */
+/** 読込メニューを開いているときは、そこに結果を出す */
+function _dftCloudMsg(text) {
+  var e = document.getElementById('_dft_cloud_msg');
+  if (e) e.textContent = text;
+}
+
 function _calmCloud() {
   try {
     if (!_calmIsNative()) return null;
-    var p = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.CalmCloud;
-    return p || null;
+    var C = window.Capacitor;
+    if (!C) return null;
+    // 新しい作りのアプリなら Plugins にも入っているので、あればそちらを使う
+    if (C.Plugins && C.Plugins.CalmCloud) return C.Plugins.CalmCloud;
+    if (typeof C.nativePromise !== 'function') return null;
+    // 呼ぶときの名前は jsName('CalmCloud') ではなく identifier('CalmCloudPlugin')。
+    // registerPluginType はクラスの identifier で登録するので、jsName で
+    // 叩いても応答が返ってこない（実機で確かめた）。
+    var call = function(m) {
+      return function(opts) { return C.nativePromise('CalmCloudPlugin', m, opts || {}); };
+    };
+    return { status: call('status'), list: call('list'),
+             read: call('read'), write: call('write'), remove: call('remove') };
   } catch(e) { return null; }
 }
 
@@ -19433,6 +19458,7 @@ async function _dftCloudSync(quiet) {
   try { st = await c.status(); } catch(e) { return { available: false }; }
   if (!st || !st.available) {
     if (!quiet) _dftSetStatus('☁️ ' + t('cloudOff'));
+    _dftCloudMsg('⚠️ ' + t('cloudOff'));
     return { available: false };
   }
   var pulled = 0, pushed = 0;
@@ -19468,13 +19494,12 @@ async function _dftCloudSync(quiet) {
     }
   } catch(e) {
     if (!quiet) _dftSetStatus('☁️ ' + t('cloudFail'));
+    _dftCloudMsg('⚠️ ' + t('cloudFail') + ' — ' + (e && e.message ? e.message : e));
     return { available: true, error: true };
   }
-  if (!quiet) {
-    _dftSetStatus('☁️ ' + (pulled || pushed
-      ? t('cloudDone') + ' ↓' + pulled + ' ↑' + pushed
-      : t('cloudSame')));
-  }
+  var msg = (pulled || pushed) ? (t('cloudDone') + '  ↓' + pulled + ' ↑' + pushed) : t('cloudSame');
+  if (!quiet) _dftSetStatus('☁️ ' + msg);
+  _dftCloudMsg('☁️ ' + msg);
   try { _dftRefreshDraftList(); } catch(e) {}
   return { available: true, pulled: pulled, pushed: pushed };
 }
@@ -19538,9 +19563,16 @@ function dftLoadMenu() {
     '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">📂 保存済みドラフト</div>' +
     // iOS アプリのときだけ。他の端末で作った図面を取りに行く
     (_calmCloud()
-      ? '<button onclick="dftCloudSync()" style="width:100%;padding:9px;margin-bottom:10px;' +
+      ? '<button onclick="dftCloudSync()" style="width:100%;padding:9px;margin-bottom:4px;' +
         'border:2px solid #0277bd;border-radius:10px;background:#fff;color:#0277bd;' +
-        'font-size:12px;font-weight:800;cursor:pointer;">☁️ ' + t('cloudSync') + '</button>'
+        'font-size:12px;font-weight:800;cursor:pointer;">☁️ ' + t('cloudSync') + '</button>' +
+        '<div id="_dft_cloud_msg" style="font-size:10px;color:#888;text-align:center;' +
+        'margin-bottom:10px;min-height:13px;line-height:1.5;"></div>'
+      : '') +
+    // 図面が1枚も無いときは、ここが行き止まりに見えないようにする
+    (!_dft.drafts.length
+      ? '<div style="font-size:11px;color:#888;line-height:1.7;padding:10px 2px;">'
+        + t('dftNoSavedDrafts') + '</div>'
       : '') +
     _dft.drafts.slice().reverse().map(function(d) {
       var meta = [];
@@ -20299,7 +20331,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.72';
+var ver = 'v1.1.7.74';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
