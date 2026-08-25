@@ -9861,7 +9861,9 @@ function showPage(p) {
   if (p === 'finder') { try { syncFinderFromCalc(); } catch(e) {} try { initFinderDistSlider(); } catch(e) {} try { renderFinderResults(); } catch(e) {} }
   if (p === 'mix')    { try { syncMixFromCalc(); }   catch(e) {} try { renderMixList(); calcMix(); } catch(e) {} }
   if (p === 'feedback') { try { fbRenderDevInfo(); } catch(e) {} }
-  if (p === 'draft')    { try { _dftFitPage(); dftInit(); _dftSyncResultPanel(); } catch(e) {} }
+  // Draft に入ったら図面側で計算し直す。
+  // これが無いと、Calc タブの結果がそのまま Result パネルに残る。
+  if (p === 'draft')    { try { _dftFitPage(); dftInit(); _dftUpdateCalcFromDraft(); _dftSyncResultPanel(); } catch(e) {} }
 }
 
 // ── Camera info shared helper ──────────────────────────────
@@ -14752,39 +14754,32 @@ function _dftDrawBounceBeams(ctx) {
     var halfBeam = ((lt.beamAngle || 75) / 2) * Math.PI / 180;
     if (cosAngle < Math.cos(halfBeam)) return; // bounce not illuminated — no reflection
 
-    // Bounce surface normal. _dftRectDims() puts the board's face along its local
-    // x axis (width / floor-contact edge) and the thickness along local y, so the
-    // normal is the local y axis — same convention as a light's aim direction.
-    // (Previously this used the local x axis, i.e. the board's face itself, which
-    //  threw every reflection off by 90°.)
-    var nx = -Math.sin(bn.rot || 0), ny = Math.cos(bn.rot || 0);
-    // Flip so normal faces the incoming ray (d·n < 0)
-    var dot = gdx*nx + gdy*ny;
-    if (dot > 0) { nx = -nx; ny = -ny; dot = -dot; }
-    if (Math.abs(dot) < 0.001) return;
-
-    // Law of reflection: r = d - 2*(d·n)*n
-    var rx = gdx - 2*dot*nx;
-    var ry = gdy - 2*dot*ny;
-
-    var ba       = ((lt.beamAngle || 75) * Math.PI / 180);
-    var outAngle = Math.atan2(ry, rx);
+    // 反射板は拡散反射（UltraBounce・モスリン等）。鏡ではない。
+    // 以前は反射の法則で鏡面方向へ細いコーンを描いていたが、
+    // 実際の板は法線まわりへ広く散るので、その形（ランバートのローブ）で描く。
+    var n = _dftBounceNormal(lt, bn);
+    var outAngle = Math.atan2(n[1], n[0]);
     var beamLen  = Math.min(240, 10 / _dft.scale * _dft.zoom);
 
     ctx.save();
     ctx.translate(bns.x, bns.y);
 
-    // Reflected cone (dashed fill)
-    ctx.fillStyle   = 'rgba(255,200,60,0.15)';
-    ctx.strokeStyle = 'rgba(200,130,0,0.5)';
+    // 拡散のローブ。法線方向がいちばん強く、真横に向かって cos で落ちる。
+    // 半径を cos に比例させると、そのまま強さの分布の形になる。
+    ctx.fillStyle   = 'rgba(255,200,60,0.16)';
+    ctx.strokeStyle = 'rgba(200,130,0,0.45)';
     ctx.lineWidth   = 1.2;
     ctx.setLineDash([6, 4]);
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.arc(0, 0, beamLen, outAngle - ba/2, outAngle + ba/2);
+    for (var _t = -88; _t <= 88; _t += 4) {
+      var _a = outAngle + _t * Math.PI / 180;
+      var _r = beamLen * Math.cos(_t * Math.PI / 180);
+      ctx.lineTo(Math.cos(_a)*_r, Math.sin(_a)*_r);
+    }
     ctx.closePath(); ctx.fill(); ctx.stroke();
 
-    // Center ray (solid)
+    // 法線（いちばん強い向き）
     ctx.setLineDash([]);
     ctx.strokeStyle = 'rgba(200,130,0,0.8)';
     ctx.lineWidth   = 1.5;
@@ -14903,30 +14898,40 @@ function _dftUpdateCalcFromDraft() {
       return;
     }
     _dft._resultUnlit = false;
-    // Apply bounce factor to S.factors so calculate() picks it up
-    if (activeBounce && activeBounce.factors && activeBounce.factors.length) {
-      var bnStops = getTotalFactorStops(activeBounce.factors);
-      // Inject as a temporary factor on the light (removed after calculate)
-      if (!lt._draftBounceFactorInjected) {
-        lt._draftBounceFactorInjected = true;
-        lt.factors = lt.factors || [];
-        lt._draftBounceFactorIdx = lt.factors.length;
-        lt.factors.push({ stops: bnStops, type: 'bounce', _draft: true });
-      } else {
-        lt.factors[lt._draftBounceFactorIdx].stops = bnStops;
-      }
-    } else if (lt._draftBounceFactorInjected) {
-      lt.factors.splice(lt._draftBounceFactorIdx, 1);
-      delete lt._draftBounceFactorInjected;
-      delete lt._draftBounceFactorIdx;
-    }
     if (_dft.unit === 'ft') dist = dist / 0.3048;
     S.dist = dist;
     var distEl = document.getElementById('dist');
     if (distEl) { distEl.value = dist; }
     var dispEl = document.getElementById('dist-disp');
     if (dispEl) dispEl.textContent = dist.toFixed(1) + (_dft.unit === 'ft' ? ' ft' : ' m');
-    calculate();
+
+    // calculate() は S.maker / S.model / S_calcFactors を読む。
+    // ここを合わせないと、Result だけ Calc タブで選んでいる別の機種の値になる。
+    // 以前はライトの factors に減光を足していたが、calculate() はそれを見ないので
+    // 効果はなく、F値バッジ・Exposure 側だけが二重に減光していた。
+    var keepMaker = S.maker, keepModel = S.model, keepAcc = S.accKey;
+    if (lt.makerKey && LIGHTS[lt.makerKey] && LIGHTS[lt.makerKey][lt.modelKey]) {
+      S.maker = lt.makerKey; S.model = lt.modelKey;
+      var _lg = LIGHTS[lt.makerKey][lt.modelKey];
+      S.accKey = (lt.accKey && _lg.accessories && _lg.accessories.indexOf(lt.accKey) >= 0)
+        ? lt.accKey : defaultWidestAcc(_lg);
+    }
+
+    // 経路の減光（反射板の Factor と、板の向きによる cos 分）を
+    // calculate() の間だけ Factor に足して、その場で必ず戻す。
+    var pathExtra = (_p && _p.extraStops) ? _p.extraStops : 0;
+    var ltStops   = getTotalFactorStops(lt.factors || []);
+    var addStops  = pathExtra + ltStops;
+    var pushed = false;
+    if (addStops && typeof S_calcFactors !== 'undefined') {
+      S_calcFactors.push({ stops: addStops, type: 'bounce', _draft: true });
+      pushed = true;
+    }
+    try { calculate(); }
+    finally {
+      if (pushed) S_calcFactors.pop();
+      S.maker = keepMaker; S.model = keepModel; S.accKey = keepAcc;
+    }
   } catch(e) {}
 }
 
@@ -15094,6 +15099,26 @@ function _dftCalcFstop(lightObj, distM, extraStops) {
 // 直射か、最寄りの反射板経由かを一箇所で決める。F値バッジと Exposure
 // ツールが同じ判定を使うようにして、両者の答えが食い違わないようにする。
 /**
+ * 反射板の法線のうち、ライト側を向いている方を返す。
+ * 板は表裏の区別を持たないので、当たっている側を表とみなす。
+ */
+function _dftBounceNormal(lt, bn) {
+  var nx = -Math.sin(bn.rot || 0), ny = Math.cos(bn.rot || 0);
+  var dx = bn.wx - lt.wx, dy = bn.wy - lt.wy;      // ライト→板（入射方向）
+  if (dx*nx + dy*ny > 0) { nx = -nx; ny = -ny; }   // 入射を迎える側にそろえる
+  return [nx, ny];
+}
+
+/** 板→被写体の向きと法線の cos（拡散反射の出方） */
+function _dftBounceCosOut(lt, bn, sb) {
+  var n = _dftBounceNormal(lt, bn);
+  var tx = sb.wx - bn.wx, ty = sb.wy - bn.wy;
+  var tl = Math.hypot(tx, ty);
+  if (tl < 0.01) return 1;
+  return (n[0]*tx + n[1]*ty) / tl;
+}
+
+/**
  * ライトが「真上のバウンス」を狙っているか。
  * 俯瞰のビーム判定は水平方向しか見ないので、天バンのように真上にある板は
  * どう向けても永久にビーム外になる。水平距離より高さ差が勝っていて、
@@ -15127,10 +15152,21 @@ function _dftLightPaths(sb) {
     if (nl) bnNearestLt[bn.id] = nl.id;
   });
 
+  /**
+   * 反射経由の経路。反射板は拡散反射（ランバート）として扱う。
+   *
+   * 以前は板の向きを一切見ておらず、被写体が板の裏側にいても
+   * 正面にいるときと同じ値が出ていた。板の法線と「板→被写体」の
+   * cos を掛けて、向きが効くようにする。
+   * 正対（cos=1）のときは従来と同じ値なので、通常の使い方では変わらない。
+   */
   function viaPath(lt, bn) {
+    var cosOut = _dftBounceCosOut(lt, bn, sb);
+    if (cosOut <= 0.05) return null;              // 板の裏側 or ほぼ真横
     return { light:lt, via:bn, from:bn,
              dist:_dftDist(lt, bn) + _dftDist(bn, sb),
-             extraStops:getTotalFactorStops(bn.factors || []) };
+             cosOut: cosOut,
+             extraStops:getTotalFactorStops(bn.factors || []) - Math.log2(cosOut) };
   }
 
   var out = [];
@@ -15145,7 +15181,8 @@ function _dftLightPaths(sb) {
       }
       var tgt = _dft.objects.find(function(o){ return o.id === lt.aimId; });
       if (tgt && !tgt.hidden && !_dftLayerHidden(tgt)) {
-        out.push(viaPath(lt, tgt));
+        var vp = viaPath(lt, tgt);
+        if (vp) out.push(vp);
         return;
       }
       // 狙い先が消えている場合は自動判定に落ちる
@@ -15164,7 +15201,10 @@ function _dftLightPaths(sb) {
       if (bnNearestLt[bn.id] !== lt.id) return false;
       return _dftInBeam(lt, bn.wx, bn.wy) || _dftAimsOverhead(lt, bn);
     });
-    if (aimed.length) out.push(viaPath(lt, aimed[0]));
+    if (aimed.length) {
+      var vp2 = viaPath(lt, aimed[0]);
+      if (vp2) out.push(vp2);
+    }
   });
   return out;
 }
@@ -18475,7 +18515,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.5.1';
+var ver = 'v1.1.5.2';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
