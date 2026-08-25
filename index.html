@@ -4586,7 +4586,7 @@ var LIGHTS = {
     },
     alpha_12k: {
       group:'HMI', name:'Alpha 12kW HMI', emoji:'💡', watts:12000,
-      ccts:[5600], accessories:["spot", "flat", "clear_spot", "clear_flat"], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
+      ccts:[5600], accessories:["spot", "flat", "clear_spot", "clear_flat"],
       refData:{5600:{
         3: {flat:54000, clear_spot:14000, clear_flat:9600},
         5: {spot:38000, flat:19000, clear_spot:4800, clear_flat:4800},
@@ -5004,12 +5004,12 @@ var LIGHTS = {
     },
     arri_24k_tungsten: {
       group:'Tungsten', name:'ARRI 24kW Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:24000,
-      ccts:[3200], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
+      ccts:[3200], accessories:['flat','spot'],
       refData:{3200:{3:{flat:37969,spot:153567},5:{flat:19200,spot:76800},8:{flat:5105,spot:37969},12:{flat:2480,spot:19200},15:{flat:1355,spot:9075}}}
     },
     arri_studio_t12: {
       group:'Tungsten', name:'ARRI Studio T12', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:12000,
-      ccts:[3200], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
+      ccts:[3200], accessories:['flat','spot'],
       refData:{flat:{3200:{2:39159,3:20049,5:9075,8:4800,12:1200}},spot:{3200:{2:307200,3:151875,5:76800,8:19200,12:9075}}}
     },
     arri_true_blue_st5: {
@@ -6545,17 +6545,20 @@ var HMI_BEAM = {
   'Broncolor HMI 575W':[8,75],
   'Broncolor HMI 800W':[8,75],
   'Broncolor HMI 1600W + Para':[14,60],
-  'KOBOLD 400W':[9,60],
-  'KOBOLD 200W':[9,50],
+  // Bron Kobold DW200/DW400 の 'KOBOLD 400W'/'KOBOLD 200W' はここから外した。
+  // 機種名と一致しておらず効いていなかった上に、名前を合わせると害になる。
+  // あちらはレンズごとに実角度を持っている（Lens1 9° 〜 Lens5 Frost 50°）ので
+  // レンジの両端で上書きすると、レンズ無しの flat が 60° に化けて精度が落ちる。
+  // （レンズ無しは実際に広いので 90° のまま）
   // ARRI Pocket PAR: レンズセットの実装角（Lens1 9° 〜 Lens5 Frost 50°）。
   // ACC_INFO の beam 文字列に 'Fresnel' を含まないため getBeamAngles の自動判定に乗らない。
   'Pocket Par 400W':[9,50],
   'Pocket Par 200W':[15,50],
   'Pocket Par 125W':[15,50],
   'ARRI 18kW HMI':[15,60],
-  'ARRI 24kW':[10,60],
-  'ARRI STUDIO 12kW':[12,55],
-  'ALPHA 12kW HMI':[12,60],
+  'ARRI 24kW Tungsten Fresnel':[10,60],
+  'ARRI Studio T12':[12,55],
+  'Alpha 12kW HMI':[12,60],
   'ARRI M40':[10,55],
   'ARRI M18':[10,55],
   'ARRI M8':[10,55],
@@ -19859,7 +19862,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.6';
+var ver = 'v1.1.7.7';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
