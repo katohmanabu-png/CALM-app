@@ -15323,6 +15323,15 @@ function _dftAimPointOf(lt, tgt) {
   if (lt && lt.aimId === tgt.id && lt.aimPt) {
     return { wx: lt.aimPt.x, wy: lt.aimPt.y, zHeight: _dftZ(tgt), stand: false };
   }
+  // 天バン（ライトより上に張った面）は、各灯が自分の真上を叩くのが実際の使い方。
+  // 面の中心へ向けるものではないので、既定は「ライトの真上の一点」にする。
+  if (lt && (tgt.type === 'bounce' || tgt.type === 'diffuser')) {
+    var dz = _dftZ(tgt) - _dftZ(lt);
+    if (dz > 0.5) {
+      var p = _dftClampToRect(tgt, lt.wx, lt.wy);
+      return { wx: p.x, wy: p.y, zHeight: _dftZ(tgt), stand: false };
+    }
+  }
   return tgt;
 }
 
@@ -15420,10 +15429,14 @@ function _dftLightPaths(sb) {
       out.push({ light:lt, via:null, from:lt, dist:_dftDist(lt, sb), extraStops:0 });
       return;
     }
-    // 被写体がビームの外なら、自分の反射板のうちビーム内 or 真上のものを経由
+    // 被写体がビームの外なら、反射板を経由した光を見る。
+    //   ・真上にある面（天バン）は、その下のライトすべてが叩けるものとして扱う。
+    //     以前は「板の最寄り1灯」しか通さなかったため、天バンを何灯で叩いても
+    //     1灯ぶんしか計算に入らなかった。
+    //   ・横向きの板は従来どおり、最寄りのライトのものだけを見る。
     var aimed = bounces.filter(function(bn) {
-      if (bnNearestLt[bn.id] !== lt.id) return false;
-      return _dftInBeam(lt, bn.wx, bn.wy) || _dftAimsOverhead(lt, bn);
+      if (_dftAimsOverhead(lt, bn)) return true;
+      return bnNearestLt[bn.id] === lt.id && _dftInBeam(lt, bn.wx, bn.wy);
     });
     if (aimed.length) {
       var vp2 = viaPath(lt, aimed[0]);
@@ -15669,8 +15682,10 @@ function _dftMD(e) {
     if (aHit.type === 'bounce' || aHit.type === 'diffuser') {
       var _w = _dftS2W(mx, my);
       src.aimPt = _dftClampToRect(aHit, _w.x, _w.y);
-      // 当てる点に向け直す
-      src.rot = Math.atan2(-(src.aimPt.x - src.wx), (src.aimPt.y - src.wy));
+      // 当てる点に向け直す（真上のときは俯瞰の向きが決まらないので触らない）
+      if (Math.hypot(src.aimPt.x - src.wx, src.aimPt.y - src.wy) > 0.3) {
+        src.rot = Math.atan2(-(src.aimPt.x - src.wx), (src.aimPt.y - src.wy));
+      }
       dftRender(); _dftQueueCalcSync();
     }
     _dftSetStatus('🎯 ' + (src.label || 'Light') + ' → ' + (aHit.label || aHit.type) +
@@ -16354,7 +16369,10 @@ window._dftSetAim = function(oid, aimId) {
     var tg = _dft.objects.find(function(x){ return x.id === aimId; });
     if (tg) {
       var _p = _dftAimPointOf(o, tg);
-      o.rot = Math.atan2(-(_p.wx - o.wx), (_p.wy - o.wy));
+      // 真上を叩くときは俯瞰での向きが決まらないので、そのままにする
+      if (Math.hypot(_p.wx - o.wx, _p.wy - o.wy) > 0.3) {
+        o.rot = Math.atan2(-(_p.wx - o.wx), (_p.wy - o.wy));
+      }
     }
   } else if (aimId === 'subject') {
     var sb = _dftVisObjs(function(x){ return x.type==='people'; })[0];
@@ -18853,7 +18871,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.5.8';
+var ver = 'v1.1.5.9';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
