@@ -14746,17 +14746,13 @@ function _dftDrawObj(ctx, o) {
       ctx.fill(); ctx.stroke();
       ctx.restore();
     });
-    // body — Exposure ダイヤル上の光源と同じ色にして対応が付くようにする。
-    // カメラ(R*1.8幅)に比べて小さく見えていたので、ライトも同等の大きさにする。
-    var _si = _dftSrcIndexOf(o);
-    // 灯体は実寸ではなく記号。絵が判別できる下限は要るが、20m まで引いたときに
-    // 21px 固定だと図面が灯体で埋まってしまうので、縮尺に応じて緩やかに変える。
+    // body — 色は機種ごと。同じ機種なら同じ色になる（Exposure ダイヤルと共通）
     var _LR = _dftLightR(pxPerM);
     // 背後に白い縁を敷いて、グリッドや線の上でも輪郭が立つようにする
     ctx.fillStyle = 'rgba(255,255,255,0.9)';
     ctx.beginPath(); ctx.arc(0, 0, _LR + 2.5, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle   = sel ? '#e65100' : (_si >= 0 ? _dftSrcColor(_si) : '#f9a825');
-    ctx.strokeStyle = sel ? '#b71c1c' : (_si >= 0 ? _dftSrcEdge(_si)  : '#e65100');
+    ctx.fillStyle   = sel ? '#e65100' : _dftLightColor(o);
+    ctx.strokeStyle = sel ? '#b71c1c' : _dftLightEdge(o);
     ctx.lineWidth   = sel ? 3 : 2;
     ctx.beginPath(); ctx.arc(0, 0, _LR, 0, Math.PI*2); ctx.fill(); ctx.stroke();
 
@@ -15262,7 +15258,7 @@ function _dftDrawBeamPools(ctx) {
     var p = _dftBeamPool(lt, at.pt);
     var c = _dftW2S(at.pt.wx, at.pt.wy);
     var k = _dft.zoom / _dft.scale;              // m → px
-    var col = _dftSrcColor(li % DFT_SRC_COLORS.length);
+    var col = _dftLightColor(lt);   // 図面のアイコンと同じ機種色
 
     // 面の内側だけに描く（布からはみ出した光は届いていない）
     ctx.save();
@@ -17695,6 +17691,7 @@ function _dftExpSources(sb) {
       ux: dx/len, uy: dy/len, uz: dz/len,
       azim: Math.atan2(dy, dx),                        // 水平方向
       elev: Math.atan2(dz, h) * 180 / Math.PI,         // 仰角(度)
+      ci: _dftModelColorIndex(p.light),                // 図面のアイコンと同じ機種色
       via: !!p.via
     };
   }).filter(Boolean);
@@ -18191,8 +18188,9 @@ function _dftExpProbeSVG(d) {
   var srcMarks = d.sources.map(function(sc, si) {
     var rel = _dftExpRelAngle(sc.azim, d.ref);
     var p   = _dftExpPt(rel, R);
-    var col = _dftSrcColor(si);
-    var edge= _dftSrcEdge(si);
+    var _ci = (sc.ci != null && sc.ci >= 0) ? sc.ci : si;
+    var col = _dftSrcColor(_ci);
+    var edge= _dftSrcEdge(_ci);
     var out = _dftExpPt(rel, R + 13);
     var anchor = (out[0] > cx + 6) ? 'start' : (out[0] < cx - 6) ? 'end' : 'middle';
     var nm  = (sc.name.length > 12) ? sc.name.slice(0,12) + '…' : sc.name;
@@ -18345,9 +18343,38 @@ function _dftSrcIndexOf(lightObj) {
 /** 光源の色。ダイヤルと図面上のライトアイコンで共通に使う */
 var DFT_SRC_COLORS = ['#f9a825','#8e24aa','#43a047','#e53935','#00897b','#fb8c00'];
 function _dftSrcColor(i) { return DFT_SRC_COLORS[i % DFT_SRC_COLORS.length]; }
-function _dftSrcEdge(i) {
-  var e = ['#e65100','#4a148c','#1b5e20','#b71c1c','#004d40','#e65100'];
-  return e[i % e.length];
+var DFT_SRC_EDGES = ['#e65100','#4a148c','#1b5e20','#b71c1c','#004d40','#e65100'];
+function _dftSrcEdge(i) { return DFT_SRC_EDGES[i % DFT_SRC_EDGES.length]; }
+
+/**
+ * 機種ごとの色。同じ機種は同じ色になる。
+ *
+ * 以前は「被写体に届いている順」で色を振っていたので、同じ機種の12灯が
+ * 全部違う色になり、図面で機種の区別が付かなかった。
+ * 並び順は「図面に最初に置いた順」。名前順にすると、あとから頭文字の早い
+ * 機種を1台足しただけで既にある灯の色が全部ずれてしまう。
+ * 置いた順なら、機種を足しても既存の色は動かない。
+ */
+function _dftModelColorIndex(lightObj) {
+  if (!lightObj || !lightObj.makerKey || !lightObj.modelKey) return -1;
+  var key = lightObj.makerKey + '|' + lightObj.modelKey;
+  var seen = [];
+  for (var i = 0; i < _dft.objects.length; i++) {
+    var o = _dft.objects[i];
+    if (o.type !== 'light' || !o.makerKey || !o.modelKey) continue;
+    var k = o.makerKey + '|' + o.modelKey;
+    if (seen.indexOf(k) < 0) seen.push(k);
+  }
+  var idx = seen.indexOf(key);
+  return (idx < 0) ? -1 : idx;
+}
+function _dftLightColor(lightObj) {
+  var i = _dftModelColorIndex(lightObj);
+  return (i < 0) ? '#f9a825' : _dftSrcColor(i);
+}
+function _dftLightEdge(lightObj) {
+  var i = _dftModelColorIndex(lightObj);
+  return (i < 0) ? '#e65100' : _dftSrcEdge(i);
 }
 
 window._dftExpToggleB = function() {
@@ -20028,7 +20055,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.68';
+var ver = 'v1.1.7.69';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
