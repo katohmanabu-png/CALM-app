@@ -2147,7 +2147,7 @@ var LANGS = {
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
-    expProbeAt:'この向きの読み', expProbeBOn:'＋ 2点目(B)を出して比べる', expProbeBOff:'− 2点目(B)を消す', expProbeNone:'この向きには光が来ていません',
+    expProbeAt:'この向きの読み', expElevLabel:'露出計の仰角（上下の向き）', expTableNote:'以下の表とグラフは、Aの仰角で計算しています：', expElevFlat:'水平', expElevUp45:'↑45°', expElevUp90:'↑真上', expElevDown45:'↓45°', expProbeBOn:'＋ 2点目(B)を出して比べる', expProbeBOff:'− 2点目(B)を消す', expProbeNone:'この向きには光が来ていません',
     expLegNote:'丸（A）をドラッグすると、その向きに露出計を向けたときの読みが出ます。Bを足すと2点の差＝コントラストが出ます。カメラのある向きが0°で、90°がカメラから見て右、270°が左、180°が真後ろ（逆光）。図の光源は、いま配置しているライトの実際の到来角で、色は図面上のライトと対応しています。',
     dftPanelH:'幕の高さ', dftPanelHHint:'← 距離計算に使う高さ(中心)', dftObjSettings:'設定',
     dftPeopleTitle:'🧍 人を配置', dftManLabel:'男性', dftWomanLabel:'女性',
@@ -2252,7 +2252,7 @@ var LANGS = {
     dftSize:'Size', dftPresetPick:'Pick a preset',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
     expLegFace:'Face', expLegCam:'Camera', expLegKey:'Key', expLegBack:'Back',
-    expProbeAt:'Reading at', expProbeBOn:'+ Add a 2nd probe (B) to compare', expProbeBOff:'− Remove probe B', expProbeNone:'no light from this direction',
+    expProbeAt:'Reading at', expElevLabel:'Meter tilt (up / down)', expTableNote:'The table and chart below use probe A\u2019s tilt:', expElevFlat:'Level', expElevUp45:'↑45°', expElevUp90:'↑Straight up', expElevDown45:'↓45°', expProbeBOn:'+ Add a 2nd probe (B) to compare', expProbeBOff:'− Remove probe B', expProbeNone:'no light from this direction',
     expLegNote:'Drag probe A to read what a meter aimed that way would show; add B to get the difference between two directions (contrast). 0° is the camera direction, 90° camera-right, 270° camera-left, 180° straight behind (backlight). The sources on the dial are the real arrival angles of your lights, colour-matched to the plan.',
     dftPanelH:'Panel height', dftPanelHHint:'← height used for distance (centre)', dftObjSettings:'Settings',
     dftPeopleTitle:'🧍 People', dftManLabel:'Man', dftWomanLabel:'Woman',
@@ -2354,7 +2354,7 @@ var LANGS = {
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
     expLegFace:'Cara', expLegCam:'Cámara', expLegKey:'Key', expLegBack:'Contra',
-    expProbeAt:'Lectura a', expProbeBOn:'+ Añadir 2ª sonda (B)', expProbeBOff:'− Quitar sonda B', expProbeNone:'no llega luz desde esta dirección',
+    expProbeAt:'Lectura a', expElevLabel:'Inclinación del fotómetro', expTableNote:'La tabla y el gráfico usan la inclinación de A:', expElevFlat:'Nivel', expElevUp45:'↑45°', expElevUp90:'↑Cenital', expElevDown45:'↓45°', expProbeBOn:'+ Añadir 2ª sonda (B)', expProbeBOff:'− Quitar sonda B', expProbeNone:'no llega luz desde esta dirección',
     expLegNote:'Arrastra la sonda A para ver la lectura en esa dirección; añade B para obtener la diferencia entre dos direcciones (contraste). 0° es la cámara, 90° derecha, 270° izquierda, 180° detrás (contraluz). Las fuentes del dial son los ángulos reales de tus luces, con el color del plano.',
     dftPanelH:'Altura del panel', dftPanelHHint:'← altura usada para la distancia (centro)', dftObjSettings:'Ajustes',
     dftPeopleTitle:'🧍 Personas', dftManLabel:'Hombre', dftWomanLabel:'Mujer',
@@ -16413,28 +16413,43 @@ function _dftExpRelAngle(azim, ref) {
 }
 
 /** 角度ごとの読み。angle は 0°=カメラ方向、90°=カメラ右。 */
-/** 任意の角度1点の読み。表の集計もドラッグ計測も必ずここを通す。 */
-function _dftExpReadAt(srcs, ref, angDeg) {
+/**
+ * 任意の向き1点の読み。表の集計もドラッグ計測も必ずここを通す。
+ *
+ * angDeg  水平の向き（0°=カメラ方向, 90°=カメラ右）
+ * elevDeg 仰角（0°=水平に構える, +90°=真上に向ける, -90°=真下）
+ *
+ * 露出計の面の法線を
+ *     n = (cosEl·cosφ, cosEl·sinφ, sinEl)
+ * とし、光源方向 u（高さを含む3D単位ベクトル）との cos を掛ける。
+ * 以前は縦構え固定で z 成分を捨てていたため、天バンのように
+ * 真上から来る光を上向きに測る、という操作が表現できなかった。
+ */
+function _dftExpReadAt(srcs, ref, angDeg, elevDeg) {
+  var el  = (elevDeg || 0) * Math.PI / 180;
   var phi = ref - angDeg * Math.PI / 180;
-  var nx = Math.cos(phi), ny = Math.sin(phi);
+  var ce  = Math.cos(el);
+  var nx = ce * Math.cos(phi), ny = ce * Math.sin(phi), nz = Math.sin(el);
   var sum = 0, parts = [];
   srcs.forEach(function(s) {
-    var c = nx * s.ux + ny * s.uy;        // 縦構えなので z 成分は掛からない
+    var c = nx * s.ux + ny * s.uy + nz * s.uz;
     if (c > 1e-9) { var e = s.lux * c; sum += e; parts.push({name:s.name, lux:e}); }
   });
   // 真横〜背面は cos がほぼ 0 になり、浮動小数の残りが 0 より大きくなって
   // f0.0 と表示されてしまう。実用上意味のない 0.5lx 未満は無光として扱う。
   if (sum < 0.5) { sum = 0; parts = []; }
   parts.sort(function(a,b){ return b.lux - a.lux; });
-  return { angle:angDeg, lux:sum, fstop:(sum > 0 ? luxToFstopCamera(sum) : null), parts:parts };
+  return { angle:angDeg, elev:(elevDeg || 0), lux:sum,
+           fstop:(sum > 0 ? luxToFstopCamera(sum) : null), parts:parts };
 }
 
 function _dftExpReadings(sb, stepDeg) {
   var srcs = _dftExpSources(sb);
   var ref  = _dftExpRefAngle(sb);
+  var elev = _dft._expElev || 0;      // 表とグラフも A の仰角に合わせる
   var out  = [];
-  for (var a = 0; a < 360; a += stepDeg) out.push(_dftExpReadAt(srcs, ref, a));
-  return { readings:out, sources:srcs, ref:ref };
+  for (var a = 0; a < 360; a += stepDeg) out.push(_dftExpReadAt(srcs, ref, a, elev));
+  return { readings:out, sources:srcs, ref:ref, elev:elev };
 }
 
 function dftExposureTool() {
@@ -16485,7 +16500,9 @@ function dftExposureTool() {
         _dftExpStat(t('expRatio'), ratio!=null ? ratio.toFixed(1)+' stop' : '—', ratio!=null ? '1:'+Math.pow(2,ratio).toFixed(1) : '—', '#5e35b1') +
       '</div>' +
       // 角度ごとの表
-      '<div style="max-height:34vh;overflow-y:auto;margin-top:12px;border:1px solid #eee;border-radius:10px;">' +
+      '<div style="font-size:10px;color:#888;margin:12px 0 4px;">' +
+        t('expTableNote') + ' ' + (d.elev ? _dftElevLabel(d.elev) : t('expElevFlat')) + '</div>' +
+      '<div style="max-height:34vh;overflow-y:auto;border:1px solid #eee;border-radius:10px;">' +
       '<table style="width:100%;border-collapse:collapse;font-size:11px;">' +
       '<thead><tr style="background:#f5f5f7;">' +
         '<th style="padding:6px 8px;text-align:left;font-weight:800;">'+t('expAngle')+'</th>' +
@@ -16565,10 +16582,12 @@ var DFT_PROBE_COL = { A:'#e65100', B:'#0288d1', off:'#9e9e9e' };
 function _dftExpProbeSVG(d) {
   var g = DFT_EXP_GEO, cx = g.cx, cy = g.cy, R = g.R;
   var probe = (_dft._expProbe != null) ? _dft._expProbe : 0;
-  var read  = _dftExpReadAt(d.sources, d.ref, probe);
+  var elevA = _dft._expElev || 0;
+  var read  = _dftExpReadAt(d.sources, d.ref, probe, elevA);
   var useB  = !!_dft._expProbeB2;
   var probeB= (_dft._expProbeB != null) ? _dft._expProbeB : 180;
-  var readB = _dftExpReadAt(d.sources, d.ref, probeB);
+  var elevB = _dft._expElevB || 0;
+  var readB = _dftExpReadAt(d.sources, d.ref, probeB, elevB);
 
   function label(x, y, txt, col, anchor, size) {
     return '<text x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" font-size="'+(size||9)+'" font-weight="800" fill="'+col+'" text-anchor="'+(anchor||'middle')+'" style="pointer-events:none;">'+txt+'</text>';
@@ -16615,7 +16634,8 @@ function _dftExpProbeSVG(d) {
 
   // 計測点（ドラッグできる）。cos で落ちた向きは灰色にする
   function probeSVG(tag, ang, rd) {
-    var pt = _dftExpPt(ang, R);
+    // B は内側の半径に置く。同じ方位でも両方見えるように
+    var pt = _dftExpPt(ang, tag === 'B' ? R * 0.72 : R);
     var col = rd.lux > 0 ? DFT_PROBE_COL[tag] : DFT_PROBE_COL.off;
     return '<line id="_dft_exp_pline'+tag+'" x1="'+cx+'" y1="'+cy+'" x2="'+pt[0].toFixed(1)+'" y2="'+pt[1].toFixed(1)+'" stroke="'+col+'" stroke-width="2.5" stroke-dasharray="5 3" style="pointer-events:none;"/>' +
       '<circle id="_dft_exp_probe'+tag+'" data-probe="'+tag+'" cx="'+pt[0].toFixed(1)+'" cy="'+pt[1].toFixed(1)+'" r="12" fill="'+col+'" stroke="#fff" stroke-width="2.5" style="cursor:grab;"/>' +
@@ -16627,7 +16647,8 @@ function _dftExpProbeSVG(d) {
   function card(tag, ang, rd) {
     var col = DFT_PROBE_COL[tag];
     return '<div style="flex:1;padding:6px 4px;background:#fff;border:1.5px solid '+col+';border-radius:9px;text-align:center;">' +
-      '<div style="font-size:9px;font-weight:800;color:'+col+';">'+tag+' · <span id="_dft_exp_ang'+tag+'">'+Math.round(ang)+'</span>°</div>' +
+      '<div style="font-size:9px;font-weight:800;color:'+col+';">'+tag+' · <span id="_dft_exp_ang'+tag+'">'+Math.round(ang)+'</span>°' +
+        ' <span id="_dft_exp_el'+tag+'" style="opacity:.75;">'+_dftElevLabel(rd.elev)+'</span></div>' +
       '<div id="_dft_exp_rf'+tag+'" style="font-size:18px;font-weight:900;color:'+col+';font-family:monospace;">'+(rd.fstop ? 'f'+rd.fstop.toFixed(1) : '—')+'</div>' +
       '<div id="_dft_exp_rlx'+tag+'" style="font-size:9px;color:#999;font-family:monospace;">'+(rd.lux ? Math.round(rd.lux).toLocaleString()+' lx' : t('expProbeNone'))+'</div>' +
     '</div>';
@@ -16650,10 +16671,55 @@ function _dftExpProbeSVG(d) {
     '<svg id="_dft_exp_dial" viewBox="0 0 '+g.W+' '+g.H+'" style="width:100%;max-width:320px;height:auto;touch-action:none;">' +
       rings + spokes + srcMarks + cam + face + probeMark + sideLbl +
     '</svg>' +
+    _dftExpElevHTML(useB) +
     readout +
     '<div style="font-size:10px;line-height:1.6;color:#888;padding:0 4px 2px;text-align:left;">' + t('expLegNote') + '</div>' +
   '</div>';
 }
+
+/** 仰角の短い表記。0°は水平なので何も出さない。 */
+function _dftElevLabel(el) {
+  if (!el) return '';
+  return (el > 0 ? '↑' : '↓') + Math.abs(Math.round(el)) + '°';
+}
+
+/**
+ * 仰角（露出計を上下どちらへ向けるか）。
+ * 天バンのように真上から来る光は、水平に構えたままでは cos がほぼ 0 で
+ * 拾えない。上に向けて初めて実際の読みになる。
+ */
+function _dftExpElevHTML(useB) {
+  function row(tag) {
+    var val = (tag === 'B') ? (_dft._expElevB || 0) : (_dft._expElev || 0);
+    var col = DFT_PROBE_COL[tag];
+    var presets = [[-45,'↓45'],[0,'水平'],[45,'↑45'],[90,'↑真上']].map(function(pv) {
+      var act = Math.abs(val - pv[0]) < 0.5;
+      return '<button onclick="window._dftExpSetElev(\''+tag+'\','+pv[0]+')" style="' +
+        'padding:4px 7px;border-radius:7px;border:1px solid '+(act?col:'#ddd')+';' +
+        'background:'+(act?col:'#fff')+';color:'+(act?'#fff':'#666')+';' +
+        'font-size:10px;font-weight:800;cursor:pointer;white-space:nowrap;">'+t('expElev'+(pv[0]===0?'Flat':pv[0]===90?'Up90':pv[0]>0?'Up45':'Down45'))+'</button>';
+    }).join('');
+    return '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">' +
+      '<span style="font-size:10px;font-weight:900;color:'+col+';width:14px;flex:0 0 14px;">'+tag+'</span>' +
+      '<input type="range" min="-90" max="90" step="5" value="'+val+'" ' +
+        'oninput="window._dftExpSetElev(\''+tag+'\',this.value)" ' +
+        'style="flex:1;height:22px;accent-color:'+col+';">' +
+      '<span id="_dft_exp_elv'+tag+'" style="font-size:11px;font-weight:800;color:'+col+';font-family:monospace;width:44px;flex:0 0 44px;text-align:right;">'+
+        (val>0?'+':'')+Math.round(val)+'°</span>' +
+    '</div>' +
+    '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;padding-left:20px;">'+presets+'</div>';
+  }
+  return '<div style="padding:6px 2px 0;text-align:left;">' +
+    '<div style="font-size:10px;font-weight:800;color:#888;margin-bottom:4px;">' + t('expElevLabel') + '</div>' +
+    row('A') + (useB ? row('B') : '') +
+  '</div>';
+}
+
+window._dftExpSetElev = function(tag, v) {
+  var n = Math.max(-90, Math.min(90, parseFloat(v) || 0));
+  if (tag === 'B') _dft._expElevB = n; else _dft._expElev = n;
+  dftExposureTool();      // 表とグラフも仰角に追従させるため作り直す
+};
 
 /** A と B の差。stop と比で返す。 */
 function _dftExpDiffText(a, b) {
@@ -16750,7 +16816,7 @@ function _dftExpRefreshDial(d) {
   var g = DFT_EXP_GEO;
 
   function one(tag, ang, rd) {
-    var pt  = _dftExpPt(ang, g.R);
+    var pt  = _dftExpPt(ang, tag === 'B' ? g.R * 0.72 : g.R);
     var col = rd.lux > 0 ? DFT_PROBE_COL[tag] : DFT_PROBE_COL.off;
     var ln = document.getElementById('_dft_exp_pline'+tag);
     if (ln) { ln.setAttribute('x2', pt[0].toFixed(1)); ln.setAttribute('y2', pt[1].toFixed(1)); ln.setAttribute('stroke', col); }
@@ -16760,6 +16826,8 @@ function _dftExpRefreshDial(d) {
     if (tx) { tx.setAttribute('x', pt[0].toFixed(1)); tx.setAttribute('y', (pt[1]+3.5).toFixed(1)); }
     var an = document.getElementById('_dft_exp_ang'+tag);
     if (an) an.textContent = Math.round(ang);
+    var el2 = document.getElementById('_dft_exp_el'+tag);
+    if (el2) el2.textContent = _dftElevLabel(rd.elev);
     var fEl = document.getElementById('_dft_exp_rf'+tag);
     if (fEl) fEl.textContent = rd.fstop ? 'f' + rd.fstop.toFixed(1) : '—';
     var lxEl = document.getElementById('_dft_exp_rlx'+tag);
@@ -16767,12 +16835,12 @@ function _dftExpRefreshDial(d) {
   }
 
   var probe = (_dft._expProbe != null) ? _dft._expProbe : 0;
-  var read  = _dftExpReadAt(d.sources, d.ref, probe);
+  var read  = _dftExpReadAt(d.sources, d.ref, probe, _dft._expElev || 0);
   one('A', probe, read);
 
   if (_dft._expProbeB2) {
     var pb = (_dft._expProbeB != null) ? _dft._expProbeB : 180;
-    var rb = _dftExpReadAt(d.sources, d.ref, pb);
+    var rb = _dftExpReadAt(d.sources, d.ref, pb, _dft._expElevB || 0);
     one('B', pb, rb);
     var df = _dftExpDiffText(read, rb);
     var d1 = document.getElementById('_dft_exp_rdiff');  if (d1) d1.textContent = df.big;
@@ -17961,7 +18029,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.4.96';
+var ver = 'v1.1.4.97';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
