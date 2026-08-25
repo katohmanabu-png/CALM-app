@@ -17698,7 +17698,8 @@ function _dftExpSources(sb) {
       ux: dx/len, uy: dy/len, uz: dz/len,
       azim: Math.atan2(dy, dx),                        // 水平方向
       elev: Math.atan2(dz, h) * 180 / Math.PI,         // 仰角(度)
-      ci: _dftModelColorIndex(p.light),                // 図面のアイコンと同じ機種色
+      col: _dftLightColor(p.light),                    // 図面のアイコンと同じ色
+      colEdge: _dftLightEdge(p.light),
       via: !!p.via
     };
   }).filter(Boolean);
@@ -18195,9 +18196,8 @@ function _dftExpProbeSVG(d) {
   var srcMarks = d.sources.map(function(sc, si) {
     var rel = _dftExpRelAngle(sc.azim, d.ref);
     var p   = _dftExpPt(rel, R);
-    var _ci = (sc.ci != null && sc.ci >= 0) ? sc.ci : si;
-    var col = _dftSrcColor(_ci);
-    var edge= _dftSrcEdge(_ci);
+    var col  = sc.col     || _dftSrcColor(si);
+    var edge = sc.colEdge || _dftSrcEdge(si);
     var out = _dftExpPt(rel, R + 13);
     var anchor = (out[0] > cx + 6) ? 'start' : (out[0] < cx - 6) ? 'end' : 'middle';
     var nm  = (sc.name.length > 12) ? sc.name.slice(0,12) + '…' : sc.name;
@@ -18354,34 +18354,72 @@ var DFT_SRC_EDGES = ['#e65100','#4a148c','#1b5e20','#b71c1c','#004d40','#e65100'
 function _dftSrcEdge(i) { return DFT_SRC_EDGES[i % DFT_SRC_EDGES.length]; }
 
 /**
- * 機種ごとの色。同じ機種は同じ色になる。
+ * 光源の種別ごとの色。
+ *
+ * 現場の見方に合わせて、デイライト(HMI)は水色、タングステンはオレンジ。
+ * 同じ種別で機種が違うときは同系色の濃淡で分ける（水色の中で濃い/淡いなど）。
  *
  * 以前は「被写体に届いている順」で色を振っていたので、同じ機種の12灯が
- * 全部違う色になり、図面で機種の区別が付かなかった。
+ * 全部違う色になり、区別が付かなかった。
+ */
+var DFT_FAMILY_COLORS = {
+  hmi:      { fill:['#29b6f6','#0288d1','#4fc3f7','#0277bd','#81d4fa','#01579b'],
+              edge:['#0277bd','#01579b','#0288d1','#014a7f','#039be5','#013a5e'] },
+  tungsten: { fill:['#fb8c00','#e65100','#ffa726','#bf360c','#ffb74d','#8d4004'],
+              edge:['#e65100','#bf360c','#ef6c00','#8d2c04','#f57c00','#5d2a02'] },
+  led:      { fill:['#66bb6a','#2e7d32','#81c784','#1b5e20','#a5d6a7','#0f3d13'],
+              edge:['#2e7d32','#1b5e20','#43a047','#0f3d13','#388e3c','#062606'] },
+  xenon:    { fill:['#b0bec5','#78909c','#cfd8dc'], edge:['#546e7a','#37474f','#607d8b'] },
+  other:    { fill:['#ab47bc','#7b1fa2','#ce93d8'], edge:['#7b1fa2','#4a148c','#8e24aa'] }
+};
+
+/** その機種がどの種別か。group の頭で判定する */
+function _dftLightFamily(lt) {
+  var g = (lt && lt.group) || '';
+  if (g.indexOf('HMI') === 0)      return 'hmi';
+  if (g.indexOf('Tungsten') === 0) return 'tungsten';
+  if (g.indexOf('LED') === 0)      return 'led';
+  if (g.indexOf('Xenon') === 0)    return 'xenon';
+  return 'other';
+}
+
+/**
+ * 種別の中で何番目の機種か。
  * 並び順は「図面に最初に置いた順」。名前順にすると、あとから頭文字の早い
- * 機種を1台足しただけで既にある灯の色が全部ずれてしまう。
- * 置いた順なら、機種を足しても既存の色は動かない。
+ * 機種を1台足しただけで既にある灯の色がずれてしまう。
  */
 function _dftModelColorIndex(lightObj) {
   if (!lightObj || !lightObj.makerKey || !lightObj.modelKey) return -1;
+  var lt = LIGHTS[lightObj.makerKey] && LIGHTS[lightObj.makerKey][lightObj.modelKey];
+  var fam = _dftLightFamily(lt);
   var key = lightObj.makerKey + '|' + lightObj.modelKey;
   var seen = [];
   for (var i = 0; i < _dft.objects.length; i++) {
     var o = _dft.objects[i];
     if (o.type !== 'light' || !o.makerKey || !o.modelKey) continue;
+    var ol = LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
+    if (_dftLightFamily(ol) !== fam) continue;      // 同じ種別の中だけで数える
     var k = o.makerKey + '|' + o.modelKey;
     if (seen.indexOf(k) < 0) seen.push(k);
   }
   var idx = seen.indexOf(key);
   return (idx < 0) ? -1 : idx;
 }
+
+function _dftLightPalette(lightObj) {
+  var lt = lightObj && lightObj.makerKey &&
+           LIGHTS[lightObj.makerKey] && LIGHTS[lightObj.makerKey][lightObj.modelKey];
+  return DFT_FAMILY_COLORS[_dftLightFamily(lt)] || DFT_FAMILY_COLORS.other;
+}
 function _dftLightColor(lightObj) {
+  var p = _dftLightPalette(lightObj);
   var i = _dftModelColorIndex(lightObj);
-  return (i < 0) ? '#f9a825' : _dftSrcColor(i);
+  return p.fill[Math.max(0, i) % p.fill.length];
 }
 function _dftLightEdge(lightObj) {
+  var p = _dftLightPalette(lightObj);
   var i = _dftModelColorIndex(lightObj);
-  return (i < 0) ? '#e65100' : _dftSrcEdge(i);
+  return p.edge[Math.max(0, i) % p.edge.length];
 }
 
 window._dftExpToggleB = function() {
@@ -20169,7 +20207,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.70';
+var ver = 'v1.1.7.71';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
