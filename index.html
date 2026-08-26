@@ -1541,16 +1541,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
   <div id="page-sub-mix" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div>
 </div>
 
-<!-- ミレッド計算への入口。色温度の話なのでこのタブに置く -->
-<div style="padding:0 10px 2px;">
-  <button onclick="openMiredTool()"
-    style="width:100%;display:flex;align-items:center;gap:8px;padding:10px 12px;border:1.5px solid var(--accent);
-           border-radius:12px;background:transparent;color:var(--accent);font-size:12px;font-weight:800;cursor:pointer;text-align:left;">
-    <span style="font-size:15px;">&#127912;</span>
-    <span style="flex:1;min-width:0;" id="lbl-mrd-btn">ミレッド計算</span>
-    <span style="font-size:12px;opacity:.6;">&#8250;</span>
-  </button>
-</div>
+<!-- ミレッド計算はドロワー（≡）からのみ開く。毎回使うものではないので前に出さない -->
 
 <!-- Light list -->
 <div class="card">
@@ -2470,6 +2461,7 @@ function applyI18n() {
   s('lbl-sort','sortLabel'); s('lbl-sort2','sortLabel');
   s('lbl-cmp-btn','cmpBtn');
   s('drawer-lbl-privacy','navPrivacy');
+  s('drawer-lbl-mired','mrdTitle');
   s('lbl-fb-shot-note','fbShotNote');
   try { if (document.getElementById('_cmp_ov')) renderCompare(); } catch(e) {}
   s('lbl-acc','accTitle'); s('lbl-cct','cctTitle'); s('lbl-dist','distTitle');
@@ -21485,7 +21477,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.97';
+var ver = 'v1.1.7.98';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
