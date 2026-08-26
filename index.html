@@ -2158,7 +2158,7 @@ var LANGS = {
     dftScaleTitle:'📐 スケール設定', dftScaleOr:'— または — フロアプランで2点タップ',
     dvTitle:'表示の切り替え', dvHint:'線が多くて読みにくいときに、要素ごとに薄くしたり消したりできます。',
     dvOn:'表示', dvDim:'半透明', dvOff:'非表示',
-    dvGrpLines:'距離線', dvGrpCones:'ビーム・画角', dvGrpBadges:'ラベル', dvGrpOther:'その他',
+    dvGrpLines:'距離線', dvGrpBadges:'アイコンの文字', dvGrpCones:'ビーム・画角', dvGrpOther:'その他',
     dvAllOn:'全部表示', dvAllDim:'全部薄く', dvClean:'すっきり',
     dvUnhide:'個別に隠した線を戻す',
     dftSaveFailed:'保存できませんでした。端末の空き容量が足りない可能性があります。写真やPDFを含む図面を削除してから、もう一度お試しください。',
@@ -2263,7 +2263,7 @@ var LANGS = {
     dftScaleTitle:'📐 Set Scale', dftScaleOr:'— or — tap 2 points on the floor plan',
     dvTitle:'Display', dvHint:'When the plan gets crowded, dim or hide each kind of overlay.',
     dvOn:'Show', dvDim:'Dim', dvOff:'Hide',
-    dvGrpLines:'Distance lines', dvGrpCones:'Beams & FOV', dvGrpBadges:'Labels', dvGrpOther:'Other',
+    dvGrpLines:'Distance lines', dvGrpBadges:'Labels on icons', dvGrpCones:'Beams & FOV', dvGrpOther:'Other',
     dvAllOn:'All on', dvAllDim:'All dim', dvClean:'Declutter',
     dvUnhide:'Restore individually hidden lines',
     dftSaveFailed:'Could not save. The device may be out of storage. Try deleting a draft that contains a photo or PDF, then save again.',
@@ -2365,7 +2365,7 @@ var LANGS = {
     dftScaleTitle:'📐 Configurar Escala', dftScaleOr:'— o — toca 2 puntos en el plano',
     dvTitle:'Visualización', dvHint:'Si el plano se llena, atenúa u oculta cada tipo de superposición.',
     dvOn:'Ver', dvDim:'Atenuar', dvOff:'Ocultar',
-    dvGrpLines:'Líneas de distancia', dvGrpCones:'Haces y ángulo', dvGrpBadges:'Etiquetas', dvGrpOther:'Otros',
+    dvGrpLines:'Líneas de distancia', dvGrpBadges:'Etiquetas en iconos', dvGrpCones:'Haces y ángulo', dvGrpOther:'Otros',
     dvAllOn:'Todo', dvAllDim:'Atenuar todo', dvClean:'Despejar',
     dvUnhide:'Restaurar líneas ocultadas',
     dftSaveFailed:'No se pudo guardar. Puede que no haya espacio. Borra un plano con foto o PDF e inténtalo de nuevo.',
@@ -13829,7 +13829,8 @@ var _dft = {
   // 以前は距離線6種の on/off だけだったが、実際に図面を埋めるのは
   // ビームコーンやバッジのほうなので、それらも同じ仕組みで薄くできるようにした。
   vis:{ direct:1, bounceIn:1, bounceOut:1, sum:1, diffuser:1, camera:1,
-        beam:1, fov:1, refl:1, fstop:1, stopBadge:1, grid:1, aim:1, pool:1 },
+        beam:1, fov:1, refl:1, fstop:1, stopBadge:1, grid:1, aim:1, pool:1,
+        name:1, height:1 },
   // persistence
   drafts:[],
   draftId:null,
@@ -14011,6 +14012,16 @@ function dftInit() {
   if (_calmCloud()) {
     setTimeout(function(){ _dftCloudSync(true); }, 1200);
   }
+
+  // 狭い画面では機種名まで出すと図面が文字で埋まる。初回だけ畳んでおく。
+  // （一度でも表示設定を触っていれば、その判断を尊重して何もしない）
+  try {
+    if (!localStorage.getItem('calm_vis_touched') && window.innerWidth < 520) {
+      _dft.vis.name = 0;
+      localStorage.setItem('calm_vis_touched', 'auto');
+      dftRender();
+    }
+  } catch(e) {}
 }
 
 // Auto-save current canvas state to localStorage (debounced)
@@ -14848,30 +14859,39 @@ function _dftDrawObj(ctx, o) {
   var _labR = (o.type === 'light' && _LR) ? _LR : R;
 
   // label — 四角(D/B/F)は中の文字で識別できるので名前ラベルは省略（スッキリ）
-  if (!_isRectT) {
+  // 機種名は横に長く、iPhone の画面では図面を覆ってしまうので消せるようにした
+  var _showName = !_isRectT && (_dft.vis.name !== 0 || sel);
+  if (_showName) {
+    ctx.save();
+    ctx.globalAlpha *= (sel ? 1 : (_dft.vis.name || 1));
     ctx.fillStyle = sel ? '#e53500' : '#1a1a1a';
     ctx.font = 'bold 9px -apple-system,Arial';
     ctx.textAlign = 'center'; ctx.textBaseline = 'top';
     ctx.fillText(o.label || '', sx, sy + _labR + 3);        // 点: 下側
+    ctx.restore();
   }
 
   // 点オブジェクトのバッジは名前ラベルの下に積む。
   // 以前は高さ(sy+R+15)とF値(sy+R+18)が同じ場所に描かれ、高さが読めなかった。
-  var _badgeY = sy + _labR + 14;
+  // 名前を消しているときは、その分だけ上へ詰める。
+  var _badgeY = sy + _labR + (_showName ? 14 : 3);
 
   // 設置高さ(床から)バッジ — 紫のピルで他の情報と区別
-  if (o.zHeight != null) {
+  if (o.zHeight != null && (_dft.vis.height !== 0 || sel)) {
     var hstr = '↕ ' + (_dft.unit === 'ft' ? (o.zHeight*3.28084).toFixed(1)+'ft' : o.zHeight.toFixed(1)+'m');
     ctx.font = 'bold 9px -apple-system,Arial';
     var hbw = ctx.measureText(hstr).width + 8, hbh = 13;
     var hby = _isRectT
       ? sy - _halfHpx - 4 - hbh         // 四角: 上辺のすぐ外側
       : _badgeY;                        // 点: 名前ラベルの下
+    ctx.save();
+    ctx.globalAlpha *= (sel ? 1 : (_dft.vis.height || 1));
     ctx.fillStyle = 'rgba(94,53,177,0.92)';
     _dftRoundRect(ctx, sx - hbw/2, hby, hbw, hbh, 4); ctx.fill();
     ctx.fillStyle = '#fff';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(hstr, sx, hby + hbh/2);
+    ctx.restore();
     if (!_isRectT) _badgeY += hbh + 2;
   }
 
@@ -20040,6 +20060,10 @@ var DFT_VIS_GROUPS = [
     {key:'diffuser',  label:'Diffusion の距離', sample:'↗3.5m',      col:'#ab47bc'},
     {key:'camera',    label:'カメラ の距離',    sample:'↗5.5m',      col:'#6495ed'}
   ]},
+  { title:'dvGrpBadges', items:[
+    {key:'name',   label:'機種名',   sample:'ARRI M18', col:'#1a1a1a'},
+    {key:'height', label:'設置高さ', sample:'↕ 1.9m',  col:'#5e35b1'}
+  ]},
   { title:'dvGrpCones', items:[
     {key:'beam', label:'ライトのビーム',   sample:'◣ 扇形',  col:'#f9a825'},
     {key:'refl', label:'反射板の反射光',   sample:'◣ 扇形',  col:'#0288d1'},
@@ -20224,6 +20248,8 @@ function dftDistVisMenu() {
 window._dftSetVis = function(key, val) {
   if (!_dft.vis) _dft.vis = {};
   _dft.vis[key] = val;
+  // 一度でも自分で触ったら、以後は画面幅による自動調整をしない
+  try { localStorage.setItem('calm_vis_touched', '1'); } catch(e) {}
   dftRender();
   var el = document.getElementById('_dft_dv');
   if (el) { el.remove(); dftDistVisMenu(); }
@@ -20231,6 +20257,7 @@ window._dftSetVis = function(key, val) {
 
 window._dftVisPreset = function(kind) {
   if (!_dft.vis) _dft.vis = {};
+  try { localStorage.setItem('calm_vis_touched', '1'); } catch(e) {}
   var keys = [];
   DFT_VIS_GROUPS.forEach(function(g){ g.items.forEach(function(it){ keys.push(it.key); }); });
   keys.forEach(function(k) {
@@ -20238,7 +20265,7 @@ window._dftVisPreset = function(kind) {
     else if (kind === 'dim') _dft.vis[k] = 0.28;
     else {
       // clean: 位置関係の読み取りに必要なものだけ残し、混みやすいものを落とす
-      var keep  = {direct:1, camera:1, fstop:1, grid:1};
+      var keep  = {direct:1, camera:1, fstop:1, grid:1, height:1};
       var faint = {beam:1, fov:1, refl:1};
       _dft.vis[k] = keep[k] ? 1 : (faint[k] ? 0.28 : 0);
     }
@@ -20351,7 +20378,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.77';
+var ver = 'v1.1.7.78';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
