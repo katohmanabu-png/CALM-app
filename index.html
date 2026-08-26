@@ -1541,6 +1541,17 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
   <div id="page-sub-mix" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div>
 </div>
 
+<!-- ミレッド計算への入口。色温度の話なのでこのタブに置く -->
+<div style="padding:0 10px 2px;">
+  <button onclick="openMiredTool()"
+    style="width:100%;display:flex;align-items:center;gap:8px;padding:10px 12px;border:1.5px solid var(--accent);
+           border-radius:12px;background:transparent;color:var(--accent);font-size:12px;font-weight:800;cursor:pointer;text-align:left;">
+    <span style="font-size:15px;">&#127912;</span>
+    <span style="flex:1;min-width:0;" id="lbl-mrd-btn">ミレッド計算</span>
+    <span style="font-size:12px;opacity:.6;">&#8250;</span>
+  </button>
+</div>
+
 <!-- Light list -->
 <div class="card">
   <div class="card-body" style="padding-top:12px;">
@@ -2152,7 +2163,7 @@ var LANGS = {
     distInputBtn:'📷 距離を入力', searchBtn:'🔍 検索',
     mxSearchBtn:'検索', mxSearchPlaceholder:'ライト名を入力...',
     indivDistOff:'個別距離 OFF', indivDistOn:'個別距離 ON',
-    cmDistTitle:'📷 距離を入力', cmARMeasure:'カメラで測る', cmARWebOnly:'📷 カメラで測る機能は iOS アプリ版でのみ使えます。ブラウザからは数値を入力してください。', cmARNoDevice:'📷 この端末はカメラ計測（ARKit）に対応していません。数値を入力してください。', cmARThenSet:'SET を押すと反映されます', cmARFail:'測定できませんでした', cmARDenied:'カメラの使用が許可されていません。設定 → CALM → カメラ を確認してください。',
+    cmDistTitle:'📷 距離を入力', cmARMeasure:'カメラで測る', mrdTitle:'ミレッド計算', mrdSub:'色温度の隔たりをミレッドで扱う', mrdSec1:'素材に合わせる', mrdSec1Hint:'ロケ素材の主光と補助光の関係を、別の主光の色温度で組み直します。合成の背景に合わせてスタジオをタングステンで組むときに。', mrdRef:'素材（ロケ）', mrdStudio:'スタジオ', mrdKey:'主光', mrdFill:'補助光', mrdAnswer:'必要な補助光の色温度', mrdKeepDiff:'ミレッド差を保つ:', mrdGelFrom:'ゼラチンで作る場合:', mrdGelAbout:'目安', mrdFixtures:'この色温度を出せる灯体 {n}台', mrdNaive:'※ K の比で計算すると {k}K になりますが、これは見た目が合いません。ミレッドで引き算するのが正しい扱いです。', mrdOutOfRange:'この組み合わせでは物理的に成り立ちません。値を見直してください。', mrdSec2:'2つの色温度の隔たり', mrdSec2Hint:'ゼラチンを選ぶときの数値です。この値が同じなら、どの色温度から使っても同じだけ動きます。', mrdFrom:'いまの色温度', mrdTo:'したい色温度', mrdToWarm:'暖色（オレンジ）側へ', mrdToCool:'寒色（青）側へ', mrdKDiffNote:'の差は {d}K ですが、K の差は見た目の隔たりを表しません', mrdFoot:'ミレッド = 100万 ÷ K。見た目の隔たりと、ゼラチンの効き方はミレッドに比例します。ゼラチンの呼び方は製品で値が違うので目安です。',  cmARWebOnly:'📷 カメラで測る機能は iOS アプリ版でのみ使えます。ブラウザからは数値を入力してください。', cmARNoDevice:'📷 この端末はカメラ計測（ARKit）に対応していません。数値を入力してください。', cmARThenSet:'SET を押すと反映されます', cmARFail:'測定できませんでした', cmARDenied:'カメラの使用が許可されていません。設定 → CALM → カメラ を確認してください。',
     pageDraftTitle:'ドラフト', pageDraftSub:'2Dライティングプラン',
     dftBtnSelect:'↖ 選択', dftBtnDelete:'🗑 削除', dftBtnRotate:'🔄 回転', dftBtnUndo:'↩ 元に戻す',
     dftBtnPeople:'🧍 人', dftBtnCamera:'🎥 Cam', dftBtnLight:'💡 ライト',
@@ -2250,7 +2261,7 @@ var LANGS = {
     triCalcToggle:'📐 Height & Angle Calc', triLockTitle:'Long-press to lock', triLockTitleOn:'Locked (long-press to release)',
     triHorizLbl:'↔️ Horizontal', triAngle:'📐 Angle',
     modelSearchPlaceholder:'Light name...', mxSearchPlaceholder:'Light name...', mxSearchBtn:'Search',
-    cmDistTitle:'📷 Enter Distance', cmARMeasure:'Measure with camera', cmARWebOnly:'📷 Camera measuring works in the iOS app only. Type the number here instead.', cmARNoDevice:'📷 This device does not support camera measuring (ARKit). Type the number instead.', cmARThenSet:'press SET to apply', cmARFail:'Could not measure', cmARDenied:'Camera access is off. Check Settings → CALM → Camera.',
+    cmDistTitle:'📷 Enter Distance', cmARMeasure:'Measure with camera', mrdTitle:'Mired', mrdSub:'Work with colour temperature differences in mired', mrdSec1:'Match a plate', mrdSec1Hint:'Rebuild the key/fill relationship of a location plate at a different key temperature.', mrdRef:'Plate (location)', mrdStudio:'Studio', mrdKey:'Key', mrdFill:'Fill', mrdAnswer:'Fill temperature needed', mrdKeepDiff:'Keeping the mired difference:', mrdGelFrom:'With gel:', mrdGelAbout:'approx.', mrdFixtures:'{n} fixtures can reach this', mrdNaive:'Note: scaling by the Kelvin ratio gives {k}K, which does not match visually. Subtracting in mired is the correct treatment.', mrdOutOfRange:'This combination is not physically possible. Check the values.', mrdSec2:'Difference between two temperatures', mrdSec2Hint:'This is the number you take to a gel book.', mrdFrom:'From', mrdTo:'To', mrdToWarm:'towards warm (orange)', mrdToCool:'towards cool (blue)', mrdKDiffNote:'differ by {d}K, but a Kelvin difference does not express the visual gap', mrdFoot:'Mired = 1,000,000 / K. Both the visual gap and the effect of a gel scale with mired. Gel names are approximate.',  cmARWebOnly:'📷 Camera measuring works in the iOS app only. Type the number here instead.', cmARNoDevice:'📷 This device does not support camera measuring (ARKit). Type the number instead.', cmARThenSet:'press SET to apply', cmARFail:'Could not measure', cmARDenied:'Camera access is off. Check Settings → CALM → Camera.',
     cmUnitPrefix:'Unit: ', cmApplied:' applied',
     secLabel1:'1 unit · at/above target (±1 stop)', secLabel2:'Multi · at/above target (±1 stop)', secLabel3:'1 unit · below target (within −1 stop)', secLabel4:'Multi · below target (within −1 stop)', secLabel5:'Within ±2 stop (reference)',
     altSec1:'1 unit (±1 stop)', altSec2:'Multi units (±1 stop)', altSec3:'1 unit · brighter (up to +2 stop)', altSec4:'Multi · brighter (up to +2 stop)',
@@ -2353,7 +2364,7 @@ var LANGS = {
     triCalcToggle:'📐 Calc. Altura y Ángulo', triLockTitle:'Mantener para fijar', triLockTitleOn:'Fijado (mantener para liberar)',
     triHorizLbl:'↔️ Horizontal', triAngle:'📐 Ángulo',
     modelSearchPlaceholder:'Nombre del equipo...', mxSearchPlaceholder:'Nombre del equipo...', mxSearchBtn:'Buscar',
-    cmDistTitle:'📷 Ingresar Distancia', cmARMeasure:'Medir con la cámara', cmARWebOnly:'📷 Medir con la cámara solo funciona en la app de iOS. Escribe el número aquí.', cmARNoDevice:'📷 Este dispositivo no admite medición con cámara (ARKit). Escribe el número.', cmARThenSet:'pulsa SET para aplicar', cmARFail:'No se pudo medir', cmARDenied:'Cámara no autorizada. Ajustes → CALM → Cámara.',
+    cmDistTitle:'📷 Ingresar Distancia', cmARMeasure:'Medir con la cámara', mrdTitle:'Mired', mrdSub:'Diferencias de temperatura de color en mired', mrdSec1:'Igualar una placa', mrdSec1Hint:'Reconstruye la relación principal/relleno de una placa con otra temperatura principal.', mrdRef:'Placa (localización)', mrdStudio:'Estudio', mrdKey:'Principal', mrdFill:'Relleno', mrdAnswer:'Temperatura de relleno necesaria', mrdKeepDiff:'Manteniendo la diferencia en mired:', mrdGelFrom:'Con gelatina:', mrdGelAbout:'aprox.', mrdFixtures:'{n} equipos pueden alcanzarla', mrdNaive:'Nota: escalar por la razón de kelvin da {k}K, que no coincide visualmente.', mrdOutOfRange:'Esta combinación no es físicamente posible.', mrdSec2:'Diferencia entre dos temperaturas', mrdSec2Hint:'Este es el número para elegir la gelatina.', mrdFrom:'Desde', mrdTo:'Hasta', mrdToWarm:'hacia cálido (naranja)', mrdToCool:'hacia frío (azul)', mrdKDiffNote:'difieren en {d}K, pero la diferencia en kelvin no expresa la distancia visual', mrdFoot:'Mired = 1.000.000 / K. Los nombres de gelatina son aproximados.',  cmARWebOnly:'📷 Medir con la cámara solo funciona en la app de iOS. Escribe el número aquí.', cmARNoDevice:'📷 Este dispositivo no admite medición con cámara (ARKit). Escribe el número.', cmARThenSet:'pulsa SET para aplicar', cmARFail:'No se pudo medir', cmARDenied:'Cámara no autorizada. Ajustes → CALM → Cámara.',
     cmUnitPrefix:'Unidad: ', cmApplied:' aplicado',
     secLabel1:'1 unidad · objetivo o más (±1 stop)', secLabel2:'Múltiples · objetivo o más (±1 stop)', secLabel3:'1 unidad · bajo objetivo (−1 stop)', secLabel4:'Múltiples · bajo objetivo (−1 stop)', secLabel5:'Dentro de ±2 stop (referencia)',
     altSec1:'1 unidad (±1 stop)', altSec2:'Múltiples (±1 stop)', altSec3:'1 unidad · más brillante (hasta +2 stop)', altSec4:'Múltiples · más brillante (hasta +2 stop)',
@@ -6828,6 +6839,265 @@ function updateUnitToggleBtn() {
 ;
 
 // ===== UTILS =====
+// ===== ミレッド計算 =====================================================
+// 色温度の「差」は K で引き算しても意味がない。
+// 5600K→7000K の隔たりと 3200K→4600K の隔たりは、K の差では同じ 1400 だが
+// 見た目の隔たりは全く違う。ミレッド（= 100万 / K）で引き算すると
+// 見た目の隔たりと揃い、しかもゼラチンの効き方（一定のミレッド変化）と一致する。
+// 素材に合わせて別の色温度帯で組み直すときは、必ずミレッド差を保つ。
+
+/** K → ミレッド */
+function kToMired(k) {
+  k = parseFloat(k);
+  if (!k || k <= 0) return null;
+  return 1000000 / k;
+}
+/** ミレッド → K */
+function miredToK(m) {
+  m = parseFloat(m);
+  if (!m || m <= 0) return null;
+  return 1000000 / m;
+}
+/** a から b へ移すのに必要なミレッド変化。＋は暖色（オレンジ）側 */
+function miredShift(fromK, toK) {
+  var a = kToMired(fromK), b = kToMired(toK);
+  if (a == null || b == null) return null;
+  return b - a;
+}
+
+/**
+ * 素材（ロケ撮影）の主光と補助光の関係を、別の主光の色温度で組み直す。
+ * 例: 素材が 太陽5600K / 天空7000K で、スタジオの主光がタングステン3200K のとき、
+ *     補助光に必要な色温度を返す。
+ * ミレッド差を保つのが要点。K の比（7000/5600 を 3200 に掛ける）では合わない。
+ */
+function miredMatchFill(refKeyK, refFillK, studioKeyK) {
+  var d = miredShift(refKeyK, refFillK);
+  var sk = kToMired(studioKeyK);
+  if (d == null || sk == null) return null;
+  var target = sk + d;
+  if (target <= 0) return null;   // 物理的に届かない
+  return { diffMired: d, targetMired: target, targetK: miredToK(target) };
+}
+
+// フルの1枚が動かすミレッド量。CTO と CTB で量が違う（対称ではない）。
+// フル CTO は 5600K→3200K、フル CTB は 3200K→5600K を作るもの、という
+// 定義そのものから出している。製品ごとの公表値は多少ばらつく。
+var MIRED_FULL_CTO = Math.round((1000000/3200 - 1000000/5600) * 10) / 10;   // 約 +133.9
+var MIRED_FULL_CTB = -MIRED_FULL_CTO;
+
+/**
+ * ゼラチンの呼び方の目安。
+ * フル1枚に対する割合で言うので、CTO と CTB の量の違いを取り違えない。
+ * 以前は両方向で同じ表を引いていたため、3200K→5600K（フル CTB のはず）が
+ * 3/4 CTB になっていた。
+ */
+function miredGelHint(shift) {
+  if (shift == null) return null;
+  var a = Math.abs(shift);
+  if (a < 6) return null;
+  var dir  = (shift > 0) ? 'CTO' : 'CTB';
+  var full = Math.abs(shift > 0 ? MIRED_FULL_CTO : MIRED_FULL_CTB);
+  var ratio = a / full;
+  var steps = [[0.125,'1/8'],[0.25,'1/4'],[0.5,'1/2'],[0.75,'3/4'],[1,'フル']];
+  if (ratio > 1.35) return Math.round(ratio * 10) / 10 + '枚ぶん ' + dir;
+  var best = steps[0], bd = Infinity;
+  for (var i = 0; i < steps.length; i++) {
+    var d = Math.abs(ratio - steps[i][0]);
+    if (d < bd) { bd = d; best = steps[i]; }
+  }
+  var name = (best[1] === 'フル') ? (LANG === 'ja' ? 'フル' : 'Full') : best[1];
+  return name + ' ' + dir;
+}
+
+/** この色温度をそのまま出せる灯体が DB に何台あるか */
+function miredFixtureCount(k, tol) {
+  tol = tol || 60;
+  var n = 0, examples = [];
+  try {
+    for (var mk in LIGHTS) {
+      for (var md in LIGHTS[mk]) {
+        var lt = LIGHTS[mk][md];
+        var cc = lt.ccts;
+        if (!cc || !cc.length) continue;
+        // 2値以上あるものは可変とみなし、範囲に入るかを見る
+        var lo = Math.min.apply(null, cc), hi = Math.max.apply(null, cc);
+        var ok = (cc.length > 1) ? (k >= lo - tol && k <= hi + tol)
+                                 : (Math.abs(cc[0] - k) <= tol);
+        if (ok) { n++; if (examples.length < 3) examples.push(lt.name); }
+      }
+    }
+  } catch(e) {}
+  return { count: n, examples: examples };
+}
+
+// ── ミレッド計算のシート ────────────────────────────────────
+// 覚えた値はここに置く。開き直しても続けられるように。
+var _mrd = { refKey:5600, refFill:7000, studioKey:3200, fromK:3200, toK:5600 };
+try {
+  var _mrdSaved = JSON.parse(localStorage.getItem('calm_mired') || 'null');
+  if (_mrdSaved) for (var _k in _mrdSaved) if (_mrd[_k] != null) _mrd[_k] = _mrdSaved[_k];
+} catch(e) {}
+function _mrdSave() { try { localStorage.setItem('calm_mired', JSON.stringify(_mrd)); } catch(e) {} }
+
+/** よく使う色温度。押すと欄に入る */
+var MRD_PRESETS = [
+  {k:2900, ja:'白熱球',      en:'Household'},
+  {k:3200, ja:'タングステン', en:'Tungsten'},
+  {k:4300, ja:'HMI 4300',    en:'HMI 4300'},
+  {k:5600, ja:'デイライト',   en:'Daylight'},
+  {k:6500, ja:'曇天',        en:'Overcast'},
+  {k:7000, ja:'天空光',      en:'Skylight'},
+  {k:9000, ja:'日陰',        en:'Shade'}
+];
+
+function _mrdNum(v, min, max) {
+  v = parseFloat(v);
+  if (isNaN(v)) return null;
+  return Math.max(min, Math.min(max, Math.round(v)));
+}
+
+window._mrdSet = function(key, val) {
+  var v = _mrdNum(val, 1000, 20000);
+  if (v == null) return;
+  _mrd[key] = v;
+  _mrdSave();
+  _mrdRender();
+};
+
+/** 数値欄1つ */
+function _mrdField(key, label, hint) {
+  var v = _mrd[key];
+  return '<div style="flex:1;min-width:0;">' +
+    '<div style="font-size:9.5px;font-weight:800;color:#999;margin-bottom:3px;">' + label + '</div>' +
+    '<div style="display:flex;align-items:center;gap:4px;">' +
+      '<input type="number" inputmode="numeric" min="1000" max="20000" step="100" value="' + v + '" ' +
+        'onchange="window._mrdSet(\'' + key + '\', this.value)" ' +
+        'style="flex:1;min-width:0;padding:8px 7px;border:1.5px solid #ddd;border-radius:8px;' +
+        'font-size:15px;font-weight:800;font-family:monospace;color:#111;background:#fff;">' +
+      '<span style="flex:0 0 auto;font-size:10px;font-weight:800;color:#999;">K</span>' +
+    '</div>' +
+    '<div style="font-size:8.5px;color:#bbb;font-weight:700;margin-top:2px;">' + Math.round(kToMired(v)) + ' mired' +
+      (hint ? ' · ' + hint : '') + '</div>' +
+  '</div>';
+}
+
+/** プリセットの並び。押すと直前に触った欄へ入る */
+function _mrdPresetRow(key) {
+  return '<div style="display:flex;gap:4px;overflow-x:auto;padding:6px 0 2px;-webkit-overflow-scrolling:touch;">' +
+    MRD_PRESETS.map(function(p) {
+      var on = (_mrd[key] === p.k);
+      return '<button onclick="window._mrdSet(\'' + key + '\',' + p.k + ')" ' +
+        'style="flex:0 0 auto;padding:4px 8px;border:1px solid ' + (on ? '#1565c0' : '#e0e0e0') + ';border-radius:7px;' +
+        'background:' + (on ? '#1565c0' : '#fff') + ';color:' + (on ? '#fff' : '#777') + ';' +
+        'font-size:9px;font-weight:800;cursor:pointer;white-space:nowrap;">' +
+        p.k + '<span style="opacity:.75;"> ' + (LANG === 'ja' ? p.ja : p.en) + '</span></button>';
+    }).join('') + '</div>';
+}
+
+function _mrdFmtShift(m) {
+  return (m > 0 ? '+' : '') + m.toFixed(1) + ' mired';
+}
+
+function _mrdRender() {
+  var body = document.getElementById('_mrd_body');
+  if (!body) return;
+
+  // ① 素材に合わせる
+  var r = miredMatchFill(_mrd.refKey, _mrd.refFill, _mrd.studioKey);
+  var block1;
+  if (!r) {
+    block1 = '<div style="font-size:11px;color:#c62828;font-weight:700;">' + t('mrdOutOfRange') + '</div>';
+  } else {
+    var fx = miredFixtureCount(r.targetK);
+    var gel = miredGelHint(miredShift(_mrd.studioKey, r.targetK));
+    var naive = _mrd.studioKey * (_mrd.refFill / _mrd.refKey);
+    block1 =
+      '<div style="background:#e8f5e9;border:1.5px solid #66bb6a;border-radius:12px;padding:13px 14px;">' +
+        '<div style="font-size:9.5px;font-weight:800;color:#2e7d32;">' + t('mrdAnswer') + '</div>' +
+        '<div style="font-size:34px;font-weight:900;color:#1b5e20;font-family:monospace;line-height:1.15;margin:2px 0;">' +
+          Math.round(r.targetK) + '<span style="font-size:15px;"> K</span></div>' +
+        '<div style="font-size:10px;color:#2e7d32;font-weight:700;line-height:1.6;">' +
+          t('mrdKeepDiff') + ' <b>' + _mrdFmtShift(r.diffMired) + '</b><br>' +
+          Math.round(kToMired(_mrd.studioKey)) + ' mired ' + (r.diffMired > 0 ? '+' : '−') + ' ' +
+          Math.abs(r.diffMired).toFixed(1) + ' = ' + r.targetMired.toFixed(1) + ' mired' +
+        '</div>' +
+        (gel ? '<div style="font-size:10px;color:#2e7d32;font-weight:800;margin-top:7px;padding-top:7px;border-top:1px solid #a5d6a7;">' +
+          '🎨 ' + t('mrdGelFrom') + ' ' + _mrd.studioKey + 'K → ' + _mrdFmtShift(miredShift(_mrd.studioKey, r.targetK)) +
+          ' <span style="opacity:.8;">(' + t('mrdGelAbout') + ' ' + gel + ')</span></div>' : '') +
+        (fx.count ? '<div style="font-size:9.5px;color:#2e7d32;font-weight:700;margin-top:5px;">' +
+          '💡 ' + t('mrdFixtures').replace('{n}', fx.count) +
+          (fx.examples.length ? ' <span style="opacity:.75;">' + _dftEsc(fx.examples.join(' / ')) + '</span>' : '') + '</div>' : '') +
+      '</div>' +
+      '<div style="font-size:9px;color:#bbb;font-weight:700;margin-top:7px;line-height:1.5;">' +
+        t('mrdNaive').replace('{k}', Math.round(naive)) + '</div>';
+  }
+
+  // ② 2つの色温度の隔たり
+  var sh = miredShift(_mrd.fromK, _mrd.toK);
+  var gel2 = (sh != null) ? miredGelHint(sh) : null;
+  var block2 = (sh == null) ? '' :
+    '<div style="background:#e3f2fd;border:1.5px solid #90caf9;border-radius:12px;padding:12px 14px;">' +
+      '<div style="font-size:22px;font-weight:900;color:#0d47a1;font-family:monospace;">' + _mrdFmtShift(sh) + '</div>' +
+      '<div style="font-size:10px;color:#1565c0;font-weight:700;margin-top:3px;line-height:1.5;">' +
+        (sh > 0 ? t('mrdToWarm') : t('mrdToCool')) +
+        (gel2 ? ' · ' + t('mrdGelAbout') + ' <b>' + gel2 + '</b>' : '') + '<br>' +
+        'K ' + t('mrdKDiffNote').replace('{d}', Math.abs(_mrd.toK - _mrd.fromK)) +
+      '</div>' +
+    '</div>';
+
+  body.innerHTML =
+    // ① 素材に合わせる
+    '<div style="padding:14px 16px 4px;">' +
+      '<div style="font-size:12px;font-weight:900;color:#333;">① ' + t('mrdSec1') + '</div>' +
+      '<div style="font-size:9.5px;color:#999;font-weight:700;margin-top:3px;line-height:1.5;">' + t('mrdSec1Hint') + '</div>' +
+    '</div>' +
+    '<div style="padding:6px 16px 0;">' +
+      '<div style="font-size:9.5px;font-weight:900;color:#888;margin-bottom:4px;">📽 ' + t('mrdRef') + '</div>' +
+      '<div style="display:flex;gap:10px;">' + _mrdField('refKey', t('mrdKey')) + _mrdField('refFill', t('mrdFill')) + '</div>' +
+      _mrdPresetRow('refFill') +
+      '<div style="font-size:9.5px;font-weight:900;color:#888;margin:10px 0 4px;">🎬 ' + t('mrdStudio') + '</div>' +
+      '<div style="display:flex;gap:10px;">' + _mrdField('studioKey', t('mrdKey')) + '<div style="flex:1;"></div></div>' +
+      _mrdPresetRow('studioKey') +
+      '<div style="margin-top:12px;">' + block1 + '</div>' +
+    '</div>' +
+    // ② 隔たり
+    '<div style="padding:20px 16px 4px;margin-top:8px;border-top:1px solid #eee;">' +
+      '<div style="font-size:12px;font-weight:900;color:#333;">② ' + t('mrdSec2') + '</div>' +
+      '<div style="font-size:9.5px;color:#999;font-weight:700;margin-top:3px;line-height:1.5;">' + t('mrdSec2Hint') + '</div>' +
+    '</div>' +
+    '<div style="padding:6px 16px 20px;">' +
+      '<div style="display:flex;gap:10px;align-items:flex-end;">' +
+        _mrdField('fromK', t('mrdFrom')) +
+        '<div style="flex:0 0 auto;font-size:16px;font-weight:900;color:#ccc;padding-bottom:16px;">→</div>' +
+        _mrdField('toK', t('mrdTo')) +
+      '</div>' +
+      '<div style="margin-top:12px;">' + block2 + '</div>' +
+      '<div style="font-size:9px;color:#bbb;font-weight:700;margin-top:10px;line-height:1.6;">' + t('mrdFoot') + '</div>' +
+    '</div>';
+}
+
+function openMiredTool() {
+  var ex = document.getElementById('_mrd'); if (ex) ex.remove();
+  var html =
+    '<div id="_mrd" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_mrd\').remove()">' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;max-height:88vh;max-height:88dvh;display:flex;flex-direction:column;" onclick="event.stopPropagation()">' +
+      '<div style="flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:16px 16px 12px;border-bottom:1px solid #eee;">' +
+        '<div style="flex:1;min-width:0;">' +
+          '<div style="font-size:15px;font-weight:900;">🎨 ' + t('mrdTitle') + '</div>' +
+          '<div style="font-size:9.5px;color:#999;font-weight:700;margin-top:2px;">' + t('mrdSub') + '</div>' +
+        '</div>' +
+        '<button onclick="document.getElementById(\'_mrd\').remove()" style="flex:0 0 auto;width:30px;height:30px;border:none;border-radius:50%;background:#eee;color:#333;font-size:16px;font-weight:800;cursor:pointer;line-height:1;">✕</button>' +
+      '</div>' +
+      '<div id="_mrd_body" style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;"></div>' +
+      '<div style="flex:0 0 auto;padding:10px 16px calc(14px + env(safe-area-inset-bottom, 0px));border-top:1px solid #eee;">' +
+        '<button onclick="document.getElementById(\'_mrd\').remove()" style="width:100%;padding:12px;background:#eee;border:none;border-radius:12px;font-size:12.5px;font-weight:800;cursor:pointer;">' + t('dftClose') + '</button>' +
+      '</div>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+  _mrdRender();
+}
+
 function showToast(msg) {
   var el = document.getElementById('toast');
   el.textContent = msg; el.className = 'toast show';
@@ -21215,7 +21485,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.95';
+var ver = 'v1.1.7.97';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -21801,6 +22071,10 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
   <button class="drawer-item" id="drawer-item-draft" onclick="openDrawerPage('draft')">
     <span class="drawer-item-icon">📐</span>
     <span>Draft</span>
+  </button>
+  <button class="drawer-item" onclick="closeDrawer();openMiredTool()">
+    <span class="drawer-item-icon">🎨</span>
+    <span id="drawer-lbl-mired">ミレッド計算</span>
   </button>
   <button class="drawer-item" id="drawer-item-feedback" onclick="openDrawerPage('feedback')">
     <span class="drawer-item-icon">📝</span>
