@@ -1091,7 +1091,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                       </div>
                       <div style="display:flex;align-items:center;gap:5px;">
                         <button class="step-btn" onclick="triStep('tri-height',-.5,.5,20,'h','calcTriangle')">‹</button>
-                        <input type="range" id="tri-height" min="0.5" max="20" step="0.5" value="4"
+                        <input type="range" id="tri-height" min="0.5" max="20" step="0.1" value="4"
                           oninput="triDisp('tri-height','tri-height-disp','tri-unit-h');calcTriangle('h')"
                           style="flex:1;height:4px;">
                         <button class="step-btn" onclick="triStep('tri-height',.5,.5,20,'h','calcTriangle')">›</button>
@@ -1106,7 +1106,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                       </div>
                       <div style="display:flex;align-items:center;gap:5px;">
                         <button class="step-btn" onclick="triStep('tri-horiz',-.5,.5,30,'di','calcTriangle')">‹</button>
-                        <input type="range" id="tri-horiz" min="0.5" max="30" step="0.5" value="6"
+                        <input type="range" id="tri-horiz" min="0.5" max="30" step="0.1" value="6"
                           oninput="triDisp('tri-horiz','tri-horiz-disp','tri-unit-hz');calcTriangle('di')"
                           style="flex:1;height:4px;">
                         <button class="step-btn" onclick="triStep('tri-horiz',.5,.5,30,'di','calcTriangle')">›</button>
@@ -1647,7 +1647,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
             </div>
             <div style="display:flex;align-items:center;gap:5px;">
               <button class="step-btn" onclick="triStep('mix-tri-h',-.5,.5,20,'h','calcMixTri')">‹</button>
-              <input type="range" id="mix-tri-h" min="0.5" max="20" step="0.5" value="4"
+              <input type="range" id="mix-tri-h" min="0.5" max="20" step="0.1" value="4"
                 oninput="triDisp('mix-tri-h','mix-tri-h-disp','mix-tri-unit-h');calcMixTri('h')"
                 style="flex:1;height:4px;">
               <button class="step-btn" onclick="triStep('mix-tri-h',.5,.5,20,'h','calcMixTri')">›</button>
@@ -1662,7 +1662,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
             </div>
             <div style="display:flex;align-items:center;gap:5px;">
               <button class="step-btn" onclick="triStep('mix-tri-hz',-.5,.5,30,'d','calcMixTri')">‹</button>
-              <input type="range" id="mix-tri-hz" min="0.5" max="30" step="0.5" value="6"
+              <input type="range" id="mix-tri-hz" min="0.5" max="30" step="0.1" value="6"
                 oninput="triDisp('mix-tri-hz','mix-tri-hz-disp','mix-tri-unit-hz');calcMixTri('d')"
                 style="flex:1;height:4px;">
               <button class="step-btn" onclick="triStep('mix-tri-hz',.5,.5,30,'d','calcMixTri')">›</button>
@@ -1834,7 +1834,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                   </div>
                   <div style="display:flex;align-items:center;gap:5px;">
                     <button class="step-btn" onclick="triStep('finder-tri-height',-.5,.5,50,'h','calcFinderTriangle')">‹</button>
-                    <input type="range" id="finder-tri-height" min="0.5" max="50" step="0.5" value="4"
+                    <input type="range" id="finder-tri-height" min="0.5" max="50" step="0.1" value="4"
                       oninput="triDisp('finder-tri-height','finder-tri-height-disp','finder-tri-unit-h');calcFinderTriangle('h')"
                       style="flex:1;height:4px;">
                     <button class="step-btn" onclick="triStep('finder-tri-height',.5,.5,50,'h','calcFinderTriangle')">›</button>
@@ -1849,7 +1849,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                   </div>
                   <div style="display:flex;align-items:center;gap:5px;">
                     <button class="step-btn" onclick="triStep('finder-tri-horiz',-.5,.5,100,'di','calcFinderTriangle')">‹</button>
-                    <input type="range" id="finder-tri-horiz" min="0.5" max="100" step="0.5" value="6"
+                    <input type="range" id="finder-tri-horiz" min="0.5" max="100" step="0.1" value="6"
                       oninput="triDisp('finder-tri-horiz','finder-tri-horiz-disp','finder-tri-unit-hz');calcFinderTriangle('di')"
                       style="flex:1;height:4px;">
                     <button class="step-btn" onclick="triStep('finder-tri-horiz',.5,.5,100,'di','calcFinderTriangle')">›</button>
@@ -2137,7 +2137,7 @@ var LANGS = {
     distInputBtn:'📷 距離を入力', searchBtn:'🔍 検索',
     mxSearchBtn:'検索', mxSearchPlaceholder:'ライト名を入力...',
     indivDistOff:'個別距離 OFF', indivDistOn:'個別距離 ON',
-    cmDistTitle:'📷 距離を入力',
+    cmDistTitle:'📷 距離を入力', cmARMeasure:'カメラで測る', cmARThenSet:'SET を押すと反映されます', cmARFail:'測定できませんでした', cmARDenied:'カメラの使用が許可されていません。設定 → CALM → カメラ を確認してください。',
     pageDraftTitle:'ドラフト', pageDraftSub:'2Dライティングプラン',
     dftBtnSelect:'↖ 選択', dftBtnDelete:'🗑 削除', dftBtnRotate:'🔄 回転', dftBtnUndo:'↩ 元に戻す',
     dftBtnPeople:'🧍 人', dftBtnCamera:'🎥 Cam', dftBtnLight:'💡 ライト',
@@ -2235,7 +2235,7 @@ var LANGS = {
     triCalcToggle:'📐 Height & Angle Calc', triLockTitle:'Long-press to lock', triLockTitleOn:'Locked (long-press to release)',
     triHorizLbl:'↔️ Horizontal', triAngle:'📐 Angle',
     modelSearchPlaceholder:'Light name...', mxSearchPlaceholder:'Light name...', mxSearchBtn:'Search',
-    cmDistTitle:'📷 Enter Distance',
+    cmDistTitle:'📷 Enter Distance', cmARMeasure:'Measure with camera', cmARThenSet:'press SET to apply', cmARFail:'Could not measure', cmARDenied:'Camera access is off. Check Settings → CALM → Camera.',
     cmUnitPrefix:'Unit: ', cmApplied:' applied',
     secLabel1:'1 unit · at/above target (±1 stop)', secLabel2:'Multi · at/above target (±1 stop)', secLabel3:'1 unit · below target (within −1 stop)', secLabel4:'Multi · below target (within −1 stop)', secLabel5:'Within ±2 stop (reference)',
     altSec1:'1 unit (±1 stop)', altSec2:'Multi units (±1 stop)', altSec3:'1 unit · brighter (up to +2 stop)', altSec4:'Multi · brighter (up to +2 stop)',
@@ -2338,7 +2338,7 @@ var LANGS = {
     triCalcToggle:'📐 Calc. Altura y Ángulo', triLockTitle:'Mantener para fijar', triLockTitleOn:'Fijado (mantener para liberar)',
     triHorizLbl:'↔️ Horizontal', triAngle:'📐 Ángulo',
     modelSearchPlaceholder:'Nombre del equipo...', mxSearchPlaceholder:'Nombre del equipo...', mxSearchBtn:'Buscar',
-    cmDistTitle:'📷 Ingresar Distancia',
+    cmDistTitle:'📷 Ingresar Distancia', cmARMeasure:'Medir con la cámara', cmARThenSet:'pulsa SET para aplicar', cmARFail:'No se pudo medir', cmARDenied:'Cámara no autorizada. Ajustes → CALM → Cámara.',
     cmUnitPrefix:'Unidad: ', cmApplied:' aplicado',
     secLabel1:'1 unidad · objetivo o más (±1 stop)', secLabel2:'Múltiples · objetivo o más (±1 stop)', secLabel3:'1 unidad · bajo objetivo (−1 stop)', secLabel4:'Múltiples · bajo objetivo (−1 stop)', secLabel5:'Dentro de ±2 stop (referencia)',
     altSec1:'1 unidad (±1 stop)', altSec2:'Múltiples (±1 stop)', altSec3:'1 unidad · más brillante (hasta +2 stop)', altSec4:'Múltiples · más brillante (hasta +2 stop)',
@@ -7883,9 +7883,11 @@ function onDistChange() {
   saveCalcState();
   updateDistDisplay(); calculate();
 }
-function onDistManual() {
-  var inp = el('dist-manual'); if (!inp) return;
-  var v = parseFloat(inp.value);
+/** @param vOpt 現在の単位での距離。省略時は入力欄から読む（欄が無い画面もある） */
+function onDistManual(vOpt) {
+  var inp = el('dist-manual');
+  if (vOpt == null && !inp) return;
+  var v = (vOpt != null) ? parseFloat(vOpt) : parseFloat(inp.value);
   if (!v || v <= 0) { S.manualDist = null; calculate(); return; }
   // Input is in current unit, convert to meters
   S.manualDist = S.imperial ? v / 3.28084 : v;
@@ -8112,6 +8114,22 @@ function makeSlValEditable(dispId, slId, min, max, step, onCommit) {
   disp.addEventListener('dblclick', function(e) { e.preventDefault(); startEdit(); });
 }
 
+/**
+ * 三角計算の値を、打ち込んだとおりにスライダーへ入れる。
+ * 表示のダブルタップで数値を打てるのに、以前はその値をどこにも入れておらず
+ * （コールバックが v を受け取らず計算だけやり直していた）、打っても変わらなかった。
+ * 角度だけは整数、長さは小数第1位まで。
+ */
+function _triSetVal(slId, dispId, unitId, v) {
+  var sl = el(slId); if (!sl || v == null || isNaN(v)) return;
+  var isAngle = (unitId == null);
+  var minV = parseFloat(sl.min), maxV = parseFloat(sl.max);
+  v = Math.max(minV, Math.min(maxV, v));
+  v = isAngle ? Math.round(v) : Math.round(v * 10) / 10;
+  sl.value = v;
+  triDisp(slId, dispId, unitId, isAngle ? '°' : undefined);
+}
+
 // 最後に触ったフィールド記録 (スライダー化により不要だが互換性のため残す)
 var _triLast = null;
 var _altTriLast = null;
@@ -8184,12 +8202,23 @@ function cmOpen(ctx) {
 
   ov.style.display = 'flex';
 
+  // カメラ計測の行。既定は「距離」を測る想定
+  _cmARDest = 'distance';
+  var box = document.getElementById('cm-ar-box');
+  if (box) { box.style.display = ''; box.innerHTML = ''; }
+  _cmRenderARRow();
+
   // 最初の input にフォーカス
   setTimeout(function() {
     var first = document.getElementById('cm-inp-height');
     if (first) first.focus();
   }, 120);
 }
+
+/** カメラで測った値をどの行に入れるか */
+var _cmARDest = 'distance';
+/** 行の 📷 から呼ぶ。その行に入れる */
+function cmARFor(dest) { _cmARDest = dest; cmMeasureAR(dest); }
 
 // 入力プレビュー（ボーダーカラーを変える）
 function cmPreview(dest) {
@@ -8200,6 +8229,34 @@ function cmPreview(dest) {
 }
 
 // SET ボタン押下
+/**
+ * 測った距離を、そのタブの「直接入力」と同じ経路で反映する。
+ * 距離スライダーに流すと 0.5m 刻みに丸められ、さらにスライダー側の処理が
+ * 直接入力を打ち消してしまうので、必ずこちらを通す。
+ * @param ctx 'calc' | 'finder' | 'alt' | 'mix'
+ * @param metres 測った距離（m）
+ * @param imp 画面が ft 表示かどうか
+ */
+function _cmSetDistM(ctx, metres, imp) {
+  var v = imp ? metres * 3.28084 : metres;
+  v = Math.round(v * 100) / 100;
+  function put(id, fn) {
+    var inp = document.getElementById(id);
+    if (inp) { inp.value = _cmTrim(v); }
+    try { fn(); } catch(e) {}
+  }
+  // Calc と Finder は直接入力の欄が画面に無いので、値を渡して呼ぶ
+  if (ctx === 'finder')    { try { onFinderDistManual(v); } catch(e) {} }
+  else if (ctx === 'alt')  { put('alt-dist-manual', onAltDistManual); }
+  else if (ctx === 'mix')  { put('mix-dist-direct', onMixDistDirect); }
+  else                     { try { onDistManual(v); } catch(e) {} }
+}
+
+/** 4.50 → 4.5、7.00 → 7 のように末尾の 0 を落とす */
+function _cmTrim(v) {
+  return String(Math.round(v * 100) / 100);
+}
+
 function cmApply(dest) {
   var inp = document.getElementById('cm-inp-' + dest);
   if (!inp) return;
@@ -8218,17 +8275,21 @@ function cmApply(dest) {
   var ctx = _cmContext;
 
   // スライダーにセットするヘルパー
+  // 打ち込んだ数値はそのまま使う。
+  // スライダーの刻みは 0.5 なので、以前は 7.2 と打つと 7 に丸められていた。
+  // 数値で入れる意味が無くなるので、入れる瞬間だけ刻みを細かくして値を入れ、
+  // そのあと刻みを戻す（指でドラッグしたときの感触は変えない）。
   function setSlider(slId, dispId) {
     var sl = document.getElementById(slId);
     var dp = document.getElementById(dispId);
     if (!sl) return;
     var minV = parseFloat(sl.min) || 0.1;
     var maxV = parseFloat(sl.max) || 100;
-    var step = parseFloat(sl.step) || 0.5;
     var v = imp ? metres * 3.28084 : metres;
-    v = Math.max(minV, Math.min(maxV, Math.round(v / step) * step));
+    v = Math.max(minV, Math.min(maxV, v));
+    v = Math.round(v * 10) / 10;            // 小数第1位まで（スライダーの刻みと同じ）
     sl.value = v;
-    if (dp) dp.textContent = v + ' ' + unit;
+    if (dp) dp.textContent = _cmTrim(v) + ' ' + unit;
     // CALMの内部計算を発火
     sl.dispatchEvent(new Event('input', { bubbles: true }));
   }
@@ -8249,31 +8310,14 @@ function cmApply(dest) {
   } else if (dest === 'horiz') {
     setSlider(slHz, sdHz);
   } else { // distance
-    if (ctx === 'calc' && typeof S !== 'undefined') {
-      S.triDist    = metres;
-      S.useTriDist = true;
-      S.dist       = metres;
-      var sl3 = document.getElementById('dist-sl');
-      if (sl3) {
-        var v3 = imp ? Math.round(metres*3.28084*2)/2 : Math.round(metres*2)/2;
-        sl3.value = Math.max(imp?1.6:0.5, Math.min(imp?328:100, v3));
-        sl3.dispatchEvent(new Event('input', { bubbles: true }));
-      }
-      var note = document.getElementById('tri-active-note');
-      var ttxt = document.getElementById('tri-active-text');
-      if (note) note.style.display = 'block';
-      if (ttxt) ttxt.textContent = raw + ' ' + unit;
-      try { calculate(); } catch(e) {}
-    } else {
-      setSlider(slH, sdH);
-    }
+    _cmSetDistM(ctx, metres, imp);
   }
 
   // フィードバック表示
   var destLabel = dest === 'height' ? 'Height' : dest === 'horiz' ? 'Horiz' : 'Distance';
   var fb = document.getElementById('cm-feedback');
   if (fb) {
-    fb.textContent = '✓ ' + raw + ' ' + unit + ' → ' + destLabel + t('cmApplied');
+    fb.textContent = '✓ ' + _cmTrim(raw) + ' ' + unit + ' → ' + destLabel + t('cmApplied');
     fb.style.display = 'block';
   }
 
@@ -9690,21 +9734,21 @@ window.addEventListener('DOMContentLoaded', function() {
     updateAltDistDisplay();
   });
   // Triangle: Calc
-  makeSlValEditable('tri-height-disp', 'tri-height', 0.5, 20, 0.5, function(){ calcTriangle('h'); });
-  makeSlValEditable('tri-horiz-disp',  'tri-horiz',  0.5, 30, 0.5, function(){ calcTriangle('di'); });
-  makeSlValEditable('tri-angle-disp',  'tri-angle',  1,   89, 1,   function(){ calcTriangle('a'); });
+  makeSlValEditable('tri-height-disp', 'tri-height', 0.5, 20, 0.5, function(v){ _triSetVal('tri-height','tri-height-disp','tri-unit-h',v); calcTriangle('h'); });
+  makeSlValEditable('tri-horiz-disp',  'tri-horiz',  0.5, 30, 0.5, function(v){ _triSetVal('tri-horiz','tri-horiz-disp','tri-unit-hz',v); calcTriangle('di'); });
+  makeSlValEditable('tri-angle-disp',  'tri-angle',  1,   89, 1,   function(v){ _triSetVal('tri-angle','tri-angle-disp',null,v); calcTriangle('a'); });
   // Triangle: Alt
-  makeSlValEditable('alt-tri-height-disp', 'alt-tri-height', 0.5, 20, 0.5, function(){ calcAltTriangle('h'); });
-  makeSlValEditable('alt-tri-horiz-disp',  'alt-tri-horiz',  0.5, 30, 0.5, function(){ calcAltTriangle('di'); });
-  makeSlValEditable('alt-tri-angle-disp',  'alt-tri-angle',  1,   89, 1,   function(){ calcAltTriangle('a'); });
+  makeSlValEditable('alt-tri-height-disp', 'alt-tri-height', 0.5, 20, 0.5, function(v){ _triSetVal('alt-tri-height','alt-tri-height-disp','alt-tri-unit-h',v); calcAltTriangle('h'); });
+  makeSlValEditable('alt-tri-horiz-disp',  'alt-tri-horiz',  0.5, 30, 0.5, function(v){ _triSetVal('alt-tri-horiz','alt-tri-horiz-disp','alt-tri-unit-hz',v); calcAltTriangle('di'); });
+  makeSlValEditable('alt-tri-angle-disp',  'alt-tri-angle',  1,   89, 1,   function(v){ _triSetVal('alt-tri-angle','alt-tri-angle-disp',null,v); calcAltTriangle('a'); });
   // Triangle: Finder
-  makeSlValEditable('finder-tri-height-disp', 'finder-tri-height', 0.5, 20, 0.5, function(){ calcFinderTriangle('h'); });
-  makeSlValEditable('finder-tri-horiz-disp',  'finder-tri-horiz',  0.5, 30, 0.5, function(){ calcFinderTriangle('di'); });
-  makeSlValEditable('finder-tri-angle-disp',  'finder-tri-angle',  1,   89, 1,   function(){ calcFinderTriangle('a'); });
+  makeSlValEditable('finder-tri-height-disp', 'finder-tri-height', 0.5, 50, 0.5, function(v){ _triSetVal('finder-tri-height','finder-tri-height-disp','finder-tri-unit-h',v); calcFinderTriangle('h'); });
+  makeSlValEditable('finder-tri-horiz-disp',  'finder-tri-horiz',  0.5, 100, 0.5, function(v){ _triSetVal('finder-tri-horiz','finder-tri-horiz-disp','finder-tri-unit-hz',v); calcFinderTriangle('di'); });
+  makeSlValEditable('finder-tri-angle-disp',  'finder-tri-angle',  1,   89, 1,   function(v){ _triSetVal('finder-tri-angle','finder-tri-angle-disp',null,v); calcFinderTriangle('a'); });
   // Triangle: Mix
-  makeSlValEditable('mix-tri-h-disp',       'mix-tri-h',     0.5, 20, 0.5, function(){ calcMixTri('h'); });
-  makeSlValEditable('mix-tri-hz-disp',      'mix-tri-hz',    0.5, 30, 0.5, function(){ calcMixTri('d'); });
-  makeSlValEditable('mix-tri-angle-disp2',  'mix-tri-angle', 1,   89, 1,   function(){ calcMixTri('a'); });
+  makeSlValEditable('mix-tri-h-disp',       'mix-tri-h',     0.5, 20, 0.5, function(v){ _triSetVal('mix-tri-h','mix-tri-h-disp','mix-tri-unit-h',v); calcMixTri('h'); });
+  makeSlValEditable('mix-tri-hz-disp',      'mix-tri-hz',    0.5, 30, 0.5, function(v){ _triSetVal('mix-tri-hz','mix-tri-hz-disp','mix-tri-unit-hz',v); calcMixTri('d'); });
+  makeSlValEditable('mix-tri-angle-disp2',  'mix-tri-angle', 1,   89, 1,   function(v){ _triSetVal('mix-tri-angle','mix-tri-angle-disp2',null,v); calcMixTri('a'); });
 
   // カメラタブ ISO（インデックス型 → 最近傍ISO_V変換）
   makeSlValEditable('iso-disp', 'iso', 100, 12800, 1, function(v) {
@@ -10681,9 +10725,11 @@ function onFinderDistChange() {
   try { renderFinderResults(); } catch(e) { console.log('[CALM] renderFinderResults error:', e); }
 }
 
-function onFinderDistManual() {
-  var inp = el('finder-dist-manual'); if (!inp) return;
-  var v = parseFloat(inp.value);
+/** @param vOpt 現在の単位での距離。省略時は入力欄から読む（欄が無い画面もある） */
+function onFinderDistManual(vOpt) {
+  var inp = el('finder-dist-manual');
+  if (vOpt == null && !inp) return;
+  var v = (vOpt != null) ? parseFloat(vOpt) : parseFloat(inp.value);
   if (!v || v <= 0) {
     S_finderManualDist = null;
     updateFinderDistDisplay();
@@ -20038,6 +20084,104 @@ function _dftLoadDraft(d, skipRender) {
 // Export current canvas state as a .calm JSON file
 // ファイル保存。ネイティブ(WKWebView)では <a download> が機能しないため、
 // 共有シート(Web Share API) → Capacitor Filesystem の順にフォールバックする。
+/**
+ * カメラ計測プラグイン。ネイティブアプリのときだけ使える。
+ * Capacitor.Plugins は単一 HTML の作りでは空のままなので、
+ * nativePromise を identifier（"CalmARPlugin"）で直に呼ぶ。
+ */
+function _calmAR() {
+  try {
+    if (!_calmIsNative()) return null;
+    var C = window.Capacitor;
+    if (!C) return null;
+    if (C.Plugins && C.Plugins.CalmAR) return C.Plugins.CalmAR;
+    if (typeof C.nativePromise !== 'function') return null;
+    var call = function(m) {
+      return function(opts) { return C.nativePromise('CalmARPlugin', m, opts || {}); };
+    };
+    return { available: call('available'), measure: call('measure') };
+  } catch(e) { return null; }
+}
+
+/** 端末が対応しているか一度だけ調べて覚える */
+var _cmARState = null;   // null=未確認 / {available, lidar, cameraDenied}
+function _cmARProbe(cb) {
+  if (_cmARState) { cb(_cmARState); return; }
+  var ar = _calmAR();
+  if (!ar) { _cmARState = {available:false}; cb(_cmARState); return; }
+  ar.available().then(function(r) {
+    _cmARState = r || {available:false};
+    cb(_cmARState);
+  }).catch(function() {
+    _cmARState = {available:false};
+    cb(_cmARState);
+  });
+}
+
+/**
+ * カメラで測って、いま開いている行の入力欄に入れる。
+ * 測った値はそのまま反映せず入力欄に入れて見せる。
+ * 測り直したいことが多いので、SET は自分で押してもらう。
+ */
+function cmMeasureAR(dest) {
+  var ar = _calmAR();
+  var btn = document.getElementById('cm-ar-btn');
+  if (!ar) return;
+  if (btn) { btn.disabled = true; btn.style.opacity = '0.5'; }
+  ar.measure().then(function(r) {
+    if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+    if (!r || r.cancelled || r.metres == null) return;
+    var imp = (typeof S !== 'undefined' && S.imperial);
+    var v = imp ? r.metres * 3.28084 : r.metres;
+    v = Math.round(v * 100) / 100;
+    var inp = document.getElementById('cm-inp-' + (dest || 'distance'));
+    if (inp) {
+      inp.value = v;
+      inp.style.borderColor = '#4caf50';
+      try { cmPreview(dest || 'distance'); } catch(e) {}
+      inp.focus();
+    }
+    var st = document.getElementById('cm-ar-status');
+    if (st) {
+      st.textContent = '📷 ' + v + ' ' + (imp ? 'ft' : 'm') +
+        (r.lidar ? ' · LiDAR' : '') + ' — ' + t('cmARThenSet');
+      st.style.display = 'block';
+    }
+  }).catch(function(e) {
+    if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+    var st = document.getElementById('cm-ar-status');
+    if (st) { st.textContent = '⚠️ ' + (e && e.message ? e.message : t('cmARFail')); st.style.display = 'block'; }
+  });
+}
+
+/** 対応状況にあわせて、シート上部の案内を作り替える */
+function _cmRenderARRow() {
+  var box = document.getElementById('cm-ar-box');
+  if (!box) return;
+  _cmARProbe(function(st) {
+    if (st.available) {
+      box.innerHTML =
+        '<button id="cm-ar-btn" onclick="cmMeasureAR(_cmARDest)" ' +
+          'style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;' +
+          'border:none;border-radius:12px;background:var(--accent,#f96);color:#fff;font-size:14px;font-weight:800;cursor:pointer;">' +
+          '📷 ' + t('cmARMeasure') + (st.lidar ? ' <span style="font-size:9px;font-weight:800;background:rgba(255,255,255,.25);padding:2px 7px;border-radius:9px;">LiDAR</span>' : '') +
+        '</button>' +
+        '<div id="cm-ar-status" style="display:none;margin-top:7px;font-size:10.5px;font-weight:700;color:var(--text-dim,#999);line-height:1.4;"></div>';
+    } else if (st.cameraDenied) {
+      box.innerHTML = '<div style="font-size:10.5px;color:var(--text-dim,#999);line-height:1.5;">' + t('cmARDenied') + '</div>';
+    } else {
+      // Web版や非対応機では出さない。無い機能を見せない
+      box.innerHTML = '';
+      box.style.display = 'none';
+    }
+    // 各行の 📷 も、対応しているときだけ出す
+    var rows = document.querySelectorAll('#cm-overlay .cm-ar-row');
+    for (var i = 0; i < rows.length; i++) {
+      rows[i].style.display = st.available ? 'block' : 'none';
+    }
+  });
+}
+
 function _calmIsNative() {
   try {
     var C = window.Capacitor;
@@ -20991,7 +21135,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.90';
+var ver = 'v1.1.7.92';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -21160,7 +21304,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                     </div>
                     <div style="display:flex;align-items:center;gap:5px;">
                       <button class="step-btn" onclick="triStep('alt-tri-height',-.5,.5,20,'h','calcAltTriangle')">‹</button>
-                      <input type="range" id="alt-tri-height" min="0.5" max="20" step="0.5" value="4"
+                      <input type="range" id="alt-tri-height" min="0.5" max="20" step="0.1" value="4"
                         oninput="triDisp('alt-tri-height','alt-tri-height-disp','alt-tri-unit-h');calcAltTriangle('h')"
                         style="flex:1;height:4px;">
                       <button class="step-btn" onclick="triStep('alt-tri-height',.5,.5,20,'h','calcAltTriangle')">›</button>
@@ -21175,7 +21319,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                     </div>
                     <div style="display:flex;align-items:center;gap:5px;">
                       <button class="step-btn" onclick="triStep('alt-tri-horiz',-.5,.5,30,'di','calcAltTriangle')">‹</button>
-                      <input type="range" id="alt-tri-horiz" min="0.5" max="30" step="0.5" value="6"
+                      <input type="range" id="alt-tri-horiz" min="0.5" max="30" step="0.1" value="6"
                         oninput="triDisp('alt-tri-horiz','alt-tri-horiz-disp','alt-tri-unit-hz');calcAltTriangle('di')"
                         style="flex:1;height:4px;">
                       <button class="step-btn" onclick="triStep('alt-tri-horiz',.5,.5,30,'di','calcAltTriangle')">›</button>
@@ -21466,24 +21610,8 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                width:32px;height:32px;color:var(--text,#fff);font-size:17px;cursor:pointer;">&#x2715;</button>
     </div>
 
-    <!-- Camera Measure Coming Soon banner -->
-    <div style="margin:0 18px 14px;padding:10px 14px;
-      background:var(--bg,#2c2c2e);border-radius:10px;
-      border-left:3px solid var(--accent,#f96);
-      display:flex;align-items:center;gap:10px;">
-      <div style="font-size:22px;flex-shrink:0;">&#128207;</div>
-      <div>
-        <div style="font-size:12px;font-weight:800;color:var(--text,#fff);margin-bottom:1px;">
-          AR Camera Measure
-          <span style="margin-left:6px;background:var(--accent,#f96);color:white;
-            font-size:9px;font-weight:800;padding:1px 7px;border-radius:10px;
-            vertical-align:middle;letter-spacing:.05em;">COMING SOON</span>
-        </div>
-        <div style="font-size:10px;color:var(--text-dim,#888);line-height:1.4;">
-          Native iOS version · ARKit · LiDAR
-        </div>
-      </div>
-    </div>
+    <!-- カメラで測る（ネイティブアプリで対応機のときだけ中身が入る） -->
+    <div id="cm-ar-box" style="margin:0 18px 14px;"></div>
 
     <!-- Input rows for each target -->
     <div style="padding:0 18px;display:flex;flex-direction:column;gap:10px;">
@@ -21497,6 +21625,9 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                  border-radius:10px;color:var(--text,#fff);font-size:18px;font-weight:700;
                  padding:0 12px;font-family:monospace;outline:none;"
           oninput="cmPreview('height')">
+        <button class="cm-ar-row" onclick="cmARFor('height')" title="カメラで測る"
+          style="display:none;height:44px;width:44px;flex:0 0 44px;background:rgba(255,255,255,.12);
+                 border:none;border-radius:10px;font-size:17px;cursor:pointer;">&#128247;</button>
         <button onclick="cmApply('height')"
           style="height:44px;padding:0 16px;background:var(--accent,#f96);color:white;
                  border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;
@@ -21512,6 +21643,9 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                  border-radius:10px;color:var(--text,#fff);font-size:18px;font-weight:700;
                  padding:0 12px;font-family:monospace;outline:none;"
           oninput="cmPreview('horiz')">
+        <button class="cm-ar-row" onclick="cmARFor('horiz')" title="カメラで測る"
+          style="display:none;height:44px;width:44px;flex:0 0 44px;background:rgba(255,255,255,.12);
+                 border:none;border-radius:10px;font-size:17px;cursor:pointer;">&#128247;</button>
         <button onclick="cmApply('horiz')"
           style="height:44px;padding:0 16px;background:var(--accent,#f96);color:white;
                  border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;
@@ -21527,6 +21661,9 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                  border-radius:10px;color:var(--text,#fff);font-size:18px;font-weight:700;
                  padding:0 12px;font-family:monospace;outline:none;"
           oninput="cmPreview('distance')">
+        <button class="cm-ar-row" onclick="cmARFor('distance')" title="カメラで測る"
+          style="display:none;height:44px;width:44px;flex:0 0 44px;background:rgba(255,255,255,.12);
+                 border:none;border-radius:10px;font-size:17px;cursor:pointer;">&#128247;</button>
         <button onclick="cmApply('distance')"
           style="height:44px;padding:0 16px;background:var(--accent,#f96);color:white;
                  border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;
