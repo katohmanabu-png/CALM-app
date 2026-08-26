@@ -749,6 +749,8 @@ body {
 .dft-layer-chip.dft-layer-active { border-color:#1976d2;background:#e3f2fd;color:#1976d2; }
 .dft-layer-chip.dft-layer-hidden { opacity:0.42; }
 .dft-layer-eye { font-size:11px;padding:0 1px; }
+.dft-layer-n { font-size:9px;font-weight:800;color:var(--text-dim,#999);font-family:'JetBrains Mono',monospace; }
+.dft-layer-more { font-size:10px;font-weight:900;opacity:.55;padding:0 0 0 1px; }
 .dft-layer-addbtn { padding:3px 9px;border-radius:8px;border:1.5px dashed var(--border,#bbb);background:transparent;cursor:pointer;font-size:13px;font-weight:800;color:var(--text-dim,#999);flex-shrink:0; }
 
 /* ── Dark mode overrides ───────────────────────────────── */
@@ -2163,6 +2165,7 @@ var LANGS = {
     dvUnhide:'個別に隠した線を戻す',
     dftSaveFailed:'保存できませんでした。端末の空き容量が足りない可能性があります。写真やPDFを含む図面を削除してから、もう一度お試しください。',
     dvGrpObjects:'置いたもの', dvObjHint:'非表示にすると図面から消え、F値や露出の計算からも外れます。', dvObjAllOn:'すべて表示に戻す',
+    lyrTitle:'レイヤーの中身', lyrHint:'非表示にすると図面から消え、F値や露出の計算からも外れます。', lyrEmpty:'このレイヤーは空です', lyrRename:'名前', lyrLayerVis:'レイヤーごと', lyrJump:'図面で見る', lyrCount:'点',
     dftGridPill:'1マス', dftGridLabel:'グリッド1マスの大きさ', dftGridHint:'方眼1つの実寸。図面の読み方がこれで決まります。',
     dftCalibLabel:'読み込んだ図面の実寸合わせ', dftCalibHint:'PDFや写真を下敷きにしたとき、既知の2点をタップして実寸を教えます。',
     dftCalibBtn:'📍 2点キャリブレーション', dftCalibStep1:'📍 1点目をタップ...',
@@ -2268,6 +2271,7 @@ var LANGS = {
     dvUnhide:'Restore individually hidden lines',
     dftSaveFailed:'Could not save. The device may be out of storage. Try deleting a draft that contains a photo or PDF, then save again.',
     dvGrpObjects:'Placed items', dvObjHint:'Hiding one removes it from the plan and from the f-stop / exposure maths.', dvObjAllOn:'Show all again',
+    lyrTitle:'Layer contents', lyrHint:'Hiding one removes it from the plan and from the f-stop / exposure maths.', lyrEmpty:'This layer is empty', lyrRename:'Name', lyrLayerVis:'Whole layer', lyrJump:'Show on plan', lyrCount:'items',
     dftGridPill:'Grid', dftGridLabel:'Size of one grid square', dftGridHint:'What one square measures. This is how the plan reads.',
     dftCalibLabel:'Match an imported plan to real size', dftCalibHint:'With a PDF or photo underneath, tap two points you know the distance between.',
     dftCalibBtn:'📍 2-Point Calibration', dftCalibStep1:'📍 Tap point 1 on canvas...',
@@ -2370,6 +2374,7 @@ var LANGS = {
     dvUnhide:'Restaurar líneas ocultadas',
     dftSaveFailed:'No se pudo guardar. Puede que no haya espacio. Borra un plano con foto o PDF e inténtalo de nuevo.',
     dvGrpObjects:'Elementos colocados', dvObjHint:'Al ocultarlo sale del plano y de los cálculos de f y exposición.', dvObjAllOn:'Mostrar todo de nuevo',
+    lyrTitle:'Contenido de la capa', lyrHint:'Al ocultarlo sale del plano y de los cálculos de f y exposición.', lyrEmpty:'Esta capa está vacía', lyrRename:'Nombre', lyrLayerVis:'Toda la capa', lyrJump:'Ver en el plano', lyrCount:'elementos',
     dftGridPill:'Cuadro', dftGridLabel:'Tamaño de un cuadro', dftGridHint:'Cuánto mide un cuadro. Así se lee el plano.',
     dftCalibLabel:'Ajustar un plano importado al tamaño real', dftCalibHint:'Con un PDF o foto de fondo, toca dos puntos cuya distancia conozcas.',
     dftCalibBtn:'📍 Calibración de 2 Puntos', dftCalibStep1:'📍 Toca el punto 1...',
@@ -16651,6 +16656,7 @@ function _dftMD(e) {
     var _RHT = {image:1,diffuser:1,bounce:1,flag:1};
     for (var _ri = _dft.objects.length-1; _ri >= 0; _ri--) {
       var _ro = _dft.objects[_ri];
+      if (_ro.hidden) continue;   // 隠したものは絵が無いので、つまみも掴めないようにする
       if ((_ro.layer||1) !== _dft.activeLayer) continue;
       var _roL = _dft.layers.find(function(l){return l.id===(_ro.layer||1);});
       if (!_roL || !_roL.visible) continue;
@@ -20468,7 +20474,7 @@ function _dftVisRowHTML(it) {
 // 置いたもの一覧をレイヤーごとの木で出す。
 // レイヤーの表示切替と、その中の1つずつの表示切替を同じ場所で扱えるようにする。
 // 非表示にしたものは描画も計算も外れる。
-var DFT_OBJ_ICONS = {light:'💡', bounce:'🔲', diffuser:'⬜', flag:'▬', people:'🧍', camera:'🎥', image:'🖼'};
+var DFT_OBJ_ICONS = {light:'💡', bounce:'🔲', diffuser:'⬜', flag:'▬', form:'🟩', people:'🧍', camera:'🎥', image:'🖼'};
 
 /** 1件ぶんの行 */
 function _dftVisObjRow(o, layerOff) {
@@ -20684,9 +20690,16 @@ function _dftRenderLayerBar() {
     var isActive = l.id === _dft.activeLayer;
     var cls = 'dft-layer-chip' + (isActive?' dft-layer-active':'') + (!l.visible?' dft-layer-hidden':'');
     var eye = l.visible ? '👁' : '🚫';
-    return '<div class="'+cls+'" onclick="dftSelectLayer('+l.id+')">' +
+    // そのレイヤーに何点あるか。数を見せると、隠したまま忘れている物に気づける。
+    var n   = _dft.objects.filter(function(o){ return (o.layer||1) === l.id; }).length;
+    var off = _dft.objects.filter(function(o){ return (o.layer||1) === l.id && o.hidden; }).length;
+    // 選んでいるレイヤーをもう一度押すと中身が開く。別のレイヤーなら切り替え。
+    var tap = isActive ? 'dftLayerSheet('+l.id+')' : 'dftSelectLayer('+l.id+')';
+    return '<div class="'+cls+'" onclick="'+tap+'">' +
       '<span class="dft-layer-eye" onclick="event.stopPropagation();dftToggleLayerVis('+l.id+')" title="Show/Hide">'+eye+'</span>' +
-      '<span>'+l.name+'</span>' +
+      '<span>'+_dftEsc(l.name)+'</span>' +
+      '<span class="dft-layer-n">'+n+(off ? ' <span style="color:#e65100;">-'+off+'</span>' : '')+'</span>' +
+      '<span class="dft-layer-more" onclick="event.stopPropagation();dftLayerSheet('+l.id+')" title="'+t('lyrTitle')+'">▾</span>' +
       '</div>';
   }).join('');
   if (_dft.layers.length < 10) {
@@ -20709,6 +20722,156 @@ function dftToggleLayerVis(id) {
   _dftRenderLayerBar();
   dftRender();
 }
+
+/**
+ * レイヤーの中身を並べたシート。
+ * レイヤーのタブを押して「今このレイヤーに何が入っているか」を確かめ、
+ * その場で1点ずつ表示・非表示を切り替えられるようにするためのもの。
+ * 非表示（o.hidden）は描画からも計算からも外れる（_dftVisObjs 参照）ので、
+ * 「この反射板を一旦どけて考える」がそのままできる。
+ */
+function dftLayerSheet(id) {
+  var ex = document.getElementById('_dft_ly'); if (ex) ex.remove();
+  var L = _dft.layers.find(function(x){ return x.id === id; });
+  if (!L) return;
+  _dft._lySheet = id;
+  // 開いたレイヤーはそのまま作業対象にする（見ながら触れる方が迷わない）
+  if (_dft.activeLayer !== id) { _dft.activeLayer = id; _dft.selected = null; _dftRenderLayerBar(); dftRender(); }
+
+  var mine = _dft.objects.filter(function(o){ return (o.layer||1) === id; });
+  var offN = mine.filter(function(o){ return o.hidden; }).length;
+
+  var rows = mine.length ? mine.map(function(o) {
+    var on  = !o.hidden;
+    var sel = (_dft.selected === o.id);
+    var sub = [];
+    if (o.type === 'light' && o.makerKey) {
+      var lt = LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
+      if (lt) sub.push(lt.name);
+    }
+    var st = (o.factors && o.factors.length) ? getTotalFactorStops(o.factors) : 0;
+    if (st) sub.push((st > 0 ? '-' : '') + Math.abs(st).toFixed(1) + ' stop');
+    var rd = (o.type==='bounce'||o.type==='diffuser'||o.type==='flag'||o.type==='form'||o.type==='image')
+             ? _dftRectDims(o) : null;
+    if (rd) sub.push(_dftFmt(rd.w) + ' × ' + _dftFmt(rd.h));
+    if (o.zHeight != null) sub.push('↕' + _dftFmt(o.zHeight));
+
+    var mv = (_dft.layers.length > 1)
+      ? '<select onchange="window._dftLySheetMove(\'' + o.id + '\',+this.value)" onclick="event.stopPropagation()" ' +
+        'style="flex:0 0 auto;padding:3px 2px;border:1px solid #ddd;border-radius:6px;font-size:10px;font-weight:700;background:#fff;color:#333;">' +
+        _dft.layers.map(function(l){
+          return '<option value="'+l.id+'"'+(l.id===id?' selected':'')+'>'+_dftEsc(l.name)+'</option>';
+        }).join('') + '</select>'
+      : '';
+
+    return '<div onclick="window._dftLySheetJump(\'' + o.id + '\')" ' +
+      'style="display:flex;align-items:center;gap:8px;padding:7px 16px;cursor:pointer;border-bottom:1px solid #f2f2f2;' +
+      (sel ? 'background:#e3f2fd;' : '') + (on ? '' : 'opacity:.45;') + '">' +
+      '<span style="font-size:15px;flex:0 0 auto;">' + (DFT_OBJ_ICONS[o.type] || '●') + '</span>' +
+      '<span style="flex:1;min-width:0;">' +
+        '<span style="display:block;font-size:12px;font-weight:800;color:#222;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' +
+          _dftEsc(o.label || o.type) + '</span>' +
+        (sub.length ? '<span style="display:block;font-size:9.5px;color:#999;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' +
+          _dftEsc(sub.join(' · ')) + '</span>' : '') +
+      '</span>' + mv +
+      '<button onclick="event.stopPropagation();window._dftLySheetToggle(\'' + o.id + '\')" ' +
+        'style="flex:0 0 54px;padding:6px 0;border:none;border-radius:7px;font-size:10px;font-weight:800;cursor:pointer;' +
+        (on ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#666;') + '">' +
+        (on ? t('dvOn') : t('dvOff')) + '</button>' +
+    '</div>';
+  }).join('') :
+    '<div style="padding:22px 16px;text-align:center;font-size:11px;color:#bbb;font-weight:700;">' + t('lyrEmpty') + '</div>';
+
+  var html = '<div id="_dft_ly" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)window._dftLySheetClose()">' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;max-height:82vh;display:flex;flex-direction:column;" onclick="event.stopPropagation()">' +
+    '<div style="padding:16px 16px 10px;border-bottom:1px solid #eee;flex:0 0 auto;">' +
+      '<div style="display:flex;align-items:center;gap:8px;">' +
+        '<span style="font-size:14px;font-weight:800;">🗂 ' + t('lyrTitle') + '</span>' +
+        '<span style="flex:1;"></span>' +
+        '<button onclick="dftToggleLayerVis(' + id + ');window._dftLySheetRefresh()" ' +
+          'style="flex:0 0 auto;padding:6px 10px;border:none;border-radius:7px;font-size:10px;font-weight:800;cursor:pointer;' +
+          (L.visible ? 'background:#455a64;color:#fff;' : 'background:#eceff3;color:#666;') + '">' +
+          t('lyrLayerVis') + ' · ' + (L.visible ? t('dvOn') : t('dvOff')) + '</button>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:8px;margin-top:9px;">' +
+        '<input id="_dft_ly_name" value="' + _dftEsc(L.name) + '" maxlength="16" ' +
+          'oninput="window._dftLySheetRename(' + id + ', this.value)" ' +
+          'style="flex:1;min-width:0;padding:7px 9px;border:1.5px solid #ddd;border-radius:8px;font-size:12px;font-weight:800;color:#222;background:#fff;">' +
+        '<span style="flex:0 0 auto;font-size:10px;font-weight:800;color:#999;">' + mine.length + ' ' + t('lyrCount') +
+          (offN ? ' · ' + offN + ' ' + t('dvOff') : '') + '</span>' +
+      '</div>' +
+      '<div style="font-size:9.5px;color:#999;margin-top:7px;line-height:1.4;">' + t('lyrHint') + '</div>' +
+    '</div>' +
+    '<div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;">' + rows + '</div>' +
+    '<div style="flex:0 0 auto;padding:12px 16px calc(16px + env(safe-area-inset-bottom, 0px));border-top:1px solid #eee;display:flex;gap:8px;">' +
+      (offN ? '<button onclick="window._dftLySheetAllOn(' + id + ')" style="flex:1;padding:11px;border:1.5px solid #1565c0;border-radius:10px;background:#e3f2fd;color:#1565c0;font-size:11px;font-weight:800;cursor:pointer;">' + t('dvObjAllOn') + '</button>' : '') +
+      '<button onclick="window._dftLySheetClose()" style="flex:1;padding:11px;background:#eee;border:none;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;">' + t('dftClose') + '</button>' +
+    '</div>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+/** 中身だけ作り直す。名前の入力中は打っている途中を消さないよう作り直さない。 */
+window._dftLySheetRefresh = function() {
+  var id = _dft._lySheet;
+  var el = document.getElementById('_dft_ly');
+  if (el && id != null) { el.remove(); dftLayerSheet(id); }
+};
+
+window._dftLySheetClose = function() {
+  var el = document.getElementById('_dft_ly'); if (el) el.remove();
+  _dft._lySheet = null;
+  _dftRenderLayerBar();
+};
+
+window._dftLySheetToggle = function(oid) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  o.hidden = !o.hidden;
+  if (o.hidden && _dft.selected === oid) _dft.selected = null;
+  _dftRenderLayerBar();
+  _dftUpdateInfoBar(); dftRender(); _dftUpdateCalcFromDraft();
+  window._dftLySheetRefresh();
+};
+
+window._dftLySheetAllOn = function(id) {
+  _dft.objects.forEach(function(o){ if ((o.layer||1) === id) delete o.hidden; });
+  _dftRenderLayerBar();
+  _dftUpdateInfoBar(); dftRender(); _dftUpdateCalcFromDraft();
+  window._dftLySheetRefresh();
+};
+
+window._dftLySheetMove = function(oid, layerId) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  _dftPushHistory();
+  o.layer = layerId;
+  _dftRenderLayerBar();
+  _dftUpdateInfoBar(); dftRender(); _dftQueueCalcSync();
+  window._dftLySheetRefresh();
+};
+
+/** その物を選んで画面の中央に持ってくる。シートは閉じる。 */
+window._dftLySheetJump = function(oid) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o) return;
+  if (!o.hidden) {
+    _dft.selected = oid;
+    if (_dft.canvas) {
+      _dft.ox = _dft.canvas.width  / 2 - o.wx / _dft.scale * _dft.zoom;
+      _dft.oy = _dft.canvas.height / 2 - o.wy / _dft.scale * _dft.zoom;
+    }
+  }
+  window._dftLySheetClose();
+  _dftUpdateInfoBar(); dftRender();
+};
+
+window._dftLySheetRename = function(id, name) {
+  var L = _dft.layers.find(function(x){ return x.id === id; });
+  if (!L) return;
+  L.name = (name || '').trim() || ('L' + id);
+  _dftRenderLayerBar();   // シートは作り直さない（入力中の文字が消えるため）
+};
 
 function dftAddLayer() {
   if (_dft.layers.length >= 10) return;
@@ -20739,7 +20902,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.85';
+var ver = 'v1.1.7.86';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
