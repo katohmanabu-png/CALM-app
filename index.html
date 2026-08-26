@@ -17812,11 +17812,47 @@ var _DFT_RECT_PRESETS = [
   {label:'12 × 12 ft',   wm:3.6576, hm:3.6576},
   {label:'20 × 20 ft',   wm:6.096,  hm:6.096}
 ];
+/**
+ * 配置のときに出すサイズのプリセット。種類ごとに実際に使う寸法が違う。
+ * Flag（黒）は小さいものが多く、Form（造形・バック）は大きいものが多い。
+ */
+var _DFT_RECT_PRESETS_BY_TYPE = {
+  flag: [
+    {label:'18 × 24 in',   wm:0.46, hm:0.61},
+    {label:'24 × 36 in',   wm:0.61, hm:0.91},
+    {label:'2 × 3 ft',     wm:0.61, hm:0.91},
+    {label:'4 × 4 ft',     wm:1.2192, hm:1.2192},
+    {label:'4 × 8 ft',     wm:1.2192, hm:2.4384},
+    {label:'6 × 6 ft',     wm:1.8288, hm:1.8288},
+    {label:'8 × 8 ft',     wm:2.4384, hm:2.4384},
+    {label:'12 × 12 ft',   wm:3.6576, hm:3.6576},
+    {label:'20 × 20 ft',   wm:6.096,  hm:6.096}
+  ],
+  form: [
+    {label:'1 × 1 m',      wm:1,  hm:1},
+    {label:'90 × 180 cm',  wm:0.9, hm:1.8},
+    {label:'2 × 2 m',      wm:2,  hm:2},
+    {label:'3 × 3 m',      wm:3,  hm:3},
+    {label:'4 × 3 m',      wm:4,  hm:3},
+    {label:'6 × 3 m',      wm:6,  hm:3},
+    {label:'6 × 6 m',      wm:6,  hm:6},
+    {label:'9 × 5 m',      wm:9,  hm:5},
+    {label:'12 × 6 m',     wm:12, hm:6},
+    {label:'20 × 10 m',    wm:20, hm:10}
+  ]
+};
+function _dftRectPresetsFor(type) {
+  return _DFT_RECT_PRESETS_BY_TYPE[type] || _DFT_RECT_PRESETS;
+}
+var _DFT_RECT_TYPE_LABEL = { bounce:'Bounce', diffuser:'Diffusion', flag:'Flag', form:'Form' };
+
 function dftRectStart(type) {
-  var typeLabel = type === 'bounce' ? 'Bounce' : 'Diffusion';
+  var typeLabel = _DFT_RECT_TYPE_LABEL[type] || type;
   var isFt = (_dft.unit === 'ft');
-  var defW = isFt ? '4' : '1.2', defH = isFt ? '4' : '2.4', uLbl = isFt ? 'ft' : 'm';
-  var presetBtns = _DFT_RECT_PRESETS.map(function(p){
+  var defW = isFt ? '4' : (type === 'form' ? '3' : '1.2');
+  var defH = isFt ? '4' : (type === 'form' ? '3' : '2.4');
+  var uLbl = isFt ? 'ft' : 'm';
+  var presetBtns = _dftRectPresetsFor(type).map(function(p){
     return '<button onclick="_dftRectPick(\'' + type + '\',' + p.wm + ',' + p.hm + ')" ' +
       'style="padding:11px 6px;border:1px solid #cfd8e3;border-radius:10px;background:#f5f8fc;color:#1565c0;' +
       'font-size:12px;font-weight:700;cursor:pointer;">' + p.label + '</button>';
@@ -17882,6 +17918,7 @@ function dftBounceSettings(oid) {
     '<div id="_dft_bs" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_bs\').remove()">' +
     '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:80vh;overflow-y:auto;">' +
     '<div style="font-size:14px;font-weight:800;margin-bottom:12px;">' + typeLabel + ' &nbsp;<span style="font-size:11px;color:#888;font-weight:600;">' + (o.label||'') + '</span></div>' +
+    _dftSizeFieldHTML(o) +
     _dftOrientFieldHTML(o) +
     _dftSpreadFieldHTML(o) +
     _dftHeightFieldHTML(o) +
@@ -18888,10 +18925,7 @@ function dftObjSettings(oid) {
     '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:82vh;overflow-y:auto;" onclick="event.stopPropagation()">' +
     '<div style="font-size:14px;font-weight:800;margin-bottom:14px;">' + icon + ' ' + (o.label || o.type) + '</div>' +
     (isRect
-      ? '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:6px;">' + t('dftSize') + '</div>' +
-        '<button onclick="_dft.selected=\''+oid+'\';dftSizeDialog()" style="width:100%;padding:10px;margin-bottom:16px;background:#e3f2fd;border:1.5px solid #1565c0;border-radius:11px;color:#1565c0;font-size:13px;font-weight:800;cursor:pointer;">' +
-          '📐 ' + _dftFmt(o.wm||o.w||1.2) + ' × ' + _dftFmt(o.hm||o.h||1.2) + '</button>' +
-        _dftOrientFieldHTML(o)
+      ? _dftSizeFieldHTML(o) + _dftOrientFieldHTML(o)
       : '') +
     (o.type === 'form' ? _dftFormColorHTML(o) : '') +
     _dftHeightFieldHTML(o) +
@@ -18986,37 +19020,11 @@ window._dftSetFormHS = function(id, hue, sat, lig) {
 function dftSizeDialog() {
   var o = _dft.objects.find(function(x){ return x.id === _dft.selected; });
   if (!o) return;
-  // フラッグ(黒)は幕とは実際に使う寸法が違うので、種類ごとにプリセットを出す
-  var presets = (o.type === 'form') ? [
-    {l:'2×2m',            w:2,    h:2},
-    {l:'3×3m',            w:3,    h:3},
-    {l:'4×3m',            w:4,    h:3},
-    {l:'6×3m',            w:6,    h:3},
-    {l:'6×6m',            w:6,    h:6},
-    {l:'9×5m（バック）',   w:9,    h:5},
-    {l:'12×6m（バック）',  w:12,   h:6},
-    {l:'20×10m（バック）', w:20,   h:10},
-    {l:'1×1m（ブロック）', w:1,    h:1},
-    {l:'0.9×1.8m（板）',  w:0.9,  h:1.8}
-  ] : (o.type === 'flag') ? [
-    {l:'18×24" (0.46×0.61m)', w:0.46, h:0.61},
-    {l:'24×36" (0.61×0.91m)', w:0.61, h:0.91},
-    {l:'4×4ft floppy (1.22m)', w:1.22, h:1.22},
-    {l:'4×8ft (1.22×2.44m)',   w:1.22, h:2.44},
-    {l:'6×6ft (1.83m)',        w:1.83, h:1.83},
-    {l:'8×8ft (2.44m)',        w:2.44, h:2.44},
-    {l:'12×12ft (3.66m)',      w:3.66, h:3.66},
-    {l:'20×20ft (6.10m)',      w:6.10, h:6.10}
-  ] : [
-    {l:'4×4ft (1.22m)', w:1.22, h:1.22},
-    {l:'6×6ft (1.83m)', w:1.83, h:1.83},
-    {l:'8×8ft (2.44m)', w:2.44, h:2.44},
-    {l:'12×12ft (3.66m)', w:3.66, h:3.66},
-    {l:'20×20ft (6.10m)', w:6.10, h:6.10},
-    {l:'1.2m × 0.6m', w:1.2, h:0.6},
-    {l:'2m × 2m', w:2, h:2},
-    {l:'3m × 3m', w:3, h:3},
-  ];
+  // 配置のときと同じプリセットを使う。種類ごとに実際に使う寸法が違うので
+  // ここも _dftRectPresetsFor に揃えた（以前は別表で中身が食い違っていた）。
+  var presets = _dftRectPresetsFor(o.type).map(function(p){
+    return { l: p.label, w: p.wm, h: p.hm };
+  });
   var oid = o.id;
   var html = '<div id="_dft_sz" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sz\').remove()">' +
     '<div style="background:var(--bg,#fff);border-radius:16px;padding:18px;width:88%;max-width:300px;" onclick="event.stopPropagation()">' +
@@ -19099,6 +19107,19 @@ window._dftSetAlpha = function(id, v) {
 };
 
 // ── 向き（寝かせ / 立て）─────────────────────────────────
+/**
+ * サイズの欄。置いたあとでも寸法を変えられるように、どのシートからも出す。
+ * 押すとプリセットと手入力のダイアログ（dftSizeDialog）が開く。
+ */
+function _dftSizeFieldHTML(o) {
+  var w = (o.wm || o.w || 1.2), h = (o.hm || o.h || 1.2);
+  return '<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:6px;">' + t('dftSize') + '</div>' +
+    '<button onclick="_dft.selected=\'' + o.id + '\';dftSizeDialog()" ' +
+    'style="width:100%;padding:10px;margin-bottom:16px;background:#e3f2fd;border:1.5px solid #1565c0;' +
+    'border-radius:11px;color:#1565c0;font-size:13px;font-weight:800;cursor:pointer;">' +
+    '📐 ' + _dftFmt(w) + ' × ' + _dftFmt(h) + '</button>';
+}
+
 function _dftOrientFieldHTML(o) {
   var stand = !!o.stand, edge = o.standEdge || 'w';
   var w = (o.wm||o.w||1.2), h = (o.hm||o.h||1.2);
@@ -20666,7 +20687,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.82';
+var ver = 'v1.1.7.83';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -21078,8 +21099,8 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
         <button class="draft-tool-btn" id="dft-btn-light"    onclick="dftMode('light')"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">💡<br><span style="font-size:8px;">Light</span></button>
         <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftRectStart('diffuser')" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⬜<br><span style="font-size:8px;">DIFF</span></button>
         <button class="draft-tool-btn" id="dft-btn-bounce"   onclick="dftRectStart('bounce')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔲<br><span style="font-size:8px;" data-dfti18n="bounce">反射</span></button>
-        <button class="draft-tool-btn" id="dft-btn-flag"     onclick="dftMode('flag')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">▬<br><span style="font-size:8px;">Flag</span></button>
-        <button class="draft-tool-btn" id="dft-btn-form"     onclick="dftMode('form')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">■<br><span style="font-size:8px;" data-dfti18n="form">造形</span></button>
+        <button class="draft-tool-btn" id="dft-btn-flag"     onclick="dftRectStart('flag')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">▬<br><span style="font-size:8px;">Flag</span></button>
+        <button class="draft-tool-btn" id="dft-btn-form"     onclick="dftRectStart('form')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">■<br><span style="font-size:8px;" data-dfti18n="form">造形</span></button>
         <button class="draft-tool-btn" onclick="dftExposureTool()" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📊<br><span style="font-size:8px;" data-dfti18n="expBtn">露出</span></button>
         <button class="draft-tool-btn" onclick="dftImportPDF()"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📄<br><span style="font-size:8px;">PDF</span></button>
         <button class="draft-tool-btn" onclick="dftImportPhoto()"  style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🖼<br><span style="font-size:8px;" data-dfti18n="photo">写真</span></button>
