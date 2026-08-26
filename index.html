@@ -13892,12 +13892,16 @@ var _dft = {
 
 function _dftSyncResultPanel() {
   var p = document.getElementById('dft-result-panel'); if (!p) return;
-  var ri = document.getElementById('result-inner');
-  var rc = document.getElementById('calc-cam-info');
   var di = document.getElementById('dft-result-inner');
   var dc = document.getElementById('dft-result-cam');
-  if (di && ri) di.innerHTML = ri.innerHTML;
-  if (dc && rc) dc.innerHTML = rc.innerHTML;
+  // 中身は _dftCaptureDraftResult が図面の計算直後に控えたものを使う。
+  // ここで #result-inner を読み直すと、Calc タブで別の機種を選んだ内容が
+  // Draft へ流れ込んでしまう（Result が分かれていなかった原因）。
+  var h = _dft._resultHtml;
+  if (h) {
+    if (di) di.innerHTML = h.inner;
+    if (dc) dc.innerHTML = h.cam;
+  }
   var hasContent = di && di.textContent.trim().length > 0;
   // 被写体に光が届いていないときは中身があっても出さない（前回の値が残るため）
   var lit = !_dft._resultUnlit;
@@ -15637,11 +15641,12 @@ function _dftUpdateCalcFromDraft() {
     }
     _dft._resultUnlit = false;
     if (_dft.unit === 'ft') dist = dist / 0.3048;
-    S.dist = dist;
-    var distEl = document.getElementById('dist');
-    if (distEl) { distEl.value = dist; }
-    var dispEl = document.getElementById('dist-disp');
-    if (dispEl) dispEl.textContent = dist.toFixed(1) + (_dft.unit === 'ft' ? ' ft' : ' m');
+
+    // Draft の計算は Calc タブの Result を書き換えてはいけない。
+    // calculate() は #result-inner などに直接書くので、Draft のために
+    // 回すときは Calc 側の見た目と距離を退避して、あとで必ず戻す。
+    // （カメラ設定は共通のままなので、ISO やコマ数はどちらでも同じ値になる）
+    var _keep = _dftBorrowCalc(dist);
 
     // calculate() は S.maker / S.model / S_calcFactors を読む。
     // ここを合わせないと、Result だけ Calc タブで選んでいる別の機種の値になる。
@@ -15673,13 +15678,57 @@ function _dftUpdateCalcFromDraft() {
       S_calcFactors.push({ stops: addStops, type: 'bounce', _draft: true });
       pushed = true;
     }
-    try { calculate(); }
+    try {
+      calculate();
+      _dftCaptureDraftResult();     // いまの計算結果を Draft のパネルへ写す
+    }
     finally {
       if (pushed) S_calcFactors.pop();
       S.maker = keepMaker; S.model = keepModel; S.accKey = keepAcc;
       S.beamPct = keepPct; S.cctIdx = keepCct;
+      _dftReturnCalc(_keep);        // Calc タブの見た目と距離を元に戻す
     }
   } catch(e) {}
+}
+
+/** Calc タブの表示と距離を借りる前に控えておく */
+function _dftBorrowCalc(dist) {
+  var ids = ['result-inner', 'calc-cam-info', 'dist-disp'];
+  var html = {};
+  ids.forEach(function(id) {
+    var e = document.getElementById(id);
+    if (e) html[id] = e.innerHTML;
+  });
+  var de = document.getElementById('dist');
+  var keep = { html: html, dist: S.dist, distVal: de ? de.value : null };
+  S.dist = dist;
+  if (de) de.value = dist;
+  var dd = document.getElementById('dist-disp');
+  if (dd) dd.textContent = dist.toFixed(1) + (_dft.unit === 'ft' ? ' ft' : ' m');
+  return keep;
+}
+
+/** 借りたものを返す。Calc タブに戻ったとき前の値がそのまま出るようにする */
+function _dftReturnCalc(keep) {
+  if (!keep) return;
+  Object.keys(keep.html).forEach(function(id) {
+    var e = document.getElementById(id);
+    if (e) e.innerHTML = keep.html[id];
+  });
+  S.dist = keep.dist;
+  var de = document.getElementById('dist');
+  if (de && keep.distVal !== null) de.value = keep.distVal;
+}
+
+/** calculate() が書いた内容を Draft のパネルへ写す（Calc へ戻す前に取る） */
+function _dftCaptureDraftResult() {
+  var ri = document.getElementById('result-inner');
+  var rc = document.getElementById('calc-cam-info');
+  var di = document.getElementById('dft-result-inner');
+  var dc = document.getElementById('dft-result-cam');
+  if (di && ri) di.innerHTML = ri.innerHTML;
+  if (dc && rc) dc.innerHTML = rc.innerHTML;
+  _dft._resultHtml = { inner: ri ? ri.innerHTML : '', cam: rc ? rc.innerHTML : '' };
 }
 
 function _dftAutoOrient(obj) {
@@ -20617,7 +20666,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.81';
+var ver = 'v1.1.7.82';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
