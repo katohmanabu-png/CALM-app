@@ -2165,7 +2165,7 @@ var LANGS = {
     dvUnhide:'個別に隠した線を戻す',
     dftSaveFailed:'保存できませんでした。端末の空き容量が足りない可能性があります。写真やPDFを含む図面を削除してから、もう一度お試しください。',
     dvGrpObjects:'置いたもの', dvObjHint:'非表示にすると図面から消え、F値や露出の計算からも外れます。', dvObjAllOn:'すべて表示に戻す',
-    lyrTitle:'レイヤーの中身', lyrHint:'非表示にすると図面から消え、F値や露出の計算からも外れます。', lyrEmpty:'このレイヤーは空です', lyrRename:'名前', lyrLayerVis:'レイヤーごと', lyrJump:'図面で見る', lyrCount:'点',
+    lyrTitle:'レイヤーの中身', lyrHint:'非表示にすると図面から消え、F値や露出の計算からも外れます。', lyrEmpty:'このレイヤーは空です', lyrRename:'名前', lyrLayerVis:'レイヤーごと', lyrJump:'図面で見る', lyrCount:'点', dvLayerLink:'置いたものを1つずつ表示・非表示', dvLayerLinkSub:'レイヤーの中身から切り替えます',
     dftGridPill:'1マス', dftGridLabel:'グリッド1マスの大きさ', dftGridHint:'方眼1つの実寸。図面の読み方がこれで決まります。',
     dftCalibLabel:'読み込んだ図面の実寸合わせ', dftCalibHint:'PDFや写真を下敷きにしたとき、既知の2点をタップして実寸を教えます。',
     dftCalibBtn:'📍 2点キャリブレーション', dftCalibStep1:'📍 1点目をタップ...',
@@ -2271,7 +2271,7 @@ var LANGS = {
     dvUnhide:'Restore individually hidden lines',
     dftSaveFailed:'Could not save. The device may be out of storage. Try deleting a draft that contains a photo or PDF, then save again.',
     dvGrpObjects:'Placed items', dvObjHint:'Hiding one removes it from the plan and from the f-stop / exposure maths.', dvObjAllOn:'Show all again',
-    lyrTitle:'Layer contents', lyrHint:'Hiding one removes it from the plan and from the f-stop / exposure maths.', lyrEmpty:'This layer is empty', lyrRename:'Name', lyrLayerVis:'Whole layer', lyrJump:'Show on plan', lyrCount:'items',
+    lyrTitle:'Layer contents', lyrHint:'Hiding one removes it from the plan and from the f-stop / exposure maths.', lyrEmpty:'This layer is empty', lyrRename:'Name', lyrLayerVis:'Whole layer', lyrJump:'Show on plan', lyrCount:'items', dvLayerLink:'Show / hide placed items', dvLayerLinkSub:'Opens the layer contents',
     dftGridPill:'Grid', dftGridLabel:'Size of one grid square', dftGridHint:'What one square measures. This is how the plan reads.',
     dftCalibLabel:'Match an imported plan to real size', dftCalibHint:'With a PDF or photo underneath, tap two points you know the distance between.',
     dftCalibBtn:'📍 2-Point Calibration', dftCalibStep1:'📍 Tap point 1 on canvas...',
@@ -2374,7 +2374,7 @@ var LANGS = {
     dvUnhide:'Restaurar líneas ocultadas',
     dftSaveFailed:'No se pudo guardar. Puede que no haya espacio. Borra un plano con foto o PDF e inténtalo de nuevo.',
     dvGrpObjects:'Elementos colocados', dvObjHint:'Al ocultarlo sale del plano y de los cálculos de f y exposición.', dvObjAllOn:'Mostrar todo de nuevo',
-    lyrTitle:'Contenido de la capa', lyrHint:'Al ocultarlo sale del plano y de los cálculos de f y exposición.', lyrEmpty:'Esta capa está vacía', lyrRename:'Nombre', lyrLayerVis:'Toda la capa', lyrJump:'Ver en el plano', lyrCount:'elementos',
+    lyrTitle:'Contenido de la capa', lyrHint:'Al ocultarlo sale del plano y de los cálculos de f y exposición.', lyrEmpty:'Esta capa está vacía', lyrRename:'Nombre', lyrLayerVis:'Toda la capa', lyrJump:'Ver en el plano', lyrCount:'elementos', dvLayerLink:'Mostrar / ocultar elementos', dvLayerLinkSub:'Abre el contenido de la capa',
     dftGridPill:'Cuadro', dftGridLabel:'Tamaño de un cuadro', dftGridHint:'Cuánto mide un cuadro. Así se lee el plano.',
     dftCalibLabel:'Ajustar un plano importado al tamaño real', dftCalibHint:'Con un PDF o foto de fondo, toca dos puntos cuya distancia conozcas.',
     dftCalibBtn:'📍 Calibración de 2 Puntos', dftCalibStep1:'📍 Toca el punto 1...',
@@ -20419,145 +20419,116 @@ function dftToolsMoreMenu() {
 
 // 図面が線で埋まったときに、要素ごとに 表示 / 半透明 / 非表示 を選ぶ。
 // 「消す」だけだと位置関係が読めなくなるので、薄く残せる段を用意している。
+// 図面に重ねるものを、図面での見え方が近いもの同士でまとめる。
+// 以前は5つに分かれていて「アイコンの文字」が2か所に出ていたため、
+// 見出しの意味が伝わらず、ただの長い箇条書きに見えていた。
 var DFT_VIS_GROUPS = [
-  { title:'dvGrpLines', items:[
+  { title:'dvGrpLines', icon:'📏', items:[
     {key:'direct',    label:'ライト → 人物',   sample:'↗4.2m f24.6', col:'#f9a825'},
     {key:'bounceIn',  label:'ライト → 反射板', sample:'↗3.1m',       col:'#f9a825'},
     {key:'bounceOut', label:'反射板 → 人物',   sample:'↗2.8m',       col:'#26a69a'},
-    {key:'diffuser',  label:'Diffusion の距離', sample:'↗3.5m',      col:'#ab47bc'},
-    {key:'camera',    label:'カメラ の距離',    sample:'↗5.5m',      col:'#6495ed'}
+    {key:'diffuser',  label:'DIFF までの距離', sample:'↗3.5m',      col:'#ab47bc'},
+    {key:'camera',    label:'カメラ の距離',    sample:'↗5.5m',      col:'#6495ed'},
+    {key:'aim',       label:'狙いの線',        sample:'↗4.0m ↑52°',  col:'#6a1b9a'}
   ]},
-  { title:'dvGrpBadges', items:[
-    {key:'name',   label:'機種名',   sample:'ARRI M18', col:'#1a1a1a'},
-    {key:'height', label:'設置高さ', sample:'↕ 1.9m',  col:'#5e35b1'}
-  ]},
-  { title:'dvGrpCones', items:[
+  { title:'dvGrpCones', icon:'🔦', items:[
     {key:'beam', label:'ライトのビーム',   sample:'◣ 扇形',  col:'#f9a825'},
     {key:'refl', label:'反射板の反射光',   sample:'◣ 扇形',  col:'#0288d1'},
     {key:'pool', label:'布に当たる範囲',   sample:'⌀8.4m',   col:'#6a1b9a'},
     {key:'fov',  label:'カメラの画角',     sample:'◣ 扇形',  col:'#6495ed'}
   ]},
-  { title:'dvGrpBadges', items:[
-    {key:'fstop',     label:'ライトのF値',        sample:'f24.6',      col:'#e65100'},
+  { title:'dvGrpBadges', icon:'🔢', items:[
+    {key:'name',      label:'機種名',             sample:'ARRI M18',    col:'#1a1a1a'},
+    {key:'height',    label:'設置高さ',           sample:'↕ 1.9m',      col:'#5e35b1'},
+    {key:'fstop',     label:'ライトのF値',        sample:'f24.6',       col:'#e65100'},
     {key:'sum',       label:'反射経路の合算',      sample:'∑36.3m f0.5', col:'#e65100'},
-    {key:'stopBadge', label:'反射板・DIFFの減光',  sample:'-2.0 stop',  col:'#0288d1'}
+    {key:'stopBadge', label:'布・DIFF の減光',   sample:'-2.0 stop',   col:'#0288d1'}
   ]},
-  { title:'dvGrpOther', items:[
-    {key:'aim',  label:'狙いの線',  sample:'↗ 4.0m ↑52°', col:'#6a1b9a'},
+  { title:'dvGrpOther', icon:'▦', items:[
     {key:'grid', label:'グリッド', sample:'▦', col:'#999'}
   ]}
 ];
 
+/**
+ * 1行 = 図面に重ねるもの1種類。
+ * 左に「図面でこう見える」見本、右に 表示 / 半透明 / 非表示 の3択。
+ * 見本は今の設定と同じ濃さで描くので、一覧を眺めるだけで
+ * 何が薄くなっていて何が消えているのかが分かる。
+ */
 function _dftVisRowHTML(it) {
   var a = _dftVA(it.key);
   var labels = [t('dvOn'), t('dvDim'), t('dvOff')];
   var segs = DFT_VIS_STATES.map(function(st, i) {
     var act = Math.abs(a - st) < 0.01;
     return '<button onclick="window._dftSetVis(\''+it.key+'\','+st+')" style="' +
-      'flex:1;padding:6px 2px;border:none;border-radius:7px;font-size:10px;font-weight:800;cursor:pointer;' +
-      (act ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#666;') + '">' + labels[i] + '</button>';
+      'flex:1;padding:5px 0;border:none;border-radius:6px;font-size:9px;font-weight:800;cursor:pointer;' +
+      'white-space:nowrap;overflow:hidden;' +
+      (act ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#777;') + '">' + labels[i] + '</button>';
   }).join('');
-  // 図面での見た目を並べる。文字だけだとどの表示を指すのか分からなかった
-  var chip = it.sample
-    ? '<span style="display:inline-block;padding:1px 6px;border-radius:5px;border:1px solid '+it.col+';' +
-      'color:'+it.col+';font-size:9px;font-weight:800;font-family:monospace;white-space:nowrap;">'+_dftEsc(it.sample)+'</span>'
-    : '';
-  return '<div style="display:flex;align-items:center;gap:8px;padding:7px 16px;">' +
-    '<span style="flex:1;min-width:0;">' +
-      '<span style="font-size:12px;font-weight:600;color:#444;">'+it.label+'</span>' +
-      (chip ? '<br>' + chip : '') +
-    '</span>' +
-    '<span style="display:flex;gap:3px;width:150px;flex:0 0 150px;">'+segs+'</span>' +
+  // 見本は今の濃さで。消しているときは枠だけ残して「消えている」ことを見せる
+  var vis = (a > 0.01);
+  var chip = '<span style="display:inline-block;min-width:74px;max-width:74px;text-align:center;' +
+      'padding:2px 3px;border-radius:5px;border:1px dashed ' + (vis ? 'transparent' : '#ddd') + ';' +
+      'font-size:8px;font-weight:800;font-family:monospace;white-space:nowrap;overflow:hidden;' +
+      'text-overflow:ellipsis;flex:0 0 74px;' +
+      (vis ? 'color:' + it.col + ';opacity:' + Math.max(a, 0.34) + ';' : 'color:#ccc;') + '">' +
+      _dftEsc(it.sample || '—') + '</span>';
+  return '<div style="display:flex;align-items:center;gap:6px;padding:5px 10px;' +
+      (vis ? '' : 'background:#fafafa;') + '">' +
+    chip +
+    '<span style="flex:1;min-width:0;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;' +
+      'text-overflow:ellipsis;color:' + (vis ? '#333' : '#aaa') + ';">' + it.label + '</span>' +
+    '<span style="display:flex;gap:2px;width:120px;flex:0 0 120px;">'+segs+'</span>' +
   '</div>';
 }
 
-// 置いたもの一覧をレイヤーごとの木で出す。
-// レイヤーの表示切替と、その中の1つずつの表示切替を同じ場所で扱えるようにする。
-// 非表示にしたものは描画も計算も外れる。
+/** グループ内をまとめて切り替える小さなボタン */
+function _dftVisGroupBulkHTML(g) {
+  var keys = g.items.map(function(it){ return it.key; });
+  var arg  = "'" + keys.join(',') + "'";
+  return DFT_VIS_STATES.map(function(st, i) {
+    var lbl = [t('dvOn'), t('dvDim'), t('dvOff')][i];
+    // このグループが全部その状態か
+    var all = g.items.every(function(it){ return Math.abs(_dftVA(it.key) - st) < 0.01; });
+    return '<button onclick="window._dftSetVisMany('+arg+','+st+')" style="' +
+      'flex:1;padding:4px 0;border:1px solid ' + (all ? '#1565c0' : '#e0e0e0') + ';border-radius:6px;' +
+      'font-size:9px;font-weight:800;cursor:pointer;white-space:nowrap;overflow:hidden;' +
+      (all ? 'background:#1565c0;color:#fff;' : 'background:#fff;color:#888;') + '">' + lbl + '</button>';
+  }).join('');
+}
+
+/** グループ1つぶんのカード */
+function _dftVisGroupHTML(g) {
+  return '<div style="border:1px solid #e8e8e8;border-radius:12px;margin:0 12px 10px;overflow:hidden;background:#fff;">' +
+    '<div style="display:flex;align-items:center;gap:6px;padding:7px 10px;background:#f7f8fa;border-bottom:1px solid #eee;">' +
+      '<span style="font-size:11px;">' + (g.icon || '') + '</span>' +
+      '<span style="flex:1;min-width:0;font-size:10.5px;font-weight:900;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + t(g.title) + '</span>' +
+      '<span style="display:flex;gap:2px;width:120px;flex:0 0 120px;">' + _dftVisGroupBulkHTML(g) + '</span>' +
+    '</div>' +
+    g.items.map(_dftVisRowHTML).join('') +
+  '</div>';
+}
+
+// 置いたものの表示・非表示は、レイヤーのタブから開く一覧（dftLayerSheet）で扱う。
+// 以前はこのパネルの中にレイヤーの木を丸ごと抱えていて、
+// 重ね表示の設定と混ざって長い箇条書きになっていた。
 var DFT_OBJ_ICONS = {light:'💡', bounce:'🔲', diffuser:'⬜', flag:'▬', form:'🟩', people:'🧍', camera:'🎥', image:'🖼'};
 
-/** 1件ぶんの行 */
-function _dftVisObjRow(o, layerOff) {
-  var on = !o.hidden;
-  var dim = (!on || layerOff);
-  var stops = (o.factors && o.factors.length) ? getTotalFactorStops(o.factors) : 0;
-  var sub = [];
-  if (o.type === 'light' && o.makerKey) {
-    var lt = LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey];
-    if (lt) sub.push(lt.name);
-  }
-  if (stops) sub.push((stops > 0 ? '-' : '') + Math.abs(stops).toFixed(1) + ' stop');
-  if (o.zHeight != null) sub.push('↕' + _dftFmt(o.zHeight));
-
-  // レイヤー移動用
-  var opts = _dft.layers.map(function(l) {
-    return '<option value="'+l.id+'"'+(l.id===(o.layer||1)?' selected':'')+'>'+_dftEsc(l.name)+'</option>';
-  }).join('');
-
-  return '<div style="display:flex;align-items:center;gap:7px;padding:5px 16px 5px 30px;' + (dim ? 'opacity:.45;' : '') + '">' +
-    '<span style="font-size:14px;">' + (DFT_OBJ_ICONS[o.type] || '●') + '</span>' +
-    '<span style="flex:1;min-width:0;">' +
-      '<span style="font-size:12px;font-weight:700;color:#333;">' + _dftEsc(o.label || o.type) + '</span>' +
-      (sub.length ? '<span style="font-size:10px;color:#999;"> · ' + _dftEsc(sub.join(' · ')) + '</span>' : '') +
-    '</span>' +
-    (_dft.layers.length > 1
-      ? '<select onchange="window._dftMoveLayer(\'' + o.id + '\',+this.value)" ' +
-        'style="flex:0 0 auto;padding:2px 3px;border:1px solid #ddd;border-radius:6px;font-size:10px;font-weight:700;background:#fff;color:#333;">' + opts + '</select>'
-      : '') +
-    '<button onclick="window._dftToggleObj(\'' + o.id + '\')" style="flex:0 0 54px;padding:5px 0;border:none;border-radius:7px;' +
-      'font-size:10px;font-weight:800;cursor:pointer;' +
-      (on ? 'background:#1565c0;color:#fff;' : 'background:#eceff3;color:#666;') + '">' +
-      (on ? t('dvOn') : t('dvOff')) + '</button>' +
-  '</div>';
-}
-
-function _dftVisObjListHTML() {
-  var objs = _dft.objects;
-  if (!objs.length) return '';
-  var offN = objs.filter(function(o){ return o.hidden; }).length;
-
-  var body = _dft.layers.map(function(L) {
-    var mine = objs.filter(function(o){ return (o.layer || 1) === L.id; });
-    var isActive = (L.id === _dft.activeLayer);
-    var layerOff = !L.visible;
-    // レイヤーの見出し
-    var head = '<div style="display:flex;align-items:center;gap:7px;padding:8px 16px 6px;' +
-        (isActive ? 'background:#f2f7fd;' : '') + '">' +
-      '<button onclick="dftSelectLayer(' + L.id + ');window._dftVisRefresh()" style="flex:1;text-align:left;border:none;background:none;cursor:pointer;padding:0;">' +
-        '<span style="font-size:12px;font-weight:900;color:' + (isActive ? '#1565c0' : '#555') + ';">' +
-          (isActive ? '▸ ' : '') + _dftEsc(L.name) + '</span>' +
-        '<span style="font-size:10px;color:#999;font-weight:700;"> · ' + mine.length + '</span>' +
-      '</button>' +
-      '<button onclick="dftToggleLayerVis(' + L.id + ');window._dftVisRefresh()" style="flex:0 0 54px;padding:5px 0;border:none;border-radius:7px;' +
-        'font-size:10px;font-weight:800;cursor:pointer;' +
-        (L.visible ? 'background:#455a64;color:#fff;' : 'background:#eceff3;color:#666;') + '">' +
-        (L.visible ? t('dvOn') : t('dvOff')) + '</button>' +
-    '</div>';
-    var rows = mine.length
-      ? mine.map(function(o){ return _dftVisObjRow(o, layerOff); }).join('')
-      : '<div style="padding:2px 16px 6px 30px;font-size:10px;color:#bbb;">—</div>';
-    return head + rows;
-  }).join('');
-
-  return '<div style="font-size:10px;font-weight:800;color:#999;padding:14px 16px 2px;">' +
-      t('dvGrpObjects') + ' (' + objs.length + (offN ? ' · ' + offN + ' ' + t('dvOff') : '') + ')</div>' +
-    '<div style="font-size:10px;color:#888;padding:0 16px 4px;">' + t('dvObjHint') + '</div>' +
-    body +
-    (offN ? '<div style="padding:8px 16px 0;"><button onclick="window._dftShowAllObjs()" style="width:100%;padding:9px;border:1.5px solid #1565c0;border-radius:9px;background:#e3f2fd;color:#1565c0;font-size:11px;font-weight:800;cursor:pointer;">' + t('dvObjAllOn') + '</button></div>' : '');
-}
-
-/** パネルを開いたまま中身だけ作り直す */
+/** 開いているシートだけを作り直す */
 window._dftVisRefresh = function() {
+  var ly = document.getElementById('_dft_ly');
+  if (ly && _dft._lySheet != null) { window._dftLySheetRefresh(); return; }
   var el = document.getElementById('_dft_dv');
   if (el) { el.remove(); dftDistVisMenu(); }
 };
 
-/** 一覧からレイヤーを移す */
+/** レイヤーを移す（下のインフォバーとレイヤー一覧の両方から使う） */
 window._dftMoveLayer = function(id, layerId) {
   var o = _dft.objects.find(function(x){ return x.id === id; });
   if (!o) return;
   _dftPushHistory();
   o.layer = layerId;
+  _dftRenderLayerBar();
   _dftUpdateInfoBar(); dftRender(); _dftQueueCalcSync();
   window._dftVisRefresh();
 };
@@ -20567,49 +20538,78 @@ window._dftToggleObj = function(id) {
   if (!o) return;
   o.hidden = !o.hidden;
   if (o.hidden && _dft.selected === id) _dft.selected = null;
+  _dftRenderLayerBar();
   _dftUpdateInfoBar(); dftRender(); _dftUpdateCalcFromDraft();
-  var el = document.getElementById('_dft_dv');
-  if (el) { el.remove(); dftDistVisMenu(); }
-};
-
-window._dftShowAllObjs = function() {
-  _dft.objects.forEach(function(o){ delete o.hidden; });
-  _dftUpdateInfoBar(); dftRender(); _dftUpdateCalcFromDraft();
-  var el = document.getElementById('_dft_dv');
-  if (el) { el.remove(); dftDistVisMenu(); }
+  window._dftVisRefresh();
 };
 
 function dftDistVisMenu() {
   var ex = document.getElementById('_dft_dv'); if (ex) ex.remove();
   var hiddenN = Object.keys(_dft.hiddenLines || {}).filter(function(k){ return _dft.hiddenLines[k]; }).length;
 
-  var body = DFT_VIS_GROUPS.map(function(g, gi) {
-    return '<div style="font-size:10px;font-weight:800;color:#999;padding:12px 16px 2px;' +
-      (gi === 0 ? 'border-top:1px solid #eee;margin-top:12px;' : '') + '">'+t(g.title)+'</div>' +
-      g.items.map(_dftVisRowHTML).join('');
-  }).join('');
+  var offN = _dft.objects.filter(function(o){ return o.hidden; }).length;
 
+  // 見出し・ボタン・スクロールを分けて、閉じるボタンが常に手の届く所にあるようにする。
+  // 以前は全部が1つの長いスクロールに入っていて、
+  // 下まで送らないと閉じられなかった。
   var html = '<div id="_dft_dv" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_dv\').remove()">' +
-    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;max-height:88vh;overflow-y:auto;padding:16px 0 32px;" onclick="event.stopPropagation()">' +
-    '<div style="font-size:14px;font-weight:800;padding:0 16px 4px;">👁 '+t('dvTitle')+'</div>' +
-    '<div style="font-size:10px;color:#888;padding:0 16px 10px;border-bottom:1px solid #eee;">'+t('dvHint')+'</div>' +
-    // よく使う一括操作
-    '<div style="display:flex;gap:6px;padding:12px 16px 4px;">' +
-      '<button onclick="window._dftVisPreset(\'all\')" style="flex:1;padding:8px;border:none;border-radius:8px;background:#eceff3;color:#333;font-size:11px;font-weight:800;cursor:pointer;">'+t('dvAllOn')+'</button>' +
-      '<button onclick="window._dftVisPreset(\'dim\')" style="flex:1;padding:8px;border:none;border-radius:8px;background:#eceff3;color:#333;font-size:11px;font-weight:800;cursor:pointer;">'+t('dvAllDim')+'</button>' +
-      '<button onclick="window._dftVisPreset(\'clean\')" style="flex:1;padding:8px;border:none;border-radius:8px;background:#1565c0;color:#fff;font-size:11px;font-weight:800;cursor:pointer;">'+t('dvClean')+'</button>' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;max-height:86vh;display:flex;flex-direction:column;" onclick="event.stopPropagation()">' +
+
+    // ── 見出し（固定）
+    '<div style="flex:0 0 auto;padding:16px 12px 10px;border-bottom:1px solid #eee;">' +
+      '<div style="font-size:14px;font-weight:800;">👁 ' + t('dvTitle') + '</div>' +
+      '<div style="font-size:9.5px;color:#999;margin-top:3px;line-height:1.4;">' + t('dvHint') + '</div>' +
+      '<div style="display:flex;gap:5px;margin-top:10px;">' +
+        '<button onclick="window._dftVisPreset(\'all\')" style="flex:1;padding:8px 2px;border:none;border-radius:8px;background:#eceff3;color:#333;font-size:10.5px;font-weight:800;cursor:pointer;">' + t('dvAllOn') + '</button>' +
+        '<button onclick="window._dftVisPreset(\'dim\')" style="flex:1;padding:8px 2px;border:none;border-radius:8px;background:#eceff3;color:#333;font-size:10.5px;font-weight:800;cursor:pointer;">' + t('dvAllDim') + '</button>' +
+        '<button onclick="window._dftVisPreset(\'clean\')" style="flex:1;padding:8px 2px;border:none;border-radius:8px;background:#1565c0;color:#fff;font-size:10.5px;font-weight:800;cursor:pointer;">' + t('dvClean') + '</button>' +
+      '</div>' +
     '</div>' +
-    // 置いたもの個別の表示/非表示を先に出す。使わないバウンスをどけるのが
-    // 一番よくある用途で、下の重ね表示の設定より探されやすい。
-    _dftVisObjListHTML() +
-    body +
-    // 個別にタップで隠した線を戻す
-    (hiddenN ? '<div style="padding:14px 16px 0;">' +
-      '<button onclick="window._dftUnhideAll()" style="width:100%;padding:10px;border:1.5px solid #e65100;border-radius:10px;background:#fff3e0;color:#e65100;font-size:12px;font-weight:800;cursor:pointer;">' +
-      t('dvUnhide') + ' (' + hiddenN + ')</button></div>' : '') +
-    '<button onclick="document.getElementById(\'_dft_dv\').remove()" style="display:block;width:calc(100% - 32px);margin:14px 16px 0;padding:12px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftClose')+'</button>' +
+
+    // ── 中身（ここだけスクロール）
+    '<div id="_dft_dv_scroll" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 0 4px;">' +
+      DFT_VIS_GROUPS.map(_dftVisGroupHTML).join('') +
+      // 置いたもの1つずつは、レイヤーの中身の一覧に任せる
+      '<div style="margin:2px 12px 10px;">' +
+        '<button onclick="document.getElementById(\'_dft_dv\').remove();dftLayerSheet(_dft.activeLayer)" ' +
+          'style="width:100%;display:flex;align-items:center;gap:8px;padding:11px 12px;border:1px solid #e8e8e8;border-radius:12px;background:#fff;cursor:pointer;text-align:left;">' +
+          '<span style="font-size:14px;">🗂</span>' +
+          '<span style="flex:1;min-width:0;">' +
+            '<span style="display:block;font-size:11.5px;font-weight:800;color:#333;">' + t('dvLayerLink') +
+              (offN ? ' <span style="color:#e65100;">(' + offN + ' ' + t('dvOff') + ')</span>' : '') + '</span>' +
+            '<span style="display:block;font-size:9px;color:#aaa;font-weight:700;">' + t('dvLayerLinkSub') + '</span>' +
+          '</span>' +
+          '<span style="font-size:12px;color:#bbb;font-weight:900;">›</span>' +
+        '</button>' +
+      '</div>' +
+      // 図面で1本ずつタップして隠した線を戻す
+      (hiddenN ? '<div style="padding:0 12px 8px;">' +
+        '<button onclick="window._dftUnhideAll()" style="width:100%;padding:10px;border:1.5px solid #e65100;border-radius:10px;background:#fff3e0;color:#e65100;font-size:11px;font-weight:800;cursor:pointer;">' +
+        t('dvUnhide') + ' (' + hiddenN + ')</button></div>' : '') +
+    '</div>' +
+
+    // ── 閉じる（固定）
+    '<div style="flex:0 0 auto;padding:10px 12px calc(14px + env(safe-area-inset-bottom, 0px));border-top:1px solid #eee;">' +
+      '<button onclick="document.getElementById(\'_dft_dv\').remove()" style="width:100%;padding:12px;background:#eee;border:none;border-radius:12px;font-size:12.5px;font-weight:800;cursor:pointer;">' + t('dftClose') + '</button>' +
+    '</div>' +
+
     '</div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
+}
+
+/**
+ * パネルを作り直しつつ、送っていた位置を保つ。
+ * 作り直すたび先頭に戻ってしまうと、下の方の項目を続けて触れなかった。
+ */
+function _dftDvRebuild() {
+  var sc = document.getElementById('_dft_dv_scroll');
+  var top = sc ? sc.scrollTop : 0;
+  var el = document.getElementById('_dft_dv');
+  if (!el) return;
+  el.remove();
+  dftDistVisMenu();
+  var sc2 = document.getElementById('_dft_dv_scroll');
+  if (sc2) sc2.scrollTop = top;
 }
 
 window._dftSetVis = function(key, val) {
@@ -20618,8 +20618,16 @@ window._dftSetVis = function(key, val) {
   // 一度でも自分で触ったら、以後は画面幅による自動調整をしない
   try { localStorage.setItem('calm_vis_touched', '1'); } catch(e) {}
   dftRender();
-  var el = document.getElementById('_dft_dv');
-  if (el) { el.remove(); dftDistVisMenu(); }
+  _dftDvRebuild();
+};
+
+/** グループごとにまとめて切り替える */
+window._dftSetVisMany = function(keys, val) {
+  if (!_dft.vis) _dft.vis = {};
+  try { localStorage.setItem('calm_vis_touched', '1'); } catch(e) {}
+  String(keys).split(',').forEach(function(k){ if (k) _dft.vis[k] = val; });
+  dftRender();
+  _dftDvRebuild();
 };
 
 window._dftVisPreset = function(kind) {
@@ -20638,16 +20646,14 @@ window._dftVisPreset = function(kind) {
     }
   });
   dftRender();
-  var el = document.getElementById('_dft_dv');
-  if (el) { el.remove(); dftDistVisMenu(); }
+  _dftDvRebuild();
 };
 
 window._dftUnhideAll = function() {
   _dft.hiddenLines = {};
   _dftUpdateHiddenLinesBtn && _dftUpdateHiddenLinesBtn();
   dftRender();
-  var el = document.getElementById('_dft_dv');
-  if (el) { el.remove(); dftDistVisMenu(); }
+  _dftDvRebuild();
 };
 
 function dftReset() {
@@ -20902,7 +20908,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.86';
+var ver = 'v1.1.7.87';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
