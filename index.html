@@ -20186,7 +20186,13 @@ function cmMeasureAR(dest) {
     if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
     if (!r || r.cancelled || r.metres == null) return;
     var imp = (typeof S !== 'undefined' && S.imperial);
-    var v = imp ? r.metres * 3.28084 : r.metres;
+    // 行にふさわしい成分を使う。
+    // 「ここから」で人物を狙えば、まっすぐの距離だけでなく
+    // 水平距離と高低差もそのまま三角計算の値になる。
+    var d = (dest === 'height') ? Math.abs(r.vertical != null ? r.vertical : r.metres)
+          : (dest === 'horiz')  ? (r.horiz != null ? r.horiz : r.metres)
+          : r.metres;
+    var v = imp ? d * 3.28084 : d;
     v = Math.round(v * 100) / 100;
     var inp = document.getElementById('cm-inp-' + (dest || 'distance'));
     if (inp) {
@@ -20197,9 +20203,26 @@ function cmMeasureAR(dest) {
     }
     var st = document.getElementById('cm-ar-status');
     if (st) {
-      st.textContent = '📷 ' + v + ' ' + (imp ? 'ft' : 'm') +
-        (r.lidar ? ' · LiDAR' : '') + ' — ' + t('cmARThenSet');
+      var u = imp ? 'ft' : 'm';
+      var cv = function(m){ return Math.round((imp ? m * 3.28084 : m) * 100) / 100; };
+      var parts = ['📷 ' + v + ' ' + u];
+      if (r.horiz != null)    parts.push('↔ ' + cv(r.horiz) + u);
+      if (r.vertical != null) parts.push('↕ ' + cv(r.vertical) + u);
+      if (r.lidar) parts.push('LiDAR');
+      st.textContent = parts.join(' · ') + ' — ' + t('cmARThenSet');
       st.style.display = 'block';
+    }
+    // 「ここから」で測ったときは、高さと水平距離も埋めておく。
+    // 三角計算はこの2つが揃えば成り立つので、打ち直す手間が消える。
+    if (r.mode === 'fromMe' && r.horiz != null && r.vertical != null) {
+      var fill = function(id, m) {
+        var e = document.getElementById(id);
+        if (!e || e.value) return;   // すでに入っているものは触らない
+        e.value = Math.round((imp ? Math.abs(m) * 3.28084 : Math.abs(m)) * 100) / 100;
+        e.style.borderColor = '#4caf50';
+      };
+      if (dest !== 'height') fill('cm-inp-height', r.vertical);
+      if (dest !== 'horiz')  fill('cm-inp-horiz',  r.horiz);
     }
   }).catch(function(e) {
     if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
@@ -21192,7 +21215,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.94';
+var ver = 'v1.1.7.95';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
