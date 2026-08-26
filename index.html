@@ -15602,11 +15602,9 @@ function _dftUpdateCalcFromDraft() {
       illuminated  = true;
       dist         = _p.dist;
       activeBounce = _p.via;
-    } else if (diffs.length > 0 && _dftInBeam(lt, diffs[0].wx, diffs[0].wy)) {
-      // ディフューズ越し。透過材の位置から被写体までを見る
-      illuminated = true;
-      dist = _dftDist(diffs[0], sb);
     }
+    // 幕越しの経路も _dftLightPaths が返すようになったので、
+    // ここで別に判定していた処理は外した（幕の Factor が入らない原因だった）。
     // 届いていないときに Result を隠す処理を先に置く。
     // 以前は dist 未定義の early return が手前にあり、ここへ到達しなかった。
     if (!illuminated || !dist || dist <= 0) {
@@ -16059,6 +16057,80 @@ function _dftAimTargets() {
   });
 }
 
+/**
+ * 線分が幕（矩形）を横切るか。横切るなら光はそこを通っている。
+ *
+ * 立てた幕は「垂直な壁」なので、平面で交わる点の高さが幕の丈の中に
+ * 入っているかまで見る。寝かせた幕は「水平な面」なので、光が
+ * その高さを通過する点が幕の中に入っているかを見る。
+ */
+function _dftSegHitsPanel(d, ax, ay, az, bx, by, bz) {
+  var rd = _dftRectDims(d);
+  var cx = d.wx, cy = d.wy, rot = -(d.rot || 0);
+  var co = Math.cos(rot), si = Math.sin(rot);
+  // 幕の向きに合わせた座標へ移す
+  function toLocal(x, y) {
+    var dx = x - cx, dy = y - cy;
+    return [dx * co - dy * si, dx * si + dy * co];
+  }
+  var A = toLocal(ax, ay), B = toLocal(bx, by);
+  var hw = rd.w / 2, hh = rd.h / 2;
+
+  if (rd.stand) {
+    // 立てた幕：平面では細い帯。帯を横切る位置を求めて、高さを確かめる
+    var t = _dftSegBoxEnter(A[0], A[1], B[0], B[1], hw, hh);
+    if (t == null) return false;
+    var z = az + (bz - az) * t;
+    var zb = (d.zHeight != null ? d.zHeight : 0);
+    var zt = zb + (rd.vert || 0);
+    return z >= zb - 0.05 && z <= zt + 0.05;
+  }
+  // 寝かせた幕：水平な面。光がその高さを通る点が幕の内側かどうか
+  var pz = _dftZ(d);
+  if (Math.abs(bz - az) < 0.01) return false;          // 高さが変わらない光は通らない
+  var tt = (pz - az) / (bz - az);
+  if (tt <= 0.02 || tt >= 0.98) return false;          // 端（灯や被写体そのもの）は除く
+  var px = A[0] + (B[0] - A[0]) * tt, py = A[1] + (B[1] - A[1]) * tt;
+  return Math.abs(px) <= hw && Math.abs(py) <= hh;
+}
+
+/** 線分が軸に沿った矩形に入る位置（0〜1）。交わらなければ null */
+function _dftSegBoxEnter(x0, y0, x1, y1, hw, hh) {
+  var dx = x1 - x0, dy = y1 - y0;
+  var t0 = 0, t1 = 1;
+  var lim = [[-dx, x0 - (-hw)], [dx, hw - x0], [-dy, y0 - (-hh)], [dy, hh - y0]];
+  for (var i = 0; i < 4; i++) {
+    var pp = lim[i][0], qq = lim[i][1];
+    if (Math.abs(pp) < 1e-9) { if (qq < 0) return null; continue; }
+    var r = qq / pp;
+    if (pp < 0) { if (r > t1) return null; if (r > t0) t0 = r; }
+    else        { if (r < t0) return null; if (r < t1) t1 = r; }
+  }
+  if (t0 > t1) return null;
+  // 端（灯や被写体そのものの位置）は通過とみなさない
+  return (t0 > 0.02 && t0 < 0.98) ? t0 : ((t1 > 0.02 && t1 < 0.98) ? t1 : null);
+}
+
+/**
+ * 光路上にある幕の減光の合計。
+ * 灯 → 被写体 のあいだに幕が立っていれば、その Factor はそのまま効く。
+ * 以前ここを見ていなかったので、DIFF の Factor が Result に入らなかった。
+ */
+function _dftDiffStopsOnSeg(a, b, skipId) {
+  var diffs = _dftVisObjs(function(o){ return o.type === 'diffuser'; });
+  if (!diffs.length) return { stops: 0, list: [] };
+  var az = _dftZ(a), bz = _dftZ(b);
+  var stops = 0, list = [];
+  diffs.forEach(function(d) {
+    if (skipId && d.id === skipId) return;
+    if (_dftSegHitsPanel(d, a.wx, a.wy, az, b.wx, b.wy, bz)) {
+      stops += getTotalFactorStops(d.factors || []);
+      list.push(d);
+    }
+  });
+  return { stops: stops, list: list };
+}
+
 function _dftLightPaths(sb) {
   var lights  = _dftVisObjs(function(o){ return o.type==='light' && o.makerKey && o.modelKey; });
   var bounces = _dftVisObjs(function(o){ return o.type==='bounce'; });
@@ -16086,10 +16158,15 @@ function _dftLightPaths(sb) {
     var pt = _dftAimPointOf(lt, bn);
     var cosOut = _dftBounceCosOut(lt, bn, sb);
     if (cosOut <= 0.05) return null;              // 板の裏側 or ほぼ真横
+    // 灯→板、板→被写体 のどちらに幕があっても効く
+    var dIn  = _dftDiffStopsOnSeg(lt, pt);
+    var dOut = _dftDiffStopsOnSeg(pt, sb);
     return { light:lt, via:bn, from:pt,
              dist:_dftDist(lt, pt) + _dftDist(pt, sb),
              cosOut: cosOut,
-             extraStops:getTotalFactorStops(bn.factors || []) - Math.log2(cosOut) };
+             diffusers: dIn.list.concat(dOut.list),
+             extraStops:getTotalFactorStops(bn.factors || []) - Math.log2(cosOut)
+                        + dIn.stops + dOut.stops };
   }
 
   var out = [];
@@ -16099,7 +16176,9 @@ function _dftLightPaths(sb) {
     //    ここで明示できることが必要になる。
     if (lt.aimId) {
       if (lt.aimId === 'subject') {
-        out.push({ light:lt, via:null, from:lt, dist:_dftDist(lt, sb), extraStops:0 });
+        var dS = _dftDiffStopsOnSeg(lt, sb);
+        out.push({ light:lt, via:null, from:lt, dist:_dftDist(lt, sb),
+                   diffusers: dS.list, extraStops: dS.stops });
         return;
       }
       var tgt = _dft.objects.find(function(o){ return o.id === lt.aimId; });
@@ -16116,7 +16195,10 @@ function _dftLightPaths(sb) {
     // 直接当てているライトまで長い反射経路＋反射板の減光で計算され、
     // 24kW を 10.9m で当てているのに f1.1 のような値が出ていた。
     if (_dftInBeam(lt, sb.wx, sb.wy) && !_dftAimsOverhead(lt, sb)) {
-      out.push({ light:lt, via:null, from:lt, dist:_dftDist(lt, sb), extraStops:0 });
+      // 途中に幕が立っていればその減光を乗せる（silk を通した直射）
+      var dD = _dftDiffStopsOnSeg(lt, sb);
+      out.push({ light:lt, via:null, from:lt, dist:_dftDist(lt, sb),
+                 diffusers: dD.list, extraStops: dD.stops });
       return;
     }
     // 被写体がビームの外なら、反射板を経由した光を見る。
@@ -16130,7 +16212,21 @@ function _dftLightPaths(sb) {
     });
     if (aimed.length) {
       var vp2 = viaPath(lt, aimed[0]);
-      if (vp2) out.push(vp2);
+      if (vp2) { out.push(vp2); return; }
+    }
+
+    // 反射板が無く、被写体もビームの外。幕を照らしているなら
+    // 幕そのものが光源になる（silk の裏に人物がいる形）。
+    // 以前はこの経路が Result 側だけの別処理で、幕の Factor が
+    // 入っていなかった。ここに集めて、F値バッジや Exposure と揃える。
+    var lit = _dftVisObjs(function(o){ return o.type === 'diffuser'; })
+      .filter(function(d){ return _dftInBeam(lt, d.wx, d.wy); });
+    if (lit.length) {
+      var d0 = lit.reduce(function(bs, d){ return _dftDist(lt, d) < _dftDist(bs, d) ? d : bs; }, lit[0]);
+      out.push({ light:lt, via:null, viaDiffuser:d0, from:d0,
+                 dist:_dftDist(lt, d0) + _dftDist(d0, sb),
+                 diffusers:[d0],
+                 extraStops:getTotalFactorStops(d0.factors || []) });
     }
   });
   return out;
@@ -20444,7 +20540,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.79';
+var ver = 'v1.1.7.80';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
