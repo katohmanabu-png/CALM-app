@@ -1025,6 +1025,11 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <button class="step-btn" onclick="stepSl('dist-sl',-1,onDistChange)">‹</button>
           <input type="range" id="dist-sl" min="0.5" max="100" step="0.5" value="5" oninput="onDistChange()">
           <button class="step-btn" onclick="stepSl('dist-sl',1,onDistChange)">›</button>
+          <button class="cm-ar-dist" id="cm-ar-dist-calc" onclick="cmMeasureDistAR('calc')"
+            title="カメラで距離を測る"
+            style="display:none;flex:0 0 auto;width:38px;height:34px;margin-left:4px;border:1.5px solid var(--accent);
+                   border-radius:9px;background:transparent;color:var(--accent);font-size:16px;cursor:pointer;
+                   line-height:1;padding:0;">&#128247;</button>
         </div>
         <div class="sl-labs" id="dist-labs"></div>
         <div id="factor-wrap-calc" style="margin-top:6px;"></div>
@@ -1574,6 +1579,11 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <button class="step-btn" onclick="stepMixDist(-1)">‹</button>
       <input type="range" id="mix-dist-sl" min="0.5" max="100" step="0.1" value="5" oninput="onMixDistChange()">
       <button class="step-btn" onclick="stepMixDist(1)">›</button>
+          <button class="cm-ar-dist" id="cm-ar-dist-mix" onclick="cmMeasureDistAR('mix')"
+            title="カメラで距離を測る"
+            style="display:none;flex:0 0 auto;width:38px;height:34px;margin-left:4px;border:1.5px solid var(--accent);
+                   border-radius:9px;background:transparent;color:var(--accent);font-size:16px;cursor:pointer;
+                   line-height:1;padding:0;">&#128247;</button>
     </div>
     <div class="sl-labs" id="mix-dist-labs">
       <span class="sl-lab">0.5m</span><span class="sl-lab">1m</span>
@@ -1767,6 +1777,11 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <button class="step-btn" onclick="stepSl('finder-dist-sl',-1,onFinderDistChange);onFinderDistChange();">‹</button>
           <input type="range" id="finder-dist-sl" min="0.5" max="100" step="0.5" value="5" oninput="onFinderDistChange()" onchange="onFinderDistChange()">
           <button class="step-btn" onclick="stepSl('finder-dist-sl',1,onFinderDistChange);onFinderDistChange();">›</button>
+          <button class="cm-ar-dist" id="cm-ar-dist-finder" onclick="cmMeasureDistAR('finder')"
+            title="カメラで距離を測る"
+            style="display:none;flex:0 0 auto;width:38px;height:34px;margin-left:4px;border:1.5px solid var(--accent);
+                   border-radius:9px;background:transparent;color:var(--accent);font-size:16px;cursor:pointer;
+                   line-height:1;padding:0;">&#128247;</button>
         </div>
         <div class="sl-labs" id="finder-dist-labs"></div>
         <div id="factor-wrap-finder" style="margin-top:6px;"></div>
@@ -8215,6 +8230,43 @@ function cmOpen(ctx) {
   }, 120);
 }
 
+/**
+ * 距離スライダーの隣の 📷。測ってそのままそのタブの距離に入れる。
+ * ここは「灯体から人物までの距離」を測る以外に用途が無いので、
+ * シートを開かせず、SET も押させない。測り直したければもう一度押せばよい。
+ */
+function cmMeasureDistAR(ctx) {
+  var ar = _calmAR();
+  if (!ar) return;
+  var btn = document.getElementById('cm-ar-dist-' + ctx);
+  if (btn) { btn.disabled = true; btn.style.opacity = '0.45'; }
+  ar.measure().then(function(r) {
+    if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+    if (!r || r.cancelled || r.metres == null) return;
+    var imp = (ctx === 'finder') ? !!window.S_finderImperial
+            : (ctx === 'alt')    ? !!window.S_altImperial
+            : (typeof S !== 'undefined' && !!S.imperial);
+    _cmSetDistM(ctx, r.metres, imp);
+    if (typeof showToast === 'function') {
+      var v = imp ? r.metres * 3.28084 : r.metres;
+      showToast('📷 ' + (Math.round(v * 100) / 100) + (imp ? ' ft' : ' m') + (r.lidar ? ' · LiDAR' : ''));
+    }
+  }).catch(function(e) {
+    if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+    if (typeof showToast === 'function') showToast('⚠️ ' + t('cmARFail'));
+  });
+}
+
+/** 対応機のときだけ、距離スライダー横の 📷 を出す */
+function _cmShowDistARButtons() {
+  _cmARProbe(function(st) {
+    var btns = document.querySelectorAll('.cm-ar-dist');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].style.display = st.available ? 'block' : 'none';
+    }
+  });
+}
+
 /** カメラで測った値をどの行に入れるか */
 var _cmARDest = 'distance';
 /** 行の 📷 から呼ぶ。その行に入れる */
@@ -9642,6 +9694,8 @@ window.addEventListener('DOMContentLoaded', function() {
   try { renderFavList(); } catch(e) { console.error('renderFavList', e); }
   try { setLang(LANG); } catch(e) { console.error('setLang', e); }
   try { showPage(S.page || 'calc'); } catch(e) {}
+  // 距離スライダー横の 📷 は、対応機のときだけ出す
+  try { _cmShowDistARButtons(); } catch(e) {}
 
   // ── ダブルタップで直接入力 ──────────────────────────────────
   // Calcタブ メイン距離
@@ -21138,7 +21192,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.93';
+var ver = 'v1.1.7.94';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -21234,6 +21288,11 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
             <button class="step-btn" onclick="stepSl('alt-dist-sl',-1,onAltDistChange)">‹</button>
             <input type="range" id="alt-dist-sl" min="0.5" max="100" step="0.5" value="5" oninput="onAltDistChange()">
             <button class="step-btn" onclick="stepSl('alt-dist-sl',1,onAltDistChange)">›</button>
+          <button class="cm-ar-dist" id="cm-ar-dist-alt" onclick="cmMeasureDistAR('alt')"
+            title="カメラで距離を測る"
+            style="display:none;flex:0 0 auto;width:38px;height:34px;margin-left:4px;border:1.5px solid var(--accent);
+                   border-radius:9px;background:transparent;color:var(--accent);font-size:16px;cursor:pointer;
+                   line-height:1;padding:0;">&#128247;</button>
           </div>
           <div class="sl-labs" id="alt-dist-labs"></div>
           <div id="factor-wrap-alt" style="margin-top:6px;"></div>
