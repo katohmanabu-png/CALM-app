@@ -17810,7 +17810,15 @@ var _DFT_RECT_PRESETS = [
   {label:'6 × 6 ft',     wm:1.8288, hm:1.8288},
   {label:'8 × 8 ft',     wm:2.4384, hm:2.4384},
   {label:'12 × 12 ft',   wm:3.6576, hm:3.6576},
-  {label:'20 × 20 ft',   wm:6.096,  hm:6.096}
+  {label:'20 × 20 ft',   wm:6.096,  hm:6.096},
+  // 大判のフレーム（バタフライ）と、メートルで指定したいもの。
+  // 8×12 / 12×20 / 20×30 / 30×30 はフィート。
+  {label:'8 × 12 ft',    wm:2.4384, hm:3.6576},
+  {label:'12 × 20 ft',   wm:3.6576, hm:6.096},
+  {label:'20 × 30 ft',   wm:6.096,  hm:9.144},
+  {label:'30 × 30 ft',   wm:9.144,  hm:9.144},
+  {label:'5 × 8 m',      wm:5,      hm:8},
+  {label:'8 × 10 m',     wm:8,      hm:10}
 ];
 /**
  * 配置のときに出すサイズのプリセット。種類ごとに実際に使う寸法が違う。
@@ -17826,7 +17834,15 @@ var _DFT_RECT_PRESETS_BY_TYPE = {
     {label:'6 × 6 ft',     wm:1.8288, hm:1.8288},
     {label:'8 × 8 ft',     wm:2.4384, hm:2.4384},
     {label:'12 × 12 ft',   wm:3.6576, hm:3.6576},
-    {label:'20 × 20 ft',   wm:6.096,  hm:6.096}
+    {label:'20 × 20 ft',   wm:6.096,  hm:6.096},
+    // 大判のフレーム（バタフライ）と、メートルで指定したいもの。
+    // 8×12 / 12×20 / 20×30 / 30×30 はフィート。
+    {label:'8 × 12 ft',    wm:2.4384, hm:3.6576},
+    {label:'12 × 20 ft',   wm:3.6576, hm:6.096},
+    {label:'20 × 30 ft',   wm:6.096,  hm:9.144},
+    {label:'30 × 30 ft',   wm:9.144,  hm:9.144},
+    {label:'5 × 8 m',      wm:5,      hm:8},
+    {label:'8 × 10 m',     wm:8,      hm:10}
   ],
   form: [
     {label:'1 × 1 m',      wm:1,  hm:1},
@@ -17838,7 +17854,15 @@ var _DFT_RECT_PRESETS_BY_TYPE = {
     {label:'6 × 6 m',      wm:6,  hm:6},
     {label:'9 × 5 m',      wm:9,  hm:5},
     {label:'12 × 6 m',     wm:12, hm:6},
-    {label:'20 × 10 m',    wm:20, hm:10}
+    {label:'20 × 10 m',    wm:20, hm:10},
+    // 大判のフレーム（バタフライ）と、メートルで指定したいもの。
+    // 8×12 / 12×20 / 20×30 / 30×30 はフィート。
+    {label:'8 × 12 ft',    wm:2.4384, hm:3.6576},
+    {label:'12 × 20 ft',   wm:3.6576, hm:6.096},
+    {label:'20 × 30 ft',   wm:6.096,  hm:9.144},
+    {label:'30 × 30 ft',   wm:9.144,  hm:9.144},
+    {label:'5 × 8 m',      wm:5,      hm:8},
+    {label:'8 × 10 m',     wm:8,      hm:10}
   ]
 };
 function _dftRectPresetsFor(type) {
@@ -20687,7 +20711,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.83';
+var ver = 'v1.1.7.84';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
