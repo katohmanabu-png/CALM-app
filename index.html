@@ -14143,6 +14143,59 @@ function dftMode(m) {
   dftRender();
 }
 
+/**
+ * 狙いを確定する。押した位置でも、指を離した位置でも同じ処理を通す。
+ * 対象が無ければ確定せず、対象待ちのまま続ける。
+ * @returns {boolean} 確定したか
+ */
+function _dftCommitAimAt(mx, my) {
+  var src = _dft.objects.find(function(o){ return o.id === _dft._aimFrom; });
+  // 狙える対象だけを拾う（自分自身は除く）。
+  // 先に対象を探すのが肝心。天バンはライトの真上に広がっているので、
+  // 「同じライトを押したら取り消し」を先に見ると、天井を狙うたびに
+  // 取り消しになってしまう。
+  // 小さい対象（人物）を先に見る。大きな布は画面のほとんどを覆うので、
+  // 重なり順に任せると、布の上ではどちらか一方しか選べなくなる。
+  var _iconR = Math.max(8, Math.min(36, (_dft.zoom/_dft.scale)*0.15));
+  var aHit = _dftObjAtFiltered(mx, my, function(o){
+    return o.id !== _dft._aimFrom && o.type === 'people';
+  }, _iconR) || _dftObjAtFiltered(mx, my, function(o){
+    return o.id !== _dft._aimFrom && (o.type === 'bounce' || o.type === 'diffuser');
+  });
+  // 対象が無いところで元のライトを押したときだけ取り消し
+  if (!aHit && _dftObjAtFiltered(mx, my, function(o){ return o.id === _dft._aimFrom; })) {
+    _dft._aimFrom = null; _dft._aimCur = null;
+    _dftSetStatus('🎯 ' + t('aimPickLight'));
+    dftRender(); return false;
+  }
+  if (!src || !aHit) {
+    // 空振りしても選び直しにはせず、対象待ちのまま続ける
+    _dftSetStatus('🎯 ' + t('aimBadTarget'));
+    _dft._aimCur = {x:mx, y:my};
+    dftRender(); return false;
+  }
+  _dft._aimFrom = null; _dft._aimCur = null;
+  // 先に狙い先を設定する。_dftSetAim は対象が変わると aimPt を捨てるので、
+  // 当てる点はそのあとに入れる（順序を逆にすると消えてしまう）。
+  _dftSetAim(src.id, (aHit.type === 'people') ? 'subject' : aHit.id);
+  if (aHit.type === 'bounce' || aHit.type === 'diffuser') {
+    var _w = _dftS2W(mx, my);
+    src.aimPt = _dftClampToRect(aHit, _w.x, _w.y);
+    delete src.ptPan; delete src.ptTilt;   // 画面で狙い直したので振りの記憶は捨てる
+    // 当てる点に向け直す（真上のときは俯瞰の向きが決まらないので触らない）
+    if (Math.hypot(src.aimPt.x - src.wx, src.aimPt.y - src.wy) > 0.3) {
+      src.rot = Math.atan2(-(src.aimPt.x - src.wx), (src.aimPt.y - src.wy));
+    }
+    _dftQueueCalcSync();
+  }
+  _dftSetStatus('🎯 ' + (src.label || 'Light') + ' → ' + (aHit.label || aHit.type) +
+                '  ' + _dftAimAngleText(src, aHit) + '   ' + t('aimAgain'));
+  // 続けて別のライトを狙えるよう、モードは維持する
+  _dft.selected = null;
+  _dftUpdateInfoBar(); dftRender();
+  return true;
+}
+
 function _dftSetStatus(txt) {
   var s = document.getElementById('dft-status');
   if (s) s.textContent = txt;
@@ -16497,8 +16550,11 @@ function _dftMD(e) {
     return;
   }
 
-  // 狙い指定モード：ライトを選び、次に狙う対象をタップする。
-  // 向きは2点の位置から計算するので、手で回す必要がない。
+  // 狙い指定モード。
+  // 使い方は2通りあり、どちらでも同じ結果になる。
+  //   ドラッグ: ライトを押さえたまま狙う場所まで運んで離す
+  //   タップ  : ライトを押す → 狙う場所を押す
+  // 以前はタップ2回だけだったので、ドラッグして離しても確定しなかった。
   if (_dft.mode === 'aim') {
     if (!_dft._aimFrom) {
       // 1つ目はライトだけを拾う（真上の板が重なっていても選べるように）
@@ -16506,56 +16562,15 @@ function _dftMD(e) {
       if (!lHit) { _dftSetStatus('🎯 ' + t('aimPickLight')); return; }
       _dft._aimFrom = lHit.id;
       _dft._aimCur  = {x:mx, y:my};
+      _dft._aimDownAt = {x:mx, y:my};     // ここから動いたらドラッグとみなす
+      _dft._aimDragging = true;
       _dft.selected = lHit.id;
       _dftSetStatus('🎯 ' + (lHit.label || 'Light') + ' → ? ' + t('aimPickTarget'));
       _dftUpdateInfoBar(); dftRender();
       return;
     }
-    var src = _dft.objects.find(function(o){ return o.id === _dft._aimFrom; });
-    // 2つ目は狙える対象だけを拾う（自分自身は除く）。
-    // 先に対象を探すのが肝心。天バンはライトの真上に広がっているので、
-    // 「同じライトを押したら取り消し」を先に見ると、天井を狙うたびに
-    // 取り消しになってしまう。
-    // 小さい対象（人物）を先に見る。大きな布は画面のほとんどを覆うので、
-    // 重なり順に任せると、布の上ではどちらか一方しか選べなくなる。
-    // 人物の上を押したら人物、それ以外の布の上なら布、とする。
-    var _iconR = Math.max(8, Math.min(36, (_dft.zoom/_dft.scale)*0.15));
-    var aHit = _dftObjAtFiltered(mx, my, function(o){
-      return o.id !== _dft._aimFrom && o.type === 'people';
-    }, _iconR) || _dftObjAtFiltered(mx, my, function(o){
-      return o.id !== _dft._aimFrom && (o.type === 'bounce' || o.type === 'diffuser');
-    });
-    // 対象が無いところで元のライトを押したときだけ取り消し
-    if (!aHit && _dftObjAtFiltered(mx, my, function(o){ return o.id === _dft._aimFrom; })) {
-      _dft._aimFrom = null; _dft._aimCur = null;
-      _dftSetStatus('🎯 ' + t('aimPickLight'));
-      dftRender(); return;
-    }
-    if (!src || !aHit) {
-      // 空振りしても選び直しにはせず、対象待ちのまま続ける
-      _dftSetStatus('🎯 ' + t('aimBadTarget'));
-      _dft._aimCur = {x:mx, y:my};
-      dftRender(); return;
-    }
-    _dft._aimFrom = null; _dft._aimCur = null;
-    // 先に狙い先を設定する。_dftSetAim は対象が変わると aimPt を捨てるので、
-    // 当てる点はそのあとに入れる（順序を逆にすると消えてしまう）。
-    _dftSetAim(src.id, (aHit.type === 'people') ? 'subject' : aHit.id);
-    if (aHit.type === 'bounce' || aHit.type === 'diffuser') {
-      var _w = _dftS2W(mx, my);
-      src.aimPt = _dftClampToRect(aHit, _w.x, _w.y);
-      delete src.ptPan; delete src.ptTilt;   // 画面で狙い直したので振りの記憶は捨てる
-      // 当てる点に向け直す（真上のときは俯瞰の向きが決まらないので触らない）
-      if (Math.hypot(src.aimPt.x - src.wx, src.aimPt.y - src.wy) > 0.3) {
-        src.rot = Math.atan2(-(src.aimPt.x - src.wx), (src.aimPt.y - src.wy));
-      }
-      dftRender(); _dftQueueCalcSync();
-    }
-    _dftSetStatus('🎯 ' + (src.label || 'Light') + ' → ' + (aHit.label || aHit.type) +
-                  '  ' + _dftAimAngleText(src, aHit) + '   ' + t('aimAgain'));
-    // 続けて別のライトを狙えるよう、モードは維持する
-    _dft.selected = null;
-    _dftUpdateInfoBar(); dftRender();
+    // 2回目のタップ（ドラッグせずに押し直した場合）
+    _dftCommitAimAt(mx, my);
     return;
   }
 
@@ -16858,6 +16873,19 @@ function _dftMM(e) {
 }
 
 function _dftMU() {
+  // 狙いモードで、ライトを押さえたまま運んで離したとき。
+  // 離した場所で確定する。押した場所からほとんど動いていなければ
+  // 「タップして次に対象をタップ」の従来の手順なので、ここでは確定しない。
+  if (_dft.mode === 'aim' && _dft._aimDragging) {
+    _dft._aimDragging = false;
+    var d0 = _dft._aimDownAt, cur = _dft._aimCur;
+    _dft._aimDownAt = null;
+    if (_dft._aimFrom && d0 && cur &&
+        Math.hypot(cur.x - d0.x, cur.y - d0.y) > 8) {
+      _dftCommitAimAt(cur.x, cur.y);
+      return;
+    }
+  }
   if (_dft.rectDraw) {
     _dft.rectDraw = false;
     var wm = Math.abs(_dft.rectCurWx - _dft.rectStartWx);
@@ -20711,7 +20739,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.84';
+var ver = 'v1.1.7.85';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
