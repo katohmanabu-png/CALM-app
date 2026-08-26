@@ -2137,7 +2137,7 @@ var LANGS = {
     distInputBtn:'📷 距離を入力', searchBtn:'🔍 検索',
     mxSearchBtn:'検索', mxSearchPlaceholder:'ライト名を入力...',
     indivDistOff:'個別距離 OFF', indivDistOn:'個別距離 ON',
-    cmDistTitle:'📷 距離を入力', cmARMeasure:'カメラで測る', cmARThenSet:'SET を押すと反映されます', cmARFail:'測定できませんでした', cmARDenied:'カメラの使用が許可されていません。設定 → CALM → カメラ を確認してください。',
+    cmDistTitle:'📷 距離を入力', cmARMeasure:'カメラで測る', cmARWebOnly:'📷 カメラで測る機能は iOS アプリ版でのみ使えます。ブラウザからは数値を入力してください。', cmARNoDevice:'📷 この端末はカメラ計測（ARKit）に対応していません。数値を入力してください。', cmARThenSet:'SET を押すと反映されます', cmARFail:'測定できませんでした', cmARDenied:'カメラの使用が許可されていません。設定 → CALM → カメラ を確認してください。',
     pageDraftTitle:'ドラフト', pageDraftSub:'2Dライティングプラン',
     dftBtnSelect:'↖ 選択', dftBtnDelete:'🗑 削除', dftBtnRotate:'🔄 回転', dftBtnUndo:'↩ 元に戻す',
     dftBtnPeople:'🧍 人', dftBtnCamera:'🎥 Cam', dftBtnLight:'💡 ライト',
@@ -2235,7 +2235,7 @@ var LANGS = {
     triCalcToggle:'📐 Height & Angle Calc', triLockTitle:'Long-press to lock', triLockTitleOn:'Locked (long-press to release)',
     triHorizLbl:'↔️ Horizontal', triAngle:'📐 Angle',
     modelSearchPlaceholder:'Light name...', mxSearchPlaceholder:'Light name...', mxSearchBtn:'Search',
-    cmDistTitle:'📷 Enter Distance', cmARMeasure:'Measure with camera', cmARThenSet:'press SET to apply', cmARFail:'Could not measure', cmARDenied:'Camera access is off. Check Settings → CALM → Camera.',
+    cmDistTitle:'📷 Enter Distance', cmARMeasure:'Measure with camera', cmARWebOnly:'📷 Camera measuring works in the iOS app only. Type the number here instead.', cmARNoDevice:'📷 This device does not support camera measuring (ARKit). Type the number instead.', cmARThenSet:'press SET to apply', cmARFail:'Could not measure', cmARDenied:'Camera access is off. Check Settings → CALM → Camera.',
     cmUnitPrefix:'Unit: ', cmApplied:' applied',
     secLabel1:'1 unit · at/above target (±1 stop)', secLabel2:'Multi · at/above target (±1 stop)', secLabel3:'1 unit · below target (within −1 stop)', secLabel4:'Multi · below target (within −1 stop)', secLabel5:'Within ±2 stop (reference)',
     altSec1:'1 unit (±1 stop)', altSec2:'Multi units (±1 stop)', altSec3:'1 unit · brighter (up to +2 stop)', altSec4:'Multi · brighter (up to +2 stop)',
@@ -2338,7 +2338,7 @@ var LANGS = {
     triCalcToggle:'📐 Calc. Altura y Ángulo', triLockTitle:'Mantener para fijar', triLockTitleOn:'Fijado (mantener para liberar)',
     triHorizLbl:'↔️ Horizontal', triAngle:'📐 Ángulo',
     modelSearchPlaceholder:'Nombre del equipo...', mxSearchPlaceholder:'Nombre del equipo...', mxSearchBtn:'Buscar',
-    cmDistTitle:'📷 Ingresar Distancia', cmARMeasure:'Medir con la cámara', cmARThenSet:'pulsa SET para aplicar', cmARFail:'No se pudo medir', cmARDenied:'Cámara no autorizada. Ajustes → CALM → Cámara.',
+    cmDistTitle:'📷 Ingresar Distancia', cmARMeasure:'Medir con la cámara', cmARWebOnly:'📷 Medir con la cámara solo funciona en la app de iOS. Escribe el número aquí.', cmARNoDevice:'📷 Este dispositivo no admite medición con cámara (ARKit). Escribe el número.', cmARThenSet:'pulsa SET para aplicar', cmARFail:'No se pudo medir', cmARDenied:'Cámara no autorizada. Ajustes → CALM → Cámara.',
     cmUnitPrefix:'Unidad: ', cmApplied:' aplicado',
     secLabel1:'1 unidad · objetivo o más (±1 stop)', secLabel2:'Múltiples · objetivo o más (±1 stop)', secLabel3:'1 unidad · bajo objetivo (−1 stop)', secLabel4:'Múltiples · bajo objetivo (−1 stop)', secLabel5:'Dentro de ±2 stop (referencia)',
     altSec1:'1 unidad (±1 stop)', altSec2:'Múltiples (±1 stop)', altSec3:'1 unidad · más brillante (hasta +2 stop)', altSec4:'Múltiples · más brillante (hasta +2 stop)',
@@ -20170,9 +20170,12 @@ function _cmRenderARRow() {
     } else if (st.cameraDenied) {
       box.innerHTML = '<div style="font-size:10.5px;color:var(--text-dim,#999);line-height:1.5;">' + t('cmARDenied') + '</div>';
     } else {
-      // Web版や非対応機では出さない。無い機能を見せない
-      box.innerHTML = '';
-      box.style.display = 'none';
+      // 押せるボタンは出さないが、なぜ無いのかは書く。
+      // 黙って消していると「ボタンが無い」だけが伝わってしまう。
+      box.innerHTML = '<div style="font-size:10px;color:var(--text-dim,#888);line-height:1.5;' +
+        'padding:8px 11px;background:var(--bg,#2c2c2e);border-radius:9px;' +
+        'border-left:2px solid var(--text-dim,#666);">' +
+        (_calmIsNative() ? t('cmARNoDevice') : t('cmARWebOnly')) + '</div>';
     }
     // 各行の 📷 も、対応しているときだけ出す
     var rows = document.querySelectorAll('#cm-overlay .cm-ar-row');
@@ -21135,7 +21138,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.7.92';
+var ver = 'v1.1.7.93';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
