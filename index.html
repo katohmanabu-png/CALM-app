@@ -1110,14 +1110,14 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                         <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="tri-horiz-disp">6.0 m</span>
                       </div>
                       <div style="display:flex;align-items:center;gap:5px;">
-                        <button class="step-btn" onclick="triStep('tri-horiz',-.5,.5,30,'di','calcTriangle')">‹</button>
-                        <input type="range" id="tri-horiz" min="0.5" max="30" step="0.1" value="6"
+                        <button class="step-btn" onclick="triStep('tri-horiz',-.5,.5,100,'di','calcTriangle')">‹</button>
+                        <input type="range" id="tri-horiz" min="0.5" max="100" step="0.1" value="6"
                           oninput="triDisp('tri-horiz','tri-horiz-disp','tri-unit-hz');calcTriangle('di')"
                           style="flex:1;height:4px;">
-                        <button class="step-btn" onclick="triStep('tri-horiz',.5,.5,30,'di','calcTriangle')">›</button>
+                        <button class="step-btn" onclick="triStep('tri-horiz',.5,.5,100,'di','calcTriangle')">›</button>
                         <button class="tri-lock-btn" id="lock-tri-horiz" title="長押しでロック" onmousedown="triLockPress('tri-horiz','lock-tri-horiz')" onmouseup="triLockRelease('tri-horiz')" ontouchstart="triLockPress('tri-horiz','lock-tri-horiz')" ontouchend="triLockRelease('tri-horiz')">🔓</button>
                       </div>
-                      <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5 <span id="tri-unit-hz">m</span></span><span style="font-size:9px;color:#888;">30 <span class="tri-unit-hz-r">m</span></span></div>
+                      <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5 <span id="tri-unit-hz">m</span></span><span style="font-size:9px;color:#888;">100 <span class="tri-unit-hz-r">m</span></span></div>
                     </div>
                     <div>
                       <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -1673,14 +1673,14 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
               <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="mix-tri-hz-disp">6.0 m</span>
             </div>
             <div style="display:flex;align-items:center;gap:5px;">
-              <button class="step-btn" onclick="triStep('mix-tri-hz',-.5,.5,30,'d','calcMixTri')">‹</button>
-              <input type="range" id="mix-tri-hz" min="0.5" max="30" step="0.1" value="6"
+              <button class="step-btn" onclick="triStep('mix-tri-hz',-.5,.5,100,'d','calcMixTri')">‹</button>
+              <input type="range" id="mix-tri-hz" min="0.5" max="100" step="0.1" value="6"
                 oninput="triDisp('mix-tri-hz','mix-tri-hz-disp','mix-tri-unit-hz');calcMixTri('d')"
                 style="flex:1;height:4px;">
-              <button class="step-btn" onclick="triStep('mix-tri-hz',.5,.5,30,'d','calcMixTri')">›</button>
+              <button class="step-btn" onclick="triStep('mix-tri-hz',.5,.5,100,'d','calcMixTri')">›</button>
               <button class="tri-lock-btn" id="lock-mix-tri-hz" title="長押しでロック" onmousedown="triLockPress('mix-tri-hz','lock-mix-tri-hz')" onmouseup="triLockRelease('mix-tri-hz')" ontouchstart="triLockPress('mix-tri-hz','lock-mix-tri-hz')" ontouchend="triLockRelease('mix-tri-hz')">🔓</button>
             </div>
-            <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5m</span><span style="font-size:9px;color:#888;">30m</span></div>
+            <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5m</span><span style="font-size:9px;color:#888;">100m</span></div>
           </div>
           <div>
             <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -10164,11 +10164,11 @@ window.addEventListener('DOMContentLoaded', function() {
   });
   // Triangle: Calc
   makeSlValEditable('tri-height-disp', 'tri-height', 0.5, 20, 0.5, function(v){ _triSetVal('tri-height','tri-height-disp','tri-unit-h',v); calcTriangle('h'); });
-  makeSlValEditable('tri-horiz-disp',  'tri-horiz',  0.5, 30, 0.5, function(v){ _triSetVal('tri-horiz','tri-horiz-disp','tri-unit-hz',v); calcTriangle('di'); });
+  makeSlValEditable('tri-horiz-disp',  'tri-horiz',  0.5, 100, 0.5, function(v){ _triSetVal('tri-horiz','tri-horiz-disp','tri-unit-hz',v); calcTriangle('di'); });
   makeSlValEditable('tri-angle-disp',  'tri-angle',  1,   89, 1,   function(v){ _triSetVal('tri-angle','tri-angle-disp',null,v); calcTriangle('a'); });
   // Triangle: Alt
   makeSlValEditable('alt-tri-height-disp', 'alt-tri-height', 0.5, 20, 0.5, function(v){ _triSetVal('alt-tri-height','alt-tri-height-disp','alt-tri-unit-h',v); calcAltTriangle('h'); });
-  makeSlValEditable('alt-tri-horiz-disp',  'alt-tri-horiz',  0.5, 30, 0.5, function(v){ _triSetVal('alt-tri-horiz','alt-tri-horiz-disp','alt-tri-unit-hz',v); calcAltTriangle('di'); });
+  makeSlValEditable('alt-tri-horiz-disp',  'alt-tri-horiz',  0.5, 100, 0.5, function(v){ _triSetVal('alt-tri-horiz','alt-tri-horiz-disp','alt-tri-unit-hz',v); calcAltTriangle('di'); });
   makeSlValEditable('alt-tri-angle-disp',  'alt-tri-angle',  1,   89, 1,   function(v){ _triSetVal('alt-tri-angle','alt-tri-angle-disp',null,v); calcAltTriangle('a'); });
   // Triangle: Finder
   makeSlValEditable('finder-tri-height-disp', 'finder-tri-height', 0.5, 50, 0.5, function(v){ _triSetVal('finder-tri-height','finder-tri-height-disp','finder-tri-unit-h',v); calcFinderTriangle('h'); });
@@ -10176,7 +10176,7 @@ window.addEventListener('DOMContentLoaded', function() {
   makeSlValEditable('finder-tri-angle-disp',  'finder-tri-angle',  1,   89, 1,   function(v){ _triSetVal('finder-tri-angle','finder-tri-angle-disp',null,v); calcFinderTriangle('a'); });
   // Triangle: Mix
   makeSlValEditable('mix-tri-h-disp',       'mix-tri-h',     0.5, 20, 0.5, function(v){ _triSetVal('mix-tri-h','mix-tri-h-disp','mix-tri-unit-h',v); calcMixTri('h'); });
-  makeSlValEditable('mix-tri-hz-disp',      'mix-tri-hz',    0.5, 30, 0.5, function(v){ _triSetVal('mix-tri-hz','mix-tri-hz-disp','mix-tri-unit-hz',v); calcMixTri('d'); });
+  makeSlValEditable('mix-tri-hz-disp',      'mix-tri-hz',    0.5, 100, 0.5, function(v){ _triSetVal('mix-tri-hz','mix-tri-hz-disp','mix-tri-unit-hz',v); calcMixTri('d'); });
   makeSlValEditable('mix-tri-angle-disp2',  'mix-tri-angle', 1,   89, 1,   function(v){ _triSetVal('mix-tri-angle','mix-tri-angle-disp2',null,v); calcMixTri('a'); });
 
   // カメラタブ ISO（インデックス型 → 最近傍ISO_V変換）
@@ -21600,7 +21600,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.2';
+var ver = 'v1.1.8.3';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -21788,14 +21788,14 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                       <span style="font-size:15px;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;" id="alt-tri-horiz-disp">6.0 m</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:5px;">
-                      <button class="step-btn" onclick="triStep('alt-tri-horiz',-.5,.5,30,'di','calcAltTriangle')">‹</button>
-                      <input type="range" id="alt-tri-horiz" min="0.5" max="30" step="0.1" value="6"
+                      <button class="step-btn" onclick="triStep('alt-tri-horiz',-.5,.5,100,'di','calcAltTriangle')">‹</button>
+                      <input type="range" id="alt-tri-horiz" min="0.5" max="100" step="0.1" value="6"
                         oninput="triDisp('alt-tri-horiz','alt-tri-horiz-disp','alt-tri-unit-hz');calcAltTriangle('di')"
                         style="flex:1;height:4px;">
-                      <button class="step-btn" onclick="triStep('alt-tri-horiz',.5,.5,30,'di','calcAltTriangle')">›</button>
+                      <button class="step-btn" onclick="triStep('alt-tri-horiz',.5,.5,100,'di','calcAltTriangle')">›</button>
                       <button class="tri-lock-btn" id="lock-alt-tri-horiz" title="長押しでロック" onmousedown="triLockPress('alt-tri-horiz','lock-alt-tri-horiz')" onmouseup="triLockRelease('alt-tri-horiz')" ontouchstart="triLockPress('alt-tri-horiz','lock-alt-tri-horiz')" ontouchend="triLockRelease('alt-tri-horiz')">🔓</button>
                     </div>
-                    <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5 <span id="alt-tri-unit-hz">m</span></span><span style="font-size:9px;color:#888;">30m</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:9px;color:#888;">0.5 <span id="alt-tri-unit-hz">m</span></span><span style="font-size:9px;color:#888;">100m</span></div>
                   </div>
                   <div>
                     <div style="display:flex;justify-content:space-between;align-items:baseline;">
