@@ -48,9 +48,6 @@ header{background:var(--white);padding:1px 8px 1px;padding-top:calc(1px + env(sa
 .hdr-text h1{font-size:9px;font-weight:900;white-space:nowrap;}
 .hdr-text span{font-size:6px;color:var(--text-dim);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;}
 .hdr-right{display:flex;align-items:center;gap:3px;flex-shrink:0;}
-/* 📷 を出すと狭い画面ではサブタイトルが入りきらない。
-   切れた文字を見せるより、その行を畳む */
-@media (max-width:400px){ header.has-ar #hdr-sub{display:none;} }
 .hdr-back-btn{display:none;background:none;border:none;padding:4px 8px;cursor:pointer;font-size:13px;font-weight:800;color:var(--accent);font-family:'Nunito',sans-serif;align-items:center;gap:3px;border-radius:8px;white-space:nowrap;}
 .hdr-back-btn:active{background:var(--accent-light);}
 .hamburger-btn{background:none;border:none;padding:4px 6px;cursor:pointer;font-size:20px;line-height:1;color:var(--text);border-radius:8px;display:flex;align-items:center;justify-content:center;}
@@ -851,7 +848,6 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
     <button id="undo-btn-global" onclick="doUndoGlobal()" aria-label="Undo" title="元に戻す" disabled style="background:none;border:none;padding:4px 5px;cursor:pointer;font-size:17px;line-height:1;border-radius:8px;color:var(--text);opacity:.3;">↩</button>
     <button id="redo-btn-global" onclick="doRedoGlobal()" aria-label="Redo" title="やり直し" disabled style="background:none;border:none;padding:4px 5px;cursor:pointer;font-size:17px;line-height:1;border-radius:8px;color:var(--text);opacity:.3;">↪</button>
-    <button class="hamburger-btn" id="hdr-ar-btn" onclick="cmMeasureHere()" aria-label="Camera measure" title="カメラで測る" style="display:none;font-size:17px;">📷</button>
     <button id="dark-toggle-btn" onclick="toggleDarkMode()" aria-label="Dark mode" style="background:none;border:none;padding:4px 6px;cursor:pointer;font-size:18px;line-height:1;border-radius:8px;">🌙</button>
     <button class="hamburger-btn" onclick="openDrawer()" aria-label="Menu">☰</button>
   </div>
@@ -7136,10 +7132,29 @@ function openMiredTool() {
   _mrdRender();
 }
 
+var _toastTimer = null;
+/**
+ * 画面下に短く出す通知。
+ * 置き場所の要素は HTML に無く（CSS だけあった）、これまで呼ぶたびに
+ * 例外になっていた。無ければここで作る。
+ */
 function showToast(msg) {
   var el = document.getElementById('toast');
-  el.textContent = msg; el.className = 'toast show';
-  setTimeout(function(){ el.className = 'toast'; }, 2200);
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'toast';
+    el.className = 'toast';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  // 追加した直後に show を付けても遷移が走らない。
+  // requestAnimationFrame は描画が止まっていると呼ばれないことがあるので、
+  // レイアウトを強制的に確定させてからクラスを付ける。
+  el.className = 'toast';
+  void el.offsetHeight;
+  el.className = 'toast show';
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(function(){ el.className = 'toast'; }, 2200);
 }
 function stepSl(id, dir, cb) {
   var sl = document.getElementById(id);
@@ -8580,18 +8595,14 @@ function _cmShowDistARButtons() {
     for (var i = 0; i < btns.length; i++) {
       btns[i].style.display = st.available ? 'block' : 'none';
     }
-    // ヘッダーとドロワーの入口。どのタブからでも届くように
-    var hb = document.getElementById('hdr-ar-btn');
-    if (hb) hb.style.display = st.available ? 'flex' : 'none';
-    var hdr = document.querySelector('header');
-    if (hdr) hdr.classList.toggle('has-ar', !!st.available);
+    // ドロワーの入口。どのタブからでも届くように
     var db = document.getElementById('drawer-item-ar');
     if (db) db.style.display = st.available ? '' : 'none';
   });
 }
 
 /**
- * ヘッダー／ドロワーの 📷。いま開いているタブに合わせて振り分ける。
+ * ドロワーの「カメラで測る」。いま開いているタブに合わせて振り分ける。
  * 距離を持つタブ（Calc/Mix/Finder/Alt）はその距離に入れる。
  * Draft は入れる先が1つに決まらないので、測った値を状態表示に出すだけにする。
  */
@@ -21642,7 +21653,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.106';
+var ver = 'v1.1.8.107';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
