@@ -567,6 +567,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   box-sizing: border-box;
   width: 100%;
   overflow-x: hidden;
+  /* ヘッダーと下のタブは 480px で中央に置いているので、中身も揃える。
+     揃えないと iPad や Mac で、中身だけが画面いっぱいに広がって
+     上のヘッダーと幅が食い違う。 */
+  max-width: 480px;
+  margin: 0 auto;
 }
 .page-content.active {
   display: block !important;
@@ -698,7 +703,9 @@ body {
   width: 100% !important;
 }
 /* ===== DRAFT ===== */
-#page-draft { position:fixed;top:0;left:0;right:0;bottom:0;z-index:1;padding:0!important;transition:none; }
+/* 図面は画面いっぱいに使う。中身を 480px に揃える指定からは外す */
+#page-draft { position:fixed;top:0;left:0;right:0;bottom:0;z-index:1;padding:0!important;transition:none;
+              max-width:none;margin:0; }
 .draft-wrap { display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden; }
 .draft-toolbar { display:flex;flex-direction:column;gap:0;background:var(--bg);border-top:1px solid var(--border,#eee);flex-shrink:0; }
 .dft-tools-row { display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center;gap:4px;padding:5px 6px;background:var(--bg); }
@@ -21733,7 +21740,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.108';
+var ver = 'v1.1.8.109';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
