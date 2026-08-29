@@ -48,6 +48,9 @@ header{background:var(--white);padding:1px 8px 1px;padding-top:calc(1px + env(sa
 .hdr-text h1{font-size:9px;font-weight:900;white-space:nowrap;}
 .hdr-text span{font-size:6px;color:var(--text-dim);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;}
 .hdr-right{display:flex;align-items:center;gap:3px;flex-shrink:0;}
+/* 📷 を出すと狭い画面ではサブタイトルが入りきらない。
+   切れた文字を見せるより、その行を畳む */
+@media (max-width:400px){ header.has-ar #hdr-sub{display:none;} }
 .hdr-back-btn{display:none;background:none;border:none;padding:4px 8px;cursor:pointer;font-size:13px;font-weight:800;color:var(--accent);font-family:'Nunito',sans-serif;align-items:center;gap:3px;border-radius:8px;white-space:nowrap;}
 .hdr-back-btn:active{background:var(--accent-light);}
 .hamburger-btn{background:none;border:none;padding:4px 6px;cursor:pointer;font-size:20px;line-height:1;color:var(--text);border-radius:8px;display:flex;align-items:center;justify-content:center;}
@@ -848,6 +851,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
     <button id="undo-btn-global" onclick="doUndoGlobal()" aria-label="Undo" title="元に戻す" disabled style="background:none;border:none;padding:4px 5px;cursor:pointer;font-size:17px;line-height:1;border-radius:8px;color:var(--text);opacity:.3;">↩</button>
     <button id="redo-btn-global" onclick="doRedoGlobal()" aria-label="Redo" title="やり直し" disabled style="background:none;border:none;padding:4px 5px;cursor:pointer;font-size:17px;line-height:1;border-radius:8px;color:var(--text);opacity:.3;">↪</button>
+    <button class="hamburger-btn" id="hdr-ar-btn" onclick="cmMeasureHere()" aria-label="Camera measure" title="カメラで測る" style="display:none;font-size:17px;">📷</button>
     <button id="dark-toggle-btn" onclick="toggleDarkMode()" aria-label="Dark mode" style="background:none;border:none;padding:4px 6px;cursor:pointer;font-size:18px;line-height:1;border-radius:8px;">🌙</button>
     <button class="hamburger-btn" onclick="openDrawer()" aria-label="Menu">☰</button>
   </div>
@@ -2154,7 +2158,7 @@ var LANGS = {
     distInputBtn:'📷 距離を入力', searchBtn:'🔍 検索',
     mxSearchBtn:'検索', mxSearchPlaceholder:'ライト名を入力...',
     indivDistOff:'個別距離 OFF', indivDistOn:'個別距離 ON',
-    cmDistTitle:'📷 距離を入力', cmARMeasure:'カメラで測る', cmARApplyAll:'測った値をまとめて反映（距離・高さ・水平距離・角度）', cmClamped:'三角計算の上限で切り詰めました:', mrdTitle:'ミレッド計算', mrdSub:'色温度の隔たりをミレッドで扱う', mrdSec1:'素材に合わせる', mrdSec1Hint:'ロケ素材の主光と補助光の関係を、別の主光の色温度で組み直します。合成の背景に合わせてスタジオをタングステンで組むときに。', mrdRef:'素材（ロケ）', mrdStudio:'スタジオ', mrdKey:'主光', mrdFill:'補助光', mrdAnswer:'必要な補助光の色温度', mrdKeepDiff:'ミレッド差を保つ:', mrdGelFrom:'フィルターで作る場合:', mrdGelAbout:'目安', mrdGelErr:'差 {e} mired', mrdGelExact:'ほぼ一致', mrdFixtures:'この色温度を出せる灯体 {n}台', mrdNaive:'※ K の比で計算すると {k}K になりますが、これは見た目が合いません。ミレッドで引き算するのが正しい扱いです。', mrdOutOfRange:'この組み合わせでは物理的に成り立ちません。値を見直してください。', mrdSec2:'2つの色温度の隔たり', mrdSec2Hint:'ゼラチンを選ぶときの数値です。この値が同じなら、どの色温度から使っても同じだけ動きます。', mrdFrom:'いまの色温度', mrdTo:'したい色温度', mrdToWarm:'暖色（オレンジ）側へ', mrdToCool:'寒色（青）側へ', mrdKDiffNote:'の差は {d}K ですが、K の差は見た目の隔たりを表しません', mrdFoot:'ミレッド = 100万 ÷ K。見た目の隔たりと、フィルターの効き方はミレッドに比例します。フィルターは LEE Filters の公表ミレッド値から選んでいます（2枚重ねはミレッド値の足し算）。他メーカーは値が違います。',  cmARWebOnly:'📷 カメラで測る機能は iOS アプリ版でのみ使えます。ブラウザからは数値を入力してください。', cmARNoDevice:'📷 この端末はカメラ計測（ARKit）に対応していません。数値を入力してください。', cmARThenSet:'SET を押すと反映されます', cmARFail:'測定できませんでした', cmARDenied:'カメラの使用が許可されていません。設定 → CALM → カメラ を確認してください。',
+    cmDistTitle:'📷 距離を入力', cmARMeasure:'カメラで測る', cmARApplyAll:'測った値をまとめて反映（距離・高さ・水平距離・角度）', cmARHdr:'カメラで測る', cmClamped:'三角計算の上限で切り詰めました:', mrdTitle:'ミレッド計算', mrdSub:'色温度の隔たりをミレッドで扱う', mrdSec1:'素材に合わせる', mrdSec1Hint:'ロケ素材の主光と補助光の関係を、別の主光の色温度で組み直します。合成の背景に合わせてスタジオをタングステンで組むときに。', mrdRef:'素材（ロケ）', mrdStudio:'スタジオ', mrdKey:'主光', mrdFill:'補助光', mrdAnswer:'必要な補助光の色温度', mrdKeepDiff:'ミレッド差を保つ:', mrdGelFrom:'フィルターで作る場合:', mrdGelAbout:'目安', mrdGelErr:'差 {e} mired', mrdGelExact:'ほぼ一致', mrdFixtures:'この色温度を出せる灯体 {n}台', mrdNaive:'※ K の比で計算すると {k}K になりますが、これは見た目が合いません。ミレッドで引き算するのが正しい扱いです。', mrdOutOfRange:'この組み合わせでは物理的に成り立ちません。値を見直してください。', mrdSec2:'2つの色温度の隔たり', mrdSec2Hint:'ゼラチンを選ぶときの数値です。この値が同じなら、どの色温度から使っても同じだけ動きます。', mrdFrom:'いまの色温度', mrdTo:'したい色温度', mrdToWarm:'暖色（オレンジ）側へ', mrdToCool:'寒色（青）側へ', mrdKDiffNote:'の差は {d}K ですが、K の差は見た目の隔たりを表しません', mrdFoot:'ミレッド = 100万 ÷ K。見た目の隔たりと、フィルターの効き方はミレッドに比例します。フィルターは LEE Filters の公表ミレッド値から選んでいます（2枚重ねはミレッド値の足し算）。他メーカーは値が違います。',  cmARWebOnly:'📷 カメラで測る機能は iOS アプリ版でのみ使えます。ブラウザからは数値を入力してください。', cmARNoDevice:'📷 この端末はカメラ計測（ARKit）に対応していません。数値を入力してください。', cmARThenSet:'SET を押すと反映されます', cmARFail:'測定できませんでした', cmARDenied:'カメラの使用が許可されていません。設定 → CALM → カメラ を確認してください。',
     pageDraftTitle:'ドラフト', pageDraftSub:'2Dライティングプラン',
     dftBtnSelect:'↖ 選択', dftBtnDelete:'🗑 削除', dftBtnRotate:'🔄 回転', dftBtnUndo:'↩ 元に戻す',
     dftBtnPeople:'🧍 人', dftBtnCamera:'🎥 Cam', dftBtnLight:'💡 ライト',
@@ -2252,7 +2256,7 @@ var LANGS = {
     triCalcToggle:'📐 Height & Angle Calc', triLockTitle:'Long-press to lock', triLockTitleOn:'Locked (long-press to release)',
     triHorizLbl:'↔️ Horizontal', triAngle:'📐 Angle',
     modelSearchPlaceholder:'Light name...', mxSearchPlaceholder:'Light name...', mxSearchBtn:'Search',
-    cmDistTitle:'📷 Enter Distance', cmARMeasure:'Measure with camera', cmARApplyAll:'Apply all measured values (distance, height, horiz, angle)', cmClamped:'Clamped to the triangle slider limit:', mrdTitle:'Mired', mrdSub:'Work with colour temperature differences in mired', mrdSec1:'Match a plate', mrdSec1Hint:'Rebuild the key/fill relationship of a location plate at a different key temperature.', mrdRef:'Plate (location)', mrdStudio:'Studio', mrdKey:'Key', mrdFill:'Fill', mrdAnswer:'Fill temperature needed', mrdKeepDiff:'Keeping the mired difference:', mrdGelFrom:'With gel:', mrdGelAbout:'approx.', mrdGelErr:'off by {e} mired', mrdGelExact:'near exact', mrdFixtures:'{n} fixtures can reach this', mrdNaive:'Note: scaling by the Kelvin ratio gives {k}K, which does not match visually. Subtracting in mired is the correct treatment.', mrdOutOfRange:'This combination is not physically possible. Check the values.', mrdSec2:'Difference between two temperatures', mrdSec2Hint:'This is the number you take to a gel book.', mrdFrom:'From', mrdTo:'To', mrdToWarm:'towards warm (orange)', mrdToCool:'towards cool (blue)', mrdKDiffNote:'differ by {d}K, but a Kelvin difference does not express the visual gap', mrdFoot:'Mired = 1,000,000 / K. Both the visual gap and the effect of a filter scale with mired. Filters are chosen from LEE Filters published mired values (stacking two adds their values). Other makers differ.',  cmARWebOnly:'📷 Camera measuring works in the iOS app only. Type the number here instead.', cmARNoDevice:'📷 This device does not support camera measuring (ARKit). Type the number instead.', cmARThenSet:'press SET to apply', cmARFail:'Could not measure', cmARDenied:'Camera access is off. Check Settings → CALM → Camera.',
+    cmDistTitle:'📷 Enter Distance', cmARMeasure:'Measure with camera', cmARApplyAll:'Apply all measured values (distance, height, horiz, angle)', cmARHdr:'Measure with camera', cmClamped:'Clamped to the triangle slider limit:', mrdTitle:'Mired', mrdSub:'Work with colour temperature differences in mired', mrdSec1:'Match a plate', mrdSec1Hint:'Rebuild the key/fill relationship of a location plate at a different key temperature.', mrdRef:'Plate (location)', mrdStudio:'Studio', mrdKey:'Key', mrdFill:'Fill', mrdAnswer:'Fill temperature needed', mrdKeepDiff:'Keeping the mired difference:', mrdGelFrom:'With gel:', mrdGelAbout:'approx.', mrdGelErr:'off by {e} mired', mrdGelExact:'near exact', mrdFixtures:'{n} fixtures can reach this', mrdNaive:'Note: scaling by the Kelvin ratio gives {k}K, which does not match visually. Subtracting in mired is the correct treatment.', mrdOutOfRange:'This combination is not physically possible. Check the values.', mrdSec2:'Difference between two temperatures', mrdSec2Hint:'This is the number you take to a gel book.', mrdFrom:'From', mrdTo:'To', mrdToWarm:'towards warm (orange)', mrdToCool:'towards cool (blue)', mrdKDiffNote:'differ by {d}K, but a Kelvin difference does not express the visual gap', mrdFoot:'Mired = 1,000,000 / K. Both the visual gap and the effect of a filter scale with mired. Filters are chosen from LEE Filters published mired values (stacking two adds their values). Other makers differ.',  cmARWebOnly:'📷 Camera measuring works in the iOS app only. Type the number here instead.', cmARNoDevice:'📷 This device does not support camera measuring (ARKit). Type the number instead.', cmARThenSet:'press SET to apply', cmARFail:'Could not measure', cmARDenied:'Camera access is off. Check Settings → CALM → Camera.',
     cmUnitPrefix:'Unit: ', cmApplied:' applied',
     secLabel1:'1 unit · at/above target (±1 stop)', secLabel2:'Multi · at/above target (±1 stop)', secLabel3:'1 unit · below target (within −1 stop)', secLabel4:'Multi · below target (within −1 stop)', secLabel5:'Within ±2 stop (reference)',
     altSec1:'1 unit (±1 stop)', altSec2:'Multi units (±1 stop)', altSec3:'1 unit · brighter (up to +2 stop)', altSec4:'Multi · brighter (up to +2 stop)',
@@ -2355,7 +2359,7 @@ var LANGS = {
     triCalcToggle:'📐 Calc. Altura y Ángulo', triLockTitle:'Mantener para fijar', triLockTitleOn:'Fijado (mantener para liberar)',
     triHorizLbl:'↔️ Horizontal', triAngle:'📐 Ángulo',
     modelSearchPlaceholder:'Nombre del equipo...', mxSearchPlaceholder:'Nombre del equipo...', mxSearchBtn:'Buscar',
-    cmDistTitle:'📷 Ingresar Distancia', cmARMeasure:'Medir con la cámara', cmARApplyAll:'Aplicar todo lo medido (distancia, altura, horiz., ángulo)', cmClamped:'Recortado al límite del triángulo:', mrdTitle:'Mired', mrdSub:'Diferencias de temperatura de color en mired', mrdSec1:'Igualar una placa', mrdSec1Hint:'Reconstruye la relación principal/relleno de una placa con otra temperatura principal.', mrdRef:'Placa (localización)', mrdStudio:'Estudio', mrdKey:'Principal', mrdFill:'Relleno', mrdAnswer:'Temperatura de relleno necesaria', mrdKeepDiff:'Manteniendo la diferencia en mired:', mrdGelFrom:'Con gelatina:', mrdGelAbout:'aprox.', mrdGelErr:'error {e} mired', mrdGelExact:'casi exacto', mrdFixtures:'{n} equipos pueden alcanzarla', mrdNaive:'Nota: escalar por la razón de kelvin da {k}K, que no coincide visualmente.', mrdOutOfRange:'Esta combinación no es físicamente posible.', mrdSec2:'Diferencia entre dos temperaturas', mrdSec2Hint:'Este es el número para elegir la gelatina.', mrdFrom:'Desde', mrdTo:'Hasta', mrdToWarm:'hacia cálido (naranja)', mrdToCool:'hacia frío (azul)', mrdKDiffNote:'difieren en {d}K, pero la diferencia en kelvin no expresa la distancia visual', mrdFoot:'Mired = 1.000.000 / K. Los filtros se eligen según los valores mired publicados por LEE Filters (apilar dos suma sus valores). Otras marcas difieren.',  cmARWebOnly:'📷 Medir con la cámara solo funciona en la app de iOS. Escribe el número aquí.', cmARNoDevice:'📷 Este dispositivo no admite medición con cámara (ARKit). Escribe el número.', cmARThenSet:'pulsa SET para aplicar', cmARFail:'No se pudo medir', cmARDenied:'Cámara no autorizada. Ajustes → CALM → Cámara.',
+    cmDistTitle:'📷 Ingresar Distancia', cmARMeasure:'Medir con la cámara', cmARApplyAll:'Aplicar todo lo medido (distancia, altura, horiz., ángulo)', cmARHdr:'Medir con la cámara', cmClamped:'Recortado al límite del triángulo:', mrdTitle:'Mired', mrdSub:'Diferencias de temperatura de color en mired', mrdSec1:'Igualar una placa', mrdSec1Hint:'Reconstruye la relación principal/relleno de una placa con otra temperatura principal.', mrdRef:'Placa (localización)', mrdStudio:'Estudio', mrdKey:'Principal', mrdFill:'Relleno', mrdAnswer:'Temperatura de relleno necesaria', mrdKeepDiff:'Manteniendo la diferencia en mired:', mrdGelFrom:'Con gelatina:', mrdGelAbout:'aprox.', mrdGelErr:'error {e} mired', mrdGelExact:'casi exacto', mrdFixtures:'{n} equipos pueden alcanzarla', mrdNaive:'Nota: escalar por la razón de kelvin da {k}K, que no coincide visualmente.', mrdOutOfRange:'Esta combinación no es físicamente posible.', mrdSec2:'Diferencia entre dos temperaturas', mrdSec2Hint:'Este es el número para elegir la gelatina.', mrdFrom:'Desde', mrdTo:'Hasta', mrdToWarm:'hacia cálido (naranja)', mrdToCool:'hacia frío (azul)', mrdKDiffNote:'difieren en {d}K, pero la diferencia en kelvin no expresa la distancia visual', mrdFoot:'Mired = 1.000.000 / K. Los filtros se eligen según los valores mired publicados por LEE Filters (apilar dos suma sus valores). Otras marcas difieren.',  cmARWebOnly:'📷 Medir con la cámara solo funciona en la app de iOS. Escribe el número aquí.', cmARNoDevice:'📷 Este dispositivo no admite medición con cámara (ARKit). Escribe el número.', cmARThenSet:'pulsa SET para aplicar', cmARFail:'No se pudo medir', cmARDenied:'Cámara no autorizada. Ajustes → CALM → Cámara.',
     cmUnitPrefix:'Unidad: ', cmApplied:' aplicado',
     secLabel1:'1 unidad · objetivo o más (±1 stop)', secLabel2:'Múltiples · objetivo o más (±1 stop)', secLabel3:'1 unidad · bajo objetivo (−1 stop)', secLabel4:'Múltiples · bajo objetivo (−1 stop)', secLabel5:'Dentro de ±2 stop (referencia)',
     altSec1:'1 unidad (±1 stop)', altSec2:'Múltiples (±1 stop)', altSec3:'1 unidad · más brillante (hasta +2 stop)', altSec4:'Múltiples · más brillante (hasta +2 stop)',
@@ -2462,6 +2466,7 @@ function applyI18n() {
   s('lbl-cmp-btn','cmpBtn');
   s('drawer-lbl-privacy','navPrivacy');
   s('drawer-lbl-mired','mrdTitle');
+  s('drawer-lbl-ar','cmARHdr');
   s('lbl-fb-shot-note','fbShotNote');
   try { if (document.getElementById('_cmp_ov')) renderCompare(); } catch(e) {}
   s('lbl-acc','accTitle'); s('lbl-cct','cctTitle'); s('lbl-dist','distTitle');
@@ -8568,13 +8573,50 @@ function cmMeasureDistAR(ctx) {
   });
 }
 
-/** 対応機のときだけ、距離スライダー横の 📷 を出す */
+/** 対応機のときだけ、カメラで測る入口をすべて出す */
 function _cmShowDistARButtons() {
   _cmARProbe(function(st) {
     var btns = document.querySelectorAll('.cm-ar-dist');
     for (var i = 0; i < btns.length; i++) {
       btns[i].style.display = st.available ? 'block' : 'none';
     }
+    // ヘッダーとドロワーの入口。どのタブからでも届くように
+    var hb = document.getElementById('hdr-ar-btn');
+    if (hb) hb.style.display = st.available ? 'flex' : 'none';
+    var hdr = document.querySelector('header');
+    if (hdr) hdr.classList.toggle('has-ar', !!st.available);
+    var db = document.getElementById('drawer-item-ar');
+    if (db) db.style.display = st.available ? '' : 'none';
+  });
+}
+
+/**
+ * ヘッダー／ドロワーの 📷。いま開いているタブに合わせて振り分ける。
+ * 距離を持つタブ（Calc/Mix/Finder/Alt）はその距離に入れる。
+ * Draft は入れる先が1つに決まらないので、測った値を状態表示に出すだけにする。
+ */
+function cmMeasureHere() {
+  var page = (typeof S !== 'undefined' && S.page) ? S.page : 'calc';
+  if (page === 'calc' || page === 'mix' || page === 'finder' || page === 'alt') {
+    cmMeasureDistAR(page);
+    return;
+  }
+  var ar = _calmAR();
+  if (!ar) return;
+  ar.measure().then(function(r) {
+    if (!r || r.cancelled || r.metres == null) return;
+    var imp = (typeof S !== 'undefined' && S.imperial);
+    var u = imp ? 'ft' : 'm';
+    var cv = function(m){ return Math.round((imp ? m * 3.28084 : m) * 100) / 100; };
+    var msg = '📷 ' + cv(r.metres) + u;
+    if (r.horiz != null)     msg += ' · ↔ ' + cv(r.horiz) + u;
+    if (r.vertical != null)  msg += ' · ↕ ' + cv(r.vertical) + u;
+    if (r.elevation != null) msg += ' · ∠ ' + (Math.round(r.elevation * 10) / 10) + '°';
+    // Draft では図面の状態表示に残す。数値を見ながら置けるように消さない
+    if (page === 'draft' && typeof _dftSetStatus === 'function') _dftSetStatus(msg);
+    else if (typeof showToast === 'function') showToast(msg);
+  }).catch(function() {
+    if (typeof showToast === 'function') showToast('⚠️ ' + t('cmARFail'));
   });
 }
 
@@ -21600,7 +21642,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.105';
+var ver = 'v1.1.8.106';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -22190,6 +22232,10 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
   <button class="drawer-item" id="drawer-item-draft" onclick="openDrawerPage('draft')">
     <span class="drawer-item-icon">📐</span>
     <span>Draft</span>
+  </button>
+  <button class="drawer-item" id="drawer-item-ar" onclick="closeDrawer();cmMeasureHere()" style="display:none;">
+    <span class="drawer-item-icon">📷</span>
+    <span id="drawer-lbl-ar">カメラで測る</span>
   </button>
   <button class="drawer-item" onclick="closeDrawer();openMiredTool()">
     <span class="drawer-item-icon">🎨</span>
