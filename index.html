@@ -15166,9 +15166,17 @@ function _dftAddObj(type, wx, wy, extra) {
   else if (type === 'diffuser') { obj.label = 'Diffusion'; obj.w = obj.w||1.2; obj.h = obj.h||1.2; }
   else if (type === 'bounce')   { obj.label = 'Bounce';   obj.w = obj.w||1.2; obj.h = obj.h||1.2; }
   else if (type === 'flag')     { obj.label = 'Flag';     obj.w = obj.w||1.2; obj.h = obj.h||0.6; }
-  else if (type === 'form')     { obj.label = 'Form';     obj.w = obj.w||2.4; obj.h = obj.h||2.4;
-                                  if (obj.formHue == null) { obj.formHue = 145; obj.formSat = 100; obj.formLig = 44; }  // 既定はグリーン
-                                  obj.alpha = (obj.alpha != null ? obj.alpha : 0.55); }
+  else if (type === 'form')     {
+    // 布（背景・セットペーパー）として置かれたか。dftRectStart が覚えている
+    if (_dft.rectCloth) { obj.cloth = true; _dft.rectCloth = false; }
+    obj.label = obj.cloth ? '背景' : 'Form';
+    obj.w = obj.w || (obj.cloth ? 5 : 2.4);
+    obj.h = obj.h || (obj.cloth ? 8 : 2.4);
+    if (obj.formHue == null) { obj.formHue = 145; obj.formSat = 100; obj.formLig = 44; }  // 既定はグリーン
+    // 布は立てて使うのが普通。壁（Form）は寝かせも立ても使う
+    if (obj.cloth && obj.stand == null) obj.stand = true;
+    obj.alpha = (obj.alpha != null ? obj.alpha : 0.55);
+  }
   _dft.objects.push(obj);
   return obj;
 }
@@ -15209,13 +15217,19 @@ function _dftFmt(m) {
 // これまでこの6色しか選べなかったが、実際の造形物は色がまちまちなので
 // 色相・彩度・明度を自由に決められるようにした。
 // 黒幕と白ホリは彩度では作れないので、明度も持たせている。
+// 色は反射率にも効く（_dftFormReflectance が輝度から出す）。
+// 背景紙・バックでよく使う色もここに入れておく。
 var DFT_FORM_COLORS = [
   { key:'green', label:'グリーン', hue:145, sat:100, lig:44 },
   { key:'blue',  label:'ブルー',   hue:220, sat:100, lig:52 },
   { key:'white', label:'ホワイト', hue:0,   sat:0,   lig:95 },
   { key:'black', label:'ブラック', hue:210, sat:15,  lig:22 },
   { key:'grey',  label:'グレー',   hue:205, sat:10,  lig:70 },
-  { key:'wood',  label:'木',       hue:28,  sat:45,  lig:58 }
+  { key:'wood',  label:'木',       hue:28,  sat:45,  lig:58 },
+  // 背景紙でよく使うもの
+  { key:'paper_white', label:'ペーパー白', hue:40,  sat:12, lig:92 },
+  { key:'paper_grey',  label:'ペーパー灰', hue:210, sat:4,  lig:52 },
+  { key:'black_cloth', label:'黒幕',       hue:0,   sat:0,  lig:10 }
 ];
 
 /**
@@ -15798,7 +15812,7 @@ function _dftDrawObj(ctx, o) {
     ctx.font = 'bold 9px -apple-system,Arial';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     var ltr = o.type==='diffuser' ? 'D' : o.type==='bounce' ? 'B'
-            : o.type==='form' ? (_fp ? _fp.letter : '■') : 'F';
+            : o.type==='form' ? (_dftIsCloth(o) ? '幕' : (_fp ? _fp.letter : '■')) : 'F';
     if (!_rd.stand || rw > 22) ctx.fillText(ltr, 0, 0);
     // 立て表示: 立ち上がり高さ(vert)を線の脇にラベル表示
     if (_rd.stand) {
@@ -18759,6 +18773,21 @@ var _DFT_RECT_PRESETS = [
  * 配置のときに出すサイズのプリセット。種類ごとに実際に使う寸法が違う。
  * Flag（黒）は小さいものが多く、Form（造形・バック）は大きいものが多い。
  */
+// 背景の布（バック・セットペーパー）のサイズ。
+// フィート表記のものは布のフレーム、m 表記のものはロールの実寸。
+var _DFT_CLOTH_PRESETS = [
+  {label:'12 × 8 ft',    wm:3.6576, hm:2.4384},
+  {label:'12 × 12 ft',   wm:3.6576, hm:3.6576},
+  {label:'12 × 20 ft',   wm:3.6576, hm:6.096},
+  {label:'20 × 20 ft',   wm:6.096,  hm:6.096},
+  {label:'5 × 8 m',      wm:5,      hm:8},
+  {label:'8 × 10 m',     wm:8,      hm:10},
+  {label:'13 × 15 m',    wm:13,     hm:15},
+  // セットペーパーはロール幅で決まる。長さは切って使うので既定を置くだけ
+  {label:'セットペーパー 2.7m', wm:2.7, hm:3.0},
+  {label:'セットペーパー 3.6m', wm:3.6, hm:3.0}
+];
+
 var _DFT_RECT_PRESETS_BY_TYPE = {
   flag: [
     {label:'18 × 24 in',   wm:0.46, hm:0.61},
@@ -18801,17 +18830,31 @@ var _DFT_RECT_PRESETS_BY_TYPE = {
   ]
 };
 function _dftRectPresetsFor(type) {
+  if (type === 'cloth') return _DFT_CLOTH_PRESETS;
   return _DFT_RECT_PRESETS_BY_TYPE[type] || _DFT_RECT_PRESETS;
 }
-var _DFT_RECT_TYPE_LABEL = { bounce:'Bounce', diffuser:'Diffusion', flag:'Flag', form:'Form' };
+var _DFT_RECT_TYPE_LABEL = { bounce:'Bounce', diffuser:'Diffusion', flag:'Flag', form:'Form', cloth:'背景' };
+
+/**
+ * 背景の布は Form の一種として持つ（o.cloth = true）。
+ * 色から反射率を出す仕組み・矩形の当たり判定・反射光の計算がそのまま使えるので、
+ * 新しい型を 23 か所へ通すより取り違えが起きない。
+ * 違うのは、名前・図面上の文字・選べるサイズ・既定の色。
+ */
+function _dftIsCloth(o) { return !!(o && o.type === 'form' && o.cloth); }
 
 function dftRectStart(type) {
+  // 'cloth' は Form の一種。以降は form として扱い、cloth 印だけ覚える
+  var isCloth = (type === 'cloth');
+  _dft.rectCloth = isCloth;
   var typeLabel = _DFT_RECT_TYPE_LABEL[type] || type;
+  var presetType = type;
+  if (isCloth) type = 'form';
   var isFt = (_dft.unit === 'ft');
-  var defW = isFt ? '4' : (type === 'form' ? '3' : '1.2');
-  var defH = isFt ? '4' : (type === 'form' ? '3' : '2.4');
+  var defW = isFt ? '12' : (isCloth ? '5' : (type === 'form' ? '3' : '1.2'));
+  var defH = isFt ? '12' : (isCloth ? '8' : (type === 'form' ? '3' : '2.4'));
   var uLbl = isFt ? 'ft' : 'm';
-  var presetBtns = _dftRectPresetsFor(type).map(function(p){
+  var presetBtns = _dftRectPresetsFor(presetType).map(function(p){
     return '<button onclick="_dftRectPick(\'' + type + '\',' + p.wm + ',' + p.hm + ')" ' +
       'style="padding:11px 6px;border:1px solid #cfd8e3;border-radius:10px;background:#f5f8fc;color:#1565c0;' +
       'font-size:12px;font-weight:700;cursor:pointer;">' + p.label + '</button>';
@@ -19990,7 +20033,7 @@ function dftObjSettings(oid) {
   if (!o) return;
   var ex = document.getElementById('_dft_os'); if (ex) ex.remove();
   var isRect = (o.type === 'flag' || o.type === 'form' || o.type === 'image');
-  var icon = o.type === 'flag' ? '▬' : o.type === 'form' ? '■' : o.type === 'people' ? '🧍' : '🖼';
+  var icon = o.type === 'flag' ? '▬' : o.type === 'form' ? (_dftIsCloth(o) ? '🎬' : '■') : o.type === 'people' ? '🧍' : '🖼';
   var html =
     '<div id="_dft_os" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)document.getElementById(\'_dft_os\').remove()">' +
     '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 36px;max-height:82vh;max-height:82dvh;overflow-y:auto;" onclick="event.stopPropagation()">' +
@@ -20093,7 +20136,7 @@ function dftSizeDialog() {
   if (!o) return;
   // 配置のときと同じプリセットを使う。種類ごとに実際に使う寸法が違うので
   // ここも _dftRectPresetsFor に揃えた（以前は別表で中身が食い違っていた）。
-  var presets = _dftRectPresetsFor(o.type).map(function(p){
+  var presets = _dftRectPresetsFor(_dftIsCloth(o) ? 'cloth' : o.type).map(function(p){
     return { l: p.label, w: p.wm, h: p.hm };
   });
   var oid = o.id;
@@ -22113,7 +22156,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.126';
+var ver = 'v1.1.8.127';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -22532,6 +22575,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
         <button class="draft-tool-btn" id="dft-btn-bounce"   onclick="dftRectStart('bounce')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔲<br><span style="font-size:8px;" data-dfti18n="bounce">反射</span></button>
         <button class="draft-tool-btn" id="dft-btn-flag"     onclick="dftRectStart('flag')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">▬<br><span style="font-size:8px;">Flag</span></button>
         <button class="draft-tool-btn" id="dft-btn-form"     onclick="dftRectStart('form')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">■<br><span style="font-size:8px;" data-dfti18n="form">造形</span></button>
+        <button class="draft-tool-btn" id="dft-btn-cloth"    onclick="dftRectStart('cloth')"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🎬<br><span style="font-size:8px;" data-dfti18n="cloth">背景</span></button>
         <button class="draft-tool-btn" onclick="dftExposureTool()" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📊<br><span style="font-size:8px;" data-dfti18n="expBtn">露出</span></button>
         <button class="draft-tool-btn" onclick="dftImportPDF()"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📄<br><span style="font-size:8px;">PDF</span></button>
         <button class="draft-tool-btn" onclick="dftImportPhoto()"  style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🖼<br><span style="font-size:8px;" data-dfti18n="photo">写真</span></button>
