@@ -9836,7 +9836,16 @@ function _cmpLuxAt(light, cct, dist, acc) {
   var r = luxForCCTAndDist(light.refData, cct, acc, dist);
   return (r && r.lux != null) ? r.lux : null;
 }
-function _cmpAccLabel(acc) {
+/**
+ * アクセサリーの表示名。機種が自前の呼び方を持っていればそれを使う。
+ * 汎用の ACC_INFO だけを見ていたため、ARRI 18kW の 'flat' が
+ * 実データの FLOOD ではなく 'Flat Mode' と出るなどの食い違いが 91 件あった。
+ */
+function _cmpAccLabel(acc, light) {
+  if (light && typeof accLabel === 'function') {
+    var l = accLabel(light, acc);
+    if (l) return l;
+  }
   return (ACC_INFO[acc] && ACC_INFO[acc].label) || acc;
 }
 function _cmpSlotAcc(slot, light) {
@@ -9847,9 +9856,9 @@ function _cmpSlotAcc(slot, light) {
 function _cmpAccSelectHTML(i, light, cur) {
   var arr = (light && light.accessories) || [];
   if (arr.length <= 1) {
-    return '<div style="font-size:9px;color:var(--text-dim,#888);font-weight:700;margin-top:4px;">' + _cmpAccLabel(arr[0] || cur) + '</div>';
+    return '<div style="font-size:9px;color:var(--text-dim,#888);font-weight:700;margin-top:4px;">' + _cmpAccLabel(arr[0] || cur, light) + '</div>';
   }
-  var opts = arr.map(function(a){ return '<option value="' + a + '"' + (a === cur ? ' selected' : '') + '>' + _cmpAccLabel(a) + '</option>'; }).join('');
+  var opts = arr.map(function(a){ return '<option value="' + a + '"' + (a === cur ? ' selected' : '') + '>' + _cmpAccLabel(a, light) + '</option>'; }).join('');
   return '<select onchange="_cmpSetAcc(' + i + ',this.value)" style="margin-top:5px;width:100%;box-sizing:border-box;padding:3px 4px;font-size:9.5px;font-weight:700;border:1px solid var(--bg,#ccc);border-radius:7px;background:var(--white,#fff);color:var(--text,#111);">' + opts + '</select>';
 }
 function _cmpSetAcc(i, acc) { if (_cmp.slots[i]) { _cmp.slots[i].acc = acc; _cmpRenderRows(); } }
@@ -10036,7 +10045,19 @@ function _cmpRenderRows() {
     { label: t('cmpPower'), val: function(l){ return l && l.watts ? (l.watts + 'W') : '—'; } },
     { label: t('cmpCCT'), val: function(l,i){ return l ? (ccts[i] + 'K') : '—'; } },
     { label: t('cmpCRI'), val: function(l){ if(!l||!l.dmx) return '—'; var c=l.dmx.cri, tt=l.dmx.tlci; if(!c&&!tt) return '—'; return (c||'—') + ' / ' + (tt||'—'); } },
-    { label: t('cmpBeam'), val: function(l,i){ if(!l) return '—'; if(beamOn[i]){ var ang=_cmpBeamAngleAt(l,bpcts[i]); return ang!=null?(ang+'°'):'—'; } var a=accs[i]; var ai=ACC_INFO[a]; return ai ? (ai.beam || (ai.angle!=null?ai.angle+'°':'—')) : _cmpBeam(l); } },
+    // ビーム角は機種別のデータから引く。汎用の ACC_INFO を見ていたため、
+    // TRUE BLUE の flat が実データ 60° なのに 90°（Wide）と出ていた（88件）。
+    { label: t('cmpBeam'), val: function(l,i){
+        if(!l) return '—';
+        if(beamOn[i]){ var ang=_cmpBeamAngleAt(l,bpcts[i]); return ang!=null?(ang+'°'):'—'; }
+        var a = accs[i];
+        var a2 = (typeof accAngle === 'function') ? accAngle(l, a) : null;
+        if (a2 != null) return a2 + '°';
+        // 機種側で「未検証」と印が付いているものは、数字を出さずにそう書く
+        if (l.accUnknown && l.accUnknown.indexOf(a) >= 0) return t('beamUnknown');
+        var ai = ACC_INFO[a];
+        return ai ? (ai.beam || (ai.angle!=null?ai.angle+'°':'—')) : _cmpBeam(l);
+      } },
     { label: t('cmpIP'), val: function(l){ return (l&&l.dmx&&l.dmx.ip) ? l.dmx.ip : '—'; } },
     { label: t('cmpControl'), val: function(l){ return (l&&l.dmx&&l.dmx.control) ? l.dmx.control : '—'; } }
   ];
@@ -21743,7 +21764,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.110';
+var ver = 'v1.1.8.111';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
