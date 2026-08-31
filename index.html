@@ -10560,7 +10560,7 @@ function toggleDarkMode() {
 // ===== プライバシーポリシー本文（3言語） =====
 var PRIVACY_POLICY = {
   ja:
-    '<p style="color:var(--text-dim);font-size:11px;">最終更新日: 2026年8月15日</p>' +
+    '<p style="color:var(--text-dim);font-size:11px;">最終更新日: 2026年8月29日</p>' +
     '<p>CALM（Cinema Advanced Lighting Matcher、以下「本アプリ」）は、映画・映像撮影のための照明計算ツールです。本ポリシーは本アプリが取り扱う情報について説明します。</p>' +
     '<h4>1. 収集する情報</h4>' +
     '<p>本アプリはアカウント登録を必要とせず、氏名・住所・メールアドレス等の個人情報を収集しません。広告・行動追跡（トラッキング）・アクセス解析は一切行いません。</p>' +
@@ -10580,10 +10580,14 @@ var PRIVACY_POLICY = {
     '<p>本アプリは13歳未満の子どもを対象としていません。</p>' +
     '<h4>9. 本ポリシーの変更</h4>' +
     '<p>本ポリシーは予告なく更新されることがあります。重要な変更がある場合はアプリ内で告知します。</p>' +
-    '<h4>10. お問い合わせ</h4>' +
+    '<h4>10. 計算結果と数値について</h4>' +
+    '<p>本アプリが表示する照度・F値・ビーム角などの数値は、メーカーの公表値や実測値をもとに計算したものです。現場では電源電圧・ランプの使用時間・個体差・反射・大気の状態など多くの要因が影響するため、<b>実際の計測結果とは異なる場合があります</b>。あくまで目安としてご利用いただき、最終的な判断は現場での実測によって行ってください。</p>' +
+    '<p>また、機種や付属品によっては公表データが存在せず、近い条件から換算した値を用いている場合があります。ビーム角が確認できていないものは「角度未確認」と表示します。</p>' +
+    '<p>本アプリの数値を用いた判断の結果について、開発者は責任を負いかねます。</p>' +
+    '<h4>11. お問い合わせ</h4>' +
     '<p>本ポリシーに関するお問い合わせ: {{CONTACT}}</p>',
   en:
-    '<p style="color:var(--text-dim);font-size:11px;">Last updated: August 15, 2026</p>' +
+    '<p style="color:var(--text-dim);font-size:11px;">Last updated: August 29, 2026</p>' +
     '<p>CALM (Cinema Advanced Lighting Matcher, the "App") is a lighting calculation tool for film and video production. This policy explains how the App handles information.</p>' +
     '<h4>1. Information We Collect</h4>' +
     '<p>The App requires no account and collects no personal information such as your name, address, or email. It contains no advertising, no behavioral tracking, and no analytics.</p>' +
@@ -10603,10 +10607,14 @@ var PRIVACY_POLICY = {
     '<p>The App is not directed to children under 13.</p>' +
     '<h4>9. Changes</h4>' +
     '<p>This policy may be updated. Significant changes will be announced in the App.</p>' +
-    '<h4>10. Contact</h4>' +
+    '<h4>10. About the calculated figures</h4>' +
+    '<p>The illuminance, f-stop and beam angle figures shown in this app are calculated from manufacturer-published and measured data. On set, mains voltage, lamp hours, unit-to-unit variation, reflection and atmospheric conditions all have an effect, so <b>the figures may differ from an actual meter reading</b>. Treat them as a guide and make final decisions by metering on set.</p>' +
+    '<p>For some fixtures and accessories no published data exists, and figures derived from comparable conditions are used instead. Beam angles that could not be verified are shown as “angle unverified”.</p>' +
+    '<p>The developer cannot accept liability for decisions made using these figures.</p>' +
+    '<h4>11. Contact</h4>' +
     '<p>Questions about this policy: {{CONTACT}}</p>',
   es:
-    '<p style="color:var(--text-dim);font-size:11px;">Última actualización: 15 de agosto de 2026</p>' +
+    '<p style="color:var(--text-dim);font-size:11px;">Última actualización: 29 de agosto de 2026</p>' +
     '<p>CALM (Cinema Advanced Lighting Matcher, la «App») es una herramienta de cálculo de iluminación para producción de cine y vídeo. Esta política explica cómo la App trata la información.</p>' +
     '<h4>1. Información que recopilamos</h4>' +
     '<p>La App no requiere cuenta y no recopila datos personales como nombre, dirección o correo. No contiene publicidad, ni seguimiento de comportamiento, ni analíticas.</p>' +
@@ -10626,7 +10634,11 @@ var PRIVACY_POLICY = {
     '<p>La App no está dirigida a menores de 13 años.</p>' +
     '<h4>9. Cambios</h4>' +
     '<p>Esta política puede actualizarse. Los cambios importantes se anunciarán en la App.</p>' +
-    '<h4>10. Contacto</h4>' +
+    '<h4>10. Sobre los valores calculados</h4>' +
+    '<p>La iluminancia, el número f y los ángulos de haz que muestra la aplicación se calculan a partir de datos publicados por los fabricantes y de mediciones. En rodaje influyen la tensión de red, las horas de lámpara, la variación entre unidades, los reflejos y las condiciones atmosféricas, por lo que <b>los valores pueden diferir de una medición real</b>. Úsalos como orientación y decide midiendo en el set.</p>' +
+    '<p>Para algunos equipos y accesorios no existen datos publicados y se usan valores derivados de condiciones comparables. Los ángulos que no se han podido verificar se muestran como «ángulo sin verificar».</p>' +
+    '<p>El desarrollador no asume responsabilidad por las decisiones tomadas con estos valores.</p>' +
+    '<h4>11. Contacto</h4>' +
     '<p>Preguntas sobre esta política: {{CONTACT}}</p>'
 };
 
@@ -21913,7 +21925,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.114';
+var ver = 'v1.1.8.115';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
