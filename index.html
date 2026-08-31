@@ -3046,20 +3046,34 @@ var LIGHTS = {
       url:'https://www.aputure.com/products/storm-cs32/',
       group:'LED COB', name:'STORM CS32', desc:'3200W Full Color LED Point Source', emoji:'💡', watts:3200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
       weight:'17 kg', size:'360×397×331 mm', ccts:[1800,2500,3200,4300,5600,6500,10000,20000],
-      accessories:['none','r30'],
+      // XT52 のリフレクターがそのまま付く（Aputure が明記）。角度の小さい順。
+      accessories:['am81120_narrow','am81125_medium','r30','am81135_wide','am81150','none'],
+      // 素の球は Aputure 公表の 78°。汎用の 'none'（120°）ではない
+      accAngles:{none:78},
       dmx:{led:'BLAIR-CG + Extended Red',power:'3200W (4K HMI equivalent)',cct:'1800K–20000K + Full Color',cri:'97',tlci:'98',ip:'IP65',control:'Bluetooth / Sidus Link / CRMX / DMX / Art-Net / sACN',dimming:'0%–100%'},
       dmxUrl:'https://docs.aputure.com/hubfs/Knowledge%20Base/Aputure/STORM%20CS32/Documents/STORM%20CS32%20DMX%20Profile%20Specification%20V1.0.pdf',
       dmxVer:'v1.0',
-      // Official Aputure photometrics — Bare Bulb / 30° Reflector, 3m & 5m
+      // none（素の球）と r30（30°リフレクター）は Aputure の公表値。3m / 5m。
+      //
+      // XT52 のリフレクター（20°/25°/35°/50°）は CS32 用の公表値が無いので、
+      // XT52 の実測から出した「素の球に対する倍率」を CS32 の素の球に掛けた換算値。
+      // 倍率はリフレクター自体の性質なので、光源が変わっても保たれる。
+      //   20°=14.709  25°=8.689  35°=5.094  50°=2.869
+      //   （XT52 の 7色温度×2距離＝14点の平均。ばらつきは 3.7〜12.9%）
+      // この方法は CS32 自身の実測で検証済み:
+      //   XT52 の 25°/35° から 30° を補間すると 6.65 倍。
+      //   CS32 の実測 30° は 6.55 倍。誤差 1.6%。
+      // CF16 フレネルとパラレルビーム70 は倍率が距離で大きく変わる
+      //（ばらつき 46〜106%）ため、この方法では出せない。入れていない。
       refData:{
-        1800:{3:{none:7150,r30:50200},5:{none:3000,r30:17700}},
-        2500:{3:{none:12400,r30:87000},5:{none:5000,r30:30000}},
-        3200:{3:{none:14800,r30:103000},5:{none:5800,r30:35000}},
-        4300:{3:{none:15100,r30:106000},5:{none:5900,r30:36000}},
-        5600:{3:{none:15000,r30:106000},5:{none:5850,r30:35500}},
-        6500:{3:{none:14700,r30:104000},5:{none:5720,r30:34800}},
-        10000:{3:{none:13500,r30:94400},5:{none:5270,r30:31700}},
-        20000:{3:{none:10600,r30:73300},5:{none:4140,r30:24700}}
+        1800:{3:{none:7150,r30:50200,am81120_narrow:105000,am81125_medium:62100,am81135_wide:36400,am81150:20500}, 5:{none:3000,r30:17700,am81120_narrow:44100,am81125_medium:26100,am81135_wide:15300,am81150:8610}},
+        2500:{3:{none:12400,r30:87000,am81120_narrow:182000,am81125_medium:108000,am81135_wide:63200,am81150:35600}, 5:{none:5000,r30:30000,am81120_narrow:73500,am81125_medium:43400,am81135_wide:25500,am81150:14300}},
+        3200:{3:{none:14800,r30:103000,am81120_narrow:218000,am81125_medium:129000,am81135_wide:75400,am81150:42500}, 5:{none:5800,r30:35000,am81120_narrow:85300,am81125_medium:50400,am81135_wide:29500,am81150:16600}},
+        4300:{3:{none:15100,r30:106000,am81120_narrow:222000,am81125_medium:131000,am81135_wide:76900,am81150:43300}, 5:{none:5900,r30:36000,am81120_narrow:86800,am81125_medium:51300,am81135_wide:30100,am81150:16900}},
+        5600:{3:{none:15000,r30:106000,am81120_narrow:221000,am81125_medium:130000,am81135_wide:76400,am81150:43000}, 5:{none:5850,r30:35500,am81120_narrow:86000,am81125_medium:50800,am81135_wide:29800,am81150:16800}},
+        6500:{3:{none:14700,r30:104000,am81120_narrow:216000,am81125_medium:128000,am81135_wide:74900,am81150:42200}, 5:{none:5720,r30:34800,am81120_narrow:84100,am81125_medium:49700,am81135_wide:29100,am81150:16400}},
+        10000:{3:{none:13500,r30:94400,am81120_narrow:199000,am81125_medium:117000,am81135_wide:68800,am81150:38700}, 5:{none:5270,r30:31700,am81120_narrow:77500,am81125_medium:45800,am81135_wide:26800,am81150:15100}},
+        20000:{3:{none:10600,r30:73300,am81120_narrow:156000,am81125_medium:92100,am81135_wide:54000,am81150:30400}, 5:{none:4140,r30:24700,am81120_narrow:60900,am81125_medium:36000,am81135_wide:21100,am81150:11900}}
       }
     },
     storm_1000c: {
@@ -21899,7 +21913,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.113';
+var ver = 'v1.1.8.114';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
