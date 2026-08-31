@@ -19064,6 +19064,11 @@ var DFT_PROBE_COL = { A:'#e65100', B:'#0288d1', off:'#9e9e9e' };
 // カメラから見た絵として描く。どちら側が起きてどこに影が落ちるかを見る。
 // あくまで球で近似したモデルであり、実物の顔の陰影そのものではない。
 var DFT_FACE_PX = 224;                       // 描画解像度（正方形）
+// 顔プレビューの陰影の調整値。
+//  WRAP   … 光を向いていない面へどれだけ回り込ませるか（皮下散乱＋現場の回り込み）
+//  SHADOW … 遮られた（鼻影などの）ぶんが、回り込みでどれだけ戻るか
+var DFT_FACE_WRAP = 0.38;
+var DFT_FACE_SHADOW = 0.16;
 
 /**
  * 被写体を中心とした「カメラから見た」直交基底を返す。
@@ -19124,8 +19129,11 @@ function _dftFaceHeight(x, y, fem) {
 
   if (!inFace) {
     // 髪。顔のまわりを丸く覆う。女性は肩の高さまで、男性は耳の上まで。
+    // 高さは顔の縁（0.30）から外側へ向かって落としていく。
+    // 以前は顔の縁より高くしていたため、境目に段差ができて
+    // 顔のまわりに黒い輪が出ていた（頭が球として読めなくなる）。
     var edge = 1 - (hx*hx + hy*hy);
-    var hh = 0.30 + Math.sqrt(Math.max(0, edge)) * 0.34;   // 顔の縁の高さに合わせる
+    var hh = 0.30 * Math.sqrt(Math.max(0, edge));
     var cover = (y > HB) ? 1 : Math.max(0, 1 + (y - HB) * 2.4);
     if (cover <= 0.02) return null;
     // 顔との境目をぼかす（硬い輪に見えないように）
@@ -19266,24 +19274,31 @@ function _dftDrawFace(cv, d) {
       var nl = Math.sqrt(nx*nx + ny*ny + 1) || 1;
       nx/=nl; ny/=nl; nz/=nl;
 
-      var sum = 0, openSum = 0;
+      var sum = 0, peakSum = 0;
       for (var k = 0; k < L.length; k++) {
         var c = nx*L[k].x + ny*L[k].y + nz*L[k].z;
-        if (c > 0) {
-          var vis = lit(i2, j2, k);
-          sum += L[k].lux * c * vis;
-          // 影の中でも壁や床からの回り込みで完全な黒にはならない。
-          // 遮られたぶんの一部を弱い環境光として戻す。
-          sum += L[k].lux * c * (1 - vis) * 0.10;
-        }
+        // 肌は皮下散乱があり、光を向いていない面も真っ黒にはならない。
+        // 加えて現場では壁・床・レフからの回り込みが必ずある。
+        // cos をそのまま使うと影側が落ちきって、ループかレンブラントかという
+        // 肝心の陰影の形が読めなくなるので、少し回り込ませる（wrap）。
+        var cw = (c + DFT_FACE_WRAP) / (1 + DFT_FACE_WRAP);
+        if (cw <= 0) continue;
+        var vis = (c > 0) ? lit(i2, j2, k) : 1;   // 裏を向いた面は遮蔽を見ない
+        // 遮られたぶんも一部は回り込んで戻る
+        var e = L[k].lux * cw * (vis + (1 - vis) * DFT_FACE_SHADOW);
+        sum += e;
+        // 明るさの基準は「まっすぐ光を向いた面」。wrap を入れても変わらない
+        if (c > 0) peakSum += L[k].lux * c * vis;
       }
       lux[idx] = sum;
-      if (sum > peak) peak = sum;
+      if (peakSum > peak) peak = peakSum;
     }
   }
   if (peak <= 0) peak = 1;
 
-  var RANGE = 4.5;                               // 何段ぶんを濃淡に割り当てるか
+  // 何段ぶんを濃淡に割り当てるか。
+  // 4.5段は広すぎて、影側が黒に潰れて陰影の形が読めなかった。
+  var RANGE = 3.2;
   for (var j3 = 0; j3 < N; j3++) {
     for (var i3 = 0; i3 < N; i3++) {
       var id3 = j3*N + i3, o4 = id3*4;
@@ -21925,7 +21940,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.115';
+var ver = 'v1.1.8.116';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
