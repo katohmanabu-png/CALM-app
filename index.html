@@ -2172,9 +2172,9 @@ var LANGS = {
     dftCancel:'キャンセル', exportTitle:'書き出し', exportPNG:'画像で書き出す (PNG)', exportPNGHint:'図面全体を1枚の画像に。共有や印刷に', exportPDF:'PDFで書き出す', exportPDFHint:'A4に収めて書き出します', exportCalm:'データで書き出す (.calm)', exportCalmHint:'CALMで開き直せる形式', exportEmpty:'図面が空です', saveTitle:'保存', saveOverwrite:'上書き保存', saveOverwriteHint:'いま開いている図面を更新します', saveAsNew:'別名で保存', saveAsNewHint:'新しい図面として残します（元はそのまま）', saveLastAt:'前回', dftClose:'閉じる', dftApply:'適用',
     beamOutOfCone:'ビーム外', aimPickLight:'🎯 狙いを決めるライトをタップ', aimPickTarget:'次に、狙う先をタップ（人物 / 反射板 / DIFF）', aimBadTarget:'狙えるのは 人物・反射板・DIFF です', aimAgain:'（続けて別のライトも指定できます）', spreadLabel:'この布を複数灯で均等に照らす', spreadHint:'各灯を「自分の真上」と「布の中心」の間に向けます。ビームが重なって面全体が均され、反射光が天空光のように回ります。', spreadWide:'広く', spreadEven:'均等', spreadTight:'中央寄り', spreadDone:'灯を割り当てました', spreadNone:'この布より下にライトがありません', ptLabel:'振り（PAN / TILT）', ptHint:'狙う点と角度は同じものです。振れば当てる場所が動き、場所を動かせば角度が変わります。', ptPan:'PAN', ptPanHint:'0°＝図面の上、＋で時計回り', ptTilt:'TILT', ptTiltHint:'＋が上振り。90°で真上', aimLabel:'このライトが狙う先', aimHint:'天バンなど真上の反射板は、ここで選ぶと計算に入ります（↑＝真上）。', aimAuto:'自動', aimSubject:'人物', camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定', camGoto:'カメラ設定',
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
-    expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
+    expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expReceptor:'受光部', expDome:'ドーム', expDomeHint:'露出計の標準。半球全体を拾う', expFlat:'フラット', expFlatHint:'1灯を切り分けて測る', expNoteDome:'入射光式の乳白ドームを各方向へ向けたときの読みです。ドームは半球全体を拾うので、真横の光でも正面向きで半分ほど読みます。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
-    expProbeAt:'この向きの読み', faceTitle:'顔への当たり方（カメラから見た向き）', faceLegend:'いちばん明るい面：', faceScale:'白＝いちばん明るい面、暗いほど段数が落ちます（全体で約4.5段）。鼻や眉の影も計算しています。', expElevLabel:'露出計の仰角（上下の向き）', expTableNote:'以下の表とグラフは、Aの仰角で計算しています：', expElevFlat:'水平', expElevUp45:'↑45°', expElevUp90:'↑真上', expElevDown45:'↓45°', expProbeBOn:'＋ 2点目(B)を出して比べる', expProbeBOff:'− 2点目(B)を消す', expProbeNone:'この向きには光が来ていません',
+    expProbeAt:'この向きの読み', faceTitle:'顔への当たり方（カメラから見た向き）', faceLegend:'いちばん明るい面：', faceScale:'白＝いちばん明るい面、暗いほど段数が落ちます（全体で約3.2段）。鼻や眉の影も計算しています。肌の回り込みを含むので、影側も真っ黒にはなりません。', expElevLabel:'露出計の仰角（上下の向き）', expTableNote:'以下の表とグラフは、Aの仰角で計算しています：', expElevFlat:'水平', expElevUp45:'↑45°', expElevUp90:'↑真上', expElevDown45:'↓45°', expProbeBOn:'＋ 2点目(B)を出して比べる', expProbeBOff:'− 2点目(B)を消す', expProbeNone:'この向きには光が来ていません',
     expLegNote:'丸（A）をドラッグすると、その向きに露出計を向けたときの読みが出ます。Bを足すと2点の差＝コントラストが出ます。カメラのある向きが0°で、90°がカメラから見て右、270°が左、180°が真後ろ（逆光）。図の光源は、いま配置しているライトの実際の到来角で、色は図面上のライトと対応しています。',
     dftPanelH:'幕の高さ', dftPanelHHint:'← 距離計算に使う高さ(中心)', dftObjSettings:'設定',
     dftPeopleTitle:'🧍 人を配置', dftManLabel:'男性', dftWomanLabel:'女性',
@@ -2278,9 +2278,9 @@ var LANGS = {
     dftCancel:'Cancel', exportTitle:'Export', exportPNG:'Export as image (PNG)', exportPNGHint:'The whole plan as one picture — for sharing or printing', exportPDF:'Export as PDF', exportPDFHint:'Fitted to A4', exportCalm:'Export data (.calm)', exportCalmHint:'Re-openable in CALM', exportEmpty:'The plan is empty', saveTitle:'Save', saveOverwrite:'Overwrite', saveOverwriteHint:'Update the draft you have open', saveAsNew:'Save as new', saveAsNewHint:'Keep this as a separate draft (the original stays)', saveLastAt:'last', dftClose:'Close', dftApply:'Apply',
     beamOutOfCone:'outside beam', aimPickLight:'🎯 Tap the light to aim', aimPickTarget:'Now tap what it aims at (subject / bounce / diffusion)', aimBadTarget:'Aim at a subject, bounce or diffusion', aimAgain:'(keep aiming other lights)', spreadLabel:'Spread several lights across this cloth', spreadHint:'Aims each light between its own position and the centre, so the beams overlap and the whole surface lifts evenly.', spreadWide:'Wide', spreadEven:'Even', spreadTight:'Centred', spreadDone:'lights assigned', spreadNone:'No lights below this cloth', ptLabel:'Pan / Tilt', ptHint:'The angle and the aimed point are the same thing — move one and the other follows.', ptPan:'PAN', ptPanHint:'0° = up the plan, + clockwise', ptTilt:'TILT', ptTiltHint:'+ tilts up. 90° is straight up', aimLabel:'What this light aims at', aimHint:'Pick it here for an overhead bounce — the beam cone alone cannot see straight up (↑ = overhead).', aimAuto:'Auto', aimSubject:'Subject', camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop', camGoto:'Camera',
     dftSize:'Size', dftPresetPick:'Pick a preset',
-    expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
+    expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expReceptor:'Receptor', expDome:'Dome', expDomeHint:'meter standard — reads the whole hemisphere', expFlat:'Flat', expFlatHint:'isolates one source', expNoteDome:'Readings for an incident lumisphere aimed at each direction. A dome collects the whole hemisphere, so a side light still reads about half when the dome faces the camera. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
     expLegFace:'Face', expLegCam:'Camera', expLegKey:'Key', expLegBack:'Back',
-    expProbeAt:'Reading at', faceTitle:'How it falls on the face (as the camera sees it)', faceLegend:'Brightest surface:', faceScale:'White = brightest surface; darker = further down in stops (about 4.5 across). Nose and brow shadows are included.', expElevLabel:'Meter tilt (up / down)', expTableNote:'The table and chart below use probe A\u2019s tilt:', expElevFlat:'Level', expElevUp45:'↑45°', expElevUp90:'↑Straight up', expElevDown45:'↓45°', expProbeBOn:'+ Add a 2nd probe (B) to compare', expProbeBOff:'− Remove probe B', expProbeNone:'no light from this direction',
+    expProbeAt:'Reading at', faceTitle:'How it falls on the face (as the camera sees it)', faceLegend:'Brightest surface:', faceScale:'White = brightest surface; darker = further down in stops (about 3.2 across). Nose and brow shadows are included. Skin wrap keeps the shadow side from going pure black.', expElevLabel:'Meter tilt (up / down)', expTableNote:'The table and chart below use probe A\u2019s tilt:', expElevFlat:'Level', expElevUp45:'↑45°', expElevUp90:'↑Straight up', expElevDown45:'↓45°', expProbeBOn:'+ Add a 2nd probe (B) to compare', expProbeBOff:'− Remove probe B', expProbeNone:'no light from this direction',
     expLegNote:'Drag probe A to read what a meter aimed that way would show; add B to get the difference between two directions (contrast). 0° is the camera direction, 90° camera-right, 270° camera-left, 180° straight behind (backlight). The sources on the dial are the real arrival angles of your lights, colour-matched to the plan.',
     dftPanelH:'Panel height', dftPanelHHint:'← height used for distance (centre)', dftObjSettings:'Settings',
     dftPeopleTitle:'🧍 People', dftManLabel:'Man', dftWomanLabel:'Woman',
@@ -2381,9 +2381,9 @@ var LANGS = {
     dftCancel:'Cancelar', exportTitle:'Exportar', exportPNG:'Exportar como imagen (PNG)', exportPNGHint:'Todo el plano en una imagen', exportPDF:'Exportar como PDF', exportPDFHint:'Ajustado a A4', exportCalm:'Exportar datos (.calm)', exportCalmHint:'Se puede reabrir en CALM', exportEmpty:'El plano está vacío', saveTitle:'Guardar', saveOverwrite:'Sobrescribir', saveOverwriteHint:'Actualiza el plano abierto', saveAsNew:'Guardar como nuevo', saveAsNewHint:'Se guarda aparte (el original se conserva)', saveLastAt:'último', dftClose:'Cerrar', dftApply:'Aplicar',
     beamOutOfCone:'fuera del haz', aimPickLight:'🎯 Toca la luz que quieres apuntar', aimPickTarget:'Ahora toca el objetivo (sujeto / rebote / difusión)', aimBadTarget:'Apunta a sujeto, rebote o difusión', aimAgain:'(sigue apuntando otras luces)', spreadLabel:'Repartir varias luces por la tela', spreadHint:'Apunta cada luz entre su posición y el centro, para que los haces se solapen.', spreadWide:'Amplio', spreadEven:'Uniforme', spreadTight:'Al centro', spreadDone:'luces asignadas', spreadNone:'No hay luces debajo de esta tela', ptLabel:'Pan / Tilt', ptHint:'El ángulo y el punto apuntado son lo mismo: mueve uno y el otro sigue.', ptPan:'PAN', ptPanHint:'0° = arriba del plano, + sentido horario', ptTilt:'TILT', ptTiltHint:'+ inclina hacia arriba. 90° es cenital', aimLabel:'A qué apunta esta luz', aimHint:'Elígelo aquí para un rebote cenital: el cono no ve hacia arriba (↑ = cenital).', aimAuto:'Auto', aimSubject:'Sujeto', camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f', camGoto:'Cámara',
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
-    expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
+    expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expReceptor:'Receptor', expDome:'Domo', expDomeHint:'estándar del fotómetro; capta el hemisferio', expFlat:'Plano', expFlatHint:'aísla una sola fuente', expNoteDome:'Lecturas de una semiesfera incidente orientada a cada dirección. El domo capta todo el hemisferio, así que una luz lateral marca aproximadamente la mitad con el domo hacia la cámara. 0° mira a la cámara. Incluye las diferencias de altura.', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
     expLegFace:'Cara', expLegCam:'Cámara', expLegKey:'Key', expLegBack:'Contra',
-    expProbeAt:'Lectura a', faceTitle:'Cómo cae en el rostro (visto por la cámara)', faceLegend:'Superficie más brillante:', faceScale:'Blanco = superficie más brillante; más oscuro = más pasos abajo (unos 4,5). Incluye sombras de nariz y cejas.', expElevLabel:'Inclinación del fotómetro', expTableNote:'La tabla y el gráfico usan la inclinación de A:', expElevFlat:'Nivel', expElevUp45:'↑45°', expElevUp90:'↑Cenital', expElevDown45:'↓45°', expProbeBOn:'+ Añadir 2ª sonda (B)', expProbeBOff:'− Quitar sonda B', expProbeNone:'no llega luz desde esta dirección',
+    expProbeAt:'Lectura a', faceTitle:'Cómo cae en el rostro (visto por la cámara)', faceLegend:'Superficie más brillante:', faceScale:'Blanco = superficie más brillante; más oscuro = más pasos abajo (unos 3,2). Incluye sombras de nariz y cejas y algo de luz envolvente en la piel.', expElevLabel:'Inclinación del fotómetro', expTableNote:'La tabla y el gráfico usan la inclinación de A:', expElevFlat:'Nivel', expElevUp45:'↑45°', expElevUp90:'↑Cenital', expElevDown45:'↓45°', expProbeBOn:'+ Añadir 2ª sonda (B)', expProbeBOff:'− Quitar sonda B', expProbeNone:'no llega luz desde esta dirección',
     expLegNote:'Arrastra la sonda A para ver la lectura en esa dirección; añade B para obtener la diferencia entre dos direcciones (contraste). 0° es la cámara, 90° derecha, 270° izquierda, 180° detrás (contraluz). Las fuentes del dial son los ángulos reales de tus luces, con el color del plano.',
     dftPanelH:'Altura del panel', dftPanelHHint:'← altura usada para la distancia (centro)', dftObjSettings:'Ajustes',
     dftPeopleTitle:'🧍 Personas', dftManLabel:'Hombre', dftWomanLabel:'Mujer',
@@ -18876,6 +18876,33 @@ window._dftBFAdd = function() {
 // lux_i は光線に垂直な面の照度なので、cos を掛けるのが正しい。
 var DFT_EXP_STEP = 15;          // 角度の刻み。細かい方だけあればよいので固定
 
+/** 受光部がドームかどうか。既定はドーム（実際の入射光式露出計に合わせる） */
+function _dftExpIsDome() {
+  if (_dft._expDome == null) {
+    // 前回の選択を覚えておく。未設定ならドーム
+    try { _dft._expDome = (localStorage.getItem('calm_exp_dome') !== '0'); }
+    catch(e) { _dft._expDome = true; }
+  }
+  return _dft._expDome !== false;
+}
+
+/**
+ * 乳白ドームの応答。
+ *
+ * ドームは半球全体から光を拾うので、真横の光でも正面向きで半分ほど読む。
+ *     w = (1 + cos) / 2
+ * 正面（cos=1）で 1、真横（cos=0）で 1/2、真後ろ（cos=-1）で 0。
+ * 1灯を正面から測ったときフラットディスクと同じ値になる（露出計の校正と同じ）。
+ *
+ * フラットディスク（w = cos）は1灯を切り分けて測る道具で、
+ * 真横より後ろは 0 になる。現場でカメラに向けて測る使い方では
+ * サイド光が読めないので、既定はドームにしている。
+ */
+function _dftDomeWeight(c) {
+  var w = (1 + c) / 2;
+  return w > 0 ? w : 0;
+}
+
 /** 被写体から見た各光源の方向・距離・照度。角度は画面座標（+x=右, +y=下）。 */
 function _dftExpSources(sb) {
   return _dftLightPaths(sb).map(function(p) {
@@ -18932,10 +18959,12 @@ function _dftExpReadAt(srcs, ref, angDeg, elevDeg) {
   var phi = ref - angDeg * Math.PI / 180;
   var ce  = Math.cos(el);
   var nx = ce * Math.cos(phi), ny = ce * Math.sin(phi), nz = Math.sin(el);
+  var dome = _dftExpIsDome();
   var sum = 0, parts = [];
   srcs.forEach(function(s) {
     var c = nx * s.ux + ny * s.uy + nz * s.uz;
-    if (c > 1e-9) { var e = s.lux * c; sum += e; parts.push({name:s.name, lux:e}); }
+    var w = dome ? _dftDomeWeight(c) : (c > 1e-9 ? c : 0);
+    if (w > 1e-9) { var e = s.lux * w; sum += e; parts.push({name:s.name, lux:e}); }
   });
   // 真横〜背面は cos がほぼ 0 になり、浮動小数の残りが 0 より大きくなって
   // f0.0 と表示されてしまう。実用上意味のない 0.5lx 未満は無光として扱う。
@@ -18986,6 +19015,7 @@ function dftExposureTool() {
     if (_dft._expProbe == null) _dft._expProbe = maxR ? maxR.angle : 0;
     body =
       subjBtns +
+      _dftExpReceptorHTML() +
       _dftExpFaceHTML() +
       '<div id="_dft_exp_dialwrap">' + _dftExpProbeSVG(d) + '</div>' +
       _dftExpPolarSVG(d, maxR) +
@@ -19031,7 +19061,8 @@ function dftExposureTool() {
           '<span style="font-family:monospace;font-weight:800;color:#e65100;">f' + (luxToFstopCamera(s.lux)||0).toFixed(1) + '</span>' +
         '</div>';
       }).join('') : '<div style="font-size:11px;color:#888;padding:6px;">'+t('expNoSource')+'</div>') +
-      '<div style="font-size:10px;line-height:1.6;color:#888;margin-top:12px;">ℓ ' + t('expNote') + '</div>';
+      '<div style="font-size:10px;line-height:1.6;color:#888;margin-top:12px;">ℓ ' +
+        (_dftExpIsDome() ? t('expNoteDome') : t('expNote')) + '</div>';
   }
 
   // 見出しと「閉じる」を固定し、中身だけスクロールさせる。
@@ -19368,6 +19399,33 @@ function _dftDrawFace(cv, d) {
 }
 
 /** 顔プレビューの枠。canvas は挿入後に描く */
+/** 受光部の切り替え。ドーム / フラットディスク */
+function _dftExpReceptorHTML() {
+  var dome = _dftExpIsDome();
+  function btn(on, label, val, hint) {
+    return '<button onclick="_dftExpSetDome(' + val + ')" ' +
+      'style="flex:1;padding:7px 4px;border:none;border-radius:8px;cursor:pointer;line-height:1.3;' +
+      (on ? 'background:#e65100;color:#fff;' : 'background:#eceff3;color:#666;') + '">' +
+      '<span style="font-size:11px;font-weight:800;">' + label + '</span>' +
+      '<span style="display:block;font-size:8.5px;font-weight:700;opacity:.85;">' + hint + '</span>' +
+    '</button>';
+  }
+  return '<div style="margin-bottom:10px;">' +
+    '<div style="font-size:9.5px;font-weight:800;color:#888;margin-bottom:4px;">' + t('expReceptor') + '</div>' +
+    '<div style="display:flex;gap:6px;">' +
+      btn(dome,  t('expDome'), 'true',  t('expDomeHint')) +
+      btn(!dome, t('expFlat'), 'false', t('expFlatHint')) +
+    '</div>' +
+  '</div>';
+}
+
+window._dftExpSetDome = function(v) {
+  _dft._expDome = (v === true || v === 'true');
+  try { localStorage.setItem('calm_exp_dome', _dft._expDome ? '1' : '0'); } catch(e) {}
+  var ex = document.getElementById('_dft_exp');
+  if (ex) { ex.remove(); dftExposureTool(); }
+};
+
 function _dftExpFaceHTML() {
   return '<div style="text-align:center;margin:4px 0 10px;">' +
     '<div style="font-size:10px;font-weight:800;color:#888;margin-bottom:4px;">' + t('faceTitle') + '</div>' +
@@ -21974,7 +22032,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.117';
+var ver = 'v1.1.8.118';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
