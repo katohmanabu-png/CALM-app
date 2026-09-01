@@ -7788,6 +7788,17 @@ var SUNCALC = (function () {
              az: (Math.atan2(Math.sin(H), Math.cos(H)*Math.sin(phi) - Math.tan(dec)*Math.cos(phi))*DEG + 180 + 360) % 360 };
   }
 
+  /**
+   * 大気差。地平線近くでは光が曲がるぶん、実物は計算値より上に見える。
+   * 地平線で約 0.57°、高度 30° で 0.03°。月の計算では前から入れていたが、
+   * 太陽には入れていなかったので、カメラに重ねると夕方だけ低く出ていた。
+   * SunCalc が月に使っているのと同じ式。
+   */
+  function refract(altDeg) {
+    // 0.017/tan(...) の結果はすでに「度」。度へ直し直すと 57 倍になる
+    return altDeg + 0.017 / Math.tan((altDeg + 10.26 / (altDeg + 5.10)) * RAD);
+  }
+
   /** 太陽の方位・高度（幾何高度。出没の判定には -0.833° を使う） */
   function sunPosition(date, lat, lon) {
     var d = toDays(date), c = sunCoords(d);
@@ -7838,7 +7849,7 @@ var SUNCALC = (function () {
   }
 
   return { RAD:RAD, DEG:DEG, toDays:toDays, sunPosition:sunPosition, moonPosition:moonPosition,
-           moonIllumination:moonIllumination, crossings:crossings };
+           moonIllumination:moonIllumination, crossings:crossings, refract:refract };
 })();
 
 // ── 座標からタイムゾーンを引く（tz-lookup / CC0-1.0 パブリックドメイン）──
@@ -8468,7 +8479,9 @@ function _sunARPayload() {
   for (m = 0; m <= 1440; m += 10) {
     tt = new Date(s0.getTime() + m * 60000);
     q = SUNCALC.sunPosition(tt, _SUN.lat, _SUN.lon);
-    sun.push(m, Math.round(q.azimuth*1000)/1000, Math.round(q.altitude*1000)/1000);
+    // 実景に重ねるので、目に見える位置＝大気差を入れた高度を渡す。
+    // 月の計算にはもともと入っている。表の「高度」は天文の慣例どおり幾何高度のまま。
+    sun.push(m, Math.round(q.azimuth*1000)/1000, Math.round(SUNCALC.refract(q.altitude)*1000)/1000);
     q = SUNCALC.moonPosition(tt, _SUN.lat, _SUN.lon);
     moon.push(m, Math.round(q.azimuth*1000)/1000, Math.round(q.altitude*1000)/1000);
   }
@@ -8491,16 +8504,22 @@ function _sunARPayload() {
   add(e.moonset,  '🌙 ' + t('sunMoonset')  + ' ' + _sunFmt(e.moonset),  '#b0bec5', SUNCALC.moonPosition);
 
   var d = _SUN.date;
+  var liveNow = (function(){
+    var now = new Date(), l = new Date(now.getTime() + _sunOffsetAt(now) * 60000);
+    if (l.getUTCFullYear() !== d.y || l.getUTCMonth()+1 !== d.m || l.getUTCDate() !== d.d) return -1;
+    return l.getUTCHours()*60 + l.getUTCMinutes();
+  })();
   return {
     sun: sun, moon: moon, markers: marks,
-    nowMin: _SUN.hhmm,
+    // 実景に重ねるのだから、今日を選んでいるなら「いま」で開く。
+    // 前にスライダーで動かした時刻のまま開くと、方位が合っていても
+    // 天体は別の場所に出てしまう。別の日を見ているときはその時刻のまま。
+    nowMin: (liveNow >= 0) ? liveNow : _SUN.hhmm,
     // その土地の壁時計でいま何時何分か。実際の空と見比べるときはここに合わせる。
     // 選んでいる日が今日でなければ渡さない（別の日の「いま」は意味がない）
-    liveMin: (function(){
-      var now = new Date(), l = new Date(now.getTime() + _sunOffsetAt(now) * 60000);
-      if (l.getUTCFullYear() !== d.y || l.getUTCMonth()+1 !== d.m || l.getUTCDate() !== d.d) return -1;
-      return l.getUTCHours()*60 + l.getUTCMinutes();
-    })(),
+    liveMin: liveNow,
+    // 場所を自分で決めたか。既定のままならカメラ側でも赤く出す
+    locSet: !!_SUN.locSet,
     body: (_SUN.body === 'moon') ? 'moon' : 'sun',
     moonFrac: e.moonFrac,
     title: d.y + '-' + String(d.m).padStart(2,'0') + '-' + String(d.d).padStart(2,'0') +
@@ -24008,7 +24027,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.164';
+var ver = 'v1.1.8.165';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
