@@ -3576,39 +3576,39 @@ var LIGHTS = {
       }
     },
     sola_bulb: {
-      group:'LED', name:'SolaBulb', desc:'Wireless Zoom Bulb', emoji:'🟣', watts:15,
+      group:'LED', weight:'0.43 kg', name:'SolaBulb', desc:'Wireless Zoom Bulb', emoji:'🟣', watts:15,
       ccts:[2700, 3200, 4000, 5600, 6500], accessories:["spot", "med", "flood"],
       dmxUrl:'https://astera-led.com/goto/solabulb-dmx-profiles/',
       refData:{flood:{5600:{1:615,2:153,3:68,5:24,8:9}},med:{5600:{1:1652,2:413,3:183,5:66,8:25}},spot:{5600:{1:5228,2:1307,3:580,5:209,8:81}}}
     },
     quik_beam: {
-      group:'LED', name:'QuikBeam', desc:'Wireless Spotlight', emoji:'🟣', watts:20,
+      group:'LED', weight:'1.6 kg', name:'QuikBeam', desc:'Wireless Spotlight', emoji:'🟣', watts:20,
       ccts:[2700, 5600, 6500], accessories:["zoom_min", "zoom_mid", "zoom_max"],
       dmxUrl:'https://astera-led.com/goto/quikbeam-dmx-profiles/',
       refData:{zoom_max:{5600:{1:2064,2:516,3:229,5:82,8:32}},zoom_mid:{5600:{1:6193,2:1548,3:688,5:247,8:96}},zoom_min:{5600:{1:20646,2:5161,3:2294,5:825,8:322}}}
     },
     quik_punch: {
-      group:'LED', name:'QuikPunch', desc:'Wireless Spotlight', emoji:'🟣', watts:75,
+      group:'LED', weight:'6.6 kg', name:'QuikPunch', desc:'Wireless Spotlight', emoji:'🟣', watts:75,
       ccts:[2700, 5600, 6500], accessories:["zoom_min", "zoom_mid", "zoom_max"],
       dmxUrl:'https://astera-led.com/goto/quikpunch-dmx-profiles/',
       refData:{zoom_max:{5600:{1:4713,2:1178,3:523,5:188,8:73}},zoom_mid:{5600:{1:14729,2:3682,3:1636,5:589,8:230}},zoom_min:{5600:{1:58918,2:14729,3:6546,5:2356,8:920}}}
     },
     pluto_fresnel: {
-      group:'LED', name:'PlutoFresnel', desc:'Wireless Zoom Fresnel', emoji:'🟣', watts:80,
+      group:'LED', weight:'4.6 kg', name:'PlutoFresnel', desc:'Wireless Zoom Fresnel', emoji:'🟣', watts:80,
       ccts:[2700, 5600, 6500], accessories:["zoom_min", "zoom_mid", "zoom_max"],
       dmxUrl:'https://astera-led.com/wp-content/uploads/AF250_LeoFresnel_DMX-Profiles_V1.pdf',
       dmxVer:'v1',
       refData:{zoom_max:{5600:{1:2872,2:718,3:319,5:114,8:44}},zoom_mid:{5600:{1:10028,2:2507,3:1114,5:401,8:156}},zoom_min:{5600:{1:38167,2:9541,3:4240,5:1526,8:596}}}
     },
     leo_fresnel: {
-      group:'LED', name:'LeoFresnel', desc:'Wireless Zoom Fresnel', emoji:'🟣', watts:250,
+      group:'LED', weight:'13.8 kg', name:'LeoFresnel', desc:'Wireless Zoom Fresnel', emoji:'🟣', watts:250,
       ccts:[2700, 5600, 6500], accessories:["zoom_min", "zoom_mid", "zoom_max"],
       dmxUrl:'https://astera-led.com/wp-content/uploads/AF250_LeoFresnel_DMX-Profiles_V1.pdf',
       dmxVer:'v1',
       refData:{zoom_max:{5600:{1:6639,2:1659,3:737,5:265,8:103}},zoom_mid:{5600:{1:18191,2:4547,3:2021,5:727,8:284}},zoom_min:{5600:{1:57737,2:14434,3:6415,5:2309,8:902}}}
     },
     quik_spot: {
-      group:'LED', name:'QuikSpot', desc:'Wireless Zoom Fresnel', emoji:'🟣', watts:38,
+      group:'LED', weight:'3.45 kg', name:'QuikSpot', desc:'Wireless Zoom Fresnel', emoji:'🟣', watts:38,
       ccts:[2700,5600,6500], accessories:['zoom_min','zoom_mid','zoom_max'],
       dmxUrl:'https://astera-led.com/goto/quikspot_dmx_profiles/',
       refData:{
@@ -3909,7 +3909,7 @@ var LIGHTS = {
     },
     arrisun_4k: {
       name:'ARRI SUN 4kW', group:'HMI Lens', desc:'4000W HMI PAR — lens interchange', emoji:'⚫', watts:4000,
-      weight:'21 kg', size:'530×650×580 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
+      weight:'19 kg', size:'530×650×580 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
       dmx:{led:'HMI',power:'4000W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
         3: {sun_green:38000, sun_orange:27000, sun_white:14000},
@@ -3921,7 +3921,7 @@ var LIGHTS = {
     },
     arrisun_2500: {
       name:'ARRI SUN 2.5kW', group:'HMI Lens', desc:'2500W HMI PAR — lens interchange', emoji:'⚫', watts:2500,
-      weight:'21 kg', size:'530×650×580 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
+      weight:'19 kg', size:'530×650×580 mm', ccts:[5600], accessories:['spot','sun_blue','sun_black','sun_green','sun_orange','sun_white'],
       dmx:{led:'HMI',power:'2500W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
         3: {sun_black:76000, sun_green:27000, sun_orange:14000, sun_white:4800},
@@ -4083,7 +4083,7 @@ var LIGHTS = {
     trueblue_d25: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/daylight/true-blue-d/d25',
       name:'ARRI TRUE BLUE D25', group:'HMI', desc:'2500W HMI Fresnel Lens', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"18\"/><circle cx=\"42\" cy=\"40\" r=\"12\"/><circle cx=\"42\" cy=\"40\" r=\"6\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:2500,
-      weight:'16 kg', size:'410×380×460 mm', ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
+      weight:'15.5 kg', size:'643×464×390 mm', ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       dmx:{led:'HMI',power:'2500W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
         2:   {flat:27000},
@@ -4096,7 +4096,7 @@ var LIGHTS = {
     trueblue_d12: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/daylight/true-blue-d/d12',
       name:'ARRI TRUE BLUE D12', group:'HMI', desc:'1200W HMI Fresnel Lens', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"18\"/><circle cx=\"42\" cy=\"40\" r=\"12\"/><circle cx=\"42\" cy=\"40\" r=\"6\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:1200,
-      weight:'10 kg', size:'360×340×400 mm', ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
+      weight:'9.4 kg', size:'511×374×325 mm', ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       dmx:{led:'HMI',power:'1200W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{5600:{
         2:   {flat:14000, spot:76000},
@@ -4109,7 +4109,7 @@ var LIGHTS = {
     trueblue_d5: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/daylight/true-blue-d/d5',
       name:'ARRI TRUE BLUE D5', group:'HMI', desc:'575W HMI Fresnel Lens', emoji:'⚫', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"18\"/><circle cx=\"42\" cy=\"40\" r=\"12\"/><circle cx=\"42\" cy=\"40\" r=\"6\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', watts:575,
-      weight:'5.8 kg', size:'280×270×320 mm', ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
+      weight:'5.9 kg', size:'360×327×223 mm', ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       dmx:{led:'HMI',power:'575W',cct:'5600K (HMI)',cri:'>90',tlci:'>90',ip:'IP20',control:'Manual / DMX Ballast',dimming:'50%–100%',effects:[]},
       refData:{flat:{5600:{2:6788,3:2269,5:832,12:208}},spot:{5600:{2:76800,3:37969,5:12834,8:4800,12:2269}}}
     },
@@ -4166,7 +4166,7 @@ var LIGHTS = {
     },
     true_blue_d40: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/daylight/true-blue-d/d40',
-      group:'HMI', name:'ARRI TRUE BLUE D40', desc:'HMI Fresnel Lens', emoji:'💡', watts:4000, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
+      group:'HMI', weight:'18 kg', size:'727×534×403 mm', name:'ARRI TRUE BLUE D40', desc:'HMI Fresnel Lens', emoji:'💡', watts:4000, svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         2:   {flat:38000},
@@ -4371,19 +4371,19 @@ var LIGHTS = {
   kinoflo: {
     litemat_spec8: {
       url:'https://www.litegear.com/products/litemat-spectrum/',
-      group:'LED', name:'LiteMat Spectrum 8', desc:'400W RGBWW Soft Mat (approx · ratio est.)', emoji:'💡', watts:400, approx:true,
+      group:'LED', weight:'9.6 kg', name:'LiteMat Spectrum 8', desc:'400W RGBWW Soft Mat (approx · ratio est.)', emoji:'💡', watts:400, approx:true,
       ccts:[3200,5600], accessories:['none'],
       refData:{ 5600:{1:{none:8434},2:{none:2109},3:{none:936},5:{none:337},8:{none:131}}, 3200:{1:{none:7612},2:{none:1903},3:{none:845},5:{none:304},8:{none:118}} }
     },
     litetile_spec4: {
       url:'https://www.litegear.com/products/litetile-spectrum/',
-      group:'LED', name:'LiteTile Spectrum 4', desc:'200W RGBWW Tile Panel (approx · ratio est.)', emoji:'💡', watts:200, approx:true,
+      group:'LED', weight:'3.6 kg', name:'LiteTile Spectrum 4', desc:'200W RGBWW Tile Panel (approx · ratio est.)', emoji:'💡', watts:200, approx:true,
       ccts:[3200,5600], accessories:['none'],
       refData:{ 5600:{1:{none:5112},2:{none:1278},3:{none:568},5:{none:205},8:{none:80}}, 3200:{1:{none:5112},2:{none:1278},3:{none:568},5:{none:205},8:{none:80}} }
     },
     litetile_spec8: {
       url:'https://www.litegear.com/products/litetile-spectrum/',
-      group:'LED', name:'LiteTile Spectrum 8', desc:'400W RGBWW Tile Panel (approx · ratio est.)', emoji:'💡', watts:400, approx:true,
+      group:'LED', weight:'7.3 kg', name:'LiteTile Spectrum 8', desc:'400W RGBWW Tile Panel (approx · ratio est.)', emoji:'💡', watts:400, approx:true,
       ccts:[3200,5600], accessories:['none'],
       refData:{ 5600:{1:{none:9727},2:{none:2432},3:{none:1080},5:{none:389},8:{none:152}}, 3200:{1:{none:9727},2:{none:2432},3:{none:1080},5:{none:389},8:{none:152}} }
     },
@@ -4417,7 +4417,7 @@ var LIGHTS = {
     },
     auroris_x: {
       url:'https://www.litegear.com/products/auroris/',
-      group:'LED', name:'Auroris X', desc:'1200W Full Color Large-Area Overhead (LiteGear 3×3m)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      group:'LED', weight:'51.8 kg', name:'Auroris X', desc:'1200W Full Color Large-Area Overhead (LiteGear 3×3m)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
       dmx:{led:'RGBWW',power:'1200W (max 1450W)',cct:'2000K–11000K + Full RGB',cri:'≥95',tlci:'≥95',ip:'IP20',control:'DMX / CRMX',dimming:'0%–100%'},
       dmxUrl:'https://www.litegear.com/wp-content/uploads/2022/03/Auroris-Data-Sheet_revb.pdf',
@@ -4428,7 +4428,7 @@ var LIGHTS = {
     },
     litemat_spec_1: {
       url:'https://www.litegear.com/products/litemat-spectrum/',
-      group:'LED', name:'LiteMat Spectrum 1', desc:'50W RGBWW Soft Mat (LiteGear)', emoji:'💡', watts:50, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      group:'LED', weight:'1.2 kg', name:'LiteMat Spectrum 1', desc:'50W RGBWW Soft Mat (LiteGear)', emoji:'💡', watts:50, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
       dmx:{led:'RGBWW',power:'50W',cct:'2000K–11000K + Full RGB',cri:'≥95',ip:'IP20',control:'DMX / CRMX (LiteDimmer Spectrum)',dimming:'0%–100%',effects:['Flash','Pulse','Fire','TV']},
       dmxUrl:'https://www.litegear.com/wp-content/uploads/2022/04/LiteDimmer-Spectrum-User-Guide.pdf',
@@ -4439,7 +4439,7 @@ var LIGHTS = {
     },
     litemat_spec_2: {
       url:'https://www.litegear.com/products/litemat-spectrum/',
-      group:'LED', name:'LiteMat Spectrum 2', desc:'100W RGBWW Soft Mat (LiteGear)', emoji:'💡', watts:100, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      group:'LED', weight:'1.9 kg', name:'LiteMat Spectrum 2', desc:'100W RGBWW Soft Mat (LiteGear)', emoji:'💡', watts:100, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
       dmx:{led:'RGBWW',power:'100W',cct:'2000K–11000K + Full RGB',cri:'≥95',ip:'IP20',control:'DMX / CRMX (LiteDimmer Spectrum)',dimming:'0%–100%',effects:['Flash','Pulse','Fire','TV']},
       dmxUrl:'https://www.litegear.com/wp-content/uploads/2022/04/LiteDimmer-Spectrum-User-Guide.pdf',
@@ -4450,7 +4450,7 @@ var LIGHTS = {
     },
     litemat_spec_2l: {
       url:'https://www.litegear.com/products/litemat-spectrum/',
-      group:'LED', name:'LiteMat Spectrum 2L', desc:'100W RGBWW Soft Mat (LiteGear)', emoji:'💡', watts:100, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      group:'LED', weight:'2.1 kg', name:'LiteMat Spectrum 2L', desc:'100W RGBWW Soft Mat (LiteGear)', emoji:'💡', watts:100, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
       dmx:{led:'RGBWW',power:'100W',cct:'2000K–11000K + Full RGB',cri:'≥95',ip:'IP20',control:'DMX / CRMX (LiteDimmer Spectrum)',dimming:'0%–100%',effects:['Flash','Pulse','Fire','TV']},
       dmxUrl:'https://www.litegear.com/wp-content/uploads/2022/04/LiteDimmer-Spectrum-User-Guide.pdf',
@@ -4461,7 +4461,7 @@ var LIGHTS = {
     },
     litemat_spec_3: {
       url:'https://www.litegear.com/products/litemat-spectrum/',
-      group:'LED', name:'LiteMat Spectrum 3', desc:'150W RGBWW Soft Mat (LiteGear)', emoji:'💡', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      group:'LED', weight:'2.8 kg', name:'LiteMat Spectrum 3', desc:'150W RGBWW Soft Mat (LiteGear)', emoji:'💡', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
       dmx:{led:'RGBWW',power:'150W',cct:'2000K–11000K + Full RGB',cri:'≥95',ip:'IP20',control:'DMX / CRMX (LiteDimmer Spectrum)',dimming:'0%–100%',effects:['Flash','Pulse','Fire','TV']},
       dmxUrl:'https://www.litegear.com/wp-content/uploads/2022/04/LiteDimmer-Spectrum-User-Guide.pdf',
@@ -4472,7 +4472,7 @@ var LIGHTS = {
     },
     litemat_spec_4: {
       url:'https://www.litegear.com/products/litemat-spectrum/',
-      group:'LED', name:'LiteMat Spectrum 4', desc:'200W RGBWW Soft Mat (LiteGear)', emoji:'💡', watts:200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      group:'LED', weight:'3.4 kg', name:'LiteMat Spectrum 4', desc:'200W RGBWW Soft Mat (LiteGear)', emoji:'💡', watts:200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
       dmx:{led:'RGBWW',power:'200W',cct:'2000K–11000K + Full RGB',cri:'≥95',ip:'IP20',control:'DMX / CRMX (LiteDimmer Spectrum)',dimming:'0%–100%',effects:['Flash','Pulse','Fire','TV']},
       dmxUrl:'https://www.litegear.com/wp-content/uploads/2022/04/LiteDimmer-Spectrum-User-Guide.pdf',
@@ -5356,7 +5356,7 @@ var LIGHTS = {
       }
     },
     mole_beam_2k5_hmi: {
-      group:'HMI', name:'Molebeam 2.5kW HMI 24"', desc:'2500W HMI Daylight Beam Projector (Type 8361)', emoji:'☀️', watts:2500,
+      group:'HMI', weight:'36.7 kg', name:'Molebeam 2.5kW HMI 24"', desc:'2500W HMI Daylight Beam Projector (Type 8361)', emoji:'☀️', watts:2500,
       ccts:[5600], accessories:['spot','flood'],
       accAngles:{spot:4.6, flood:13.7},
       dmx:{power:'2500W',cct:'5600K',control:'—',dimming:'—'},
@@ -5370,7 +5370,7 @@ var LIGHTS = {
       }
     },
     mole_beam_4k_hmi: {
-      group:'HMI', name:'Molebeam 4kW HMI 24"', desc:'4000W HMI Daylight Beam Projector (Type 8361)', emoji:'☀️', watts:4000,
+      group:'HMI', weight:'36.7 kg', name:'Molebeam 4kW HMI 24"', desc:'4000W HMI Daylight Beam Projector (Type 8361)', emoji:'☀️', watts:4000,
       ccts:[5600], accessories:['spot','flood'],
       accAngles:{spot:4.6, flood:13.7},
       dmx:{power:'4000W',cct:'5600K',control:'—',dimming:'—'},
@@ -5509,18 +5509,18 @@ var LIGHTS = {
       refData:{3200:{3:{spot:26000,flood:5200},5:{spot:9360,flood:1872},10:{spot:2340,flood:468}}}
     },
     arri_24k_tungsten: {
-      group:'Tungsten', name:'ARRI 24kW Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:24000,
+      group:'Tungsten', weight:'64 kg', name:'ARRI 24kW Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:24000,
       ccts:[3200], accessories:['flat','spot'],
       refData:{3200:{3:{flat:37969,spot:153567},5:{flat:19200,spot:76800},8:{flat:5105,spot:37969},12:{flat:2480,spot:19200},15:{flat:1355,spot:9075}}}
     },
     arri_studio_t12: {
-      group:'Tungsten', name:'ARRI Studio T12', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:12000,
+      group:'Tungsten', weight:'27 kg', name:'ARRI Studio T12', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:12000,
       ccts:[3200], accessories:['flat','spot'],
       refData:{flat:{3200:{2:39159,3:20049,5:9075,8:4800,12:1200}},spot:{3200:{2:307200,3:151875,5:76800,8:19200,12:9075}}}
     },
     arri_true_blue_st5: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/tungsten/true-blue-st',
-      group:'Tungsten', name:'ARRI True Blue ST5', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:5000,
+      group:'Tungsten', weight:'13.5 kg', name:'ARRI True Blue ST5', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:5000,
       ccts:[3200], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{flat:{3200:{2:19200,3:9075,5:2480,8:1355,12:588}},spot:{3200:{2:151875,3:76800,5:19805,8:9075,12:2480}}}
     },
@@ -5532,7 +5532,7 @@ var LIGHTS = {
     },
     arri_trueblue_st5: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/tungsten/true-blue-st',
-      group:'Tungsten', name:'ARRI TRUEBLUE ST5', desc:'5000W Tungsten Fresnel', emoji:'🔆', watts:5000,
+      group:'Tungsten', weight:'13.5 kg', name:'ARRI TRUEBLUE ST5', desc:'5000W Tungsten Fresnel', emoji:'🔆', watts:5000,
       ccts:[3200], accessories:['spot','medium','flood'], accAngles:{spot:15,medium:30,flood:60}, accLabels:{spot:'SPOT',medium:'MEDIUM',flood:'FLOOD'},
       refData:{3200:{
         3: {spot:26094, medium:9950, flood:5256},
@@ -5545,7 +5545,7 @@ var LIGHTS = {
     },
     arri_trueblue_st2: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/tungsten/true-blue-st',
-      group:'Tungsten', name:'ARRI TRUEBLUE ST2', desc:'2000W Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:2000,
+      group:'Tungsten', weight:'10.5 kg', name:'ARRI TRUEBLUE ST2', desc:'2000W Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:2000,
       ccts:[3200], accessories:['flat', 'spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{3200:{
         2: {flat:9600, spot:76000},
@@ -5557,7 +5557,7 @@ var LIGHTS = {
     },
     arri_trueblue_st1: {
       url:'https://www.arri.com/en/lighting/daylight-tungsten/tungsten/true-blue-st',
-      group:'Tungsten', name:'ARRI TRUEBLUE ST1', desc:'1000W Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:1000,
+      group:'Tungsten', weight:'6.5 kg', name:'ARRI TRUEBLUE ST1', desc:'1000W Tungsten Fresnel', emoji:'🔆', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:1000,
       ccts:[3200], accessories:['spot','medium','flood'], accAngles:{spot:15,medium:30,flood:60}, accLabels:{spot:'SPOT',medium:'MEDIUM',flood:'FLOOD'},
       refData:{3200:{
         3: {spot:16633, medium:4333, flood:2033},
@@ -5570,7 +5570,7 @@ var LIGHTS = {
     },
     arri_junior_650: {
 
-      group:'Tungsten', name:'ARRI Junior 650', desc:'650W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:650,
+      group:'Tungsten', weight:'2.6 kg', size:'305×221×190 mm', name:'ARRI Junior 650', desc:'650W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:650,
       ccts:[3200], accessories:['spot','med','flood'],
       // ARRI 公式 Junior Lampheads Technical Data (Aug 2022)
       refData:{3200:{
@@ -5581,7 +5581,7 @@ var LIGHTS = {
     },
     arri_junior_300: {
 
-      group:'Tungsten', name:'ARRI Junior 300', desc:'300W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:300,
+      group:'Tungsten', weight:'2 kg', size:'269×189×158 mm', name:'ARRI Junior 300', desc:'300W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:300,
       ccts:[3200], accessories:['spot','med','flood'],
       // ARRI 公式 Junior Lampheads Technical Data (Aug 2022)
       refData:{3200:{
@@ -5592,7 +5592,7 @@ var LIGHTS = {
     },
     arri_junior_150: {
 
-      group:'Tungsten', name:'ARRI Junior 150', desc:'150W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:150,
+      group:'Tungsten', weight:'1.6 kg', size:'194×133×161 mm', name:'ARRI Junior 150', desc:'150W Fresnel Tungsten', emoji:'🟠', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', watts:150,
       ccts:[3200], accessories:['spot','med','flood'],
       // ARRI 公式 Junior Lampheads Technical Data (Aug 2022)
       refData:{3200:{
@@ -5602,7 +5602,7 @@ var LIGHTS = {
       }}
     },
     arri_arrilite_750: {
-      group:'Tungsten', name:'ARRI ARRILITE 750 Plus', desc:'750W Tungsten Open Face', emoji:'🟠', watts:750,
+      group:'Tungsten', weight:'2.2 kg', size:'230×230×233 mm', name:'ARRI ARRILITE 750 Plus', desc:'750W Tungsten Open Face', emoji:'🟠', watts:750,
       ccts:[3200], accessories:['spot','flood'], accUnknown:['spot'],
       refData:{3200:{1:{spot:24576,flood:6144},2:{spot:6144,flood:1536},3:{spot:2731,flood:683},5:{spot:983,flood:246}}}
     },
@@ -22636,7 +22636,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.129';
+var ver = 'v1.1.8.130';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
