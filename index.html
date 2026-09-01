@@ -3404,13 +3404,32 @@ var LIGHTS = {
     },
     evoke_5c: {
       group:'LED', name:'Evoke 5C', desc:'Compact Full Color RGBW LED (IP67)', emoji:'🔵', watts:6, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
-      ccts:[3200,5600], accessories:['none'],
-      dmx:{led:'RGBW',power:'6W',cct:'1000K–20000K + Full RGB',cri:'≥98',tlci:'≥98',ip:'IP67',control:'On-board / Nanlink App / DMX / RDM / CRMX',dimming:'0%–100%',effects:['CCT Loop','INT Loop','HUE Loop','Flash','Pulse','Storm','Police Car','TV','Paparazzi']},
+      weight:'0.16 kg', size:'56×44×45 mm',
+      ccts:[3200,5600],
+      accessories:['none','fresnel25','fresnel35','spotbeam','proj15','proj35','snoot','md_soft','softdome'],
+      // メーカーが角度を書いていないアクセサリ
+      accUnknown:['spotbeam','snoot','md_soft','softdome'],
+      accAngles:{none:25},
+      dmx:{led:'Nebula C8 (Deep Red / Red / Amber / Lime / Green / Cyan / Blue / Indigo)',power:'6W',cct:'1000K–20000K (G/M ±200) + Full RGB',cri:'Average 98',tlci:'Average 98',tm30:'Rf 96 / Rg 100',ssi:'3200K 86 / 5600K 78',ip:'IP67',control:'On-board / Nanlink App / DMX / RDM / LumenRadio CRMX (module) / NFC',dimming:'0%–100% (1% step)',battery:'3.7V 1300mAh — 50 min @100% / 2h36m @1%',effects:['CCT Loop','INT Loop','HUE Loop','Flash','Pulse','Storm','Police Car','TV','Paparazzi','Candle/Fire','Disco','Bad Bulb','Firework','Explosion','Welding']},
       dmxUrl:'https://cdn-aliyun.nanlux.com/release/1776252307363-857413-11338834471-Nanlux_Evoke5C_UserManual_EN_V1.1_20260316+W.pdf',
       dmxVer:'v1.1',
+      // メーカーのテクニカルデータ（Illumination lux/fc）より。
+      // 全セルで lux÷10.7639 が併記の fc と一致することを確認して転記した。
+      // 以前入っていた 2/3/5m の値は 1m からの逆二乗で伸ばしたもので実測ではない。
+      // 距離は 0.3 / 0.5 / 1m（スポットビームレンズのみ 0.5 / 1 / 2m）。
       refData:{
-        5600:{1:{none:496},2:{none:124},3:{none:55},5:{none:20}},
-        3200:{1:{none:448},2:{none:112},3:{none:50},5:{none:18}},
+        3200:{
+          0.3:{none:5480, fresnel25:12570, fresnel35:7010, snoot:955,  md_soft:277, softdome:220},
+          0.5:{none:1835, fresnel25:3630,  fresnel35:2296, spotbeam:9710,  proj15:3050, proj35:1156, snoot:261, md_soft:89, softdome:67},
+          1:  {none:448,  fresnel25:750,   fresnel35:518,  spotbeam:2548,  proj15:656,  proj35:207},
+          2:  {spotbeam:604}
+        },
+        5600:{
+          0.3:{none:5970, fresnel25:13830, fresnel35:7860, snoot:1050, md_soft:303, softdome:242},
+          0.5:{none:2026, fresnel25:4020,  fresnel35:2533, spotbeam:10770, proj15:3380, proj35:1278, snoot:287, md_soft:97, softdome:74},
+          1:  {none:496,  fresnel25:830,   fresnel35:580,  spotbeam:2828,  proj15:726,  proj35:229},
+          2:  {spotbeam:677}
+        }
       }
     },
     evoke_900c: {
@@ -6893,7 +6912,19 @@ var ACC_INFO = {
   r26:   { label:'26° Reflector', beam:'26°', emoji:'🔦', angle:26 },
   fresnel11: { label:'Fresnel 11°', beam:'Fresnel 11°', emoji:'🔬', angle:11 },
   fresnel12: { label:'Fresnel 12°', beam:'Fresnel 12°', emoji:'🔬', angle:12 },
+  fresnel25: { label:'Fresnel 25°', beam:'Fresnel 25°', emoji:'🔬', angle:25 },
   fresnel30: { label:'Fresnel 30°', beam:'Fresnel 30°', emoji:'🔬', angle:30 },
+  fresnel35: { label:'Fresnel 35°', beam:'Fresnel 35°', emoji:'🔬', angle:35 },
+  // Nanlux Evoke 5C のマグネット式アクセサリ。
+  // 投光アタッチメントだけメーカーが角度（15°/35°）を書いている。
+  // スポットビームレンズ・スヌート・ディフューザー・ソフトドームは
+  // 記載が無いので角度は入れず、accUnknown で「角度未確認」にする。
+  spotbeam:  { label:'Spot Beam Lens', beam:'Spot',       emoji:'🔦' },
+  proj15:    { label:'Projection 15°', beam:'15°',        emoji:'📽️', angle:15 },
+  proj35:    { label:'Projection 35°', beam:'35°',        emoji:'📽️', angle:35 },
+  snoot:     { label:'Snoot',          beam:'Snoot',      emoji:'🕳️' },
+  md_soft:   { label:'Magnetic Diffuser', beam:'Diffused', emoji:'⬜' },
+  softdome:  { label:'Soft Dome',      beam:'Soft',       emoji:'🔘' },
   fresnel45: { label:'Fresnel 45°', beam:'Fresnel 45°', emoji:'🔬', angle:45 },
   r30:   { label:'30° Reflector', beam:'30°', emoji:'🔦', angle:30 },
   r45:   { label:'45° Reflector', beam:'45°', emoji:'🔦', angle:45 },
@@ -8441,6 +8472,13 @@ function _sunARPayload() {
   return {
     sun: sun, moon: moon, markers: marks,
     nowMin: _SUN.hhmm,
+    // その土地の壁時計でいま何時何分か。実際の空と見比べるときはここに合わせる。
+    // 選んでいる日が今日でなければ渡さない（別の日の「いま」は意味がない）
+    liveMin: (function(){
+      var now = new Date(), l = new Date(now.getTime() + _sunOffsetAt(now) * 60000);
+      if (l.getUTCFullYear() !== d.y || l.getUTCMonth()+1 !== d.m || l.getUTCDate() !== d.d) return -1;
+      return l.getUTCHours()*60 + l.getUTCMinutes();
+    })(),
     body: (_SUN.body === 'moon') ? 'moon' : 'sun',
     moonFrac: e.moonFrac,
     title: d.y + '-' + String(d.m).padStart(2,'0') + '-' + String(d.d).padStart(2,'0') +
@@ -23948,7 +23986,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.162';
+var ver = 'v1.1.8.163';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
