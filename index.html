@@ -5691,16 +5691,44 @@ var LIGHTS = {
       }}
     },
     par64: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
       group:'Tungsten', weight:'3 kg', name:'PAR64', desc:'1000W Tungsten PAR64', emoji:'💡', watts:1000,
-      ccts:[3200], accessories:['spot','med','flood'],
-      refData:{3200:{1:{spot:12150,med:4050,flood:1350},2:{spot:3038,med:1013,flood:338},3:{spot:1350,med:450,flood:150},5:{spot:486,med:162,flood:54}}}
+      ccts:[3200], accessories:['spot','flood'],
+      accLabels:{flood:'FLAT BULB', spot:'SPOT BULB'},
+      // 球の種類（ナロー/ベリーナロー/ミディアム）で角度が変わり、カタログに
+      // 角度の記載も照射径の記載も無いので、ビーム角は「未確認」にしてある。
+      accUnknown:['spot','flood'],
+      // 実測カタログ 2021年版 p41。ISO800 / 30FPS の f 値を lux へ換算（lux = f² × 18.75）。
+      //   フラットバルブ F32 / F16 / F11 / F8  / F4    （1 / 2 / 3 / 5 / 8m）
+      //   スポットバルブ F45 / F32 / F22 / F11 / F8½
+      // 1m のスポットは逆二乗則から 1段ほど低い。185mm のレンズに対して近すぎて
+      // ビームが出来上がっていないためと思われる。カタログの値をそのまま入れている。
+      refData:{3200:{
+        1:{flood:19200, spot:37969},
+        2:{flood:4800,  spot:19200},
+        3:{flood:2269,  spot:9075},
+        5:{flood:1200,  spot:2269},
+        8:{flood:300,   spot:1697}
+      }}
     },
     par64_short: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
       group:'Tungsten', weight:'2 kg', name:'PAR64 Short', desc:'1000W Tungsten Short PAR64', emoji:'💡', watts:1000,
-      ccts:[3200], accessories:['spot','med','flood'],
-      refData:{3200:{1:{spot:12150,med:4050,flood:1350},2:{spot:3038,med:1013,flood:338},3:{spot:1350,med:450,flood:150},5:{spot:486,med:162,flood:54}}}
+      ccts:[3200], accessories:['spot','flood'],
+      accLabels:{flood:'FLAT BULB', spot:'SPOT BULB'},
+      // 球の種類（ナロー/ベリーナロー/ミディアム）で角度が変わり、カタログに
+      // 角度の記載も照射径の記載も無いので、ビーム角は「未確認」にしてある。
+      accUnknown:['spot','flood'],
+      // 実測カタログ 2021年版 p41。ISO800 / 30FPS の f 値を lux へ換算（lux = f² × 18.75）。
+      //   フラットバルブ F32 / F16 / F11 / F8  / F4    （1 / 2 / 3 / 5 / 8m）
+      //   スポットバルブ F45 / F32 / F22 / F11 / F8½
+      // 1m のスポットは逆二乗則から 1段ほど低い。185mm のレンズに対して近すぎて
+      // ビームが出来上がっていないためと思われる。カタログの値をそのまま入れている。
+      refData:{3200:{
+        1:{flood:19200, spot:37969},
+        2:{flood:4800,  spot:19200},
+        3:{flood:2269,  spot:9075},
+        5:{flood:1200,  spot:2269},
+        8:{flood:300,   spot:1697}
+      }}
     },
     par36: {
 
@@ -5793,16 +5821,26 @@ var LIGHTS = {
       }}
     },
     mole_4k_broad: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
       group:'Tungsten', weight:'13 kg', name:'Mole 4k Main', desc:'4000W Tungsten Broad Light', emoji:'🟠', watts:4000,
       ccts:[3200], accessories:['flood'],
-      refData:{3200:{1:{flood:2904},2:{flood:726},3:{flood:323},5:{flood:116},8:{flood:45}}}
+      accAngles:{flood:77},
+      // 実測カタログ 2021年版 p35。ISO800 / 30FPS の f 値を lux へ換算（lux = f² × 18.75）。
+      //   F11 / F8 / F4½ / F2.8½ / F2½（2 / 3 / 5 / 8 / 12m）
+      // 3kW ボーダーと 4kW メインはカタログ上まったく同じ f 値。出力は違うが
+      // 照射径が違う（Φ8m@5m / Φ14m@8m / Φ16m@12m）ので、中心照度が揃うのは筋が通る。
+      // 角度は照射径から算出（5m=77° / 8m=82° / 12m=67°）。面光源なので距離で開きが変わる。5m の値を採用。
+      refData:{3200:{2:{flood:2269},3:{flood:1200},5:{flood:424},8:{flood:208},12:{flood:106}}}
     },
     mole_3k_border: {
-      pendingPhotometric:true, status:'Pending Photometric Data',
       group:'Tungsten', weight:'15 kg', name:'Mole 3k Border', desc:'3000W Tungsten Border Strip Light', emoji:'🟠', watts:3000,
       ccts:[3200], accessories:['flood'],
-      refData:{3200:{1:{flood:2904},2:{flood:726},3:{flood:323},5:{flood:116},8:{flood:45}}}
+      accAngles:{flood:44},
+      // 実測カタログ 2021年版 p35。ISO800 / 30FPS の f 値を lux へ換算（lux = f² × 18.75）。
+      //   F11 / F8 / F4½ / F2.8½ / F2½（2 / 3 / 5 / 8 / 12m）
+      // 3kW ボーダーと 4kW メインはカタログ上まったく同じ f 値。出力は違うが
+      // 照射径が違う（Φ4m@5m / Φ8m@8m / Φ10m@12m）ので、中心照度が揃うのは筋が通る。
+      // 角度は照射径から算出（5m=44° / 8m=53° / 12m=45°）。面光源なので距離で開きが変わる。5m の値を採用。
+      refData:{3200:{2:{flood:2269},3:{flood:1200},5:{flood:424},8:{flood:208},12:{flood:106}}}
     },
     optex_aura_3k: {
 
@@ -22915,7 +22953,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.148';
+var ver = 'v1.1.8.149';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
