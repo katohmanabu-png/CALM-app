@@ -2636,6 +2636,7 @@ var MAKERS = {
   dedolight:    { name:'Dedolight', url:'https://dedolight.com/',          emoji:'🟡', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)', accent2:'#212121' },
   k5600:        { name:'K5600 Lighting', url:'https://k5600.com/',     emoji:'⬜', accent:'#ffffff', dark:'#e0e0e0', light:'#f5f5f5', glow:'rgba(200,200,200,0.25)', accent2:'#212121', activeOutline:'#212121' },
   filmgear:     { name:'Film Gear', url:'https://www.filmgearusa.com/', emoji:'🟪', accent:'#5e35b1', dark:'#4527a0', light:'#ede7f6', glow:'rgba(94,53,177,0.25)', accent2:'#ffffff' },
+  desisti:      { name:'De Sisti', url:'https://www.desisti.it/', emoji:'🟩', accent:'#2e7d32', dark:'#1b5e20', light:'#e8f5e9', glow:'rgba(46,125,50,0.25)', accent2:'#ffffff' },
   vulcan:       { name:'Vulcan', emoji:'🌋', accent:'#d84315', dark:'#bf360c', light:'#fbe9e7', glow:'rgba(216,67,21,0.25)', accent2:'#ffffff' },
   tungsten:     { name:'Tungsten',           emoji:'🔥', accent:'#f57c00', dark:'#e65100', light:'#fff3e0', glow:'rgba(245,124,0,0.25)' },
   amaran:       { name:'amaran', url:'https://www.amaran.com/',             emoji:'🔵', accent:'#ffffff', dark:'#e0e0e0', light:'#f5f5f5', glow:'rgba(200,200,200,0.25)', accent2:'#1565c0', activeOutline:'#1565c0' },
@@ -5264,6 +5265,20 @@ var LIGHTS = {
     },
   },
 
+  desisti: {
+    cizarno_200: {
+      group:'Tungsten', weight:'2.8 kg', name:'Cizarno 200W', desc:'200W HMI Fresnel（実測）', emoji:'✨', watts:200,
+      ccts:[3200], accessories:['flat','spot'],
+      refData:{3200:{
+        2:  {flat:9600, spot:19000},
+        3:  {flat:2400, spot:3400},
+        5:  {flat:840,  spot:1700},
+        8:  {flat:300,  spot:840},
+        12: {flat:110,  spot:210}
+      }}
+    }
+  },
+
   vulcan: {
     vulcan_par18: {
       group:'HMI', name:'Vulcan PAR 18K', desc:'18000W Automated HMI Daylight PAR', emoji:'☀️', watts:18000,
@@ -6667,19 +6682,8 @@ var LIGHTS = {
         8:   {flat:600}
       }}
     },
-    cizarno_200: {
-      group:'Tungsten', weight:'2.8 kg', name:'DESISTI Cizarno 200W', desc:'DESISTI チザーノ 200W (measured)', emoji:'✨', watts:200,
-      ccts:[3200], accessories:['flat','spot'],
-      refData:{3200:{
-        2:  {flat:9600, spot:19000},
-        3:  {flat:2400, spot:3400},
-        5:  {flat:840,  spot:1700},
-        8:  {flat:300,  spot:840},
-        12: {flat:110,  spot:210}
-      }}
-    },
     mercury_lamp: {
-      group:'Tungsten', name:'Mercury Lamp', desc:'水銀灯 (measured) — 消費電力は未確認', emoji:'✨',
+      group:'Tungsten', hiddenFromList:true, name:'Mercury Lamp', desc:'水銀灯 (measured) — 消費電力は未確認', emoji:'✨',
       // 水銀灯の色温度は個体差が大きい。ARC の実測は 4300K 相当として扱う。
       ccts:[4300], accessories:['flat'],
       refData:{4300:{
@@ -6691,7 +6695,7 @@ var LIGHTS = {
       }}
     },
     freegee_24: {
-      group:'LED', name:'Freegee Light 24W', desc:'フリージーライト 24W (measured)', emoji:'✨', watts:24,
+      group:'LED', hiddenFromList:true, name:'Freegee Light 24W', desc:'フリージーライト 24W (measured)', emoji:'✨', watts:24,
       ccts:[5600], accessories:['flat'],
       refData:{5600:{
         1:   {flat:3400},
@@ -7443,6 +7447,7 @@ function miredFixtureCount(k, tol) {
     for (var mk in LIGHTS) {
       for (var md in LIGHTS[mk]) {
         var lt = LIGHTS[mk][md];
+        if (_lightHidden(lt)) continue;
         var cc = lt.ccts;
         if (!cc || !cc.length) continue;
         // 2値以上あるものは可変とみなし、範囲に入るかを見る
@@ -7915,10 +7920,18 @@ function selectMaker(k) {
 }
 
 // ===== MODELS =====
+/**
+ * 一覧に出さない機材か。
+ * 世界標準のメーカー品だけを載せる方針で、日本国内のレンタル会社が独自に
+ * 呼んでいるだけの機材は隠す。保存済みの図面が壊れないよう、データ自体は残す。
+ */
+function _lightHidden(l) { return !!(l && l.hiddenFromList); }
+
 function sortedModelEntries(mk) {
   var models = LIGHTS[mk] || {};
   var entries = Object.entries ? Object.entries(models) :
     Object.keys(models).map(function(k){ return [k, models[k]]; });
+  entries = entries.filter(function(e0){ return !_lightHidden(e0[1]); });
 
   // Maker filter – S.makerFilter is a maker key (e.g. 'aputure')
   var mf = S.makerFilter || '';
@@ -10781,7 +10794,7 @@ function _cmpRenderPicker() {
       var mkObj = MAKERS[mk], mkName = mkObj ? mkObj.name : mk, emoji = mkObj ? mkObj.emoji : '💡';
       var btns = '';
       for (var lk in LIGHTS[mk]) {
-        var l = LIGHTS[mk][lk]; if (!l || !l.name) continue;
+        var l = LIGHTS[mk][lk]; if (!l || !l.name || _lightHidden(l)) continue;
         if (l.name.toLowerCase().indexOf(q) < 0 && mkName.toLowerCase().indexOf(q) < 0) continue;
         btns += _cmpModelBtn(mk, lk);
       }
@@ -12136,7 +12149,7 @@ function renderFinderResults() {
     for (var li = 0; li < allModels.length; li++) {
       var lk = allModels[li];
       var light = LIGHTS[mk][lk];
-      if (!light || !light.refData || light.pendingPhotometric) continue;
+      if (!light || !light.refData || light.pendingPhotometric || _lightHidden(light)) continue;
 
       // 種類フィルター
       if (typeof S_finderType !== 'undefined' && S_finderType !== 'all') {
@@ -12528,6 +12541,7 @@ function rankAllLights(srcLux,srcWatts,srcCCTs,srcAcc,srcType,srcCCT,dist){
   var res=[];
   Object.keys(LIGHTS).forEach(function(mk){Object.keys(LIGHTS[mk]).forEach(function(lk){
     var light=LIGHTS[mk][lk];
+    if (_lightHidden(light)) return;
     var r=computeAltMatch(srcLux,srcWatts,srcCCTs,srcAcc,srcType,srcCCT,light,mk,lk,dist);
     if(r)res.push(Object.assign({maker:mk,key:lk,name:light.name,watts:light.watts},r));
   });});
@@ -12856,7 +12870,7 @@ function runAlternativeFinder() {
     for (var rli = 0; rli < allAltModels.length; rli++) {
       var rlk = allAltModels[rli];
       var rlight = LIGHTS[rmk][rlk];
-      if (!rlight.refData || rlight.pendingPhotometric) continue;
+      if (!rlight.refData || rlight.pendingPhotometric || _lightHidden(rlight)) continue;
       // 種類フィルター
       if (S_altType !== 'all') {
         var rlg = rlight.group || '';
@@ -22757,7 +22771,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.140';
+var ver = 'v1.1.8.141';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
