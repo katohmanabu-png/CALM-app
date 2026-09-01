@@ -2614,7 +2614,8 @@ function updateDraftI18n(){
     load:{ja:'読込',en:'Load',es:'Cargar'}, people:{ja:'人',en:'People',es:'Person.'},
     bounce:{ja:'反射',en:'Bounce',es:'Rebote'}, photo:{ja:'写真',en:'Photo',es:'Foto'},
     unit:{ja:'単位',en:'Unit',es:'Unidad'}, reset:{ja:'リセット',en:'Reset',es:'Reiniciar'},
-    expBtn:{ja:'露出',en:'Exposure',es:'Exposic.'}
+    expBtn:{ja:'露出',en:'Exposure',es:'Exposic.'},
+    cloth:{ja:'背景幕',en:'Fabric',es:'Tela'}, form:{ja:'造形',en:'Form',es:'Forma'}
   };
   var L=(typeof LANG!=='undefined')?LANG:'ja';
   document.querySelectorAll('[data-dfti18n]').forEach(function(el){
@@ -15721,7 +15722,7 @@ function _dftAddObj(type, wx, wy, extra) {
   else if (type === 'form')     {
     // 布（背景・セットペーパー）として置かれたか。dftRectStart が覚えている
     if (_dft.rectCloth) { obj.cloth = true; _dft.rectCloth = false; }
-    obj.label = obj.cloth ? '背景' : 'Form';
+    obj.label = obj.cloth ? _dftRectTypeLabel('cloth') : 'Form';
     obj.w = obj.w || (obj.cloth ? 5 : 2.4);
     obj.h = obj.h || (obj.cloth ? 8 : 2.4);
     if (obj.formHue == null) { obj.formHue = 145; obj.formSat = 100; obj.formLig = 44; }  // 既定はグリーン
@@ -19432,7 +19433,15 @@ function _dftRectPresetsFor(type) {
   if (type === 'cloth') return _DFT_CLOTH_PRESETS;
   return _DFT_RECT_PRESETS_BY_TYPE[type] || _DFT_RECT_PRESETS;
 }
-var _DFT_RECT_TYPE_LABEL = { bounce:'Bounce', diffuser:'Diffusion', flag:'Flag', form:'Form', cloth:'背景' };
+var _DFT_RECT_TYPE_LABEL = { bounce:'Bounce', diffuser:'Diffusion', flag:'Flag', form:'Form' };
+/** 背景幕だけは言語で呼び方が変わる */
+function _dftRectTypeLabel(type) {
+  if (type === 'cloth') {
+    var L = (typeof LANG !== 'undefined') ? LANG : 'ja';
+    return L === 'ja' ? '背景幕' : (L === 'es' ? 'Tela' : 'Fabric');
+  }
+  return _DFT_RECT_TYPE_LABEL[type] || type;
+}
 
 /**
  * 背景の布は Form の一種として持つ（o.cloth = true）。
@@ -19446,7 +19455,7 @@ function dftRectStart(type) {
   // 'cloth' は Form の一種。以降は form として扱い、cloth 印だけ覚える
   var isCloth = (type === 'cloth');
   _dft.rectCloth = isCloth;
-  var typeLabel = _DFT_RECT_TYPE_LABEL[type] || type;
+  var typeLabel = _dftRectTypeLabel(type);
   var presetType = type;
   if (isCloth) type = 'form';
   var isFt = (_dft.unit === 'ft');
@@ -22811,7 +22820,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.145';
+var ver = 'v1.1.8.146';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -23230,7 +23239,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
         <button class="draft-tool-btn" id="dft-btn-bounce"   onclick="dftRectStart('bounce')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔲<br><span style="font-size:8px;" data-dfti18n="bounce">反射</span></button>
         <button class="draft-tool-btn" id="dft-btn-flag"     onclick="dftRectStart('flag')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">▬<br><span style="font-size:8px;">Flag</span></button>
         <button class="draft-tool-btn" id="dft-btn-form"     onclick="dftRectStart('form')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">■<br><span style="font-size:8px;" data-dfti18n="form">造形</span></button>
-        <button class="draft-tool-btn" id="dft-btn-cloth"    onclick="dftRectStart('cloth')"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🎬<br><span style="font-size:8px;" data-dfti18n="cloth">背景</span></button>
+        <button class="draft-tool-btn" id="dft-btn-cloth"    onclick="dftRectStart('cloth')"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="vertical-align:-3px;"><path d="M2 4H22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M4 4v13q2 2.2 4 0t4 0 4 0 4 0V4" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/></svg><br><span style="font-size:8px;" data-dfti18n="cloth">背景幕</span></button>
         <button class="draft-tool-btn" onclick="dftExposureTool()" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📊<br><span style="font-size:8px;" data-dfti18n="expBtn">露出</span></button>
         <button class="draft-tool-btn" onclick="dftImportPDF()"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">📄<br><span style="font-size:8px;">PDF</span></button>
         <button class="draft-tool-btn" onclick="dftImportPhoto()"  style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🖼<br><span style="font-size:8px;" data-dfti18n="photo">写真</span></button>
