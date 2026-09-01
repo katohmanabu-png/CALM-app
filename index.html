@@ -4294,7 +4294,7 @@ var LIGHTS = {
     // ── ARC SYSTEM 実測（ARRI CP = Compact シリーズ）───────────────────
     // 200W / 6kW / 12kW は arri_200 / arri_6k / arri_12k として既登録。
     arri_125: {
-      group:'HMI', name:'ARRI 125W Compact HMI', emoji:'💡', watts:125,
+      group:'HMI', weight:'2 kg', name:'ARRI 125W Compact HMI', emoji:'💡', watts:125,
       ccts:[5600], accessories:['flat','spot'], accAngles:{flat:60,spot:15}, accLabels:{flat:'FLOOD',spot:'SPOT'},
       refData:{5600:{
         0.5: {flat:2400, spot:9600},
@@ -4389,13 +4389,13 @@ var LIGHTS = {
     },
     auroris_v: {
       url:'https://www.litegear.com/products/auroris/',
-      group:'LED', name:'Auroris V', desc:'600W Full Color Large Soft (approx · ratio est.)', emoji:'💡', watts:600, approx:true,
+      group:'LED', weight:'29.1 kg', name:'Auroris V', desc:'600W Full Color Large Soft (approx · ratio est.)', emoji:'💡', watts:600, approx:true,
       ccts:[3200,5600], accessories:['none'],
       refData:{ 5600:{3:{none:1514},6:{none:594},9:{none:310},12:{none:174},15:{none:112}}, 3200:{3:{none:1368},6:{none:546},9:{none:282},12:{none:158},15:{none:102}} }
     },
     litetile_plus_8: {
       url:'https://www.litegear.com/products/litetile-plus/',
-      group:'LED', name:'LiteTile Plus 8', desc:'400W Bi-Color Soft Tile (LiteGear)', emoji:'💡', watts:400, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      group:'LED', weight:'3.5 kg', name:'LiteTile Plus 8', desc:'400W Bi-Color Soft Tile (LiteGear)', emoji:'💡', watts:400, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
       dmx:{led:'Bi-Color',power:'400W',cct:'2600K–6200K',cri:'≥95',tlci:'≥95',ip:'IP20',control:'DMX (LiteDimmer Plus AC400)',dimming:'0%–100%'},
       dmxUrl:'https://www.litegear.com/wp-content/uploads/2019/06/LiteTile-Plus-8-Data-Sheet-4.pdf',
@@ -4406,7 +4406,7 @@ var LIGHTS = {
     },
     litetile_plus_4: {
       url:'https://www.litegear.com/products/litetile-plus/',
-      group:'LED', weight:'2.7 kg', name:'LiteTile Plus 4', desc:'200W Bi-Color Soft Tile (LiteGear)', emoji:'💡', watts:200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      group:'LED', weight:'2 kg', name:'LiteTile Plus 4', desc:'200W Bi-Color Soft Tile (LiteGear)', emoji:'💡', watts:200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       ccts:[3200,5600], accessories:['none'],
       dmx:{led:'Bi-Color',power:'200W',cct:'2600K–6200K',cri:'≥95',tlci:'≥95',ip:'IP20',control:'DMX (LiteDimmer Plus AC400)',dimming:'0%–100%'},
       dmxUrl:'https://www.litegear.com/wp-content/uploads/2019/06/LiteTile-Plus-4-Data-Sheet-3.pdf',
@@ -6519,7 +6519,11 @@ var LIGHTS = {
       }}
     },
     bron_1600: {
-      group:'HMI', name:'Broncolor HMI 1600W + Para', desc:'Para 88/133/177/222 — manufacturer data, 3m only (F1600 lamp, focused/defocused)', emoji:'💡', watts:1600, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
+      group:'HMI', weight:'4.3 kg',
+      // 重量はランプヘッド F1600 単体（broncolor 公式マニュアル 4.3kg / 250×302×145mm）。
+      // バラスト HMI 800/1600 は別に 6.9kg。Para リフレクターも別重量で、
+      // 例えば Para 133 は 2.9kg（HR 版 3.3kg）。吊るす構成に応じて足すこと。
+      name:'Broncolor HMI 1600W + Para', desc:'Para 88/133/177/222 — manufacturer data, 3m only (F1600 lamp, focused/defocused)', emoji:'💡', watts:1600, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>',
       ccts:[5600], accessories:['para88_f', 'para88_d', 'para133_f', 'para133_d', 'para177_f', 'para177_d', 'para222_f', 'para222_d'],
       url:'https://broncolor.swiss/products/para-133-reflector',
       dmx:{power:'1600W',cct:'5600K',control:'Manual'},
@@ -22646,7 +22650,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.135';
+var ver = 'v1.1.8.136';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
