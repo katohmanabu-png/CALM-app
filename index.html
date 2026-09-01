@@ -5011,9 +5011,12 @@ var LIGHTS = {
     },
     dedo_1200: {
 
-      group:'HMI', weight:'49.8 kg', name:'Dedolight 1200W HMI', emoji:'🟤', watts:1200,
+      group:'HMI', weight:'10.5 kg', name:'Dedolight 1200W HMI', emoji:'🟤', watts:1200,
       ccts:[5600], accessories:['spot','med','flood'],
       // Dedolight 公式測光表（DLH1200D Focusing Light Head, Daylight 5600K）
+      // 重量 10.5kg は DLH1200 ヘッド単体（公式 23 lbs）。
+      // 実測カタログの「HMI dedo 1200 spot」は 92×106×62cm・IP63 の防水一体型で
+      // 49.8kg だが、それはバラスト込みの別製品なのでここでは採らない。
       refData:{5600:{
         1:  {spot:783000, med:366183, flood:62100},
         2:  {spot:195750, med:91546,  flood:15525},
@@ -22643,7 +22646,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.134';
+var ver = 'v1.1.8.135';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
