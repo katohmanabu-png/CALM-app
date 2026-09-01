@@ -8435,6 +8435,110 @@ window._sunCopy = function(){
 
 // ── SUN SCOUT をカメラに重ねる ─────────────────────────────
 /**
+ * カメラ画面の文言。
+ *
+ * ネイティブ側に文字を持たせると言語を切り替えられないので、
+ * 表示する文字はすべてここから渡す。{ } は Swift 側で差し替える。
+ * この画面だけで使うまとまりなので、LANGS には混ぜず独立させている。
+ */
+var SUN_AR_TEXT = {
+  ja: {
+    nameSun:'太陽', nameMoon:'月',
+    help:'見えているもの',
+    helpBody:
+      '・空に引いた線が、その日の {name} の道すじです。数字は時刻、色の点は日の出・日の入り・マジックアワー。\n' +
+      '・{icon} をつまんで線の上を動かすと、その時刻の位置に飛びます。\n' +
+      '・下の「いま」を押すと、いまの時刻に戻ります。実景と見比べるときは必ずここを合わせてください。',
+    helpAccTitle:'ずれていたら',
+    helpAccBody:
+      'この画面のずれは、ほぼコンパス（真北）のせいです。鉄骨のそば・車内・三脚の近くでは ±5〜20° 振れます。\n\n' +
+      '【横がずれている】「{align}」を押して、画面の {icon} を実際に見えている{name}まで指で引いてください。コンパスより桁違いに正確に合い、次に開いたときも覚えています。\n\n' +
+      '【上下もずれている】高度は重力から出ていて狂いません。上下がずれているときは、場所か日付・時刻のほうが違っています。「📍 現在地」を押し、時刻を「いま」に合わせてから、もう一度見てください。',
+    helpNote:'計算は通信を使いません。国立天文台の公表値と1分以内で合うことを確認しています。',
+    helpStart:'はじめる',
+    waitTracking:'端末をゆっくり動かして向きを合わせています…',
+    waitNoLoc:'位置情報が許可されていないため、真北がずれることがあります。実際の{name}が見えていれば「{align}」で直せます。',
+    accUnknown:'方位 不明', accFmt:'方位 ±{v}°',
+    btnCompass:'🧭 コンパス較正', btnAlign:'{icon} 実物に合わせる', btnAlignDone:'合わせ終わり',
+    btnAlignReticle:'十字の向きに合わせる', btnGrab:'この向きを記録', btnNow:'いま',
+    hintDrag:'{icon} をつまんで道すじの上を動かすと、その時刻になります',
+    hintAlign:'画面の {icon} を、実際に見えている{name}の位置まで指で横に引いてください。\n上下がずれているときは、場所か日付・時刻のほうが違っています。',
+    hintAltDiff:'横は合わせています。上下のずれ {v}°\n上下も大きいときは、場所か日付・時刻が違っています。',
+    warnLoc:'場所が初期値のままです。SUN SCOUT で「📍 現在地」を押してください。ここが違うと上下も横もずれます。',
+    warnTime:'⚠️ いまより {v}分 の時刻を見ています',
+    toastNow:'いまの時刻に合わせました', toastAligned:'十字の向きに合わせました',
+    toastBelow:'いまの時刻は{name}が地平線より下です。合わせられる時刻にしてください。',
+    toastCompass:'方位を取り直しています。端末を8の字に振ってください。',
+    toastCompassReset:'方位を取り直しました。手で直した分は戻しています。端末を8の字に振ってください。',
+    labelAz:'方位', labelAlt:'高度', labelReticle:'十字', labelTo:'まで',
+    dirL:'左', dirR:'右', dirU:'上', dirD:'下'
+  },
+  en: {
+    nameSun:'sun', nameMoon:'moon',
+    help:'What you are looking at',
+    helpBody:
+      '• The line across the sky is the {name}’s path for that day. Numbers are hours; coloured dots are sunrise, sunset and magic hour.\n' +
+      '• Drag {icon} along the line to jump to that time.\n' +
+      '• “Now” returns to the current time. Always do this before comparing against the real sky.',
+    helpAccTitle:'If it does not line up',
+    helpAccBody:
+      'Almost all of the error here is the compass (true north). Near steel, inside a car or close to a stand it drifts by 5–20°.\n\n' +
+      'Off sideways: tap “{align}” and drag the on-screen {icon} onto the real {name}. That is far more accurate than the compass, and it is remembered next time.\n\n' +
+      'Off vertically too: altitude comes from gravity and does not drift. If it is off vertically, the location or the date/time is wrong. Tap “Here”, set the time to “Now”, and look again.',
+    helpNote:'The calculation needs no connection. It matches the national observatory’s published times to within one minute.',
+    helpStart:'Start',
+    waitTracking:'Move the device slowly so it can find its bearing…',
+    waitNoLoc:'Location is not allowed, so true north may be off. If the real {name} is visible, fix it with “{align}”.',
+    accUnknown:'Bearing —', accFmt:'Bearing ±{v}°',
+    btnCompass:'🧭 Calibrate compass', btnAlign:'{icon} Match the real one', btnAlignDone:'Done',
+    btnAlignReticle:'Use the crosshair direction', btnGrab:'Capture this direction', btnNow:'Now',
+    hintDrag:'Drag {icon} along the path to change the time',
+    hintAlign:'Drag the on-screen {icon} sideways onto the real {name}.\nIf it is off vertically, the location or the date/time is wrong.',
+    hintAltDiff:'Sideways is matched. Vertical difference {v}°\nIf that is large, the location or the date/time is wrong.',
+    warnLoc:'The location is still the default. Tap “Here” in SUN SCOUT — if it is wrong, everything is off, vertically and sideways.',
+    warnTime:'⚠️ You are looking at a time {v} min from now',
+    toastNow:'Set to the current time', toastAligned:'Matched to the crosshair direction',
+    toastBelow:'The {name} is below the horizon at this time. Pick a time when it is up.',
+    toastCompass:'Re-taking the bearing. Move the device in a figure of eight.',
+    toastCompassReset:'Bearing re-taken; your manual correction has been cleared. Move the device in a figure of eight.',
+    labelAz:'Az', labelAlt:'Alt', labelReticle:'Crosshair', labelTo:'to',
+    dirL:'left', dirR:'right', dirU:'up', dirD:'down'
+  },
+  es: {
+    nameSun:'sol', nameMoon:'luna',
+    help:'Qué estás viendo',
+    helpBody:
+      '• La línea en el cielo es la trayectoria del {name} ese día. Los números son horas; los puntos de color, salida, puesta y hora mágica.\n' +
+      '• Arrastra {icon} por la línea para saltar a esa hora.\n' +
+      '• “Ahora” vuelve a la hora actual. Hazlo siempre antes de comparar con el cielo real.',
+    helpAccTitle:'Si no coincide',
+    helpAccBody:
+      'Casi todo el error viene de la brújula (norte verdadero). Cerca de estructuras metálicas, dentro de un coche o junto a un trípode se desvía de 5 a 20°.\n\n' +
+      'Desviado en horizontal: pulsa “{align}” y arrastra el {icon} de la pantalla hasta el {name} real. Es mucho más preciso que la brújula y se recuerda.\n\n' +
+      'También en vertical: la altura viene de la gravedad y no se desvía. Si falla en vertical, la ubicación o la fecha/hora están mal. Pulsa “Aquí”, pon la hora en “Ahora” y vuelve a mirar.',
+    helpNote:'El cálculo no necesita conexión y coincide con los datos publicados del observatorio nacional dentro de un minuto.',
+    helpStart:'Empezar',
+    waitTracking:'Mueve el dispositivo despacio para fijar la orientación…',
+    waitNoLoc:'La ubicación no está permitida, así que el norte puede estar desviado. Si ves el {name} real, corrígelo con “{align}”.',
+    accUnknown:'Rumbo —', accFmt:'Rumbo ±{v}°',
+    btnCompass:'🧭 Calibrar brújula', btnAlign:'{icon} Ajustar al real', btnAlignDone:'Listo',
+    btnAlignReticle:'Usar la dirección de la cruz', btnGrab:'Capturar esta dirección', btnNow:'Ahora',
+    hintDrag:'Arrastra {icon} por la trayectoria para cambiar la hora',
+    hintAlign:'Arrastra el {icon} de la pantalla en horizontal hasta el {name} real.\nSi falla en vertical, la ubicación o la fecha/hora están mal.',
+    hintAltDiff:'La horizontal está ajustada. Diferencia vertical {v}°\nSi es grande, la ubicación o la fecha/hora están mal.',
+    warnLoc:'La ubicación sigue siendo la predeterminada. Pulsa “Aquí” en SUN SCOUT; si está mal, todo se desplaza.',
+    warnTime:'⚠️ Estás viendo una hora a {v} min de ahora',
+    toastNow:'Ajustado a la hora actual', toastAligned:'Ajustado a la dirección de la cruz',
+    toastBelow:'A esta hora el {name} está bajo el horizonte. Elige una hora en la que esté arriba.',
+    toastCompass:'Volviendo a tomar el rumbo. Mueve el dispositivo en forma de ocho.',
+    toastCompassReset:'Rumbo recalculado; se ha borrado tu corrección manual. Mueve el dispositivo en forma de ocho.',
+    labelAz:'Az', labelAlt:'Alt', labelReticle:'Cruz', labelTo:'a',
+    dirL:'izq.', dirR:'der.', dirU:'arriba', dirD:'abajo'
+  }
+};
+function _sunARStrings(){ return SUN_AR_TEXT[LANG] || SUN_AR_TEXT.ja; }
+
+/**
  * カメラ表示のプラグイン。ネイティブアプリのときだけ使える。
  * 単一 HTML の作りでは Capacitor.Plugins が空なので、
  * CalmARPlugin と同じく identifier で直に呼ぶ。
@@ -8520,6 +8624,7 @@ function _sunARPayload() {
     liveMin: liveNow,
     // 場所を自分で決めたか。既定のままならカメラ側でも赤く出す
     locSet: !!_SUN.locSet,
+    str: _sunARStrings(),
     body: (_SUN.body === 'moon') ? 'moon' : 'sun',
     moonFrac: e.moonFrac,
     title: d.y + '-' + String(d.m).padStart(2,'0') + '-' + String(d.d).padStart(2,'0') +
@@ -24027,7 +24132,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.165';
+var ver = 'v1.1.8.166';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
