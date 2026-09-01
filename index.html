@@ -5840,7 +5840,7 @@ var LIGHTS = {
     },
     misc_miser_300: {
 
-      group:'Tungsten', weight:'2 kg', name:'Miser Light 300W', desc:'300W Tungsten Projector', emoji:'💡', watts:300,
+      group:'Tungsten', hiddenFromList:true, weight:'2 kg', name:'Miser Light 300W', desc:'300W Tungsten Projector', emoji:'💡', watts:300,
       ccts:[3200], accessories:['flat', 'spot'],
       refData:{3200:{
         1: {flat:1200, spot:2400},
@@ -5851,7 +5851,7 @@ var LIGHTS = {
     },
     misc_k1_200: {
 
-      group:'Tungsten', weight:'1.5 kg', name:'K1 200W', desc:'200W Tungsten Projector', emoji:'💡', watts:200,
+      group:'Tungsten', hiddenFromList:true, weight:'1.5 kg', name:'K1 200W', desc:'200W Tungsten Projector', emoji:'💡', watts:200,
       ccts:[3200], accessories:['flat', 'spot'],
       refData:{3200:{
         1: {flat:1200, spot:2400},
@@ -5862,7 +5862,7 @@ var LIGHTS = {
     },
     misc_pulsar_500: {
       pendingPhotometric:true, status:'Pending Photometric Data',
-      group:'Tungsten', weight:'1.5 kg', name:'Pulsar 500W', desc:'500W Tungsten Practical', emoji:'💡', watts:500,
+      group:'Tungsten', hiddenFromList:true, weight:'1.5 kg', name:'Pulsar 500W', desc:'500W Tungsten Practical', emoji:'💡', watts:500,
       ccts:[3200], accessories:['spot'],
       refData:{3200:{1:{spot:1536},2:{spot:384},3:{spot:171},5:{spot:61}}}
     },
@@ -6635,7 +6635,7 @@ var LIGHTS = {
   // ══ RDS ══ すべて ARC SYSTEM の実測値
   rds: {
     rds_575: {
-      group:'HMI', weight:'4 kg', name:'RDS 575W', desc:'575W HMI (measured)', emoji:'🟩', watts:575,
+      group:'HMI', hiddenFromList:true, weight:'4 kg', name:'RDS 575W', desc:'575W HMI (measured)', emoji:'🟩', watts:575,
       ccts:[5600], accessories:['flat','spot'],
       refData:{5600:{
         2:   {flat:2400, spot:14000},
@@ -6646,13 +6646,13 @@ var LIGHTS = {
       }}
     },
     rds_2500_pin: {
-      group:'HMI', name:'RDS 2.5kW Pin', desc:'2500W HMI pin spot (measured)', emoji:'🟩', watts:2500,
+      group:'HMI', hiddenFromList:true, name:'RDS 2.5kW Pin', desc:'2500W HMI pin spot (measured)', emoji:'🟩', watts:2500,
       // ARC のカタログではスポット／フラットが1列にまとめられているため単一カーブ。
       ccts:[5600], accessories:['spot'],
       refData:{5600:{3:{spot:6800}, 5:{spot:2400}, 8:{spot:1200}, 12:{spot:600}, 15:{spot:420}}}
     },
     rds_hr2: {
-      group:'HMI', weight:'1.2 kg', name:'RDS HR-II', desc:'125W HMI (measured)', emoji:'🟩', watts:125,
+      group:'HMI', hiddenFromList:true, weight:'1.2 kg', name:'RDS HR-II', desc:'125W HMI (measured)', emoji:'🟩', watts:125,
       ccts:[5600], accessories:['flat','spot'],
       refData:{5600:{
         1: {flat:9600, spot:27000},
@@ -22811,7 +22811,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.144';
+var ver = 'v1.1.8.145';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
