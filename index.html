@@ -6662,23 +6662,23 @@ var LIGHTS = {
   // ══ 特殊光源 ══ すべて ARC SYSTEM の実測値
   arc_special: {
     hyper_blast_5k: {
-      group:'HMI', weight:'8.5 kg', name:'Hyper Blast 5kW', desc:'ハイパーブラスト 5kW (measured)', emoji:'⚡', watts:5000,
+      group:'HMI', hiddenFromList:true, weight:'8.5 kg', name:'Hyper Blast 5kW', desc:'ハイパーブラスト 5kW (measured)', emoji:'⚡', watts:5000,
       ccts:[5600], accessories:['flat'],
       refData:{5600:{3:{flat:6800}, 5:{flat:2400}, 8:{flat:840}, 12:{flat:420}, 15:{flat:300}}}
     },
     hyper_blast_3k: {
-      group:'HMI', weight:'4 kg', name:'Hyper Blast 3kW', desc:'ハイパーブラスト 3kW (measured)', emoji:'⚡', watts:3000,
+      group:'HMI', hiddenFromList:true, weight:'4 kg', name:'Hyper Blast 3kW', desc:'ハイパーブラスト 3kW (measured)', emoji:'⚡', watts:3000,
       ccts:[5600], accessories:['flat'],
       refData:{5600:{3:{flat:4800}, 5:{flat:2400}, 8:{flat:1200}, 12:{flat:600}}}
     },
     t_light: {
-      group:'HMI', weight:'24 kg', name:'T-Light', desc:'T-Light フラット (measured) — 消費電力は未確認', emoji:'⚡',
+      group:'HMI', hiddenFromList:true, weight:'24 kg', name:'T-Light', desc:'T-Light フラット (measured) — 消費電力は未確認', emoji:'⚡',
       // watts は ARC のカタログに記載がないため省略。
       ccts:[5600], accessories:['flat'],
       refData:{5600:{5:{flat:19000}, 8:{flat:9600}, 12:{flat:4800}, 15:{flat:2400}}}
     },
     par_strobe_1k: {
-      group:'HMI', weight:'2.5 kg', name:'Par Strobe 1kW', desc:'パーストロボ 1kW (measured)', emoji:'✨', watts:1000,
+      group:'HMI', hiddenFromList:true, weight:'2.5 kg', name:'Par Strobe 1kW', desc:'パーストロボ 1kW (measured)', emoji:'✨', watts:1000,
       ccts:[5600], accessories:['flat'],
       refData:{5600:{
         2:   {flat:9600},
@@ -6709,7 +6709,7 @@ var LIGHTS = {
       }}
     },
     black_light: {
-      group:'Tungsten', name:'Black Light', desc:'ブラックライト (measured) — UV光源。lux値は参考程度', emoji:'✨',
+      group:'Tungsten', hiddenFromList:true, name:'Black Light', desc:'ブラックライト (measured) — UV光源。lux値は参考程度', emoji:'✨',
       ccts:[5600], accessories:['flat'],
       refData:{5600:{
         1:   {flat:840},
@@ -7847,8 +7847,15 @@ function applyTheme(mk) {
 }
 
 // ===== MAKERS =====
+/** そのメーカーに、一覧へ出せる機材が1つでもあるか */
+function _makerHasVisible(mk) {
+  var ms = LIGHTS[mk];
+  if (!ms) return false;
+  for (var k in ms) { if (!_lightHidden(ms[k])) return true; }
+  return false;
+}
 function sortedMakerKeys() {
-  var keys = Object.keys(MAKERS);
+  var keys = Object.keys(MAKERS).filter(_makerHasVisible);
   if (S.makerSort === 'az') keys = keys.slice().sort(function(a,b){ return makerName(a).localeCompare(makerName(b)); });
   return keys;
 }
@@ -7860,6 +7867,13 @@ function setMakerSort(v) {
 }
 function initMakers() {
   var grid = el('maker-grid'); if (!grid) return;
+  // 選んでいたメーカーが非表示になっていたら、先頭のメーカーへ移す
+  var _vis = sortedMakerKeys();
+  if (_vis.length && _vis.indexOf(S.maker) < 0) {
+    S.maker = _vis[0];
+    var _mk0 = Object.keys(LIGHTS[S.maker] || {}).filter(function(k){ return !_lightHidden(LIGHTS[S.maker][k]); })[0];
+    if (_mk0) S.model = _mk0;
+  }
   grid.innerHTML = '';
   // Fav button (first)
   var _dark = document.documentElement.classList.contains('dark');
@@ -10727,8 +10741,8 @@ function _cmpClear(i) { _cmp.slots[i] = null; renderCompare(); }
 // メーカー分類の並び順（MAKERSの定義順＝通常のグリッドと同じ分類）
 function _cmpMakerOrder() {
   var order = [];
-  for (var mk in MAKERS) { if (LIGHTS[mk]) order.push(mk); }
-  for (var mk2 in LIGHTS) { if (order.indexOf(mk2) < 0) order.push(mk2); }
+  for (var mk in MAKERS) { if (_makerHasVisible(mk)) order.push(mk); }
+  for (var mk2 in LIGHTS) { if (order.indexOf(mk2) < 0 && _makerHasVisible(mk2)) order.push(mk2); }
   return order;
 }
 // スロット用ライト選択モーダル（通常と同じ「メーカー選択→機種選択」フロー）
@@ -22776,7 +22790,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.142';
+var ver = 'v1.1.8.143';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
