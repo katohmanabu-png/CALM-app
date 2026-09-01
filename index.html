@@ -16418,6 +16418,22 @@ function _dftDrawObj(ctx, o) {
     var ltr = o.type==='diffuser' ? 'D' : o.type==='bounce' ? 'B'
             : o.type==='form' ? (_dftIsCloth(o) ? '幕' : (_fp ? _fp.letter : '■')) : 'F';
     if (!_rd.stand || rw > 22) ctx.fillText(ltr, 0, 0);
+    // 生地の名前。同じ大きさの反射板が並ぶと一文字では見分けが付かないので、
+    // 入っていれば四角の中に小さく添える。狭いときは出さない。
+    var _mat = (o.type==='diffuser'||o.type==='bounce') ? _dftMaterialOf(o) : '';
+    if (_mat && rw > 42 && rh > 20 && _dft.vis.name !== 0) {
+      ctx.save();
+      ctx.font = 'bold 7px -apple-system,Arial';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.globalAlpha *= 0.9;
+      var _mw = ctx.measureText(_mat).width;
+      if (_mw > rw - 6) {                       // 入りきらないときは詰める
+        while (_mat.length > 4 && ctx.measureText(_mat + '…').width > rw - 6) _mat = _mat.slice(0, -1);
+        _mat += '…';
+      }
+      ctx.fillText(_mat, 0, 5);
+      ctx.restore();
+    }
     // 立て表示: 立ち上がり高さ(vert)を線の脇にラベル表示
     if (_rd.stand) {
       var vstr = '↥' + (_dft.unit === 'ft' ? (_rd.vert*3.28084).toFixed(1)+'ft' : _rd.vert.toFixed(1)+'m');
@@ -18855,6 +18871,22 @@ function _dftSetAcc(oid, accKey) {
  * 俯瞰のビーム判定は水平方向しか見ないため、天バン（真上のバウンス）は
  * 自動では拾えない。明示的に選べるようにして解決する。
  */
+/**
+ * その反射板／DIFF に何の生地が張ってあるか。
+ * Factor の行に入れた名前（UltraBounce / Unbleached Muslin / Full Grid Cloth …）を
+ * そのまま使う。数値だけ入れて名前が空の行は無視する。
+ */
+function _dftMaterialOf(o) {
+  if (!o || !o.factors || !o.factors.length) return '';
+  var names = [];
+  o.factors.forEach(function(f) {
+    if (f.enabled === false) return;
+    var n = (f.memo || '').trim();
+    if (n && names.indexOf(n) < 0) names.push(n);
+  });
+  return names.join(' + ');
+}
+
 /** a から見た b の向きを矢印1文字で。狙い先の候補を見分けるため */
 function _dftDirArrow(a, b) {
   var dx = b.wx - a.wx, dy = b.wy - a.wy;
@@ -18888,6 +18920,7 @@ function _dftAimFieldHTML(o) {
     opts.push({ id:tg.id,
                 icon: tg.type === 'bounce' ? '🔲' : '⬜',
                 label: nm + (up ? ' ↑' : ''),
+                mat: _dftMaterialOf(tg),
                 size: size,
                 dir: _dftDirArrow(o, tg),
                 sub: _dftFmt(_dftDist(o, tg)) });
@@ -18903,6 +18936,7 @@ function _dftAimFieldHTML(o) {
       'background:'+(act?'#e3f2fd':'#f8f8f8')+';cursor:pointer;text-align:center;min-width:64px;">' +
       '<div style="font-size:16px;line-height:1.1;">'+op.icon+(op.dir?'<span style="font-size:12px;color:#1976d2;margin-left:2px;">'+op.dir+'</span>':'')+'</div>' +
       '<div style="font-size:10px;font-weight:800;color:#333;white-space:nowrap;">'+_dftEsc(op.label)+'</div>' +
+      (op.mat ? '<div style="font-size:9px;color:#2e7d32;font-weight:800;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis;">'+_dftEsc(op.mat)+'</div>' : '') +
       (op.size ? '<div style="font-size:9px;color:#666;font-weight:700;white-space:nowrap;">'+op.size+'</div>' : '') +
       (op.sub ? '<div style="font-size:9px;color:#1976d2;font-weight:700;">'+op.sub+'</div>' : '') +
       '</button>';
@@ -22881,7 +22915,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.147';
+var ver = 'v1.1.8.148';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
