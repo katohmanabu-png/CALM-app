@@ -7795,8 +7795,12 @@ var SUNCALC = (function () {
    * SunCalc が月に使っているのと同じ式。
    */
   function refract(altDeg) {
+    // この近似式が使えるのは地平線の少し下まで。もっと下では符号まで逆になり、
+    // ちょうど -5.10° では 0 で割って NaN になる。地平線より下は見えないので、
+    // -1° より下は -1° のときの値で頭打ちにする（連続で、単調のまま）。
+    var h = Math.max(altDeg, -1);
     // 0.017/tan(...) の結果はすでに「度」。度へ直し直すと 57 倍になる
-    return altDeg + 0.017 / Math.tan((altDeg + 10.26 / (altDeg + 5.10)) * RAD);
+    return altDeg + 0.017 / Math.tan((h + 10.26 / (h + 5.10)) * RAD);
   }
 
   /** 太陽の方位・高度（幾何高度。出没の判定には -0.833° を使う） */
@@ -7810,9 +7814,9 @@ var SUNCALC = (function () {
   function moonPosition(date, lat, lon) {
     var d = toDays(date), c = moonCoords(d);
     var h = horizontal(gmst(d) + RAD*lon - c.ra, lat*RAD, c.dec);
+    // 地平視差ぶん下げてから、大気差ぶん上げる
     var a = h.alt - Math.asin(6378.14 / c.dist) * Math.cos(h.alt);
-    a = a + RAD * (0.017 / Math.tan(a + RAD*10.26 / (a*DEG + 5.10)));
-    return { altitude: a*DEG, azimuth: h.az, distance: c.dist };
+    return { altitude: refract(a*DEG), azimuth: h.az, distance: c.dist };
   }
 
   /** 月の満ち欠け。phase 0=新月 0.5=満月、fraction=輝いている面の割合 */
@@ -7949,10 +7953,44 @@ function _sunDayStartOf(d){
   var r = _sunDayStart(); _SUN.date = keep; return r;
 }
 
-/** その日の太陽と月の出来事。d を渡すとその日で計算する */
+/**
+ * その日が何分あるか。
+ * ふつうは 1440 分だが、夏時間が始まる日は 1380 分、終わる日は 1500 分になる。
+ * 1440 で決め打ちしていたので、25時間の日は最後の 1 時間を見ておらず、
+ * その間の月の出入りを取りこぼし、スライダーもそこまで届かなかった。
+ */
+function _sunDayMinOf(d){
+  var a = d ? _sunDayStartOf(d) : _sunDayStart();
+  var nx = new Date(a.getTime() + 36 * 3600000);           // 翌日を含む適当な先
+  var l  = new Date(nx.getTime() + _sunOffsetAt(nx) * 60000);
+  var b  = _sunDayStartOf({ y:l.getUTCFullYear(), m:l.getUTCMonth()+1, d:l.getUTCDate() });
+  var m  = Math.round((b - a) / 60000);
+  return (m >= 1200 && m <= 1680) ? m : 1440;              // 変な値なら 1 日とみなす
+}
+function _sunDayMin(){ return _sunDayMinOf(_SUN.date); }
+
+/**
+ * その日の太陽と月の出来事。d を渡すとその日で計算する。
+ *
+ * 中身は一日ぶんを1分刻みで何度も走査するので 5ms 以上かかる。
+ * 時刻のつまみを動かすたびに呼ばれるが、出来事は時刻に依らず
+ * 日付と場所だけで決まるので、その組み合わせで覚えておく。
+ */
+var _sunEvCache = {};
 function _sunEvents(d){
+  var dd = d || _SUN.date;
+  var key = dd.y + '-' + dd.m + '-' + dd.d + '|' + _SUN.lat + '|' + _SUN.lon + '|' + _sunTz();
+  if (_sunEvCache[key]) return _sunEvCache[key];
+  var v = _sunEventsCalc(d);
+  // 覚えすぎないように、増えたら丸ごと捨てる
+  if (Object.keys(_sunEvCache).length > 60) _sunEvCache = {};
+  _sunEvCache[key] = v;
+  return v;
+}
+function _sunEventsCalc(d){
   var lat = _SUN.lat, lon = _SUN.lon, s0 = d ? _sunDayStartOf(d) : _sunDayStart();
-  function cr(thr, fn){ return SUNCALC.crossings(s0, 24, lat, lon, thr, fn || SUNCALC.sunPosition); }
+  var dayMin = _sunDayMinOf(d);
+  function cr(thr, fn){ return SUNCALC.crossings(s0, dayMin/60, lat, lon, thr, fn || SUNCALC.sunPosition); }
   function pick(list, rising){ var f = list.filter(function(x){ return x.rising === rising; }); return f.length ? f[0].time : null; }
   var e = {};
   var c0 = cr(-0.833), c6 = cr(-6), c12 = cr(-12), c18 = cr(-18), cg = cr(6), cb = cr(-4);
@@ -7964,7 +8002,7 @@ function _sunEvents(d){
   e.blue4R  = pick(cb,true);  e.blue4S = pick(cb,false);
   // 南中と、一日の最低高度（白夜・極夜の判定に使う）
   var hi = null, lo = null;
-  for (var i = 0; i <= 1440; i++) {
+  for (var i = 0; i <= dayMin; i++) {
     var t2 = new Date(s0.getTime() + i * 60000), a = SUNCALC.sunPosition(t2, lat, lon).altitude;
     if (!hi || a > hi.a) hi = { a:a, t:t2 };
     if (!lo || a < lo.a) lo = { a:a, t:t2 };
@@ -7974,10 +8012,10 @@ function _sunEvents(d){
   e.dayLen = (e.sunrise && e.sunset) ? Math.abs(e.sunset - e.sunrise) : null;
   // 出も入りも無い日
   e.polar = (!e.sunrise && !e.sunset) ? (hi.a > -0.833 ? 'midnightSun' : 'polarNight') : null;
-  if (e.polar === 'midnightSun') e.dayLen = 86400000;
+  if (e.polar === 'midnightSun') e.dayLen = dayMin * 60000;
   if (e.polar === 'polarNight')  e.dayLen = 0;
   // 月
-  var mc = SUNCALC.crossings(s0, 24, lat, lon, 0, SUNCALC.moonPosition);
+  var mc = SUNCALC.crossings(s0, dayMin/60, lat, lon, 0, SUNCALC.moonPosition);
   e.moonrise = pick(mc,true); e.moonset = pick(mc,false);
   var mi = SUNCALC.moonIllumination(new Date(s0.getTime() + 12 * 3600000));
   e.moonFrac = mi.fraction; e.moonPhase = mi.phase;
@@ -8033,9 +8071,43 @@ function _sunTzOptions(){
   }).join('');
 }
 
-/** いま選んでいる時刻の HH:MM */
+/**
+ * いま選んでいる時刻の HH:MM。
+ * スライダーが持っているのは「その日の 0:00 からの経過分」で、
+ * 夏時間の切り替わり日は壁時計と 1 時間ずれる（25時間の日は 24:59 になってしまう）。
+ * 実際の時刻に直して出す。
+ */
 function _sunHHMM(){
-  return String(Math.floor(_SUN.hhmm/60)).padStart(2,'0') + ':' + String(_SUN.hhmm%60).padStart(2,'0');
+  return _sunFmt(new Date(_sunDayStart().getTime() + _SUN.hhmm * 60000));
+}
+
+/**
+ * 夏時間の段差。
+ * at = 段差が起きる経過分、delta = 壁時計に足す分（春は+60、秋は-60）。
+ * 段差が無い日は at = -1。カメラ側にも同じ形で渡している。
+ */
+function _sunDstStep(){
+  var s0 = _sunDayStart(), len = _sunDayMin();
+  if (len === 1440) return { at:-1, delta:0 };
+  var o0 = _sunOffsetAt(s0);
+  for (var m = 1; m <= len; m++) {
+    var t = new Date(s0.getTime() + m * 60000);
+    if (_sunOffsetAt(t) !== o0) return { at:m, delta:(1440 - len) };
+  }
+  return { at:-1, delta:0 };
+}
+
+/** 壁時計の HH:MM を、その日の経過分に直す。同じ時刻が二度あるときは先のほう */
+function _sunMinFromWall(hh, mm){
+  var want = hh * 60 + mm, s0 = _sunDayStart(), len = _sunDayMin();
+  if (len === 1440) return Math.max(0, Math.min(1439, want));   // ふつうの日は同じ
+  for (var m = 0; m < len; m++) {
+    var t = new Date(s0.getTime() + m * 60000);
+    var w = Math.floor((t.getTime() + _sunOffsetAt(t) * 60000) / 60000) % 1440;
+    if (w < 0) w += 1440;
+    if (w === want) return m;
+  }
+  return Math.max(0, Math.min(len - 1, want));
 }
 
 /** 1分ずつ動かすボタン */
@@ -8111,6 +8183,9 @@ function _sunPaintTime(){
 
 function _sunRender(){
   var b = document.getElementById('_sun_body'); if (!b) return;
+  // 夏時間の切り替わりで一日の長さが変わると、選んでいた時刻がはみ出すことがある
+  var _lim = _sunDayMin() - 1;
+  if (_SUN.hhmm > _lim) _SUN.hhmm = _lim;
   var e = _sunEvents(), d = _SUN.date, isMoon = (_SUN.body === 'moon');
   var s0 = _sunDayStart();
   var tsel = new Date(s0.getTime() + _SUN.hhmm * 60000);
@@ -8166,7 +8241,7 @@ function _sunRender(){
       '<input type="time" id="_sun_hhmm" value="' + _sunHHMM() + '" onchange="_sunTimeStr(this.value)" ' +
         'style="width:96px;padding:5px 6px;border:1px solid #cfd8e3;border-radius:8px;font-family:monospace;font-size:13px;font-weight:900;text-align:center;">' +
       _sunStepBtn(1, '›') +
-      '<input type="range" id="_sun_rng" min="0" max="1439" step="1" value="' + _SUN.hhmm + '" oninput="_sunTime(this.value)" style="flex:1;min-width:0;accent-color:' + (isMoon ? '#546e7a' : '#f9a825') + ';">' +
+      '<input type="range" id="_sun_rng" min="0" max="' + (_sunDayMin()-1) + '" step="1" value="' + _SUN.hhmm + '" oninput="_sunTime(this.value)" style="flex:1;min-width:0;accent-color:' + (isMoon ? '#546e7a' : '#f9a825') + ';">' +
     '</div>' +
     '<div style="font-size:9px;color:#aaa;font-weight:700;margin-top:3px;">' + t('sunStepHint') + '</div>' +
     _sunARBtnHTML() +
@@ -8358,14 +8433,14 @@ window._sunSet    = function(k,v){ var n = parseFloat(v); if (!isFinite(n)) retu
   _SUN[k] = n; _sunLocDone();
   if (_sunAutoTz()) showToast(t('sunTzAuto').replace('{z}', _sunTz()));
   _sunRender(); };
-window._sunTime   = function(v){ _SUN.hhmm = Math.max(0, Math.min(1439, parseInt(v)||0)); _sunPaintTime(); };
-window._sunStep   = function(n){ _SUN.hhmm = ((_SUN.hhmm + n) % 1440 + 1440) % 1440; _sunPaintTime(); };
+window._sunTime   = function(v){ _SUN.hhmm = Math.max(0, Math.min(_sunDayMin()-1, parseInt(v)||0)); _sunPaintTime(); };
+window._sunStep   = function(n){ var L = _sunDayMin(); _SUN.hhmm = ((_SUN.hhmm + n) % L + L) % L; _sunPaintTime(); };
 window._sunTimeStr = function(v){
   var p = (v || '').split(':');
   if (p.length < 2) return;
-  var m = (parseInt(p[0],10) || 0) * 60 + (parseInt(p[1],10) || 0);
-  if (!isFinite(m)) return;
-  _SUN.hhmm = Math.max(0, Math.min(1439, m));
+  var hh = parseInt(p[0],10), mm = parseInt(p[1],10);
+  if (!isFinite(hh) || !isFinite(mm)) return;
+  _SUN.hhmm = _sunMinFromWall(hh, mm);
   _sunPaintTime();
 };
 window._sunBody   = function(k){ _SUN.body = (k === 'moon') ? 'moon' : 'sun'; _sunRender(); };
@@ -8579,8 +8654,8 @@ function _sunARProbe(cb) {
  * 10分あれば太陽は 2.5° しか動かず、間を直線で結んでも 0.1° と違わない。
  */
 function _sunARPayload() {
-  var s0 = _sunDayStart(), sun = [], moon = [], m, tt, q;
-  for (m = 0; m <= 1440; m += 10) {
+  var s0 = _sunDayStart(), dayMin = _sunDayMin(), sun = [], moon = [], m, tt, q;
+  for (m = 0; m <= dayMin; m += 10) {
     tt = new Date(s0.getTime() + m * 60000);
     q = SUNCALC.sunPosition(tt, _SUN.lat, _SUN.lon);
     // 実景に重ねるので、目に見える位置＝大気差を入れた高度を渡す。
@@ -8593,7 +8668,7 @@ function _sunARPayload() {
   function add(dt, label, color, fn) {
     if (!dt) return;
     var mm = Math.round((dt - s0) / 60000);
-    if (mm < 0 || mm > 1440) return;
+    if (mm < 0 || mm > dayMin) return;
     var p = (fn || SUNCALC.sunPosition)(dt, _SUN.lat, _SUN.lon);
     marks.push({ min:mm, az:p.azimuth, alt:p.altitude, label:label, color:color });
   }
@@ -8608,6 +8683,7 @@ function _sunARPayload() {
   add(e.moonset,  '🌙 ' + t('sunMoonset')  + ' ' + _sunFmt(e.moonset),  '#b0bec5', SUNCALC.moonPosition);
 
   var d = _SUN.date;
+  var dstStep = _sunDstStep();
   var liveNow = (function(){
     var now = new Date(), l = new Date(now.getTime() + _sunOffsetAt(now) * 60000);
     if (l.getUTCFullYear() !== d.y || l.getUTCMonth()+1 !== d.m || l.getUTCDate() !== d.d) return -1;
@@ -8622,6 +8698,8 @@ function _sunARPayload() {
     // その土地の壁時計でいま何時何分か。実際の空と見比べるときはここに合わせる。
     // 選んでいる日が今日でなければ渡さない（別の日の「いま」は意味がない）
     liveMin: liveNow,
+    // 夏時間の段差。カメラ側の時刻表示をこれで壁時計に直す
+    dstAt: dstStep.at, dstDelta: dstStep.delta,
     // 場所を自分で決めたか。既定のままならカメラ側でも赤く出す
     locSet: !!_SUN.locSet,
     str: _sunARStrings(),
@@ -24132,7 +24210,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.166';
+var ver = 'v1.1.8.167';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
