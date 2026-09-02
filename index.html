@@ -12091,6 +12091,7 @@ window.addEventListener('DOMContentLoaded', function() {
   try { if (!_passOK()) { _passScreen(); return; } } catch(e) {}
   try { if (_betaExpired()) { _betaLockScreen(); return; } } catch(e) {}
   try { renderNavBar(); } catch(e) { console.error('renderNavBar', e); }
+  try { _calmDeviceProbe(); } catch(e) {}
   try { syncHeaderHeight(); setTimeout(syncHeaderHeight, 200); } catch(e) {}
   try { loadCalcState(); } catch(e) {}
   try { applyTheme(S.maker); } catch(e) { console.error('applyTheme', e); }
@@ -12763,11 +12764,54 @@ function buildCamInfoHtml() {
 }
 
 // ── Feedback page ─────────────────────────────────────────
+/**
+ * ネイティブから端末の素性を取る。
+ *
+ * UserAgent の OS の版は当てにならない。iOS 26 から Apple が `18_7` に
+ * 固定したので、どの端末でも「iOS 18.7」と読めてしまう（macOS が 10_15_7 で
+ * 止まっているのと同じ扱い）。機種も UserAgent では "iPhone" までしか出ない。
+ * アプリのときはネイティブ側の本当の値を使う。
+ */
+var _calmDev = null;          // 取れたら {systemName, systemVersion, identifier, ...}
+function _calmDevicePlugin() {
+  try {
+    if (!_calmIsNative()) return null;
+    var C = window.Capacitor;
+    if (!C) return null;
+    if (C.Plugins && C.Plugins.CalmDevice) return C.Plugins.CalmDevice;
+    if (typeof C.nativePromise !== 'function') return null;
+    return { info: function(){ return C.nativePromise('CalmDevicePlugin', 'info', {}); } };
+  } catch(e) { return null; }
+}
+function _calmDeviceProbe() {
+  var p = _calmDevicePlugin();
+  if (!p) return;
+  p.info().then(function(r) {
+    if (!r || !r.systemVersion) return;
+    _calmDev = r;
+    // 表示中なら書き直す
+    try { fbRenderDevInfo(); } catch(e) {}
+  }).catch(function(){});
+}
+
 function fbGetDeviceInfo() {
   var ua  = navigator.userAgent || '';
   var lang = (navigator.language || 'unknown').toUpperCase();
+
+  if (_calmDev) {
+    return {
+      ver: ver,
+      os: (_calmDev.systemName || 'iOS') + ' ' + _calmDev.systemVersion,
+      model: _calmDev.identifier || _calmDev.model || 'unknown',
+      lang: lang
+    };
+  }
+
   var ios = ua.match(/OS (\d+[_\d]*)/);
   var iosVer = ios ? 'iOS ' + ios[1].replace(/_/g,'.') : (ua.match(/Android/) ? 'Android' : navigator.platform || 'unknown');
+  // 18.7 は iOS 26 以降が名乗る固定値。そのまま出すと実際の版と取り違える
+  if (iosVer === 'iOS 18.7') iosVer = 'iOS 18.7+ (UserAgent — 26 以降の可能性あり)';
+  else if (ios) iosVer += ' (UserAgent)';
   var model = ua.match(/\(([^)]+)\)/);
   var modelStr = model ? model[1].split(';')[0].trim() : 'unknown';
   return {ver:ver, os:iosVer, model:modelStr, lang:lang};
@@ -24257,7 +24301,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.172';
+var ver = 'v1.1.8.173';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
