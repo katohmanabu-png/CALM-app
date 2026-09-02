@@ -3107,12 +3107,30 @@ var LIGHTS = {
     electrostorm_cs15: {
       url:'https://www.aputure.com/products/electro-storm-cs15/',
       group:'LED COB', name:'ElectroStorm CS15', desc:'2200W IP65 Full Color LED', emoji:'💡', watts:2200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
-      weight:'18 kg', size:'457×352×281 mm', ccts:[2000,3200,5600,10000],
-      accessories:['none'],
-      dmx:{led:'RGBWW',power:'2200W',cct:'2000K–10000K + Full RGBWW',cri:'≤96',ip:'IP65',control:'On-board / App / DMX / CRMX',dimming:'0%–100%',effects:['Flash','Pulse','Storm','TV','Fire']},
+      // 重量は灯体のみ。ヨーク 3.2kg・電源ボックス 19kg を足すと一式 40.2kg
+      weight:'18 kg', size:'457×352×281 mm', ccts:[2000,3200,4300,5600,10000],
+      accessories:['none','refl50','refl35','refl20'],
+      // 素の状態のビーム角はメーカー公称 62°。リフレクターは 20°/35°/50°（35°が付属）
+      accAngles:{none:62},
+      dmx:{led:'RGBWW',power:'2200W (出力 1585W)',cct:'2000K–10000K + Full RGBWW',cri:'98',tlci:'98',tm30:'Rf 93 / Rg 101',cqs:'97',ssi:'Tungsten 90 / D56 86',ip:'IP65',control:'On-board / App / DMX / CRMX',dimming:'0%–100%',effects:['Flash','Pulse','Storm','TV','Fire']},
       dmxUrl:'https://docs.aputure.com/hubfs/Knowledge%20Base/Aputure/Electro%20Storm%20CS15/Electro%20Storm%20CS15%20DMX%20Profile%20Specification%20V1.0.pdf',
       dmxVer:'v1.0',
-      refData:{3200:{2:{none:12000},5:{none:4320},8:{none:1688}},5600:{2:{none:13000},5:{none:4680},8:{none:1828}}}
+      // Aputure 公式の製品ページの配光表より（3m / 5m、リフレクター無し・50°・35°・20°）。
+      // 全セルで lux÷10.7639 が併記の fc と一致することを確認して転記した。
+      // 以前入っていた値（3200K 2m=12000 / 5m=4320 など）は公式と合わず、
+      // しかも自分の 2m から逆二乗した 5m とも合っていなかった（2080 のはずが 4320）。
+      refData:{
+        2000:{ 3:{none:1818, refl50:5310,  refl35:10340, refl20:30100},
+               5:{none:712,  refl50:2034,  refl35:3710,  refl20:10450} },
+        3200:{ 3:{none:5040, refl50:15210, refl35:28880, refl20:85400},
+               5:{none:1827, refl50:5760,  refl35:10610, refl20:30100} },
+        4300:{ 3:{none:5210, refl50:15980, refl35:31110, refl20:91800},
+               5:{none:2056, refl50:6120,  refl35:11080, refl20:31600} },
+        5600:{ 3:{none:5540, refl50:16740, refl35:32600, refl20:94500},
+               5:{none:2143, refl50:6420,  refl35:11650, refl20:33100} },
+        10000:{3:{none:4870, refl50:14420, refl35:27500, refl20:82400},
+               5:{none:1911, refl50:5530,  refl35:10050, refl20:28600} }
+      }
     },
     storm_cs32: {
       url:'https://www.aputure.com/products/storm-cs32/',
@@ -24342,7 +24360,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.174';
+var ver = 'v1.1.8.175';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
