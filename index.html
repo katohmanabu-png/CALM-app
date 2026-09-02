@@ -2174,7 +2174,7 @@ var LANGS = {
     cmLblHeight:'高さ', cmLblHoriz:'水平距離', cmLblDist:'実距離',
     cmLblUseHeight:'Heightに反映', cmLblUseHoriz:'Horizに反映', cmLblUseDist:'Distanceに反映',
     cmInfoNote:'LiDAR搭載機種はLiDAR優先。非対応機種は推定値。',
-    fbTypeLabel:'フィードバック種別', fbTitleLabel:'タイトル', fbDescLabel:'詳細内容',
+    fbContactLabel:'返信先', fbContactOpt:'（任意）', fbContactHint:'返信が必要な場合のみ、メールアドレスなどをご記入ください。返信にだけ使い、ほかの用途には使いません。空欄でも送信できます。', fbContactPh:'メールアドレスなど（任意）', fbTypeLabel:'フィードバック種別', fbTitleLabel:'タイトル', fbDescLabel:'詳細内容',
     fbAttachLabel:'添付ファイル', fbAttachHint:'タップしてファイルを添付', fbAttachFmt:'PDF · CSV · PNG · JPG · ZIP',
     fbShotLabel:'スクリーンショット', fbShotHint:'スクリーンショットや写真を添付',
     fbDevLabel:'デバイス情報', fbDevAuto:'(自動取得)',
@@ -2270,7 +2270,7 @@ var LANGS = {
     cmLblHeight:'Height', cmLblHoriz:'Horiz', cmLblDist:'Distance',
     cmLblUseHeight:'Use as Height', cmLblUseHoriz:'Use as Horiz', cmLblUseDist:'Use as Distance',
     cmInfoNote:'LiDAR-equipped: LiDAR priority. Others: estimation.',
-    fbTypeLabel:'Feedback Type', fbTitleLabel:'Title', fbDescLabel:'Description',
+    fbContactLabel:'Where to reply', fbContactOpt:'(optional)', fbContactHint:'Only if you would like a reply. Used for that and nothing else. You can leave it blank.', fbContactPh:'email address (optional)', fbTypeLabel:'Feedback Type', fbTitleLabel:'Title', fbDescLabel:'Description',
     fbAttachLabel:'Attachments', fbAttachHint:'Tap to attach files', fbAttachFmt:'PDF · CSV · PNG · JPG · ZIP',
     fbShotLabel:'Screenshot', fbShotHint:'Attach screenshot or photo',
     fbDevLabel:'Device Information', fbDevAuto:'(auto)',
@@ -2372,7 +2372,7 @@ var LANGS = {
     cmLblHeight:'Altura', cmLblHoriz:'Horiz.', cmLblDist:'Distancia',
     cmLblUseHeight:'Usar Altura', cmLblUseHoriz:'Usar Horiz.', cmLblUseDist:'Usar Distancia',
     cmInfoNote:'LiDAR disponible: prioridad LiDAR. Otros: estimacion.',
-    fbTypeLabel:'Tipo de Comentario', fbTitleLabel:'Título', fbDescLabel:'Descripción',
+    fbContactLabel:'D\u00f3nde responder', fbContactOpt:'(opcional)', fbContactHint:'Solo si quieres una respuesta. Se usa para eso y nada m\u00e1s. Puedes dejarlo en blanco.', fbContactPh:'correo electr\u00f3nico (opcional)', fbTypeLabel:'Tipo de Comentario', fbTitleLabel:'Título', fbDescLabel:'Descripción',
     fbAttachLabel:'Adjuntos', fbAttachHint:'Toca para adjuntar archivos', fbAttachFmt:'PDF · CSV · PNG · JPG · ZIP',
     fbShotLabel:'Captura de Pantalla', fbShotHint:'Adjuntar captura o foto',
     fbDevLabel:'Información del Dispositivo', fbDevAuto:'(auto)',
@@ -2533,6 +2533,8 @@ function applyI18n() {
   s('drawer-lbl-mired','mrdTitle');
   s('drawer-lbl-ar','cmARHdr');
   s('lbl-fb-shot-note','fbShotNote');
+  s('lbl-fb-contact','fbContactLabel'); s('lbl-fb-contact-opt','fbContactOpt');
+  s('lbl-fb-contact-note','fbContactHint'); sp('fb-contact','fbContactPh');
   s('lbl-acc','accTitle'); s('lbl-cct','cctTitle'); s('lbl-dist','distTitle');
   s('lbl-direct','directInput'); s('lbl-manual','manualInput');
   s('lbl-direct-iso','directInput');
@@ -12287,7 +12289,8 @@ var PRIVACY_POLICY = {
     '<h4>2. 端末内に保存されるデータ</h4>' +
     '<p>設定・お気に入り・図面（Draft）・プロジェクト・言語などの利用データは、すべてお使いの端末内（ブラウザのローカルストレージ）にのみ保存されます。これらのデータが外部サーバーに送信されることはなく、開発者や第三者が閲覧することはできません。</p>' +
     '<h4>3. フィードバック送信（任意）</h4>' +
-    '<p>メニューの「Feedback」から意見を送信した場合に限り、入力した内容と、動作環境の情報（アプリのバージョン・OS・端末モデル・言語）が、不具合対応の目的で開発者に送信されます。氏名や連絡先などの個人情報は入力しないようお願いします。</p>' +
+    '<p>メニューの「Feedback」から意見を送信した場合に限り、入力した内容と、動作環境の情報（アプリのバージョン・OS・端末モデル・言語）が、不具合対応の目的で開発者に送信されます。</p>' +
+    '<p>返信をご希望の場合のみ、「返信先」の欄にメールアドレスなどをご記入いただけます。任意の項目で、空欄でも送信できます。ご記入いただいた連絡先は返信のためだけに使い、ほかの目的に使うことも、第三者に渡すこともありません。それ以外の個人情報は入力しないようお願いします。</p>' +
     '<h4>4. 位置情報</h4>' +
     '<p>SUN SCOUT で「現在地」を押したときにのみ、端末の位置情報（緯度・経度）を取得します。その日の太陽と月の位置を計算するためと、カメラに重ねて表示するときに真北を求めるために使います。位置情報は端末内でのみ使用し、外部に送信・保存されることはありません。位置情報を使わずに、緯度・経度を手で入力して使うこともできます。</p>' +
     '<h4>5. カメラ</h4>' +
@@ -12320,7 +12323,8 @@ var PRIVACY_POLICY = {
     '<h4>2. Data Stored on Your Device</h4>' +
     '<p>Your settings, favorites, drafts, projects, and language are stored only on your device (browser local storage). This data is never transmitted to any server and cannot be viewed by the developer or third parties.</p>' +
     '<h4>3. Feedback (optional)</h4>' +
-    '<p>Only if you submit the in-app "Feedback" form, the message you write together with technical details (app version, OS, device model, language) is sent to the developer to diagnose issues. Please do not include personal information in feedback.</p>' +
+    '<p>Only if you submit the in-app "Feedback" form, the message you write together with technical details (app version, OS, device model, language) is sent to the developer to diagnose issues.</p>' +
+    '<p>If you would like a reply, there is an optional "Where to reply" field for an email address. It can be left blank. Anything you put there is used only to reply to you; it is not used for anything else and is not passed to anyone. Please do not include other personal information.</p>' +
     '<h4>4. Location</h4>' +
     '<p>Your coordinates are read only when you tap \u201cHere\u201d in SUN SCOUT. They are used to work out the sun and moon positions for that place, and to establish true north when the paths are laid over the camera view. Your location is used on the device only; it is never transmitted or stored elsewhere. You can also type coordinates in by hand and never use location at all.</p>' +
     '<h4>5. Camera</h4>' +
@@ -12353,7 +12357,8 @@ var PRIVACY_POLICY = {
     '<h4>2. Datos almacenados en tu dispositivo</h4>' +
     '<p>Tus ajustes, favoritos, planos (Draft), proyectos e idioma se guardan solo en tu dispositivo (almacenamiento local del navegador). Estos datos nunca se envían a ningún servidor ni pueden ser vistos por el desarrollador o terceros.</p>' +
     '<h4>3. Comentarios (opcional)</h4>' +
-    '<p>Solo si envías el formulario «Feedback», el mensaje que escribes junto con datos técnicos (versión de la app, SO, modelo de dispositivo, idioma) se envía al desarrollador para diagnosticar problemas. No incluyas información personal en los comentarios.</p>' +
+    '<p>Solo si envías el formulario «Feedback», el mensaje que escribes junto con datos técnicos (versión de la app, SO, modelo de dispositivo, idioma) se envía al desarrollador para diagnosticar problemas.</p>' +
+    '<p>Si quieres una respuesta, hay un campo opcional «Dónde responder» para un correo electrónico. Puede dejarse en blanco. Lo que escribas ahí se usa solo para responderte; no se usa para nada más ni se cede a terceros. No incluyas otra información personal.</p>' +
     '<h4>4. Ubicaci\u00f3n</h4>' +
     '<p>Tus coordenadas se leen \u00fanicamente cuando pulsas \u201cAqu\u00ed\u201d en SUN SCOUT. Se usan para calcular la posici\u00f3n del sol y de la luna en ese lugar, y para determinar el norte verdadero al superponer las trayectorias sobre la c\u00e1mara. La ubicaci\u00f3n se usa solo en el dispositivo; nunca se transmite ni se guarda en otro sitio. Tambi\u00e9n puedes escribir las coordenadas a mano y no usar la ubicaci\u00f3n.</p>' +
     '<h4>5. C\u00e1mara</h4>' +
@@ -12848,6 +12853,8 @@ function fbSubmit() {
   var typeLabel = typeEl.options[typeEl.selectedIndex].text.replace(/^[^\w]+/,'').trim();
   var titleStr  = titleEl.value.trim();
   var descStr   = descEl.value.trim();
+  var contactEl = document.getElementById('fb-contact');
+  var contactStr = contactEl ? contactEl.value.trim().slice(0, 120) : '';
   var d = fbGetDeviceInfo();
   var now = new Date();
   var submitted = now.toISOString().replace('T',' ').slice(0,19) + ' UTC';
@@ -12856,6 +12863,7 @@ function fbSubmit() {
   var issueBody =
     '## Feedback Type\n' + typeLabel + '\n\n' +
     '## Description\n' + (descStr || '*(none)*') + '\n\n' +
+    (contactStr ? '## Contact\n' + contactStr + '\n\n' : '') +
     '---\n' +
     '| Field | Value |\n' +
     '|---|---|\n' +
@@ -24249,7 +24257,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.171';
+var ver = 'v1.1.8.172';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -24558,6 +24566,13 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
           accept=".pdf,.csv,.png,.jpg,.jpeg,.zip,image/png,image/jpeg,application/pdf,text/csv,application/zip"
           style="display:none;" onchange="fbUpdateFiles()">
         <div class="fb-file-names" id="fb-file-names"></div>
+      </div>
+
+      <!-- 返信先（任意）。無ければこちらから返す手立てが無い -->
+      <div class="fb-section">
+        <div class="fb-label"><span id="lbl-fb-contact">Contact</span> <span id="lbl-fb-contact-opt" style="font-size:10.5px;opacity:0.6;">(optional)</span></div>
+        <input class="fb-input" type="text" id="fb-contact" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="">
+        <div class="fb-file-text" id="lbl-fb-contact-note" style="font-size:11px;opacity:0.75;line-height:1.5;padding:6px 0;"></div>
       </div>
 
       <!-- Screenshot -->
