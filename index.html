@@ -3033,9 +3033,10 @@ var LIGHTS = {
     electrostorm_xt26: {
       url:'https://www.aputure.com/products/electro-storm-xt26/',
       group:'LED COB', name:'ElectroStorm XT26', desc:'2600W IP65 Bi-Color LED Point Source', emoji:'💡', watts:3500, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
-      // 重量は灯体のみ（公称 18kg）。以前 15.2kg が入っていたが公称と合わない。
-      // ヨーク 3.2kg・電源ボックス 20.5kg を足すと一式 41.7kg
-      weight:'18 kg', size:'457×352×281 mm', ccts:[2700,3200,4300,5600,6500],
+      // 重量は灯体＋ヨーク（18 + 3.2）。以前 15.2kg が入っていたが公称と合わない。
+      // 電源ボックスは別体なので weightExtra に分ける
+      weight:'21.2 kg', weightExtra:'電源ボックス 20.5 kg', size:'457×352×281 mm',
+      ccts:[2700,3200,4300,5600,6500],
       accessories:['flood','refl50','refl35','refl20','fresnel18','fresnel50','spot50','spot36','spot19'],
       // リフレクター無しの公称ビーム角は 62°。ACC_INFO の flood は汎用の 55° なので上書きする
       accAngles:{flood:62},
@@ -3084,19 +3085,21 @@ var LIGHTS = {
         // 以下の F14 フレネル（18°/50°）と Spotlight（50°/36°/19°）は、
         // 上と同じ出所（古い版）と思われる。Aputure は F14 の配光をグラフの画像でしか
         // 出しておらず、数値の裏が取れていない。公式の数値が手に入り次第差し替える。
+        // F14 モーターフレネル（18°/50°）。Aputure の F14 ワンシート（2023-11-15a）より。
+        // 以前の値は本体の表と同じ古い版と思われ、公称の 3m/5m と合わなかった
         'fresnel18':{
-          2700:{2:103500, 3:52100, 5:20450, 7:10660},
-          3200:{2:124300, 3:62900, 5:24720, 7:12900},
-          4300:{2:150800, 3:75900, 5:29630, 7:15480},
-          5600:{2:167800, 3:84400, 5:33000, 7:17250},
-          6500:{2:155400, 3:78000, 5:30500, 7:15960}
+          2700:{3:52600, 5:20600},
+          3200:{3:66100, 5:25910},
+          4300:{3:88200, 5:34600},
+          5600:{3:93700, 5:36800},
+          6500:{3:80500, 5:31700}
         },
         'fresnel50':{
-          2700:{2:24840, 3:12520, 5:5080, 7:2750},
-          3200:{2:29800, 3:15130, 5:6160, 7:3340},
-          4300:{2:36300, 3:18280, 5:7440, 7:4020},
-          5600:{2:40600, 3:20460, 5:8330, 7:4500},
-          6500:{2:37800, 3:18950, 5:7720, 7:4180}
+          2700:{3:12620, 5:5210},
+          3200:{3:15680, 5:6510},
+          4300:{3:20980, 5:8690},
+          5600:{3:22440, 5:9300},
+          6500:{3:19420, 5:8030}
         },
         'spot50':{
           2700:{2:5520, 3:2630, 5:1030, 7:467},
@@ -3124,10 +3127,12 @@ var LIGHTS = {
     electrostorm_cs15: {
       url:'https://www.aputure.com/products/electro-storm-cs15/',
       group:'LED COB', name:'ElectroStorm CS15', desc:'2200W IP65 Full Color LED', emoji:'💡', watts:2200, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
-      // 重量は灯体のみ。ヨーク 3.2kg・電源ボックス 19kg を足すと一式 40.2kg
-      weight:'18 kg', size:'457×352×281 mm', ccts:[2000,3200,4300,5600,10000],
-      accessories:['none','refl50','refl35','refl20'],
-      // 素の状態のビーム角はメーカー公称 62°。リフレクターは 20°/35°/50°（35°が付属）
+      // 重量は灯体＋ヨーク（18 + 3.2）。電源ボックスは別体なので weightExtra に分ける
+      weight:'21.2 kg', weightExtra:'電源ボックス 19 kg', size:'457×352×281 mm',
+      ccts:[2000,3200,4300,5600,10000],
+      accessories:['none','refl50','refl35','refl20','fresnel18','fresnel50'],
+      // 素の状態のビーム角はメーカー公称 62°。リフレクターは 20°/35°/50°（35°が付属）。
+      // F14 モーターフレネルは 18°〜50° の可変
       accAngles:{none:62},
       dmx:{led:'RGBWW',power:'2200W (出力 1585W)',cct:'2000K–10000K + Full RGBWW',cri:'98',tlci:'98',tm30:'Rf 93 / Rg 101',cqs:'97',ssi:'Tungsten 90 / D56 86',ip:'IP65',control:'On-board / App / DMX / CRMX',dimming:'0%–100%',effects:['Flash','Pulse','Storm','TV','Fire']},
       dmxUrl:'https://docs.aputure.com/hubfs/Knowledge%20Base/Aputure/Electro%20Storm%20CS15/Electro%20Storm%20CS15%20DMX%20Profile%20Specification%20V1.0.pdf',
@@ -3139,14 +3144,20 @@ var LIGHTS = {
       refData:{
         2000:{ 3:{none:1818, refl50:5310,  refl35:10340, refl20:30100},
                5:{none:712,  refl50:2034,  refl35:3710,  refl20:10450} },
-        3200:{ 3:{none:5040, refl50:15210, refl35:28880, refl20:85400},
-               5:{none:1827, refl50:5760,  refl35:10610, refl20:30100} },
-        4300:{ 3:{none:5210, refl50:15980, refl35:31110, refl20:91800},
-               5:{none:2056, refl50:6120,  refl35:11080, refl20:31600} },
-        5600:{ 3:{none:5540, refl50:16740, refl35:32600, refl20:94500},
-               5:{none:2143, refl50:6420,  refl35:11650, refl20:33100} },
+        3200:{ 3:{none:5040, refl50:15210, refl35:28880, refl20:85400, fresnel18:40200, fresnel50:10100},
+               5:{none:1827, refl50:5760,  refl35:10610, refl20:30100, fresnel18:16270, fresnel50:4200} },
+        4300:{ 3:{none:5210, refl50:15980, refl35:31110, refl20:91800, fresnel18:42200, fresnel50:10380},
+               5:{none:2056, refl50:6120,  refl35:11080, refl20:31600, fresnel18:17060, fresnel50:4310} },
+        5600:{ 3:{none:5540, refl50:16740, refl35:32600, refl20:94500, fresnel18:43800, fresnel50:10590},
+               5:{none:2143, refl50:6420,  refl35:11650, refl20:33100, fresnel18:17750, fresnel50:4410} },
         10000:{3:{none:4870, refl50:14420, refl35:27500, refl20:82400},
-               5:{none:1911, refl50:5530,  refl35:10050, refl20:28600} }
+               5:{none:1911, refl50:5530,  refl35:10050, refl20:28600} },
+        // F14 モーターフレネル（18°/50°）。Aputure の F14 ワンシート（2023-11-15a）より。
+        // このシートは 2700K と 6500K で測っており、本体の表（2000/4300/10000K）とは
+        // 測定点が違う。色温度を丸めるときは「そのアクセサリの測定がある色温度」から
+        // 選ぶ作りなので、フレネルだけを持つ色温度として足しておけば正しく引ける。
+        2700:{ 3:{fresnel18:34900, fresnel50:8870}, 5:{fresnel18:14150, fresnel50:3680} },
+        6500:{ 3:{fresnel18:45100, fresnel50:10850}, 5:{fresnel18:18270, fresnel50:4500} }
       }
     },
     storm_cs32: {
@@ -9491,8 +9502,10 @@ function updatePreview() {
     setText('light-sil', light.emoji);
   }
   var badges = [];
-  if (light.weight) badges.push('⚖️ ' + light.weight);
-  if (light.size)   badges.push('📐 ' + light.size);
+  // weight は灯体＋ヨーク。別体の電源ボックス等は weightExtra に分けて出す
+  if (light.weight)      badges.push('⚖️ ' + light.weight);
+  if (light.weightExtra) badges.push('🔌 ' + light.weightExtra);
+  if (light.size)        badges.push('📐 ' + light.size);
   setHTML('prev-badges', badges.map(function(b){ return '<div class="spec-badge">'+b+'</div>'; }).join(''));
 }
 
@@ -10897,6 +10910,12 @@ function renderDMX() {
     ['CRI', d.cri], ['TLCI', d.tlci],
     [t('dmxDimming'), d.dimming], [t('dmxIP'), d.ip]
   ];
+  // 決め打ちの6項目しか出していなかったため、入れた公称値が表に出ていなかった。
+  // 持っている機種にだけ足す
+  if (d.tm30) items.push(['TM-30', d.tm30]);
+  if (d.cqs)  items.push(['CQS', d.cqs]);
+  if (d.ssi)  items.push(['SSI', d.ssi]);
+  if (light.weightExtra) items.push([t('cmpWeight') + '（別体）', light.weightExtra]);
   var html = items.map(function(i){
     return '<div class="dmx-item"><div class="dmx-lbl">'+i[0]+'</div><div class="dmx-val">'+(i[1]||'-')+'</div></div>';
   }).join('');
@@ -11967,7 +11986,11 @@ function _cmpRenderRows() {
           return _cmpKg(mi.weight) + (mi.weightUnknown ? ' ' + t('cmpWeightPartial') : '');
         }
         var w = _cmpWeightKg(l);
-        return w != null ? _cmpKg(w) : '—'; } },
+        if (w == null) return '—';
+        // 別体の電源ボックスがある機種は、その分も見えるようにする
+        return _cmpKg(w) + (l.weightExtra
+          ? '<div style="font-size:9.5px;font-weight:700;color:var(--text-dim,#888);">＋' + l.weightExtra + '</div>'
+          : ''); } },
     { label: t('cmpCCT'), val: function(l,i){ return l ? (ccts[i] + 'K') : '—'; } },
     { label: t('cmpCRI'), val: function(l){
         if (l && l.__mix) return t('cmpMixed');
@@ -24377,7 +24400,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.176';
+var ver = 'v1.1.8.177';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
