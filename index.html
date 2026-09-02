@@ -9594,6 +9594,33 @@ function selectAcc(k) {
   renderAccessories(); renderBeamSlider(); calculate();
 }
 
+/**
+ * その機種・そのアクセサリで、ビーム角のスライダーを出していいか。
+ *
+ * Calc と Compare が別々に判定していた。Calc は「フレネルを選んでいる」
+ * 「spot と flood の両方を持つ」「spot と flat」「HMI」「SunPAR」のときだけ
+ * 出すのに対し、Compare は「アクセサリの角度が2つ以上あって幅が3°以上」で
+ * 出していた。条件がゆるいぶん、Compare では
+ *   ・アクセサリの選択欄がスライダーに置き換わって選べない
+ *   ・実在しないアクセサリの中間角度（42°など）が出る
+ *   ・広い側の端が素の状態の120°になり、実際の最広アクセサリと合わない
+ * という食い違いが出ていた。判定はここだけに置き、両方から呼ぶ。
+ */
+function beamSliderApplies(light, accKey) {
+  if (!light) return false;
+  var accs = light.accessories || [];
+  // SunPAR はレンズごとに固定角度。範囲が無くてもこの欄を使う
+  if (accs.indexOf('sun_blue') >= 0) return true;
+  var ba = getBeamAngles(light);
+  if (!ba) return false;
+  var ai = ACC_INFO[accKey];
+  if (ai && typeof ai.beam === 'string' && ai.beam.indexOf('Fresnel') >= 0) return true;
+  if (accs.indexOf('spot') >= 0 && accs.indexOf('flood') >= 0) return true;
+  if (accs.indexOf('spot') >= 0 && accs.indexOf('flat')  >= 0) return true;
+  if (HMI_BEAM[light.name]) return true;
+  return false;
+}
+
 // ===== BEAM SLIDER =====
 function renderBeamSlider() {
   var light = LIGHTS[S.maker] && LIGHTS[S.maker][S.model];
@@ -9616,7 +9643,7 @@ function renderBeamSlider() {
   // ARRISUN PAR: レンズごとに固定ビームアングル（スライダー不要）
   var isSunPar = accs.indexOf('sun_blue') >= 0;
 
-  if (!isFresnel && !isSpotFlood && !isSpotFlat && !isHMI && !isSunPar) {
+  if (!beamSliderApplies(light, k)) {
     beamWrap.style.display = 'none';
     // 前の機種の角度が残ると、スライダーの無い機種で嘘の値が見えてしまう
     var _bv0 = el('beam-val');
@@ -11670,7 +11697,18 @@ function _cmpAccSelectHTML(i, light, cur) {
   var opts = arr.map(function(a){ return '<option value="' + a + '"' + (a === cur ? ' selected' : '') + '>' + _cmpAccLabel(a, light) + '</option>'; }).join('');
   return '<select onchange="_cmpSetAcc(' + i + ',this.value)" style="margin-top:5px;width:100%;box-sizing:border-box;padding:3px 4px;font-size:10.5px;font-weight:700;border:1px solid var(--bg,#ccc);border-radius:7px;background:var(--white,#fff);color:var(--text,#111);">' + opts + '</select>';
 }
-function _cmpSetAcc(i, acc) { if (_cmp.slots[i]) { _cmp.slots[i].acc = acc; _cmpRenderRows(); } }
+function _cmpSetAcc(i, acc) {
+  var sl = _cmp.slots[i]; if (!sl) return;
+  sl.acc = acc;
+  // Calc の selectAcc と同じ扱い。フレネルならその角度に、spot / flood なら端へ
+  var l = _cmpLightOf(sl), ba = getBeamAngles(l), ai = ACC_INFO[acc];
+  if (ba && ai && typeof ai.beam === 'string' && ai.beam.indexOf('Fresnel') >= 0 && ai.angle != null) {
+    sl.beamPct = Math.max(0, Math.min(100, Math.round((ai.angle - ba[0]) / (ba[1] - ba[0] || 1) * 100)));
+  } else if (acc === 'spot') { sl.beamPct = 0; }
+  else if (acc === 'flood' || acc === 'flat') { sl.beamPct = 100; }
+  // アクセサリを変えるとスライダーの有無自体が変わるので、カードから作り直す
+  _cmpRenderHeader(); _cmpRenderRows();
+}
 // CCT はライトごとに設定（タングステン等は固定値、バイカラー/RGBは選択）
 function _cmpSlotCCT(slot, light) {
   var ccts = (light && light.ccts && light.ccts.length) ? light.ccts : [5600];
@@ -11722,7 +11760,6 @@ function _cmpBeamLux(light, cct, dist, pct) {
   var p = (pct == null ? 50 : pct) / 100;
   return Math.round(Math.exp(Math.log(rS.lux) * (1-p) + Math.log(rF.lux) * p));
 }
-function _cmpHasBeam(light) { return !!getBeamAngles(light) && _cmpBeamLux(light, 5600, 3, 50) != null; }
 function _cmpBeamAngleAt(light, pct) {
   var a = beamAngleAt(light, pct);
   return (a == null) ? null : Math.round(a);
@@ -11807,8 +11844,11 @@ function _cmpParams() {
     }
     return _cmpLightOf(sl);
   });
-  var beamOn = lights.map(function(l){ return (l && !l.__mix) ? _cmpHasBeam(l) : false; });
-  var accs   = lights.map(function(l,i){ return (l && !l.__mix && !beamOn[i]) ? _cmpSlotAcc(_cmp.slots[i], l) : null; });
+  // アクセサリは常に決める。スライダーを出すかは Calc と同じ判定に任せる
+  var accs   = lights.map(function(l,i){ return (l && !l.__mix) ? _cmpSlotAcc(_cmp.slots[i], l) : null; });
+  var beamOn = lights.map(function(l,i){
+    return (l && !l.__mix) ? (beamSliderApplies(l, accs[i]) && _cmpBeamLux(l, 5600, 3, 50) != null) : false;
+  });
   var bpcts  = lights.map(function(l,i){ return beamOn[i] ? _cmpSlotBeam(_cmp.slots[i]) : null; });
   var ccts   = lights.map(function(l,i){
     if (l && l.__mix) return l.mixInfo ? l.mixInfo.cct : null;   // 混ざった色温度
@@ -11844,7 +11884,8 @@ function _cmpRenderHeader() {
           '<div style="font-size:12px;font-weight:800;color:var(--text,#111);line-height:1.25;min-height:30px;">' + l.name + '</div>' +
           '<div style="font-size:10px;font-weight:700;color:var(--accent,#1976d2);opacity:.75;margin-top:2px;">⤢ ' + t('cmpOpenHint') + '</div>' +
         '</div>' +
-        (P.beamOn[i] ? _cmpBeamSliderHTML(i, l, P.bpcts[i]) : _cmpAccSelectHTML(i, l, P.accs[i])) +
+        _cmpAccSelectHTML(i, l, P.accs[i]) +
+        (P.beamOn[i] ? _cmpBeamSliderHTML(i, l, P.bpcts[i]) : '') +
         _cmpCCTSelectHTML(i, l, P.ccts[i]) +
         '<button onclick="_cmpPick(' + i + ')" style="margin-top:6px;padding:4px 10px;border:1px solid var(--accent,#1976d2);border-radius:20px;background:transparent;color:var(--accent,#1976d2);font-size:11px;font-weight:800;cursor:pointer;">' + t('cmpChange') + '</button>' +
       '</div>';
@@ -24301,7 +24342,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.173';
+var ver = 'v1.1.8.174';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
