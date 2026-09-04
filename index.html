@@ -738,7 +738,7 @@ body {
 #dft-btn-delete.active { background:#c62828;color:#fff;border-color:#c62828;box-shadow:0 0 0 2px rgba(198,40,40,.25); }
 #dft-btn-rotate.active { background:#e65100;color:#fff;border-color:#e65100;box-shadow:0 0 0 2px rgba(230,81,0,.25); }
 /* placement modes */
-#dft-btn-people.active,#dft-btn-camera.active,#dft-btn-light.active,
+#dft-btn-people.active,#dft-btn-camera.active,#dft-btn-light.active,#dft-btn-ambient.active,
 #dft-btn-diffuser.active,#dft-btn-bounce.active,#dft-btn-flag.active { background:#2e7d32;color:#fff;border-color:#2e7d32;box-shadow:0 0 0 2px rgba(46,125,50,.25); }
 #dft-btn-aim.active { background:#6a1b9a;color:#fff;border-color:#6a1b9a;box-shadow:0 0 0 2px rgba(106,27,154,.25); }
 /* Draft の設定シートは背景を白で固定しているため、ダークテーマの
@@ -2201,6 +2201,12 @@ var LANGS = {
     beamOutOfCone:'ビーム外', aimPickLight:'🎯 狙いを決めるライトをタップ', aimPickTarget:'次に、狙う先をタップ（人物 / 反射板 / DIFF）', aimBadTarget:'狙えるのは 人物・反射板・DIFF です', aimAgain:'（続けて別のライトも指定できます）', spreadLabel:'この布を複数灯で均等に照らす', spreadHint:'各灯を「自分の真上」と「布の中心」の間に向けます。ビームが重なって面全体が均され、反射光が天空光のように回ります。', spreadWide:'広く', spreadEven:'均等', spreadTight:'中央寄り', spreadDone:'灯を割り当てました', spreadNone:'この布より下にライトがありません', ptLabel:'振り（PAN / TILT）', ptHint:'狙う点と角度は同じものです。振れば当てる場所が動き、場所を動かせば角度が変わります。', ptPan:'PAN', ptPanHint:'0°＝図面の上、＋で時計回り', ptTilt:'TILT', ptTiltHint:'＋が上振り。90°で真上', aimLabel:'このライトが狙う先', aimHint:'天バンなど真上の反射板は、ここで選ぶと計算に入ります（↑＝真上）。', aimAuto:'自動', aimSubject:'人物', camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定', camGoto:'カメラ設定',
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
     cctSubbed:'≈ {k}K の値', ambBarLabel:'環境光', ambBarUnset:'未入力',
+    dftAmbLabel:'環境光', dftAmbTitle:'置いた環境光', dftAmbMode:'光の性質',
+    dftAmbPlacedNote:'図面に置いた環境光 {n} 個で計算しています（上のトグルはこの図面では使いません）',
+    dftAmbUni:'一様（全方向）', dftAmbUniSub:'屋外・曇天・広いホリゾント。向きに関係なく同じだけ入る',
+    dftAmbDir:'方向あり', dftAmbDirSub:'窓・開口部・天窓。置いた位置から来る光として影側が落ちる',
+    dftAmbLux:'明るさ（露出計の読み）', dftAmbFromGlobal:'上のトグルの値を入れる（{v} lx）',
+    dftAmbNote:'距離による減衰はしません。窓や空はセットの寸法から見れば実質無限遠にあり、入れた数字は被写体の位置で測った値なので、そこから逆二乗で減らすと二重に効いてしまいます。幅と高さは図面に合わせるための見た目で、計算には使っていません。',
     leeNote:'LEE の公表値は透過率から出した数字で、光源からの距離が入っていません。実際の減光はこれより大きくなります。光源からの距離を織り込んだ値で使いたいときは Rosco の品番を選んでください。',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expReceptor:'受光部', expDome:'ドーム', expDomeHint:'露出計の標準。半球全体を拾う', expFlat:'フラット', expFlatHint:'1灯を切り分けて測る', expNoteDome:'入射光式の乳白ドームを各方向へ向けたときの読みです。ドームは半球全体を拾うので、真横の光でも正面向きで半分ほど読みます。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
@@ -2309,6 +2315,12 @@ var LANGS = {
     beamOutOfCone:'outside beam', aimPickLight:'🎯 Tap the light to aim', aimPickTarget:'Now tap what it aims at (subject / bounce / diffusion)', aimBadTarget:'Aim at a subject, bounce or diffusion', aimAgain:'(keep aiming other lights)', spreadLabel:'Spread several lights across this cloth', spreadHint:'Aims each light between its own position and the centre, so the beams overlap and the whole surface lifts evenly.', spreadWide:'Wide', spreadEven:'Even', spreadTight:'Centred', spreadDone:'lights assigned', spreadNone:'No lights below this cloth', ptLabel:'Pan / Tilt', ptHint:'The angle and the aimed point are the same thing — move one and the other follows.', ptPan:'PAN', ptPanHint:'0° = up the plan, + clockwise', ptTilt:'TILT', ptTiltHint:'+ tilts up. 90° is straight up', aimLabel:'What this light aims at', aimHint:'Pick it here for an overhead bounce — the beam cone alone cannot see straight up (↑ = overhead).', aimAuto:'Auto', aimSubject:'Subject', camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop', camGoto:'Camera',
     dftSize:'Size', dftPresetPick:'Pick a preset',
     cctSubbed:'≈ {k}K figure', ambBarLabel:'Ambient', ambBarUnset:'not set',
+    dftAmbLabel:'Ambient', dftAmbTitle:'Placed ambient', dftAmbMode:'How the light behaves',
+    dftAmbPlacedNote:'Using the {n} ambient source(s) placed on the plan (the toggle above is not used for this plan)',
+    dftAmbUni:'Even (all directions)', dftAmbUniSub:'Outdoors, overcast, a large cyc. Reads the same whichever way you point',
+    dftAmbDir:'Directional', dftAmbDirSub:'A window, doorway or skylight. Comes from where you placed it, so the shadow side falls off',
+    dftAmbLux:'Level (meter reading)', dftAmbFromGlobal:'Use the value from the toggle ({v} lx)',
+    dftAmbNote:'There is no falloff with distance. A window or the sky is effectively at infinity for a set, and the figure you enter is what your meter read at the subject — applying inverse square on top of that would count it twice. Width and height are only for how it draws on the plan; they are not used in the calculation.',
     triClearBtn:'✕ Clear', camTabCinema:'Digital', camTabFilm:'Film', camTabStill:'Photo',
     leeNote:'LEE publishes transmission figures, which do not account for distance from the source. Real-world loss will be greater than this. For figures that account for distance from the source, pick a Rosco product instead.',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expReceptor:'Receptor', expDome:'Dome', expDomeHint:'meter standard — reads the whole hemisphere', expFlat:'Flat', expFlatHint:'isolates one source', expNoteDome:'Readings for an incident lumisphere aimed at each direction. A dome collects the whole hemisphere, so a side light still reads about half when the dome faces the camera. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
@@ -2415,6 +2427,12 @@ var LANGS = {
     beamOutOfCone:'fuera del haz', aimPickLight:'🎯 Toca la luz que quieres apuntar', aimPickTarget:'Ahora toca el objetivo (sujeto / rebote / difusión)', aimBadTarget:'Apunta a sujeto, rebote o difusión', aimAgain:'(sigue apuntando otras luces)', spreadLabel:'Repartir varias luces por la tela', spreadHint:'Apunta cada luz entre su posición y el centro, para que los haces se solapen.', spreadWide:'Amplio', spreadEven:'Uniforme', spreadTight:'Al centro', spreadDone:'luces asignadas', spreadNone:'No hay luces debajo de esta tela', ptLabel:'Pan / Tilt', ptHint:'El ángulo y el punto apuntado son lo mismo: mueve uno y el otro sigue.', ptPan:'PAN', ptPanHint:'0° = arriba del plano, + sentido horario', ptTilt:'TILT', ptTiltHint:'+ inclina hacia arriba. 90° es cenital', aimLabel:'A qué apunta esta luz', aimHint:'Elígelo aquí para un rebote cenital: el cono no ve hacia arriba (↑ = cenital).', aimAuto:'Auto', aimSubject:'Sujeto', camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f', camGoto:'Cámara',
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
     cctSubbed:'≈ valor de {k}K', ambBarLabel:'Ambiente', ambBarUnset:'sin definir',
+    dftAmbLabel:'Ambiente', dftAmbTitle:'Ambiente colocado', dftAmbMode:'Comportamiento de la luz',
+    dftAmbPlacedNote:'Se usan las {n} fuentes de ambiente colocadas en el plano (el interruptor de arriba no se aplica aquí)',
+    dftAmbUni:'Uniforme (todas las direcciones)', dftAmbUniSub:'Exterior, cielo cubierto, ciclorama grande. Lee igual en cualquier dirección',
+    dftAmbDir:'Direccional', dftAmbDirSub:'Ventana, puerta o lucernario. Viene de donde lo coloques, así que el lado de sombra cae',
+    dftAmbLux:'Nivel (lectura del fotómetro)', dftAmbFromGlobal:'Usar el valor del interruptor ({v} lx)',
+    dftAmbNote:'No hay caída con la distancia. Una ventana o el cielo está prácticamente en el infinito para un set, y el valor introducido es lo que midió el fotómetro en el sujeto; aplicar además la ley del inverso del cuadrado lo contaría dos veces. El ancho y la altura solo afectan al dibujo del plano.',
     triClearBtn:'✕ Quitar', camTabCinema:'Digital', camTabFilm:'Película', camTabStill:'Foto',
     leeNote:'Los valores de LEE provienen de la transmisión y no tienen en cuenta la distancia a la fuente. La pérdida real será mayor. Para valores que tienen en cuenta la distancia a la fuente, elija un producto Rosco.',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expReceptor:'Receptor', expDome:'Domo', expDomeHint:'estándar del fotómetro; capta el hemisferio', expFlat:'Plano', expFlatHint:'aísla una sola fuente', expNoteDome:'Lecturas de una semiesfera incidente orientada a cada dirección. El domo capta todo el hemisferio, así que una luz lateral marca aproximadamente la mitad con el domo hacia la cámara. 0° mira a la cámara. Incluye las diferencias de altura.', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
@@ -2695,7 +2713,8 @@ function updateDraftI18n(){
     bounce:{ja:'反射',en:'Bounce',es:'Rebote'}, photo:{ja:'写真',en:'Photo',es:'Foto'},
     unit:{ja:'単位',en:'Unit',es:'Unidad'}, reset:{ja:'リセット',en:'Reset',es:'Reiniciar'},
     expBtn:{ja:'露出',en:'Exposure',es:'Exposic.'},
-    cloth:{ja:'背景幕',en:'Fabric',es:'Tela'}, form:{ja:'造形',en:'Form',es:'Forma'}
+    cloth:{ja:'背景幕',en:'Fabric',es:'Tela'}, form:{ja:'造形',en:'Form',es:'Forma'},
+    ambient:{ja:'環境光',en:'Ambient',es:'Ambiente'}
   };
   var L=(typeof LANG!=='undefined')?LANG:'ja';
   document.querySelectorAll('[data-dfti18n]').forEach(function(el){
@@ -9028,7 +9047,20 @@ function ambientSave() {
 }
 // 3画面に同じものを出す。環境光が入っていると全部の数字が変わるので、
 // 気づかないまま使わないよう常に見える位置に置く。
-function ambBarHTML() {
+function ambBarHTML(ctx) {
+  /* Draft の露出ツールでは、図面に環境光を置いてあればグローバルのトグルは
+   * 効かない。トグルが ON のまま出ていると「効いている」と読めてしまうので、
+   * 置いてあることを書いた行に差し替える。 */
+  if (ctx === 'dftexp' && typeof _dftAmbients === 'function') {
+    var pl = _dftAmbients();
+    if (pl.length) {
+      return '<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;margin-bottom:8px;' +
+        'background:rgba(142,36,170,0.08);border-radius:10px;border:1.5px solid rgba(142,36,170,0.35);">' +
+        '<span style="font-size:14px;">\uD83C\uDF17</span>' +
+        '<span style="font-size:11px;font-weight:800;color:#8e24aa;line-height:1.4;">' +
+        t('dftAmbPlacedNote').replace('{n}', pl.length) + '</span></div>';
+    }
+  }
   var on = _AMBIENT.on && _AMBIENT.lux > 0;
   var col = on ? '#8e24aa' : 'var(--text-dim,#888)';
   var val = (_AMBIENT.lux > 0)
@@ -9052,7 +9084,7 @@ function ambBarHTML() {
 function renderAmbBars() {
   ['calc','mix','finder','dftexp'].forEach(function(k) {
     var el = document.getElementById('amb-bar-' + k);
-    if (el) el.innerHTML = ambBarHTML();
+    if (el) el.innerHTML = ambBarHTML(k);
   });
 }
 // トグルを切り替えたら、開いている画面の数字を作り直す
@@ -17606,6 +17638,7 @@ var _DFT_MODE_META = {
   form:     {label:'DRAW',    color:'#00701a', cls:'dft-mode-place'},
   image:    {label:'PLACE',   color:'#2e7d32', cls:'dft-mode-place'},
   placerect:{label:'PLACE',   color:'#2e7d32', cls:'dft-mode-place'},
+  ambient:  {label:'PLACE',   color:'#8e24aa', cls:'dft-mode-place'},
   aim:      {label:'AIM',     color:'#6a1b9a', cls:'dft-mode-aim'},
 };
 function dftMode(m) {
@@ -17810,6 +17843,14 @@ function _dftAddObj(type, wx, wy, extra) {
   else if (type === 'camera')   { obj.label = 'Camera'; obj.fstopIdx = (typeof S !== 'undefined' && S.fstop != null) ? S.fstop : 21;
                                   obj.focalMm = obj.focalMm || 35; obj.sensorKey = obj.sensorKey || 's35'; obj.fovLen = obj.fovLen || 5; }
   else if (type === 'light')    { obj.label = obj.lightName || 'Light'; obj.beamAngle = obj.beamAngle || 75; if (!obj.factors) obj.factors = []; }
+  else if (type === 'ambient')  {
+    // 環境光を「置ける光源」として扱う。窓のように向きが効く場合と、
+    // 屋外のように向きが効かない場合を ambMode で切り替える。
+    obj.label = t('dftAmbLabel');
+    obj.ambMode = obj.ambMode || 'uniform';          // 'uniform' 一様 / 'dir' 方向あり
+    if (obj.ambLux == null) obj.ambLux = (typeof _AMBIENT !== 'undefined' && _AMBIENT.lux > 0) ? luxRound(_AMBIENT.lux) : 0;
+    obj.w = obj.w || 1.6; obj.h = obj.h || 1.2;      // 図面上の見た目だけ。計算には使わない
+  }
   else if (type === 'diffuser') { obj.label = 'Diffusion'; obj.w = obj.w||1.2; obj.h = obj.h||1.2; }
   else if (type === 'bounce')   { obj.label = 'Bounce';   obj.w = obj.w||1.2; obj.h = obj.h||1.2; }
   else if (type === 'flag')     { obj.label = 'Flag';     obj.w = obj.w||1.2; obj.h = obj.h||0.6; }
@@ -17849,6 +17890,7 @@ function _dftDist(a, b) {
 }
 
 function _dftFmt(m) {
+  if (m == null || !isFinite(m)) return '—';   // 環境光は距離を持たない
   if (_dft.unit === 'ft') return (m * 3.28084).toFixed(1) + 'ft';
   return m.toFixed(1) + 'm';
 }
@@ -18376,6 +18418,43 @@ function _dftDrawObj(ctx, o) {
     // Film magazine (right side bump)
     _dftRR(ctx, R*0.9-2, -R*0.45, R*0.6, R*0.9, 3);
     ctx.fillStyle = sel ? '#bf360c' : '#455a64'; ctx.fill(); ctx.stroke();
+
+  } else if (o.type === 'ambient') {
+    // 窓・開口部・屋外の空。方向ありのときは +y 側へ矢印を出して向きを示す。
+    // 幅・高さは図面に合わせるための見た目で、計算には使っていない。
+    var _aw = (o.w || 1.6) * pxPerM, _ah = (o.h || 1.2) * pxPerM;
+    var _adir = (o.ambMode === 'dir');
+    ctx.save();
+    ctx.fillStyle   = sel ? 'rgba(142,36,170,0.30)' : 'rgba(142,36,170,0.16)';
+    ctx.strokeStyle = sel ? '#4a148c' : '#8e24aa';
+    ctx.lineWidth   = sel ? 2 : 1.5;
+    if (!_adir) ctx.setLineDash([4, 3]);            // 一様は向きが無いので破線で示す
+    _dftRR(ctx, -_aw/2, -_ah/2, _aw, _ah, Math.min(6, _ah/3));
+    ctx.fill(); ctx.stroke();
+    ctx.setLineDash([]);
+    if (_adir) {
+      /* 光が向かう先へ矢印。計算は「置いた位置から被写体へ」の向きを使うので、
+       * 矢印もそこへ向ける。回転（rot）は窓の枠を図面に合わせるためのもので
+       * 向きには効かないので、rot ぶんを打ち消して描く。
+       * 被写体がまだ無いときは +x 方向の目安として出す。 */
+      var _asb = _dftVisObjs(function(x){ return x.type === 'people'; })[0];
+      var _aang = _asb ? (Math.atan2(_asb.wy - o.wy, _asb.wx - o.wx) - (o.rot || 0)) : 0;
+      var _al = Math.max(16, Math.min(_aw, _ah) * 0.7);
+      var _a0 = Math.min(_aw, _ah) / 2;
+      ctx.save();
+      ctx.rotate(_aang);
+      ctx.strokeStyle = '#8e24aa'; ctx.lineWidth = 2; ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(_a0, 0); ctx.lineTo(_a0 + _al, 0);
+      ctx.moveTo(_a0 + _al - 5, -4); ctx.lineTo(_a0 + _al, 0); ctx.lineTo(_a0 + _al - 5, 4);
+      ctx.stroke();
+      ctx.restore();
+    }
+    ctx.font = 'bold ' + Math.max(9, Math.min(13, _ah*0.5)) + 'px -apple-system,Arial';
+    ctx.fillStyle = '#4a148c';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('\uD83C\uDF17', 0, 0);
+    ctx.restore();
 
   } else if (o.type === 'light') {
     // beam cone (pointing down = +y direction, rotated by obj.rot)
@@ -20285,6 +20364,8 @@ function _dftMD(e) {
       _dftUpdateInfoBar();
       dftRender();
       dftMode('select');
+      // 置いただけでは明るさが決まらないので、そのまま設定シートを開く
+      if (no.type === 'ambient') dftAmbientSettings(no.id);
     }
     return;
   }
@@ -20602,6 +20683,10 @@ function _dftDbl(e) {
   if (hit.type === 'diffuser' || hit.type === 'bounce') {
     _dft.selected = hit.id; _dftUpdateInfoBar(); dftRender();
     dftBounceSettings(hit.id); return;
+  }
+  if (hit.type === 'ambient') {
+    _dft.selected = hit.id; _dftUpdateInfoBar(); dftRender();
+    dftAmbientSettings(hit.id); return;
   }
   // カメラはレンズ(mm)・センサー・画角・高さをまとめた設定画面。
   // F値はその中のボタンから開く（以前はF値だけに直行していた）。
@@ -21889,7 +21974,113 @@ function _dftExpSources(sb) {
       colEdge: _dftLightEdge(p.light),
       via: !!p.via
     };
-  }).filter(Boolean);
+  }).filter(Boolean).concat(_dftAmbSources(sb));
+  // 環境光は最後に足す。_dftSrcIndexOf が灯体の並び順で色を引いているため、
+  // 前に入れると図面のアイコンと色がずれる。
+}
+
+/* 置いた環境光の設定シート。性質（一様／方向あり）と明るさを決める。 */
+function dftAmbientSettings(oid) {
+  var o = _dft.objects.find(function(x){ return x.id === oid; });
+  if (!o || o.type !== 'ambient') return;
+  _dft._editAmbId = oid;
+  var old = document.getElementById('_dft_amb'); if (old) old.remove();
+  var dir = (o.ambMode === 'dir');
+  var f = (o.ambLux > 0) ? _ambNearestF(luxToFstopCamera(o.ambLux)) : '—';
+  function modeBtn(k, lbl, sub) {
+    var on = (k === 'dir') === dir;
+    return '<button onclick="_dftAmbMode(\'' + k + '\')" style="flex:1;text-align:left;padding:9px 11px;border-radius:11px;' +
+      'border:1.5px solid ' + (on ? '#8e24aa' : '#ddd') + ';background:' + (on ? 'rgba(142,36,170,0.10)' : '#fff') + ';cursor:pointer;">' +
+      '<div style="font-size:12px;font-weight:800;color:' + (on ? '#4a148c' : '#555') + ';">' + lbl + '</div>' +
+      '<div style="font-size:10px;font-weight:600;color:#888;margin-top:2px;line-height:1.35;">' + sub + '</div></button>';
+  }
+  var html =
+    '<div id="_dft_amb" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:flex-end;" onclick="if(event.target===this)this.remove()">' +
+    '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;max-height:88vh;max-height:88dvh;overflow-y:auto;" onclick="event.stopPropagation()">' +
+      '<div style="display:flex;align-items:center;gap:8px;padding:16px 16px 12px;border-bottom:1px solid #eee;">' +
+        '<div style="flex:1;min-width:0;font-size:15px;font-weight:800;">\uD83C\uDF17 ' + t('dftAmbTitle') + '</div>' +
+        langChipHTML() +
+        '<button onclick="document.getElementById(\'_dft_amb\').remove()" style="flex:0 0 auto;width:30px;height:30px;border:none;border-radius:50%;background:#eee;color:#333;font-size:16px;font-weight:800;cursor:pointer;line-height:1;">✕</button>' +
+      '</div>' +
+      '<div style="padding:14px 16px 8px;">' +
+        '<div style="font-size:11px;font-weight:800;color:#888;margin-bottom:5px;">' + t('dftAmbMode') + '</div>' +
+        '<div style="display:flex;gap:6px;margin-bottom:12px;">' +
+          modeBtn('uniform', t('dftAmbUni'), t('dftAmbUniSub')) +
+          modeBtn('dir',     t('dftAmbDir'), t('dftAmbDirSub')) +
+        '</div>' +
+        '<div style="font-size:11px;font-weight:800;color:#888;margin-bottom:5px;">' + t('dftAmbLux') + '</div>' +
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
+          '<input type="number" inputmode="decimal" min="0" step="1" value="' + (o.ambLux || '') + '" ' +
+            'oninput="_dftAmbLux(this.value)" style="flex:1;min-width:0;padding:8px 10px;border:1px solid #ddd;border-radius:9px;font-size:14px;font-weight:800;font-family:var(--mono);">' +
+          '<span style="font-size:12px;font-weight:700;color:#888;">lx</span>' +
+          '<span id="_dft_amb_f" style="font-size:13px;font-weight:800;color:#8e24aa;font-family:var(--mono);min-width:52px;text-align:right;">' + f + '</span>' +
+        '</div>' +
+        ((typeof _AMBIENT !== 'undefined' && _AMBIENT.lux > 0) ?
+          '<button onclick="_dftAmbFromGlobal()" style="width:100%;padding:8px;margin-bottom:10px;border:1px solid #8e24aa;border-radius:9px;background:transparent;color:#8e24aa;font-size:11px;font-weight:800;cursor:pointer;">' +
+          t('dftAmbFromGlobal').replace('{v}', luxRound(_AMBIENT.lux).toLocaleString()) + '</button>' : '') +
+        '<div style="font-size:10.5px;line-height:1.5;color:#8a6d3b;background:#fcf8e3;border:1px solid #f0e0a0;border-radius:9px;padding:7px 9px;">' +
+          t('dftAmbNote') + '</div>' +
+      '</div>' +
+      '<div style="padding:10px 16px calc(14px + env(safe-area-inset-bottom, 0px));">' +
+        '<button onclick="document.getElementById(\'_dft_amb\').remove()" style="width:100%;padding:12px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">' + t('dftClose') + '</button>' +
+      '</div>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', html);
+  i18nOn('_dft_amb', function(){ dftAmbientSettings(_dft._editAmbId); });
+}
+function _dftAmbObj() { return _dft.objects.find(function(x){ return x.id === _dft._editAmbId; }); }
+window._dftAmbMode = function(m) {
+  var o = _dftAmbObj(); if (!o) return;
+  _dftPushHistory(); o.ambMode = m;
+  dftRender(); _dftAmbAfterChange(); dftAmbientSettings(o.id);
+};
+window._dftAmbLux = function(v) {
+  var o = _dftAmbObj(); if (!o) return;
+  var n = parseFloat(v); o.ambLux = (isFinite(n) && n > 0) ? n : 0;
+  var fe = document.getElementById('_dft_amb_f');
+  if (fe) fe.textContent = (o.ambLux > 0) ? _ambNearestF(luxToFstopCamera(o.ambLux)) : '—';
+  dftRender(); _dftAmbAfterChange();
+};
+window._dftAmbFromGlobal = function() {
+  var o = _dftAmbObj(); if (!o || typeof _AMBIENT === 'undefined') return;
+  _dftPushHistory(); o.ambLux = luxRound(_AMBIENT.lux);
+  dftRender(); _dftAmbAfterChange(); dftAmbientSettings(o.id);
+};
+// 値を変えたら露出ツールと情報バーを作り直す
+function _dftAmbAfterChange() {
+  try { _dftUpdateInfoBar(); } catch(e) {}
+  try { if (document.getElementById('_dft_exp')) dftExposureTool(); } catch(e) {}
+  try { _dftQueueAutoSave(); } catch(e) {}
+}
+
+/* 図面に置かれた環境光。1つでも置いてあれば、こちらを使って
+ * グローバルのトグルは Draft では無視する（足し算が重ならないように）。 */
+function _dftAmbients() {
+  return _dftVisObjs(function(o){ return o.type === 'ambient' && o.ambLux > 0; });
+}
+/* 置かれた環境光を露出計算の光源として並べる。
+ *  一様   … 向きに関係なく同じだけ入る（屋外・曇天・広いホリゾント）
+ *  方向あり … 置いた位置から来る光として cos が効く（窓・開口部）
+ * どちらも距離による減衰はしない。窓や空はセットの寸法から見れば実質
+ * 無限遠にあり、入れた数字は「被写体の位置で露出計が読んだ値」なので、
+ * そこから逆二乗で減らすと二重に効いてしまう。 */
+function _dftAmbSources(sb) {
+  return _dftAmbients().map(function(o) {
+    var uni = (o.ambMode !== 'dir');
+    var dx = o.wx - sb.wx, dy = o.wy - sb.wy, dz = _dftZ(o) - _dftZ(sb);
+    var h = Math.hypot(dx, dy), len = Math.hypot(h, dz);
+    if (!uni && len < 0.01) uni = true;            // 被写体と同じ位置なら向きが出せない
+    return {
+      name: (o.label || t('dftAmbLabel')),
+      lux: luxRound(o.ambLux),
+      dist: null,                                   // 減衰させないので距離は持たない
+      ux: uni ? 0 : dx/len, uy: uni ? 0 : dy/len, uz: uni ? 0 : dz/len,
+      azim: uni ? 0 : Math.atan2(dy, dx),
+      elev: uni ? 0 : Math.atan2(dz, h) * 180 / Math.PI,
+      col: '#8e24aa', colEdge: '#4a148c', via: false,
+      ambient: true, uniform: uni
+    };
+  });
 }
 
 /** 基準方向（0°）。カメラがあればカメラ向き、なければ被写体の正面。 */
@@ -21927,9 +22118,14 @@ function _dftExpReadAt(srcs, ref, angDeg, elevDeg) {
   var dome = _dftExpIsDome();
   var sum = 0, parts = [];
   srcs.forEach(function(s) {
-    var c = nx * s.ux + ny * s.uy + nz * s.uz;
-    var w = dome ? _dftDomeWeight(c) : (c > 1e-9 ? c : 0);
-    if (w > 1e-9) { var e = s.lux * w; sum += e; parts.push({name:s.name, lux:e}); }
+    var w;
+    if (s.ambient && s.uniform) {
+      w = 1;                                   // 一様な環境光は向きに関係なく同じだけ読む
+    } else {
+      var c = nx * s.ux + ny * s.uy + nz * s.uz;
+      w = dome ? _dftDomeWeight(c) : (c > 1e-9 ? c : 0);
+    }
+    if (w > 1e-9) { var e = s.lux * w; sum += e; parts.push({name:s.name, lux:e, ambient:!!s.ambient}); }
   });
   // 真横〜背面は cos がほぼ 0 になり、浮動小数の残りが 0 より大きくなって
   // f0.0 と表示されてしまう。実用上意味のない 0.5lx 未満は無光として扱う。
@@ -21940,7 +22136,9 @@ function _dftExpReadAt(srcs, ref, angDeg, elevDeg) {
    * キー比とコントラストが実際の見え方に近づく。
    * 0.5lx 未満の切り捨ては灯体ぶんの浮動小数の残りを消すためのものなので、
    * その後に足す（環境光があるなら「無光」の向きは無い）。 */
-  var _ambE = ambientLux();
+  // 図面に環境光を置いていない場合だけ、グローバルのトグルを使う。
+  // 置いてあれば srcs 側に入っているので、ここで足すと二重になる。
+  var _ambE = _dftAmbients().length ? 0 : ambientLux();
   if (_ambE > 0) { sum += _ambE; parts.push({ name: t('ambBarLabel'), lux: _ambE, ambient: true }); }
   parts.sort(function(a,b){ return b.lux - a.lux; });
   return { angle:angDeg, elev:(elevDeg || 0), lux:sum,
@@ -22024,12 +22222,16 @@ function dftExposureTool() {
       // 光源の内訳
       '<div style="font-size:11px;font-weight:800;color:#555;margin:14px 0 6px;">'+t('expSources')+' ('+d.sources.length+')</div>' +
       (d.sources.length ? d.sources.map(function(s) {
-        var relA = Math.round(_dftExpRelAngle(s.azim, d.ref));
-        return '<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:#f8f8f8;border-radius:8px;margin-bottom:4px;font-size:11px;">' +
-          '<span style="font-weight:800;flex:1;">' + (s.via?'🔲 ':'💡 ') + _dftEsc(s.name) + '</span>' +
-          '<span style="font-family:var(--mono);color:#888;">' + relA + '°</span>' +
+        // 一様な環境光は向きも仰角も持たないので、角度の欄は「—」にする
+        var uni  = !!(s.ambient && s.uniform);
+        var relA = uni ? '—' : (Math.round(_dftExpRelAngle(s.azim, d.ref)) + '°');
+        var icon = s.ambient ? '\uD83C\uDF17 ' : (s.via ? '🔲 ' : '💡 ');
+        return '<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:' +
+          (s.ambient ? 'rgba(142,36,170,0.07)' : '#f8f8f8') + ';border-radius:8px;margin-bottom:4px;font-size:11px;">' +
+          '<span style="font-weight:800;flex:1;">' + icon + _dftEsc(s.name) + '</span>' +
+          '<span style="font-family:var(--mono);color:#888;">' + relA + '</span>' +
           '<span style="font-family:var(--mono);color:#5e35b1;">' +
-            (Math.abs(s.elev) < 1 ? '→0°' : (s.elev > 0 ? '↑' : '↓') + Math.abs(s.elev).toFixed(0) + '°') + '</span>' +
+            (uni ? '—' : (Math.abs(s.elev) < 1 ? '→0°' : (s.elev > 0 ? '↑' : '↓') + Math.abs(s.elev).toFixed(0) + '°')) + '</span>' +
           '<span style="font-family:var(--mono);">' + _dftFmt(s.dist) + '</span>' +
           '<span style="font-family:var(--mono);font-weight:800;color:#e65100;">f' + (luxToFstopCamera(s.lux)||0).toFixed(1) + '</span>' +
         '</div>';
@@ -22051,7 +22253,7 @@ function dftExposureTool() {
       '<button onclick="document.getElementById(\'_dft_exp\').remove()" style="flex:0 0 auto;width:30px;height:30px;border:none;border-radius:50%;background:#eee;color:#333;font-size:16px;font-weight:800;cursor:pointer;line-height:1;">✕</button>' +
     '</div>' +
     '<div style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px 8px;">' +
-      '<div id="amb-bar-dftexp">' + ambBarHTML() + '</div>' + body + '</div>' +
+      '<div id="amb-bar-dftexp">' + ambBarHTML('dftexp') + '</div>' + body + '</div>' +
     '<div style="flex:0 0 auto;padding:10px 16px calc(14px + env(safe-area-inset-bottom, 0px));border-top:1px solid #eee;">' +
       '<button onclick="document.getElementById(\'_dft_exp\').remove()" style="width:100%;padding:12px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">' + t('dftClose') + '</button>' +
     '</div>' +
@@ -25040,7 +25242,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.9.192';
+var ver = 'v1.1.9.193';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -25463,6 +25665,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
         <button class="draft-tool-btn" id="dft-btn-people"   onclick="dftMode('people')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🧍<br><span style="font-size:10px;" data-dfti18n="people">人</span></button>
         <button class="draft-tool-btn" id="dft-btn-camera"   onclick="dftMode('camera')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🎥<br><span style="font-size:10px;">Cam</span></button>
         <button class="draft-tool-btn" id="dft-btn-light"    onclick="dftMode('light')"    style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">💡<br><span style="font-size:10px;">Light</span></button>
+        <button class="draft-tool-btn" id="dft-btn-ambient"  onclick="dftMode('ambient')"  style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🌗<br><span style="font-size:10px;" data-dfti18n="ambient">環境光</span></button>
         <button class="draft-tool-btn" id="dft-btn-diffuser" onclick="dftRectStart('diffuser')" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⬜<br><span style="font-size:10px;">DIFF</span></button>
         <button class="draft-tool-btn" id="dft-btn-bounce"   onclick="dftRectStart('bounce')"   style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔲<br><span style="font-size:10px;" data-dfti18n="bounce">反射</span></button>
         <button class="draft-tool-btn" id="dft-btn-flag"     onclick="dftRectStart('flag')"     style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">▬<br><span style="font-size:10px;">Flag</span></button>
