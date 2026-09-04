@@ -7444,8 +7444,24 @@ function isFresnel(accKey) { return !!FRESNEL_ACC_KEYS[accKey]; }
  * 機種側に accAngles があればそれを優先する。
  */
 /** その機種の SPOT 端 / FLOOD 端になるアクセサリのキー */
+/* ビームスライダーが「どの2つのアクセサリの間を補間するか」を決める唯一の場所。
+ * 照度（luxAtBeamAngle）と、表示する角度（getBeamAngles）の両方がここを見る。
+ * 以前は照度側だけがフレネルの狭い側／広い側を選び、角度の範囲は全アクセサリの
+ * 最小〜最大から作っていたため、両者が食い違っていた。
+ *   例: STORM 80c はフレネルが 15〜40° なのに、ランタン(360°)が範囲の上端を
+ *       決めてしまい、スライダーを右端まで振ると「360°」と出るのに照度は
+ *       40° フレネルのものだった。 */
 function accPairKeys(light) {
   var accs = (light && light.accessories) || [];
+  // フレネルが2つ以上あるならそれが優先（狭い側と広い側）。luxAtBeamAngle と同じ判断
+  var fres = accs.filter(function(a) {
+    return ACC_INFO[a] && typeof ACC_INFO[a].beam === 'string'
+        && ACC_INFO[a].beam.indexOf('Fresnel') >= 0 && ACC_INFO[a].angle != null;
+  });
+  if (fres.length >= 2) {
+    fres.sort(function(a,b){ return ACC_INFO[a].angle - ACC_INFO[b].angle; });
+    return { spot: fres[0], flood: fres[fres.length-1] };
+  }
   var sp = (accs.indexOf('spot') >= 0) ? 'spot' : null;
   var fl = null;
   if (accs.indexOf('flat')  >= 0) fl = 'flat';
@@ -7503,13 +7519,26 @@ function getBeamAngles(light) {
   // HMI_BEAM lookup by name
   if (HMI_BEAM[light.name]) return HMI_BEAM[light.name];
   var accs = light.accessories || [];
-  // その機種が持っているアクセサリの実角度から範囲を作る。
+  // まず、照度の補間に実際に使う2つのアクセサリの角度で範囲を作る。
+  // ここを全アクセサリの最小〜最大にしていたため、ランタン(360°)や素の球の
+  // 角度が範囲の上端になり、表示する角度と照度が食い違っていた。
+  var _pk0 = accPairKeys(light);
+  if (_pk0.spot && _pk0.flood) {
+    var _a1 = accAngle(light, _pk0.spot), _a2 = accAngle(light, _pk0.flood);
+    if (typeof _a1 === 'number' && typeof _a2 === 'number') {
+      var _plo = Math.min(_a1, _a2), _phi = Math.max(_a1, _a2);
+      if (_phi - _plo >= 3) return [_plo, _phi];
+    }
+  }
+  // 上で決まらない機種は、持っているアクセサリの実角度から範囲を作る。
   // 以前は flat+spot なら [10,60]、flood+spot なら [5,25] の決め打ちで、
   // アクセサリのボタンに出ている角度と食い違っていた
   // （TRUEBLUE ST は FLOOD 60° なのにスライダーは 25° 止まり）。
+  // 全方向のアクセサリ（ランタンなど 180° 以上）は連続で振れる範囲では
+  // ないので、ここでは除く。
   var _sa = accs.filter(function(a){ return a !== 'none'; })
                 .map(function(a){ return accAngle(light, a); })
-                .filter(function(v){ return typeof v === 'number'; });
+                .filter(function(v){ return typeof v === 'number' && v < 180; });
   if (_sa.length >= 2) {
     var _lo = Math.min.apply(null, _sa), _hi = Math.max.apply(null, _sa);
     if (_hi - _lo >= 3) return [_lo, _hi];
@@ -11535,26 +11564,10 @@ function luxAtBeamAngle(light, dist, beamPctOverride, cctOverride) {
   // Draft から呼ぶときは、その機種自身の CCT を渡す
   // （Calc タブで別機種の色温度が選ばれていても引きずられないように）
   var cct = (cctOverride != null) ? cctOverride : getActiveCCT();
-  var accs = light.accessories || [];
-  // Find spot and wide accessories
-  // Priority: spot < flat/flood (wide end)
-  var spotAcc = null, flatAcc = null;
-  if (accs.indexOf('spot')  >= 0) spotAcc = 'spot';
-  if (accs.indexOf('flat')  >= 0) flatAcc = 'flat';
-  if (accs.indexOf('flood') >= 0) flatAcc = 'flood';
-  if (accs.indexOf('open')  >= 0) flatAcc = 'open';
-  // Fresnel accs: sort by angle
-  var fresnelAccs = accs.filter(function(a) {
-    return ACC_INFO[a]
-      && typeof ACC_INFO[a].beam === 'string'
-      && ACC_INFO[a].beam.indexOf('Fresnel') >= 0
-      && ACC_INFO[a].angle != null;
-  });
-  if (fresnelAccs.length >= 2) {
-    fresnelAccs.sort(function(a,b){ return ACC_INFO[a].angle - ACC_INFO[b].angle; });
-    spotAcc = fresnelAccs[0];
-    flatAcc = fresnelAccs[fresnelAccs.length - 1];
-  }
+  // どの2つの間を補間するかは accPairKeys が唯一の判断元。
+  // 角度の範囲（getBeamAngles）も同じものを見るので、表示と照度がずれない。
+  var _pk = accPairKeys(light);
+  var spotAcc = _pk.spot, flatAcc = _pk.flood;
   if (!spotAcc || !flatAcc) return null;
   var rS = luxForCCTAndDist(light.refData, cct, spotAcc, dist);
   var rF = luxForCCTAndDist(light.refData, cct, flatAcc,  dist);
@@ -25284,7 +25297,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.9.197';
+var ver = 'v1.1.9.198';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
