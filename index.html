@@ -2717,7 +2717,7 @@ var MAKERS = {
   ushio: {name:'USHIO / サーチライト', url:'https://www.ushio.com/', nameI18n:{ja:'USHIO / サーチライト', en:'USHIO / Searchlight', es:'USHIO / Reflectores'}, emoji:'🔆', accent:'#f9a825', dark:'#f57f17', light:'#fffde7', glow:'rgba(249,168,37,0.25)', accent2:'#212121'},
   kobold: {name:'Bron Kobold', emoji:'🟦', accent:'#1565c0', dark:'#0d47a1', light:'#e3f2fd', glow:'rgba(21,101,192,0.25)', accent2:'#ffffff'},
   rds: {name:'RDS', emoji:'🟩', accent:'#2e7d32', dark:'#1b5e20', light:'#e8f5e9', glow:'rgba(46,125,50,0.25)', accent2:'#ffffff'},
-  arc_special: {name:'特殊光源 / Specials', nameI18n:{ja:'特殊光源', en:'Specials', es:'Especiales'}, emoji:'✨', accent:'#6a1b9a', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(106,27,154,0.25)', accent2:'#ffd54f'},};
+  specials: {name:'特殊光源 / Specials', nameI18n:{ja:'特殊光源', en:'Specials', es:'Especiales'}, emoji:'✨', accent:'#6a1b9a', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(106,27,154,0.25)', accent2:'#ffd54f'},};
 
 // ===== LIGHT DATA =====
 var LIGHTS = {
@@ -4332,7 +4332,7 @@ var LIGHTS = {
     pp_125: {
       group:'HMI', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M42 12 H82 Q96 12 96 26 V54 Q96 68 82 68 H42\"/><circle cx=\"42\" cy=\"40\" r=\"24\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 16 L42 64\"/><path d=\"M26 22 L58 58\"/><path d=\"M58 22 L26 58\"/><path d=\"M20 40 H64\"/><path d=\"M30 16 Q42 40 30 64\"/><path d=\"M54 16 Q42 40 54 64\"/><path d=\"M34 16 L22 20 L20 28\"/><path d=\"M34 64 L22 60 L20 52\"/><path d=\"M42 64 V74\"/><path d=\"M58 64 V74\"/><path d=\"M42 74 H58\"/><path d=\"M56 40 H72\"/></g></svg>', weight:'1 kg', name:'Pocket Par 125W', emoji:'💡', watts:125,
       ccts:[5600], accessories:['spot', 'pp_narrow', 'pp_medium', 'pp_wide', 'pp_frost'],
-      // ARC lux.pdf 実測（ポケットパー 125W スポットモード + レンズセット）。
+      // 実測カタログ lux.pdf（ポケットパー 125W スポットモード + レンズセット）。
       // web カタログ p18 の 1m/2m は「125W エリレンズキット」という別製品のため取り込まない。
       refData:{5600:{
         3: {spot:27000, pp_narrow:6800, pp_medium:2400, pp_wide:600, pp_frost:420},
@@ -4474,7 +4474,7 @@ var LIGHTS = {
         12:  {spot:300}
       }}
     },
-    // ── ARC SYSTEM 実測（ARRI X 2.5kw / 6kw）─────────────────────────
+    // ── 実測（ARRI X 2.5kw / 6kw）─────────────────────────
     arri_x_200: {
       group:'HMI Open', svgIcon:'<svg width=\"120\" height=\"80\" viewBox=\"0 0 120 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"16\" y=\"10\" width=\"52\" height=\"60\" rx=\"3\"/><path d=\"M68 20 H96 V60 H68\"/><circle cx=\"42\" cy=\"40\" r=\"21\"/><circle cx=\"42\" cy=\"40\" r=\"5\"/><path d=\"M42 19 V61\"/><path d=\"M21 40 H63\"/><path d=\"M27 25 L57 55\"/><path d=\"M57 25 L27 55\"/><path d=\"M42 70 V76\"/><path d=\"M58 70 V76\"/><path d=\"M42 76 H58\"/><path d=\"M96 40 H108\"/></g></svg>', name:'ARRI X 200W HMI', emoji:'💡', watts:200,
       ccts:[5600], accessories:['spot'],
@@ -4507,7 +4507,7 @@ var LIGHTS = {
         15:{spot:420}
       }}
     },
-    // ── ARC SYSTEM 実測（ARRI CP = Compact シリーズ）───────────────────
+    // ── 実測（ARRI CP = Compact シリーズ）───────────────────
     // 200W / 6kW / 12kW は arri_200 / arri_6k / arri_12k として既登録。
     arri_125: {
       group:'HMI', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', weight:'2 kg', name:'ARRI 125W Compact HMI', emoji:'💡', watts:125,
@@ -4553,7 +4553,7 @@ var LIGHTS = {
         12:  {flat:840, spot:6800}
       }}
     },
-    // ARC のカタログでは TRUE BLUE D40 と全く同じ実測値が載っている（同じ4kW・同じ
+    // 実測カタログでは TRUE BLUE D40 と全く同じ実測値が載っている（同じ4kW・同じ
     // フレネルのため、F値刻みの丸めで一致したと見られる）。値は変更せず両方登録する。
     arri_4k: {
       group:'HMI', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', weight:'21.5 kg', name:'ARRI 4kW Compact HMI', emoji:'💡', watts:4000,
@@ -5245,7 +5245,7 @@ var LIGHTS = {
     dedo_200: {
       group:'HMI', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', weight:'1.6 kg', name:'Dedolight 200W HMI', emoji:'🟤', watts:200,
       ccts:[5600], accessories:["flat", "spot"],
-      // ARC SYSTEM 実測（dedolight 200w）
+      // 実測（dedolight 200w）
       refData:{5600:{
         2:   {flat:6800},
         3:   {flat:1700, spot:38000},
@@ -5257,7 +5257,7 @@ var LIGHTS = {
     dedo_400: {
       group:'HMI', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', weight:'4.6 kg', name:'Dedolight 400W HMI', emoji:'🟤', watts:400,
       ccts:[5600], accessories:["flat", "spot"],
-      // ARC SYSTEM 実測（dedolight 400w）。旧データの spot 列は 200W の値だった。
+      // 実測（dedolight 400w）。旧データの spot 列は 200W の値だった。
       refData:{5600:{
         2:   {flat:6800},
         3:   {flat:2400, spot:54000},
@@ -6397,7 +6397,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'14.8 kg', name:'Briese Light 220 / 4kW', desc:'220cm parabolic umbrella, 4kW bulb (measured)', emoji:'💡', watts:4000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'4000W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:108000, spot:152000},
         3: {flat:27000, spot:76000},
@@ -6411,7 +6411,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'14.8 kg', name:'Briese Light 220 / 2.5kW', desc:'220cm parabolic umbrella, 2.5kW bulb (measured)', emoji:'💡', watts:2500, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'2500W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:76000, spot:76000},
         3: {flat:19000, spot:54000},
@@ -6425,7 +6425,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'14.8 kg', name:'Briese Light 220 / 1.2kW', desc:'220cm parabolic umbrella, 1.2kW bulb (measured)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'1200W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:27000, spot:38000},
         3: {flat:9600, spot:19000},
@@ -6439,7 +6439,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'14.8 kg', name:'Briese Light 220 / 575W', desc:'220cm parabolic umbrella, 575W bulb (measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'575W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:2400, spot:4800},
         3: {flat:1200, spot:3400},
@@ -6453,7 +6453,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'12.9 kg', name:'Briese Light 180 / 4kW', desc:'180cm parabolic umbrella, 4kW bulb (measured)', emoji:'💡', watts:4000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'4000W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:76000, spot:152000},
         3: {flat:27000, spot:108000},
@@ -6467,7 +6467,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'12.9 kg', name:'Briese Light 180 / 2.5kW', desc:'180cm parabolic umbrella, 2.5kW bulb (measured)', emoji:'💡', watts:2500, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'2500W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:38000, spot:76000},
         3: {flat:14000, spot:38000},
@@ -6481,7 +6481,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'12.9 kg', name:'Briese Light 180 / 1.2kW', desc:'180cm parabolic umbrella, 1.2kW bulb (measured)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'1200W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:9600, spot:27000},
         3: {flat:4800, spot:14000},
@@ -6495,7 +6495,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'12.9 kg', name:'Briese Light 180 / 575W', desc:'180cm parabolic umbrella, 575W bulb (measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'575W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:4800, spot:9600},
         3: {flat:1700, spot:6800},
@@ -6509,7 +6509,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'11.8 kg', name:'Briese Light 140 / 4kW', desc:'140cm parabolic umbrella, 4kW bulb (measured)', emoji:'💡', watts:4000, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'4000W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:27000, spot:152000},
         3: {flat:14000, spot:76000},
@@ -6523,7 +6523,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'11.8 kg', name:'Briese Light 140 / 2.5kW', desc:'140cm parabolic umbrella, 2.5kW bulb (measured)', emoji:'💡', watts:2500, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'2500W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:19000, spot:108000},
         3: {flat:6800, spot:76000},
@@ -6537,7 +6537,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'11.8 kg', name:'Briese Light 140 / 1.2kW', desc:'140cm parabolic umbrella, 1.2kW bulb (measured)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'1200W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:9600, spot:54000},
         3: {flat:3400, spot:27000},
@@ -6551,7 +6551,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'11.8 kg', name:'Briese Light 140 / 575W', desc:'140cm parabolic umbrella, 575W bulb (measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'575W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:4800, spot:14000},
         3: {flat:1200, spot:6800},
@@ -6565,7 +6565,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'10.5 kg', name:'Briese Light 100 / 2.5kW', desc:'100cm parabolic umbrella, 2.5kW bulb (measured)', emoji:'💡', watts:2500, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'2500W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:6800, spot:54000},
         3: {flat:2400, spot:19000},
@@ -6579,7 +6579,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'10.5 kg', name:'Briese Light 100 / 1.2kW', desc:'100cm parabolic umbrella, 1.2kW bulb (measured)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'1200W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:2400, spot:27000},
         3: {flat:840, spot:14000},
@@ -6593,7 +6593,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'10.5 kg', name:'Briese Light 100 / 575W', desc:'100cm parabolic umbrella, 575W bulb (measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'575W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:2400, spot:9600},
         3: {flat:840, spot:4800},
@@ -6607,7 +6607,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'10.3 kg', name:'Briese Light 77 / 1.2kW', desc:'77cm parabolic umbrella, 1.2kW bulb (measured)', emoji:'💡', watts:1200, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'1200W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:3400, spot:9600},
         3: {flat:1200, spot:4800},
@@ -6621,7 +6621,7 @@ var LIGHTS = {
       group:'HMI Parabolic', weight:'10.3 kg', name:'Briese Light 77 / 575W', desc:'77cm parabolic umbrella, 575W bulb (measured)', emoji:'💡', watts:575, svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"88\" cy=\"80\" r=\"64\" fill=\"#111\"/><g stroke=\"#ffc400\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"88\" y1=\"80\" x2=\"152.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"144.0\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"139.1\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"125.3\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"104.5\"/><line x1=\"88\" y1=\"80\" x2=\"24.0\" y2=\"80.0\"/><line x1=\"88\" y1=\"80\" x2=\"28.9\" y2=\"55.5\"/><line x1=\"88\" y1=\"80\" x2=\"42.7\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"63.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"88.0\" y2=\"16.0\"/><line x1=\"88\" y1=\"80\" x2=\"112.5\" y2=\"20.9\"/><line x1=\"88\" y1=\"80\" x2=\"133.3\" y2=\"34.7\"/><line x1=\"88\" y1=\"80\" x2=\"147.1\" y2=\"55.5\"/></g><circle cx=\"88\" cy=\"80\" r=\"64\" stroke=\"#ffc400\" stroke-width=\"5\"/><circle cx=\"88\" cy=\"80\" r=\"40\" stroke=\"#ffc400\" stroke-width=\"2\" opacity=\"0.55\"/><circle cx=\"88\" cy=\"80\" r=\"13\" fill=\"#ffc400\"/><circle cx=\"88\" cy=\"80\" r=\"6\" fill=\"#111\"/><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M152 80 H186\"/><path d=\"M186 56 V112\"/><path d=\"M186 112 C186 132 160 132 160 112\"/><path d=\"M88 144 V156\"/><path d=\"M70 156 H106\"/></g></svg>',
       ccts:[5600], accessories:['flat','spot'],
       dmx:{power:'575W',cct:'5600K',control:'Manual'},
-      // ARC カタログ p11 の F値をそのまま換算（半段刻み）
+      // 実測カタログ p11 の F値をそのまま換算（半段刻み）
       refData:{5600:{
         2: {flat:1200, spot:9600},
         3: {flat:600, spot:2400},
@@ -6857,7 +6857,7 @@ var LIGHTS = {
     },
   },
 
-  // ══ RDS ══ すべて ARC SYSTEM の実測値
+  // ══ RDS ══ すべて実測値
   rds: {
     rds_575: {
       group:'HMI', hiddenFromList:true, weight:'4 kg', name:'RDS 575W', desc:'575W HMI (measured)', emoji:'🟩', watts:575,
@@ -6872,7 +6872,7 @@ var LIGHTS = {
     },
     rds_2500_pin: {
       group:'HMI', hiddenFromList:true, name:'RDS 2.5kW Pin', desc:'2500W HMI pin spot (measured)', emoji:'🟩', watts:2500,
-      // ARC のカタログではスポット／フラットが1列にまとめられているため単一カーブ。
+      // 実測カタログではスポット／フラットが1列にまとめられているため単一カーブ。
       ccts:[5600], accessories:['spot'],
       refData:{5600:{3:{spot:6800}, 5:{spot:2400}, 8:{spot:1200}, 12:{spot:600}, 15:{spot:420}}}
     },
@@ -6889,8 +6889,8 @@ var LIGHTS = {
     },
   },
 
-  // ══ 特殊光源 ══ すべて ARC SYSTEM の実測値
-  arc_special: {
+  // ══ 特殊光源 ══ すべて実測値
+  specials: {
     hyper_blast_5k: {
       group:'HMI', hiddenFromList:true, weight:'8.5 kg', name:'Hyper Blast 5kW', desc:'ハイパーブラスト 5kW (measured)', emoji:'⚡', watts:5000,
       ccts:[5600], accessories:['flat'],
@@ -6903,7 +6903,7 @@ var LIGHTS = {
     },
     t_light: {
       group:'HMI', hiddenFromList:true, weight:'24 kg', name:'T-Light', desc:'T-Light フラット (measured) — 消費電力は未確認', emoji:'⚡',
-      // watts は ARC のカタログに記載がないため省略。
+      // watts は実測カタログに記載がないため省略。
       ccts:[5600], accessories:['flat'],
       refData:{5600:{5:{flat:19000}, 8:{flat:9600}, 12:{flat:4800}, 15:{flat:2400}}}
     },
@@ -6919,7 +6919,7 @@ var LIGHTS = {
     },
     mercury_lamp: {
       group:'Tungsten', hiddenFromList:true, name:'Mercury Lamp', desc:'水銀灯 (measured) — 消費電力は未確認', emoji:'✨',
-      // 水銀灯の色温度は個体差が大きい。ARC の実測は 4300K 相当として扱う。
+      // 水銀灯の色温度は個体差が大きい。実測は 4300K 相当として扱う。
       ccts:[4300], accessories:['flat'],
       refData:{4300:{
         1:   {flat:9600},
@@ -6957,7 +6957,7 @@ var ACC_INFO = {
   // これを flood(55°) / open(110°) として登録していたため、Finder が広角の超高輝度光源と
   // 誤認して不当に上位に並んでいた。
   joker_open:{ label:'Lensless (reflector)', beam:'Narrow',        emoji:'🔦', angle:12 },
-  // ARRI Pocket PAR のレンズセット（ARC 実測）。角度は ARRI 公称の呼称に合わせた目安。
+  // ARRI Pocket PAR のレンズセット（実測）。角度は ARRI 公称の呼称に合わせた目安。
   p45_clear: { label:'P45 Clear',           beam:'45°',           emoji:'🔆', angle:45 },
   p45_frost: { label:'P45 Frost',           beam:'45° Soft',      emoji:'❄️', angle:50 },
   p65_clear: { label:'P65 Clear',           beam:'65°',           emoji:'🔆', angle:65 },
@@ -15035,7 +15035,7 @@ function getFactorArray(prefix) {
   return [];
 }
 
-// ARC System ディフューザー・ファクター目安表（透過）2021.03.12 基準f5.6½で算出した減光ストップ
+// ディフューザーのファクター目安表（透過・実測）2021.03.12 基準f5.6½で算出した減光ストップ
 var DIFF_FACTOR_STOPS = {'土間ビニール':0.2,'タフタシルク':2.2,'キミーラシルク':2.5,'グリットクロス':3.0,'ライトグリットクロス':2.0,'B3グリットクロス':3.2,'B3ライトグリットクロス':2.0,'B1グリットクロス':2.0,'B1ライトグリットクロス':2.2,'1/4シルク':1.0,'白シルク':2.8,'天竺シルク':3.2,'チャイナシルク':1.8,'白紗S':0.5,'白紗W':1.2,'黒紗S':0.5,'黒紗W':1.5,'ブルーシート':3.5,'グリーンシート':2.8,'ハイライト':0.2,'サイレントグリットクロス':2.8,'難燃トレッシングペーパー':1.5,'梨地ビニール':0.5,'クリスタルデュフュージョン':2.0,'2mm厚乳白アクリル':4.0,'白シーツ':3.0,'ダンプラ白':2.5,'A3グリットクロス':2.5,'A1グリットクロス':2.2,'デイブルー':2.8,'ナイトブルー(薄)':4.2,'ウィンドストッパー白':2.2,'ウィンドストッパー黒':3.5,'ナイトグレー(薄)':3.8,'ナイトブルー(濃)':4.8,'ウィンドストッパーシルバー':1.8,'デイグレー':3.2,'ナイトグレー(濃)':4.5,'グレーシルク':3.8,'サテン':2.8,'スカイブルーシルク':3.5,'天竺':2.8,'サイレントライトグリットクロス':2.2,'マジッククロス':3.5,'ニュートラルグレイグリッド':2.5};
 // 名前→ストップ検索（前後空白許容）
 // 世界共通のデフォルト・プリセット（初期値。個体差があるため各行で可変）
@@ -24697,7 +24697,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.182';
+var ver = 'v1.1.8.183';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
