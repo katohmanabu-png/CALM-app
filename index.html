@@ -888,6 +888,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 <div id="page-calc" class="page-content active">
 <div class="app">
 <div id="calc-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-calc" style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;"></div><div id="page-sub-calc" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div></div>
+<div id="amb-bar-calc"></div>
 
 <!-- ライト選択エリア 折りたたみヘッダー -->
 <div id="light-select-hdr" onclick="toggleLightSelector()"
@@ -1571,6 +1572,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
   <div id="page-title-mix" style="font-size:15px;font-weight:800;color:var(--text)"></div>
   <div id="page-sub-mix" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div>
 </div>
+<div id="amb-bar-mix"></div>
 
 <!-- ミレッド計算はドロワー（≡）からのみ開く。毎回使うものではないので前に出さない -->
 
@@ -1782,6 +1784,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
 <div class="app">
 <div id="finder-subtitle-bar" style="padding:6px 0 10px;border-bottom:1px solid var(--bg);margin-bottom:8px;"><div id="page-title-finder" style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;"></div>
 <div id="page-sub-finder" style="font-size:11px;color:var(--text-dim);font-weight:600;margin-top:1px;"></div></div>
+<div id="amb-bar-finder"></div>
 
 <div class="card finder-hero">
   <div class="card-hdr">
@@ -2197,7 +2200,7 @@ var LANGS = {
     dftCancel:'キャンセル', exportTitle:'書き出し', exportPNG:'画像で書き出す (PNG)', exportPNGHint:'図面全体を1枚の画像に。共有や印刷に', exportPDF:'PDFで書き出す', exportPDFHint:'A4に収めて書き出します', exportCalm:'データで書き出す (.calm)', exportCalmHint:'CALMで開き直せる形式', exportEmpty:'図面が空です', saveTitle:'保存', saveOverwrite:'上書き保存', saveOverwriteHint:'いま開いている図面を更新します', saveAsNew:'別名で保存', saveAsNewHint:'新しい図面として残します（元はそのまま）', saveLastAt:'前回', dftClose:'閉じる', dftApply:'適用',
     beamOutOfCone:'ビーム外', aimPickLight:'🎯 狙いを決めるライトをタップ', aimPickTarget:'次に、狙う先をタップ（人物 / 反射板 / DIFF）', aimBadTarget:'狙えるのは 人物・反射板・DIFF です', aimAgain:'（続けて別のライトも指定できます）', spreadLabel:'この布を複数灯で均等に照らす', spreadHint:'各灯を「自分の真上」と「布の中心」の間に向けます。ビームが重なって面全体が均され、反射光が天空光のように回ります。', spreadWide:'広く', spreadEven:'均等', spreadTight:'中央寄り', spreadDone:'灯を割り当てました', spreadNone:'この布より下にライトがありません', ptLabel:'振り（PAN / TILT）', ptHint:'狙う点と角度は同じものです。振れば当てる場所が動き、場所を動かせば角度が変わります。', ptPan:'PAN', ptPanHint:'0°＝図面の上、＋で時計回り', ptTilt:'TILT', ptTiltHint:'＋が上振り。90°で真上', aimLabel:'このライトが狙う先', aimHint:'天バンなど真上の反射板は、ここで選ぶと計算に入ります（↑＝真上）。', aimAuto:'自動', aimSubject:'人物', camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定', camGoto:'カメラ設定',
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
-    cctSubbed:'≈ {k}K の値',
+    cctSubbed:'≈ {k}K の値', ambBarLabel:'環境光', ambBarUnset:'未入力',
     leeNote:'LEE の公表値は透過率から出した数字で、光源からの距離が入っていません。実際の減光はこれより大きくなります。光源からの距離を織り込んだ値で使いたいときは Rosco の品番を選んでください。',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expReceptor:'受光部', expDome:'ドーム', expDomeHint:'露出計の標準。半球全体を拾う', expFlat:'フラット', expFlatHint:'1灯を切り分けて測る', expNoteDome:'入射光式の乳白ドームを各方向へ向けたときの読みです。ドームは半球全体を拾うので、真横の光でも正面向きで半分ほど読みます。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
@@ -2305,7 +2308,7 @@ var LANGS = {
     dftCancel:'Cancel', exportTitle:'Export', exportPNG:'Export as image (PNG)', exportPNGHint:'The whole plan as one picture — for sharing or printing', exportPDF:'Export as PDF', exportPDFHint:'Fitted to A4', exportCalm:'Export data (.calm)', exportCalmHint:'Re-openable in CALM', exportEmpty:'The plan is empty', saveTitle:'Save', saveOverwrite:'Overwrite', saveOverwriteHint:'Update the draft you have open', saveAsNew:'Save as new', saveAsNewHint:'Keep this as a separate draft (the original stays)', saveLastAt:'last', dftClose:'Close', dftApply:'Apply',
     beamOutOfCone:'outside beam', aimPickLight:'🎯 Tap the light to aim', aimPickTarget:'Now tap what it aims at (subject / bounce / diffusion)', aimBadTarget:'Aim at a subject, bounce or diffusion', aimAgain:'(keep aiming other lights)', spreadLabel:'Spread several lights across this cloth', spreadHint:'Aims each light between its own position and the centre, so the beams overlap and the whole surface lifts evenly.', spreadWide:'Wide', spreadEven:'Even', spreadTight:'Centred', spreadDone:'lights assigned', spreadNone:'No lights below this cloth', ptLabel:'Pan / Tilt', ptHint:'The angle and the aimed point are the same thing — move one and the other follows.', ptPan:'PAN', ptPanHint:'0° = up the plan, + clockwise', ptTilt:'TILT', ptTiltHint:'+ tilts up. 90° is straight up', aimLabel:'What this light aims at', aimHint:'Pick it here for an overhead bounce — the beam cone alone cannot see straight up (↑ = overhead).', aimAuto:'Auto', aimSubject:'Subject', camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop', camGoto:'Camera',
     dftSize:'Size', dftPresetPick:'Pick a preset',
-    cctSubbed:'≈ {k}K figure',
+    cctSubbed:'≈ {k}K figure', ambBarLabel:'Ambient', ambBarUnset:'not set',
     triClearBtn:'✕ Clear', camTabCinema:'Digital', camTabFilm:'Film', camTabStill:'Photo',
     leeNote:'LEE publishes transmission figures, which do not account for distance from the source. Real-world loss will be greater than this. For figures that account for distance from the source, pick a Rosco product instead.',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expReceptor:'Receptor', expDome:'Dome', expDomeHint:'meter standard — reads the whole hemisphere', expFlat:'Flat', expFlatHint:'isolates one source', expNoteDome:'Readings for an incident lumisphere aimed at each direction. A dome collects the whole hemisphere, so a side light still reads about half when the dome faces the camera. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
@@ -2411,7 +2414,7 @@ var LANGS = {
     dftCancel:'Cancelar', exportTitle:'Exportar', exportPNG:'Exportar como imagen (PNG)', exportPNGHint:'Todo el plano en una imagen', exportPDF:'Exportar como PDF', exportPDFHint:'Ajustado a A4', exportCalm:'Exportar datos (.calm)', exportCalmHint:'Se puede reabrir en CALM', exportEmpty:'El plano está vacío', saveTitle:'Guardar', saveOverwrite:'Sobrescribir', saveOverwriteHint:'Actualiza el plano abierto', saveAsNew:'Guardar como nuevo', saveAsNewHint:'Se guarda aparte (el original se conserva)', saveLastAt:'último', dftClose:'Cerrar', dftApply:'Aplicar',
     beamOutOfCone:'fuera del haz', aimPickLight:'🎯 Toca la luz que quieres apuntar', aimPickTarget:'Ahora toca el objetivo (sujeto / rebote / difusión)', aimBadTarget:'Apunta a sujeto, rebote o difusión', aimAgain:'(sigue apuntando otras luces)', spreadLabel:'Repartir varias luces por la tela', spreadHint:'Apunta cada luz entre su posición y el centro, para que los haces se solapen.', spreadWide:'Amplio', spreadEven:'Uniforme', spreadTight:'Al centro', spreadDone:'luces asignadas', spreadNone:'No hay luces debajo de esta tela', ptLabel:'Pan / Tilt', ptHint:'El ángulo y el punto apuntado son lo mismo: mueve uno y el otro sigue.', ptPan:'PAN', ptPanHint:'0° = arriba del plano, + sentido horario', ptTilt:'TILT', ptTiltHint:'+ inclina hacia arriba. 90° es cenital', aimLabel:'A qué apunta esta luz', aimHint:'Elígelo aquí para un rebote cenital: el cono no ve hacia arriba (↑ = cenital).', aimAuto:'Auto', aimSubject:'Sujeto', camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f', camGoto:'Cámara',
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
-    cctSubbed:'≈ valor de {k}K',
+    cctSubbed:'≈ valor de {k}K', ambBarLabel:'Ambiente', ambBarUnset:'sin definir',
     triClearBtn:'✕ Quitar', camTabCinema:'Digital', camTabFilm:'Película', camTabStill:'Foto',
     leeNote:'Los valores de LEE provienen de la transmisión y no tienen en cuenta la distancia a la fuente. La pérdida real será mayor. Para valores que tienen en cuenta la distancia a la fuente, elija un producto Rosco.',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expReceptor:'Receptor', expDome:'Domo', expDomeHint:'estándar del fotómetro; capta el hemisferio', expFlat:'Plano', expFlatHint:'aísla una sola fuente', expNoteDome:'Lecturas de una semiesfera incidente orientada a cada dirección. El domo capta todo el hemisferio, así que una luz lateral marca aproximadamente la mitad con el domo hacia la cámara. 0° mira a la cámara. Incluye las diferencias de altura.', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
@@ -2534,6 +2537,7 @@ function applyI18n() {
   // 開いている間に言語を変えたときの貼り替え。初回の差し込みは openDrawer 側
   var _dl = document.getElementById('drawer-lang');
   if (_dl) _dl.innerHTML = langChipHTML();
+  try { renderAmbBars(); } catch(e) {}
   function sp(id, k) { var el = document.getElementById(id); if (el) el.placeholder = t(k); }
   s('hdr-sub','appSub'); s('btn-fav','favBtn');
   s('lbl-maker','makerTitle'); s('lbl-model','modelTitle');
@@ -8998,6 +9002,72 @@ function _sunARGrabHTML() {
 // 「いま環境光で f2.8。そこから1段上げたい」という現場の考え方から入る道具。
 // これまでは「灯体を置いたら何 F になるか」しか出せなかったので、
 // 逆から入れなかった。カメラ設定（ISO・fps・シャッター）は Calc と同じものを使う。
+/* 環境光。現場にすでにある明るさを「もう1つの光源」として扱う。
+ * Calc / Mix / Finder がこの1つの値を見て、灯体の照度に足してから F値へ直す。
+ * 物理的にも、被写体に届く光は灯体＋環境光なのでこれが正しい足し方。
+ * Compare と Draft には足さない（Compare は灯体同士の比較、Draft は
+ * 図面上の光源だけを積むため）。 */
+var _AMBIENT = { on:false, lux:0 };
+function ambientLux() {
+  if (!(_AMBIENT.on && _AMBIENT.lux > 0 && isFinite(_AMBIENT.lux))) return 0;
+  return luxRound(_AMBIENT.lux);   // 合計に小数が出ないようそろえる
+}
+function fstopWithAmbient(lux) { return luxToFstopCamera(lux + ambientLux()); }
+function ambientLoad() {
+  try {
+    _AMBIENT.on  = localStorage.getItem('calm_amb_on') === '1';
+    var v = parseFloat(localStorage.getItem('calm_amb_lux'));
+    _AMBIENT.lux = isFinite(v) ? v : 0;
+  } catch(e) {}
+}
+function ambientSave() {
+  try {
+    localStorage.setItem('calm_amb_on', _AMBIENT.on ? '1' : '0');
+    localStorage.setItem('calm_amb_lux', String(_AMBIENT.lux || 0));
+  } catch(e) {}
+}
+// 3画面に同じものを出す。環境光が入っていると全部の数字が変わるので、
+// 気づかないまま使わないよう常に見える位置に置く。
+function ambBarHTML() {
+  var on = _AMBIENT.on && _AMBIENT.lux > 0;
+  var col = on ? '#8e24aa' : 'var(--text-dim,#888)';
+  var val = (_AMBIENT.lux > 0)
+    ? (_ambNearestF(luxToFstopCamera(_AMBIENT.lux)) + ' · ' + luxRound(_AMBIENT.lux).toLocaleString() + ' lx')
+    : t('ambBarUnset');
+  return '<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;margin-bottom:8px;' +
+    'background:' + (on ? 'rgba(142,36,170,0.08)' : 'var(--bg,#f5f5f7)') + ';border-radius:10px;' +
+    'border:1.5px solid ' + (on ? 'rgba(142,36,170,0.35)' : 'transparent') + ';">' +
+    '<span style="font-size:14px;">\uD83C\uDF17</span>' +
+    '<span style="font-size:11px;font-weight:800;color:' + col + ';white-space:nowrap;">' + t('ambBarLabel') + '</span>' +
+    '<button onclick="ambToggle()" style="padding:2px 9px;border-radius:11px;border:1.5px solid ' +
+      (on ? '#8e24aa' : '#bbb') + ';background:' + (on ? '#8e24aa' : 'transparent') + ';color:' +
+      (on ? '#fff' : '#888') + ';font-size:10.5px;font-weight:800;cursor:pointer;">' +
+      (on ? 'ON' : 'OFF') + '</button>' +
+    '<div style="flex:1;min-width:0;"></div>' +
+    '<button onclick="ambOpenEditor()" style="background:none;border:none;padding:0;cursor:pointer;' +
+      'font-size:11px;font-weight:700;color:' + col + ';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' +
+      val + ' \u270F\uFE0F</button>' +
+    '</div>';
+}
+function renderAmbBars() {
+  ['calc','mix','finder'].forEach(function(k) {
+    var el = document.getElementById('amb-bar-' + k);
+    if (el) el.innerHTML = ambBarHTML();
+  });
+}
+// トグルを切り替えたら、開いている画面の数字を作り直す
+function ambRecalcAll() {
+  renderAmbBars();
+  try { if (typeof calculate === 'function') calculate(); } catch(e) {}
+  try { if (typeof calcMix === 'function') calcMix(); } catch(e) {}
+  try { if (typeof renderFinderResults === 'function') renderFinderResults(); } catch(e) {}
+}
+window.ambToggle = function() {
+  if (!_AMBIENT.on && !(_AMBIENT.lux > 0)) { ambOpenEditor(); return; }  // 値が無いなら先に入れてもらう
+  _AMBIENT.on = !_AMBIENT.on; ambientSave(); ambRecalcAll();
+};
+window.ambOpenEditor = function() { if (typeof openAmbientTool === 'function') openAmbientTool(); };
+
 var _AMB = { fstop:4.0, lux:null, byLux:false, stops:1, add:true };
 
 /** F値 → 照度。luxToFstopCamera の逆 */
@@ -9063,9 +9133,16 @@ function openAmbientTool() {
 }
 
 function _ambRender() {
+  // 開いている間にバーの表示も追従させる
+  setTimeout(renderAmbBars, 0);
   var b = document.getElementById('_amb_body'); if (!b) return;
   var imp = !!(S && S.imperial);
   var ambLux = _AMB.byLux ? _AMB.lux : fstopToLuxCamera(_AMB.fstop);
+  // このツールが環境光の入力口。入れた値をそのまま共有の状態へ渡し、
+  // Calc / Mix / Finder のトグルで使えるようにする。
+  if (isFinite(ambLux) && ambLux > 0) {
+    if (_AMBIENT.lux !== ambLux) { _AMBIENT.lux = ambLux; ambientSave(); }
+  }
   if (!ambLux || !isFinite(ambLux) || ambLux < 0) ambLux = 0;
   var ambF   = luxToFstopCamera(ambLux);
   // 目標は環境光から何段上か。足すぶんだけを灯体で作る
@@ -11747,6 +11824,8 @@ function calculate() {
   var lux = r.lux * units;
   var _calcFactor = getTotalFactorStops(S_calcFactors);
   if (_calcFactor > 0) lux = lux / Math.pow(2, _calcFactor);
+  // 環境光は灯体の前に付けるディフューズで減らないので、Factor のあとに足す
+  lux += ambientLux();
 
   var iso    = S.customISO   || ISO_V[S.iso];
   var fps    = S.customFPS   || S.fps;
@@ -12568,6 +12647,7 @@ window.addEventListener('DOMContentLoaded', function() {
   try { onCamChange(); } catch(e) { console.error('onCamChange', e); }
   try { renderFavList(); } catch(e) { console.error('renderFavList', e); }
   try { setLang(LANG); } catch(e) { console.error('setLang', e); }
+  try { ambientLoad(); renderAmbBars(); } catch(e) { console.error('ambient', e); }
   try { showPage(S.page || 'calc'); } catch(e) {}
   // 距離スライダー横の 📷 は、対応機のときだけ出す
   try { _cmShowDistARButtons(); } catch(e) {}
@@ -14167,7 +14247,7 @@ function renderFinderResults() {
       try {
         var _ff = getTotalFactorStops(S_finderFactors);
         var _fl = _ff > 0 ? bestLux / Math.pow(2, _ff) : bestLux;
-        fNum1 = luxToFstopCamera(_fl);
+        fNum1 = fstopWithAmbient(_fl);   // 環境光ぶんを足したF値で順位を付ける
       } catch(e) {}
       if (!fNum1 || fNum1 <= 0 || !isFinite(fNum1)) continue;
 
@@ -14181,7 +14261,7 @@ function renderFinderResults() {
           for (var u = 2; u <= 8; u++) {
             var fU = 0;
             // Factorを適用した_flに台数を掛けて計算
-            try { fU = luxToFstopCamera(_fl * u); } catch(e) {}
+            try { fU = fstopWithAmbient(_fl * u); } catch(e) {}
             if (!fU || !isFinite(fU)) break;
             var diffU = Math.abs(2 * Math.log2(fU / targetFval));
             if (diffU < bestDiff) {
@@ -15825,6 +15905,8 @@ function calcMix() {
 
   card.style.display = 'block';
 
+  // 環境光を1つの光源として足す（灯体ごとの Factor のあと）
+  total += ambientLux();
   // カメラ設定を完全反映したF-stop計算
   var fval  = luxToFstopCamera(total);
   var flab  = fLab(fval);
@@ -15916,7 +15998,7 @@ function calcMix() {
       '<div style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:2px 2px;">' +
       '<span style="font-size:34px;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1;">' + fLab(fvalForStop) + '</span>' +
       _msBadge +
-      '<span style="font-size:20px;font-weight:800;color:#fff;">' + total.toLocaleString() + '<span style="font-size:11px;opacity:.65;margin-left:2px;">lx</span></span>' +
+      '<span style="font-size:20px;font-weight:800;color:#fff;">' + luxRound(total).toLocaleString() + '<span style="font-size:11px;opacity:.65;margin-left:2px;">lx</span></span>' +
       '<span style="font-size:16px;font-weight:700;color:rgba(255,255,255,.5);">' + fc.toLocaleString() + '<span style="font-size:11px;margin-left:1px;">fc</span></span>' +
       '<span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.85);">' + distDisp + unit + '</span>' +
       (cctTotalLux > 0 ? '<span style="font-size:17px;font-weight:900;color:var(--accent,#f96);white-space:nowrap;">' + Math.round(cctLuxSum / cctTotalLux) + '<span style="font-size:11px;font-weight:700;">K</span></span>' : '') +
@@ -15990,7 +16072,7 @@ function calcMix() {
     '<div class="result-grid">' +
       '<div class="result-cell">' +
         '<div class="result-cell-lbl">Total Lux</div>' +
-        '<div class="result-cell-val">' + total.toLocaleString() + '<span class="result-cell-unit">lx</span></div>' +
+        '<div class="result-cell-val">' + luxRound(total).toLocaleString() + '<span class="result-cell-unit">lx</span></div>' +
       '</div>' +
       '<div class="result-cell">' +
         '<div class="result-cell-lbl">Foot Candle</div>' +
@@ -16055,7 +16137,7 @@ function calcMix() {
           '<span style="color:rgba(255,255,255,0.8);">' + e2.units + '\u00d7 ' + e2.name +
           ' <span style="color:rgba(255,255,255,0.45);">(' + e2.cct + 'K' +
           (e2.acc && e2.acc !== 'none' ? ' / ' + e2.acc : '') + ')</span></span>' +
-          '<span style="font-weight:700;color:white;">' + e2.subtotal.toLocaleString() + ' lx' +
+          '<span style="font-weight:700;color:white;">' + luxRound(e2.subtotal).toLocaleString() + ' lx' +
             (e2.kg != null
               ? '<span style="font-weight:600;color:rgba(255,255,255,0.45);margin-left:8px;">' + _cmpKgNum(e2.kg * e2.units) + ' kg</span>'
               : '<span style="font-weight:600;color:#ef9a9a;margin-left:8px;">' + t('weightUnknown') + '</span>') +
@@ -24943,7 +25025,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.9.190';
+var ver = 'v1.1.9.191';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
