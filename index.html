@@ -9050,7 +9050,7 @@ function ambBarHTML() {
     '</div>';
 }
 function renderAmbBars() {
-  ['calc','mix','finder'].forEach(function(k) {
+  ['calc','mix','finder','dftexp'].forEach(function(k) {
     var el = document.getElementById('amb-bar-' + k);
     if (el) el.innerHTML = ambBarHTML();
   });
@@ -9061,6 +9061,12 @@ function ambRecalcAll() {
   try { if (typeof calculate === 'function') calculate(); } catch(e) {}
   try { if (typeof calcMix === 'function') calcMix(); } catch(e) {}
   try { if (typeof renderFinderResults === 'function') renderFinderResults(); } catch(e) {}
+  // Draft の露出ツールが開いていれば作り直す（角度ごとの値が全部変わる）
+  try {
+    if (document.getElementById('_dft_exp') && typeof dftExposureTool === 'function') dftExposureTool();
+  } catch(e) {}
+  // 図面上に出している F値の表示も更新する
+  try { if (typeof dftRender === 'function' && _dft && _dft.objects) dftRender(); } catch(e) {}
 }
 window.ambToggle = function() {
   if (!_AMBIENT.on && !(_AMBIENT.lux > 0)) { ambOpenEditor(); return; }  // 値が無いなら先に入れてもらう
@@ -21928,6 +21934,14 @@ function _dftExpReadAt(srcs, ref, angDeg, elevDeg) {
   // 真横〜背面は cos がほぼ 0 になり、浮動小数の残りが 0 より大きくなって
   // f0.0 と表示されてしまう。実用上意味のない 0.5lx 未満は無光として扱う。
   if (sum < 0.5) { sum = 0; parts = []; }
+  /* 環境光。窓明かりや部屋の跳ね返りのように一様に回っている光は、
+   * 露出計をどちらへ向けても同じだけ読む。したがって向きに関係なく
+   * どの角度にも同じ値を足す。これで影側の底が持ち上がり、
+   * キー比とコントラストが実際の見え方に近づく。
+   * 0.5lx 未満の切り捨ては灯体ぶんの浮動小数の残りを消すためのものなので、
+   * その後に足す（環境光があるなら「無光」の向きは無い）。 */
+  var _ambE = ambientLux();
+  if (_ambE > 0) { sum += _ambE; parts.push({ name: t('ambBarLabel'), lux: _ambE, ambient: true }); }
   parts.sort(function(a,b){ return b.lux - a.lux; });
   return { angle:angDeg, elev:(elevDeg || 0), lux:sum,
            fstop:(sum > 0 ? luxToFstopCamera(sum) : null), parts:parts };
@@ -22036,7 +22050,8 @@ function dftExposureTool() {
       langChipHTML() +
       '<button onclick="document.getElementById(\'_dft_exp\').remove()" style="flex:0 0 auto;width:30px;height:30px;border:none;border-radius:50%;background:#eee;color:#333;font-size:16px;font-weight:800;cursor:pointer;line-height:1;">✕</button>' +
     '</div>' +
-    '<div style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px 8px;">' + body + '</div>' +
+    '<div style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px 8px;">' +
+      '<div id="amb-bar-dftexp">' + ambBarHTML() + '</div>' + body + '</div>' +
     '<div style="flex:0 0 auto;padding:10px 16px calc(14px + env(safe-area-inset-bottom, 0px));border-top:1px solid #eee;">' +
       '<button onclick="document.getElementById(\'_dft_exp\').remove()" style="width:100%;padding:12px;background:#eee;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">' + t('dftClose') + '</button>' +
     '</div>' +
@@ -25025,7 +25040,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.9.191';
+var ver = 'v1.1.9.192';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
