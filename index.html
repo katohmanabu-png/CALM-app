@@ -3724,7 +3724,7 @@ var LIGHTS = {
       url:'https://www.creamsource.com/products/vortex24/',
       group:'LED', name:'Vortex24', desc:'1950W IP65 Full Color LED Panel Spot', emoji:'🌸', watts:1950, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"42\" cy=\"26\" r=\"3.5\"/><circle cx=\"60\" cy=\"26\" r=\"3.5\"/><circle cx=\"80\" cy=\"26\" r=\"3.5\"/><circle cx=\"100\" cy=\"26\" r=\"3.5\"/><circle cx=\"118\" cy=\"26\" r=\"3.5\"/><circle cx=\"42\" cy=\"40\" r=\"3.5\"/><circle cx=\"60\" cy=\"40\" r=\"3.5\"/><circle cx=\"80\" cy=\"40\" r=\"3.5\"/><circle cx=\"100\" cy=\"40\" r=\"3.5\"/><circle cx=\"118\" cy=\"40\" r=\"3.5\"/><circle cx=\"42\" cy=\"54\" r=\"3.5\"/><circle cx=\"60\" cy=\"54\" r=\"3.5\"/><circle cx=\"80\" cy=\"54\" r=\"3.5\"/><circle cx=\"100\" cy=\"54\" r=\"3.5\"/><circle cx=\"118\" cy=\"54\" r=\"3.5\"/><circle cx=\"42\" cy=\"68\" r=\"3.5\"/><circle cx=\"60\" cy=\"68\" r=\"3.5\"/><circle cx=\"80\" cy=\"68\" r=\"3.5\"/><circle cx=\"100\" cy=\"68\" r=\"3.5\"/><circle cx=\"118\" cy=\"68\" r=\"3.5\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'53.5 kg', size:'1333×971×258 mm',
-      ccts:[2200, 3200, 5600, 10000, 15000], accessories:['none'],
+      ccts:[2200, 3200, 5600, 10000, 15000], accessories:['none'], accAngles:{none:20},  // Creamsource 公表 20° half peak angle（ナレッジベース Specs for the Vortex24）
       dmx:{led:'RGBW',power:'1950W',cct:'2200K–15000K + Full RGBWW',cri:'>95',ip:'IP65',
         control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Flash','Pulse','TV','Fire','Lightning']},
       dmxUrl:'https://creamsource.com/wp-content/downloads/dmx-tables/VortexSeries-DMX-Tables-1.2.1.pdf',
@@ -3741,7 +3741,7 @@ var LIGHTS = {
       group:'LED', name:'Titan Tube', desc:'48W RGBMA LED Tube', emoji:'💜', svgIcon:'<svg width=\"160\" height=\"56\" viewBox=\"0 0 160 56\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M34 10 H138 Q150 10 150 22 V34 Q150 46 138 46 H34\"/><path d=\"M34 10 Q18 10 18 28 Q18 46 34 46\"/><path d=\"M34 10 Q43 28 34 46\"/><path d=\"M55 18 H132\"/><path d=\"M55 38 H132\"/><circle cx=\"64\" cy=\"28\" r=\"5\"/><rect x=\"80\" y=\"23\" width=\"24\" height=\"10\" rx=\"1\"/><circle cx=\"115\" cy=\"28\" r=\"2.5\"/><circle cx=\"125\" cy=\"28\" r=\"2.5\"/><circle cx=\"135\" cy=\"28\" r=\"2.5\"/></g></svg>', watts:48,
       weight:'0.96 kg', size:'Ø42×1035 mm',
       ccts:[2700,3200,4300,5600,6500,10000],
-      accessories:['none'],
+      accessories:['none'], accAngles:{none:115},  // Astera 公表 Beam Angle 135°×115°（Field 175°×160°）。円の直径を出すので短辺の115°を採る
       dmx:{led:'RGBMA',power:'48W',cct:'1700K–20000K + Full RGBMA',cri:'>95',tlci:'>95',ip:'IP54',
         control:'AsteraApp / DMX / W-DMX / Art-Net / sACN',dimming:'0.1%–100%',
         effects:['Candle','Flame','Chase','Strobe','Fade','Rainbow','Fireworks','Lightning']},
@@ -3757,7 +3757,7 @@ var LIGHTS = {
       group:'LED', name:'Helios Tube', desc:'24W RGBMA Half-Tube', emoji:'💜', svgIcon:'<svg width=\"160\" height=\"56\" viewBox=\"0 0 160 56\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M34 10 H138 Q150 10 150 22 V34 Q150 46 138 46 H34\"/><path d=\"M34 10 Q18 10 18 28 Q18 46 34 46\"/><path d=\"M34 10 Q43 28 34 46\"/><path d=\"M55 18 H132\"/><path d=\"M55 38 H132\"/><circle cx=\"64\" cy=\"28\" r=\"5\"/><rect x=\"80\" y=\"23\" width=\"24\" height=\"10\" rx=\"1\"/><circle cx=\"115\" cy=\"28\" r=\"2.5\"/><circle cx=\"125\" cy=\"28\" r=\"2.5\"/><circle cx=\"135\" cy=\"28\" r=\"2.5\"/></g></svg>', watts:24,
       weight:'0.55 kg', size:'Ø42×610 mm',
       ccts:[2700,5600],
-      accessories:['none'],
+      accessories:['none'], accAngles:{none:115},  // Astera 公表 Beam Angle 135°×115°（Field も同値）。短辺の115°を採る
       dmx:{led:'RGBMA',power:'24W',cct:'1700K–20000K + Full RGBMA',cri:'>95',tlci:'>95',ip:'IP54',
         control:'AsteraApp / DMX / W-DMX',dimming:'0.1%–100%',
         effects:['Candle','Chase','Strobe','Fade']},
@@ -3772,7 +3772,7 @@ var LIGHTS = {
       group:'LED', name:'Hyperion Tube', desc:'92W RGBMA High-Output Tube', emoji:'💜', svgIcon:'<svg width=\"160\" height=\"56\" viewBox=\"0 0 160 56\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M34 10 H138 Q150 10 150 22 V34 Q150 46 138 46 H34\"/><path d=\"M34 10 Q18 10 18 28 Q18 46 34 46\"/><path d=\"M34 10 Q43 28 34 46\"/><path d=\"M55 18 H132\"/><path d=\"M55 38 H132\"/><circle cx=\"64\" cy=\"28\" r=\"5\"/><rect x=\"80\" y=\"23\" width=\"24\" height=\"10\" rx=\"1\"/><circle cx=\"115\" cy=\"28\" r=\"2.5\"/><circle cx=\"125\" cy=\"28\" r=\"2.5\"/><circle cx=\"135\" cy=\"28\" r=\"2.5\"/></g></svg>', watts:92,
       weight:'1.35 kg', size:'Ø67×1035 mm',
       ccts:[2700,5600],
-      accessories:['none'],
+      accessories:['none'], accAngles:{none:115},  // Astera 公表 Beam Angle 135°×115°（Field 175°×160°）。円の直径を出すので短辺の115°を採る
       dmx:{led:'RGBMA',power:'92W',cct:'1700K–20000K + Full RGBMA',cri:'>95',tlci:'>95',ip:'IP54',
         control:'AsteraApp / DMX / W-DMX / Art-Net / sACN',dimming:'0.1%–100%',
         effects:['Candle','Flame','Chase','Strobe','Rainbow','Lightning']},
@@ -3787,7 +3787,7 @@ var LIGHTS = {
       group:'LED', svgIcon:'<svg width=\"120\" height=\"100\" viewBox=\"0 0 120 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M60 12 C40 12 28 27 28 43 C28 55 36 62 40 70 H80 C84 62 92 55 92 43 C92 27 80 12 60 12Z\"/><path d=\"M42 78 H78 M44 86 H76\"/><path d=\"M55 94 H65\"/></g></svg>', name:'NYX Bulb', desc:'15W RGBWW Smart Bulb', emoji:'💜', watts:15,
       weight:'0.18 kg', size:'Ø100×150 mm',
       ccts:[2700,5600],
-      accessories:['none'],
+      accessories:['none'], accAngles:{none:155},  // Astera 公表 Beam Angle 155°（Field 205°）
       dmx:{led:'RGBMA',power:'15W',cct:'1700K–20000K + Full RGB',cri:'>95',tlci:'>95',ip:'IP20',
         control:'AsteraApp / DMX / W-DMX',dimming:'0.1%–100%',
         effects:['Candle','Strobe','Fade','Chase']},
@@ -3802,7 +3802,7 @@ var LIGHTS = {
       group:'LED Spot', svgIcon:'<svg width=\"160\" height=\"56\" viewBox=\"0 0 160 56\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M34 10 H138 Q150 10 150 22 V34 Q150 46 138 46 H34\"/><path d=\"M34 10 Q18 10 18 28 Q18 46 34 46\"/><path d=\"M34 10 Q43 28 34 46\"/><path d=\"M55 18 H132\"/><path d=\"M55 38 H132\"/><circle cx=\"64\" cy=\"28\" r=\"5\"/><rect x=\"80\" y=\"23\" width=\"24\" height=\"10\" rx=\"1\"/><circle cx=\"115\" cy=\"28\" r=\"2.5\"/><circle cx=\"125\" cy=\"28\" r=\"2.5\"/><circle cx=\"135\" cy=\"28\" r=\"2.5\"/></g></svg>', name:'AX3', desc:'15W IP65 RGBWW Pixel Tube', emoji:'💜', watts:15,
       weight:'0.28 kg', size:'Ø38×345 mm',
       ccts:[3200,5600],
-      accessories:['none'],
+      accessories:['none'], accAngles:{none:13},  // Astera 公表 Beam Angle 13°（Field 22°）
       dmx:{led:'RGBMA',power:'15W',cct:'1700K–20000K + Full RGBWW',cri:'>95',tlci:'>95',ip:'IP65',
         control:'AsteraApp / DMX / W-DMX',dimming:'0.1%–100%',
         effects:['Candle','Chase','Strobe','Rainbow']},
@@ -3817,7 +3817,7 @@ var LIGHTS = {
       group:'LED Spot', svgIcon:'<svg width=\"160\" height=\"56\" viewBox=\"0 0 160 56\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M34 10 H138 Q150 10 150 22 V34 Q150 46 138 46 H34\"/><path d=\"M34 10 Q18 10 18 28 Q18 46 34 46\"/><path d=\"M34 10 Q43 28 34 46\"/><path d=\"M55 18 H132\"/><path d=\"M55 38 H132\"/><circle cx=\"64\" cy=\"28\" r=\"5\"/><rect x=\"80\" y=\"23\" width=\"24\" height=\"10\" rx=\"1\"/><circle cx=\"115\" cy=\"28\" r=\"2.5\"/><circle cx=\"125\" cy=\"28\" r=\"2.5\"/><circle cx=\"135\" cy=\"28\" r=\"2.5\"/></g></svg>', name:'AX5', desc:'30W IP65 RGBWW Pixel Tube', emoji:'💜', watts:30,
       weight:'0.46 kg', size:'Ø38×690 mm',
       ccts:[2700,5600],
-      accessories:['none'],
+      accessories:['none'], accAngles:{none:13},  // Astera 公表 Beam Angle 13°（Field 26°）
       dmx:{led:'RGBMA',power:'30W',cct:'1700K–20000K + Full RGBWW',cri:'>95',tlci:'>95',ip:'IP65',
         control:'AsteraApp / DMX / W-DMX',dimming:'0.1%–100%',
         effects:['Candle','Chase','Strobe','Rainbow']},
@@ -3892,7 +3892,7 @@ var LIGHTS = {
       group:'LED Spot', svgIcon:'<svg width=\"160\" height=\"56\" viewBox=\"0 0 160 56\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M34 10 H138 Q150 10 150 22 V34 Q150 46 138 46 H34\"/><path d=\"M34 10 Q18 10 18 28 Q18 46 34 46\"/><path d=\"M34 10 Q43 28 34 46\"/><path d=\"M55 18 H132\"/><path d=\"M55 38 H132\"/><circle cx=\"64\" cy=\"28\" r=\"5\"/><rect x=\"80\" y=\"23\" width=\"24\" height=\"10\" rx=\"1\"/><circle cx=\"115\" cy=\"28\" r=\"2.5\"/><circle cx=\"125\" cy=\"28\" r=\"2.5\"/><circle cx=\"135\" cy=\"28\" r=\"2.5\"/></g></svg>', name:'AX9', desc:'55W IP65 RGBWW Tube', emoji:'💜', watts:55,
       weight:'0.85 kg', size:'Ø38×1035 mm',
       ccts:[3200,5600],
-      accessories:['none'],
+      accessories:['none'], accAngles:{none:13},  // Astera 公表 Beam Angle 13°（Field 25°）。公表 3,214lm と lux@1m 53,696 から出る立体角も約16°で整合
       dmx:{led:'RGBMA',power:'55W',cct:'1700K–20000K + Full RGBWW',cri:'>95',tlci:'>95',ip:'IP65',
         control:'AsteraApp / DMX / W-DMX',dimming:'0.1%–100%',
         effects:['Candle','Chase','Strobe','Rainbow','Fireworks']},
@@ -4658,7 +4658,7 @@ var LIGHTS = {
       group:'LED', name:'FreeStyle 31', desc:'100W Bi-Color LED Panel', emoji:'🟢', watts:100, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'2.5 kg', size:'500×320×60 mm',
       ccts:[2700,5600],
-      accessories:['none'],
+      accessories:['none'], accAngles:{none:110},  // Kino Flo 公開の IES レポート（Open Face）のカンデラ表から半値角を計算。横角5面で108.4〜110.5°（平均109.6°）
       dmx:{led:'RGBWW',power:'100W',cct:'2700K–6500K',cri:'>95',tlci:'>95',ip:'IP20',
         control:'On-board / DMX',dimming:'0%–100%',effects:['Pulse','Strobe','TV']},
       dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/07/3100108-Rev-E-FreeStyle-41-31-21-Op-Manual-02-01-2025.pdf',
@@ -4707,7 +4707,7 @@ var LIGHTS = {
       url:'https://kinoflo.com/product-category/freestyle/',
       group:'LED', name:'FreeStyle 21', desc:'150W Full Color LED Strip', emoji:'🟢', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'5 kg', size:'670×90×280 mm',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
+      ccts:[2500, 3200, 5600, 9900], accessories:['none'], accAngles:{none:110},  // Kino Flo 公開の IES レポート（Open Face）のカンデラ表から半値角を計算。横角5面で108.9〜109.8°（平均109.5°）
       dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
         control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
       dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/07/3100108-Rev-E-FreeStyle-41-31-21-Op-Manual-02-01-2025.pdf',
@@ -4719,7 +4719,7 @@ var LIGHTS = {
       url:'https://kinoflo.com/product-category/freestyle/',
       group:'LED', name:'FreeStyle 41', desc:'150W Full Color LED Strip', emoji:'🟢', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'7.3 kg', size:'1334×102×229 mm',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
+      ccts:[2500, 3200, 5600, 9900], accessories:['none'], accAngles:{none:109},  // Kino Flo 公開の IES レポート（Open Face）のカンデラ表から半値角を計算。横角10面で108.3〜110.0°（平均109.0°）
       dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
         control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
       dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/07/3100108-Rev-E-FreeStyle-41-31-21-Op-Manual-02-01-2025.pdf',
@@ -5210,7 +5210,7 @@ var LIGHTS = {
     f200r: {
       group:'LED', name:'Godox F200R', desc:'250W Full Color LED Panel', emoji:'🟡', watts:250, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'1 kg', size:'636×636 mm',
-      ccts:[1800, 3200, 5600, 10000], accessories:['none'],
+      ccts:[1800, 3200, 5600, 10000], accessories:['none'], accUnknown:['none'],  // Godox の公式仕様表（KNOWLED カタログ）にビーム角の行が無い
       dmx:{led:'RGBWW',power:'250W',cct:'1800K–10000K + RGBWW',cri:'>96',ip:'IP54',
         control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Flash', 'Pulse', 'TV', 'Fire']},
       dmxUrl:'https://www.godox.com/static/upload/file/20241115/1731636720713188.pdf',
@@ -5222,7 +5222,7 @@ var LIGHTS = {
     f400r: {
       group:'LED', name:'Godox F400R', desc:'460W Full Color LED Panel', emoji:'🟡', watts:460, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'1.8 kg', size:'636×1200 mm',
-      ccts:[1800, 3200, 5600, 10000], accessories:['none'],
+      ccts:[1800, 3200, 5600, 10000], accessories:['none'], accUnknown:['none'],  // Godox の公式仕様表にビーム角の行が無い
       dmx:{led:'RGBWW',power:'460W',cct:'1800K–10000K + RGBWW',cri:'>96',ip:'IP54',
         control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Flash', 'Pulse', 'TV', 'Fire']},
       dmxUrl:'https://www.godox.com/static/upload/file/20241115/1731636720713188.pdf',
@@ -5234,7 +5234,7 @@ var LIGHTS = {
     f800r: {
       group:'LED', name:'Godox F800R', desc:'900W Full Color LED Panel', emoji:'🟡', watts:900, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'1 kg', size:'1200×1200 mm',
-      ccts:[1800, 3200, 5600, 10000], accessories:['none'],
+      ccts:[1800, 3200, 5600, 10000], accessories:['none'], accUnknown:['none'],  // Godox の公式仕様表にビーム角の行が無い
       dmx:{led:'RGBWW',power:'900W',cct:'1800K–10000K + RGBWW',cri:'>96',ip:'IP54',
         control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Flash', 'Pulse', 'TV', 'Fire']},
       dmxUrl:'https://www.godox.com/static/upload/file/20241115/1731636720713188.pdf',
@@ -6206,7 +6206,7 @@ var LIGHTS = {
       url:'https://www.hudsonspider.com/shop/fixtureskits',
       group:'LED', svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M80 6 V18\"/><path d=\"M60 18 H100\"/><path d=\"M80 18 C42 18 26 44 26 60 C26 74 50 84 80 84 C110 84 134 74 134 60 C134 44 118 18 80 18Z\"/><path d=\"M46 66 C58 76 102 76 114 66\"/><path d=\"M56 30 C50 44 50 58 56 72 M104 30 C110 44 110 58 104 72\"/></g></svg>', name:'Hudson Spider Redback', desc:'120W LED Spider Light', emoji:'🕷️', watts:120,
       weight:'3.5 kg', size:'185×185×340 mm',
-      ccts:[3200,5600], accessories:['none'],
+      ccts:[3200,5600], accessories:['none'], accUnknown:['none'],  // Hudson Spider の仕様表にビーム角の行が無い（スパイダー型のソフト光源）
       dmx:{led:'Bi-Color COB',power:'120W',cct:'3200K–5600K',cri:'>95',ip:'IP20',
         control:'On-board / DMX',dimming:'0%–100%',effects:['Strobe', 'Pulse']},
       dmxUrl:'https://www.hudsonspider.com/s/RedBack-User-Manual-2017-v1.pdf',
@@ -6219,7 +6219,7 @@ var LIGHTS = {
       url:'https://www.hudsonspider.com/shop/fixtureskits',
       group:'LED', svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M80 6 V18\"/><path d=\"M60 18 H100\"/><path d=\"M80 18 C42 18 26 44 26 60 C26 74 50 84 80 84 C110 84 134 74 134 60 C134 44 118 18 80 18Z\"/><path d=\"M46 66 C58 76 102 76 114 66\"/><path d=\"M56 30 C50 44 50 58 56 72 M104 30 C110 44 110 58 104 72\"/></g></svg>', name:'Hudson Spider Mozzie', desc:'60W LED Spider Compact', emoji:'🕷️', watts:60,
       weight:'1.47 kg', size:'1200mm(展開時)',
-      ccts:[3200,5600], accessories:['none'],
+      ccts:[3200,5600], accessories:['none'], accUnknown:['none'],  // Hudson Spider の仕様表にビーム角の行が無い
       dmx:{led:'Bi-Color COB',power:'60W',cct:'3200K–5600K',cri:'>95',ip:'IP20',
         control:'On-board / DMX',dimming:'0%–100%',effects:['Strobe', 'Pulse']},
       refData:{
@@ -25284,7 +25284,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.9.194';
+var ver = 'v1.1.9.195';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
