@@ -2196,6 +2196,7 @@ var LANGS = {
     dftCancel:'キャンセル', exportTitle:'書き出し', exportPNG:'画像で書き出す (PNG)', exportPNGHint:'図面全体を1枚の画像に。共有や印刷に', exportPDF:'PDFで書き出す', exportPDFHint:'A4に収めて書き出します', exportCalm:'データで書き出す (.calm)', exportCalmHint:'CALMで開き直せる形式', exportEmpty:'図面が空です', saveTitle:'保存', saveOverwrite:'上書き保存', saveOverwriteHint:'いま開いている図面を更新します', saveAsNew:'別名で保存', saveAsNewHint:'新しい図面として残します（元はそのまま）', saveLastAt:'前回', dftClose:'閉じる', dftApply:'適用',
     beamOutOfCone:'ビーム外', aimPickLight:'🎯 狙いを決めるライトをタップ', aimPickTarget:'次に、狙う先をタップ（人物 / 反射板 / DIFF）', aimBadTarget:'狙えるのは 人物・反射板・DIFF です', aimAgain:'（続けて別のライトも指定できます）', spreadLabel:'この布を複数灯で均等に照らす', spreadHint:'各灯を「自分の真上」と「布の中心」の間に向けます。ビームが重なって面全体が均され、反射光が天空光のように回ります。', spreadWide:'広く', spreadEven:'均等', spreadTight:'中央寄り', spreadDone:'灯を割り当てました', spreadNone:'この布より下にライトがありません', ptLabel:'振り（PAN / TILT）', ptHint:'狙う点と角度は同じものです。振れば当てる場所が動き、場所を動かせば角度が変わります。', ptPan:'PAN', ptPanHint:'0°＝図面の上、＋で時計回り', ptTilt:'TILT', ptTiltHint:'＋が上振り。90°で真上', aimLabel:'このライトが狙う先', aimHint:'天バンなど真上の反射板は、ここで選ぶと計算に入ります（↑＝真上）。', aimAuto:'自動', aimSubject:'人物', camFocal:'焦点距離', camSensor:'センサー', camHFov:'水平画角', camFovLen:'画角を描く距離', camFovLenHint:'(その距離で入る横幅を表示)', camSetFstop:'F値を設定', camGoto:'カメラ設定',
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
+    leeNote:'LEE の公表値は透過率から出した数字で、光源からの距離が入っていません。実際の減光はこれより大きくなります。実測値で使いたいときは Rosco の品番を選んでください。',
     expTitle:'Exposure — 角度ごとの光量', expNoScene:'人物とライトを配置すると、被写体のまわりの角度ごとの光量を計算します。', expAngle:'角度', expVsKey:'キー比', expAtCamera:'カメラ方向', expKey:'最大(キー)', expFill:'最小(フィル)', expRatio:'コントラスト', expSources:'光源の内訳', expNoSource:'被写体に届いている光がありません（ビーム角の外にあります）', expFront:'正面', expBack:'逆光', expSideL:'左サイド', expSideR:'右サイド', expReceptor:'受光部', expDome:'ドーム', expDomeHint:'露出計の標準。半球全体を拾う', expFlat:'フラット', expFlatHint:'1灯を切り分けて測る', expNoteDome:'入射光式の乳白ドームを各方向へ向けたときの読みです。ドームは半球全体を拾うので、真横の光でも正面向きで半分ほど読みます。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expNote:'入射光式のフラットディスクを縦に構え、各方向へ向けたときの読みです。0°はカメラ方向（カメラ未配置なら被写体の正面）。高さ差も含めて計算しています。', expBtn:'露出',
     expLegFace:'顔', expLegCam:'カメラ', expLegKey:'キー', expLegBack:'逆光',
     expProbeAt:'この向きの読み', faceTitle:'顔への当たり方（カメラから見た向き）', faceLegend:'いちばん明るい面：', faceScale:'白＝いちばん明るい面、暗いほど段数が落ちます（全体で約2.4段）。鼻や眉の影も計算しています。肌の回り込みを含むので、影側も真っ黒にはなりません。', expElevLabel:'露出計の仰角（上下の向き）', expTableNote:'以下の表とグラフは、Aの仰角で計算しています：', expElevFlat:'水平', expElevUp45:'↑45°', expElevUp90:'↑真上', expElevDown45:'↓45°', expProbeBOn:'＋ 2点目(B)を出して比べる', expProbeBOff:'− 2点目(B)を消す', expProbeNone:'この向きには光が来ていません',
@@ -2302,6 +2303,7 @@ var LANGS = {
     dftCancel:'Cancel', exportTitle:'Export', exportPNG:'Export as image (PNG)', exportPNGHint:'The whole plan as one picture — for sharing or printing', exportPDF:'Export as PDF', exportPDFHint:'Fitted to A4', exportCalm:'Export data (.calm)', exportCalmHint:'Re-openable in CALM', exportEmpty:'The plan is empty', saveTitle:'Save', saveOverwrite:'Overwrite', saveOverwriteHint:'Update the draft you have open', saveAsNew:'Save as new', saveAsNewHint:'Keep this as a separate draft (the original stays)', saveLastAt:'last', dftClose:'Close', dftApply:'Apply',
     beamOutOfCone:'outside beam', aimPickLight:'🎯 Tap the light to aim', aimPickTarget:'Now tap what it aims at (subject / bounce / diffusion)', aimBadTarget:'Aim at a subject, bounce or diffusion', aimAgain:'(keep aiming other lights)', spreadLabel:'Spread several lights across this cloth', spreadHint:'Aims each light between its own position and the centre, so the beams overlap and the whole surface lifts evenly.', spreadWide:'Wide', spreadEven:'Even', spreadTight:'Centred', spreadDone:'lights assigned', spreadNone:'No lights below this cloth', ptLabel:'Pan / Tilt', ptHint:'The angle and the aimed point are the same thing — move one and the other follows.', ptPan:'PAN', ptPanHint:'0° = up the plan, + clockwise', ptTilt:'TILT', ptTiltHint:'+ tilts up. 90° is straight up', aimLabel:'What this light aims at', aimHint:'Pick it here for an overhead bounce — the beam cone alone cannot see straight up (↑ = overhead).', aimAuto:'Auto', aimSubject:'Subject', camFocal:'Focal length', camSensor:'Sensor', camHFov:'H. angle of view', camFovLen:'Draw FOV to', camFovLenHint:'(shows the frame width at that distance)', camSetFstop:'Set f-stop', camGoto:'Camera',
     dftSize:'Size', dftPresetPick:'Pick a preset',
+    leeNote:'LEE publishes transmission figures, which do not account for distance from the source. Real-world loss will be greater than this. For measured values, pick a Rosco product instead.',
     expTitle:'Exposure — light by angle', expNoScene:'Place a person and a light, and this will map the light arriving from every angle around the subject.', expAngle:'Angle', expVsKey:'vs key', expAtCamera:'Toward camera', expKey:'Max (key)', expFill:'Min (fill)', expRatio:'Contrast', expSources:'Sources', expNoSource:'No light reaches the subject (it is outside every beam angle)', expFront:'Front', expBack:'Back', expSideL:'Side L', expSideR:'Side R', expReceptor:'Receptor', expDome:'Dome', expDomeHint:'meter standard — reads the whole hemisphere', expFlat:'Flat', expFlatHint:'isolates one source', expNoteDome:'Readings for an incident lumisphere aimed at each direction. A dome collects the whole hemisphere, so a side light still reads about half when the dome faces the camera. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expNote:'Readings for a flat incident disc held vertically and aimed at each direction. 0° faces the camera (or the subject\u2019s front if no camera). Height differences are included.', expBtn:'Exposure',
     expLegFace:'Face', expLegCam:'Camera', expLegKey:'Key', expLegBack:'Back',
     expProbeAt:'Reading at', faceTitle:'How it falls on the face (as the camera sees it)', faceLegend:'Brightest surface:', faceScale:'White = brightest surface; darker = further down in stops (about 2.4 across). Nose and brow shadows are included. Skin wrap keeps the shadow side from going pure black.', expElevLabel:'Meter tilt (up / down)', expTableNote:'The table and chart below use probe A\u2019s tilt:', expElevFlat:'Level', expElevUp45:'↑45°', expElevUp90:'↑Straight up', expElevDown45:'↓45°', expProbeBOn:'+ Add a 2nd probe (B) to compare', expProbeBOff:'− Remove probe B', expProbeNone:'no light from this direction',
@@ -2405,6 +2407,7 @@ var LANGS = {
     dftCancel:'Cancelar', exportTitle:'Exportar', exportPNG:'Exportar como imagen (PNG)', exportPNGHint:'Todo el plano en una imagen', exportPDF:'Exportar como PDF', exportPDFHint:'Ajustado a A4', exportCalm:'Exportar datos (.calm)', exportCalmHint:'Se puede reabrir en CALM', exportEmpty:'El plano está vacío', saveTitle:'Guardar', saveOverwrite:'Sobrescribir', saveOverwriteHint:'Actualiza el plano abierto', saveAsNew:'Guardar como nuevo', saveAsNewHint:'Se guarda aparte (el original se conserva)', saveLastAt:'último', dftClose:'Cerrar', dftApply:'Aplicar',
     beamOutOfCone:'fuera del haz', aimPickLight:'🎯 Toca la luz que quieres apuntar', aimPickTarget:'Ahora toca el objetivo (sujeto / rebote / difusión)', aimBadTarget:'Apunta a sujeto, rebote o difusión', aimAgain:'(sigue apuntando otras luces)', spreadLabel:'Repartir varias luces por la tela', spreadHint:'Apunta cada luz entre su posición y el centro, para que los haces se solapen.', spreadWide:'Amplio', spreadEven:'Uniforme', spreadTight:'Al centro', spreadDone:'luces asignadas', spreadNone:'No hay luces debajo de esta tela', ptLabel:'Pan / Tilt', ptHint:'El ángulo y el punto apuntado son lo mismo: mueve uno y el otro sigue.', ptPan:'PAN', ptPanHint:'0° = arriba del plano, + sentido horario', ptTilt:'TILT', ptTiltHint:'+ inclina hacia arriba. 90° es cenital', aimLabel:'A qué apunta esta luz', aimHint:'Elígelo aquí para un rebote cenital: el cono no ve hacia arriba (↑ = cenital).', aimAuto:'Auto', aimSubject:'Sujeto', camFocal:'Distancia focal', camSensor:'Sensor', camHFov:'Ángulo horizontal', camFovLen:'Dibujar FOV a', camFovLenHint:'(muestra el ancho de cuadro a esa distancia)', camSetFstop:'Ajustar f', camGoto:'Cámara',
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
+    leeNote:'Los valores de LEE provienen de la transmisión y no tienen en cuenta la distancia a la fuente. La pérdida real será mayor. Para valores medidos, elija un producto Rosco.',
     expTitle:'Exposición — luz por ángulo', expNoScene:'Coloca una persona y una luz para calcular la luz que llega desde cada ángulo.', expAngle:'Ángulo', expVsKey:'vs key', expAtCamera:'Hacia cámara', expKey:'Máx (key)', expFill:'Mín (fill)', expRatio:'Contraste', expSources:'Fuentes', expNoSource:'Ninguna luz llega al sujeto (está fuera del ángulo de haz)', expFront:'Frontal', expBack:'Contraluz', expSideL:'Lateral I', expSideR:'Lateral D', expReceptor:'Receptor', expDome:'Domo', expDomeHint:'estándar del fotómetro; capta el hemisferio', expFlat:'Plano', expFlatHint:'aísla una sola fuente', expNoteDome:'Lecturas de una semiesfera incidente orientada a cada dirección. El domo capta todo el hemisferio, así que una luz lateral marca aproximadamente la mitad con el domo hacia la cámara. 0° mira a la cámara. Incluye las diferencias de altura.', expNote:'Lecturas de un disco incidente plano sostenido en vertical y orientado a cada dirección. 0° mira a la cámara (o al frente del sujeto si no hay cámara). Incluye las diferencias de altura.', expBtn:'Exposición',
     expLegFace:'Cara', expLegCam:'Cámara', expLegKey:'Key', expLegBack:'Contra',
     expProbeAt:'Lectura a', faceTitle:'Cómo cae en el rostro (visto por la cámara)', faceLegend:'Superficie más brillante:', faceScale:'Blanco = superficie más brillante; más oscuro = más pasos abajo (unos 2,4). Incluye sombras de nariz y cejas y algo de luz envolvente en la piel.', expElevLabel:'Inclinación del fotómetro', expTableNote:'La tabla y el gráfico usan la inclinación de A:', expElevFlat:'Nivel', expElevUp45:'↑45°', expElevUp90:'↑Cenital', expElevDown45:'↓45°', expProbeBOn:'+ Añadir 2ª sonda (B)', expProbeBOff:'− Quitar sonda B', expProbeNone:'no llega luz desde esta dirección',
@@ -15105,6 +15108,92 @@ ROSCO_DIFFUSION.forEach(function(d) {
   DIFF_FACTOR_STOPS['Rosco #' + d.code + ' ' + d.name]            = d.src;
   DIFF_FACTOR_STOPS['Rosco #' + d.code + ' ' + d.name + ' ＋3ft'] = d.ft3;
 });
+/* LEE Filters ディフュージョン（公表値）
+ *
+ * 出典: leefilters.com の各品番ページ（/colour/<番号>/）の
+ * Daylight (Source C) の「Transmission Y」と「Stop」。2026-09-04 に1品番ずつ取得した。
+ *
+ * ★Rosco の表と性質が違う点（重要）
+ *   Rosco は「光源に付けた場合／枠を3ft前に出した場合」の実測減光量。
+ *   LEE は分光透過率から出した値で、条件（光源からの距離）が入っていない。
+ *   同じ強さの品でも LEE のほうが 2 段ほど甘く出る。
+ *     例: LEE 216 White Diffusion  = 1.5 段（透過 36%）
+ *         Rosco #3026 Tough White = 3.5 段（光源側・透過 9%）
+ *   そのため名前に「（透過値）」を付けて Rosco の実測値と区別している。
+ *   選ぶと画面に注記も出る（leeNote）。
+ *
+ * 段数の採り方
+ *   公表 Stop が「1 ½」のように確定値のものはその値を使う。
+ *   「< ¼」「< ⅓」「< ¾」のように上限しか書かれていないものは、
+ *   公表透過率から -log2(T) で出した値を使う（stops 欄の末尾コメント参照）。
+ *
+ * 検算: 透過率が公表されている 30 品番すべてで、-log2(T) が公表 Stop と
+ * 0.11 段以内で一致した（最大差は 224 Daylight Blue Frost の 0.104 段）。
+ * 残る 4 品番（Hampshire Frost 系）は透過率が公表されていない。
+ *
+ * 注意点として残したもの
+ *  ・252 / 452 / 420 … LEE の公表透過率がどれも「> 85」なので、
+ *    出せる段数が 0.23 で並ぶ。452 は 252 より薄いはずだが公表値では区別できない。
+ *  ・253 / 256 / 257 / 258（Hampshire Frost 系）… 透過率が「-」で公表されておらず、
+ *    Stop も「< ¼」の上限だけ。4品番すべてその上限 0.25 を入れている。
+ *  ・429 Quiet Frost は LEE の説明文では「402 Soft Frost より厚い」とあるが、
+ *    公表透過率は 18.4% と 402 の 12% より高い。厚みは遮音のためで
+ *    減光量とは別、と読んで公表値のままにした。
+ */
+var LEE_DIFFUSION = [
+  { code:'129', name:'Heavy Frost',                   grp:'Frost',     t:25,   pStop:'2',    stops:2.0   },
+  { code:'216', name:'White Diffusion',               grp:'White',     t:36,   pStop:'1 1/2',stops:1.5   },
+  { code:'217', name:'Blue Diffusion',                grp:'White',     t:36,   pStop:'1 1/2',stops:1.5   },
+  { code:'220', name:'White Frost',                   grp:'Frost',     t:39,   pStop:'1 1/3',stops:1.333 },
+  { code:'221', name:'Blue Frost',                    grp:'Frost',     t:42,   pStop:'1 1/3',stops:1.333 },
+  { code:'224', name:'Daylight Blue Frost',           grp:'Frost',     t:22.6, pStop:'2 1/4',stops:2.25  },
+  { code:'225', name:'Neutral Density Frost',         grp:'Frost',     t:25,   pStop:'2',    stops:2.0   },
+  { code:'228', name:'Brushed Silk',                  grp:'Silk',      t:60,   pStop:'3/4',  stops:0.75  },
+  { code:'229', name:'Quarter Tough Spun',            grp:'Spun',      t:60,   pStop:'3/4',  stops:0.75  },
+  { code:'250', name:'Half White Diffusion',          grp:'White',     t:60,   pStop:'3/4',  stops:0.75  },
+  { code:'251', name:'Quarter White Diffusion',       grp:'White',     t:80,   pStop:'1/3',  stops:0.333 },
+  { code:'252', name:'Eighth White Diffusion',        grp:'White',     t:85,   pStop:'< 1/4',stops:0.234 }, // 上限のみ → >85% から
+  { code:'253', name:'Hampshire Frost',               grp:'Hampshire', t:null, pStop:'< 1/4',stops:0.25  }, // 透過率の公表なし → 上限
+  { code:'255', name:'Hollywood Frost',               grp:'Frost',     t:83,   pStop:'< 1/3',stops:0.269 }, // 上限のみ → 83% から
+  { code:'256', name:'Half Hampshire Frost',          grp:'Hampshire', t:null, pStop:'< 1/4',stops:0.25  },
+  { code:'257', name:'Quarter Hampshire Frost',       grp:'Hampshire', t:null, pStop:'< 1/4',stops:0.25  },
+  { code:'258', name:'Eighth Hampshire Frost',        grp:'Hampshire', t:null, pStop:'< 1/4',stops:0.25  },
+  { code:'400', name:'LEELux',                        grp:'Frost',     t:36,   pStop:'1 1/2',stops:1.5   },
+  { code:'402', name:'Soft Frost',                    grp:'Soft',      t:12,   pStop:'3',    stops:3.0   },
+  { code:'404', name:'Half Soft Frost',               grp:'Soft',      t:36.2, pStop:'1 1/2',stops:1.5   },
+  { code:'410', name:'Opal Frost',                    grp:'Frost',     t:71,   pStop:'1/2',  stops:0.5   },
+  { code:'414', name:'Highlight',                     grp:'Frost',     t:39.6, pStop:'1 1/3',stops:1.333 },
+  { code:'416', name:'Three Quarter White Diffusion', grp:'White',     t:50,   pStop:'1',    stops:1.0   },
+  { code:'420', name:'Light Opal Frost',              grp:'Frost',     t:85,   pStop:'< 1/4',stops:0.234 }, // 上限のみ → >85% から
+  { code:'429', name:'Quiet Frost',                   grp:'Soft',      t:18.4, pStop:'2 1/2',stops:2.5   },
+  { code:'430', name:'Grid Cloth',                    grp:'Grid',      t:18,   pStop:'2 1/2',stops:2.5   },
+  { code:'432', name:'Light Grid Cloth',              grp:'Grid',      t:30,   pStop:'1 3/4',stops:1.75  },
+  { code:'434', name:'Quarter Grid Cloth',            grp:'Grid',      t:60,   pStop:'< 3/4',stops:0.737 }, // 上限のみ → 60% から
+  { code:'439', name:'Heavy Quiet Frost',             grp:'Soft',      t:7.6,  pStop:'3 2/3',stops:3.667 },
+  { code:'450', name:'Three Eighth White Diffusion',  grp:'White',     t:63,   pStop:'2/3',  stops:0.667 },
+  { code:'452', name:'Sixteenth White Diffusion',     grp:'White',     t:85,   pStop:'< 1/4',stops:0.234 }, // 上限のみ → >85% から
+  { code:'460', name:'Quiet Grid Cloth',              grp:'Grid',      t:15,   pStop:'2 3/4',stops:2.75  },
+  { code:'462', name:'Quiet Light Grid Cloth',        grp:'Grid',      t:22.5, pStop:'2 1/4',stops:2.25  },
+  { code:'464', name:'Quiet Quarter Grid Cloth',      grp:'Grid',      t:47.5, pStop:'1',    stops:1.0   }
+];
+
+// 名前に「（透過値）」を付けて登録する。Rosco の実測値と混ざらないようにするため。
+var LEE_DIFF_SUFFIX = '\uFF08\u900F\u904E\u5024\uFF09';  // （透過値）
+function leeDiffName(d) { return 'LEE ' + d.code + ' ' + d.name + LEE_DIFF_SUFFIX; }
+// 品番から登録名を作る。定番チップの並びを添字で書くと表を並べ替えたときに壊れるので
+function leeDiffByCode(code) {
+  for (var i = 0; i < LEE_DIFFUSION.length; i++) {
+    if (LEE_DIFFUSION[i].code === code) return leeDiffName(LEE_DIFFUSION[i]);
+  }
+  return '';
+}
+function isLeeDiffName(name) {
+  if (!name) return false;
+  var n = ('' + name).trim();
+  return n.indexOf('LEE ') === 0 && n.indexOf(LEE_DIFF_SUFFIX) > 0;
+}
+LEE_DIFFUSION.forEach(function(d) { DIFF_FACTOR_STOPS[leeDiffName(d)] = d.stops; });
+
 DIFF_FACTOR_STOPS['Bleached Muslin']=1.5;
 var BOUNCE_FACTOR_STOPS = {'UltraBounce':1.2,'Unbleached Muslin':1.5,'Bleached Muslin':1.0,'White Silk':2.0,'Poly':0,'Wall':0};
 // 名前→{stops,type}。行の現在type(preferType)を優先し、なければ透過→反射で照合。前後空白許容
@@ -15119,9 +15208,10 @@ function factorPresetLookup(name, preferType){ if(!name) return null; var n=(''+
 function diffFactorLookup(name){ var r=factorPresetLookup(name); return r?r.stops:null; }
 var FACTOR_NAMES_BY_TYPE = {
   bounce:  ['UltraBounce','Unbleached Muslin','Bleached Muslin','White Silk','Poly','Wall'],
-  // チップに出す定番。Rosco は現場でよく使う4品番だけ出し、残りは名前欄に
-  // 「Rosco」と打てば候補から選べる（表には24品番×2通り入っている）
+  // チップに出す定番。LEE と Rosco は現場でよく使う4品番ずつだけ出し、残りは名前欄に
+  // 「LEE」「Rosco」と打てば候補から選べる（LEE 34品番 / Rosco 24品番×2通り）
   diffuse: ['Full Grid Cloth','1/2 Grid Cloth','1/4 Grid Cloth','Magic Cloth','Hilite','Unbleached Muslin','Bleached Muslin',
+            leeDiffByCode('216'), leeDiffByCode('250'), leeDiffByCode('430'), leeDiffByCode('432'),
             'Rosco #3026 Tough White Diffusion','Rosco #3032 Light Grid Cloth','Rosco #3006 Tough Spun','Rosco #3014 Hilite'],
   none:    ['CTB','CTO','ND 0.3','ND 0.6','ND 0.9','Snoot','Blind Shutter','Gel','Egg Crate']
 };
@@ -21129,6 +21219,9 @@ function _dftFactorRowsHTML(factors, cbPrefix) {
     var presets = (FACTOR_NAMES_BY_TYPE[nameKey] || []);
     var saved = (function(){ try { var a=JSON.parse(localStorage.getItem('calm_factor_names')||'{}'); return Array.isArray(a[nameKey])?a[nameKey]:[]; } catch(e){ return []; } })();
     var allNames = saved.concat(presets.filter(function(n){ return saved.indexOf(n)<0; }));
+    // 定番の後ろに表の全品番を足す。これが無いと「LEE」と打っても候補が出ない。
+    var fullTbl = isBounce ? BOUNCE_FACTOR_STOPS : isDiffuse ? DIFF_FACTOR_STOPS : DFT_ND_STOPS;
+    Object.keys(fullTbl).forEach(function(n){ if (allNames.indexOf(n) < 0) allNames.push(n); });
     var dlId = '_dftfndl_'+cbPrefix+'_'+fi;
     var dataList = '<datalist id="'+dlId+'">'+allNames.map(function(n){ return '<option value="'+n.replace(/"/g,'&quot;')+'">'; }).join('')+'</datalist>';
 
@@ -21167,6 +21260,11 @@ function _dftFactorRowsHTML(factors, cbPrefix) {
       '<input type="text" list="'+dlId+'" placeholder="Name (e.g. UltraBounce)" value="'+(f.memo||'').replace(/"/g,'&quot;')+'" '+
         'oninput="window._dftFMemo_'+cbPrefix+'('+fi+',this.value)" '+
         'style="width:100%;box-sizing:border-box;padding:5px 8px;border-radius:7px;border:1px solid #ddd;font-size:11px;margin-bottom:6px;">'+
+      // LEE は透過率から出した値なので、実際の減光はこれより大きくなる。選んだときだけ出す。
+      (isLeeDiffName(curName) ?
+        '<div style="font-size:10px;line-height:1.45;color:#8a6d3b;background:#fcf8e3;'+
+        'border:1px solid #f0e0a0;border-radius:7px;padding:5px 7px;margin-bottom:6px;">'+
+        _dftEsc(t('leeNote'))+'</div>' : '')+
       dataList+
       presetChips+
       '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">'+
@@ -24758,7 +24856,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.184';
+var ver = 'v1.1.8.185';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
