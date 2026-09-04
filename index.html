@@ -11732,7 +11732,8 @@ function calculate() {
       : '<span style="font-size:13px;font-weight:800;padding:2px 6px;border-radius:4px;color:' +
         (stopR > 0 ? '#64b5f6;background:rgba(100,181,246,.18);">' : '#ef9a9a;background:rgba(239,154,154,.18);">') +
         (stopR > 0 ? '+' : '') + stopR.toFixed(1) + ' stop</span>') +
-    '<span style="font-size:20px;font-weight:800;color:#fff;">' + lux.toLocaleString() + '<span style="font-size:11px;opacity:.65;margin-left:2px;">lx</span></span>' +
+    // Factor をかけると小数になる。lux に小数点以下の意味は無いので丸めて出す
+    '<span style="font-size:20px;font-weight:800;color:#fff;">' + Math.round(lux).toLocaleString() + '<span style="font-size:11px;opacity:.65;margin-left:2px;">lx</span></span>' +
     '<span style="font-size:16px;font-weight:700;color:rgba(255,255,255,.5);">' + Math.round(lux/10.764).toLocaleString() + '<span style="font-size:11px;margin-left:1px;">fc</span></span>' +
     '<span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.85);">' + distNote + (units > 1 ? ' \xd7' + units : '') + '</span>' +
     '</div>';
@@ -15047,6 +15048,63 @@ DIFF_FACTOR_STOPS['Magic Cloth']=3.5;
 DIFF_FACTOR_STOPS['Hilite']=0.5;
 // Muslinは透過でも使うため diffuse 値も登録（透過は反射より減光大）
 DIFF_FACTOR_STOPS['Unbleached Muslin']=2.0;
+
+/**
+ * Rosco Cinegel のディフュージョン。
+ *
+ * 出所: Rosco「Filter Facts」の TRANSMISSION LOSS FOR DIFFUSION MATERIALS。
+ * 実験室の densitometer ではなく実使用条件での測定で、
+ * 光源から被写体まで 10ft（305cm）、素材を「光源に付けた場合」と
+ * 「光源の 3ft（91cm）手前の枠に張った場合」の 2 通りが載っている。
+ * どちらもビーム中心で測った値。枠を前に出すほど透過は上がり、
+ * 拡散も増えるので影が柔らかくなる。
+ *
+ * 転記の検証: 24 品番 × 2 通りのうち 21 品番で、公表の透過率から
+ * -log2(T) で出した段数が公表の段数と 0.06 段以内で一致した。
+ * 食い違った 3 か所は次のように決めた。
+ *  ・3015 Light Tough Silk の 3ft … 公表 59%/-1.8s。-log2(0.59)=0.76 で 1 段違う。
+ *    同じ 59% が他の 2 品番（3040 光源側・3014 の 3ft）ではどちらも -0.8s と
+ *    書かれており、3015 の光源側（42%/-1.3s）も整合しているので誤植と判断し -0.8 を採った。
+ *  ・3032 Light Grid Cloth の光源側 … 公表 -3.0s だと 3034 Quarter Grid Cloth と
+ *    同値になり、薄いほうが同じだけ落ちる形になってしまう。公表 10% から出した
+ *    -3.3s なら 3034（-3.0s）より大きく、系統の順序が保たれるので 3.3 を採った。
+ *  ・3030 Grid Cloth の光源側 … 公表 -5.5s と 3% から出した -5.06s が食い違うが、
+ *    3062 Silent Light Grid も同じ 3% で -5.0s と書かれている。3030 のほうが
+ *    密なので -5.5s のままにした（3% は有効数字 1 桁で幅がある）。
+ */
+var ROSCO_DIFFUSION = [
+  { code:'3006', name:'Tough Spun',                grp:'Spun',  src:2.6, ft3:2.2, tSrc:17, t3:22 },
+  { code:'3007', name:'Light Tough Spun',          grp:'Spun',  src:1.6, ft3:1.4, tSrc:34, t3:39 },
+  { code:'3022', name:'Quarter Tough Spun',        grp:'Spun',  src:1.4, ft3:1.1, tSrc:39, t3:48 },
+  { code:'3008', name:'Tough Frost',               grp:'Frost', src:2.5, ft3:2.0, tSrc:18, t3:26 },
+  { code:'3009', name:'Light Tough Frost',         grp:'Frost', src:1.5, ft3:1.1, tSrc:36, t3:48 },
+  { code:'3010', name:'Opal Tough Frost',          grp:'Frost', src:1.3, ft3:1.0, tSrc:42, t3:51 },
+  { code:'3040', name:'Powder Frost',              grp:'Frost', src:0.8, ft3:0.6, tSrc:59, t3:68 },
+  { code:'3020', name:'Light Opal',                grp:'Frost', src:0.6, ft3:0.3, tSrc:68, t3:84 },
+  { code:'3026', name:'Tough White Diffusion',     grp:'White', src:3.5, ft3:2.5, tSrc:9,  t3:18 },
+  { code:'3027', name:'Tough 1/2 White Diffusion', grp:'White', src:2.6, ft3:1.6, tSrc:17, t3:34 },
+  { code:'3028', name:'Tough 1/4 White Diffusion', grp:'White', src:2.0, ft3:1.2, tSrc:26, t3:45 },
+  { code:'3000', name:'Tough Rolux',               grp:'Rolux', src:3.0, ft3:2.1, tSrc:13, t3:24 },
+  { code:'3001', name:'Light Tough Rolux',         grp:'Rolux', src:2.3, ft3:1.6, tSrc:21, t3:34 },
+  { code:'3030', name:'Grid Cloth',                grp:'Grid',  src:5.5, ft3:4.2, tSrc:3,  t3:6  },
+  { code:'3032', name:'Light Grid Cloth',          grp:'Grid',  src:3.3, ft3:2.5, tSrc:10, t3:18 },
+  { code:'3034', name:'Quarter Grid Cloth',        grp:'Grid',  src:3.0, ft3:2.1, tSrc:14, t3:24 },
+  { code:'3060', name:'Silent Grid Cloth',         grp:'Grid',  src:5.5, ft3:4.3, tSrc:2,  t3:5  },
+  { code:'3062', name:'Silent Light Grid Cloth',   grp:'Grid',  src:5.0, ft3:3.8, tSrc:3,  t3:7  },
+  { code:'3064', name:'Quarter Silent Grid Cloth', grp:'Grid',  src:2.2, ft3:1.6, tSrc:22, t3:34 },
+  { code:'3011', name:'Tough Silk',                grp:'Silk',  src:1.5, ft3:1.0, tSrc:36, t3:51 },
+  { code:'3015', name:'Light Tough Silk',          grp:'Silk',  src:1.3, ft3:0.8, tSrc:42, t3:59 },
+  { code:'3002', name:'Soft Frost',                grp:'Soft',  src:3.0, ft3:2.3, tSrc:13, t3:21 },
+  { code:'3004', name:'Half Soft Frost',           grp:'Soft',  src:2.0, ft3:1.0, tSrc:26, t3:51 },
+  { code:'3014', name:'Hilite',                    grp:'Soft',  src:1.4, ft3:0.8, tSrc:39, t3:59 }
+];
+
+// 名前で引ける表へ入れる。既定は「光源に付けた場合」。
+// 枠を 3ft 前に出した場合は名前の後ろに ＋3ft を付けて別に登録する。
+ROSCO_DIFFUSION.forEach(function(d) {
+  DIFF_FACTOR_STOPS['Rosco #' + d.code + ' ' + d.name]            = d.src;
+  DIFF_FACTOR_STOPS['Rosco #' + d.code + ' ' + d.name + ' ＋3ft'] = d.ft3;
+});
 DIFF_FACTOR_STOPS['Bleached Muslin']=1.5;
 var BOUNCE_FACTOR_STOPS = {'UltraBounce':1.2,'Unbleached Muslin':1.5,'Bleached Muslin':1.0,'White Silk':2.0,'Poly':0,'Wall':0};
 // 名前→{stops,type}。行の現在type(preferType)を優先し、なければ透過→反射で照合。前後空白許容
@@ -15061,7 +15119,10 @@ function factorPresetLookup(name, preferType){ if(!name) return null; var n=(''+
 function diffFactorLookup(name){ var r=factorPresetLookup(name); return r?r.stops:null; }
 var FACTOR_NAMES_BY_TYPE = {
   bounce:  ['UltraBounce','Unbleached Muslin','Bleached Muslin','White Silk','Poly','Wall'],
-  diffuse: ['Full Grid Cloth','1/2 Grid Cloth','1/4 Grid Cloth','Magic Cloth','Hilite','Unbleached Muslin','Bleached Muslin'],
+  // チップに出す定番。Rosco は現場でよく使う4品番だけ出し、残りは名前欄に
+  // 「Rosco」と打てば候補から選べる（表には24品番×2通り入っている）
+  diffuse: ['Full Grid Cloth','1/2 Grid Cloth','1/4 Grid Cloth','Magic Cloth','Hilite','Unbleached Muslin','Bleached Muslin',
+            'Rosco #3026 Tough White Diffusion','Rosco #3032 Light Grid Cloth','Rosco #3006 Tough Spun','Rosco #3014 Hilite'],
   none:    ['CTB','CTO','ND 0.3','ND 0.6','ND 0.9','Snoot','Blind Shutter','Gel','Egg Crate']
 };
 function getFactorNamePresets(type) {
@@ -24697,7 +24758,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.8.183';
+var ver = 'v1.1.8.184';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
