@@ -3003,7 +3003,7 @@ var LIGHTS = {
       group:'LED COB', name:'LS 120D II', desc:'120W Daylight LED Spot', emoji:'💡', watts:120, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
       weight:'1.9 kg', size:'186×176×224 mm',
       ccts:[5600],
-      accessories:['none','r15','r30','r45'],
+      accessories:['none','r15','r30','r45'], accUnknown:['none'],  // Aputure の LS C120d II は生産終了で仕様ページが無い。検索で出る120°は販売店の二次情報
       dmx:{led:'Daylight COB',power:'120W',cct:'5600K',cri:'≥96',tlci:'≥97',ip:'IP54',
         control:'On-board / App / DMX / RDM',dimming:'0%–100%',
         effects:['Flash','Pulse','TV','Paparazzi']},
@@ -3345,7 +3345,7 @@ var LIGHTS = {
     ls_c300d_ii: {
       group:'LED COB', name:'LS C300d II', desc:'350W Daylight LED Spot', emoji:'💡', watts:350, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"20,14 106,14 122,4 36,4\" fill=\"none\"/><polygon points=\"106,14 106,74 122,64 122,4\" fill=\"none\"/><rect x=\"20\" y=\"14\" width=\"86\" height=\"60\" rx=\"3\"/><circle cx=\"63\" cy=\"44\" r=\"22\"/><circle cx=\"63\" cy=\"44\" r=\"16\"/><circle cx=\"20\" cy=\"44\" r=\"4\"/><circle cx=\"106\" cy=\"44\" r=\"4\"/><line x1=\"14\" y1=\"44\" x2=\"14\" y2=\"90\"/><line x1=\"112\" y1=\"44\" x2=\"112\" y2=\"90\"/><line x1=\"14\" y1=\"90\" x2=\"112\" y2=\"90\"/></g><g><circle cx=\"57\" cy=\"37\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"62\" cy=\"35\" r=\"2\" fill=\"#111111\"/><circle cx=\"68\" cy=\"36\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"72\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"41\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"40\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"42\" r=\"2\" fill=\"#111111\"/><circle cx=\"74\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"50\" cy=\"44\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"55\" cy=\"46\" r=\"2\" fill=\"#111111\"/><circle cx=\"62\" cy=\"45\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"68\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"73\" cy=\"49\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"53\" cy=\"50\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"59\" cy=\"52\" r=\"2\" fill=\"#111111\"/><circle cx=\"65\" cy=\"51\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"70\" cy=\"53\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"57\" cy=\"56\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"63\" cy=\"57\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"69\" cy=\"55\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"60\" cy=\"38\" r=\"1.5\" fill=\"#111111\"/><circle cx=\"66\" cy=\"43\" r=\"2\" fill=\"#111111\"/><circle cx=\"52\" cy=\"47\" r=\"1.5\" fill=\"#111111\"/></g></svg>',
       weight:'3.2 kg', size:'190×340×310 mm', ccts:[5600],
-      accessories:['none','r30','r15'],
+      accessories:['none','r30','r15'], accUnknown:['none'],  // Aputure のヘルプセンター（LS 300d II）にビーム角の記載が無い
       dmx:{led:'Daylight COB',power:'350W',cct:'5600K',cri:'≤96',ip:'IP54',control:'On-board / App / DMX',dimming:'0%–100%',effects:['Flash','Pulse','TV']},
       dmxUrl:'https://docs.aputure.com/hubfs/Knowledge%20Base/Aputure/LS%20300d%20II/All%20files/LS-600d-Pro-LS-300d-II-common-DMX-Profile-Specification-V1.0.pdf',
       dmxVer:'v1.0',
@@ -3373,7 +3373,7 @@ var LIGHTS = {
       group:'LED COB', name:'Matrix 2500B', desc:'2500W 4-Head Bi-Color Array Fixture', emoji:'🔵', watts:2500,
       svgIcon:'<svg width="160" height="100" viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#111" stroke-width="3" stroke-linejoin="round"><rect x="34" y="18" width="72" height="72" rx="6"/><circle cx="52" cy="40" r="10"/><circle cx="88" cy="40" r="10"/><circle cx="52" cy="68" r="10"/><circle cx="88" cy="68" r="10"/></g></svg>',
       weight:'17 kg', size:'40×23.5×40 cm', ccts:[2700,3200,4300,5600,6500],
-      accessories:['none','fres16','fres48'],
+      accessories:['none','fres16','fres48'], accUnknown:['none'],  // Nanlite の資料が見つからない（製品ページ・マニュアルとも所在不明）
       dmx:{led:'Nebula B4 (4× White LED)',power:'2500W',cct:'2700K–6500K (G/M±80)',cri:'98',tlci:'98',ip:'IP66',control:'On-board / NANLINK App / Wired Controller / DMX/RDM / Art-Net/sACN / CRMX / NFC',dimming:'0.0%–100%'},
       refData:{5600:{3:{none:13470,fres16:103000,fres48:25240},5:{none:4630,fres16:35400,fres48:9160}}}
     },
@@ -3381,7 +3381,7 @@ var LIGHTS = {
       group:'LED COB', name:'Matrix 2500C', desc:'2500W 4-Head Full Color Array Fixture', emoji:'🔵', watts:2500,
       svgIcon:'<svg width="160" height="100" viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#111" stroke-width="3" stroke-linejoin="round"><rect x="34" y="18" width="72" height="72" rx="6"/><circle cx="52" cy="40" r="10"/><circle cx="88" cy="40" r="10"/><circle cx="52" cy="68" r="10"/><circle cx="88" cy="68" r="10"/></g></svg>',
       weight:'18.5 kg', size:'40×23.5×40 cm', ccts:[1000,2700,3200,4300,5600,6500,10000,20000],
-      accessories:['none','fres16','fres48'],
+      accessories:['none','fres16','fres48'], accUnknown:['none'],  // Nanlite の資料が見つからない
       dmx:{led:'Nebula C8 (8-color)',power:'2500W',cct:'1000K–20000K (G/M±200)',cri:'98',tlci:'98',ip:'IP66',control:'On-board / NANLINK App / Wired Controller / DMX/RDM / Art-Net/sACN / CRMX / NFC',dimming:'0.0%–100%'},
       refData:{5600:{3:{none:9570,fres16:67900,fres48:16300},5:{none:3380,fres16:23050,fres48:5810}}}
     },
@@ -3580,7 +3580,7 @@ var LIGHTS = {
       group:'LED', name:'MixPad 27C', desc:'130W RGBWW LED Panel', emoji:'🔵', watts:130, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'2.4 kg', size:'310×310×90 mm',
       ccts:[2700,4300,5600,10000],
-      accessories:['none'],
+      accessories:['none'], accUnknown:['none'],  // Nanlite の資料が見つからない
       dmx:{power:'130W',cct:'2700K–10000K + Full RGBWW',cri:'>96',tlci:'>96',ip:'IP20',
         control:'On-board / NANLINK APP / DMX',dimming:'0%–100%',
         effects:['Flash','Pulse','TV','Fire']},
@@ -4629,7 +4629,7 @@ var LIGHTS = {
       group:'LED Panel', name:'Celeb 450 DMX', desc:'450W LED Studio Soft Light', emoji:'🟢', watts:450, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'9.6 kg', size:'686×330×140 mm',
       ccts:[2700,3200,4300,5600,6500],
-      accessories:['none'],
+      accessories:['none'], accUnknown:['none'],  // 生産終了で製品ページが無く、配光レポートも見つからない
       dmx:{led:'RGBWW',power:'450W',cct:'2700K–6500K',cri:'>95',tlci:'>95',ip:'IP20',
         control:'On-board / DMX / RDM',dimming:'0%–100%',
         effects:['Pulse','Strobe','Fire','TV','Flicker']},
@@ -4644,7 +4644,7 @@ var LIGHTS = {
       group:'LED Panel', name:'Celeb 250 DMX', desc:'250W LED Soft Light', emoji:'🟢', watts:250, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'6.2 kg', size:'440×300×130 mm',
       ccts:[2700,5600],
-      accessories:['none'],
+      accessories:['none'], accUnknown:['none'],  // 生産終了で製品ページが無く、配光レポートも見つからない
       dmx:{led:'RGBWW',power:'250W',cct:'2700K–6500K',cri:'>95',tlci:'>95',ip:'IP20',
         control:'On-board / DMX',dimming:'0%–100%',effects:['Pulse','Strobe','TV']},
       dmxUrl:'https://kinoflo.com/product-category/celeb/',
@@ -4671,7 +4671,7 @@ var LIGHTS = {
       url:'https://kinoflo.com/product-category/freestyle/',
       group:'LED', name:'FreeStyle Air Mini', desc:'55W Full Color LED Panel', emoji:'🟢', watts:55, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'1 kg', size:'530×50×330 mm',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
+      ccts:[2500, 3200, 5600, 9900], accessories:['none'], accUnknown:['none'],  // この名前の製品が Kino Flo 側に見つからない（FreeStyle Mini はチューブ式の別物）。配光レポートも無い
       dmx:{led:'RGBWW',power:'55W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
         control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
       dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/08/3100132-Rev-B-FreeStyle-Air-Mini-Op-Manual-02-01-2025.pdf',
@@ -4683,7 +4683,7 @@ var LIGHTS = {
       url:'https://kinoflo.com/product-category/freestyle/',
       group:'LED', name:'FreeStyle Air Normal', desc:'100W Full Color LED Panel', emoji:'🟢', watts:100, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'2 kg', size:'1000×50×330 mm',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
+      ccts:[2500, 3200, 5600, 9900], accessories:['none'], accAngles:{none:113},  // Kino Flo 公開の実測レポート（Viso Systems Light Inspector）に Beam angle として記載 112.6°（FreeStyle Air Standard Optics 6500K、実測 111.9W）
       dmx:{led:'RGBWW',power:'100W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
         control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
       dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/08/3100128-Rev-A-FreeStyle-Air-LED-08-01-2023.pdf',
@@ -4695,7 +4695,7 @@ var LIGHTS = {
       url:'https://kinoflo.com/product-category/freestyle/',
       group:'LED', name:'FreeStyle Air Max', desc:'150W Full Color LED Panel', emoji:'🟢', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
       weight:'3 kg', size:'1000×50×560 mm',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
+      ccts:[2500, 3200, 5600, 9900], accessories:['none'], accAngles:{none:112},  // Kino Flo 公開の実測レポート（Viso Systems Light Inspector）に Beam angle として記載 112.4°（FreeStyle Air Max Standard Optics 6500K、実測 161.7W）
       dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
         control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
       dmxUrl:'https://kinoflo.com/wp-content/uploads/2023/09/3100130-Rev-A-FreeStyle-Air-MAX-LED-08-01-2023-1.pdf',
@@ -4994,7 +4994,7 @@ var LIGHTS = {
     p180_set2: {
       group:'LED', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', name:'Fiilex P180 ×2 set', desc:'40W LED ×2 set', emoji:'🔴', watts:80,
       weight:'0.43 kg', size:'115×160×98 mm',
-      ccts:[3200, 5600], accessories:['none'],
+      ccts:[3200, 5600], accessories:['none'], accAngles:{none:47},  // Fiilex データシート公表 Beam Angle 47°（2インチフレネル装着時 28°）
       dmx:{led:'RGBWW COB',power:'80W',cct:'3200K / 5600K',cri:'>93',ip:'IP20',
         control:'On-board / DMX',dimming:'0%–100%',effects:['Strobe', 'Pulse']},
       refData:{
@@ -5026,7 +5026,7 @@ var LIGHTS = {
     p3_color_set2: {
       group:'LED', svgIcon:'<svg width=\"240\" height=\"160\" viewBox=\"0 0 240 160\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M95 42 H160 Q188 42 188 70 V105 Q188 132 160 132 H98\"/><path d=\"M75 35 C106 35 128 60 128 84 C128 108 106 133 75 133 C44 133 22 108 22 84 C22 60 44 35 75 35Z\"/><circle cx=\"75\" cy=\"84\" r=\"39\"/><circle cx=\"75\" cy=\"84\" r=\"29\"/><circle cx=\"75\" cy=\"84\" r=\"19\"/><circle cx=\"75\" cy=\"84\" r=\"9\"/><path d=\"M32 53 L10 43\"/><path d=\"M27 111 L10 121\"/><path d=\"M116 85 H145\"/><path d=\"M135 73 V132\"/><path d=\"M135 132 C135 148 115 148 115 132\"/><path d=\"M115 132 V115\"/><path d=\"M74 133 V148 H103 V133\"/><path d=\"M55 34 L35 18\"/><path d=\"M70 31 H100\"/><path d=\"M160 70 H172\"/><path d=\"M160 88 H172\"/><path d=\"M160 106 H172\"/></g></svg>', name:'Fiilex P3 Color ×2 set', desc:'90W Full Color ×2 set', emoji:'🔴', watts:180,
       weight:'0.9 kg', size:'122×154×206 mm',
-      ccts:[2000, 3200, 5600, 10000], accessories:['none'],
+      ccts:[2000, 3200, 5600, 10000], accessories:['none'], accAngles:{none:60},  // Fiilex データシート公表 Beam Angle 60°（フレネル装着時 20°）
       dmx:{power:'180W',cct:'2000K–10000K + RGB',cri:'>95',ip:'IPX5',
         control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Strobe', 'Pulse', 'Rainbow']},
       dmxUrl:'https://fiilex.com/downloads/Fiilex_Profiles/COLOR%20Series%20DMX%20_%20RDM%20Mapping-V1.pdf',
@@ -6234,7 +6234,7 @@ var LIGHTS = {
       url:'https://www.lightstarusa.com/product/airlite-tube-1000w/',
       group:'LED', svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M80 6 V18\"/><path d=\"M60 18 H100\"/><path d=\"M80 18 C42 18 26 44 26 60 C26 74 50 84 80 84 C110 84 134 74 134 60 C134 44 118 18 80 18Z\"/><path d=\"M46 66 C58 76 102 76 114 66\"/><path d=\"M56 30 C50 44 50 58 56 72 M104 30 C110 44 110 58 104 72\"/></g></svg>', name:'Airlite Tube 1000', desc:'1000W LED Tube Balloon', emoji:'🎈', watts:1000,
       weight:'11 kg', size:'900×2000 mm',
-      ccts:[2700, 3200, 5600, 10000], accessories:['none'],
+      ccts:[2700, 3200, 5600, 10000], accessories:['none'], accUnknown:['none'],  // Lightstar の仕様表にビーム角の行が無い（色温度・調光・CRI・入力・制御・重量・寸法・IP のみ）
       dmx:{led:'RGBWW',power:'1000W',cct:'2700K–10000K + RGBWW',cri:'>95',ip:'IP20',
         control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Chase', 'Pulse']},
       dmxUrl:'https://www.lightstarusa.com/product-category/lights/',
@@ -6246,7 +6246,7 @@ var LIGHTS = {
       url:'https://www.lightstarusa.com/product/airlite-bi-color-balloon-1000w/',
       group:'LED', svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M80 6 V18\"/><path d=\"M60 18 H100\"/><path d=\"M80 18 C42 18 26 44 26 60 C26 74 50 84 80 84 C110 84 134 74 134 60 C134 44 118 18 80 18Z\"/><path d=\"M46 66 C58 76 102 76 114 66\"/><path d=\"M56 30 C50 44 50 58 56 72 M104 30 C110 44 110 58 104 72\"/></g></svg>', name:'Airlite Balloon 1000', desc:'1000W LED Balloon Light', emoji:'🎈', watts:1000,
       weight:'8 kg', size:'1800×1330 mm',
-      ccts:[2700, 3200, 5600, 10000], accessories:['none'],
+      ccts:[2700, 3200, 5600, 10000], accessories:['none'], accUnknown:['none'],  // Lightstar の仕様表にビーム角の行が無い（バルーン型の全方向ソフト光源）
       dmx:{led:'RGBWW',power:'1000W',cct:'2700K–10000K + RGBWW',cri:'>95',ip:'IP20',
         control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Chase', 'Pulse']},
       dmxUrl:'https://www.lightstarusa.com/product-category/lights/',
@@ -25284,7 +25284,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.9.196';
+var ver = 'v1.1.9.197';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
