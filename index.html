@@ -2202,6 +2202,7 @@ var LANGS = {
     dftSize:'サイズ', dftPresetPick:'プリセットから選ぶ',
     cctSubbed:'≈ {k}K の値', ambBarLabel:'環境光', ambBarUnset:'未入力',
     dftAmbLabel:'環境光', dftAmbTitle:'置いた環境光', dftAmbMode:'光の性質',
+    dftAmbName:'名前', dftAmbNamePh:'例: 東の窓 / 天窓 / 空の回り込み',
     dftAmbPlacedNote:'図面に置いた環境光 {n} 個で計算しています（上のトグルはこの図面では使いません）',
     dftAmbUni:'一様（全方向）', dftAmbUniSub:'屋外・曇天・広いホリゾント。向きに関係なく同じだけ入る',
     dftAmbDir:'方向あり', dftAmbDirSub:'窓・開口部・天窓。置いた位置から来る光として影側が落ちる',
@@ -2316,6 +2317,7 @@ var LANGS = {
     dftSize:'Size', dftPresetPick:'Pick a preset',
     cctSubbed:'≈ {k}K figure', ambBarLabel:'Ambient', ambBarUnset:'not set',
     dftAmbLabel:'Ambient', dftAmbTitle:'Placed ambient', dftAmbMode:'How the light behaves',
+    dftAmbName:'Name', dftAmbNamePh:'e.g. East window / Skylight / Sky wrap',
     dftAmbPlacedNote:'Using the {n} ambient source(s) placed on the plan (the toggle above is not used for this plan)',
     dftAmbUni:'Even (all directions)', dftAmbUniSub:'Outdoors, overcast, a large cyc. Reads the same whichever way you point',
     dftAmbDir:'Directional', dftAmbDirSub:'A window, doorway or skylight. Comes from where you placed it, so the shadow side falls off',
@@ -2428,6 +2430,7 @@ var LANGS = {
     dftSize:'Tamaño', dftPresetPick:'Elegir preajuste',
     cctSubbed:'≈ valor de {k}K', ambBarLabel:'Ambiente', ambBarUnset:'sin definir',
     dftAmbLabel:'Ambiente', dftAmbTitle:'Ambiente colocado', dftAmbMode:'Comportamiento de la luz',
+    dftAmbName:'Nombre', dftAmbNamePh:'p. ej. Ventana este / Lucernario',
     dftAmbPlacedNote:'Se usan las {n} fuentes de ambiente colocadas en el plano (el interruptor de arriba no se aplica aquí)',
     dftAmbUni:'Uniforme (todas las direcciones)', dftAmbUniSub:'Exterior, cielo cubierto, ciclorama grande. Lee igual en cualquier dirección',
     dftAmbDir:'Direccional', dftAmbDirSub:'Ventana, puerta o lucernario. Viene de donde lo coloques, así que el lado de sombra cae',
@@ -2563,7 +2566,6 @@ function applyI18n() {
   s('lbl-cmp-btn','cmpBtn');
   s('drawer-lbl-privacy','navPrivacy');
   s('drawer-lbl-mired','mrdTitle');
-  s('drawer-lbl-amb','ambTitle');
   s('drawer-lbl-ar','cmARHdr');
   s('lbl-fb-shot-note','fbShotNote');
   s('lbl-fb-contact','fbContactLabel'); s('lbl-fb-contact-opt','fbContactOpt');
@@ -2730,7 +2732,8 @@ var MAKERS = {
   astera:       { name:'Astera', url:'https://astera-led.com/',             emoji:'🟣', accent:'#7b1fa2', dark:'#4a148c', light:'#f3e5f5', glow:'rgba(123,31,162,0.25)', accent2:'#f57c00' },
   arri_led:     { name:'ARRI LED', url:'https://www.arri.com/en/lighting',           emoji:'🩵', accent:'#7ec8f0', dark:'#4aaed8', light:'#e8f6fd', glow:'rgba(126,200,240,0.30)', accent2:'#ffffff' },
   arri_hmi:     { name:'ARRI HMI', url:'https://www.arri.com/en/lighting',           emoji:'🩵', accent:'#7ec8f0', dark:'#4aaed8', light:'#e8f6fd', glow:'rgba(126,200,240,0.30)', accent2:'#ffffff' },
-  kinoflo:      { name:'Kino Flo / Litegear', url:'https://kinoflo.com/',emoji:'🟨', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)', accent2:'#ffffff', accent3:'#212121' },
+  kinoflo:      { name:'Kino Flo', url:'https://kinoflo.com/',emoji:'🟨', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)', accent2:'#ffffff', accent3:'#212121' },
+  litegear:     { name:'LiteGear', url:'https://www.litegear.com/',        emoji:'🟧', accent:'#fb8c00', dark:'#e65100', light:'#fff3e0', glow:'rgba(251,140,0,0.25)', accent2:'#ffffff', accent3:'#212121' },
   fiilex:       { name:'Fiilex', url:'https://www.fiilex.com/',             emoji:'🔴', accent:'#c62828', dark:'#b71c1c', light:'#ffebee', glow:'rgba(198,40,40,0.25)', accent2:'#212121', accent3:'#ffffff' },
   godox:        { name:'Godox', url:'https://www.godox.com/',              emoji:'🔴', accent:'#e53935', dark:'#b71c1c', light:'#ffebee', glow:'rgba(229,57,53,0.25)', accent2:'#212121' },
   dedolight:    { name:'Dedolight', url:'https://dedolight.com/',          emoji:'🟡', accent:'#fdd835', dark:'#f9a825', light:'#fffde7', glow:'rgba(253,216,53,0.25)', accent2:'#212121' },
@@ -4621,6 +4624,117 @@ var LIGHTS = {
   },
 
   kinoflo: {
+    celeb_450: {
+      url:'https://kinoflo.com/celeb-450-series/',
+      group:'LED Panel', name:'Celeb 450 DMX', desc:'450W LED Studio Soft Light', emoji:'🟢', watts:450, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      weight:'9.6 kg', size:'686×330×140 mm',
+      ccts:[2700,3200,4300,5600,6500],
+      accessories:['none'],
+      dmx:{led:'RGBWW',power:'450W',cct:'2700K–6500K',cri:'>95',tlci:'>95',ip:'IP20',
+        control:'On-board / DMX / RDM',dimming:'0%–100%',
+        effects:['Pulse','Strobe','Fire','TV','Flicker']},
+      dmxUrl:'https://kinoflo.com/product-category/celeb/',
+      refData:{
+        3200:{2:{none:4800},3:{none:2200},5:{none:800}},
+        5600:{2:{none:5400},3:{none:2400},5:{none:900}},
+      }
+    },
+    celeb_250: {
+      url:'https://kinoflo.com/celeb-250-series/',
+      group:'LED Panel', name:'Celeb 250 DMX', desc:'250W LED Soft Light', emoji:'🟢', watts:250, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      weight:'6.2 kg', size:'440×300×130 mm',
+      ccts:[2700,5600],
+      accessories:['none'],
+      dmx:{led:'RGBWW',power:'250W',cct:'2700K–6500K',cri:'>95',tlci:'>95',ip:'IP20',
+        control:'On-board / DMX',dimming:'0%–100%',effects:['Pulse','Strobe','TV']},
+      dmxUrl:'https://kinoflo.com/product-category/celeb/',
+      refData:{
+        3200:{2:{none:2800},3:{none:1250}},
+        5600:{2:{none:3200},3:{none:1420}},
+      }
+    },
+    freestyle_31: {
+      url:'https://kinoflo.com/product-category/freestyle/',
+      group:'LED', name:'FreeStyle 31', desc:'100W Bi-Color LED Panel', emoji:'🟢', watts:100, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      weight:'2.5 kg', size:'500×320×60 mm',
+      ccts:[2700,5600],
+      accessories:['none'],
+      dmx:{led:'RGBWW',power:'100W',cct:'2700K–6500K',cri:'>95',tlci:'>95',ip:'IP20',
+        control:'On-board / DMX',dimming:'0%–100%',effects:['Pulse','Strobe','TV']},
+      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/07/3100108-Rev-E-FreeStyle-41-31-21-Op-Manual-02-01-2025.pdf',
+      refData:{
+        2700:{1:{none:2100},2:{none:600},3:{none:270}},
+        5600:{1:{none:2400},2:{none:680},3:{none:310}},
+      }
+    },
+    freestyle_air_mini: {
+      url:'https://kinoflo.com/product-category/freestyle/',
+      group:'LED', name:'FreeStyle Air Mini', desc:'55W Full Color LED Panel', emoji:'🟢', watts:55, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      weight:'1 kg', size:'530×50×330 mm',
+      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
+      dmx:{led:'RGBWW',power:'55W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
+        control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
+      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/08/3100132-Rev-B-FreeStyle-Air-Mini-Op-Manual-02-01-2025.pdf',
+      refData:{
+        5600:{1:{'none':1815}, 2:{'none':470}, 3:{'none':240}, 5:{'none':94}}
+      }
+    },
+    freestyle_air_normal: {
+      url:'https://kinoflo.com/product-category/freestyle/',
+      group:'LED', name:'FreeStyle Air Normal', desc:'100W Full Color LED Panel', emoji:'🟢', watts:100, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      weight:'2 kg', size:'1000×50×330 mm',
+      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
+      dmx:{led:'RGBWW',power:'100W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
+        control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
+      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/08/3100128-Rev-A-FreeStyle-Air-LED-08-01-2023.pdf',
+      refData:{
+        5600:{1:{'none':1984}, 2:{'none':513}, 3:{'none':346}, 5:{'none':121}}
+      }
+    },
+    freestyle_air_max: {
+      url:'https://kinoflo.com/product-category/freestyle/',
+      group:'LED', name:'FreeStyle Air Max', desc:'150W Full Color LED Panel', emoji:'🟢', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      weight:'3 kg', size:'1000×50×560 mm',
+      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
+      dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
+        control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
+      dmxUrl:'https://kinoflo.com/wp-content/uploads/2023/09/3100130-Rev-A-FreeStyle-Air-MAX-LED-08-01-2023-1.pdf',
+      refData:{
+        5600:{1:{'none':3840}, 2:{'none':1084}, 3:{'none':479}, 5:{'none':240}}
+      }
+    },
+    freestyle_21: {
+      url:'https://kinoflo.com/product-category/freestyle/',
+      group:'LED', name:'FreeStyle 21', desc:'150W Full Color LED Strip', emoji:'🟢', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      weight:'5 kg', size:'670×90×280 mm',
+      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
+      dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
+        control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
+      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/07/3100108-Rev-E-FreeStyle-41-31-21-Op-Manual-02-01-2025.pdf',
+      refData:{
+        5600:{2:{'none':1084}, 3:{'none':304}, 5:{'none':122}, 8:{'none':81}}
+      }
+    },
+    freestyle_41: {
+      url:'https://kinoflo.com/product-category/freestyle/',
+      group:'LED', name:'FreeStyle 41', desc:'150W Full Color LED Strip', emoji:'🟢', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
+      weight:'7.3 kg', size:'1334×102×229 mm',
+      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
+      dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
+        control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
+      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/07/3100108-Rev-E-FreeStyle-41-31-21-Op-Manual-02-01-2025.pdf',
+      refData:{
+        5600:{1:{'none':479}, 2:{'none':240}, 3:{'none':118}, 5:{'none':60}, 8:{'none':23}}
+      }
+    },
+  },
+
+  // LiteMat / LiteTile / Auroris は LiteGear（現 Chauvet Cinema）の製品。
+  // 以前は kinoflo にまとめて入れていたが、現場で「LiteMat」を探すときに
+  // Kino Flo の下を見ないので見つからなかった。メーカーを分けた。
+  // 保存済みの図面や Mix が makerKey:'kinoflo' を持っているぶんは、
+  // 読み込み時に _migrateLightRefs が付け替える。
+  litegear: {
     litemat_spec8: {
       url:'https://www.litegear.com/products/litemat-spectrum/',
       group:'LED', svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>', weight:'9.6 kg', name:'LiteMat Spectrum 8', desc:'400W RGBWW Soft Mat (approx · ratio est.)', emoji:'💡', watts:400, approx:true,
@@ -4731,109 +4845,6 @@ var LIGHTS = {
       refData:{
         5600:{1:{none:4432},2:{none:1108},3:{none:492},5:{none:177},8:{none:69}},
         3200:{1:{none:4000},2:{none:1000},3:{none:444},5:{none:160},8:{none:62}},
-      }
-    },
-    celeb_450: {
-      url:'https://kinoflo.com/celeb-450-series/',
-      group:'LED Panel', name:'Celeb 450 DMX', desc:'450W LED Studio Soft Light', emoji:'🟢', watts:450, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
-      weight:'9.6 kg', size:'686×330×140 mm',
-      ccts:[2700,3200,4300,5600,6500],
-      accessories:['none'],
-      dmx:{led:'RGBWW',power:'450W',cct:'2700K–6500K',cri:'>95',tlci:'>95',ip:'IP20',
-        control:'On-board / DMX / RDM',dimming:'0%–100%',
-        effects:['Pulse','Strobe','Fire','TV','Flicker']},
-      dmxUrl:'https://kinoflo.com/product-category/celeb/',
-      refData:{
-        3200:{2:{none:4800},3:{none:2200},5:{none:800}},
-        5600:{2:{none:5400},3:{none:2400},5:{none:900}},
-      }
-    },
-    celeb_250: {
-      url:'https://kinoflo.com/celeb-250-series/',
-      group:'LED Panel', name:'Celeb 250 DMX', desc:'250W LED Soft Light', emoji:'🟢', watts:250, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
-      weight:'6.2 kg', size:'440×300×130 mm',
-      ccts:[2700,5600],
-      accessories:['none'],
-      dmx:{led:'RGBWW',power:'250W',cct:'2700K–6500K',cri:'>95',tlci:'>95',ip:'IP20',
-        control:'On-board / DMX',dimming:'0%–100%',effects:['Pulse','Strobe','TV']},
-      dmxUrl:'https://kinoflo.com/product-category/celeb/',
-      refData:{
-        3200:{2:{none:2800},3:{none:1250}},
-        5600:{2:{none:3200},3:{none:1420}},
-      }
-    },
-    freestyle_31: {
-      url:'https://kinoflo.com/product-category/freestyle/',
-      group:'LED', name:'FreeStyle 31', desc:'100W Bi-Color LED Panel', emoji:'🟢', watts:100, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
-      weight:'2.5 kg', size:'500×320×60 mm',
-      ccts:[2700,5600],
-      accessories:['none'],
-      dmx:{led:'RGBWW',power:'100W',cct:'2700K–6500K',cri:'>95',tlci:'>95',ip:'IP20',
-        control:'On-board / DMX',dimming:'0%–100%',effects:['Pulse','Strobe','TV']},
-      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/07/3100108-Rev-E-FreeStyle-41-31-21-Op-Manual-02-01-2025.pdf',
-      refData:{
-        2700:{1:{none:2100},2:{none:600},3:{none:270}},
-        5600:{1:{none:2400},2:{none:680},3:{none:310}},
-      }
-    },
-    freestyle_air_mini: {
-      url:'https://kinoflo.com/product-category/freestyle/',
-      group:'LED', name:'FreeStyle Air Mini', desc:'55W Full Color LED Panel', emoji:'🟢', watts:55, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
-      weight:'1 kg', size:'530×50×330 mm',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
-      dmx:{led:'RGBWW',power:'55W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
-        control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
-      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/08/3100132-Rev-B-FreeStyle-Air-Mini-Op-Manual-02-01-2025.pdf',
-      refData:{
-        5600:{1:{'none':1815}, 2:{'none':470}, 3:{'none':240}, 5:{'none':94}}
-      }
-    },
-    freestyle_air_normal: {
-      url:'https://kinoflo.com/product-category/freestyle/',
-      group:'LED', name:'FreeStyle Air Normal', desc:'100W Full Color LED Panel', emoji:'🟢', watts:100, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
-      weight:'2 kg', size:'1000×50×330 mm',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
-      dmx:{led:'RGBWW',power:'100W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
-        control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
-      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/08/3100128-Rev-A-FreeStyle-Air-LED-08-01-2023.pdf',
-      refData:{
-        5600:{1:{'none':1984}, 2:{'none':513}, 3:{'none':346}, 5:{'none':121}}
-      }
-    },
-    freestyle_air_max: {
-      url:'https://kinoflo.com/product-category/freestyle/',
-      group:'LED', name:'FreeStyle Air Max', desc:'150W Full Color LED Panel', emoji:'🟢', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
-      weight:'3 kg', size:'1000×50×560 mm',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
-      dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
-        control:'On-board / DMX / Lumen Radio',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
-      dmxUrl:'https://kinoflo.com/wp-content/uploads/2023/09/3100130-Rev-A-FreeStyle-Air-MAX-LED-08-01-2023-1.pdf',
-      refData:{
-        5600:{1:{'none':3840}, 2:{'none':1084}, 3:{'none':479}, 5:{'none':240}}
-      }
-    },
-    freestyle_21: {
-      url:'https://kinoflo.com/product-category/freestyle/',
-      group:'LED', name:'FreeStyle 21', desc:'150W Full Color LED Strip', emoji:'🟢', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
-      weight:'5 kg', size:'670×90×280 mm',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
-      dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
-        control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
-      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/07/3100108-Rev-E-FreeStyle-41-31-21-Op-Manual-02-01-2025.pdf',
-      refData:{
-        5600:{2:{'none':1084}, 3:{'none':304}, 5:{'none':122}, 8:{'none':81}}
-      }
-    },
-    freestyle_41: {
-      url:'https://kinoflo.com/product-category/freestyle/',
-      group:'LED', name:'FreeStyle 41', desc:'150W Full Color LED Strip', emoji:'🟢', watts:150, svgIcon:'<svg width=\"160\" height=\"100\" viewBox=\"0 0 160 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#111111\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"22\" y=\"6\" width=\"116\" height=\"72\" rx=\"4\"/><rect x=\"30\" y=\"14\" width=\"100\" height=\"56\" rx=\"2\"/><circle cx=\"22\" cy=\"42\" r=\"4\"/><circle cx=\"138\" cy=\"42\" r=\"4\"/><line x1=\"16\" y1=\"42\" x2=\"16\" y2=\"88\"/><line x1=\"144\" y1=\"42\" x2=\"144\" y2=\"88\"/><line x1=\"16\" y1=\"88\" x2=\"144\" y2=\"88\"/></g></svg>',
-      weight:'7.3 kg', size:'1334×102×229 mm',
-      ccts:[2500, 3200, 5600, 9900], accessories:['none'],
-      dmx:{led:'RGBWW',power:'150W',cct:'2500K–9900K + RGB',cri:'>96',ip:'IP20',
-        control:'On-board / DMX / CRMX',dimming:'0%–100%',effects:['Chase', 'Pulse', 'Strobe']},
-      dmxUrl:'https://kinoflo.com/wp-content/uploads/2022/07/3100108-Rev-E-FreeStyle-41-31-21-Op-Manual-02-01-2025.pdf',
-      refData:{
-        5600:{1:{'none':479}, 2:{'none':240}, 3:{'none':118}, 5:{'none':60}, 8:{'none':23}}
       }
     },
   },
@@ -13091,6 +13102,10 @@ function updateDrawerActiveItem(page) {
 // 使う機能は人によって違うので、どれをどの順で並べるかを選べるようにする。
 // ページに切り替わるものと、その場でシートを開くものが混ざるので、
 // 登録表に「何をするか」を持たせて一元管理する。
+/* 環境光（amb）はここに入れていない。Calc / Mix / Finder / Draft の
+ * 環境光バーの ✏️ から開くので、下部タブに常駐させる必要がなくなった。
+ * 以前ここに入れていたので、保存済みの並びに 'amb' が残っていることがあるが、
+ * renderNavBar が _navItem で引けないものを落とすので問題にならない。 */
 var NAV_ITEMS = [
   { id:'calc',   icon:'💡',  lbl:'Calc',      page:'calc'   },
   { id:'mix',    icon:'🎛️', lbl:'Mix',       page:'mix'    },
@@ -13099,7 +13114,6 @@ var NAV_ITEMS = [
   { id:'draft',  icon:'📐',  lbl:'Draft',     page:'draft'  },
   { id:'sun',    icon:'☀️',  lbl:'Sun',       open:'openSunTool'   },
   { id:'camera', icon:'🎥',  lbl:'Camera',    page:'camera' },
-  { id:'amb',    icon:'🌗',  lbl:'Ambient',   open:'openAmbientTool' },
   { id:'mired',  icon:'🎨',  lbl:'Mired',     open:'openMiredTool' },
   { id:'ar',     icon:'📷',  lbl:'AR',        open:'openARMeasure', needsAR:true }
 ];
@@ -17846,7 +17860,7 @@ function _dftAddObj(type, wx, wy, extra) {
   else if (type === 'ambient')  {
     // 環境光を「置ける光源」として扱う。窓のように向きが効く場合と、
     // 屋外のように向きが効かない場合を ambMode で切り替える。
-    obj.label = t('dftAmbLabel');
+    obj.label = obj.label || t('dftAmbLabel');
     obj.ambMode = obj.ambMode || 'uniform';          // 'uniform' 一様 / 'dir' 方向あり
     if (obj.ambLux == null) obj.ambLux = (typeof _AMBIENT !== 'undefined' && _AMBIENT.lux > 0) ? luxRound(_AMBIENT.lux) : 0;
     obj.w = obj.w || 1.6; obj.h = obj.h || 1.2;      // 図面上の見た目だけ。計算には使わない
@@ -22003,6 +22017,10 @@ function dftAmbientSettings(oid) {
         '<button onclick="document.getElementById(\'_dft_amb\').remove()" style="flex:0 0 auto;width:30px;height:30px;border:none;border-radius:50%;background:#eee;color:#333;font-size:16px;font-weight:800;cursor:pointer;line-height:1;">✕</button>' +
       '</div>' +
       '<div style="padding:14px 16px 8px;">' +
+        '<div style="font-size:11px;font-weight:800;color:#888;margin-bottom:5px;">' + t('dftAmbName') + '</div>' +
+        '<input type="text" value="' + _dftEsc(o.label || '') + '" placeholder="' + t('dftAmbNamePh') + '" ' +
+          'oninput="_dftAmbName(this.value)" style="width:100%;box-sizing:border-box;padding:8px 10px;margin-bottom:12px;' +
+          'border:1px solid #ddd;border-radius:9px;font-size:13px;font-weight:700;">' +
         '<div style="font-size:11px;font-weight:800;color:#888;margin-bottom:5px;">' + t('dftAmbMode') + '</div>' +
         '<div style="display:flex;gap:6px;margin-bottom:12px;">' +
           modeBtn('uniform', t('dftAmbUni'), t('dftAmbUniSub')) +
@@ -22033,6 +22051,11 @@ window._dftAmbMode = function(m) {
   var o = _dftAmbObj(); if (!o) return;
   _dftPushHistory(); o.ambMode = m;
   dftRender(); _dftAmbAfterChange(); dftAmbientSettings(o.id);
+};
+window._dftAmbName = function(v) {
+  var o = _dftAmbObj(); if (!o) return;
+  o.label = (v || '').trim() || t('dftAmbLabel');
+  dftRender(); _dftAmbAfterChange();
 };
 window._dftAmbLux = function(v) {
   var o = _dftAmbObj(); if (!o) return;
@@ -24127,8 +24150,27 @@ function _dftLoadById(id) {
   if (d) _dftLoadDraft(d, false);
 }
 
+/* 保存済みの図面が持っている makerKey を、いまの LIGHTS に合わせて付け替える。
+ * LiteMat / LiteTile / Auroris を kinoflo から litegear へ移したため、
+ * 以前保存した図面は makerKey:'kinoflo' を持っている。機種キー(modelKey)は
+ * 変えていないので、それで探し直せば正しいメーカーが分かる。
+ * 決め打ちの表を持たないので、今後メーカーを分け直しても同じ仕組みで通る。 */
+function _migrateLightRefs(objs) {
+  if (!objs || !objs.length) return 0;
+  var n = 0;
+  objs.forEach(function(o) {
+    if (!o || o.type !== 'light' || !o.modelKey) return;
+    if (LIGHTS[o.makerKey] && LIGHTS[o.makerKey][o.modelKey]) return;   // そのままで引ける
+    for (var mk in LIGHTS) {
+      if (LIGHTS[mk] && LIGHTS[mk][o.modelKey]) { o.makerKey = mk; n++; return; }
+    }
+  });
+  return n;
+}
+
 function _dftLoadDraft(d, skipRender) {
   _dft.objects       = JSON.parse(JSON.stringify(d.objects||[]));
+  _migrateLightRefs(_dft.objects);
   _dft.layers        = d.layers ? JSON.parse(JSON.stringify(d.layers)) : [{id:1,name:'L1',visible:true}];
   _dft.activeLayer   = d.activeLayer || 1;
   _dft.scale         = d.scale  || 0.05;
@@ -25242,7 +25284,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.9.193';
+var ver = 'v1.1.9.194';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
@@ -25833,10 +25875,6 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
   <button class="drawer-item" onclick="closeDrawer();openNavEditor()">
     <span class="drawer-item-icon">🧩</span>
     <span id="drawer-lbl-nav">下部タブの並び</span>
-  </button>
-  <button class="drawer-item" onclick="closeDrawer();openAmbientTool()">
-    <span class="drawer-item-icon">🌗</span>
-    <span id="drawer-lbl-amb">環境光から</span>
   </button>
   <button class="drawer-item" onclick="closeDrawer();openMiredTool()">
     <span class="drawer-item-icon">🎨</span>
