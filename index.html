@@ -2531,6 +2531,7 @@ function _applyDateLocale() {
 function applyI18n() {
   function s(id, k) { var el = document.getElementById(id); if (el) el.textContent = t(k); }
   // ハンバーガーの言語ボタンも、各画面の見出しと同じものを使う
+  // 開いている間に言語を変えたときの貼り替え。初回の差し込みは openDrawer 側
   var _dl = document.getElementById('drawer-lang');
   if (_dl) _dl.innerHTML = langChipHTML();
   function sp(id, k) { var el = document.getElementById(id); if (el) el.placeholder = t(k); }
@@ -12944,8 +12945,15 @@ function openPrivacy() {
 }
 
 function openDrawer() {
+  // 言語ボタンはここで入れる。ドロワーの HTML は <script> より後ろにあるので、
+  // 起動時の applyI18n では #drawer-lang がまだ存在せず、何も入らないままだった。
+  _drawerLangFill();
   document.getElementById('drawer').classList.add('open');
   document.getElementById('drawer-overlay').classList.add('open');
+}
+function _drawerLangFill() {
+  var el = document.getElementById('drawer-lang');
+  if (el) el.innerHTML = langChipHTML();
 }
 function closeDrawer() {
   document.getElementById('drawer').classList.remove('open');
@@ -24935,7 +24943,7 @@ function dftResetView() {
 }
 // ===== END DRAFT ENGINE =====
 
-var ver = 'v1.1.9.189';
+var ver = 'v1.1.9.190';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
   if (el) el.textContent = ver;
