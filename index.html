@@ -3184,12 +3184,652 @@ var LANGS = {
     dftStatusDefault:'点选工具放置 · 拖动平移 · 双指缩放',
     dftAddLayer:'添加图层',
     dftNoSavedDrafts:'还没有保存的图纸。',
+  },
+  fr: {
+    fpickBtn:'📋 Liste',
+    fpickTitle:'Choisir un nom',
+    fpickSearch:'Chercher par nom ou référence (ex. LEE / Rosco / Grid)',
+    fpickSaved:'Enregistrés',
+    fpickCommon:'Courants',
+    fpickOther:'Autres',
+    fpickEmpty:'Aucun résultat',
+    fpickCount:'{n}',
+    navCalc:'Calc',
+    navMix:'Mix',
+    navFinder:'Finder',
+    navAlt:'Alt',
+    navCamera:'Caméra',
+    pageCalcTitle:'Calcul de lumière',
+    pageCalcSub:'Exposition et diaphragme',
+    pageMixTitle:'Mix',
+    pageMixSub:'Combiner plusieurs projecteurs — exposition totale et température mélangée',
+    pageFinderTitle:'Recherche de projecteurs',
+    pageFinderSub:'Trouver le bon projecteur',
+    pageAltTitle:'Équivalences',
+    pageAltSub:'Trouver le meilleur remplacement',
+    pageCameraTitle:'Caméra',
+    pageCameraSub:'Numérique / Pellicule / Photo',
+    appSub:'Cinema Advanced Lighting Matcher',
+    favBtn:'⭐ Favoris',
+    makerTitle:'Fabricant',
+    modelTitle:'Projecteur',
+    sortLabel:'🔀 SORT',
+    accTitle:'Accessoire',
+    cctTitle:'Température de couleur',
+    distTitle:'Distance',
+    directInput:'Saisie directe :',
+    manualInput:'Personnalisé :',
+    tabLighting:'💡 Éclairage',
+    tabTable:'📊 Table des distances',
+    tabDMX:'📡 Data',
+    triTitle:'Calcul de distance',
+    triHeight:'💡 Hauteur',
+    triHoriz:'↔️ Distance au sol (L)',
+    triResult:'📏 Hypoténuse / distance réelle',
+    triUseBtn:'Utiliser cette distance →',
+    triClear:'✕ Annuler',
+    triActiveText:'📐 Hypoténuse utilisée',
+    camTitle:'Réglages caméra',
+    isoLabel:'Sensibilité ISO',
+    fpsLabel:'Cadence / FPS',
+    fstopLabel:'T-stop de base',
+    fstopSub:'Pas de 1/3 de diaph',
+    resultLabel:'RÉSULTAT',
+    mixResultLabel:'RÉSULTAT',
+    luxLabel:'Éclairement / lux',
+    fcLabel:'Éclairement / fc',
+    exactFLabel:'Diaphragme exact',
+    shutterLabel:'Obturateur (180°)',
+    noData:'Pas de données',
+    noDataSoon:'Bientôt disponible',
+    normalLabel:'NORMAL ✓',
+    favTitle:'⭐ Favoris',
+    favEmpty:'Aucun favori',
+    favLoad:'Charger',
+    favAddTitle:'⭐ Ajouter aux favoris',
+    favMemoHint:'Ajouter une note (facultatif)',
+    favSave:'Enregistrer',
+    favCancel:'Annuler',
+    favAdded:'⭐ Ajouté aux favoris',
+    favRemoved:'Retiré des favoris',
+    tableNote:'Loi de l\'inverse du carré, 1 à 20 m (✓ = valeur du tableau, ~ = calculé)',
+    finderAccUnit:' opt.',
+    makerSite:'Site du fabricant',
+    measured:'✓ Valeur du tableau',
+    estimated:'~ Calculé',
+    extrapolated:'⚠ Hors plage',
+    finderDesc:'Classe tous les projecteurs du plus proche au plus loin du diaphragme visé, d\'après les réglages caméra et les conditions.',
+    finderHeight:'💡 Hauteur du projecteur (m)',
+    finderHoriz:'↔️ Distance au sol (m)',
+    finderDist:'📏 Distance réelle (hypoténuse) m',
+    finderTargetF:'🎯 Diaphragme visé',
+    finderCamNote:'📷 ISO {iso} · {fps} fps',
+    finderRunBtn:'🔍 Classer tous les projecteurs',
+    finderEmpty:'Aucun projecteur ne correspond à ces conditions.',
+    finderStop:'diaph',
+    finderMatch:'✓ MATCH',
+    mixTitle:'Mélange de sources',
+    mixAddBtn:'＋ Ajouter un projecteur',
+    mixUnitSuffix:'',
+    mixEmpty:'Ajoutez des projecteurs pour calculer',
+    mixResultTitle:'Exposition totale',
+    mixCCTTitle:'Mélange des températures',
+    mixCCTNote:'Calculé d\'après les projecteurs ci-dessus',
+    mixTriTitle:'📐 Calcul par triangle',
+    mixTriH:'💡 Hauteur',
+    mixTriL:'↔️ Distance au sol (L)',
+    mixTriResult:'📏 Hypoténuse / distance réelle',
+    mixTriUse:'Utiliser cette distance →',
+    mixTriClear:'✕ Annuler',
+    mixDistLabel:'Distance',
+    altFinderTitle:'Équivalences',
+    altFinderDesc:'Trouve le meilleur équivalent, avec le nombre d\'unités et le score de correspondance.',
+    altFinderFixture:'Projecteur à remplacer',
+    altFinderDistLabel:'Distance',
+    altFinderCCTLabel:'Température',
+    altFinderBtn:'🔄 Chercher des équivalents',
+    altFinderRecalc:'Recalculer',
+    altFactorLabel:'Unités équiv.',
+    altMatchLabel:'Correspondance',
+    proLabel:'PRO',
+    ftabName:'🔍 Nom',
+    ftabMaker:'🏢 Fabricant',
+    ftabType:'💡 Type',
+    unitsLabel:'Unités',
+    finderCCTLabel:'🌡️ CCT',
+    sortDefault:'Par défaut',
+    sortSingle:'1 unité',
+    sortMulti:'Plusieurs unités',
+    sortFstop:'Diaphragme exact',
+    sortFstopMulti:'Diaph. + plusieurs',
+    factorNote:'Les facteurs prédéfinis sont indicatifs : la valeur réelle varie d\'un exemplaire à l\'autre. Ajustez-la avant usage.',
+    rectSizeTitle:'Choisir la taille',
+    rectPreset:'Préréglage',
+    rectManual:'✏️ Tracer à la main (glisser)',
+    rectCustom:'Taille personnalisée',
+    rectPlace:'Placer',
+    rectTapToPlace:'Touchez l\'endroit où le placer',
+    rectAngleLabel:'Angle',
+    rectAngleHint:'Réglez l\'angle, puis Valider',
+    rectAngleDone:'Valider',
+    dftImportDone:'Importé',
+    dftImportFail:'Impossible de lire le fichier.',
+    dftNotCalmFile:'Ce fichier ne semble pas être un plan CALM (.calm).',
+    dftSaveFirst:'Appuyez sur Enregistrer pour ajouter le plan en cours à cette liste ; il rejoindra ensuite vos autres appareils.',
+    dftFormColor:'Couleur',
+    dftHue:'Teinte',
+    dftSat:'Saturation',
+    dftLig:'Luminosité',
+    dftCctLabel:'Température de couleur',
+    dftCctHint:'Change à la fois le flux et la couleur de l\'icône',
+    cloudSync:'Récupérer les plans des autres appareils',
+    cloudDone:'Synchronisé',
+    cloudSame:'Déjà à jour',
+    cloudOff:'iCloud indisponible (Réglages → identifiant Apple → iCloud Drive)',
+    cloudFail:'Échec de la synchronisation',
+    dftTiltLabel:'Incliner vers l\'arrière',
+    dftTiltHint:'0° = vertical. En inclinant, le renvoi part plus haut',
+    dftTiltOut:'renvoie à',
+    dftTiltNeed:'sujet à',
+    dftTiltAuto:'Viser le sujet',
+    orientLabel:'Orientation',
+    orientHint:'(vue de dessus)',
+    orientFlat:'À plat',
+    orientStand:'Debout',
+    orientFloorEdge:'Côté au sol :',
+    dftHeightLabel:'Hauteur',
+    dftHeightHint:'(depuis le sol)',
+    dftAlphaLabel:'Opacité',
+    dftAlphaHint:'(remplissage)',
+    dftFactorHint:'(perte de lumière)',
+    dftClose:'Fermer',
+    lineHidden:'Ligne masquée',
+    lineShown:'Ligne affichée',
+    showLines:'Afficher les lignes',
+    cmpBtn:'Comparer les projecteurs',
+    cmpTitle:'Comparaison',
+    cmpBack:'Retour',
+    cmpAdd:'Ajouter un projecteur',
+    cmpChange:'Changer',
+    cmpSelectTitle:'Choisir un projecteur',
+    cmpSearch:'Rechercher...',
+    cmpDist:'Distance',
+    cmpNote:'Le diaphragme est calculé avec les réglages caméra actuels. ⚠ = distance en dehors du tableau publié, extrapolée par la loi de l\'inverse du carré. ≈ = pas de valeur publiée à cette température de couleur, reprise de la plus proche',
+    cmpFstop:'Diaphragme',
+    cmpLuxAt:'Éclairement',
+    cmpMaxLux:'Éclairement max. à 1 m',
+    cmpPower:'Puissance',
+    cmpWeight:'Poids',
+    cmpWeightPartial:'ou plus',
+    cmpCCT:'Temp. de couleur',
+    cmpCRI:'CRI / TLCI',
+    cmpIP:'Indice IP',
+    cmpControl:'Pilotage',
+    cmpBeam:'Angle de faisceau',
+    cmpBeamDia:'⌀ du faisceau',
+    cmpMixSlot:'MIX (configuration actuelle)',
+    cmpMixUnits:'{f} modèles / {n} unités',
+    cmpMixEmpty:'Aucun projecteur dans MIX',
+    cmpMixed:'mélangé',
+    cmpMixPerLight:'⚠ Mix utilise une distance par projecteur ; cette comparaison en utilise une seule',
+    cmpEmpty:'Aucun projecteur sélectionné',
+    cmpOpenHint:'Double-touche pour ouvrir',
+    navPrivacy:'Politique de confidentialité',
+    fbAttachFallback:'L\'envoi de la pièce jointe a échoué. Ouvrez le lien ci-dessus et collez l\'image dans un commentaire.',
+    fbRef:'Référence',
+    fbShotNote:'📸 Pour joindre une capture d\'écran, sélectionnez-la avec « Tap to attach files » ci-dessus : elle est envoyée automatiquement.',
+    beamUnknown:'angle non vérifié',
+    weightUnknown:'poids non connu',
+    sunTitle:'SUN SCOUT',
+    sunNow:'Maintenant',
+    ambTitle:'À partir de la lumière existante',
+    ambSub:'Partez de ce qui est déjà là et obtenez ce que le projecteur doit apporter',
+    ambNow:'Lumière existante',
+    ambByF:'Par diaphragme',
+    ambByLux:'Par éclairement',
+    ambAmbient:'Lumière ambiante',
+    ambWant:'Ce que vous voulez',
+    ambAdd:'Ajouter à la lumière existante (décochez pour atteindre ce niveau avec le seul projecteur)',
+    ambResult:'Ce que le projecteur doit fournir',
+    ambNeed:'À ajouter',
+    ambTarget:'Résultat',
+    ambNote:'Calculé avec vos réglages caméra actuels (ISO, fps, obturateur). Saisissez la valeur ambiante lue au posemètre. Les diaphs sont calculés exactement : le résultat s\'écarte donc un peu des valeurs nominales (2,8 et autres).',
+    ambDist:'Où placer le projecteur sélectionné',
+    ambNoLight:'Choisissez un projecteur dans Calc pour voir la distance',
+    ambNoNeed:'La lumière existante suffit déjà',
+    ambOutOfRange:'n\'atteint pas',
+    sunAR:'Voir dans la caméra',
+    sunGeoWait:'Recherche de votre position…',
+    sunLocDefault:'Aucun lieu défini pour l\'instant : c\'est encore la valeur par défaut. Appuyez sur « 📍 Ici » ou saisissez les coordonnées. Si elles sont fausses, le soleil superposé à l\'image l\'est d\'autant.',
+    sunStepHint:'Faites glisser pour une heure approximative, ‹ › pour avancer d\'une minute. Vous pouvez aussi saisir l\'heure.',
+    sunARWeb:'La superposition sur l\'image ne fonctionne que dans l\'application iOS',
+    sunARHint:'Superpose la trajectoire du jour du soleil et de la lune sur l\'image en direct. Le nord vrai vient de la boussole : il dérive donc près d\'une charpente métallique ou dans une voiture. Si le soleil ou la lune est visible, appuyez sur « aligner sur le réel » pour corriger.',
+    sunARNo:'La vue caméra n\'est pas disponible sur cet appareil',
+    sunARDenied:'L\'accès à la caméra est désactivé (Réglages → CALM → Appareil photo)',
+    sunARGrab:'Direction relevée à la caméra',
+    sunARCam:'Direction de la caméra',
+    sunARRel:'De la caméra au soleil',
+    sunARLeft:'gauche',
+    sunARRight:'droite',
+    sunARUp:'haut',
+    sunARDown:'bas',
+    sunAROff:'Correction de boussole',
+    sunARClear:'Effacer',
+    navEditTitle:'Onglets du bas',
+    navEditSub:'Choisissez jusqu\'à {n} de ceux que vous utilisez',
+    navOnBar:'Dans la barre',
+    navOff:'Disponibles',
+    navReset:'Réinitialiser',
+    navArOnly:'application iOS uniquement',
+    sunCmpAdd:'Comparer avec le jour de tournage',
+    sunCmpTitle:'Jour de tournage',
+    sunCmpA:'Repérage',
+    sunCmpB:'Tournage',
+    sunCmpDiff:'Écart',
+    sunMin:'min',
+    sunCmpHint:'À la même heure, le soleil n\'est pas au même endroit d\'un jour à l\'autre. Cette zone sert à reporter ce que vous avez vu au repérage sur le jour de tournage. Le tracé en pointillés est le jour de tournage.',
+    sunPlaceSave:'Enregistrer ce lieu',
+    sunPlaceName:'Nom du lieu (ex. Plateau 2 / décor à LA)',
+    sunHM:'{h} h {m} min',
+    sunTzLabel:'Fuseau horaire',
+    sunTzHint:'Déterminé automatiquement d\'après les coordonnées. Les heures suivent celles du lieu, heure d\'été comprise',
+    sunTzCheck:'Coordonnées saisies',
+    sunTzAuto:'Fuseau horaire réglé sur {z}',
+    sunDecl:'Déclinaison',
+    sunVfx:'Données pour le compositing',
+    sunVfxAt:'Soleil à',
+    sunVfxAtMoon:'Lune à',
+    sunVfxHintMoon:'L\'azimut part du nord vrai, dans le sens horaire ; la hauteur part de l\'horizon. À utiliser quand la lune est la lumière principale, avec la fraction éclairée.',
+    sunVfxHint:'L\'azimut part du nord vrai, dans le sens horaire. La hauteur part de l\'horizon. Utilisez ces deux valeurs pour caler une lumière en CG. La déclinaison donne la saison.',
+    sunCopy:'Copier',
+    sunCopied:'Copié',
+    sunMidnight:'Le soleil ne se couche pas ce jour-là (soleil de minuit)',
+    sunPolarNight:'Le soleil ne se lève pas ce jour-là (nuit polaire)',
+    phNew:'Nouvelle lune',
+    phWaxC:'Premier croissant',
+    phFirst:'Premier quartier',
+    phWaxG:'Gibbeuse croissante',
+    phFull:'Pleine lune',
+    phWanG:'Gibbeuse décroissante',
+    phLast:'Dernier quartier',
+    phWanC:'Dernier croissant',
+    sunSub:'Lever, coucher, heure magique et position de la lune',
+    sunLoc:'Lieu',
+    sunHere:'Ici',
+    sunLatLon:'Latitude / Longitude',
+    sunDate:'Date',
+    sunToday:'Aujourd\'hui',
+    sunAt:'À cette heure',
+    sunAz:'Az',
+    sunAlt:'Haut.',
+    sunKeyTimes:'Heures clés',
+    sunSunrise:'Lever du soleil',
+    sunSunset:'Coucher du soleil',
+    sunNoon:'Midi solaire',
+    sunDayLen:'Durée du jour',
+    sunMagic:'Heure magique',
+    sunGoldenAM:'Heure dorée (matin)',
+    sunGoldenPM:'Heure dorée (soir)',
+    sunBlueAM:'Heure bleue (matin)',
+    sunBluePM:'Heure bleue (soir)',
+    sunTwilight:'Crépuscule',
+    sunCivil:'Civil -6°',
+    sunNaut:'Nautique -12°',
+    sunAstro:'Astronomique -18°',
+    sunMoon:'Lune',
+    sunMoonrise:'Lever de la lune',
+    sunMoonset:'Coucher de la lune',
+    sunPhase:'Phase',
+    sunNoGeo:'Cet appareil ne peut pas fournir de position',
+    sunGeoFail:'Impossible d\'obtenir votre position',
+    sunNote:'L\'heure dorée correspond à un soleil entre -0,833° et +6° ; l\'heure bleue entre -6° et -4°. Le lever et le coucher sont pris à -0,833°, en tenant compte de la réfraction et du rayon solaire.',
+    dftLayerMove:'Calque',
+    mixWeightUnknownSuffix:' n. c.',
+    finderShowAll:'Tout afficher',
+    finderShowTop:'Afficher les 30 premiers seulement',
+    finderHiddenNote:'Les projecteurs à plus de 2 diaphs du diaphragme visé sont masqués ici, aussi bien les gros (DINO, 24 kW) que les petits.',
+    passPrompt:'Ceci est une version bêta. Saisissez le code qui vous a été remis.',
+    passWrong:'Code incorrect',
+    passEnter:'Entrer',
+    exportCancel:'Enregistrement annulé',
+    exportUnsupported:'L\'export n\'est pas pris en charge dans cet environnement',
+    betaExpiredTitle:'La période de bêta est terminée',
+    betaExpiredMsg:'Cette version bêta (environ 3 semaines) a expiré. Merci de votre participation. Contactez le développeur au sujet de la dernière version.',
+    helpOpen:'Nouveautés',
+    helpTitle:'Nouveautés',
+    helpSub:'Petit guide de ce qu\'apporte la 1.1.9',
+    helpClose:'Fermer',
+    helpWhere:'Où',
+    help1T:'🌗 Saisissez la lumière ambiante une fois, elle sert partout',
+    help1W:'La barre en haut de Calc, Mix, Finder et de l\'exposition du plan',
+    help1B:'Mesurez l\'ambiante au posemètre, appuyez sur ✏️ et saisissez-la par diaphragme ou par éclairement, puis mettez la barre sur ON. Dès lors, le diaphragme dans Calc, le total dans Mix et le classement dans Finder tiennent compte de ce niveau. La diffusion posée sur le projecteur n\'atténue pas l\'ambiante : elle est donc ajoutée après le Factor.',
+    help2T:'🔍 Fixez la distance et le projecteur apparaît',
+    help2W:'Le sélecteur [🎯 Diaphragme visé] / [🌗 À partir de l\'ambiante] en haut de Finder',
+    help2B:'Avec « À partir de l\'ambiante », la cible se saisit en diaphs au-dessus de l\'ambiante. Changez la distance et la liste se réordonne pour montrer le plus petit projecteur qui y parvient depuis cette distance. Le choisir active automatiquement la lumière ambiante.',
+    help3T:'📏 Et dans l\'autre sens : où le placer',
+    help3W:'La partie basse de l\'écran qu\'ouvre le ✏️ de la barre d\'ambiante',
+    help3B:'« Où placer le projecteur sélectionné » donne une distance pour chaque accessoire. Coché : ambiante + projecteur = cible. Décoché : le projecteur seul atteint la cible (pour écraser une fenêtre, ou de nuit quand on ne compte pas sur l\'ambiante).',
+    help4T:'📐 Poser de la lumière ambiante sur le plan',
+    help4W:'Barre d\'outils de Draft, quatrième bouton de la première ligne : « 🌗 Ambiante »',
+    help4B:'Appuyez sur le bouton puis touchez le plan pour la poser. Extérieur, ciel couvert, grand cyclo : « Uniforme (toutes directions) ». Fenêtre, ouverture, verrière : « Directionnelle ». En directionnelle, la lumière est traitée comme venant de l\'endroit où vous l\'avez posée, et le côté ombre baisse. Vous pouvez en poser plusieurs ; en les nommant, vous les distinguez dans le détail de l\'exposition. Il n\'y a pas d\'atténuation avec la distance.',
+    help5T:'⌀ Diamètre du faisceau',
+    help5W:'À côté des pastilles dans Calc, la ligne de la comparaison, et l\'écran d\'ambiante',
+    help5B:'Indique le diamètre en mètres du cercle de lumière à cette distance. Les angles de faisceau ont été revus d\'après les valeurs publiées par les fabricants. Pour les modèles sans valeur publiée, aucun chiffre n\'est donné : « angle non vérifié » s\'affiche.',
+    help6T:'🎞 Gélatines de diffusion',
+    help6W:'Le bouton « 📋 Liste » à côté du champ de nom du Factor (Calc, Mix ou le plan)',
+    help6B:'« 📋 Liste » ouvre les 134 références avec un champ de recherche ; les plus courantes sont aussi sur les pastilles. 34 références LEE et 48 entrées Rosco. LEE publie la transmission ; Rosco publie la perte en diaphs dans Filter Facts. Ce ne sont pas des chiffres de même nature : les entrées LEE portent donc un suffixe pour ne pas les confondre.',
+    triHorizLbl:'↔️ Distance au sol',
+    triAngle:'📐 Angle',
+    triClearBtn:'✕ Annuler',
+    modelSearchPlaceholder:'Nom du projecteur...',
+    selectLightHint:'Choisir un projecteur...',
+    cmUnitPrefix:'Unité : ',
+    cmApplied:' reporté',
+    secLabel1:'1 unité · à la cible ou au-dessus (±1 diaph)',
+    secLabel2:'Plusieurs · à la cible ou au-dessus (±1 diaph)',
+    secLabel3:'1 unité · sous la cible (jusqu\'à −1 diaph)',
+    secLabel4:'Plusieurs · sous la cible (jusqu\'à −1 diaph)',
+    secLabel5:'À ±2 diaphs près (indicatif)',
+    altSec1:'1 unité (±1 diaph)',
+    altSec2:'Plusieurs unités (±1 diaph)',
+    altSec3:'1 unité · plus lumineux (jusqu\'à +2 diaphs)',
+    altSec4:'Plusieurs · plus lumineux (jusqu\'à +2 diaphs)',
+    altSelectedLight:'Sélectionné',
+    dmxPower:'Puissance',
+    dmxCCT:'CCT',
+    dmxDimming:'Gradation',
+    dmxIP:'Indice IP',
+    dmxControl:'Pilotage',
+    dmxEffects:'Effets',
+    dmxChart:'Table DMX (officielle)',
+    dmxChartOpen:'Ouvrir le PDF',
+    cmCtxCalc:'Onglet Calc',
+    cmCtxFinder:'Onglet Finder',
+    cmCtxAlt:'Onglet Alt',
+    cmCtxMix:'Onglet Mix',
+    dblTapHint:'Double-touche pour saisir directement',
+    pairSectionLabel:'Combinaison de 2 projecteurs',
+    pairLabel:'📦 Jeu de 2 projecteurs',
+    pairTotalW:'W au total',
+    filmFpsLabel:'FPS',
+    stillFstopLabel:'Diaphragme',
+    stillSSLabel:'Vitesse d\'obturation',
+    stillISOLabel:'ISO',
+    camTabCinema:'Numérique',
+    camTabFilm:'Pellicule',
+    camTabStill:'Photo',
+    cmLblHeight:'Hauteur',
+    cmLblHoriz:'Au sol',
+    cmLblDist:'Distance',
+    cmLblUseHeight:'Utiliser comme hauteur',
+    cmLblUseHoriz:'Utiliser comme distance au sol',
+    cmLblUseDist:'Utiliser comme distance',
+    cmInfoNote:'Appareils équipés du LiDAR : le LiDAR est prioritaire. Les autres : valeur estimée.',
+    fbContactLabel:'Où répondre',
+    fbContactOpt:'(facultatif)',
+    fbContactHint:'Uniquement si vous souhaitez une réponse. Utilisé pour cela et rien d\'autre. Vous pouvez laisser vide.',
+    fbContactPh:'adresse e-mail (facultatif)',
+    fbTypeLabel:'Type de retour',
+    fbTitleLabel:'Titre',
+    fbDescLabel:'Description',
+    fbAttachLabel:'Pièces jointes',
+    fbAttachHint:'Touchez pour joindre des fichiers',
+    fbAttachFmt:'PDF · CSV · PNG · JPG · ZIP',
+    fbShotLabel:'Capture d\'écran',
+    fbShotHint:'Joindre une capture ou une photo',
+    fbDevLabel:'Informations sur l\'appareil',
+    fbDevAuto:'(auto)',
+    fbSubmitBtn:'📨 Envoyer',
+    fbThanksTitle:'Merci !',
+    fbThanksMsg:'Merci de contribuer à améliorer CALM.\nVotre retour compte beaucoup.',
+    fbAnotherBtn:'Envoyer un autre retour',
+    triCalcToggle:'📐 Calcul par hauteur et angle',
+    triLockTitle:'Appui long pour verrouiller',
+    triLockTitleOn:'Verrouillé (appui long pour déverrouiller)',
+    distInputBtn:'📷 Saisir la distance',
+    searchBtn:'🔍 Rechercher',
+    mxSearchBtn:'Rechercher',
+    mxSearchPlaceholder:'Nom du projecteur...',
+    indivDistOff:'Dist. individuelles OFF',
+    indivDistOn:'Dist. individuelles ON',
+    cmDistTitle:'📷 Saisir la distance',
+    cmARMeasure:'Mesurer avec la caméra',
+    cmARApplyAll:'Reporter toutes les valeurs mesurées (distance, hauteur, distance au sol, angle)',
+    cmARHdr:'Mesure AR',
+    arResultTitle:'Mesure',
+    arFromMe:'Depuis où vous êtes',
+    arTwoPoints:'Entre deux points',
+    arTriangulate:'Visé depuis deux endroits',
+    arDist:'Distance',
+    arHoriz:'Au sol',
+    arHeight:'Hauteur',
+    arAngle:'Angle',
+    arUseIn:'Où voulez-vous l\'utiliser ?',
+    arToTab:'remplit distance, hauteur, distance au sol et angle',
+    arToDraft:'garde les valeurs affichées',
+    arAgain:'mesurer à nouveau',
+    cmClamped:'Ramené à la limite du curseur du triangle :',
+    mrdTitle:'Calcul en mireds',
+    mrdSub:'Traiter les écarts de température de couleur en mireds',
+    mrdSec1:'Se caler sur un plan de fond',
+    mrdSec1Hint:'Reconstruire le rapport principale/déboucheuse d\'un plan tourné en décor, à une autre température de principale.',
+    mrdRef:'Plan de fond (décor)',
+    mrdStudio:'Studio',
+    mrdKey:'Principale',
+    mrdFill:'Déboucheuse',
+    mrdAnswer:'Température de déboucheuse nécessaire',
+    mrdKeepDiff:'En conservant l\'écart en mireds :',
+    mrdGelFrom:'Avec une gélatine :',
+    mrdGelAbout:'environ',
+    mrdGelErr:'écart de {e} mireds',
+    mrdGelExact:'quasi exact',
+    mrdFixtures:'{n} projecteurs peuvent l\'atteindre',
+    mrdNaive:'Note : en appliquant le rapport des kelvins on obtient {k} K, ce qui ne correspond pas visuellement. La soustraction en mireds est le traitement correct.',
+    mrdOutOfRange:'Cette combinaison n\'est pas physiquement possible. Vérifiez les valeurs.',
+    mrdSec2:'Écart entre deux températures',
+    mrdSec2Hint:'C\'est le chiffre à emporter devant le nuancier de gélatines. À écart égal, l\'effet est le même quelle que soit la température de départ.',
+    mrdFrom:'Température actuelle',
+    mrdTo:'Température voulue',
+    mrdToWarm:'vers le chaud (orange)',
+    mrdToCool:'vers le froid (bleu)',
+    mrdKDiffNote:'diffèrent de {d} K, mais un écart en kelvins n\'exprime pas l\'écart visuel',
+    mrdFoot:'Mired = 1 000 000 ÷ K. L\'écart visuel comme l\'effet d\'un filtre sont proportionnels aux mireds. Les filtres sont choisis d\'après les valeurs mired publiées par LEE Filters (deux filtres superposés additionnent leurs valeurs). Les autres marques donnent d\'autres valeurs.',
+    cmARWebOnly:'📷 La mesure à la caméra ne fonctionne que dans l\'application iOS. Saisissez la valeur ici.',
+    cmARNoDevice:'📷 Cet appareil ne prend pas en charge la mesure à la caméra (ARKit). Saisissez la valeur.',
+    cmARThenSet:'appuyez sur SET pour appliquer',
+    cmARFail:'Mesure impossible',
+    cmARDenied:'L\'accès à la caméra est désactivé. Voir Réglages → CALM → Appareil photo.',
+    pageDraftTitle:'Plan',
+    pageDraftSub:'Plan d\'éclairage en 2D',
+    dftBtnSelect:'↖ Sélect.',
+    dftBtnDelete:'🗑 Suppr.',
+    dftBtnRotate:'🔄 Rot.',
+    dftBtnUndo:'↩ Annuler',
+    dftBtnPeople:'🧍 Sujets',
+    dftBtnCamera:'🎥 Caméra',
+    dftBtnLight:'💡 Projecteur',
+    dftBtnDiff:'⬜ DIFF',
+    dftBtnBnc:'🔲 Renvoi',
+    dftBtnFlag:'▬ Drapeau',
+    dftBtnPdf:'📄 PDF',
+    dftBtnPhoto:'🖼 Photo',
+    dftBtnScale:'📐 Échelle',
+    dftBtnSave:'💾 Enreg.',
+    dftBtnLoad:'📂 Ouvrir',
+    dftBtnNew:'＋ Nouveau',
+    dftSelectLight:'💡 Choisir un projecteur',
+    dftSearchPlaceholder:'Rechercher...',
+    dftCancel:'Annuler',
+    exportTitle:'Exporter',
+    exportPNG:'Exporter en image (PNG)',
+    exportPNGHint:'Tout le plan en une image, pour le partage ou l\'impression',
+    exportPDF:'Exporter en PDF',
+    exportPDFHint:'Mis à l\'échelle sur A4',
+    exportCalm:'Exporter les données (.calm)',
+    exportCalmHint:'Réouvrable dans CALM',
+    exportEmpty:'Le plan est vide',
+    saveTitle:'Enregistrer',
+    saveOverwrite:'Écraser',
+    saveOverwriteHint:'Met à jour le plan actuellement ouvert',
+    saveAsNew:'Enregistrer sous un autre nom',
+    saveAsNewHint:'Conservé comme plan distinct (l\'original reste)',
+    saveLastAt:'dernier',
+    dftApply:'Appliquer',
+    beamOutOfCone:'hors du faisceau',
+    aimPickLight:'🎯 Touchez le projecteur à orienter',
+    aimPickTarget:'Touchez maintenant sa cible (sujet / renvoi / DIFF)',
+    aimBadTarget:'Les cibles possibles sont : sujet, renvoi, DIFF',
+    aimAgain:'(vous pouvez continuer avec d\'autres projecteurs)',
+    spreadLabel:'Éclairer cette toile avec plusieurs projecteurs',
+    spreadHint:'Oriente chaque projecteur entre sa propre verticale et le centre de la toile. Les faisceaux se recouvrent, toute la surface est égalisée et la lumière renvoyée enveloppe comme un ciel.',
+    spreadWide:'Large',
+    spreadEven:'Régulier',
+    spreadTight:'Vers le centre',
+    spreadDone:'projecteurs affectés',
+    spreadNone:'Aucun projecteur sous cette toile',
+    ptLabel:'Orientation (PAN / TILT)',
+    ptHint:'L\'angle et le point visé sont une seule et même chose : bougez l\'un et l\'autre suit.',
+    ptPan:'PAN',
+    ptPanHint:'0° = vers le haut du plan, + dans le sens horaire',
+    ptTilt:'TILT',
+    ptTiltHint:'+ relève le faisceau. 90° = à la verticale',
+    aimLabel:'Ce que ce projecteur vise',
+    aimHint:'Pour un renvoi au plafond, choisissez-le ici : le cône du faisceau seul ne regarde pas vers le haut (↑ = à la verticale).',
+    aimAuto:'Auto',
+    aimSubject:'Sujet',
+    camFocal:'Focale',
+    camSensor:'Capteur',
+    camHFov:'Champ horizontal',
+    camFovLen:'Tracer le champ jusqu\'à',
+    camFovLenHint:'(indique la largeur cadrée à cette distance)',
+    camSetFstop:'Régler le diaphragme',
+    camGoto:'Caméra',
+    dftSize:'Taille',
+    dftPresetPick:'Choisir un préréglage',
+    cctSubbed:'≈ valeur à {k} K',
+    ambBarLabel:'Ambiante',
+    ambBarUnset:'non renseignée',
+    dftAmbLabel:'Ambiante',
+    dftAmbTitle:'Ambiante posée',
+    dftAmbMode:'Nature de la lumière',
+    dftAmbName:'Nom',
+    dftAmbNamePh:'ex. Fenêtre est / Verrière / Enveloppe du ciel',
+    finderTmAbs:'Diaphragme visé',
+    finderTmAmb:'À partir de l\'ambiante',
+    finderAmbFrom:'🌗 Diaphs au-dessus de l\'ambiante',
+    dftAmbPlacedNote:'Calcul avec les {n} sources d\'ambiante posées sur le plan (l\'interrupteur du haut ne s\'applique pas à ce plan)',
+    dftAmbUni:'Uniforme (toutes directions)',
+    dftAmbUniSub:'Extérieur, ciel couvert, grand cyclo. La lecture est la même quelle que soit l\'orientation',
+    dftAmbDir:'Directionnelle',
+    dftAmbDirSub:'Fenêtre, ouverture ou verrière. La lumière vient de l\'endroit où vous l\'avez posée, donc le côté ombre baisse',
+    dftAmbLux:'Niveau (lecture du posemètre)',
+    dftAmbFromGlobal:'Reprendre la valeur de l\'interrupteur ({v} lx)',
+    dftAmbNote:'Il n\'y a pas d\'atténuation avec la distance. À l\'échelle d\'un décor, une fenêtre ou le ciel se trouve pratiquement à l\'infini, et la valeur saisie est celle mesurée à l\'emplacement du sujet : lui appliquer en plus la loi de l\'inverse du carré la compterait deux fois. La largeur et la hauteur ne servent qu\'au dessin sur le plan ; elles n\'entrent pas dans le calcul.',
+    leeNote:'Les valeurs publiées par LEE sont issues de la transmission et n\'intègrent pas la distance à la source. La perte réelle sera supérieure. Pour une valeur qui tient compte de la distance à la source, choisissez une référence Rosco.',
+    expTitle:'Exposure — lumière par direction',
+    expNoScene:'Placez un sujet et un projecteur : la lumière arrivant de chaque direction autour du sujet sera calculée.',
+    expAngle:'Angle',
+    expVsKey:'vs principale',
+    expAtCamera:'Vers la caméra',
+    expKey:'Max (principale)',
+    expFill:'Min (déboucheuse)',
+    expRatio:'Contraste',
+    expSources:'Détail des sources',
+    expNoSource:'Aucune lumière n\'atteint le sujet (il est hors de tous les angles de faisceau)',
+    expFront:'Face',
+    expBack:'Contre-jour',
+    expSideL:'Latéral G',
+    expSideR:'Latéral D',
+    expReceptor:'Récepteur',
+    expDome:'Dôme',
+    expDomeHint:'standard du posemètre : capte tout l\'hémisphère',
+    expFlat:'Plat',
+    expFlatHint:'isole une seule source',
+    expNoteDome:'Lectures d\'un dôme en lumière incidente orienté dans chaque direction. Le dôme capte tout l\'hémisphère : une lumière strictement latérale se lit encore pour moitié environ quand le dôme est tourné vers la caméra. 0° correspond à la direction de la caméra (ou à la face du sujet s\'il n\'y a pas de caméra). Les différences de hauteur sont prises en compte.',
+    expNote:'Lectures d\'un disque plat en lumière incidente tenu verticalement et orienté dans chaque direction. 0° correspond à la direction de la caméra (ou à la face du sujet s\'il n\'y a pas de caméra). Les différences de hauteur sont prises en compte.',
+    expBtn:'Exposition',
+    expLegFace:'Visage',
+    expLegCam:'Caméra',
+    expLegKey:'Principale',
+    expLegBack:'Contre',
+    expProbeAt:'Lecture dans cette direction',
+    faceTitle:'Comment la lumière tombe sur le visage (vu de la caméra)',
+    faceLegend:'Surface la plus claire :',
+    faceScale:'Blanc = surface la plus claire ; plus c\'est sombre, plus on descend en diaphs (environ 2,4 sur l\'ensemble). Les ombres du nez et des arcades sont calculées. La lumière qui enveloppe la peau empêche le côté ombre d\'être totalement noir.',
+    expElevLabel:'Inclinaison du posemètre (haut / bas)',
+    expTableNote:'Le tableau et le graphique ci-dessous utilisent l\'inclinaison de la sonde A :',
+    expElevFlat:'Horizontal',
+    expElevUp45:'↑45°',
+    expElevUp90:'↑À la verticale',
+    expElevDown45:'↓45°',
+    expProbeBOn:'＋ Ajouter une 2e sonde (B) pour comparer',
+    expProbeBOff:'− Retirer la sonde B',
+    expProbeNone:'aucune lumière ne vient de cette direction',
+    expLegNote:'Faites glisser la sonde A pour lire ce qu\'indiquerait un posemètre orienté dans cette direction ; ajoutez B pour obtenir l\'écart entre deux directions, c\'est-à-dire le contraste. 0° est la direction de la caméra, 90° à droite vue de la caméra, 270° à gauche, 180° droit derrière (contre-jour). Les sources sur le cadran sont les angles d\'arrivée réels de vos projecteurs, aux couleurs de ceux du plan.',
+    dftPanelH:'Hauteur de la toile',
+    dftPanelHHint:'← hauteur utilisée pour la distance (centre)',
+    dftObjSettings:'Réglages',
+    dftPeopleTitle:'🧍 Placer un sujet',
+    dftManLabel:'Homme',
+    dftWomanLabel:'Femme',
+    dftSavePrompt:'Enregistrer sous :',
+    dftSaved:'💾 Enregistré : ',
+    dftNewConfirm:'Commencer un nouveau plan ? Les modifications non enregistrées seront perdues.',
+    dftDraftsList:'📂 Liste des plans',
+    dftObjects:' objets',
+    dftScaleTitle:'📐 Régler l\'échelle',
+    dftScaleOr:'— ou — touchez 2 points sur le plan',
+    dvTitle:'Affichage',
+    dvHint:'Quand le plan devient chargé, atténuez ou masquez chaque type de tracé.',
+    dvOn:'Afficher',
+    dvDim:'Atténuer',
+    dvOff:'Masquer',
+    dvGrpLines:'Lignes de distance',
+    dvGrpBadges:'Textes sur les icônes',
+    dvGrpCones:'Faisceaux et champ',
+    dvGrpOther:'Autres',
+    dvAllOn:'Tout afficher',
+    dvAllDim:'Tout atténuer',
+    dvClean:'Épurer',
+    dvUnhide:'Rétablir les lignes masquées une à une',
+    dftSaveFailed:'Enregistrement impossible. L\'appareil manque peut-être d\'espace. Supprimez un plan contenant une photo ou un PDF, puis réessayez.',
+    dvGrpObjects:'Éléments posés',
+    dvObjHint:'Le masquer le retire du plan et des calculs de diaphragme et d\'exposition.',
+    dvObjAllOn:'Tout réafficher',
+    lyrTitle:'Contenu du calque',
+    lyrHint:'Le masquer le retire du plan et des calculs de diaphragme et d\'exposition.',
+    lyrEmpty:'Ce calque est vide',
+    lyrRename:'Nom',
+    lyrNamePh:'ex. Plafond / Côté cour / Scène de nuit',
+    lyrNameHint:'Un appui long sur un onglet ouvre directement cet écran.',
+    lyrNamed:'Nom modifié',
+    lyrLayerVis:'Tout le calque',
+    lyrJump:'Voir sur le plan',
+    lyrCount:'éléments',
+    dvLayerLink:'Afficher / masquer les éléments posés',
+    dvLayerLinkSub:'Ouvre le contenu du calque',
+    dftGridPill:'Carreau',
+    dftGridLabel:'Taille d\'un carreau',
+    dftGridHint:'Ce que mesure un carreau. C\'est ce qui donne l\'échelle de lecture du plan.',
+    dftCalibLabel:'Caler un plan importé à la taille réelle',
+    dftCalibHint:'Avec un PDF ou une photo en fond, touchez deux points dont vous connaissez la distance.',
+    dftCalibBtn:'📍 Calibrage 2 points',
+    dftCalibStep1:'📍 Touchez le point 1 sur le plan...',
+    dftCalibDist:'Distance réelle entre les 2 points touchés (mètres) :',
+    dftScaleSet:'Échelle réglée · ',
+    dftPxPerM:'px/m',
+    dftStatusDefault:'Choisir un outil pour placer · Glisser pour déplacer · Pincer pour zoomer',
+    dftAddLayer:'Ajouter un calque',
+    dftNoSavedDrafts:'Aucun plan enregistré.',
   }
 };
 var LANG = 'en';
 try { LANG = localStorage.getItem('lmp_lang') || 'en'; } catch(e) {}
 if (!LANGS[LANG]) LANG = 'ja';
 function t(k) { return (LANGS[LANG]||LANGS.ja)[k] || LANGS.ja[k] || k; }
+/* 段の単位。「+2.0 stop」のように数値のあとに付ける。
+ * 関数にしてあるのは、t を別の意味で使っている関数の中からも呼ぶため。 */
+function stopUnit() { return t('finderStop'); }
 
 // メーカー表示名。nameI18n があれば現在の言語のものを返す。
 // 引数はメーカーキー('ushio')でもMAKERSのオブジェクトでも可。
@@ -3218,7 +3858,7 @@ function makerName(mk) {
 //  3. 開いている画面は自分の描き直し方を i18nOn() に預ける。
 //     setLang は預かったものを呼ぶだけなので、画面を足すたびに
 //     setLang を書き足す必要がない。
-var LANG_LIST = [ {code:'ja', lbl:'JP'}, {code:'en', lbl:'EN'}, {code:'es', lbl:'ES'}, {code:'zh', lbl:'中'} ];
+var LANG_LIST = [ {code:'ja', lbl:'JP'}, {code:'en', lbl:'EN'}, {code:'es', lbl:'ES'}, {code:'zh', lbl:'中'}, {code:'fr', lbl:'FR'} ];
 
 /** どの画面の見出しにも置ける言語ボタン。class は共通なので選択表示も揃う */
 function langChipHTML() {
@@ -3265,7 +3905,7 @@ function setLang(lang) {
 // <input type="date"> のプレースホルダ（年/月/日 等）はブラウザのロケール依存。
 // アプリの言語に合わせて lang 属性を切り替え、表示言語と一致させる。
 function _applyDateLocale() {
-  var loc = { ja:'ja', en:'en-US', es:'es', zh:'zh-CN' }[LANG] || 'en-US';
+  var loc = { ja:'ja', en:'en-US', es:'es', zh:'zh-CN', fr:'fr-FR' }[LANG] || 'en-US';
   try { document.documentElement.setAttribute('lang', loc); } catch(e) {}
   ['project-date-input', '_sv_date'].forEach(function(id) {
     var el = document.getElementById(id);
@@ -9968,7 +10608,7 @@ function _ambRender() {
 
   var stopOpts = [-3,-2.5,-2,-1.5,-1,-0.5,0.5,1,1.5,2,2.5,3,4].map(function(v){
     return '<option value="' + v + '"' + (Math.abs(v-_AMB.stops)<1e-9 ? ' selected' : '') + '>' +
-      (v>0?'+':'') + v + ' stop</option>';
+      (v>0?'+':'') + v + ' ' + stopUnit() + '</option>';
   }).join('');
 
   // 選んでいる灯体で、その照度になる距離
@@ -12629,8 +13269,8 @@ function calculate() {
   var stopR = Math.round(stopDiff * 10) / 10;  // 0.1stop単位
   var stopLabel, multLabel;
   if (Math.abs(stopR)<0.1) { stopLabel=t('normalLabel'); multLabel='× 1.0'; }
-  else if (stopR>0) { stopLabel='+'+stopR.toFixed(1)+' stop'; multLabel='× '+Math.pow(2,stopR).toFixed(1); }
-  else { stopLabel=stopR.toFixed(1)+' stop'; multLabel='× '+Math.pow(2,stopR).toFixed(2); }
+  else if (stopR>0) { stopLabel='+'+stopR.toFixed(1)+' '+stopUnit(); multLabel='× '+Math.pow(2,stopR).toFixed(1); }
+  else { stopLabel=stopR.toFixed(1)+' '+stopUnit(); multLabel='× '+Math.pow(2,stopR).toFixed(2); }
   var segs=[-4,-3,-2,-1,'C',1,2,3,4].map(function(s2){
     if(s2==='C') return '<div class="stop-seg center"></div>';
     var lit=(stopR>0&&s2>0&&s2<=Math.floor(stopR+0.25))||(stopR<0&&s2<0&&s2>=Math.ceil(stopR-0.25));
@@ -12654,7 +13294,7 @@ function calculate() {
       ? '<span style="font-size:13px;font-weight:800;color:#4caf50;padding:2px 6px;border-radius:4px;background:rgba(76,175,80,.18);">OK</span>'
       : '<span style="font-size:13px;font-weight:800;padding:2px 6px;border-radius:4px;color:' +
         (stopR > 0 ? '#64b5f6;background:rgba(100,181,246,.18);">' : '#ef9a9a;background:rgba(239,154,154,.18);">') +
-        (stopR > 0 ? '+' : '') + stopR.toFixed(1) + ' stop</span>') +
+        (stopR > 0 ? '+' : '') + stopR.toFixed(1) + ' ' + stopUnit() + '</span>') +
     // Factor をかけると小数になる。lux に小数点以下の意味は無いので丸めて出す
     '<span style="font-size:20px;font-weight:800;color:#fff;">' + luxRound(lux).toLocaleString() + '<span style="font-size:11px;opacity:.65;margin-left:2px;">lx</span></span>' +
     '<span style="font-size:16px;font-weight:700;color:rgba(255,255,255,.5);">' + Math.round(lux/10.764).toLocaleString() + '<span style="font-size:11px;margin-left:1px;">fc</span></span>' +
@@ -14687,7 +15327,7 @@ function _finderApplyAmbTarget() {
   var hid = el('rank-target-f');
   if (hid) hid.value = f;
   if (disp) {
-    disp.textContent = (st >= 0 ? '+' : '') + st + ' stop → ' + _ambNearestF(f);
+    disp.textContent = (st >= 0 ? '+' : '') + st + ' ' + stopUnit() + ' → ' + _ambNearestF(f);
   }
 }
 /* 関数宣言にしてある（window への代入にしない）。起動時の復元処理は
@@ -15278,7 +15918,7 @@ function renderFinderResults() {
   // 件数表示
   var sub = el('rank-result-sub');
   var countMsg = results.length + ' lights found';
-  if (targetFval > 0) countMsg += ' · f' + targetFval + ' ±1 stop';
+  if (targetFval > 0) countMsg += ' · f' + targetFval + ' ±1 ' + stopUnit();
   if (useBeamFilter) countMsg += ' · ' + bs.label + ' ±15°';
   if (sub) sub.textContent = countMsg;
 
@@ -15305,7 +15945,7 @@ function renderFinderResults() {
     var maker = MAKERS[res.mk] || {};
     var stopR = Math.round(res.stopDiff * 10) / 10;
     var stopStr = targetFval > 0
-      ? (stopR > 0.05 ? '+' : stopR < -0.05 ? '' : '±') + stopR.toFixed(1) + ' stop'
+      ? (stopR > 0.05 ? '+' : stopR < -0.05 ? '' : '±') + stopR.toFixed(1) + ' ' + stopUnit()
       : '';
     var stopColor = Math.abs(stopR) < 0.15 ? '#4caf50'
       : stopR > 0 ? '#64b5f6' : '#ef9a9a';
@@ -16022,7 +16662,7 @@ function runAlternativeFinder() {
     // stopDiffSigned は表示F値(スナップ後)基準なのでラベル・ソートと必ず整合
     var sdR = Math.round((res.stopDiffSigned || 0) * 3) / 3;  // 1/3stop単位（映画業界標準）
     var col = res.colorKey === 0 ? '#4caf50' : res.colorKey === 1 ? '#64b5f6' : '#ef9a9a';
-    var stopLabel = Math.abs(sdR) < 0.18 ? '±0.0 stop' : (sdR > 0 ? '+' : '-') + Math.abs(sdR).toFixed(1) + ' stop';
+    var stopLabel = Math.abs(sdR) < 0.18 ? '±0.0 ' + stopUnit() : (sdR > 0 ? '+' : '-') + Math.abs(sdR).toFixed(1) + ' ' + stopUnit();
     var unitsLabel = res.units > 1
       ? '<span style="font-size:11px;font-weight:900;color:var(--accent);background:rgba(249,150,90,0.15);padding:1px 5px;border-radius:6px;margin-right:3px;">×' + res.units + '</span>'
       : '';
@@ -16061,7 +16701,7 @@ function runAlternativeFinder() {
       var makerA = MAKERS[pr.mkA] || {}, makerB = MAKERS[pr.mkB] || {};
       var sdR = Math.round(pr.stopDiffSigned * 10) / 10;
       var col = pr.colorKey === 0 ? '#4caf50' : pr.colorKey === 1 ? '#64b5f6' : '#ef9a9a';
-      var stopLabel = Math.abs(sdR) < 0.15 ? '±0.0 stop' : (sdR > 0 ? '+' : '') + sdR.toFixed(1) + ' stop';
+      var stopLabel = Math.abs(sdR) < 0.15 ? '±0.0 ' + stopUnit() : (sdR > 0 ? '+' : '') + sdR.toFixed(1) + ' ' + stopUnit();
       var prow = document.createElement('div');
       prow.style.cssText = 'display:flex;align-items:center;padding:10px 12px;border-bottom:1px solid var(--bg);';
       prow.innerHTML =
@@ -16387,7 +17027,7 @@ function buildFactorSection(prefix) {
   var factors = getFactorArray(prefix);
   var total = getTotalFactorStops(factors);
   var open = !!S_factorOpen[prefix];
-  var totalStr = (total > 0 ? '+' : '') + total.toFixed(1) + ' stop';
+  var totalStr = (total > 0 ? '+' : '') + total.toFixed(1) + ' ' + stopUnit();
   var headerHtml =
     '<div onclick="window._factorToggle(\'' + prefix + '\')" style="display:flex;align-items:center;justify-content:space-between;' +
     'padding:6px 10px;background:var(--bg);border-radius:' + (open ? '10px 10px 0 0' : '10px') + ';cursor:pointer;user-select:none;">' +
@@ -16538,7 +17178,7 @@ window._factorSetStops = function(prefix, i, v) {
   var sl = document.getElementById('fsl-' + prefix + '-' + i);
   if (sl) sl.value = val;
   var totEl = document.getElementById('factor-total-' + prefix);
-  if (totEl) { var t = getTotalFactorStops(arr); totEl.textContent = (t >= 0 ? '+' : '') + t.toFixed(1) + ' stop'; }
+  if (totEl) { var t = getTotalFactorStops(arr); totEl.textContent = (t >= 0 ? '+' : '') + t.toFixed(1) + ' ' + stopUnit(); }
   _factorRecalc(prefix);
 };
 window._factorSetType = function(prefix, i, type) {
@@ -16948,7 +17588,7 @@ function calcMix() {
   var stopDiff = camFstop && baseF ? 2 * (Math.log2(fvalForStop) - Math.log2(baseF)) : 0;
   var stopDiffStr = '';
   if (Math.abs(stopDiff) > 0.1) {
-    stopDiffStr = (stopDiff > 0 ? '+' : '') + (Math.round(stopDiff * 10) / 10).toFixed(1) + ' stop';
+    stopDiffStr = (stopDiff > 0 ? '+' : '') + (Math.round(stopDiff * 10) / 10).toFixed(1) + ' ' + stopUnit();
   } else {
     stopDiffStr = 'OK';
   }
@@ -19106,7 +19746,7 @@ function _dftDrawLightFstops(ctx) {
     var stops = getTotalFactorStops(bn.factors);
     if (!stops) return;
     var sp = _dftW2S(bn.wx, bn.wy);
-    var label = (stops > 0 ? '-' : '') + Math.abs(stops).toFixed(1) + ' stop';
+    var label = (stops > 0 ? '-' : '') + Math.abs(stops).toFixed(1) + ' ' + stopUnit();
     ctx.save();
     ctx.font = 'bold 10px -apple-system,Arial';
     var tw = ctx.measureText(label).width;
@@ -22487,7 +23127,7 @@ function _fpickFill(q) {
       var i = _FPICK.list.push(it) - 1;
       var sTxt = (it.s == null) ? '' :
         '<span style="font-size:12px;font-weight:800;color:' + color + ';white-space:nowrap;">' +
-        (it.s > 0 ? '-' : '') + it.s.toFixed(1) + ' stop</span>';
+        (it.s > 0 ? '-' : '') + it.s.toFixed(1) + ' ' + stopUnit() + '</span>';
       html += '<button onclick="_fpickChoose(' + i + ')" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;' +
         'padding:11px 8px;border:none;border-bottom:1px solid var(--line,#eee);background:transparent;cursor:pointer;">' +
         '<span style="flex:1;min-width:0;font-size:13px;font-weight:600;color:var(--text,#222);">' + _dftEsc(it.n) + '</span>' +
@@ -22586,7 +23226,7 @@ function _dftFactorRowsHTML(factors, cbPrefix) {
 
 function _dftFTotalStr(factors) {
   var t = getTotalFactorStops(factors);
-  return (t > 0 ? '-' : '') + Math.abs(t).toFixed(1) + ' stop';
+  return (t > 0 ? '-' : '') + Math.abs(t).toFixed(1) + ' ' + stopUnit();
 }
 
 function _dftFRefresh() {
@@ -23260,7 +23900,7 @@ function dftExposureTool() {
         _dftExpStat(t('expAtCamera'), atCam && atCam.fstop ? 'f'+atCam.fstop.toFixed(1) : '—', Math.round(atCam?atCam.lux:0)+' lx', '#e65100') +
         _dftExpStat(t('expKey'), maxR && maxR.fstop ? 'f'+maxR.fstop.toFixed(1) : '—', maxR ? maxR.angle+'°' : '—', '#f9a825') +
         _dftExpStat(t('expFill'), minR && minR.fstop ? 'f'+minR.fstop.toFixed(1) : '—', minR ? minR.angle+'°' : '—', '#0288d1') +
-        _dftExpStat(t('expRatio'), ratio!=null ? ratio.toFixed(1)+' stop' : '—', ratio!=null ? '1:'+Math.pow(2,ratio).toFixed(1) : '—', '#5e35b1') +
+        _dftExpStat(t('expRatio'), ratio!=null ? ratio.toFixed(1)+' '+stopUnit() : '—', ratio!=null ? '1:'+Math.pow(2,ratio).toFixed(1) : '—', '#5e35b1') +
       '</div>' +
       // 角度ごとの表
       '<div style="font-size:11px;color:#888;margin:12px 0 4px;">' +
@@ -23882,7 +24522,7 @@ window._dftExpSetElev = function(tag, v) {
 function _dftExpDiffText(a, b) {
   if (!a.lux || !b.lux) return { big:'—', sub:'' };
   var st = Math.abs(Math.log2(a.lux / b.lux));
-  return { big: st.toFixed(1) + ' stop', sub: '1:' + Math.pow(2, st).toFixed(1) };
+  return { big: st.toFixed(1) + ' ' + stopUnit(), sub: '1:' + Math.pow(2, st).toFixed(1) };
 }
 
 /**
@@ -24947,7 +25587,7 @@ function _dftSaveDialog(mode) {
     '<input id="_sv_name" type="text" value="'+(_dft.draftName||'').replace(/"/g,'&quot;')+'" placeholder="例: Wedding Reception" ' +
     'style="width:100%;padding:10px;font-size:14px;font-weight:700;border:2px solid #1976d2;border-radius:10px;box-sizing:border-box;margin-bottom:12px;">' +
     '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">日付</div>' +
-    '<input id="_sv_date" type="date" lang="'+({ja:"ja",en:"en-US",es:"es",zh:"zh-CN"}[LANG]||"en-US")+'" value="'+(_dft.draftDate||today)+'" ' +
+    '<input id="_sv_date" type="date" lang="'+({ja:"ja",en:"en-US",es:"es",zh:"zh-CN",fr:"fr-FR"}[LANG]||"en-US")+'" value="'+(_dft.draftDate||today)+'" ' +
     'style="width:100%;padding:10px;font-size:14px;border:1.5px solid #ddd;border-radius:10px;box-sizing:border-box;margin-bottom:12px;">' +
     '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">ロケーション / Location</div>' +
     '<input id="_sv_loc" type="text" value="'+(_dft.draftLocation||'').replace(/"/g,'&quot;')+'" placeholder="例: Studio A, 横浜" ' +
@@ -26158,7 +26798,7 @@ function dftLayerSheet(id, focusName) {
       if (lt) sub.push(lt.name);
     }
     var st = (o.factors && o.factors.length) ? getTotalFactorStops(o.factors) : 0;
-    if (st) sub.push((st > 0 ? '-' : '') + Math.abs(st).toFixed(1) + ' stop');
+    if (st) sub.push((st > 0 ? '-' : '') + Math.abs(st).toFixed(1) + ' ' + stopUnit());
     var rd = (o.type==='bounce'||o.type==='diffuser'||o.type==='flag'||o.type==='form'||o.type==='image')
              ? _dftRectDims(o) : null;
     if (rd) sub.push(_dftFmt(rd.w) + ' × ' + _dftFmt(rd.h));
@@ -26334,7 +26974,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.9';
-var APP_BUILD = 14;
+var APP_BUILD = 15;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
