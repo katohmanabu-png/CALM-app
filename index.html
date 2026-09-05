@@ -2142,6 +2142,7 @@ window.onerror = function(m,s,l,c,e){ console.log('[LMP]',m,l,e&&e.stack); retur
 // ===== i18n =====
 var LANGS = {
   ja: {
+    fpickBtn:'📋 一覧', fpickTitle:'名前を選ぶ', fpickSearch:'品番や名前で探す（例: LEE / Rosco / Grid）', fpickSaved:'保存した名前', fpickCommon:'よく使うもの', fpickOther:'そのほか', fpickEmpty:'見つかりませんでした', fpickCount:'{n}件',
     navCalc:'光量計算', navMix:'Mix', navFinder:'おすすめ', navAlt:'代替検索', navCamera:'Camera', pageCalcTitle:'光量計算', pageCalcSub:'Light Calculator', pageMixTitle:'複数灯シュミレーション', pageMixSub:'複数のライトを組み合わせて合計光量・合計CCTを計算', pageFinderTitle:'おすすめ機材検索', pageFinderSub:'Light Finder', pageAltTitle:'おすすめ代替機材検索', pageAltSub:'Alternative Finder', pageCameraTitle:'カメラ設定', pageCameraSub:'Camera Settings',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ お気に入り',
     makerTitle:'会社名', modelTitle:'ライト', sortLabel:'Sort:',
@@ -2203,8 +2204,8 @@ var LANGS = {
     help5W:'Calc のチップの隣、ライト比較の行、環境光の画面',
     help5B:'その距離で光が何メートルの円になるかが出ます。ビーム角はメーカー公表値に洗い直しました。公表されていない機種は数字を出さず「角度未確認」と表示します。',
     help6T:'🎞 ディフュージョンのフィルター',
-    help6W:'図面の Factor の名前欄に「LEE」か「Rosco」と入力',
-    help6B:'LEE 34品番と Rosco 48件から選べます。LEE は透過率から出した値、Rosco は Filter Facts の公表値で、数字の性質が違います。混ざらないよう LEE は名前に「（透過値）」が付きます。',
+    help6W:'Factor の名前欄の横「📋 一覧」（Calc・Mix・図面のどこでも）',
+    help6B:'「📋 一覧」を押すと全134件が出て、検索して選べます。よく使う品番はチップでも並んでいます。LEE 34品番と Rosco 48件が入っています。LEE は透過率から出した値、Rosco は Filter Facts の公表値で、数字の性質が違います。混ざらないよう LEE は名前に「（透過値）」が付きます。',
     triHorizLbl:'↔️ 水平距離', triAngle:'📐 角度 / Angle', triClearBtn:'✕ 解除',
     modelSearchPlaceholder:'ライト名を入力...', selectLightHint:'ライトを選択...',
     cmUnitPrefix:'単位: ', cmApplied:' に反映',
@@ -2284,6 +2285,7 @@ var LANGS = {
     dftAddLayer:'レイヤーを追加', dftNoSavedDrafts:'保存済みドラフトがありません。'
   },
   en: {
+    fpickBtn:'📋 List', fpickTitle:'Choose a name', fpickSearch:'Search by name or code (e.g. LEE / Rosco / Grid)', fpickSaved:'Saved', fpickCommon:'Common', fpickOther:'Others', fpickEmpty:'Nothing found', fpickCount:'{n}',
     navCalc:'Calc', navMix:'Mix', navFinder:'Finder', navAlt:'Alt', navCamera:'Camera', pageCalcTitle:'Light Calculator', pageCalcSub:'Exposure & F-stop Calculator', pageMixTitle:'Mix', pageMixSub:'Combine multiple lights — calculate total exposure & mixed CCT', pageFinderTitle:'Light Finder', pageFinderSub:'Find the right fixture', pageAltTitle:'Alternative Finder', pageAltSub:'Find the best replacement', pageCameraTitle:'Camera', pageCameraSub:'Digital / Film / Photograph',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ Favorites',
     makerTitle:'Manufacture', modelTitle:'Light', sortLabel:'Sort:',
@@ -2344,8 +2346,8 @@ var LANGS = {
     help5W:'Next to the chips in Calc, the Compare row, and the ambient screen',
     help5B:'It shows how wide the circle of light is at that distance. Beam angles have been reworked against the manufacturers’ published figures; where nothing is published we show “angle unverified” instead of a number.',
     help6T:'🎞 Named diffusion',
-    help6W:'The Factor name field on the plan — type “LEE” or “Rosco”',
-    help6B:'34 LEE products and 48 Rosco entries. LEE publishes transmission; Rosco publishes the stop loss in Filter Facts. They are not the same kind of number, so LEE entries carry a suffix to keep them apart.',
+    help6W:'The “📋 List” button beside the Factor name field (Calc, Mix or the plan)',
+    help6B:'“📋 List” opens all 134 entries with a search box; the ones you reach for most are also on the chips. 34 LEE products and 48 Rosco entries. LEE publishes transmission; Rosco publishes the stop loss in Filter Facts. They are not the same kind of number, so LEE entries carry a suffix to keep them apart.',
     ftabName:'🔍 Name', ftabMaker:'Manufacture', ftabType:'💡 Type',
     cmLblHeight:'Height', cmLblHoriz:'Horiz', cmLblDist:'Distance',
     cmLblUseHeight:'Use as Height', cmLblUseHoriz:'Use as Horiz', cmLblUseDist:'Use as Distance',
@@ -2420,6 +2422,7 @@ var LANGS = {
     dftAddLayer:'Add layer', dftNoSavedDrafts:'No saved drafts yet.'
   },
   es: {
+    fpickBtn:'📋 Lista', fpickTitle:'Elegir un nombre', fpickSearch:'Buscar por nombre o código (p. ej. LEE / Rosco / Grid)', fpickSaved:'Guardados', fpickCommon:'Habituales', fpickOther:'Otros', fpickEmpty:'Sin resultados', fpickCount:'{n}',
     navCalc:'Calc', navMix:'Mix', navFinder:'Buscador', navAlt:'Alt', navCamera:'Cámara', pageCalcTitle:'Calculadora de Iluminación', pageCalcSub:'Calculadora de Exposición', pageMixTitle:'Mix', pageMixSub:'Combina múltiples luces — calcula exposición total y CCT mezclado', pageFinderTitle:'Buscador de Equipos', pageFinderSub:'Encuentra el equipo ideal', pageAltTitle:'Buscar Equipo Equivalente', pageAltSub:'Encuentra la mejor alternativa', pageCameraTitle:'Cámara', pageCameraSub:'Digital / Film / Fotografía',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ Favoritos',
     makerTitle:'Fabricante', modelTitle:'Luz', sortLabel:'🔀 SORT', sortDefault:'Por defecto', sortSingle:'1 unidad', sortMulti:'Múltiples', sortFstop:'F-stop exacto', sortFstopMulti:'F-stop + Múlt.', factorNote:'Los factores predefinidos son orientativos; varían según la unidad. Ajústelos antes de usar.', rectSizeTitle:'Elegir tamaño', rectPreset:'Preajuste', rectManual:'✏️ Dibujar manual (arrastrar)', rectCustom:'Tamaño personalizado', rectPlace:'Colocar', rectTapToPlace:'Toca dónde colocarlo', rectAngleLabel:'Ángulo', rectAngleHint:'Ajusta el ángulo y pulsa Listo', rectAngleDone:'Listo', dftImportDone:'Importado', dftImportFail:'No se pudo leer el archivo.', dftNotCalmFile:'No parece un archivo de plano de CALM (.calm).', dftSaveFirst:'Pulsa Guardar para añadir el plano actual a esta lista; luego llega a tus otros dispositivos.', dftFormColor:'Color', dftHue:'Tono', dftSat:'Saturación', dftLig:'Luminosidad', dftCctLabel:'Temperatura de color', dftCctHint:'Cambia la salida y el color del icono', cloudSync:'Traer planos de otros dispositivos', cloudDone:'Sincronizado', cloudSame:'Ya está al día', cloudOff:'iCloud no disponible (Ajustes → Apple ID → iCloud Drive)', cloudFail:'Error al sincronizar', dftTiltLabel:'Inclinar atrás', dftTiltHint:'0° = vertical. Al inclinar, el rebote sube', dftTiltOut:'refleja', dftTiltNeed:'sujeto a', dftTiltAuto:'Apuntar al sujeto', orientLabel:'Orientación', orientHint:'(vista superior)', orientFlat:'Tumbado', orientStand:'De pie', orientFloorEdge:'Lado en el suelo:', dftHeightLabel:'Altura', dftHeightHint:'(desde el suelo)', dftAlphaLabel:'Opacidad', dftAlphaHint:'(relleno)', dftFactorHint:'(pérdida de luz)', dftClose:'Cerrar', lineHidden:'Línea ocultada', lineShown:'Línea mostrada', showLines:'Mostrar líneas', cmpBtn:'Comparar luces', cmpTitle:'Comparar', cmpBack:'Atrás', cmpAdd:'Añadir luz', cmpChange:'Cambiar', cmpSelectTitle:'Seleccionar luz', cmpSearch:'Buscar...', cmpDist:'Distancia', cmpNote:'El F-stop usa los ajustes de cámara actuales. ⚠ = distancia fuera de la tabla publicada, extrapolada por ley del inverso del cuadrado. ≈ = sin valor publicado a esa temperatura de color, tomado del más cercano', cmpFstop:'F-stop', cmpLuxAt:'Iluminancia', cmpMaxLux:'Salida máx. @1m', cmpPower:'Potencia', cmpWeight:'Peso', cmpWeightPartial:'o más', cmpCCT:'Temp. color', cmpCRI:'CRI / TLCI', cmpIP:'Protección IP', cmpControl:'Control', cmpBeam:'Ángulo de haz', cmpBeamDia:'Di\u00e1metro', cmpMixSlot:'MIX (configuración actual)', cmpMixUnits:'{f} modelos / {n} unidades', cmpMixEmpty:'No hay luces en MIX', cmpMixed:'mezclado', cmpMixPerLight:'⚠ Mix usa distancias por luz; aquí se usa una sola', cmpEmpty:'Sin luz', cmpOpenHint:'Doble toque para abrir', navPrivacy:'Política de privacidad', fbAttachFallback:'Error al adjuntar. Abre el enlace y pega la imagen en un comentario.', fbRef:'Referencia', fbShotNote:'📸 Para incluir una captura, selecciónala arriba en “Tap to attach files”: se adjunta automáticamente.', beamUnknown:'ángulo sin verificar', weightUnknown:'peso n/d', sunTitle:'SUN SCOUT', sunNow:'Ahora', ambTitle:'Desde la luz existente', ambSub:'Parte de lo que ya hay y calcula lo que debe aportar el foco', ambNow:'Luz existente', ambByF:'Por f', ambByLux:'Por iluminancia', ambAmbient:'Ambiente', ambWant:'Qu\u00e9 quieres', ambAdd:'Sumar a la luz existente (desmarca para lograrlo solo con el foco)', ambResult:'Lo que debe dar el foco', ambNeed:'A a\u00f1adir', ambTarget:'Resultado', ambNote:'Calculado con tus ajustes de c\u00e1mara actuales (ISO, fps, obturador). Introduce la lectura del fot\u00f3metro. Los pasos son exactos, as\u00ed que difieren algo de los n\u00fameros f nominales.', ambDist:'D\u00f3nde colocar el foco seleccionado', ambNoLight:'Elige un foco en Calc para ver la distancia', ambNoNeed:'La luz existente ya es suficiente', ambOutOfRange:'no alcanza', sunAR:'Ver en la c\u00e1mara', sunGeoWait:'Obteniendo tu ubicaci\u00f3n\u2026', sunLocDefault:'A\u00fan no hay ubicaci\u00f3n (sigue la predeterminada). Pulsa \u201cAqu\u00ed\u201d o escribe las coordenadas; si no, el sol en la c\u00e1mara estar\u00e1 desplazado igual.', sunStepHint:'Arrastra para una hora aproximada; \u2039 \u203a avanzan un minuto. Tambi\u00e9n puedes escribir la hora.', sunARWeb:'La vista de c\u00e1mara solo funciona en la app de iOS', sunARHint:'Superpone la trayectoria del sol y la luna sobre la imagen en directo. El norte verdadero viene de la br\u00fajula, as\u00ed que puede desviarse cerca de estructuras met\u00e1licas o dentro de un coche.', sunARNo:'La vista de c\u00e1mara no est\u00e1 disponible en este dispositivo', sunARDenied:'El acceso a la c\u00e1mara est\u00e1 desactivado (Ajustes \u2192 CALM \u2192 C\u00e1mara)', sunARGrab:'Direcci\u00f3n capturada', sunARCam:'Direcci\u00f3n de la c\u00e1mara', sunARRel:'De la c\u00e1mara al sol', sunARLeft:'izq.', sunARRight:'der.', sunARUp:'arriba', sunARDown:'abajo', sunAROff:'Correcci\u00f3n de br\u00fajula', sunARClear:'Borrar', navEditTitle:'Pestañas inferiores', navEditSub:'Elige hasta {n} de las que uses', navOnBar:'En la barra', navOff:'Disponibles', navReset:'Restablecer', navArOnly:'solo app iOS', sunCmpAdd:'Comparar con el día de rodaje', sunCmpTitle:'Día de rodaje', sunCmpA:'Previo', sunCmpB:'Rodaje', sunCmpDiff:'Dif.', sunMin:'min', sunCmpHint:'A la misma hora, en otra fecha el sol está en otro sitio. La línea discontinua es el día de rodaje.', sunPlaceSave:'Guardar este lugar', sunPlaceName:'Nombre del lugar (p. ej. Plató 2)', sunHM:'{h} h {m} min', sunTzLabel:'Zona horaria', sunTzHint:'Se determina por las coordenadas. Incluye el horario de verano', sunTzCheck:'Coordenadas puestas', sunTzAuto:'Zona horaria: {z}', sunDecl:'Declinación', sunVfx:'Datos para composición', sunVfxAt:'Sol a las', sunVfxAtMoon:'Luna a las', sunVfxHintMoon:'El acimut se mide desde el norte verdadero, en sentido horario; la altura, desde el horizonte. \u00datiles cuando la luna es la luz principal, junto con la fracci\u00f3n iluminada.', sunVfxHint:'El acimut se mide desde el norte verdadero, en sentido horario. La altura, desde el horizonte.', sunCopy:'Copiar', sunCopied:'Copiado', sunMidnight:'El sol no se pone este día (sol de medianoche)', sunPolarNight:'El sol no sale este día (noche polar)', phNew:'Luna nueva', phWaxC:'Creciente', phFirst:'Cuarto creciente', phWaxG:'Gibosa creciente', phFull:'Llena', phWanG:'Gibosa menguante', phLast:'Cuarto menguante', phWanC:'Menguante', sunSub:'Salida, puesta, hora mágica y la luna', sunLoc:'Ubicación', sunHere:'Aquí', sunLatLon:'Latitud / Longitud', sunDate:'Fecha', sunToday:'Hoy', sunAt:'A esta hora', sunAz:'Az', sunAlt:'Alt', sunKeyTimes:'Horas clave', sunSunrise:'Amanecer', sunSunset:'Atardecer', sunNoon:'Mediodía solar', sunDayLen:'Duración del día', sunMagic:'Hora mágica', sunGoldenAM:'Hora dorada (AM)', sunGoldenPM:'Hora dorada (PM)', sunBlueAM:'Hora azul (AM)', sunBluePM:'Hora azul (PM)', sunTwilight:'Crepúsculo', sunCivil:'Civil -6°', sunNaut:'Náutico -12°', sunAstro:'Astronómico -18°', sunMoon:'Luna', sunMoonrise:'Salida de la luna', sunMoonset:'Puesta de la luna', sunPhase:'Fase', sunNoGeo:'Este dispositivo no puede dar la ubicación', sunGeoFail:'No se pudo obtener la ubicación', sunNote:'Hora dorada: sol entre -0,833° y +6°; hora azul entre -6° y -4°.', dftLayerMove:'Capa', mixWeightUnknownSuffix:' n/d', finderShowAll:'Mostrar todo', finderShowTop:'Solo los 30 primeros', finderHiddenNote:'Aquí se ocultan las unidades a más de 2 pasos del f objetivo, incluidas las grandes (DINO, 24kW) y las pequeñas.', passPrompt:'Esta es una beta. Introduce el código que te dieron.', passWrong:'Código incorrecto', passEnter:'Entrar', exportCancel:'Guardado cancelado', exportUnsupported:'La exportación no es compatible en este entorno', betaExpiredTitle:'El periodo beta ha terminado', betaExpiredMsg:'Esta beta (unas 3 semanas) ha caducado. ¡Gracias por probarla! Contacta con el desarrollador sobre la versión más reciente.',
@@ -2440,8 +2443,8 @@ var LANGS = {
     help5W:'Junto a los chips de Calc, en Comparar y en la pantalla de ambiente',
     help5B:'Indica el diámetro del círculo de luz a esa distancia. Los ángulos de haz se han revisado con los valores publicados por los fabricantes; donde no hay dato se muestra “ángulo sin verificar” en lugar de un número.',
     help6T:'🎞 Filtros de difusión',
-    help6W:'Campo de nombre del Factor en el plano: escribe “LEE” o “Rosco”',
-    help6B:'34 referencias LEE y 48 entradas Rosco. LEE publica transmitancia; Rosco publica la pérdida en pasos de Filter Facts: no son el mismo tipo de dato, por eso las entradas LEE llevan un sufijo.',
+    help6W:'El botón “📋 Lista” junto al campo de nombre del Factor (Calc, Mix o el plano)',
+    help6B:'“📋 Lista” abre las 134 entradas con buscador; las más habituales están también en los chips. 34 referencias LEE y 48 entradas Rosco. LEE publica transmitancia; Rosco publica la pérdida en pasos de Filter Facts: no son el mismo tipo de dato, por eso las entradas LEE llevan un sufijo.',
     finderCCTLabel:'🌡️ CCT',
     accTitle:'Accesorio', cctTitle:'Temperatura de Color',
     distTitle:'Distancia', directInput:'Entrada directa:', manualInput:'Personalizado:',
@@ -2553,6 +2556,7 @@ var LANGS = {
     dftAddLayer:'Agregar capa', dftNoSavedDrafts:'No hay planos guardados.'
   },
   zh: {
+    fpickBtn:'📋 全部', fpickTitle:'选择名称', fpickSearch:'按名称或型号搜索（如 LEE / Rosco / Grid）', fpickSaved:'已保存', fpickCommon:'常用', fpickOther:'其他', fpickEmpty:'未找到', fpickCount:'{n} 条',
     navCalc:'光量计算',
     navMix:'Mix',
     navFinder:'推荐',
@@ -2875,8 +2879,8 @@ var LANGS = {
     help5W:'Calc 的标签旁、灯具比较的行、环境光画面',
     help5B:'显示在该距离下光斑是多少米的圆。光束角已按厂商公布值全面核对。厂商未公布的型号不给出数值，显示为「角度未确认」。',
     help6T:'🎞 柔光滤片',
-    help6W:'在图纸的 Factor 名称栏输入「LEE」或「Rosco」',
-    help6B:'可从 LEE 34 个型号和 Rosco 48 条中选择。LEE 是由透过率换算的值，Rosco 是 Filter Facts 的公布值，两者数字的性质不同。为避免混用，LEE 的名称带有「（透过值）」后缀。',
+    help6W:'Factor 名称栏旁边的「📋 全部」按钮（Calc、Mix 或图纸均可）',
+    help6B:'点「📋 全部」会列出全部 134 条并可搜索，常用型号也排在标签里。收录 LEE 34 个型号和 Rosco 48 条。LEE 是由透过率换算的值，Rosco 是 Filter Facts 的公布值，两者数字的性质不同。为避免混用，LEE 的名称带有「（透过值）」后缀。',
     triHorizLbl:'↔️ 水平距离',
     triAngle:'📐 角度 / Angle',
     triClearBtn:'✕ 解除',
@@ -13837,7 +13841,7 @@ var HELP_TOPICS = ['1','2','3','4','5','6'];
 var HELP_SEEN_KEY = 'calm_help_seen_ver';
 /* 説明文そのものの版。APP_VER で見るとバージョンを上げるたびに同じ文章が
  * また出てしまうので、中身を書き換えたときだけここを上げる。 */
-var HELP_CONTENT_VER = '1.1.9';
+var HELP_CONTENT_VER = '1.1.9b';
 
 function helpSectionHTML(n) {
   return '<div style="margin-bottom:18px;">' +
@@ -16338,7 +16342,12 @@ function _factorNameOptions(type) {
   var key = type || 'none';
   var defaults = FACTOR_NAMES_BY_TYPE[key] || FACTOR_NAMES_BY_TYPE.none;
   var saved = getFactorNamePresets(key);
-  var all = saved.concat(defaults.filter(function(n){ return saved.indexOf(n) < 0; }));
+  var seen = {}, all = [];
+  // 保存した名前 → 定番 → 表の全件。図面側と同じ中身にして、
+  // 「LEE」「Rosco」と打てば Calc / Mix でも候補が出るようにする
+  saved.concat(defaults).concat(Object.keys(_fpickTable(key))).forEach(function(n) {
+    if (n && !seen[n]) { seen[n] = 1; all.push(n); }
+  });
   return all.map(function(n){ return '<option value="' + n.replace(/"/g,'&quot;') + '">'; }).join('');
 }
 function _renderSavedNames(prefix, type) {
@@ -16429,8 +16438,26 @@ function buildFactorSection(prefix) {
             ' oninput="window._factorSetMemo(\'' + prefix + '\',' + fi + ',this.value)"' +
             ' style="flex:1;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:var(--bg);color:#555;font-size:11px;">' +
           '<datalist id="fn-list-' + prefix + '-' + fi + '">' + curTypeNames + '</datalist>' +
+          // iPhone では datalist の候補が2件ほどしか出ないので、一覧から選べるようにする
+          '<button onclick="window._factorPick(\'' + prefix + '\',' + fi + ')" style="flex:0 0 auto;padding:4px 8px;border-radius:6px;border:1px solid ' + rowColor + ';background:transparent;color:' + rowColor + ';font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">' + t('fpickBtn') + '</button>' +
           '<button id="fn-star-' + prefix + '-' + fi + '" onclick="window._factorSaveName(\'' + prefix + '\',' + fi + ')" title="Save name" style="background:none;border:none;color:#f5a623;font-size:16px;cursor:pointer;padding:0 2px;line-height:1;">★</button>' +
         '</div>' +
+        // よく使うものはタップで選べるように並べる（図面側と同じ作り）
+        (function() {
+          var pl = _dftPresetsFor(ftype);
+          if (!pl.length) return '';
+          return '<div style="font-size:10.5px;font-weight:800;color:var(--text-dim,#888);margin-bottom:4px;">' + t('dftPresetPick') + '</div>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;">' +
+            pl.map(function(pp, pi) {
+              var act = (f.memo || '').trim() === pp.n;
+              var sTxt = (pp.s == null) ? '' : ' <span style="opacity:.7;">' + (pp.s > 0 ? '-' : '') + pp.s.toFixed(1) + '</span>';
+              // 名前に引用符や記号が入るので、onclick には番号だけを渡す
+              return '<button onclick="window._factorPickName(\'' + prefix + '\',' + fi + ',' + pi + ')" style="' +
+                'padding:3px 7px;border-radius:11px;border:1px solid ' + (act ? rowColor : 'rgba(128,128,128,0.3)') + ';' +
+                'background:' + (act ? rowColor : 'transparent') + ';color:' + (act ? '#000' : 'var(--text,#444)') + ';' +
+                'font-size:10.5px;font-weight:700;cursor:pointer;white-space:nowrap;">' + _dftEsc(pp.n) + sTxt + '</button>';
+            }).join('') + '</div>';
+        })() +
         // Stop controls — value+step+reset on top, full-width slider below
         '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">' +
           '<button class="step-btn" onclick="window._factorStep(\'' + prefix + '\',' + fi + ',-0.1)">‹</button>' +
@@ -16530,6 +16557,34 @@ window._factorSetMemo = function(prefix, i, val) {
     window._factorSetStops(prefix, i, pr.stops);
     renderFactorSection(prefix);
   }
+};
+/** 名前を入れて、表に載っていればストップ値も一緒に入れる */
+function _factorApplyName(prefix, i, name, stops) {
+  var arr = getFactorArray(prefix);
+  if (!arr || !arr[i]) return;
+  arr[i].memo = name;
+  var pr = factorPresetLookup(name, arr[i].type);
+  if (pr !== null) { arr[i].type = pr.type; arr[i].stops = pr.stops; }
+  else if (stops != null && isFinite(stops)) { arr[i].stops = stops; }
+  S_factorOpen[prefix] = true;
+  renderFactorSection(prefix);
+  _factorRecalc(prefix);
+}
+/** チップから選ぶ。番号は _dftPresetsFor と同じ並び */
+window._factorPickName = function(prefix, i, pi) {
+  var arr = getFactorArray(prefix);
+  if (!arr || !arr[i]) return;
+  var pl = _dftPresetsFor(arr[i].type || 'none');
+  if (!pl[pi]) return;
+  _factorApplyName(prefix, i, pl[pi].n, pl[pi].s);
+};
+/** 一覧から選ぶ */
+window._factorPick = function(prefix, i) {
+  var arr = getFactorArray(prefix);
+  if (!arr || !arr[i]) return;
+  openFactorNamePicker(arr[i].type || 'none', function(name, stops) {
+    _factorApplyName(prefix, i, name, stops);
+  });
 };
 window._factorReset = function(prefix, i) {
   getFactorArray(prefix)[i].stops = 0;
@@ -22354,6 +22409,106 @@ function _dftEsc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+/* ── 名前を選ぶシート ──────────────────────────────────────────
+ * iOS の <datalist> はキーボードの上に候補が2件ほどしか出ないため、
+ * 表に 134品番あっても iPhone では実質選べない。タップで選べる一覧を出す。
+ * Calc / Mix 側（renderFactorSection）と図面側（_dftFactorRowsHTML）の
+ * 両方から同じものを開く。 */
+var _FPICK = null;   // { type, apply(name), list:[{n,s}] }
+
+function _fpickTable(type) {
+  return (type === 'bounce')  ? BOUNCE_FACTOR_STOPS
+       : (type === 'diffuse') ? DIFF_FACTOR_STOPS : DFT_ND_STOPS;
+}
+/** 保存した名前 → よく使うもの → 表の残り。同じ名前は先に出たほうを残す */
+function _fpickGroups(type) {
+  var tbl = _fpickTable(type), seen = {};
+  var saved = [];
+  try {
+    var a = JSON.parse(localStorage.getItem('calm_factor_names') || '{}');
+    if (Array.isArray(a[type])) saved = a[type];
+  } catch(e) {}
+  function pack(names) {
+    var out = [];
+    names.forEach(function(n) {
+      if (!n || seen[n]) return;
+      seen[n] = 1;
+      out.push({ n:n, s:(n in tbl) ? tbl[n] : null });
+    });
+    return out;
+  }
+  return [
+    { label:t('fpickSaved'),  items:pack(saved) },
+    { label:t('fpickCommon'), items:pack(FACTOR_NAMES_BY_TYPE[type] || []) },
+    { label:t('fpickOther'),  items:pack(Object.keys(tbl)) }
+  ];
+}
+function openFactorNamePicker(type, apply) {
+  type = (type === 'bounce' || type === 'diffuse') ? type : 'none';
+  _FPICK = { type:type, apply:apply, list:[] };
+  var ex = document.getElementById('_fpick'); if (ex) ex.remove();
+  var color = (type === 'bounce') ? '#0288d1' : (type === 'diffuse') ? '#43a047' : '#f57c00';
+  document.body.insertAdjacentHTML('beforeend',
+    '<div id="_fpick" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10000;display:flex;align-items:flex-end;justify-content:center;" onclick="if(event.target===this)closeFactorNamePicker()">' +
+    '<div style="background:var(--white,#fff);color:var(--text,#111);border-radius:20px 20px 0 0;width:100%;max-width:480px;height:82vh;height:82dvh;display:flex;flex-direction:column;">' +
+      '<div style="display:flex;align-items:center;gap:8px;padding:16px 16px 10px;">' +
+        '<div style="font-size:15px;font-weight:900;color:' + color + ';">' + t('fpickTitle') + '</div>' +
+        '<div id="_fpick_cnt" style="font-size:11px;color:var(--text-dim,#888);"></div>' +
+        '<div style="flex:1;"></div>' +
+        '<button onclick="closeFactorNamePicker()" style="border:none;background:var(--bg,#eee);width:30px;height:30px;border-radius:50%;font-size:14px;cursor:pointer;color:var(--text,#111);">✕</button>' +
+      '</div>' +
+      '<div style="padding:0 16px 10px;">' +
+        '<input id="_fpick_q" type="search" placeholder="' + _dftEsc(t('fpickSearch')) + '" oninput="_fpickFill(this.value)" ' +
+          'style="width:100%;box-sizing:border-box;padding:9px 11px;border-radius:9px;border:1px solid #ddd;font-size:13px;">' +
+      '</div>' +
+      '<div id="_fpick_list" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 10px 30px;"></div>' +
+    '</div></div>');
+  _fpickFill('');
+}
+function closeFactorNamePicker() {
+  var o = document.getElementById('_fpick'); if (o) o.remove();
+  _FPICK = null;
+}
+function _fpickFill(q) {
+  if (!_FPICK) return;
+  var host = document.getElementById('_fpick_list'); if (!host) return;
+  var needle = (q || '').trim().toLowerCase();
+  var color = (_FPICK.type === 'bounce') ? '#0288d1' : (_FPICK.type === 'diffuse') ? '#43a047' : '#f57c00';
+  _FPICK.list = [];
+  var html = '', total = 0;
+  _fpickGroups(_FPICK.type).forEach(function(g) {
+    var items = g.items.filter(function(it) {
+      return !needle || it.n.toLowerCase().indexOf(needle) >= 0;
+    });
+    if (!items.length) return;
+    total += items.length;
+    html += '<div style="font-size:10.5px;font-weight:800;color:var(--text-dim,#999);padding:10px 6px 4px;">' + g.label + '</div>';
+    items.forEach(function(it) {
+      var i = _FPICK.list.push(it) - 1;
+      var sTxt = (it.s == null) ? '' :
+        '<span style="font-size:12px;font-weight:800;color:' + color + ';white-space:nowrap;">' +
+        (it.s > 0 ? '-' : '') + it.s.toFixed(1) + ' stop</span>';
+      html += '<button onclick="_fpickChoose(' + i + ')" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;' +
+        'padding:11px 8px;border:none;border-bottom:1px solid var(--line,#eee);background:transparent;cursor:pointer;">' +
+        '<span style="flex:1;min-width:0;font-size:13px;font-weight:600;color:var(--text,#222);">' + _dftEsc(it.n) + '</span>' +
+        sTxt + '</button>';
+    });
+  });
+  host.innerHTML = html || '<div style="padding:26px 8px;text-align:center;font-size:12.5px;color:var(--text-dim,#999);">' + t('fpickEmpty') + '</div>';
+  var cnt = document.getElementById('_fpick_cnt');
+  if (cnt) cnt.textContent = t('fpickCount').replace('{n}', total);
+}
+function _fpickChoose(i) {
+  if (!_FPICK || !_FPICK.list[i]) return;
+  var it = _FPICK.list[i], apply = _FPICK.apply;
+  closeFactorNamePicker();
+  if (typeof apply === 'function') apply(it.n, it.s);
+}
+window.openFactorNamePicker = openFactorNamePicker;
+window.closeFactorNamePicker = closeFactorNamePicker;
+window._fpickFill = _fpickFill;
+window._fpickChoose = _fpickChoose;
+
 // ── Shared slider-based factor row builder for draft sheets ──────────────
 function _dftFactorRowsHTML(factors, cbPrefix) {
   if (!factors.length) return '<p style="font-size:11px;color:#888;text-align:center;padding:8px 0;">No factors yet</p>';
@@ -22401,9 +22556,14 @@ function _dftFactorRowsHTML(factors, cbPrefix) {
         '<button onclick="window._dftFOn_'+cbPrefix+'('+fi+')" style="padding:2px 8px;border-radius:8px;border:1.5px solid '+color+';font-size:11px;font-weight:800;cursor:pointer;background:'+(fOn?color:'transparent')+';color:'+(fOn?'#fff':color)+';">'+(fOn?'ON':'OFF')+'</button>'+
         '<button onclick="window._dftFDel_'+cbPrefix+'('+fi+')" style="background:none;border:none;color:#e53935;font-size:16px;cursor:pointer;padding:0 4px;">✕</button>'+
       '</div>'+
-      '<input type="text" list="'+dlId+'" placeholder="Name (e.g. UltraBounce)" value="'+(f.memo||'').replace(/"/g,'&quot;')+'" '+
-        'oninput="window._dftFMemo_'+cbPrefix+'('+fi+',this.value)" '+
-        'style="width:100%;box-sizing:border-box;padding:5px 8px;border-radius:7px;border:1px solid #ddd;font-size:11px;margin-bottom:6px;">'+
+      // iPhone では datalist の候補が2件ほどしか出ないので、一覧から選べるようにする
+      '<div style="display:flex;gap:4px;align-items:center;margin-bottom:6px;">'+
+        '<input type="text" list="'+dlId+'" placeholder="Name (e.g. UltraBounce)" value="'+(f.memo||'').replace(/"/g,'&quot;')+'" '+
+          'oninput="window._dftFMemo_'+cbPrefix+'('+fi+',this.value)" '+
+          'style="flex:1;min-width:0;box-sizing:border-box;padding:5px 8px;border-radius:7px;border:1px solid #ddd;font-size:11px;">'+
+        '<button onclick="window._dftFPick_'+cbPrefix+'('+fi+')" style="flex:0 0 auto;padding:5px 8px;border-radius:7px;'+
+          'border:1px solid '+color+';background:transparent;color:'+color+';font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">'+t('fpickBtn')+'</button>'+
+      '</div>'+
       // LEE は透過率から出した値なので、実際の減光はこれより大きくなる。選んだときだけ出す。
       (isLeeDiffName(curName) ?
         '<div style="font-size:10px;line-height:1.45;color:#8a6d3b;background:#fcf8e3;'+
@@ -22465,6 +22625,17 @@ function _dftFSetter(cbPrefix, getObj) {
     o.factors[fi].memo=p.n;
     if(p.s!=null) o.factors[fi].stops=p.s;
     _dftFRefresh_all(cbPrefix,getObj); };
+  // 一覧から選ぶ。チップに出ない品番（LEE・Rosco ほか）は iPhone だと
+  // datalist から選べないため、ここから開く
+  window['_dftFPick_'+cbPrefix] = function(fi){ var o=getObj(); if(!o||!o.factors||!o.factors[fi])return;
+    openFactorNamePicker(o.factors[fi].type||'none', function(name, stops){
+      var oo=getObj(); if(!oo||!oo.factors||!oo.factors[fi])return;
+      oo.factors[fi].memo=name;
+      var pr=factorPresetLookup(name, oo.factors[fi].type);
+      if(pr!==null){ oo.factors[fi].type=pr.type; oo.factors[fi].stops=pr.stops; }
+      else if(stops!=null && isFinite(stops)){ oo.factors[fi].stops=stops; }
+      _dftFRefresh_all(cbPrefix,getObj);
+    }); };
 }
 
 function _dftFRefresh_all(cbPrefix, getObj) {
@@ -26163,7 +26334,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.9';
-var APP_BUILD = 13;
+var APP_BUILD = 14;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
