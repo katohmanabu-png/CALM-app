@@ -7048,11 +7048,19 @@ function makerName(mk) {
 //  3. 開いている画面は自分の描き直し方を i18nOn() に預ける。
 //     setLang は預かったものを呼ぶだけなので、画面を足すたびに
 //     setLang を書き足す必要がない。
-var LANG_LIST = [ {code:'ja', lbl:'JP', name:'日本語'},   {code:'en', lbl:'EN', name:'English'},
-                  {code:'es', lbl:'ES', name:'Español'}, {code:'zh', lbl:'中', name:'中文'},
-                  {code:'fr', lbl:'FR', name:'Français'},{code:'de', lbl:'DE', name:'Deutsch'},
-                  {code:'pt', lbl:'PT', name:'Português'},{code:'fi', lbl:'FI', name:'Suomi'},
-                  {code:'ko', lbl:'KO', name:'한국어'},   {code:'th', lbl:'TH', name:'ไทย'} ];
+/* 国旗は言語の目印。旗の絵文字が出ない環境（Windows など）では
+ * 地域記号がそのまま「JP」「DE」のように2文字で出るので、それが略称も兼ねる。
+ * pt はブラジル向けに作ってあるので 🇧🇷。en はつづりが英国式なので 🇬🇧。 */
+var LANG_LIST = [ {code:'ja', lbl:'JP', flag:'🇯🇵', name:'日本語'},
+                  {code:'en', lbl:'EN', flag:'🇬🇧', name:'English'},
+                  {code:'es', lbl:'ES', flag:'🇪🇸', name:'Español'},
+                  {code:'zh', lbl:'CN', flag:'🇨🇳', name:'中文'},
+                  {code:'fr', lbl:'FR', flag:'🇫🇷', name:'Français'},
+                  {code:'de', lbl:'DE', flag:'🇩🇪', name:'Deutsch'},
+                  {code:'pt', lbl:'BR', flag:'🇧🇷', name:'Português'},
+                  {code:'fi', lbl:'FI', flag:'🇫🇮', name:'Suomi'},
+                  {code:'ko', lbl:'KR', flag:'🇰🇷', name:'한국어'},
+                  {code:'th', lbl:'TH', flag:'🇹🇭', name:'ไทย'} ];
 
 /* どの画面の見出しにも置ける言語の切り替え。
  * 3言語のころはボタンを横に並べていたが、10言語になると見出しを潰してしまう
@@ -7062,7 +7070,7 @@ function langChipHTML() {
          ' aria-label="Language">' +
     LANG_LIST.map(function(l) {
       return '<option value="' + l.code + '"' + (LANG === l.code ? ' selected' : '') + '>' +
-             l.lbl + ' · ' + l.name + '</option>';
+             l.flag + ' ' + l.name + '</option>';
     }).join('') + '</select>';
 }
 /** 言語が変わったとき、開いている画面の選択メニューを合わせる */
@@ -30175,7 +30183,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.9';
-var APP_BUILD = 17;
+var APP_BUILD = 18;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
