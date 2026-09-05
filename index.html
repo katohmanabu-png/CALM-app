@@ -1939,6 +1939,33 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <input type="hidden" id="rank-dist" value="5">
 
       <div class="rank-field">
+        <!-- 目標の入れ方。絶対のF値で入れるか、環境光から何段上げるかで入れるか -->
+        <div style="display:flex;gap:4px;margin-bottom:6px;">
+          <button id="finder-tm-abs" onclick="setFinderTargetMode('abs')"
+            style="flex:1;padding:5px 8px;border-radius:9px;border:1.5px solid var(--accent);background:var(--accent);color:#fff;font-size:11px;font-weight:800;cursor:pointer;">🎯 <span id="finder-lbl-tmabs">目標F値</span></button>
+          <button id="finder-tm-amb" onclick="setFinderTargetMode('amb')"
+            style="flex:1;padding:5px 8px;border-radius:9px;border:1.5px solid #bbb;background:transparent;color:#888;font-size:11px;font-weight:800;cursor:pointer;">🌗 <span id="finder-lbl-tmamb">環境光から</span></button>
+        </div>
+        <!-- 環境光からのとき: 何段上げるか -->
+        <div id="finder-amb-target" style="display:none;margin-bottom:6px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+            <div class="rank-field-lbl" id="finder-lbl-ambfrom" style="margin:0;">🌗 環境光から</div>
+            <div id="finder-amb-target-disp" style="font-size:16px;font-weight:900;color:#8e24aa;font-family:var(--mono);">—</div>
+          </div>
+          <div class="sl-with-btns">
+            <button class="step-btn" onclick="stepFinderAmbStops(-1)">‹</button>
+            <input type="range" id="finder-amb-stops-sl" min="-6" max="8" step="1" value="4"
+              oninput="onFinderAmbStopsChange()" onchange="onFinderAmbStopsChange()" style="flex:1;">
+            <button class="step-btn" onclick="stepFinderAmbStops(1)">›</button>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:0 2px;margin-top:2px;">
+            <span style="font-size:10.5px;color:#888;">-3</span>
+            <span style="font-size:10.5px;color:#888;">±0</span>
+            <span style="font-size:10.5px;color:#888;">+2</span>
+            <span style="font-size:10.5px;color:#888;">+4</span>
+          </div>
+        </div>
+        <div id="finder-abs-target">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
           <div class="rank-field-lbl" id="finder-lbl-targetf" style="margin:0;">🎯 Target F-stop</div>
           <div id="rank-target-f-disp" style="font-size:22px;font-weight:900;color:var(--accent);font-family:var(--mono);cursor:pointer;" ondblclick="finderFstopEdit()">f8</div>
@@ -1965,7 +1992,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
             oninput="onFinderFstopDirectInput()"
             onblur="finderFstopEditDone()">
         </div>
-        <!-- hidden: renderFinderResultsが参照 -->
+        </div><!-- /finder-abs-target -->
+        <!-- hidden: renderFinderResultsが参照。どちらのモードでもここに絶対のF値を書く -->
         <input type="hidden" id="rank-target-f" value="8">
       </div>
       <!-- CCT フィルター -->
@@ -2203,6 +2231,7 @@ var LANGS = {
     cctSubbed:'≈ {k}K の値', ambBarLabel:'環境光', ambBarUnset:'未入力',
     dftAmbLabel:'環境光', dftAmbTitle:'置いた環境光', dftAmbMode:'光の性質',
     dftAmbName:'名前', dftAmbNamePh:'例: 東の窓 / 天窓 / 空の回り込み',
+    finderTmAbs:'目標F値', finderTmAmb:'環境光から', finderAmbFrom:'🌗 環境光から何段上げるか',
     dftAmbPlacedNote:'図面に置いた環境光 {n} 個で計算しています（上のトグルはこの図面では使いません）',
     dftAmbUni:'一様（全方向）', dftAmbUniSub:'屋外・曇天・広いホリゾント。向きに関係なく同じだけ入る',
     dftAmbDir:'方向あり', dftAmbDirSub:'窓・開口部・天窓。置いた位置から来る光として影側が落ちる',
@@ -2318,6 +2347,7 @@ var LANGS = {
     cctSubbed:'≈ {k}K figure', ambBarLabel:'Ambient', ambBarUnset:'not set',
     dftAmbLabel:'Ambient', dftAmbTitle:'Placed ambient', dftAmbMode:'How the light behaves',
     dftAmbName:'Name', dftAmbNamePh:'e.g. East window / Skylight / Sky wrap',
+    finderTmAbs:'Target f-stop', finderTmAmb:'From ambient', finderAmbFrom:'🌗 Stops above the ambient',
     dftAmbPlacedNote:'Using the {n} ambient source(s) placed on the plan (the toggle above is not used for this plan)',
     dftAmbUni:'Even (all directions)', dftAmbUniSub:'Outdoors, overcast, a large cyc. Reads the same whichever way you point',
     dftAmbDir:'Directional', dftAmbDirSub:'A window, doorway or skylight. Comes from where you placed it, so the shadow side falls off',
@@ -2431,6 +2461,7 @@ var LANGS = {
     cctSubbed:'≈ valor de {k}K', ambBarLabel:'Ambiente', ambBarUnset:'sin definir',
     dftAmbLabel:'Ambiente', dftAmbTitle:'Ambiente colocado', dftAmbMode:'Comportamiento de la luz',
     dftAmbName:'Nombre', dftAmbNamePh:'p. ej. Ventana este / Lucernario',
+    finderTmAbs:'F-stop objetivo', finderTmAmb:'Desde el ambiente', finderAmbFrom:'🌗 Pasos sobre el ambiente',
     dftAmbPlacedNote:'Se usan las {n} fuentes de ambiente colocadas en el plano (el interruptor de arriba no se aplica aquí)',
     dftAmbUni:'Uniforme (todas las direcciones)', dftAmbUniSub:'Exterior, cielo cubierto, ciclorama grande. Lee igual en cualquier dirección',
     dftAmbDir:'Direccional', dftAmbDirSub:'Ventana, puerta o lucernario. Viene de donde lo coloques, así que el lado de sombra cae',
@@ -2662,6 +2693,8 @@ function applyI18n() {
   // Finder labels (already handled by refreshFinderI18n but add fallback)
   // finder-lbl-height/horiz removed (replaced by slider UI)
   s('finder-lbl-dist','finderDist'); s('finder-lbl-targetf','finderTargetF');
+  s('finder-lbl-tmabs','finderTmAbs'); s('finder-lbl-tmamb','finderTmAmb');
+  s('finder-lbl-ambfrom','finderAmbFrom');
   s('lbl-finder-cct','finderCCTLabel');
 
   s('lbl-film-fps-label',   'filmFpsLabel');
@@ -9130,6 +9163,8 @@ function renderAmbBars() {
 // トグルを切り替えたら、開いている画面の数字を作り直す
 function ambRecalcAll() {
   renderAmbBars();
+  // Finder が環境光からのモードなら、目標F値も入れ直す
+  try { if (S_finderTargetMode === 'amb') _finderApplyAmbTarget(); } catch(e) {}
   try { if (typeof calculate === 'function') calculate(); } catch(e) {}
   try { if (typeof calcMix === 'function') calcMix(); } catch(e) {}
   try { if (typeof renderFinderResults === 'function') renderFinderResults(); } catch(e) {}
@@ -12710,6 +12745,10 @@ window.addEventListener('DOMContentLoaded', function() {
   try { renderFavList(); } catch(e) { console.error('renderFavList', e); }
   try { setLang(LANG); } catch(e) { console.error('setLang', e); }
   try { ambientLoad(); renderAmbBars(); } catch(e) { console.error('ambient', e); }
+  try {
+    var _tm = localStorage.getItem('calm_finder_tmode');
+    setFinderTargetMode(_tm === 'amb' ? 'amb' : 'abs');
+  } catch(e) {}
   try { showPage(S.page || 'calc'); } catch(e) {}
   // 距離スライダー横の 📷 は、対応機のときだけ出す
   try { _cmShowDistARButtons(); } catch(e) {}
@@ -13880,6 +13919,70 @@ var S_finderSort = 'default'; // 'default' | 'single' | 'fstop'
 var FINDER_FSTOPS = [0.125,0.16,0.2,0.25,0.32,0.4,0.5,0.56,0.63,0.7,0.8,0.9,1.0,1.1,1.3,1.4,1.6,1.8,2.0,2.2,2.5,2.8,3.2,3.5,4.0,4.5,5.0,5.6,6.3,7.1,8.0,9.0,10,11,12.5,14,16,18,20,22,25,29,32,36,40,45,50,57,64];
 // index15=f1.4, 21=f2.8, 27=f5.6, 30=f8, 33=f11, 36=f16, 39=f22, 42=f32, 45=f50
 
+/* Finder の目標の入れ方。
+ *   'abs' … 目標F値をそのまま入れる（従来）
+ *   'amb' … 環境光から何段上げるかで入れる。目標の照度は 環境光×2^段 なので
+ *           目標F値 = luxToFstopCamera(環境光 × 2^段)。
+ * どちらのモードでも #rank-target-f に絶対のF値を書くので、
+ * renderFinderResults 側は何も変えなくてよい。
+ * 'amb' のときは灯体側も環境光を足さないと目標と釣り合わないので、
+ * 環境光のトグルを ON にする。 */
+var S_finderTargetMode = 'abs';
+function _finderAmbStops() {
+  var sl = el('finder-amb-stops-sl');
+  return sl ? ((parseInt(sl.value) || 0) * 0.5) : 2;   // つまみ1目盛り = 0.5段
+}
+function _finderApplyAmbTarget() {
+  var amb = (typeof _AMBIENT !== 'undefined') ? luxRound(_AMBIENT.lux) : 0;
+  var st  = _finderAmbStops();
+  var disp = el('finder-amb-target-disp');
+  if (!(amb > 0)) {
+    if (disp) disp.textContent = t('ambBarUnset');
+    return;
+  }
+  var tgtLux = amb * Math.pow(2, st);
+  var f = luxToFstopCamera(tgtLux);
+  var hid = el('rank-target-f');
+  if (hid) hid.value = f;
+  if (disp) {
+    disp.textContent = (st >= 0 ? '+' : '') + st + ' stop → ' + _ambNearestF(f);
+  }
+}
+/* 関数宣言にしてある（window への代入にしない）。起動時の復元処理は
+ * この行より前にあるので、代入だと「まだ関数が無い」状態で呼ばれて
+ * 何も起きず、保存したモードが復元されなかった。宣言なら巻き上げられる。 */
+function setFinderTargetMode(m) {
+  S_finderTargetMode = (m === 'amb') ? 'amb' : 'abs';
+  try { localStorage.setItem('calm_finder_tmode', S_finderTargetMode); } catch(e) {}
+  var amb = el('finder-amb-target'), abs = el('finder-abs-target');
+  var ba = el('finder-tm-abs'), bb = el('finder-tm-amb');
+  var on = (S_finderTargetMode === 'amb');
+  if (amb) amb.style.display = on ? 'block' : 'none';
+  if (abs) abs.style.display = on ? 'none' : 'block';
+  [[ba, !on], [bb, on]].forEach(function(x) {
+    if (!x[0]) return;
+    x[0].style.background  = x[1] ? (on ? '#8e24aa' : 'var(--accent)') : 'transparent';
+    x[0].style.color       = x[1] ? '#fff' : '#888';
+    x[0].style.borderColor = x[1] ? (on ? '#8e24aa' : 'var(--accent)') : '#bbb';
+  });
+  if (on) {
+    // 値が無ければ先に入れてもらう
+    if (!(typeof _AMBIENT !== 'undefined' && _AMBIENT.lux > 0)) { ambOpenEditor(); }
+    else if (!_AMBIENT.on) { _AMBIENT.on = true; ambientSave(); renderAmbBars(); }
+    _finderApplyAmbTarget();
+  } else {
+    onFinderFstopChange();
+    return;
+  }
+  try { renderFinderResults(); } catch(e) {}
+}
+window.onFinderAmbStopsChange = function() { _finderApplyAmbTarget(); try { renderFinderResults(); } catch(e) {} };
+window.stepFinderAmbStops = function(d) {
+  var sl = el('finder-amb-stops-sl'); if (!sl) return;
+  sl.value = Math.max(parseInt(sl.min), Math.min(parseInt(sl.max), (parseInt(sl.value) || 0) + d));
+  onFinderAmbStopsChange();
+};
+
 function onFinderFstopChange() {
   var sl = el('rank-target-f-sl');
   if (!sl) return;
@@ -13888,8 +13991,11 @@ function onFinderFstopChange() {
   var fstr = fval >= 10 ? 'f' + Math.round(fval) : 'f' + fval;
   var dispEl = el('rank-target-f-disp');
   if (dispEl) dispEl.textContent = fstr;
-  var hidEl = el('rank-target-f');
-  if (hidEl) hidEl.value = fval;
+  // 環境光からのモードのときは、目標は段数側が決めるので上書きしない
+  if (S_finderTargetMode !== 'amb') {
+    var hidEl = el('rank-target-f');
+    if (hidEl) hidEl.value = fval;
+  }
   try { renderFinderResults(); } catch(e) {}
 }
 
