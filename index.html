@@ -13206,6 +13206,9 @@ function openPrivacy() {
  * 出したかどうかは表示したバージョンを持っておく（同じ版で二度出さない）。 */
 var HELP_TOPICS = ['1','2','3','4','5','6'];
 var HELP_SEEN_KEY = 'calm_help_seen_ver';
+/* 説明文そのものの版。APP_VER で見るとバージョンを上げるたびに同じ文章が
+ * また出てしまうので、中身を書き換えたときだけここを上げる。 */
+var HELP_CONTENT_VER = '1.1.9';
 
 function helpSectionHTML(n) {
   return '<div style="margin-bottom:18px;">' +
@@ -13233,7 +13236,7 @@ function openHelp() {
   var w = document.createElement('div'); w.innerHTML = html;
   document.body.appendChild(w.firstChild);
   // 開いた時点で「見た」ことにする。閉じ方（✕・背景・ボタン）を選ばない。
-  try { localStorage.setItem(HELP_SEEN_KEY, APP_VER); } catch(e) {}
+  try { localStorage.setItem(HELP_SEEN_KEY, HELP_CONTENT_VER); } catch(e) {}
 }
 function closeHelp() { var o = document.getElementById('_help_ov'); if (o) o.remove(); }
 
@@ -13241,7 +13244,7 @@ function closeHelp() { var o = document.getElementById('_help_ov'); if (o) o.rem
 function helpAutoShow() {
   var seen = null;
   try { seen = localStorage.getItem(HELP_SEEN_KEY); } catch(e) { return; }
-  if (seen === APP_VER) return;
+  if (seen === HELP_CONTENT_VER) return;
   setTimeout(openHelp, 600);   // 画面が組み上がってから
 }
 
