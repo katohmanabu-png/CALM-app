@@ -12999,21 +12999,35 @@ var BETA_DAYS     = 21;          // 初回起動から3週間
 var BETA_HARD_END = null;        // 例: '2026-12-31'（全員一斉に終了させたい場合）
 var CALM_CONTACT  = 'katohmanabu@protonmail.com';  // プライバシーポリシー用の連絡先
 
+/* 初回起動の記録を読む。あり得ない値なら「いま」を初回として記録し直す。
+ * ここを素通しにしていたため、次の2つで永久に使えなくなる恐れがあった。
+ *  ・calm_beta_first が負の値だと now-first が巨大になり即期限切れ。
+ *    しかも記録を上書きしないので、以後ずっと解除できない
+ *  ・電池切れなどで端末の時計が1970年に戻っている状態で初回起動すると、
+ *    その時刻が記録され、時計が直ったあと即期限切れになる
+ * どちらも書き直すことで自力で復帰できるようにする。 */
+var BETA_FIRST_MIN = Date.UTC(2025, 0, 1);      // これより前の記録は時計が狂っていたと判断
+function _betaFirstRun() {
+  var now = Date.now();
+  var first = parseInt(localStorage.getItem('calm_beta_first') || '0', 10);
+  if (!(first >= BETA_FIRST_MIN) || first > now + 24 * 60 * 60 * 1000) {
+    first = now;
+    try { localStorage.setItem('calm_beta_first', String(first)); } catch(e) {}
+  }
+  return first;
+}
 function _betaExpired() {
   if (!BETA_ENABLED) return false;
   try {
     var now = Date.now();
     if (BETA_HARD_END) { var hardMs = new Date(BETA_HARD_END + 'T23:59:59').getTime(); if (isFinite(hardMs) && now > hardMs) return true; }
-    var first = parseInt(localStorage.getItem('calm_beta_first') || '0', 10);
-    if (!first) { localStorage.setItem('calm_beta_first', String(now)); first = now; }
-    return (now - first) > BETA_DAYS * 24 * 60 * 60 * 1000;
+    return (now - _betaFirstRun()) > BETA_DAYS * 24 * 60 * 60 * 1000;
   } catch(e) { return false; }
 }
 function _betaDaysLeft() {
   try {
-    var first = parseInt(localStorage.getItem('calm_beta_first') || '0', 10) || Date.now();
-    var end = first + BETA_DAYS * 24 * 60 * 60 * 1000;
-    return Math.max(0, Math.ceil((end - Date.now()) / (24*60*60*1000)));
+    var end = _betaFirstRun() + BETA_DAYS * 24 * 60 * 60 * 1000;
+    return Math.max(0, Math.min(BETA_DAYS, Math.ceil((end - Date.now()) / (24*60*60*1000))));
   } catch(e) { return BETA_DAYS; }
 }
 function _betaLockScreen() {
