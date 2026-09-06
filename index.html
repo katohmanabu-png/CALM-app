@@ -19457,6 +19457,7 @@ function _passScreen() {
 }
 
 function openPrivacy() {
+  var _ex = document.getElementById('_privacy_ov'); if (_ex) _ex.remove();   // 二度押しで重ねない
   var lang = (typeof LANG !== 'undefined' && PRIVACY_POLICY[LANG]) ? LANG : 'en';
   var html =
     '<div id="_privacy_ov" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:flex-end;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_privacy_ov\').remove()">' +
@@ -30453,6 +30454,7 @@ var DFT_GRID_PRESETS = [
 ];
 
 function dftSetScaleUI() {
+  var _ex = document.getElementById('_dft_sc'); if (_ex) _ex.remove();   // 二度押しで重ねない
 
   var gridBtns = DFT_GRID_PRESETS.map(function(g, i) {
     var act = Math.abs((_dft.gridM || 0.3048) - g.m) < 1e-6;
@@ -30529,6 +30531,8 @@ function dftToggleUnit() {
  * 名前を変えても新規保存ではなく元の図面の改名になっていた。
  */
 function dftSave() {
+  // 二度押しで重ねない。保存の選択と保存ダイアログの両方を畳んでおく
+  ['_dft_svc','_dft_sv'].forEach(function(id){ var e=document.getElementById(id); if(e) e.remove(); });
   if (_dft.draftId && _dft.drafts.some(function(d){ return d.id === _dft.draftId; })) {
     _dftSaveChoice();
     return;
@@ -31652,7 +31656,9 @@ window._dftUnhideAll = function() {
 };
 
 function dftReset() {
+  var _ex = document.getElementById('_dft_reset'); if (_ex) _ex.remove();   // 二度押しで重ねない
   var dlg = document.createElement('div');
+  dlg.id = '_dft_reset';
   dlg.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;';
   dlg.innerHTML =
     '<div style="background:var(--white);border-radius:18px;padding:24px 20px 18px;width:300px;box-shadow:0 8px 40px rgba(0,0,0,.35);text-align:center;">' +
@@ -31969,7 +31975,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.9';
-var APP_BUILD = 28;
+var APP_BUILD = 29;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
