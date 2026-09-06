@@ -2144,6 +2144,7 @@ window.onerror = function(m,s,l,c,e){ console.log('[LMP]',m,l,e&&e.stack); retur
 // ===== i18n =====
 var LANGS = {
   ja: {
+    orderTitle:'並びの設定', orderBar:'下部タブ', orderMenu:'メニューの並び', orderMenuSub:'三本線のメニューに出る順です',
     langLabel:'言語',
     arErrNoSupport:'この端末はカメラ計測に対応していません', arErrBusy:'すでに測定中です', arErrOpen:'画面を開けませんでした', arSegHere:'ここから', arSegTwo:'2点間', arSegTri:'2地点から', arBtnFix:'ここで決める', arBtnRedo:'やり直す', arBtnUse:'この距離を使う', arBtnPlace:'点をおく', arBtnAimHere:'ここから狙う', arBtnAimAgain:'もう一度狙う', arHintFromMe:'いまいる場所から測ります。測りたい先に十字を合わせて「ここで決める」', arHintTwoA:'離れた2か所の間を測ります。片方の端に十字を合わせて「点をおく」', arHintTwoB:'もう一方の端に十字を合わせて、もう一度「点をおく」', arHintTriA:'遠くを正確に測ります。測りたい所に十字を合わせて「ここから狙う」', arHintTriB:'同じ所に十字を合わせたまま、横へ数メートル歩いて「もう一度狙う」', arHintDone:'この値でよければ「この距離を使う」', arWarnExtended:'面を延長して測っています（LiDAR の届く範囲の外）。遠くなるほど当てになりません。「2地点から」のほうが正確です', arWarnNoPlane:'測れる面が見つかりません。端末を少し動かしてください', arTriProgress:'横に {d}m 歩きました。狙いのすれ違い {g}m。{tail}', arTriWalkMore:'もう少し横へ歩くと正確になります', arTriReady:'同じ所を狙えていれば「もう一度狙う」', arTriNoCross:'横に {d}m 歩きました。まだ交点が出せません。もう少し横へ歩いてください', arTriFail:'交点が出せません。同じ所を狙ったまま、もう少し横へ歩いてください', arTriNoMove:'ほとんど動いていません。横へ数メートル歩いてから狙ってください', arTriFixed:'基線 {b}m・狙いのすれ違い {g}m。この値でよければ「この距離を使う」', arTrackInit:'端末をゆっくり動かして周囲を認識させてください', arTrackLowFeature:'暗いか模様が少ない面です。明るい所か、模様のある面を狙ってください', arTrackFast:'動きが速すぎます。ゆっくり構えてください',
     notPublished:'未公表',
@@ -2292,6 +2293,7 @@ var LANGS = {
     dftAddLayer:'レイヤーを追加', dftNoSavedDrafts:'保存済みドラフトがありません。'
   },
   en: {
+    orderTitle:'Layout', orderBar:'Bottom tabs', orderMenu:'Menu order', orderMenuSub:'The order they appear in the menu',
     langLabel:'Language',
     arErrNoSupport:'This device does not support camera measuring', arErrBusy:'A measurement is already running', arErrOpen:'Could not open the screen', arSegHere:'From here', arSegTwo:'2 points', arSegTri:'2 spots', arBtnFix:'Fix it here', arBtnRedo:'Start again', arBtnUse:'Use this distance', arBtnPlace:'Place a point', arBtnAimHere:'Sight from here', arBtnAimAgain:'Sight again', arHintFromMe:'Measures from where you stand. Put the cross on the target and tap Fix it here.', arHintTwoA:'Measures between two separate places. Put the cross on one end and tap Place a point.', arHintTwoB:'Put the cross on the other end and tap Place a point again.', arHintTriA:'For accuracy at long range. Put the cross on the target and tap Sight from here.', arHintTriB:'Keep the cross on the same spot, walk a few metres sideways, then tap Sight again.', arHintDone:'If the value looks right, tap Use this distance.', arWarnExtended:'Measuring on an extended plane, beyond LiDAR range. The further out, the less you can rely on it. 2 spots is more accurate.', arWarnNoPlane:'No measurable surface found. Move the device a little.', arTriProgress:'Walked {d}m sideways. Sight lines miss by {g}m. {tail}', arTriWalkMore:'Walk a little further sideways for better accuracy.', arTriReady:'If you are on the same spot, tap Sight again.', arTriNoCross:'Walked {d}m sideways. Still no crossing point. Walk a little further sideways.', arTriFail:'No crossing point. Keep aiming at the same spot and walk a little further sideways.', arTriNoMove:'You have hardly moved. Walk a few metres sideways before sighting.', arTriFixed:'Baseline {b}m, sight lines miss by {g}m. If the value looks right, tap Use this distance.', arTrackInit:'Move the device slowly so it can read the surroundings.', arTrackLowFeature:'The surface is dark or has little texture. Aim somewhere brighter, or at a surface with pattern.', arTrackFast:'Moving too fast. Hold it steady.',
     notPublished:'not published',
@@ -2434,6 +2436,7 @@ var LANGS = {
     dftAddLayer:'Add layer', dftNoSavedDrafts:'No saved drafts yet.'
   },
   es: {
+    orderTitle:'Disposición', orderBar:'Pestañas inferiores', orderMenu:'Orden del menú', orderMenuSub:'El orden en que aparecen en el menú',
     langLabel:'Idioma',
     arErrNoSupport:'Este dispositivo no admite la medición con cámara', arErrBusy:'Ya hay una medición en curso', arErrOpen:'No se pudo abrir la pantalla', arSegHere:'Desde aquí', arSegTwo:'2 puntos', arSegTri:'2 sitios', arBtnFix:'Fijar aquí', arBtnRedo:'Empezar de nuevo', arBtnUse:'Usar esta distancia', arBtnPlace:'Poner un punto', arBtnAimHere:'Visar desde aquí', arBtnAimAgain:'Visar otra vez', arHintFromMe:'Mide desde donde estás. Pon la cruz en el objetivo y pulsa Fijar aquí.', arHintTwoA:'Mide entre dos sitios separados. Pon la cruz en un extremo y pulsa Poner un punto.', arHintTwoB:'Pon la cruz en el otro extremo y pulsa Poner un punto otra vez.', arHintTriA:'Para precisión a larga distancia. Pon la cruz en el objetivo y pulsa Visar desde aquí.', arHintTriB:'Mantén la cruz en el mismo punto, camina unos metros de lado y pulsa Visar otra vez.', arHintDone:'Si el valor te parece bien, pulsa Usar esta distancia.', arWarnExtended:'Midiendo sobre un plano extendido, fuera del alcance del LiDAR. Cuanto más lejos, menos fiable. 2 sitios es más preciso.', arWarnNoPlane:'No se encuentra una superficie medible. Mueve un poco el dispositivo.', arTriProgress:'Has caminado {d}m de lado. Las visuales se cruzan con {g}m de error. {tail}', arTriWalkMore:'Camina un poco más de lado para ganar precisión.', arTriReady:'Si estás en el mismo punto, pulsa Visar otra vez.', arTriNoCross:'Has caminado {d}m de lado. Todavía no hay punto de cruce. Camina un poco más de lado.', arTriFail:'No hay punto de cruce. Sigue apuntando al mismo sitio y camina un poco más de lado.', arTriNoMove:'Casi no te has movido. Camina unos metros de lado antes de visar.', arTriFixed:'Base {b}m, error entre visuales {g}m. Si el valor te parece bien, pulsa Usar esta distancia.', arTrackInit:'Mueve el dispositivo despacio para que reconozca el entorno.', arTrackLowFeature:'La superficie está oscura o tiene poca textura. Apunta a un sitio más iluminado o con dibujo.', arTrackFast:'Te mueves demasiado rápido. Sujétalo con calma.',
     notPublished:'no publicado',
@@ -2573,6 +2576,7 @@ var LANGS = {
     dftAddLayer:'Agregar capa', dftNoSavedDrafts:'No hay planos guardados.'
   },
   zh: {
+    orderTitle:'排列设置', orderBar:'底部标签', orderMenu:'菜单的排列', orderMenuSub:'在三条线菜单中出现的顺序',
     langLabel:'语言',
     arErrNoSupport:'此设备不支持相机测量', arErrBusy:'已经在测量中', arErrOpen:'无法打开界面', arSegHere:'从这里', arSegTwo:'两点间', arSegTri:'两地点', arBtnFix:'在此确定', arBtnRedo:'重新开始', arBtnUse:'使用此距离', arBtnPlace:'放置点', arBtnAimHere:'从这里瞄准', arBtnAimAgain:'再次瞄准', arHintFromMe:'从您所在的位置测量。把十字对准目标，然后点「在此确定」。', arHintTwoA:'测量相隔两处之间的距离。把十字对准一端，然后点「放置点」。', arHintTwoB:'把十字对准另一端，再点一次「放置点」。', arHintTriA:'用于远距离的精确测量。把十字对准目标，然后点「从这里瞄准」。', arHintTriB:'保持十字对准同一处，向侧面走几米，然后点「再次瞄准」。', arHintDone:'如果数值合适，点「使用此距离」。', arWarnExtended:'正在按延长的平面测量（超出 LiDAR 范围）。越远越不可靠。「两地点」更准确。', arWarnNoPlane:'找不到可测量的面。请稍微移动设备。', arTriProgress:'已向侧面走了 {d} 米。瞄准线相差 {g} 米。{tail}', arTriWalkMore:'再向侧面走一点会更准确。', arTriReady:'如果瞄准的是同一处，请点「再次瞄准」。', arTriNoCross:'已向侧面走了 {d} 米。仍算不出交点。请再向侧面走一点。', arTriFail:'算不出交点。保持瞄准同一处，再向侧面走一点。', arTriNoMove:'几乎没有移动。请先向侧面走几米再瞄准。', arTriFixed:'基线 {b} 米，瞄准线相差 {g} 米。如果数值合适，点「使用此距离」。', arTrackInit:'请慢慢移动设备，让它识别周围环境。', arTrackLowFeature:'这个面偏暗或纹理很少。请瞄准更亮的地方，或有纹理的面。', arTrackFast:'移动太快。请拿稳一些。',
     notPublished:'未公布',
@@ -3215,6 +3219,7 @@ var LANGS = {
     dftNoSavedDrafts:'还没有保存的图纸。',
   },
   fr: {
+    orderTitle:'Disposition', orderBar:'Onglets du bas', orderMenu:'Ordre du menu', orderMenuSub:'L\'ordre dans lequel ils apparaissent dans le menu',
     langLabel:'Langue',
     arErrNoSupport:'Cet appareil ne prend pas en charge la mesure à la caméra', arErrBusy:'Une mesure est déjà en cours', arErrOpen:'Impossible d\'ouvrir l\'écran', arSegHere:'D\'ici', arSegTwo:'2 points', arSegTri:'2 endroits', arBtnFix:'Valider ici', arBtnRedo:'Recommencer', arBtnUse:'Utiliser cette distance', arBtnPlace:'Poser un point', arBtnAimHere:'Viser d\'ici', arBtnAimAgain:'Viser à nouveau', arHintFromMe:'Mesure depuis où vous êtes. Placez la croix sur la cible et appuyez sur Valider ici.', arHintTwoA:'Mesure entre deux endroits distants. Placez la croix sur une extrémité et appuyez sur Poser un point.', arHintTwoB:'Placez la croix sur l\'autre extrémité et appuyez de nouveau sur Poser un point.', arHintTriA:'Pour la précision à longue distance. Placez la croix sur la cible et appuyez sur Viser d\'ici.', arHintTriB:'Gardez la croix sur le même point, marchez quelques mètres de côté, puis appuyez sur Viser à nouveau.', arHintDone:'Si la valeur vous convient, appuyez sur Utiliser cette distance.', arWarnExtended:'Mesure sur un plan prolongé, hors de portée du LiDAR. Plus c\'est loin, moins c\'est fiable. 2 endroits est plus précis.', arWarnNoPlane:'Aucune surface mesurable trouvée. Bougez un peu l\'appareil.', arTriProgress:'Vous avez marché {d}m de côté. Les visées se manquent de {g}m. {tail}', arTriWalkMore:'Marchez encore un peu de côté pour gagner en précision.', arTriReady:'Si vous visez le même point, appuyez sur Viser à nouveau.', arTriNoCross:'Vous avez marché {d}m de côté. Toujours pas de point d\'intersection. Marchez encore un peu de côté.', arTriFail:'Pas d\'intersection. Continuez de viser le même point et marchez encore un peu de côté.', arTriNoMove:'Vous n\'avez presque pas bougé. Marchez quelques mètres de côté avant de viser.', arTriFixed:'Base {b}m, écart entre les visées {g}m. Si la valeur vous convient, appuyez sur Utiliser cette distance.', arTrackInit:'Bougez l\'appareil lentement pour qu\'il reconnaisse les lieux.', arTrackLowFeature:'La surface est sombre ou peu texturée. Visez un endroit plus clair, ou une surface avec du motif.', arTrackFast:'Mouvement trop rapide. Tenez l\'appareil calmement.',
     notPublished:'non publié',
@@ -3857,6 +3862,7 @@ var LANGS = {
     dftNoSavedDrafts:'Aucun plan enregistré.',
   },
   de: {
+    orderTitle:'Anordnung', orderBar:'Untere Tabs', orderMenu:'Reihenfolge im Menü', orderMenuSub:'Die Reihenfolge im Menü',
     langLabel:'Sprache',
     arErrNoSupport:'Dieses Gerät unterstützt das Messen mit der Kamera nicht', arErrBusy:'Eine Messung läuft bereits', arErrOpen:'Der Bildschirm konnte nicht geöffnet werden', arSegHere:'Von hier', arSegTwo:'2 Punkte', arSegTri:'2 Stellen', arBtnFix:'Hier festlegen', arBtnRedo:'Neu anfangen', arBtnUse:'Diese Entfernung nehmen', arBtnPlace:'Punkt setzen', arBtnAimHere:'Von hier peilen', arBtnAimAgain:'Noch einmal peilen', arHintFromMe:'Misst von deinem Standort. Das Kreuz auf das Ziel setzen und Hier festlegen antippen.', arHintTwoA:'Misst zwischen zwei entfernten Stellen. Das Kreuz auf ein Ende setzen und Punkt setzen antippen.', arHintTwoB:'Das Kreuz auf das andere Ende setzen und noch einmal Punkt setzen antippen.', arHintTriA:'Für Genauigkeit auf große Entfernung. Das Kreuz auf das Ziel setzen und Von hier peilen antippen.', arHintTriB:'Das Kreuz auf derselben Stelle halten, einige Meter seitwärts gehen, dann Noch einmal peilen antippen.', arHintDone:'Wenn der Wert passt, Diese Entfernung nehmen antippen.', arWarnExtended:'Gemessen auf einer verlängerten Fläche, außerhalb der LiDAR-Reichweite. Je weiter, desto unzuverlässiger. 2 Stellen ist genauer.', arWarnNoPlane:'Keine messbare Fläche gefunden. Das Gerät ein wenig bewegen.', arTriProgress:'{d}m seitwärts gegangen. Die Peilungen verfehlen sich um {g}m. {tail}', arTriWalkMore:'Noch etwas weiter seitwärts gehen, dann wird es genauer.', arTriReady:'Wenn du dieselbe Stelle anpeilst, Noch einmal peilen antippen.', arTriNoCross:'{d}m seitwärts gegangen. Noch kein Schnittpunkt. Noch etwas weiter seitwärts gehen.', arTriFail:'Kein Schnittpunkt. Weiter dieselbe Stelle anpeilen und noch etwas weiter seitwärts gehen.', arTriNoMove:'Du hast dich kaum bewegt. Erst einige Meter seitwärts gehen, dann peilen.', arTriFixed:'Basis {b}m, Peilungen verfehlen sich um {g}m. Wenn der Wert passt, Diese Entfernung nehmen antippen.', arTrackInit:'Das Gerät langsam bewegen, damit es die Umgebung erfasst.', arTrackLowFeature:'Die Fläche ist dunkel oder wenig strukturiert. Auf eine hellere Stelle oder eine Fläche mit Muster zielen.', arTrackFast:'Zu schnelle Bewegung. Ruhig halten.',
     notPublished:'nicht angegeben',
@@ -4499,6 +4505,7 @@ var LANGS = {
     dftNoSavedDrafts:'Noch keine gespeicherten Pläne.',
   },
   pt: {
+    orderTitle:'Disposição', orderBar:'Abas de baixo', orderMenu:'Ordem do menu', orderMenuSub:'A ordem em que aparecem no menu',
     langLabel:'Idioma',
     arErrNoSupport:'Este aparelho não suporta medição pela câmera', arErrBusy:'Já existe uma medição em andamento', arErrOpen:'Não foi possível abrir a tela', arSegHere:'Daqui', arSegTwo:'2 pontos', arSegTri:'2 lugares', arBtnFix:'Fixar aqui', arBtnRedo:'Começar de novo', arBtnUse:'Usar esta distância', arBtnPlace:'Marcar um ponto', arBtnAimHere:'Visar daqui', arBtnAimAgain:'Visar de novo', arHintFromMe:'Mede de onde você está. Ponha a cruz no alvo e toque em Fixar aqui.', arHintTwoA:'Mede entre dois lugares separados. Ponha a cruz em uma ponta e toque em Marcar um ponto.', arHintTwoB:'Ponha a cruz na outra ponta e toque em Marcar um ponto de novo.', arHintTriA:'Para precisão a longa distância. Ponha a cruz no alvo e toque em Visar daqui.', arHintTriB:'Mantenha a cruz no mesmo ponto, ande alguns metros para o lado e toque em Visar de novo.', arHintDone:'Se o valor estiver bom, toque em Usar esta distância.', arWarnExtended:'Medindo em um plano estendido, fora do alcance do LiDAR. Quanto mais longe, menos confiável. 2 lugares é mais preciso.', arWarnNoPlane:'Nenhuma superfície mensurável encontrada. Mova um pouco o aparelho.', arTriProgress:'Você andou {d}m para o lado. As visadas erram por {g}m. {tail}', arTriWalkMore:'Ande um pouco mais para o lado para ganhar precisão.', arTriReady:'Se estiver no mesmo ponto, toque em Visar de novo.', arTriNoCross:'Você andou {d}m para o lado. Ainda sem ponto de cruzamento. Ande um pouco mais para o lado.', arTriFail:'Sem ponto de cruzamento. Continue visando o mesmo ponto e ande um pouco mais para o lado.', arTriNoMove:'Você quase não se moveu. Ande alguns metros para o lado antes de visar.', arTriFixed:'Base {b}m, visadas erram por {g}m. Se o valor estiver bom, toque em Usar esta distância.', arTrackInit:'Mova o aparelho devagar para ele reconhecer o ambiente.', arTrackLowFeature:'A superfície está escura ou tem pouca textura. Aponte para um lugar mais claro, ou com padrão.', arTrackFast:'Movimento rápido demais. Segure com calma.',
     notPublished:'não divulgado',
@@ -5141,6 +5148,7 @@ var LANGS = {
     dftNoSavedDrafts:'Nenhuma planta salva ainda.',
   },
   fi: {
+    orderTitle:'Järjestys', orderBar:'Alapalkin välilehdet', orderMenu:'Valikon järjestys', orderMenuSub:'Järjestys, jossa ne näkyvät valikossa',
     langLabel:'Kieli',
     arErrNoSupport:'Tämä laite ei tue kameralla mittaamista', arErrBusy:'Mittaus on jo käynnissä', arErrOpen:'Näkymää ei voitu avata', arSegHere:'Täältä', arSegTwo:'2 pistettä', arSegTri:'2 paikkaa', arBtnFix:'Lukitse tähän', arBtnRedo:'Aloita alusta', arBtnUse:'Käytä tätä etäisyyttä', arBtnPlace:'Aseta piste', arBtnAimHere:'Tähtää täältä', arBtnAimAgain:'Tähtää uudelleen', arHintFromMe:'Mittaa siitä, missä seisot. Aseta risti kohteeseen ja napauta Lukitse tähän.', arHintTwoA:'Mittaa kahden erillisen paikan väliä. Aseta risti toiseen päähän ja napauta Aseta piste.', arHintTwoB:'Aseta risti toiseen päähän ja napauta Aseta piste uudelleen.', arHintTriA:'Tarkkuutta pitkälle matkalle. Aseta risti kohteeseen ja napauta Tähtää täältä.', arHintTriB:'Pidä risti samassa kohdassa, kävele muutama metri sivusuunnassa ja napauta Tähtää uudelleen.', arHintDone:'Jos arvo näyttää oikealta, napauta Käytä tätä etäisyyttä.', arWarnExtended:'Mitataan jatketulla tasolla, LiDARin kantaman ulkopuolella. Mitä kauempana, sitä epävarmempi. 2 paikkaa on tarkempi.', arWarnNoPlane:'Mitattavaa pintaa ei löydy. Liikuta laitetta vähän.', arTriProgress:'Kävelty {d}m sivusuunnassa. Tähtäykset ohittavat {g}m. {tail}', arTriWalkMore:'Kävele vielä vähän sivusuunnassa, niin tarkkuus paranee.', arTriReady:'Jos tähtäät samaan kohtaan, napauta Tähtää uudelleen.', arTriNoCross:'Kävelty {d}m sivusuunnassa. Leikkauspistettä ei vielä ole. Kävele vielä vähän sivusuunnassa.', arTriFail:'Ei leikkauspistettä. Pidä tähtäys samassa kohdassa ja kävele vielä vähän sivusuunnassa.', arTriNoMove:'Et ole liikkunut juuri lainkaan. Kävele muutama metri sivusuunnassa ennen tähtäämistä.', arTriFixed:'Perusviiva {b}m, tähtäykset ohittavat {g}m. Jos arvo näyttää oikealta, napauta Käytä tätä etäisyyttä.', arTrackInit:'Liikuta laitetta hitaasti, jotta se tunnistaa ympäristön.', arTrackLowFeature:'Pinta on tumma tai vähäkuvioinen. Tähtää valoisampaan paikkaan tai kuvioituun pintaan.', arTrackFast:'Liike on liian nopeaa. Pidä laite rauhallisesti.',
     notPublished:'ei ilmoitettu',
@@ -5783,6 +5791,7 @@ var LANGS = {
     dftNoSavedDrafts:'Tallennettuja pohjia ei vielä ole.',
   },
   ko: {
+    orderTitle:'배치 설정', orderBar:'하단 탭', orderMenu:'메뉴 순서', orderMenuSub:'메뉴에 나오는 순서입니다',
     langLabel:'언어',
     arErrNoSupport:'이 기기는 카메라 측정을 지원하지 않습니다', arErrBusy:'이미 측정 중입니다', arErrOpen:'화면을 열 수 없습니다', arSegHere:'여기서', arSegTwo:'두 점', arSegTri:'두 지점', arBtnFix:'여기로 확정', arBtnRedo:'다시 시작', arBtnUse:'이 거리 사용', arBtnPlace:'점 놓기', arBtnAimHere:'여기서 겨냥', arBtnAimAgain:'다시 겨냥', arHintFromMe:'지금 서 있는 곳에서 측정합니다. 십자를 대상에 맞추고 「여기로 확정」을 누르세요.', arHintTwoA:'떨어진 두 곳 사이를 측정합니다. 십자를 한쪽 끝에 맞추고 「점 놓기」를 누르세요.', arHintTwoB:'십자를 반대쪽 끝에 맞추고 「점 놓기」를 다시 누르세요.', arHintTriA:'먼 거리를 정확히 측정합니다. 십자를 대상에 맞추고 「여기서 겨냥」을 누르세요.', arHintTriB:'십자를 같은 곳에 유지한 채 옆으로 몇 미터 걸은 다음 「다시 겨냥」을 누르세요.', arHintDone:'값이 맞으면 「이 거리 사용」을 누르세요.', arWarnExtended:'면을 연장해 측정하고 있습니다(LiDAR 범위 밖). 멀어질수록 신뢰도가 떨어집니다. 「두 지점」이 더 정확합니다.', arWarnNoPlane:'측정할 수 있는 면이 없습니다. 기기를 조금 움직이세요.', arTriProgress:'옆으로 {d}m 이동했습니다. 겨냥선이 {g}m 어긋납니다. {tail}', arTriWalkMore:'옆으로 조금 더 걸으면 정확해집니다.', arTriReady:'같은 곳을 겨냥하고 있다면 「다시 겨냥」을 누르세요.', arTriNoCross:'옆으로 {d}m 이동했습니다. 아직 교점이 나오지 않습니다. 옆으로 조금 더 걸으세요.', arTriFail:'교점을 구할 수 없습니다. 같은 곳을 겨냥한 채 옆으로 조금 더 걸으세요.', arTriNoMove:'거의 움직이지 않았습니다. 옆으로 몇 미터 걸은 다음 겨냥하세요.', arTriFixed:'기선 {b}m, 겨냥선 어긋남 {g}m. 값이 맞으면 「이 거리 사용」을 누르세요.', arTrackInit:'기기를 천천히 움직여 주변을 인식시키세요.', arTrackLowFeature:'어둡거나 무늬가 적은 면입니다. 밝은 곳이나 무늬가 있는 면을 겨냥하세요.', arTrackFast:'너무 빠르게 움직입니다. 천천히 잡으세요.',
     notPublished:'미공개',
@@ -6425,6 +6434,7 @@ var LANGS = {
     dftNoSavedDrafts:'저장된 도면이 없습니다.',
   },
   th: {
+    orderTitle:'การจัดเรียง', orderBar:'แท็บด้านล่าง', orderMenu:'ลำดับในเมนู', orderMenuSub:'ลำดับที่แสดงในเมนู',
     langLabel:'ภาษา',
     arErrNoSupport:'อุปกรณ์นี้ไม่รองรับการวัดด้วยกล้อง', arErrBusy:'กำลังวัดอยู่แล้ว', arErrOpen:'ไม่สามารถเปิดหน้าจอได้', arSegHere:'จากที่นี่', arSegTwo:'2 จุด', arSegTri:'2 ตำแหน่ง', arBtnFix:'กำหนดที่นี่', arBtnRedo:'เริ่มใหม่', arBtnUse:'ใช้ระยะนี้', arBtnPlace:'วางจุด', arBtnAimHere:'เล็งจากที่นี่', arBtnAimAgain:'เล็งอีกครั้ง', arHintFromMe:'วัดจากตำแหน่งที่คุณยืน วางกากบาทบนเป้าหมายแล้วกด กำหนดที่นี่', arHintTwoA:'วัดระยะระหว่างสองตำแหน่งที่ห่างกัน วางกากบาทที่ปลายด้านหนึ่งแล้วกด วางจุด', arHintTwoB:'วางกากบาทที่ปลายอีกด้านแล้วกด วางจุด อีกครั้ง', arHintTriA:'สำหรับความแม่นยำในระยะไกล วางกากบาทบนเป้าหมายแล้วกด เล็งจากที่นี่', arHintTriB:'คงกากบาทไว้ที่จุดเดิม เดินไปด้านข้างสองสามเมตร แล้วกด เล็งอีกครั้ง', arHintDone:'ถ้าค่าดูถูกต้อง กด ใช้ระยะนี้', arWarnExtended:'กำลังวัดบนระนาบที่ขยายออกไป เกินระยะของ LiDAR ยิ่งไกลยิ่งเชื่อถือได้น้อย ใช้ 2 ตำแหน่ง จะแม่นกว่า', arWarnNoPlane:'ไม่พบพื้นผิวที่วัดได้ ขยับอุปกรณ์เล็กน้อย', arTriProgress:'เดินไปด้านข้าง {d} เมตร เส้นเล็งคลาดกัน {g} เมตร {tail}', arTriWalkMore:'เดินไปด้านข้างอีกหน่อยจะแม่นขึ้น', arTriReady:'ถ้าเล็งจุดเดิมอยู่ กด เล็งอีกครั้ง', arTriNoCross:'เดินไปด้านข้าง {d} เมตร ยังไม่ได้จุดตัด เดินไปด้านข้างอีกหน่อย', arTriFail:'หาจุดตัดไม่ได้ เล็งจุดเดิมไว้แล้วเดินไปด้านข้างอีกหน่อย', arTriNoMove:'แทบไม่ได้ขยับ เดินไปด้านข้างสองสามเมตรก่อนเล็ง', arTriFixed:'เส้นฐาน {b} เมตร เส้นเล็งคลาดกัน {g} เมตร ถ้าค่าดูถูกต้อง กด ใช้ระยะนี้', arTrackInit:'ขยับอุปกรณ์ช้า ๆ ให้รู้จักสภาพแวดล้อม', arTrackLowFeature:'พื้นผิวมืดหรือมีลายน้อย เล็งไปที่สว่างกว่า หรือพื้นผิวที่มีลาย', arTrackFast:'ขยับเร็วเกินไป จับให้นิ่ง',
     notPublished:'ไม่ได้ระบุ',
@@ -7067,6 +7077,7 @@ var LANGS = {
     dftNoSavedDrafts:'ยังไม่มีผังไฟที่บันทึกไว้',
   },
   ptPT: {
+    orderTitle:'Disposição', orderBar:'Separadores de baixo', orderMenu:'Ordem do menu', orderMenuSub:'A ordem em que aparecem no menu',
     langLabel:'Idioma',
     arErrNoSupport:'Este dispositivo não suporta medição pela câmara', arErrBusy:'Já existe uma medição em curso', arErrOpen:'Não foi possível abrir o ecrã', arSegHere:'Daqui', arSegTwo:'2 pontos', arSegTri:'2 sítios', arBtnFix:'Fixar aqui', arBtnRedo:'Começar de novo', arBtnUse:'Usar esta distância', arBtnPlace:'Marcar um ponto', arBtnAimHere:'Visar daqui', arBtnAimAgain:'Visar de novo', arHintFromMe:'Mede de onde se encontra. Ponha a cruz no alvo e toque em Fixar aqui.', arHintTwoA:'Mede entre dois sítios separados. Ponha a cruz numa ponta e toque em Marcar um ponto.', arHintTwoB:'Ponha a cruz na outra ponta e toque em Marcar um ponto de novo.', arHintTriA:'Para precisão a longa distância. Ponha a cruz no alvo e toque em Visar daqui.', arHintTriB:'Mantenha a cruz no mesmo ponto, ande alguns metros para o lado e toque em Visar de novo.', arHintDone:'Se o valor estiver bom, toque em Usar esta distância.', arWarnExtended:'A medir num plano estendido, fora do alcance do LiDAR. Quanto mais longe, menos fiável. 2 sítios é mais preciso.', arWarnNoPlane:'Não foi encontrada uma superfície mensurável. Mova um pouco o dispositivo.', arTriProgress:'Andou {d}m para o lado. As visadas falham por {g}m. {tail}', arTriWalkMore:'Ande um pouco mais para o lado para ganhar precisão.', arTriReady:'Se estiver no mesmo ponto, toque em Visar de novo.', arTriNoCross:'Andou {d}m para o lado. Ainda sem ponto de cruzamento. Ande um pouco mais para o lado.', arTriFail:'Sem ponto de cruzamento. Continue a visar o mesmo ponto e ande um pouco mais para o lado.', arTriNoMove:'Quase não se moveu. Ande alguns metros para o lado antes de visar.', arTriFixed:'Base {b}m, visadas falham por {g}m. Se o valor estiver bom, toque em Usar esta distância.', arTrackInit:'Mova o dispositivo devagar para reconhecer o ambiente.', arTrackLowFeature:'A superfície está escura ou tem pouca textura. Aponte para um sítio mais claro, ou com padrão.', arTrackFast:'Movimento demasiado rápido. Segure com calma.',
     notPublished:'não divulgado',
@@ -7709,6 +7720,7 @@ var LANGS = {
     dftNoSavedDrafts:'Nenhuma planta guardada ainda.',
   },
   zhTW: {
+    orderTitle:'排列設定', orderBar:'底部標籤', orderMenu:'選單的排列', orderMenuSub:'在三條線選單中出現的順序',
     langLabel:'語言',
     arErrNoSupport:'此裝置不支援相機測量', arErrBusy:'已經在測量中', arErrOpen:'無法開啟介面', arSegHere:'從這裡', arSegTwo:'兩點間', arSegTri:'兩地點', arBtnFix:'在此確定', arBtnRedo:'重新開始', arBtnUse:'使用此距離', arBtnPlace:'放置點', arBtnAimHere:'從這裡瞄準', arBtnAimAgain:'再次瞄準', arHintFromMe:'從您所在的位置測量。把十字對準目標，然後點「在此確定」。', arHintTwoA:'測量相隔兩處之間的距離。把十字對準一端，然後點「放置點」。', arHintTwoB:'把十字對準另一端，再點一次「放置點」。', arHintTriA:'用於遠距離的精確測量。把十字對準目標，然後點「從這裡瞄準」。', arHintTriB:'保持十字對準同一處，向側面走幾公尺，然後點「再次瞄準」。', arHintDone:'如果數值合適，點「使用此距離」。', arWarnExtended:'正在按延長的平面測量（超出 LiDAR 範圍）。越遠越不可靠。「兩地點」更準確。', arWarnNoPlane:'找不到可測量的面。請稍微移動裝置。', arTriProgress:'已向側面走了 {d} 公尺。瞄準線相差 {g} 公尺。{tail}', arTriWalkMore:'再向側面走一點會更準確。', arTriReady:'如果瞄準的是同一處，請點「再次瞄準」。', arTriNoCross:'已向側面走了 {d} 公尺。仍算不出交點。請再向側面走一點。', arTriFail:'算不出交點。保持瞄準同一處，再向側面走一點。', arTriNoMove:'幾乎沒有移動。請先向側面走幾公尺再瞄準。', arTriFixed:'基線 {b} 公尺，瞄準線相差 {g} 公尺。如果數值合適，點「使用此距離」。', arTrackInit:'請慢慢移動裝置，讓它辨識周圍環境。', arTrackLowFeature:'這個面偏暗或紋理很少。請瞄準較亮的地方，或有紋理的面。', arTrackFast:'移動太快。請拿穩一些。',
     notPublished:'未公布',
@@ -8557,17 +8569,15 @@ function applyI18n() {
   });
   var _dl = document.getElementById('drawer-lang');
   if (_dl) _dl.innerHTML = langChipHTML();
+  // ドロワーの項目名も引き直す（開いたままの言語切り替えに追従）
+  try { if (document.getElementById('drawer-scroll')) renderDrawerItems(); } catch(e) {}
   try { renderAmbBars(); } catch(e) {}
   function sp(id, k) { var el = document.getElementById(id); if (el) el.placeholder = t(k); }
   s('hdr-sub','appSub'); s('btn-fav','favBtn');
   s('lbl-maker','makerTitle'); s('lbl-model','modelTitle');
   s('lbl-sort','sortLabel'); s('lbl-sort2','sortLabel');
   s('lbl-cmp-btn','cmpBtn');
-  s('drawer-lbl-privacy','navPrivacy');
   s('drawer-lbl-lang','langLabel');
-  s('drawer-lbl-help','helpOpen');
-  s('drawer-lbl-mired','mrdTitle');
-  s('drawer-lbl-ar','cmARHdr');
   s('lbl-fb-shot-note','fbShotNote');
   s('lbl-fb-contact','fbContactLabel'); s('lbl-fb-contact-opt','fbContactOpt');
   s('lbl-fb-contact-note','fbContactHint'); sp('fb-contact','fbContactPh');
@@ -8580,7 +8590,6 @@ function applyI18n() {
   s('lbl-fstop','fstopLabel'); s('lbl-fstop-sub','fstopSub');
   s('lbl-result','resultLabel');
   s('lbl-result-header','resultLabel');
-  s('drawer-lbl-nav','navEditTitle');
   s('lbl-mix-result-header','mixResultLabel');
   s('lbl-fav-title','favTitle'); s('memo-modal-title','favAddTitle');
   s('memo-save-btn','favSave'); s('memo-cancel-btn','favCancel');
@@ -17223,9 +17232,12 @@ function _cmShowDistARButtons() {
     for (var i = 0; i < btns.length; i++) {
       btns[i].style.display = st.available ? 'block' : 'none';
     }
-    // ドロワーの入口。どのタブからでも届くように
-    var db = document.getElementById('drawer-item-ar');
-    if (db) db.style.display = st.available ? '' : 'none';
+    // ドロワーの入口は renderDrawerItems が _cmARState を見て出し入れする。
+    // 開いている最中に判定が返ってきた場合だけ描き直す。
+    if (document.getElementById('drawer-scroll') &&
+        document.getElementById('drawer').classList.contains('open')) {
+      try { renderDrawerItems(); } catch(e) {}
+    }
   });
 }
 
@@ -19556,6 +19568,8 @@ function openDrawer() {
   // 言語ボタンはここで入れる。ドロワーの HTML は <script> より後ろにあるので、
   // 起動時の applyI18n では #drawer-lang がまだ存在せず、何も入らないままだった。
   _drawerLangFill();
+  // 項目は並び順の設定で変わるので、開くたびに描き直す
+  try { renderDrawerItems(); } catch(e) { console.error('drawer', e); }
   document.getElementById('drawer').classList.add('open');
   document.getElementById('drawer-overlay').classList.add('open');
 }
@@ -19585,6 +19599,64 @@ function updateDrawerActiveItem(page) {
  * 環境光バーの ✏️ から開くので、下部タブに常駐させる必要がなくなった。
  * 以前ここに入れていたので、保存済みの並びに 'amb' が残っていることがあるが、
  * renderNavBar が _navItem で引けないものを落とすので問題にならない。 */
+/* ドロワー（三本線メニュー）の中身。静的 HTML に並べていたが、
+ * 順番を変えられるようにデータから描く形にした。
+ * lbl は訳さない語（画面名）、key があれば t() で引く。 */
+var DRAWER_ITEMS = [
+  { id:'calc',     icon:'💡',  lbl:'CALC',   page:'calc'     },
+  { id:'camera',   icon:'🎬',  lbl:'Camera', page:'camera'   },
+  { id:'mix',      icon:'🎛️', lbl:'Mix',    page:'mix'      },
+  { id:'finder',   icon:'🔍',  lbl:'Finder', page:'finder'   },
+  { id:'alt',      icon:'🔄',  lbl:'Alt',    page:'alt'      },
+  { id:'draft',    icon:'📐',  lbl:'Draft',  page:'draft'    },
+  { id:'ar',       icon:'📷',  key:'cmARHdr',      open:'openARMeasure', needsAR:true },
+  { id:'sun',      icon:'☀️',  key:'sunTitle',     open:'openSunTool'   },
+  { id:'navedit',  icon:'🧩',  key:'navEditTitle', open:'openNavEditor' },
+  { id:'mired',    icon:'🎨',  key:'mrdTitle',     open:'openMiredTool' },
+  { id:'help',     icon:'✨',  key:'helpOpen',     open:'openHelp'      },
+  { id:'feedback', icon:'📝',  lbl:'Feedback', page:'feedback' },
+  { id:'privacy',  icon:'🔒',  key:'navPrivacy',   open:'openPrivacy'   }
+];
+var DRAWER_DEFAULT = DRAWER_ITEMS.map(function(it){ return it.id; });
+
+function _drawerItem(id){
+  for (var i=0;i<DRAWER_ITEMS.length;i++) if (DRAWER_ITEMS[i].id===id) return DRAWER_ITEMS[i];
+  return null;
+}
+/** 並び順。壊れた値や、あとから増えた項目も拾えるようにする */
+function drawerOrder(){
+  var a = null;
+  try { a = JSON.parse(localStorage.getItem('calm_drawer_order') || 'null'); } catch(e) {}
+  if (!Array.isArray(a)) a = [];
+  // 知らない id と重複を落とす
+  a = a.filter(function(id, i){ return _drawerItem(id) && a.indexOf(id) === i; });
+  // 版が上がって項目が増えたときは、末尾に足す（消えないようにする）
+  DRAWER_DEFAULT.forEach(function(id){ if (a.indexOf(id) < 0) a.push(id); });
+  return a;
+}
+function drawerOrderSave(a){
+  try { localStorage.setItem('calm_drawer_order', JSON.stringify(a)); } catch(e) {}
+}
+function drawerLabel(it){ return it.key ? t(it.key) : it.lbl; }
+
+/** ドロワーの項目を並び順どおりに描く */
+function renderDrawerItems(){
+  var host = document.getElementById('drawer-scroll'); if (!host) return;
+  var arOK = !!(_cmARState && _cmARState.available);
+  host.innerHTML = drawerOrder().map(function(id){
+    var it = _drawerItem(id); if (!it) return '';
+    // AR は対応端末だけ。未確認のうちは出さない（従来と同じ）
+    if (it.needsAR && !arOK) return '';
+    var act = it.page ? ' onclick="openDrawerPage(\'' + it.page + '\')"'
+                      : ' onclick="closeDrawer();' + it.open + '()"';
+    var eid = it.page ? ' id="drawer-item-' + it.page + '"' : '';
+    return '<button class="drawer-item"' + eid + act + '>' +
+      '<span class="drawer-item-icon">' + it.icon + '</span>' +
+      '<span>' + drawerLabel(it) + '</span></button>';
+  }).join('');
+  try { updateDrawerActiveItem(S.page || 'calc'); } catch(e) {}
+}
+
 var NAV_ITEMS = [
   { id:'calc',   icon:'💡',  lbl:'Calc',      page:'calc'   },
   { id:'mix',    icon:'🎛️', lbl:'Mix',       page:'mix'    },
@@ -19649,7 +19721,7 @@ function openNavEditor(){
   '<div style="background:#fff;color:#111;border-radius:20px 20px 0 0;width:100%;max-height:88vh;max-height:88dvh;display:flex;flex-direction:column;" onclick="event.stopPropagation()">' +
     '<div style="flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:16px 16px 12px;border-bottom:1px solid #eee;">' +
       '<div style="flex:1;min-width:0;">' +
-        '<div style="font-size:15px;font-weight:900;">🧩 ' + t('navEditTitle') + '</div>' +
+        '<div style="font-size:15px;font-weight:900;">🧩 ' + t('orderTitle') + '</div>' +
         '<div style="font-size:10.5px;color:#999;font-weight:700;margin-top:2px;">' + t('navEditSub').replace('{n}', NAV_MAX) + '</div>' +
       '</div>' +
       langChipHTML() +
@@ -19684,11 +19756,37 @@ function _navEditRender(){
     return '<button onclick="_navAdd(\'' + it.id + '\')"' + (full ? ' disabled' : '') + ' style="display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border:1px dashed ' + (full ? '#ddd' : '#90a4ae') + ';border-radius:20px;background:transparent;color:' + (full ? '#bbb' : '#455a64') + ';font-size:11.5px;font-weight:800;cursor:' + (full ? 'not-allowed' : 'pointer') + ';margin:0 6px 6px 0;">' +
       '<span style="font-size:14px;">' + it.icon + '</span>' + it.lbl + ' ＋</button>';
   }).join('');
+  // ドロワー（三本線メニュー）の並び。隠す機能は付けない。
+  // プライバシーポリシーなど、消えると困る項目があるため。
+  var dOrder = drawerOrder();
+  var menuRows = dOrder.map(function(id, i){
+    var it = _drawerItem(id); if (!it) return '';
+    var na = it.needsAR && !(_cmARState && _cmARState.available);
+    return '<div style="display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid #dfe6ee;border-radius:10px;margin-bottom:6px;background:' + (na ? '#f6f6f6' : '#fff') + ';">' +
+      '<span style="font-size:18px;">' + it.icon + '</span>' +
+      '<span style="flex:1;min-width:0;font-size:12.5px;font-weight:800;color:' + (na ? '#aaa' : '#111') + ';">' + drawerLabel(it) +
+        (na ? '<span style="font-size:10.5px;font-weight:700;color:#c62828;margin-left:6px;">' + t('navArOnly') + '</span>' : '') + '</span>' +
+      '<button onclick="_drawerMove(' + i + ',-1)"' + (i===0?' disabled':'') + ' style="width:28px;height:26px;border:1px solid #dfe6ee;border-radius:7px;background:#f7f9fc;font-size:12px;font-weight:900;cursor:pointer;">↑</button>' +
+      '<button onclick="_drawerMove(' + i + ',1)"' + (i===dOrder.length-1?' disabled':'') + ' style="width:28px;height:26px;border:1px solid #dfe6ee;border-radius:7px;background:#f7f9fc;font-size:12px;font-weight:900;cursor:pointer;">↓</button>' +
+    '</div>';
+  }).join('');
+
   b.innerHTML =
-    '<div style="font-size:11px;font-weight:900;color:#888;letter-spacing:.08em;margin-bottom:6px;">' + t('navOnBar') + ' (' + order.length + '/' + NAV_MAX + ')</div>' + onBar +
-    '<div style="font-size:11px;font-weight:900;color:#888;letter-spacing:.08em;margin:14px 0 6px;">' + t('navOff') + '</div>' + (rest || '<div style="font-size:11px;color:#bbb;">—</div>');
+    '<div style="font-size:11px;font-weight:900;color:#888;letter-spacing:.08em;margin-bottom:6px;">' + t('orderBar') + ' \u00b7 ' + t('navOnBar') + ' (' + order.length + '/' + NAV_MAX + ')</div>' + onBar +
+    '<div style="font-size:11px;font-weight:900;color:#888;letter-spacing:.08em;margin:14px 0 6px;">' + t('navOff') + '</div>' + (rest || '<div style="font-size:11px;color:#bbb;">—</div>') +
+    '<div style="height:1px;background:#eee;margin:18px 0 14px;"></div>' +
+    '<div style="font-size:11px;font-weight:900;color:#888;letter-spacing:.08em;">' + t('orderMenu') + '</div>' +
+    '<div style="font-size:10.5px;color:#aaa;font-weight:700;margin:2px 0 8px;">' + t('orderMenuSub') + '</div>' + menuRows;
 }
 
+window._drawerMove = function(i, d){
+  var a = drawerOrder(); var j = i + d;
+  if (j < 0 || j >= a.length) return;
+  var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  drawerOrderSave(a);
+  _navEditRender();
+  try { renderDrawerItems(); } catch(e) {}
+};
 window._navMove = function(i, d){
   var a = navOrder(); var j = i + d;
   if (j < 0 || j >= a.length) return;
@@ -19705,7 +19803,12 @@ window._navAdd = function(id){
   if (a.length >= NAV_MAX || a.indexOf(id) >= 0) return;
   a.push(id); navOrderSave(a); _navEditRender();
 };
-window._navReset = function(){ navOrderSave(NAV_DEFAULT.slice()); _navEditRender(); };
+window._navReset = function(){
+  navOrderSave(NAV_DEFAULT.slice());
+  drawerOrderSave(DRAWER_DEFAULT.slice());   // メニューの並びも一緒に戻す
+  _navEditRender();
+  try { renderNavBar(); renderDrawerItems(); } catch(e) {}
+};
 
 function showPage(p) {
   var PAGES = ['calc','camera','mix','finder','alt','feedback','draft'];
@@ -32086,7 +32189,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.10';
-var APP_BUILD = 2;
+var APP_BUILD = 3;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
@@ -32648,60 +32751,8 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
     <span class="drawer-lang-lbl" id="drawer-lbl-lang">言語 / Language</span>
     <span id="drawer-lang" style="flex:1;min-width:0;"></span>
   </div>
-  <div class="drawer-scroll">
-  <button class="drawer-item" id="drawer-item-calc" onclick="openDrawerPage('calc')">
-    <span class="drawer-item-icon">💡</span>
-    <span>CALC</span>
-  </button>
-  <button class="drawer-item" id="drawer-item-camera" onclick="openDrawerPage('camera')">
-    <span class="drawer-item-icon">🎬</span>
-    <span>Camera</span>
-  </button>
-  <button class="drawer-item" id="drawer-item-mix" onclick="openDrawerPage('mix')">
-    <span class="drawer-item-icon">🎛️</span>
-    <span id="drawer-lbl-mix">Mix</span>
-  </button>
-  <button class="drawer-item" id="drawer-item-finder" onclick="openDrawerPage('finder')">
-    <span class="drawer-item-icon">🔍</span>
-    <span id="drawer-lbl-finder">Finder</span>
-  </button>
-  <button class="drawer-item" id="drawer-item-alt" onclick="openDrawerPage('alt')">
-    <span class="drawer-item-icon">🔄</span>
-    <span id="drawer-lbl-alt">Alt</span>
-  </button>
-  <button class="drawer-item" id="drawer-item-draft" onclick="openDrawerPage('draft')">
-    <span class="drawer-item-icon">📐</span>
-    <span>Draft</span>
-  </button>
-  <button class="drawer-item" id="drawer-item-ar" onclick="closeDrawer();openARMeasure()" style="display:none;">
-    <span class="drawer-item-icon">📷</span>
-    <span id="drawer-lbl-ar">ARメジャー</span>
-  </button>
-  <button class="drawer-item" onclick="closeDrawer();openSunTool()">
-    <span class="drawer-item-icon">☀️</span>
-    <span id="drawer-lbl-sun">SUN SCOUT</span>
-  </button>
-  <button class="drawer-item" onclick="closeDrawer();openNavEditor()">
-    <span class="drawer-item-icon">🧩</span>
-    <span id="drawer-lbl-nav">下部タブの並び</span>
-  </button>
-  <button class="drawer-item" onclick="closeDrawer();openMiredTool()">
-    <span class="drawer-item-icon">🎨</span>
-    <span id="drawer-lbl-mired">ミレッド計算</span>
-  </button>
-  <button class="drawer-item" onclick="closeDrawer();openHelp()">
-    <span class="drawer-item-icon">✨</span>
-    <span id="drawer-lbl-help">新機能の使いかた</span>
-  </button>
-  <button class="drawer-item" id="drawer-item-feedback" onclick="openDrawerPage('feedback')">
-    <span class="drawer-item-icon">📝</span>
-    <span>Feedback</span>
-  </button>
-  <button class="drawer-item" id="drawer-item-privacy" onclick="closeDrawer();openPrivacy()">
-    <span class="drawer-item-icon">🔒</span>
-    <span id="drawer-lbl-privacy">Privacy Policy</span>
-  </button>
-  </div>
+  <!-- 中身は renderDrawerItems() が並び順どおりに入れる -->
+  <div class="drawer-scroll" id="drawer-scroll"></div>
   <div class="drawer-footer" id="drawer-footer-ver">CALM v1.1.3.128</div>
 </div>
 
