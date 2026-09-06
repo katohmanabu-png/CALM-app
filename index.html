@@ -8290,7 +8290,16 @@ var LANGS = {
 var LANG = 'en';
 try { LANG = localStorage.getItem('lmp_lang') || 'en'; } catch(e) {}
 if (!LANGS[LANG]) LANG = 'ja';
-function t(k) { return (LANGS[LANG]||LANGS.ja)[k] || LANGS.ja[k] || k; }
+/* 訳語を引く。
+ * 「値があるか」を || で見ると、空文字が正しい訳のときに日本語へ落ちてしまう。
+ * 実際 mixUnitSuffix（日本語だけ「台」、他は空）で、英語などの Mix の結果に
+ * 「1台」と出ていた。キーを持っているかで判定する。 */
+function t(k) {
+  var d = LANGS[LANG] || LANGS.ja;
+  if (d && Object.prototype.hasOwnProperty.call(d, k)) return d[k];
+  if (LANGS.ja && Object.prototype.hasOwnProperty.call(LANGS.ja, k)) return LANGS.ja[k];
+  return k;
+}
 /* 段の単位。「+2.0 stop」のように数値のあとに付ける。
  * 関数にしてあるのは、t を別の意味で使っている関数の中からも呼ぶため。 */
 function stopUnit() { return t('finderStop'); }
@@ -31442,7 +31451,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.9';
-var APP_BUILD = 21;
+var APP_BUILD = 22;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
