@@ -8338,7 +8338,31 @@ function stopUnit() { return t('finderStop'); }
  * 残している。訳したいものだけここに足せばよい。
  * ACC_INFO の beam と group は判定に使っているので触らない。 */
 var DESC_I18N = {
-  // 例: ja: { '600W RGBWW LED Panel': '600W RGBWW LED パネル' }
+  /* 機種データに日本語で入っている値。日本語以外では英語で出す。
+   * 表に無ければ元の文字列のまま。 */
+  en: {
+    'T-Light フラット — 消費電力は未確認': 'T-Light Flat — power draw unverified',
+    'ハイパーブラスト 3kW': 'Hyper Blast 3kW',
+    'ハイパーブラスト 5kW': 'Hyper Blast 5kW',
+    'パーストロボ 1kW': 'Burst Strobe 1kW',
+    'フリージーライト 24W': 'Freezy Light 24W',
+    'ブラックライト — UV光源。lux値は参考程度': 'Black light — UV source; lux figures are indicative only',
+    '水銀灯 — 消費電力は未確認': 'Mercury lamp — power draw unverified',
+    'グリーン': 'Green', 'グレー': 'Grey', 'ブラック': 'Black', 'ブルー': 'Blue', 'ホワイト': 'White',
+    'セットペーパー 2.7m': 'Set paper 2.7m', 'セットペーパー 3.6m': 'Set paper 3.6m',
+    'ペーパー灰': 'Paper, grey', 'ペーパー白': 'Paper, white',
+    '16×500Wまたは16×1kW': '16×500W or 16×1kW',
+    '24×500Wまたは24×1kW': '24×500W or 24×1kW',
+    '6×500Wまたは6×1kW': '6×500W or 6×1kW',
+    '9×300Wまたは9×500W': '9×300W or 9×500W',
+    '9×500Wまたは9×1kW': '9×500W or 9×1kW',
+    '電源ボックス 19 kg': 'Ballast 19 kg',
+    '電源ボックス 20.5 kg': 'Ballast 20.5 kg',
+    '電源ボックス 5.92 kg': 'Ballast 5.92 kg',
+    '電源ボックス 6.12 kg': 'Ballast 6.12 kg',
+    'USHIO / サーチライト': 'USHIO / Searchlight',
+    'DMX / リモート（パン 285°・チルト +27.5°/−57°）': 'DMX / remote (pan 285°, tilt +27.5°/−57°)'
+  }
 };
 var ACC_LABEL_I18N = {
   ja:   { 'Light Only':'素の球（アクセサリー無し）', 'Lensless (reflector)':'レンズ無し（リフレクター）' },
@@ -8354,11 +8378,13 @@ var ACC_LABEL_I18N = {
   ko:   { 'Light Only':'액세서리 없음', 'Lensless (reflector)':'렌즈 없음（리플렉터）' },
   th:   { 'Light Only':'ไม่ใส่อุปกรณ์เสริม', 'Lensless (reflector)':'ไม่มีเลนส์ (รีเฟลกเตอร์)' }
 };
-/** 上書きがあれば返す。無ければ英語のまま */
+/** その言語の上書き → 英語の上書き → 元の文字列。日本語のときは元のまま */
 function _i18nOver(tbl, v) {
-  if (!v) return v;
-  var m = tbl && tbl[LANG];
-  return (m && Object.prototype.hasOwnProperty.call(m, v)) ? m[v] : v;
+  if (!v || !tbl) return v;
+  var has = function(m) { return m && Object.prototype.hasOwnProperty.call(m, v); };
+  if (has(tbl[LANG])) return tbl[LANG][v];
+  if (LANG !== 'ja' && has(tbl.en)) return tbl.en[v];
+  return v;
 }
 /** 機種の説明文（表示用） */
 function descText(v) { return _i18nOver(DESC_I18N, v); }
@@ -8472,6 +8498,17 @@ function applyI18n() {
   function s(id, k) { var el = document.getElementById(id); if (el) el.textContent = t(k); }
   // ハンバーガーの言語ボタンも、各画面の見出しと同じものを使う
   // 開いている間に言語を変えたときの貼り替え。初回の差し込みは openDrawer 側
+  /* 言語を変えたときに取り残されるもの。
+   * どちらも別の関数が書き込むので applyI18n では触られていなかった。
+   * グリッドのピルは図面を描き直すまで前の言語のまま残り、AR メジャーの
+   * 単位の注記は開くまで static な日本語のままだった。 */
+  try {
+    if (document.getElementById('dft-scale-pill') && typeof _dftUpdatePill === 'function') _dftUpdatePill();
+  } catch(e) {}
+  try {
+    var _un = document.getElementById('cm-unit-note');
+    if (_un) _un.textContent = t('cmUnitPrefix') + ((typeof S !== 'undefined' && S.imperial) ? 'ft' : 'm');
+  } catch(e) {}
   /* ツールチップ。static な HTML に data-tip="キー" を書いておき、
    * ここで title に入れる。以前は日本語が直書きで、他の11言語でも
    * 日本語のまま出ていた。 */
@@ -16219,7 +16256,7 @@ function updatePreview() {
   var badges = [];
   // weight は灯体＋ヨーク。別体の電源ボックス等は weightExtra に分けて出す
   if (light.weight)      badges.push('⚖️ ' + light.weight);
-  if (light.weightExtra) badges.push('🔌 ' + light.weightExtra);
+  if (descText(light.weightExtra)) badges.push('🔌 ' + descText(light.weightExtra));
   if (light.size)        badges.push('📐 ' + light.size);
   setHTML('prev-badges', badges.map(function(b){ return '<div class="spec-badge">'+b+'</div>'; }).join(''));
 }
@@ -17626,7 +17663,7 @@ function renderDMX() {
   }
   var d = light.dmx;
   var items = [
-    [t('dmxPower'), d.power], [t('dmxCCT'), d.cct],
+    [t('dmxPower'), descText(d.power)], [t('dmxCCT'), d.cct],
     ['CRI', d.cri], ['TLCI', d.tlci],
     [t('dmxDimming'), d.dimming], [t('dmxIP'), d.ip]
   ];
@@ -17635,11 +17672,11 @@ function renderDMX() {
   if (d.tm30) items.push(['TM-30', d.tm30]);
   if (d.cqs)  items.push(['CQS', d.cqs]);
   if (d.ssi)  items.push(['SSI', d.ssi]);
-  if (light.weightExtra) items.push([t('cmpWeight') + '（別体）', light.weightExtra]);
+  if (descText(light.weightExtra)) items.push([t('cmpWeight') + ' ' + t('cmpWeightPartial'), descText(light.weightExtra)]);
   var html = items.map(function(i){
     return '<div class="dmx-item"><div class="dmx-lbl">'+i[0]+'</div><div class="dmx-val">'+(i[1]||'-')+'</div></div>';
   }).join('');
-  html += '<div class="dmx-item dmx-wide"><div class="dmx-lbl">'+t('dmxControl')+'</div><div class="dmx-val" style="font-size:11px;line-height:1.5">'+d.control+'</div></div>';
+  html += '<div class="dmx-item dmx-wide"><div class="dmx-lbl">'+t('dmxControl')+'</div><div class="dmx-val" style="font-size:11px;line-height:1.5">'+descText(d.control)+'</div></div>';
   if (d.effects && d.effects.length) {
     html += '<div class="dmx-item dmx-wide"><div class="dmx-lbl">'+t('dmxEffects')+'</div>' +
       '<div class="dmx-fx">' + d.effects.map(function(e){ return '<span class="dmx-chip">✨ '+e+'</span>'; }).join('') + '</div></div>';
@@ -18751,7 +18788,7 @@ function _cmpRenderRows() {
         if (w == null) return '—';
         // 別体の電源ボックスがある機種は、その分も見えるようにする
         return _cmpKg(w) + (l.weightExtra
-          ? '<div style="font-size:9.5px;font-weight:700;color:var(--text-dim,#888);">＋' + l.weightExtra + '</div>'
+          ? '<div style="font-size:9.5px;font-weight:700;color:var(--text-dim,#888);">＋' + descText(l.weightExtra) + '</div>'
           : ''); } },
     { label: t('cmpCCT'), val: function(l,i){ return l ? (ccts[i] + 'K') : '—'; } },
     { label: t('cmpCRI'), val: function(l){
@@ -18786,7 +18823,7 @@ function _cmpRenderRows() {
     { label: t('cmpIP'), val: function(l){ if (l && l.__mix) return t('cmpMixed');
         return (l&&l.dmx&&l.dmx.ip) ? l.dmx.ip : '—'; } },
     { label: t('cmpControl'), val: function(l){ if (l && l.__mix) return t('cmpMixed');
-        return (l&&l.dmx&&l.dmx.control) ? l.dmx.control : '—'; } }
+        return (l&&l.dmx&&l.dmx.control) ? descText(l.dmx.control) : '—'; } }
   ];
   var rows = '';
   specs.forEach(function(sp){
@@ -31885,7 +31922,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.9';
-var APP_BUILD = 25;
+var APP_BUILD = 26;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
