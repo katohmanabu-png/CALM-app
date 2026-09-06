@@ -19534,9 +19534,14 @@ function openPrivacy() {
  * 出したかどうかは表示したバージョンを持っておく（同じ版で二度出さない）。 */
 var HELP_TOPICS = ['1','2','3','4','5','6'];
 var HELP_SEEN_KEY = 'calm_help_seen_ver';
-/* 説明文そのものの版。APP_VER で見るとバージョンを上げるたびに同じ文章が
- * また出てしまうので、中身を書き換えたときだけここを上げる。 */
-var HELP_CONTENT_VER = '1.1.9b';
+/* 「更新するたびに一度出す」ので、版数とビルド番号の組で覚える。
+ * APP_VER / APP_BUILD はこのファイルの後ろで定義しているが、
+ * 呼ばれるのは起動処理の中なので、その時点では入っている。 */
+function helpSeenToken() {
+  var v = (typeof APP_VER   !== 'undefined') ? APP_VER   : '?';
+  var b = (typeof APP_BUILD !== 'undefined') ? APP_BUILD : '?';
+  return v + ' (' + b + ')';
+}
 
 function helpSectionHTML(n) {
   return '<div style="margin-bottom:18px;">' +
@@ -19555,7 +19560,8 @@ function openHelp() {
     '<div id="_help_ov" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:flex-end;justify-content:center;" onclick="if(event.target===this)closeHelp()">' +
     '<div style="background:var(--white,#fff);color:var(--text,#111);border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:88vh;max-height:88dvh;overflow-y:auto;padding:20px 18px 40px;-webkit-overflow-scrolling:touch;">' +
     '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px;">' +
-      '<div><div style="font-size:16px;font-weight:900;">✨ ' + t('helpTitle') + '</div>' +
+      '<div><div style="font-size:16px;font-weight:900;">✨ ' + t('helpTitle') +
+        ' <span style="font-size:11px;font-weight:800;color:var(--text-dim,#999);">v' + helpSeenToken() + '</span></div>' +
       '<div style="font-size:11px;color:var(--text-dim,#888);margin-top:3px;">' + t('helpSub') + '</div></div>' +
       '<button onclick="closeHelp()" style="border:none;background:var(--bg,#eee);width:30px;height:30px;border-radius:50%;font-size:14px;cursor:pointer;color:var(--text,#111);flex:none;">✕</button>' +
     '</div>' + body +
@@ -19564,7 +19570,7 @@ function openHelp() {
   var w = document.createElement('div'); w.innerHTML = html;
   document.body.appendChild(w.firstChild);
   // 開いた時点で「見た」ことにする。閉じ方（✕・背景・ボタン）を選ばない。
-  try { localStorage.setItem(HELP_SEEN_KEY, HELP_CONTENT_VER); } catch(e) {}
+  try { localStorage.setItem(HELP_SEEN_KEY, helpSeenToken()); } catch(e) {}
 }
 function closeHelp() { var o = document.getElementById('_help_ov'); if (o) o.remove(); }
 
@@ -19572,7 +19578,7 @@ function closeHelp() { var o = document.getElementById('_help_ov'); if (o) o.rem
 function helpAutoShow() {
   var seen = null;
   try { seen = localStorage.getItem(HELP_SEEN_KEY); } catch(e) { return; }
-  if (seen === HELP_CONTENT_VER) return;
+  if (seen === helpSeenToken()) return;   // この版はもう見せた
   setTimeout(openHelp, 600);   // 画面が組み上がってから
 }
 
@@ -32285,7 +32291,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.10';
-var APP_BUILD = 5;
+var APP_BUILD = 6;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
