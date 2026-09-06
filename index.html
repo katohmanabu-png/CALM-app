@@ -19057,6 +19057,8 @@ window.addEventListener('DOMContentLoaded', function() {
   try { renderFavList(); } catch(e) { console.error('renderFavList', e); }
   try { setLang(LANG); } catch(e) { console.error('setLang', e); }
   try { ambientLoad(); renderAmbBars(); } catch(e) { console.error('ambient', e); }
+  // ★保存した Factor 名の LEE の印を、日本語から英語へ一度だけ寄せる
+  try { _migrateSavedFactorNames(); } catch(e) {}
   try {
     var _tm = localStorage.getItem('calm_finder_tmode');
     setFinderTargetMode(_tm === 'amb' ? 'amb' : 'abs');
@@ -21897,8 +21899,21 @@ var LEE_DIFFUSION = [
 ];
 
 // 名前に「（透過値）」を付けて登録する。Rosco の実測値と混ざらないようにするため。
-var LEE_DIFF_SUFFIX = '\uFF08\u900F\u904E\u5024\uFF09';  // （透過値）
+/* LEE の公表値は透過率から出した数字で、Rosco の測定条件付きの値とは性質が違う。
+ * 混ざらないように名前に印を付けている。12言語で出るので英語にした。
+ * LEE_DIFF_SUFFIX_OLD は 1.1.9(29) までの日本語の印。保存済みの図面や
+ * ★保存した名前がこれを持っているので、読むときだけ受け付ける。 */
+var LEE_DIFF_SUFFIX     = ' (transmission)';
+var LEE_DIFF_SUFFIX_OLD = '\uFF08\u900F\u904E\u5024\uFF09';  // （透過値）
 function leeDiffName(d) { return 'LEE ' + d.code + ' ' + d.name + LEE_DIFF_SUFFIX; }
+/** 旧い印の名前を今の名前に直す。当てはまらなければそのまま返す */
+function leeDiffMigrateName(name) {
+  if (!name) return name;
+  var n = '' + name;
+  return (n.indexOf(LEE_DIFF_SUFFIX_OLD) > 0)
+    ? n.split(LEE_DIFF_SUFFIX_OLD).join(LEE_DIFF_SUFFIX)
+    : n;
+}
 // 品番から登録名を作る。定番チップの並びを添字で書くと表を並べ替えたときに壊れるので
 function leeDiffByCode(code) {
   for (var i = 0; i < LEE_DIFFUSION.length; i++) {
@@ -21909,7 +21924,8 @@ function leeDiffByCode(code) {
 function isLeeDiffName(name) {
   if (!name) return false;
   var n = ('' + name).trim();
-  return n.indexOf('LEE ') === 0 && n.indexOf(LEE_DIFF_SUFFIX) > 0;
+  return n.indexOf('LEE ') === 0 &&
+         (n.indexOf(LEE_DIFF_SUFFIX) > 0 || n.indexOf(LEE_DIFF_SUFFIX_OLD) > 0);
 }
 LEE_DIFFUSION.forEach(function(d) { DIFF_FACTOR_STOPS[leeDiffName(d)] = d.stops; });
 
@@ -21917,6 +21933,8 @@ DIFF_FACTOR_STOPS['Bleached Muslin']=1.5;
 var BOUNCE_FACTOR_STOPS = {'UltraBounce':1.2,'Unbleached Muslin':1.5,'Bleached Muslin':1.0,'White Silk':2.0,'Poly':0,'Wall':0};
 // 名前→{stops,type}。行の現在type(preferType)を優先し、なければ透過→反射で照合。前後空白許容
 function factorPresetLookup(name, preferType){ if(!name) return null; var n=(''+name).trim();
+  // 旧い印（（透過値））の名前で保存された図面も引けるようにする
+  if (!(n in DIFF_FACTOR_STOPS)) { var _m = leeDiffMigrateName(n); if (_m in DIFF_FACTOR_STOPS) n = _m; }
   var d=(n in DIFF_FACTOR_STOPS)?DIFF_FACTOR_STOPS[n]:null;
   var b=(n in BOUNCE_FACTOR_STOPS)?BOUNCE_FACTOR_STOPS[n]:null;
   if(preferType==='bounce'  && b!==null) return {stops:b, type:'bounce'};
@@ -30842,9 +30860,45 @@ function _migrateLightRefs(objs) {
   return n;
 }
 
+/* LEE の印を日本語（（透過値））で保存した図面を、今の英語の印に寄せる。
+ * 引き当て自体は factorPresetLookup が旧名でも通すので計算は壊れないが、
+ * 画面に日本語が出てしまうため表示名だけ直す。 */
+function _migrateFactorNames(objs) {
+  if (!objs || !objs.length) return 0;
+  var n = 0;
+  objs.forEach(function(o) {
+    if (!o || !o.factors || !o.factors.length) return;
+    o.factors.forEach(function(f) {
+      if (!f || !f.memo) return;
+      var m = leeDiffMigrateName(f.memo);
+      if (m !== f.memo) { f.memo = m; n++; }
+    });
+  });
+  return n;
+}
+
+/* ★保存した名前（calm_factor_names）も一度だけ寄せる */
+function _migrateSavedFactorNames() {
+  try {
+    var all = JSON.parse(localStorage.getItem('calm_factor_names') || '{}');
+    var changed = 0;
+    Object.keys(all).forEach(function(k) {
+      if (!Array.isArray(all[k])) return;
+      all[k] = all[k].map(function(nm) {
+        var m = leeDiffMigrateName(nm);
+        if (m !== nm) changed++;
+        return m;
+      });
+    });
+    if (changed) localStorage.setItem('calm_factor_names', JSON.stringify(all));
+    return changed;
+  } catch(e) { return 0; }
+}
+
 function _dftLoadDraft(d, skipRender) {
   _dft.objects       = JSON.parse(JSON.stringify(d.objects||[]));
   _migrateLightRefs(_dft.objects);
+  _migrateFactorNames(_dft.objects);
   _dft.layers        = d.layers ? JSON.parse(JSON.stringify(d.layers)) : [{id:1,name:'L1',visible:true}];
   _dft.activeLayer   = d.activeLayer || 1;
   _dft.scale         = d.scale  || 0.05;
@@ -31975,7 +32029,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.9';
-var APP_BUILD = 29;
+var APP_BUILD = 30;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
