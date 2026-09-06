@@ -8328,6 +8328,43 @@ function t(k) {
  * 関数にしてあるのは、t を別の意味で使っている関数の中からも呼ぶため。 */
 function stopUnit() { return t('finderStop'); }
 
+/* ── 機種の説明文とアクセサリー名の訳 ────────────────────────────
+ * この2つは LANGS に入っていない。機種データ側に英語で直書きしてあり、
+ * キーを振ると 528件になるので、英語の文字列そのものを見出しにした
+ * 上書き表を持つ形にした。表に無ければ英語のまま出る。
+ *
+ * 中身の大半は現場で英語のまま使う語（Spot / Tungsten / Fresnel /
+ * Bi-Color / Flood / Frost / Dome など）なので、方針どおり英語で
+ * 残している。訳したいものだけここに足せばよい。
+ * ACC_INFO の beam と group は判定に使っているので触らない。 */
+var DESC_I18N = {
+  // 例: ja: { '600W RGBWW LED Panel': '600W RGBWW LED パネル' }
+};
+var ACC_LABEL_I18N = {
+  ja:   { 'Light Only':'素の球（アクセサリー無し）', 'Lensless (reflector)':'レンズ無し（リフレクター）' },
+  en:   { },
+  es:   { 'Light Only':'Sin accesorio', 'Lensless (reflector)':'Sin lente (reflector)' },
+  zh:   { 'Light Only':'不加配件', 'Lensless (reflector)':'无镜片（反光碗）' },
+  zhTW: { 'Light Only':'不加配件', 'Lensless (reflector)':'無鏡片（反光碗）' },
+  fr:   { 'Light Only':'Sans accessoire', 'Lensless (reflector)':'Sans lentille (réflecteur)' },
+  de:   { 'Light Only':'Ohne Zubehör', 'Lensless (reflector)':'Ohne Linse (Reflektor)' },
+  pt:   { 'Light Only':'Sem acessório', 'Lensless (reflector)':'Sem lente (refletor)' },
+  ptPT: { 'Light Only':'Sem acessório', 'Lensless (reflector)':'Sem lente (refletor)' },
+  fi:   { 'Light Only':'Ei lisävarustetta', 'Lensless (reflector)':'Ei linssiä (heijastin)' },
+  ko:   { 'Light Only':'액세서리 없음', 'Lensless (reflector)':'렌즈 없음（리플렉터）' },
+  th:   { 'Light Only':'ไม่ใส่อุปกรณ์เสริม', 'Lensless (reflector)':'ไม่มีเลนส์ (รีเฟลกเตอร์)' }
+};
+/** 上書きがあれば返す。無ければ英語のまま */
+function _i18nOver(tbl, v) {
+  if (!v) return v;
+  var m = tbl && tbl[LANG];
+  return (m && Object.prototype.hasOwnProperty.call(m, v)) ? m[v] : v;
+}
+/** 機種の説明文（表示用） */
+function descText(v) { return _i18nOver(DESC_I18N, v); }
+/** アクセサリー名（表示用）。beam と group は判定に使うので通さない */
+function accLabelText(v) { return _i18nOver(ACC_LABEL_I18N, v); }
+
 // メーカー表示名。nameI18n があれば現在の言語のものを返す。
 // 引数はメーカーキー('ushio')でもMAKERSのオブジェクトでも可。
 // メーカータイルのアイコン。MAKERS に svgIcon があればそれを、無ければ emoji を返す。
@@ -13380,7 +13417,7 @@ function accLabel(light, key) {
     if (key === pk.flood) return 'FLOOD';
   }
   var ai = ACC_INFO[key];
-  return (ai && ai.label) ? ai.label : key;
+  return accLabelText((ai && ai.label) ? ai.label : key);
 }
 function defaultWidestAcc(light) {
   if (!light || !light.accessories || !light.accessories.length) return 'none';
@@ -15484,7 +15521,7 @@ function _ambRender() {
       var d = _ambDistForLux(light, cct, acc, needLux);
       var ang = currentBeamAngle(light, acc, null);
       var dia = (d != null) ? beamDiameterM(ang, d) : null;
-      var label = (typeof accLabel === 'function' && accLabel(light, acc)) || (ACC_INFO[acc] && ACC_INFO[acc].label) || acc;
+      var label = (typeof accLabel === 'function' && accLabel(light, acc)) || accLabelText((ACC_INFO[acc] && ACC_INFO[acc].label)) || acc;
       return row(label,
                  d != null ? _lenLabel(d) : t('ambOutOfRange'),
                  d != null ? '#1565c0' : '#bbb',
@@ -16098,7 +16135,7 @@ function renderModels() {
         '<div class="model-chip-name"' + (_lightAcc ? ' style="color:#1a1a1a;"' : '') + '>' + m.name + '</div>' +
         '<div class="model-chip-sub"' + (_lightAcc ? ' style="color:#555;"' : '') + '>' +
           (makerLabel ? '<span style="color:' + makerColor + ';font-weight:800;">' + makerLabel + '</span> · ' : '') +
-          (m.desc ? m.desc.replace(/^[0-9]+W /, '') : '') +
+          (m.desc ? descText(m.desc).replace(/^[0-9]+W /, '') : '') +
           (wattStr ? ' · ' + wattStr : '') +
         '</div>' +
       '</div>' +
@@ -16172,7 +16209,7 @@ function updatePreview() {
   var maker = MAKERS[S.maker];
   setText('prev-brand', makerName(maker).toUpperCase());
   setText('prev-model', light.name);
-  setText('prev-desc', light.desc);
+  setText('prev-desc', descText(light.desc));
   if (light.svgIcon) {
     var silEl = el('light-sil');
     if (silEl) silEl.innerHTML = light.svgIcon;
@@ -18464,7 +18501,7 @@ function _cmpAccLabel(acc, light) {
     var l = accLabel(light, acc);
     if (l) return l;
   }
-  return (ACC_INFO[acc] && ACC_INFO[acc].label) || acc;
+  return accLabelText((ACC_INFO[acc] && ACC_INFO[acc].label) || acc);
 }
 function _cmpSlotAcc(slot, light) {
   if (slot && slot.acc && light && light.accessories && light.accessories.indexOf(slot.acc) >= 0) return slot.acc;
@@ -18839,7 +18876,7 @@ function _cmpModelBtn(mk, lk) {
   var l = LIGHTS[mk][lk]; if (!l || !l.name) return '';
   return '<button onclick="_cmpChoose(\'' + mk + '\',\'' + lk + '\')" style="display:block;width:100%;text-align:left;padding:10px 12px;border:none;border-bottom:1px solid var(--bg,#f2f2f2);background:transparent;cursor:pointer;">' +
     '<span style="display:block;font-size:13px;font-weight:800;color:var(--text,#111);">' + l.name + '</span>' +
-    (l.desc ? '<span style="display:block;font-size:11px;color:var(--text-dim,#999);font-weight:600;margin-top:1px;">' + l.desc + '</span>' : '') +
+    (l.desc ? '<span style="display:block;font-size:11px;color:var(--text-dim,#999);font-weight:600;margin-top:1px;">' + descText(l.desc) + '</span>' : '') +
   '</button>';
 }
 function _cmpRenderPicker() {
@@ -31848,7 +31885,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.9';
-var APP_BUILD = 24;
+var APP_BUILD = 25;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
