@@ -875,8 +875,8 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
   </div>
   <div class="hdr-right">
     <button class="hdr-back-btn" id="hdr-back-btn" onclick="showPage(S.prevPage||'calc')">← Back</button>
-    <button id="undo-btn-global" onclick="doUndoGlobal()" aria-label="Undo" title="元に戻す" disabled style="background:none;border:none;padding:4px 5px;cursor:pointer;font-size:17px;line-height:1;border-radius:8px;color:var(--text);opacity:.3;">↩</button>
-    <button id="redo-btn-global" onclick="doRedoGlobal()" aria-label="Redo" title="やり直し" disabled style="background:none;border:none;padding:4px 5px;cursor:pointer;font-size:17px;line-height:1;border-radius:8px;color:var(--text);opacity:.3;">↪</button>
+    <button id="undo-btn-global" onclick="doUndoGlobal()" aria-label="Undo" data-tip="tipUndo" disabled style="background:none;border:none;padding:4px 5px;cursor:pointer;font-size:17px;line-height:1;border-radius:8px;color:var(--text);opacity:.3;">↩</button>
+    <button id="redo-btn-global" onclick="doRedoGlobal()" aria-label="Redo" data-tip="tipRedo" disabled style="background:none;border:none;padding:4px 5px;cursor:pointer;font-size:17px;line-height:1;border-radius:8px;color:var(--text);opacity:.3;">↪</button>
     <button id="dark-toggle-btn" onclick="toggleDarkMode()" aria-label="Dark mode" style="background:none;border:none;padding:4px 6px;cursor:pointer;font-size:18px;line-height:1;border-radius:8px;">🌙</button>
     <button class="hamburger-btn" onclick="openDrawer()" aria-label="Menu">☰</button>
   </div>
@@ -1056,7 +1056,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <input type="range" id="dist-sl" min="0.5" max="100" step="0.5" value="5" oninput="onDistChange()">
           <button class="step-btn" onclick="stepSl('dist-sl',1,onDistChange)">›</button>
           <button class="cm-ar-dist" id="cm-ar-dist-calc" onclick="cmMeasureDistAR('calc')"
-            title="カメラで距離を測る"
+            data-tip="cmARMeasure"
             style="display:none;flex:0 0 auto;width:38px;height:34px;margin-left:4px;border:1.5px solid var(--accent);
                    border-radius:9px;background:transparent;color:var(--accent);font-size:16px;cursor:pointer;
                    line-height:1;padding:0;">&#128247;</button>
@@ -1130,7 +1130,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                           oninput="triDisp('tri-height','tri-height-disp','tri-unit-h');calcTriangle('h')"
                           style="flex:1;height:4px;">
                         <button class="step-btn" onclick="triStep('tri-height',.5,.5,20,'h','calcTriangle')">›</button>
-                        <button class="tri-lock-btn" id="lock-tri-height" title="長押しでロック" onmousedown="triLockPress('tri-height','lock-tri-height')" onmouseup="triLockRelease('tri-height')" ontouchstart="triLockPress('tri-height','lock-tri-height')" ontouchend="triLockRelease('tri-height')">🔓</button>
+                        <button class="tri-lock-btn" id="lock-tri-height" data-tip="triLockTitle" onmousedown="triLockPress('tri-height','lock-tri-height')" onmouseup="triLockRelease('tri-height')" ontouchstart="triLockPress('tri-height','lock-tri-height')" ontouchend="triLockRelease('tri-height')">🔓</button>
                       </div>
                       <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">0.5 <span id="tri-unit-h">m</span></span><span style="font-size:10.5px;color:#888;">20 <span class="tri-unit-h-r">m</span></span></div>
                     </div>
@@ -1145,7 +1145,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                           oninput="triDisp('tri-horiz','tri-horiz-disp','tri-unit-hz');calcTriangle('di')"
                           style="flex:1;height:4px;">
                         <button class="step-btn" onclick="triStep('tri-horiz',.5,.5,100,'di','calcTriangle')">›</button>
-                        <button class="tri-lock-btn" id="lock-tri-horiz" title="長押しでロック" onmousedown="triLockPress('tri-horiz','lock-tri-horiz')" onmouseup="triLockRelease('tri-horiz')" ontouchstart="triLockPress('tri-horiz','lock-tri-horiz')" ontouchend="triLockRelease('tri-horiz')">🔓</button>
+                        <button class="tri-lock-btn" id="lock-tri-horiz" data-tip="triLockTitle" onmousedown="triLockPress('tri-horiz','lock-tri-horiz')" onmouseup="triLockRelease('tri-horiz')" ontouchstart="triLockPress('tri-horiz','lock-tri-horiz')" ontouchend="triLockRelease('tri-horiz')">🔓</button>
                       </div>
                       <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">0.5 <span id="tri-unit-hz">m</span></span><span style="font-size:10.5px;color:#888;">100 <span class="tri-unit-hz-r">m</span></span></div>
                     </div>
@@ -1160,7 +1160,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                           oninput="triDisp('tri-angle','tri-angle-disp',null,'°');calcTriangle('a')"
                           style="flex:1;height:4px;">
                         <button class="step-btn" onclick="triStep('tri-angle',1,1,89,'a','calcTriangle')">›</button>
-                        <button class="tri-lock-btn" id="lock-tri-angle" title="長押しでロック" onmousedown="triLockPress('tri-angle','lock-tri-angle')" onmouseup="triLockRelease('tri-angle')" ontouchstart="triLockPress('tri-angle','lock-tri-angle')" ontouchend="triLockRelease('tri-angle')">🔓</button>
+                        <button class="tri-lock-btn" id="lock-tri-angle" data-tip="triLockTitle" onmousedown="triLockPress('tri-angle','lock-tri-angle')" onmouseup="triLockRelease('tri-angle')" ontouchstart="triLockPress('tri-angle','lock-tri-angle')" ontouchend="triLockRelease('tri-angle')">🔓</button>
                       </div>
                       <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">1°</span><span style="font-size:10.5px;color:#888;">89°</span></div>
                     </div>
@@ -1209,7 +1209,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <div class="sl-field">
         <div class="sl-top">
           <div class="sl-label" id="lbl-iso">ISO</div>
-          <div class="sl-val" id="iso-disp" onclick="camTapEdit('iso')" style="cursor:pointer;touch-action:manipulation;" title="ダブルタップで直接入力 / Double-tap to edit">800<span>ISO</span></div>
+          <div class="sl-val" id="iso-disp" onclick="camTapEdit('iso')" style="cursor:pointer;touch-action:manipulation;" data-tip="dblTapHint">800<span>ISO</span></div>
         </div>
         <div class="sl-with-btns">
           <button class="step-btn" onclick="stepSl('iso',-1,onCamChange)">‹</button>
@@ -1230,7 +1230,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <div class="sl-field" style="margin-top:10px;">
         <div class="sl-top">
           <div class="sl-label" id="lbl-fps">Frame Rate</div>
-          <div class="sl-val" id="fps-disp" onclick="camTapEdit('fps')" style="cursor:pointer;touch-action:manipulation;" title="ダブルタップで直接入力 / Double-tap to edit">24<span>fps</span></div>
+          <div class="sl-val" id="fps-disp" onclick="camTapEdit('fps')" style="cursor:pointer;touch-action:manipulation;" data-tip="dblTapHint">24<span>fps</span></div>
         </div>
         <div class="sl-with-btns">
           <button class="step-btn" onclick="stepSl('fps',-1,onCamChange)">‹</button>
@@ -1295,7 +1295,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <div class="sl-field" style="margin-top:10px;">
         <div class="sl-top">
           <div class="sl-label">Shutter Speed</div>
-          <div class="sl-val" id="dig-ss-disp" onclick="camTapEdit('digss')" style="cursor:pointer;touch-action:manipulation;" title="ダブルタップで直接入力 / Double-tap to edit">1/<span id="dig-ss-val">50</span><span>s</span></div>
+          <div class="sl-val" id="dig-ss-disp" onclick="camTapEdit('digss')" style="cursor:pointer;touch-action:manipulation;" data-tip="dblTapHint">1/<span id="dig-ss-val">50</span><span>s</span></div>
         </div>
         <div class="sl-with-btns">
           <button class="step-btn" onclick="stepSl('dig-ss-sl',-1,onDigSSChange)">‹</button>
@@ -1318,7 +1318,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <div class="sl-field" style="margin-top:10px;">
         <div class="sl-top">
           <div class="sl-label" id="lbl-fstop">T-stop <span style="font-size:11px;color:#888;">1/3 stop</span></div>
-          <div class="sl-val" id="fstop-disp" onclick="camTapEdit('tstop')" style="cursor:pointer;touch-action:manipulation;" title="ダブルタップで直接入力 / Double-tap to edit">T2.8</div>
+          <div class="sl-val" id="fstop-disp" onclick="camTapEdit('tstop')" style="cursor:pointer;touch-action:manipulation;" data-tip="dblTapHint">T2.8</div>
         </div>
         <div class="sl-with-btns">
           <button class="step-btn" onclick="stepSl('fstop',-1,onCamChange)">‹</button>
@@ -1449,7 +1449,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <div class="sl-field">
         <div class="sl-top">
           <div class="sl-label" id="lbl-still-iso-label">ISO</div>
-          <div class="sl-val" id="still-iso-disp" onclick="camTapEdit('stilliso')" style="cursor:pointer;touch-action:manipulation;" title="ダブルタップで直接入力 / Double-tap to edit">400<span>ISO</span></div>
+          <div class="sl-val" id="still-iso-disp" onclick="camTapEdit('stilliso')" style="cursor:pointer;touch-action:manipulation;" data-tip="dblTapHint">400<span>ISO</span></div>
         </div>
         <div class="sl-with-btns">
           <button class="step-btn" onclick="var e=el('still-iso-sl');if(e){e.value=Math.max(0,parseInt(e.value)-1);onStillChange();}">&#x2039;</button>
@@ -1476,7 +1476,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <div class="sl-field" style="margin-top:10px;">
         <div class="sl-top">
           <div class="sl-label" id="lbl-still-ss-label">シャッタースピード</div>
-          <div class="sl-val" id="still-ss-disp" onclick="camTapEdit('stillss')" style="cursor:pointer;touch-action:manipulation;" title="ダブルタップで直接入力 / Double-tap to edit">1/125<span>s</span></div>
+          <div class="sl-val" id="still-ss-disp" onclick="camTapEdit('stillss')" style="cursor:pointer;touch-action:manipulation;" data-tip="dblTapHint">1/125<span>s</span></div>
         </div>
         <div class="sl-with-btns">
           <button class="step-btn" onclick="var e=el('still-ss-sl');if(e){e.value=Math.max(0,parseInt(e.value)-1);onStillChange();}">&#x2039;</button>
@@ -1502,7 +1502,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <div class="sl-field" style="margin-top:10px;">
         <div class="sl-top">
           <div class="sl-label" id="lbl-still-fstop-label">F値</div>
-          <div class="sl-val" id="still-fstop-disp" onclick="camTapEdit('stillfstop')" style="cursor:pointer;touch-action:manipulation;" title="ダブルタップで直接入力 / Double-tap to edit">f5.6</div>
+          <div class="sl-val" id="still-fstop-disp" onclick="camTapEdit('stillfstop')" style="cursor:pointer;touch-action:manipulation;" data-tip="dblTapHint">f5.6</div>
         </div>
         <div class="sl-with-btns">
           <button class="step-btn" onclick="var e=el('still-fstop-sl');if(e){e.value=Math.max(0,parseInt(e.value)-1);onStillChange();}">&#x2039;</button>
@@ -1613,7 +1613,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
       <input type="range" id="mix-dist-sl" min="0.5" max="100" step="0.1" value="5" oninput="onMixDistChange()">
       <button class="step-btn" onclick="stepMixDist(1)">›</button>
           <button class="cm-ar-dist" id="cm-ar-dist-mix" onclick="cmMeasureDistAR('mix')"
-            title="カメラで距離を測る"
+            data-tip="cmARMeasure"
             style="display:none;flex:0 0 auto;width:38px;height:34px;margin-left:4px;border:1.5px solid var(--accent);
                    border-radius:9px;background:transparent;color:var(--accent);font-size:16px;cursor:pointer;
                    line-height:1;padding:0;">&#128247;</button>
@@ -1694,7 +1694,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                 oninput="triDisp('mix-tri-h','mix-tri-h-disp','mix-tri-unit-h');calcMixTri('h')"
                 style="flex:1;height:4px;">
               <button class="step-btn" onclick="triStep('mix-tri-h',.5,.5,20,'h','calcMixTri')">›</button>
-              <button class="tri-lock-btn" id="lock-mix-tri-h" title="長押しでロック" onmousedown="triLockPress('mix-tri-h','lock-mix-tri-h')" onmouseup="triLockRelease('mix-tri-h')" ontouchstart="triLockPress('mix-tri-h','lock-mix-tri-h')" ontouchend="triLockRelease('mix-tri-h')">🔓</button>
+              <button class="tri-lock-btn" id="lock-mix-tri-h" data-tip="triLockTitle" onmousedown="triLockPress('mix-tri-h','lock-mix-tri-h')" onmouseup="triLockRelease('mix-tri-h')" ontouchstart="triLockPress('mix-tri-h','lock-mix-tri-h')" ontouchend="triLockRelease('mix-tri-h')">🔓</button>
             </div>
             <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">0.5m</span><span style="font-size:10.5px;color:#888;">20m</span></div>
           </div>
@@ -1709,7 +1709,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                 oninput="triDisp('mix-tri-hz','mix-tri-hz-disp','mix-tri-unit-hz');calcMixTri('d')"
                 style="flex:1;height:4px;">
               <button class="step-btn" onclick="triStep('mix-tri-hz',.5,.5,100,'d','calcMixTri')">›</button>
-              <button class="tri-lock-btn" id="lock-mix-tri-hz" title="長押しでロック" onmousedown="triLockPress('mix-tri-hz','lock-mix-tri-hz')" onmouseup="triLockRelease('mix-tri-hz')" ontouchstart="triLockPress('mix-tri-hz','lock-mix-tri-hz')" ontouchend="triLockRelease('mix-tri-hz')">🔓</button>
+              <button class="tri-lock-btn" id="lock-mix-tri-hz" data-tip="triLockTitle" onmousedown="triLockPress('mix-tri-hz','lock-mix-tri-hz')" onmouseup="triLockRelease('mix-tri-hz')" ontouchstart="triLockPress('mix-tri-hz','lock-mix-tri-hz')" ontouchend="triLockRelease('mix-tri-hz')">🔓</button>
             </div>
             <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">0.5m</span><span style="font-size:10.5px;color:#888;">100m</span></div>
           </div>
@@ -1724,7 +1724,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                 oninput="triDisp('mix-tri-angle','mix-tri-angle-disp2',null,'°');calcMixTri('a')"
                 style="flex:1;height:4px;">
               <button class="step-btn" onclick="triStep('mix-tri-angle',1,1,89,'a','calcMixTri')">›</button>
-              <button class="tri-lock-btn" id="lock-mix-tri-angle" title="長押しでロック" onmousedown="triLockPress('mix-tri-angle','lock-mix-tri-angle')" onmouseup="triLockRelease('mix-tri-angle')" ontouchstart="triLockPress('mix-tri-angle','lock-mix-tri-angle')" ontouchend="triLockRelease('mix-tri-angle')">🔓</button>
+              <button class="tri-lock-btn" id="lock-mix-tri-angle" data-tip="triLockTitle" onmousedown="triLockPress('mix-tri-angle','lock-mix-tri-angle')" onmouseup="triLockRelease('mix-tri-angle')" ontouchstart="triLockPress('mix-tri-angle','lock-mix-tri-angle')" ontouchend="triLockRelease('mix-tri-angle')">🔓</button>
             </div>
             <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">1°</span><span style="font-size:10.5px;color:#888;">89°</span></div>
           </div>
@@ -1812,7 +1812,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
           <input type="range" id="finder-dist-sl" min="0.5" max="100" step="0.5" value="5" oninput="onFinderDistChange()" onchange="onFinderDistChange()">
           <button class="step-btn" onclick="stepSl('finder-dist-sl',1,onFinderDistChange);onFinderDistChange();">›</button>
           <button class="cm-ar-dist" id="cm-ar-dist-finder" onclick="cmMeasureDistAR('finder')"
-            title="カメラで距離を測る"
+            data-tip="cmARMeasure"
             style="display:none;flex:0 0 auto;width:38px;height:34px;margin-left:4px;border:1.5px solid var(--accent);
                    border-radius:9px;background:transparent;color:var(--accent);font-size:16px;cursor:pointer;
                    line-height:1;padding:0;">&#128247;</button>
@@ -1887,7 +1887,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                       oninput="triDisp('finder-tri-height','finder-tri-height-disp','finder-tri-unit-h');calcFinderTriangle('h')"
                       style="flex:1;height:4px;">
                     <button class="step-btn" onclick="triStep('finder-tri-height',.5,.5,50,'h','calcFinderTriangle')">›</button>
-                    <button class="tri-lock-btn" id="lock-finder-tri-height" title="長押しでロック" onmousedown="triLockPress('finder-tri-height','lock-finder-tri-height')" onmouseup="triLockRelease('finder-tri-height')" ontouchstart="triLockPress('finder-tri-height','lock-finder-tri-height')" ontouchend="triLockRelease('finder-tri-height')">🔓</button>
+                    <button class="tri-lock-btn" id="lock-finder-tri-height" data-tip="triLockTitle" onmousedown="triLockPress('finder-tri-height','lock-finder-tri-height')" onmouseup="triLockRelease('finder-tri-height')" ontouchstart="triLockPress('finder-tri-height','lock-finder-tri-height')" ontouchend="triLockRelease('finder-tri-height')">🔓</button>
                   </div>
                   <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">0.5 <span id="finder-tri-unit-h">m</span></span><span style="font-size:10.5px;color:#888;">50m</span></div>
                 </div>
@@ -1902,7 +1902,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                       oninput="triDisp('finder-tri-horiz','finder-tri-horiz-disp','finder-tri-unit-hz');calcFinderTriangle('di')"
                       style="flex:1;height:4px;">
                     <button class="step-btn" onclick="triStep('finder-tri-horiz',.5,.5,100,'di','calcFinderTriangle')">›</button>
-                    <button class="tri-lock-btn" id="lock-finder-tri-horiz" title="長押しでロック" onmousedown="triLockPress('finder-tri-horiz','lock-finder-tri-horiz')" onmouseup="triLockRelease('finder-tri-horiz')" ontouchstart="triLockPress('finder-tri-horiz','lock-finder-tri-horiz')" ontouchend="triLockRelease('finder-tri-horiz')">🔓</button>
+                    <button class="tri-lock-btn" id="lock-finder-tri-horiz" data-tip="triLockTitle" onmousedown="triLockPress('finder-tri-horiz','lock-finder-tri-horiz')" onmouseup="triLockRelease('finder-tri-horiz')" ontouchstart="triLockPress('finder-tri-horiz','lock-finder-tri-horiz')" ontouchend="triLockRelease('finder-tri-horiz')">🔓</button>
                   </div>
                   <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">0.5 <span id="finder-tri-unit-hz">m</span></span><span style="font-size:10.5px;color:#888;">100m</span></div>
                 </div>
@@ -1917,7 +1917,7 @@ html.dark .tab-btn.active { background:var(--accent); color:#fff; }
                       oninput="triDisp('finder-tri-angle','finder-tri-angle-disp',null,'°');calcFinderTriangle('a')"
                       style="flex:1;height:4px;">
                     <button class="step-btn" onclick="triStep('finder-tri-angle',1,1,89,'a','calcFinderTriangle')">›</button>
-                    <button class="tri-lock-btn" id="lock-finder-tri-angle" title="長押しでロック" onmousedown="triLockPress('finder-tri-angle','lock-finder-tri-angle')" onmouseup="triLockRelease('finder-tri-angle')" ontouchstart="triLockPress('finder-tri-angle','lock-finder-tri-angle')" ontouchend="triLockRelease('finder-tri-angle')">🔓</button>
+                    <button class="tri-lock-btn" id="lock-finder-tri-angle" data-tip="triLockTitle" onmousedown="triLockPress('finder-tri-angle','lock-finder-tri-angle')" onmouseup="triLockRelease('finder-tri-angle')" ontouchstart="triLockPress('finder-tri-angle','lock-finder-tri-angle')" ontouchend="triLockRelease('finder-tri-angle')">🔓</button>
                   </div>
                   <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">1°</span><span style="font-size:10.5px;color:#888;">89°</span></div>
                 </div>
@@ -2140,6 +2140,8 @@ window.onerror = function(m,s,l,c,e){ console.log('[LMP]',m,l,e&&e.stack); retur
 // ===== i18n =====
 var LANGS = {
   ja: {
+    dftResetView:'表示を元の位置に戻す',
+    dvItemDirect:'ライト → 人物', dvItemBounceIn:'ライト → 反射板', dvItemBounceOut:'反射板 → 人物', dvItemDiffuser:'DIFF までの距離', dvItemCamera:'カメラ の距離', dvItemAim:'狙いの線', dvItemBeam:'ライトのビーム', dvItemRefl:'反射板の反射光', dvItemPool:'布に当たる範囲', dvItemFov:'カメラの画角', dvItemName:'機種名', dvItemHeight:'設置高さ', dvItemFstop:'ライトのF値', dvItemSum:'反射経路の合算', dvItemStop:'布・DIFF の減光', dvItemGrid:'グリッド', dftMoreAdd:'追加ツール', dftMoreTools:'操作ツール', dftBtnUnit:'単位', svName:'プロジェクト名', svNamePh:'例: Wedding Reception', svLoc:'ロケーション', svLocPh:'例: Studio A / 横浜', dftResetTitle:'最初から書き直す', dftResetMsg:'キャンバス上の全オブジェクトと<br>オートセーブデータが削除されます。<br>この操作は元に戻せません。', dftResetDone:'↺ リセット完了', tipUndo:'元に戻す', tipRedo:'やり直し',
     fpickBtn:'📋 一覧', fpickTitle:'名前を選ぶ', fpickSearch:'品番や名前で探す（例: LEE / Rosco / Grid）', fpickSaved:'保存した名前', fpickCommon:'よく使うもの', fpickOther:'そのほか', fpickEmpty:'見つかりませんでした', fpickCount:'{n}件',
     navCalc:'光量計算', navMix:'Mix', navFinder:'おすすめ', navAlt:'代替検索', navCamera:'Camera', pageCalcTitle:'光量計算', pageCalcSub:'Light Calculator', pageMixTitle:'複数灯シュミレーション', pageMixSub:'複数のライトを組み合わせて合計光量・合計CCTを計算', pageFinderTitle:'おすすめ機材検索', pageFinderSub:'Light Finder', pageAltTitle:'おすすめ代替機材検索', pageAltSub:'Alternative Finder', pageCameraTitle:'カメラ設定', pageCameraSub:'Camera Settings',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ お気に入り',
@@ -2283,6 +2285,8 @@ var LANGS = {
     dftAddLayer:'レイヤーを追加', dftNoSavedDrafts:'保存済みドラフトがありません。'
   },
   en: {
+    dftResetView:'Reset the view',
+    dvItemDirect:'Light → subject', dvItemBounceIn:'Light → bounce', dvItemBounceOut:'Bounce → subject', dvItemDiffuser:'Distance to DIFF', dvItemCamera:'Camera distance', dvItemAim:'Aim lines', dvItemBeam:'Light beam', dvItemRefl:'Bounced light', dvItemPool:'Coverage on the cloth', dvItemFov:'Camera field of view', dvItemName:'Model name', dvItemHeight:'Mounting height', dvItemFstop:'F-stop per light', dvItemSum:'Bounce path total', dvItemStop:'Cloth / DIFF loss', dvItemGrid:'Grid', dftMoreAdd:'More tools', dftMoreTools:'File and edit', dftBtnUnit:'Unit', svName:'Project name', svNamePh:'e.g. Wedding Reception', svLoc:'Location', svLocPh:'e.g. Studio A / Yokohama', dftResetTitle:'Start over', dftResetMsg:'Every object on the canvas and<br>the autosave data will be deleted.<br>This cannot be undone.', dftResetDone:'↺ Reset done', tipUndo:'Undo', tipRedo:'Redo',
     fpickBtn:'📋 List', fpickTitle:'Choose a name', fpickSearch:'Search by name or code (e.g. LEE / Rosco / Grid)', fpickSaved:'Saved', fpickCommon:'Common', fpickOther:'Others', fpickEmpty:'Nothing found', fpickCount:'{n}',
     navCalc:'Calc', navMix:'Mix', navFinder:'Finder', navAlt:'Alt', navCamera:'Camera', pageCalcTitle:'Light Calculator', pageCalcSub:'Exposure & F-stop Calculator', pageMixTitle:'Mix', pageMixSub:'Combine multiple lights — calculate total exposure & mixed CCT', pageFinderTitle:'Light Finder', pageFinderSub:'Find the right fixture', pageAltTitle:'Alternative Finder', pageAltSub:'Find the best replacement', pageCameraTitle:'Camera', pageCameraSub:'Digital / Film / Photograph',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ Favorites',
@@ -2420,6 +2424,8 @@ var LANGS = {
     dftAddLayer:'Add layer', dftNoSavedDrafts:'No saved drafts yet.'
   },
   es: {
+    dftResetView:'Restablecer la vista',
+    dvItemDirect:'Luz → sujeto', dvItemBounceIn:'Luz → rebote', dvItemBounceOut:'Rebote → sujeto', dvItemDiffuser:'Distancia al DIFF', dvItemCamera:'Distancia de cámara', dvItemAim:'Líneas de mira', dvItemBeam:'Haz de la luz', dvItemRefl:'Luz rebotada', dvItemPool:'Zona cubierta en la tela', dvItemFov:'Ángulo de la cámara', dvItemName:'Nombre del modelo', dvItemHeight:'Altura de montaje', dvItemFstop:'F-stop de cada luz', dvItemSum:'Suma del recorrido de rebote', dvItemStop:'Pérdida de tela / DIFF', dvItemGrid:'Cuadrícula', dftMoreAdd:'Más herramientas', dftMoreTools:'Archivo y edición', dftBtnUnit:'Unidad', svName:'Nombre del proyecto', svNamePh:'p. ej. Wedding Reception', svLoc:'Localización', svLocPh:'p. ej. Plató A / Yokohama', dftResetTitle:'Empezar de cero', dftResetMsg:'Se borrarán todos los objetos del lienzo<br>y los datos de guardado automático.<br>Esto no se puede deshacer.', dftResetDone:'↺ Reiniciado', tipUndo:'Deshacer', tipRedo:'Rehacer',
     fpickBtn:'📋 Lista', fpickTitle:'Elegir un nombre', fpickSearch:'Buscar por nombre o código (p. ej. LEE / Rosco / Grid)', fpickSaved:'Guardados', fpickCommon:'Habituales', fpickOther:'Otros', fpickEmpty:'Sin resultados', fpickCount:'{n}',
     navCalc:'Calc', navMix:'Mix', navFinder:'Buscador', navAlt:'Alt', navCamera:'Cámara', pageCalcTitle:'Calculadora de Iluminación', pageCalcSub:'Calculadora de Exposición', pageMixTitle:'Mix', pageMixSub:'Combina múltiples luces — calcula exposición total y CCT mezclado', pageFinderTitle:'Buscador de Equipos', pageFinderSub:'Encuentra el equipo ideal', pageAltTitle:'Buscar Equipo Equivalente', pageAltSub:'Encuentra la mejor alternativa', pageCameraTitle:'Cámara', pageCameraSub:'Digital / Film / Fotografía',
     appSub:'Cinema Advanced Lighting Matcher', favBtn:'⭐ Favoritos',
@@ -2554,6 +2560,8 @@ var LANGS = {
     dftAddLayer:'Agregar capa', dftNoSavedDrafts:'No hay planos guardados.'
   },
   zh: {
+    dftResetView:'把视图恢复到初始位置',
+    dvItemDirect:'灯具 → 人物', dvItemBounceIn:'灯具 → Bounce', dvItemBounceOut:'Bounce → 人物', dvItemDiffuser:'到 DIFF 的距离', dvItemCamera:'相机的距离', dvItemAim:'瞄准线', dvItemBeam:'灯具的 Beam', dvItemRefl:'反射回来的光', dvItemPool:'落在布上的范围', dvItemFov:'相机的视角', dvItemName:'型号名称', dvItemHeight:'安装高度', dvItemFstop:'各灯具的 F-stop', dvItemSum:'反射路径的合计', dvItemStop:'布 · DIFF 的减光', dvItemGrid:'网格', dftMoreAdd:'更多工具', dftMoreTools:'文件与编辑', dftBtnUnit:'单位', svName:'项目名称', svNamePh:'例: Wedding Reception', svLoc:'拍摄地点', svLocPh:'例: A 摄影棚 / 横滨', dftResetTitle:'从头重新绘制', dftResetMsg:'图纸上的所有对象与<br>自动保存的数据都会被删除。<br>此操作无法撤销。', dftResetDone:'↺ 已重置', tipUndo:'撤销', tipRedo:'重做',
     fpickBtn:'📋 全部',
     fpickTitle:'选择名称',
     fpickSearch:'按名称或型号搜索（如 LEE / Rosco / Grid）',
@@ -3191,6 +3199,8 @@ var LANGS = {
     dftNoSavedDrafts:'还没有保存的图纸。',
   },
   fr: {
+    dftResetView:'Recentrer la vue',
+    dvItemDirect:'Projecteur → sujet', dvItemBounceIn:'Projecteur → renvoi', dvItemBounceOut:'Renvoi → sujet', dvItemDiffuser:'Distance jusqu\'au DIFF', dvItemCamera:'Distance de la caméra', dvItemAim:'Lignes de visée', dvItemBeam:'Faisceau du projecteur', dvItemRefl:'Lumière renvoyée', dvItemPool:'Zone couverte sur la toile', dvItemFov:'Champ de la caméra', dvItemName:'Nom du modèle', dvItemHeight:'Hauteur d\'installation', dvItemFstop:'F-stop par projecteur', dvItemSum:'Total du trajet de renvoi', dvItemStop:'Perte toile / DIFF', dvItemGrid:'Grille', dftMoreAdd:'Autres outils', dftMoreTools:'Fichier et édition', dftBtnUnit:'Unité', svName:'Nom du projet', svNamePh:'ex. Wedding Reception', svLoc:'Lieu', svLocPh:'ex. Plateau A / Yokohama', dftResetTitle:'Repartir de zéro', dftResetMsg:'Tous les objets du plan et<br>les données d\'enregistrement automatique seront supprimés.<br>Cette action est irréversible.', dftResetDone:'↺ Plan réinitialisé', tipUndo:'Annuler', tipRedo:'Rétablir',
     fpickBtn:'📋 Liste',
     fpickTitle:'Choisir un nom',
     fpickSearch:'Chercher par nom ou référence (ex. LEE / Rosco / Grid)',
@@ -3828,6 +3838,8 @@ var LANGS = {
     dftNoSavedDrafts:'Aucun plan enregistré.',
   },
   de: {
+    dftResetView:'Ansicht zurücksetzen',
+    dvItemDirect:'Leuchte → Person', dvItemBounceIn:'Leuchte → Bounce', dvItemBounceOut:'Bounce → Person', dvItemDiffuser:'Entfernung zum DIFF', dvItemCamera:'Entfernung der Kamera', dvItemAim:'Ziellinien', dvItemBeam:'Beam der Leuchte', dvItemRefl:'Zurückgeworfenes Licht', dvItemPool:'Abgedeckte Fläche auf dem Tuch', dvItemFov:'Bildwinkel der Kamera', dvItemName:'Modellname', dvItemHeight:'Aufbauhöhe', dvItemFstop:'F-stop je Leuchte', dvItemSum:'Summe des Bounce-Wegs', dvItemStop:'Verlust Tuch / DIFF', dvItemGrid:'Raster', dftMoreAdd:'Weitere Werkzeuge', dftMoreTools:'Datei und Bearbeiten', dftBtnUnit:'Einheit', svName:'Projektname', svNamePh:'z. B. Wedding Reception', svLoc:'Motiv', svLocPh:'z. B. Halle A / Yokohama', dftResetTitle:'Von vorn anfangen', dftResetMsg:'Alle Objekte im Plan und<br>die automatisch gespeicherten Daten werden gelöscht.<br>Das lässt sich nicht zurücknehmen.', dftResetDone:'↺ Plan zurückgesetzt', tipUndo:'Zurücknehmen', tipRedo:'Wiederholen',
     fpickBtn:'📋 Liste',
     fpickTitle:'Namen wählen',
     fpickSearch:'Nach Name oder Nummer suchen (z. B. LEE / Rosco / Grid)',
@@ -4465,6 +4477,8 @@ var LANGS = {
     dftNoSavedDrafts:'Noch keine gespeicherten Pläne.',
   },
   pt: {
+    dftResetView:'Recentralizar a vista',
+    dvItemDirect:'Refletor → pessoa', dvItemBounceIn:'Refletor → Bounce', dvItemBounceOut:'Bounce → pessoa', dvItemDiffuser:'Distância até o DIFF', dvItemCamera:'Distância da câmera', dvItemAim:'Linhas de mira', dvItemBeam:'Beam do refletor', dvItemRefl:'Luz rebatida', dvItemPool:'Área coberta no tecido', dvItemFov:'Ângulo da câmera', dvItemName:'Nome do modelo', dvItemHeight:'Altura de montagem', dvItemFstop:'F-stop de cada refletor', dvItemSum:'Soma do caminho de Bounce', dvItemStop:'Perda de tecido / DIFF', dvItemGrid:'Quadrícula', dftMoreAdd:'Mais ferramentas', dftMoreTools:'Arquivo e edição', dftBtnUnit:'Unidade', svName:'Nome do projeto', svNamePh:'ex.: Wedding Reception', svLoc:'Locação', svLocPh:'ex.: Estúdio A / Yokohama', dftResetTitle:'Começar de novo', dftResetMsg:'Todos os objetos da planta e<br>os dados salvos automaticamente serão excluídos.<br>Isso não pode ser desfeito.', dftResetDone:'↺ Planta reiniciada', tipUndo:'Desfazer', tipRedo:'Refazer',
     fpickBtn:'📋 Lista',
     fpickTitle:'Escolher um nome',
     fpickSearch:'Buscar por nome ou código (ex.: LEE / Rosco / Grid)',
@@ -5102,6 +5116,8 @@ var LANGS = {
     dftNoSavedDrafts:'Nenhuma planta salva ainda.',
   },
   fi: {
+    dftResetView:'Palauta näkymä',
+    dvItemDirect:'Valaisin → henkilö', dvItemBounceIn:'Valaisin → Bounce', dvItemBounceOut:'Bounce → henkilö', dvItemDiffuser:'Etäisyys DIFFiin', dvItemCamera:'Kameran etäisyys', dvItemAim:'Suuntausviivat', dvItemBeam:'Valaisimen beam', dvItemRefl:'Heijastunut valo', dvItemPool:'Kankaalle osuva alue', dvItemFov:'Kameran kuvakulma', dvItemName:'Mallin nimi', dvItemHeight:'Asennuskorkeus', dvItemFstop:'F-stop valaisimittain', dvItemSum:'Bounce-reitin summa', dvItemStop:'Kankaan / DIFFin häviö', dvItemGrid:'Ruudukko', dftMoreAdd:'Lisää työkaluja', dftMoreTools:'Tiedosto ja muokkaus', dftBtnUnit:'Yksikkö', svName:'Projektin nimi', svNamePh:'esim. Wedding Reception', svLoc:'Kuvauspaikka', svLocPh:'esim. Studio A / Yokohama', dftResetTitle:'Aloita alusta', dftResetMsg:'Kaikki pohjan objektit ja<br>automaattisesti tallennetut tiedot poistetaan.<br>Tätä ei voi peruuttaa.', dftResetDone:'↺ Pohja tyhjennetty', tipUndo:'Kumoa', tipRedo:'Tee uudelleen',
     fpickBtn:'📋 Lista',
     fpickTitle:'Valitse nimi',
     fpickSearch:'Hae nimellä tai tuotenumerolla (esim. LEE / Rosco / Grid)',
@@ -5739,6 +5755,8 @@ var LANGS = {
     dftNoSavedDrafts:'Tallennettuja pohjia ei vielä ole.',
   },
   ko: {
+    dftResetView:'화면 위치 초기화',
+    dvItemDirect:'조명기 → 인물', dvItemBounceIn:'조명기 → Bounce', dvItemBounceOut:'Bounce → 인물', dvItemDiffuser:'DIFF까지의 거리', dvItemCamera:'카메라의 거리', dvItemAim:'겨냥선', dvItemBeam:'조명기의 Beam', dvItemRefl:'반사된 빛', dvItemPool:'천에 닿는 범위', dvItemFov:'카메라 화각', dvItemName:'기종명', dvItemHeight:'설치 높이', dvItemFstop:'조명기별 F-stop', dvItemSum:'반사 경로의 합계', dvItemStop:'천 · DIFF의 감광', dvItemGrid:'그리드', dftMoreAdd:'추가 도구', dftMoreTools:'파일과 편집', dftBtnUnit:'단위', svName:'프로젝트 이름', svNamePh:'예: Wedding Reception', svLoc:'로케이션', svLocPh:'예: 제A스튜디오 / 요코하마', dftResetTitle:'처음부터 다시 그리기', dftResetMsg:'도면의 모든 오브젝트와<br>자동 저장 데이터가 삭제됩니다.<br>이 작업은 되돌릴 수 없습니다.', dftResetDone:'↺ 초기화 완료', tipUndo:'되돌리기', tipRedo:'다시 실행',
     fpickBtn:'📋 목록',
     fpickTitle:'이름 선택',
     fpickSearch:'이름이나 품번으로 찾기 (예: LEE / Rosco / Grid)',
@@ -6376,6 +6394,8 @@ var LANGS = {
     dftNoSavedDrafts:'저장된 도면이 없습니다.',
   },
   th: {
+    dftResetView:'คืนมุมมองเดิม',
+    dvItemDirect:'โคมไฟ → ตัวแบบ', dvItemBounceIn:'โคมไฟ → Bounce', dvItemBounceOut:'Bounce → ตัวแบบ', dvItemDiffuser:'ระยะถึง DIFF', dvItemCamera:'ระยะของกล้อง', dvItemAim:'เส้นเล็ง', dvItemBeam:'Beam ของโคมไฟ', dvItemRefl:'แสงที่สะท้อนกลับ', dvItemPool:'บริเวณที่ตกบนผ้า', dvItemFov:'มุมรับภาพของกล้อง', dvItemName:'ชื่อรุ่น', dvItemHeight:'ความสูงที่ติดตั้ง', dvItemFstop:'F-stop ของแต่ละโคม', dvItemSum:'ผลรวมของเส้นทาง Bounce', dvItemStop:'การสูญเสียของผ้า / DIFF', dvItemGrid:'ตารางกริด', dftMoreAdd:'เครื่องมือเพิ่มเติม', dftMoreTools:'ไฟล์และการแก้ไข', dftBtnUnit:'หน่วย', svName:'ชื่อโปรเจกต์', svNamePh:'เช่น Wedding Reception', svLoc:'สถานที่ถ่าย', svLocPh:'เช่น สตูดิโอ A / โยโกฮามะ', dftResetTitle:'เริ่มวาดใหม่ทั้งหมด', dftResetMsg:'วัตถุทั้งหมดบนผังและ<br>ข้อมูลที่บันทึกอัตโนมัติจะถูกลบ<br>การกระทำนี้ย้อนกลับไม่ได้', dftResetDone:'↺ รีเซ็ตเรียบร้อย', tipUndo:'ย้อนกลับ', tipRedo:'ทำซ้ำ',
     fpickBtn:'📋 รายการ',
     fpickTitle:'เลือกชื่อ',
     fpickSearch:'ค้นหาด้วยชื่อหรือรหัสรุ่น (เช่น LEE / Rosco / Grid)',
@@ -7013,6 +7033,8 @@ var LANGS = {
     dftNoSavedDrafts:'ยังไม่มีผังไฟที่บันทึกไว้',
   },
   ptPT: {
+    dftResetView:'Recentrar a vista',
+    dvItemDirect:'Projetor → pessoa', dvItemBounceIn:'Projetor → Bounce', dvItemBounceOut:'Bounce → pessoa', dvItemDiffuser:'Distância até ao DIFF', dvItemCamera:'Distância da câmara', dvItemAim:'Linhas de mira', dvItemBeam:'Beam do projetor', dvItemRefl:'Luz reenviada', dvItemPool:'Área coberta no tecido', dvItemFov:'Ângulo da câmara', dvItemName:'Nome do modelo', dvItemHeight:'Altura de montagem', dvItemFstop:'F-stop de cada projetor', dvItemSum:'Soma do percurso de Bounce', dvItemStop:'Perda de tecido / DIFF', dvItemGrid:'Quadrícula', dftMoreAdd:'Mais ferramentas', dftMoreTools:'Ficheiro e edição', dftBtnUnit:'Unidade', svName:'Nome do projeto', svNamePh:'ex.: Wedding Reception', svLoc:'Localização', svLocPh:'ex.: Estúdio A / Yokohama', dftResetTitle:'Começar de novo', dftResetMsg:'Todos os objetos da planta e<br>os dados guardados automaticamente serão eliminados.<br>Não é possível anular esta ação.', dftResetDone:'↺ Planta reiniciada', tipUndo:'Anular', tipRedo:'Refazer',
     fpickBtn:'📋 Lista',
     fpickTitle:'Escolher um nome',
     fpickSearch:'Buscar por nome ou código (ex.: LEE / Rosco / Grid)',
@@ -7650,6 +7672,8 @@ var LANGS = {
     dftNoSavedDrafts:'Nenhuma planta guardada ainda.',
   },
   zhTW: {
+    dftResetView:'把檢視恢復到初始位置',
+    dvItemDirect:'燈具 → 人物', dvItemBounceIn:'燈具 → Bounce', dvItemBounceOut:'Bounce → 人物', dvItemDiffuser:'到 DIFF 的距離', dvItemCamera:'相機的距離', dvItemAim:'瞄準線', dvItemBeam:'燈具的 Beam', dvItemRefl:'反射回來的光', dvItemPool:'落在布上的範圍', dvItemFov:'相機的視角', dvItemName:'型號名稱', dvItemHeight:'安裝高度', dvItemFstop:'各燈具的 F-stop', dvItemSum:'反射路徑的合計', dvItemStop:'布 · DIFF 的減光', dvItemGrid:'網格', dftMoreAdd:'更多工具', dftMoreTools:'檔案與編輯', dftBtnUnit:'單位', svName:'專案名稱', svNamePh:'例: Wedding Reception', svLoc:'拍攝地點', svLocPh:'例: A 攝影棚 / 橫濱', dftResetTitle:'從頭重新繪製', dftResetMsg:'圖面上的所有物件與<br>自動儲存的資料都會被刪除。<br>此操作無法復原。', dftResetDone:'↺ 已重設', tipUndo:'復原', tipRedo:'重做',
     fpickBtn:'📋 全部',
     fpickTitle:'選擇名稱',
     fpickSearch:'按名稱或型號搜索（如 LEE / Rosco / Grid）',
@@ -8411,6 +8435,12 @@ function applyI18n() {
   function s(id, k) { var el = document.getElementById(id); if (el) el.textContent = t(k); }
   // ハンバーガーの言語ボタンも、各画面の見出しと同じものを使う
   // 開いている間に言語を変えたときの貼り替え。初回の差し込みは openDrawer 側
+  /* ツールチップ。static な HTML に data-tip="キー" を書いておき、
+   * ここで title に入れる。以前は日本語が直書きで、他の11言語でも
+   * 日本語のまま出ていた。 */
+  document.querySelectorAll('[data-tip]').forEach(function(el2) {
+    var k = el2.getAttribute('data-tip'); if (k) el2.title = t(k);
+  });
   var _dl = document.getElementById('drawer-lang');
   if (_dl) _dl.innerHTML = langChipHTML();
   try { renderAmbBars(); } catch(e) {}
@@ -19291,7 +19321,7 @@ function buildCamInfoHtml() {
   };
   var chipTap = chip + 'cursor:pointer;touch-action:manipulation;';
   function _c(kind, html) {
-    if (edit && kind) return '<span onclick="camTapEdit(\'' + edit[kind] + '\')" title="Wタップで変更" style="' + chipTap + '">' + html + '</span>';
+    if (edit && kind) return '<span onclick="camTapEdit(\'' + edit[kind] + '\')" data-tip="dblTapHint" style="' + chipTap + '">' + html + '</span>';
     return '<span style="' + chip + '">' + html + '</span>';
   }
   return '<span style="' + chip + '">' + formatLabel + '</span>' +
@@ -21580,7 +21610,7 @@ function buildFactorSection(prefix) {
         // Stop controls — value+step+reset on top, full-width slider below
         '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">' +
           '<button class="step-btn" onclick="window._factorStep(\'' + prefix + '\',' + fi + ',-0.1)">‹</button>' +
-          '<span id="fv-' + prefix + '-' + fi + '" style="font-size:14px;font-weight:800;color:var(--accent);font-family:var(--mono);min-width:54px;text-align:center;cursor:pointer;" title="ダブルタップで直接入力">' + fStopStr + '</span>' +
+          '<span id="fv-' + prefix + '-' + fi + '" style="font-size:14px;font-weight:800;color:var(--accent);font-family:var(--mono);min-width:54px;text-align:center;cursor:pointer;" data-tip="dblTapHint">' + fStopStr + '</span>' +
           '<button class="step-btn" onclick="window._factorStep(\'' + prefix + '\',' + fi + ',0.1)">›</button>' +
           '<div style="flex:1;"></div>' +
           '<button onclick="window._factorReset(\'' + prefix + '\',' + fi + ')" style="background:none;border:1px solid var(--text-dim);border-radius:6px;color:#888;font-size:11px;padding:2px 6px;cursor:pointer;">Reset</button>' +
@@ -30059,19 +30089,19 @@ function _dftSaveDialog(mode) {
   var html =
     '<div id="_dft_sv" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.58);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_sv\').remove()">' +
     '<div style="background:#fff;color:#111;border-radius:18px;padding:22px 20px 18px;width:88%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.3);" onclick="event.stopPropagation()">' +
-    '<div style="font-size:15px;font-weight:800;margin-bottom:16px;">💾 保存</div>' +
-    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">プロジェクト名</div>' +
-    '<input id="_sv_name" type="text" value="'+(_dft.draftName||'').replace(/"/g,'&quot;')+'" placeholder="例: Wedding Reception" ' +
+    '<div style="font-size:15px;font-weight:800;margin-bottom:16px;">'+t('dftBtnSave')+'</div>' +
+    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">'+t('svName')+'</div>' +
+    '<input id="_sv_name" type="text" value="'+(_dft.draftName||'').replace(/"/g,'&quot;')+'" placeholder="'+_dftEsc(t('svNamePh'))+'" ' +
     'style="width:100%;padding:10px;font-size:14px;font-weight:700;border:2px solid #1976d2;border-radius:10px;box-sizing:border-box;margin-bottom:12px;">' +
-    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">日付</div>' +
+    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">'+t('sunDate')+'</div>' +
     '<input id="_sv_date" type="date" lang="'+({ja:"ja",en:"en-US",es:"es",zh:"zh-CN",zhTW:"zh-TW",fr:"fr-FR",de:"de-DE",pt:"pt-BR",ptPT:"pt-PT",fi:"fi-FI",ko:"ko-KR",th:"th-TH"}[LANG]||"en-US")+'" value="'+(_dft.draftDate||today)+'" ' +
     'style="width:100%;padding:10px;font-size:14px;border:1.5px solid #ddd;border-radius:10px;box-sizing:border-box;margin-bottom:12px;">' +
-    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">ロケーション / Location</div>' +
-    '<input id="_sv_loc" type="text" value="'+(_dft.draftLocation||'').replace(/"/g,'&quot;')+'" placeholder="例: Studio A, 横浜" ' +
+    '<div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">'+t('svLoc')+'</div>' +
+    '<input id="_sv_loc" type="text" value="'+(_dft.draftLocation||'').replace(/"/g,'&quot;')+'" placeholder="'+_dftEsc(t('svLocPh'))+'" ' +
     'style="width:100%;padding:10px;font-size:14px;border:1.5px solid #ddd;border-radius:10px;box-sizing:border-box;margin-bottom:18px;">' +
     '<div style="display:flex;gap:10px;">' +
-    '<button onclick="document.getElementById(\'_dft_sv\').remove()" style="flex:1;padding:11px;border:none;background:#eee;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;">キャンセル</button>' +
-    '<button onclick="_dftSaveCommit()" style="flex:1;padding:11px;border:none;background:#1976d2;color:#fff;border-radius:11px;font-size:13px;font-weight:800;cursor:pointer;">保存</button>' +
+    '<button onclick="document.getElementById(\'_dft_sv\').remove()" style="flex:1;padding:11px;border:none;background:#eee;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
+    '<button onclick="_dftSaveCommit()" style="flex:1;padding:11px;border:none;background:#1976d2;color:#fff;border-radius:11px;font-size:13px;font-weight:800;cursor:pointer;">'+t('saveTitle')+'</button>' +
     '</div></div></div>';
   document.body.insertAdjacentHTML('beforeend', html);
   setTimeout(function(){ var i=document.getElementById('_sv_name'); if(i){i.focus();i.select();} }, 60);
@@ -30232,7 +30262,7 @@ function _dftCommitDraft(id, name, date, loc) {
   if (_dftWriteDrafts()) {
     try { localStorage.setItem('calm_draft_active', id); } catch(e) {}
     _dftCloudPut(data);   // 他の端末へも回す（失敗しても保存は成功のまま）
-    _dftSetStatus('💾 保存: ' + name + (loc ? '  📍' + loc : ''));
+    _dftSetStatus(t('dftSaved') + name + (loc ? '  📍' + loc : ''));
   } else {
     // 以前はここで失敗を握りつぶし、保存できていないのに「保存」と表示していた。
     if (idx < 0) _dft.drafts.pop();   // 保存できなかったものを一覧に残さない
@@ -30269,7 +30299,7 @@ function dftLoadMenu() {
   if (!_dft.drafts.length && !_calmCloud()) { alert(t('dftNoSavedDrafts')); return; }
   var html = '<div id="_dft_lm" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)document.getElementById(\'_dft_lm\').remove()">' +
     '<div style="background:var(--bg,#fff);border-radius:16px;padding:18px;width:88%;max-width:360px;max-height:75vh;max-height:75dvh;overflow-y:auto;" onclick="event.stopPropagation()">' +
-    '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">📂 保存済みドラフト</div>' +
+    '<div style="font-weight:800;font-size:15px;margin-bottom:12px;">'+t('dftDraftsList')+'</div>' +
     // iOS アプリのときだけ。他の端末で作った図面を取りに行く
     (_calmCloud()
       ? '<button onclick="dftCloudSync()" style="width:100%;padding:9px;margin-bottom:4px;' +
@@ -30867,26 +30897,33 @@ function _dftMoreSheet(id, title, rows) {
   document.body.insertAdjacentHTML('beforeend', html);
 }
 
+/* ツールバーの「🖼 Photo」形式のキーを、メニュー用の「🖼<br>Photo」に直す。
+ * 訳を二重に持たなくて済むようにするための小道具。 */
+function _dftBrLabel(key) {
+  var v = String(t(key));
+  var i = v.indexOf(' ');
+  return (i > 0) ? (v.slice(0, i) + '<br>' + v.slice(i + 1)) : v;
+}
 function _dftMoreBtn(label, onclick, color) {
   return '<button onclick="document.getElementById(\'_dft_more_add\')||document.getElementById(\'_dft_more_tools\')||null;('+onclick+');[...document.querySelectorAll(\'#_dft_more_add,#_dft_more_tools\')].forEach(function(e){e.remove()})" '+
     'style="padding:10px 4px;border:1.5px solid var(--border,#eee);border-radius:10px;font-size:11px;font-weight:700;background:var(--bg);color:'+(color||'var(--text)')+';cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;">'+label+'</button>';
 }
 
 function dftAddMoreMenu() {
-  _dftMoreSheet('_dft_more_add', '追加ツール',
+  _dftMoreSheet('_dft_more_add', t('dftMoreAdd'),
     _dftMoreBtn('📄<br>PDF',    'dftImportPDF()') +
-    _dftMoreBtn('🖼<br>写真',  'dftImportPhoto()') +
-    _dftMoreBtn('📐<br>スケール','dftSetScaleUI()') +
-    _dftMoreBtn('<span id="dft-btn-unit2" style="font-size:15px;font-weight:900;">m</span><br>単位', 'dftToggleUnit();document.getElementById(\'dft-btn-unit2\').textContent=(_dft.unit||\'m\')')
+    _dftMoreBtn(_dftBrLabel('dftBtnPhoto'), 'dftImportPhoto()') +
+    _dftMoreBtn(_dftBrLabel('dftBtnScale'), 'dftSetScaleUI()') +
+    _dftMoreBtn('<span id="dft-btn-unit2" style="font-size:15px;font-weight:900;">m</span><br>'+t('dftBtnUnit'), 'dftToggleUnit();document.getElementById(\'dft-btn-unit2\').textContent=(_dft.unit||\'m\')')
   );
 }
 
 function dftToolsMoreMenu() {
-  _dftMoreSheet('_dft_more_tools', '操作ツール',
+  _dftMoreSheet('_dft_more_tools', t('dftMoreTools'),
     _dftMoreBtn('⎘<br>Copy',    'dftCopy()') +
     _dftMoreBtn('⎙<br>Paste',   'dftPaste()') +
-    _dftMoreBtn('💾<br>保存',   'dftSave()') +
-    _dftMoreBtn('📂<br>読込',   'dftLoadMenu()') +
+    _dftMoreBtn(_dftBrLabel('dftBtnSave'), 'dftSave()') +
+    _dftMoreBtn(_dftBrLabel('dftBtnLoad'), 'dftLoadMenu()') +
     _dftMoreBtn('＋<br>New',    'dftNew()') +
     _dftMoreBtn('📤<br>Export', 'dftExportMenu()') +
     _dftMoreBtn('📥<br>Import', 'dftImport()') +
@@ -30901,28 +30938,28 @@ function dftToolsMoreMenu() {
 // 見出しの意味が伝わらず、ただの長い箇条書きに見えていた。
 var DFT_VIS_GROUPS = [
   { title:'dvGrpLines', icon:'📏', items:[
-    {key:'direct',    label:'ライト → 人物',   sample:'↗4.2m f24.6', col:'#f9a825'},
-    {key:'bounceIn',  label:'ライト → 反射板', sample:'↗3.1m',       col:'#f9a825'},
-    {key:'bounceOut', label:'反射板 → 人物',   sample:'↗2.8m',       col:'#26a69a'},
-    {key:'diffuser',  label:'DIFF までの距離', sample:'↗3.5m',      col:'#ab47bc'},
-    {key:'camera',    label:'カメラ の距離',    sample:'↗5.5m',      col:'#6495ed'},
-    {key:'aim',       label:'狙いの線',        sample:'↗4.0m ↑52°',  col:'#6a1b9a'}
+    {key:'direct',    label:'dvItemDirect',    sample:'↗4.2m f24.6', col:'#f9a825'},
+    {key:'bounceIn',  label:'dvItemBounceIn',  sample:'↗3.1m',       col:'#f9a825'},
+    {key:'bounceOut', label:'dvItemBounceOut', sample:'↗2.8m',       col:'#26a69a'},
+    {key:'diffuser',  label:'dvItemDiffuser',  sample:'↗3.5m',      col:'#ab47bc'},
+    {key:'camera',    label:'dvItemCamera',    sample:'↗5.5m',      col:'#6495ed'},
+    {key:'aim',       label:'dvItemAim',       sample:'↗4.0m ↑52°',  col:'#6a1b9a'}
   ]},
   { title:'dvGrpCones', icon:'🔦', items:[
-    {key:'beam', label:'ライトのビーム',   sample:'◣ 扇形',  col:'#f9a825'},
-    {key:'refl', label:'反射板の反射光',   sample:'◣ 扇形',  col:'#0288d1'},
-    {key:'pool', label:'布に当たる範囲',   sample:'⌀8.4m',   col:'#6a1b9a'},
-    {key:'fov',  label:'カメラの画角',     sample:'◣ 扇形',  col:'#6495ed'}
+    {key:'beam', label:'dvItemBeam', sample:'◣',  col:'#f9a825'},
+    {key:'refl', label:'dvItemRefl', sample:'◣',  col:'#0288d1'},
+    {key:'pool', label:'dvItemPool', sample:'⌀8.4m',   col:'#6a1b9a'},
+    {key:'fov',  label:'dvItemFov',  sample:'◣',  col:'#6495ed'}
   ]},
   { title:'dvGrpBadges', icon:'🔢', items:[
-    {key:'name',      label:'機種名',             sample:'ARRI M18',    col:'#1a1a1a'},
-    {key:'height',    label:'設置高さ',           sample:'↕ 1.9m',      col:'#5e35b1'},
-    {key:'fstop',     label:'ライトのF値',        sample:'f24.6',       col:'#e65100'},
-    {key:'sum',       label:'反射経路の合算',      sample:'∑36.3m f0.5', col:'#e65100'},
-    {key:'stopBadge', label:'布・DIFF の減光',   sample:'-2.0 stop',   col:'#0288d1'}
+    {key:'name',      label:'dvItemName',   sample:'ARRI M18',    col:'#1a1a1a'},
+    {key:'height',    label:'dvItemHeight', sample:'↕ 1.9m',      col:'#5e35b1'},
+    {key:'fstop',     label:'dvItemFstop',  sample:'f24.6',       col:'#e65100'},
+    {key:'sum',       label:'dvItemSum',    sample:'∑36.3m f0.5', col:'#e65100'},
+    {key:'stopBadge', label:'dvItemStop',   sample:'-2.0',        col:'#0288d1'}
   ]},
   { title:'dvGrpOther', icon:'▦', items:[
-    {key:'grid', label:'グリッド', sample:'▦', col:'#999'}
+    {key:'grid', label:'dvItemGrid', sample:'▦', col:'#999'}
   ]}
 ];
 
@@ -30954,7 +30991,7 @@ function _dftVisRowHTML(it) {
       (vis ? '' : 'background:#fafafa;') + '">' +
     chip +
     '<span style="flex:1;min-width:0;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;' +
-      'text-overflow:ellipsis;color:' + (vis ? '#333' : '#aaa') + ';">' + it.label + '</span>' +
+      'text-overflow:ellipsis;color:' + (vis ? '#333' : '#aaa') + ';">' + t(it.label) + '</span>' +
     '<span style="display:flex;gap:2px;width:120px;flex:0 0 120px;">'+segs+'</span>' +
   '</div>';
 }
@@ -31139,11 +31176,11 @@ function dftReset() {
   dlg.innerHTML =
     '<div style="background:var(--white);border-radius:18px;padding:24px 20px 18px;width:300px;box-shadow:0 8px 40px rgba(0,0,0,.35);text-align:center;">' +
     '<div style="font-size:32px;margin-bottom:8px;">↺</div>' +
-    '<div style="font-size:15px;font-weight:800;color:#e53935;margin-bottom:8px;">最初から書き直す</div>' +
-    '<div style="font-size:12px;color:var(--text-dim);margin-bottom:20px;line-height:1.5;">キャンバス上の全オブジェクトと<br>オートセーブデータが削除されます。<br>この操作は元に戻せません。</div>' +
+    '<div style="font-size:15px;font-weight:800;color:#e53935;margin-bottom:8px;">'+t('dftResetTitle')+'</div>' +
+    '<div style="font-size:12px;color:var(--text-dim);margin-bottom:20px;line-height:1.5;">'+t('dftResetMsg')+'</div>' +
     '<div style="display:flex;gap:10px;">' +
-    '<button id="_dft_reset_cancel" style="flex:1;padding:12px;border:none;background:var(--bg);color:var(--text);border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">キャンセル</button>' +
-    '<button id="_dft_reset_ok" style="flex:1;padding:12px;border:none;background:#e53935;color:#fff;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">リセット</button>' +
+    '<button id="_dft_reset_cancel" style="flex:1;padding:12px;border:none;background:var(--bg);color:var(--text);border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;">'+t('dftCancel')+'</button>' +
+    '<button id="_dft_reset_ok" style="flex:1;padding:12px;border:none;background:#e53935;color:#fff;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;">'+t('navReset')+'</button>' +
     '</div></div>';
   document.body.appendChild(dlg);
   dlg.querySelector('#_dft_reset_cancel').onclick = function() { dlg.remove(); };
@@ -31162,7 +31199,7 @@ function dftReset() {
     var rb = document.getElementById('dft-btn-redo'); if(rb) rb.disabled=true;
     _dftRenderLayerBar();
     dftRender(); _dftUpdateInfoBar();
-    _dftSetStatus('↺ リセット完了');
+    _dftSetStatus(t('dftResetDone'));
   };
 }
 // ── LAYER SYSTEM ──────────────────────────────────────────
@@ -31184,14 +31221,14 @@ function _dftRenderLayerBar() {
       ' onpointerup="_dftLayerPressEnd()" onpointercancel="_dftLayerPressEnd()"' +
       ' onpointermove="_dftLayerPressMove(event)"' +
       ' title="'+_dftEsc(l.name)+' — '+t('lyrNameHint')+'">' +
-      '<span class="dft-layer-eye" onclick="event.stopPropagation();dftToggleLayerVis('+l.id+')" title="Show/Hide">'+eye+'</span>' +
+      '<span class="dft-layer-eye" onclick="event.stopPropagation();dftToggleLayerVis('+l.id+')" title="'+_dftEsc(t('dvTitle'))+'">'+eye+'</span>' +
       '<span>'+_dftEsc(l.name)+'</span>' +
       '<span class="dft-layer-n">'+n+(off ? ' <span style="color:#e65100;">-'+off+'</span>' : '')+'</span>' +
       '<span class="dft-layer-more" onclick="event.stopPropagation();dftLayerSheet('+l.id+')" title="'+t('lyrTitle')+'">▾</span>' +
       '</div>';
   }).join('');
   if (_dft.layers.length < 10) {
-    html += '<button class="dft-layer-addbtn" onclick="dftAddLayer()" title="Add layer">＋</button>';
+    html += '<button class="dft-layer-addbtn" onclick="dftAddLayer()" title="'+_dftEsc(t('dftAddLayer'))+'">＋</button>';
   }
   bar.innerHTML = html;
 }
@@ -31451,7 +31488,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.9';
-var APP_BUILD = 22;
+var APP_BUILD = 23;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
@@ -31549,7 +31586,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
             <input type="range" id="alt-dist-sl" min="0.5" max="100" step="0.5" value="5" oninput="onAltDistChange()">
             <button class="step-btn" onclick="stepSl('alt-dist-sl',1,onAltDistChange)">›</button>
           <button class="cm-ar-dist" id="cm-ar-dist-alt" onclick="cmMeasureDistAR('alt')"
-            title="カメラで距離を測る"
+            data-tip="cmARMeasure"
             style="display:none;flex:0 0 auto;width:38px;height:34px;margin-left:4px;border:1.5px solid var(--accent);
                    border-radius:9px;background:transparent;color:var(--accent);font-size:16px;cursor:pointer;
                    line-height:1;padding:0;">&#128247;</button>
@@ -31630,7 +31667,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                         oninput="triDisp('alt-tri-height','alt-tri-height-disp','alt-tri-unit-h');calcAltTriangle('h')"
                         style="flex:1;height:4px;">
                       <button class="step-btn" onclick="triStep('alt-tri-height',.5,.5,20,'h','calcAltTriangle')">›</button>
-                      <button class="tri-lock-btn" id="lock-alt-tri-height" title="長押しでロック" onmousedown="triLockPress('alt-tri-height','lock-alt-tri-height')" onmouseup="triLockRelease('alt-tri-height')" ontouchstart="triLockPress('alt-tri-height','lock-alt-tri-height')" ontouchend="triLockRelease('alt-tri-height')">🔓</button>
+                      <button class="tri-lock-btn" id="lock-alt-tri-height" data-tip="triLockTitle" onmousedown="triLockPress('alt-tri-height','lock-alt-tri-height')" onmouseup="triLockRelease('alt-tri-height')" ontouchstart="triLockPress('alt-tri-height','lock-alt-tri-height')" ontouchend="triLockRelease('alt-tri-height')">🔓</button>
                     </div>
                     <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">0.5 <span id="alt-tri-unit-h">m</span></span><span style="font-size:10.5px;color:#888;">20m</span></div>
                   </div>
@@ -31645,7 +31682,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                         oninput="triDisp('alt-tri-horiz','alt-tri-horiz-disp','alt-tri-unit-hz');calcAltTriangle('di')"
                         style="flex:1;height:4px;">
                       <button class="step-btn" onclick="triStep('alt-tri-horiz',.5,.5,100,'di','calcAltTriangle')">›</button>
-                      <button class="tri-lock-btn" id="lock-alt-tri-horiz" title="長押しでロック" onmousedown="triLockPress('alt-tri-horiz','lock-alt-tri-horiz')" onmouseup="triLockRelease('alt-tri-horiz')" ontouchstart="triLockPress('alt-tri-horiz','lock-alt-tri-horiz')" ontouchend="triLockRelease('alt-tri-horiz')">🔓</button>
+                      <button class="tri-lock-btn" id="lock-alt-tri-horiz" data-tip="triLockTitle" onmousedown="triLockPress('alt-tri-horiz','lock-alt-tri-horiz')" onmouseup="triLockRelease('alt-tri-horiz')" ontouchstart="triLockPress('alt-tri-horiz','lock-alt-tri-horiz')" ontouchend="triLockRelease('alt-tri-horiz')">🔓</button>
                     </div>
                     <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">0.5 <span id="alt-tri-unit-hz">m</span></span><span style="font-size:10.5px;color:#888;">100m</span></div>
                   </div>
@@ -31660,7 +31697,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                         oninput="triDisp('alt-tri-angle','alt-tri-angle-disp',null,'°');calcAltTriangle('a')"
                         style="flex:1;height:4px;">
                       <button class="step-btn" onclick="triStep('alt-tri-angle',1,1,89,'a','calcAltTriangle')">›</button>
-                      <button class="tri-lock-btn" id="lock-alt-tri-angle" title="長押しでロック" onmousedown="triLockPress('alt-tri-angle','lock-alt-tri-angle')" onmouseup="triLockRelease('alt-tri-angle')" ontouchstart="triLockPress('alt-tri-angle','lock-alt-tri-angle')" ontouchend="triLockRelease('alt-tri-angle')">🔓</button>
+                      <button class="tri-lock-btn" id="lock-alt-tri-angle" data-tip="triLockTitle" onmousedown="triLockPress('alt-tri-angle','lock-alt-tri-angle')" onmouseup="triLockRelease('alt-tri-angle')" ontouchstart="triLockPress('alt-tri-angle','lock-alt-tri-angle')" ontouchend="triLockRelease('alt-tri-angle')">🔓</button>
                     </div>
                     <div style="display:flex;justify-content:space-between;padding:0 2px;"><span style="font-size:10.5px;color:#888;">1°</span><span style="font-size:10.5px;color:#888;">89°</span></div>
                   </div>
@@ -31805,7 +31842,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
     <!-- Layer bar + always-visible reset -->
     <div class="draft-topbar" style="display:flex;align-items:stretch;background:var(--bg);border-bottom:1px solid var(--border,#eee);flex-shrink:0;">
       <div class="draft-layerbar" id="dft-layerbar" style="flex:1;border-bottom:none;min-width:0;"></div>
-      <button id="dft-reset-top" onclick="dftReset()" title="最初から書き直し / Start over" style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0 14px;border:none;border-left:1px solid var(--border,#eee);background:transparent;color:#e53935;font-weight:900;font-size:16px;cursor:pointer;line-height:1;">↺<span id="lbl-dft-reset-top" data-dfti18n="reset" style="font-size:10px;font-weight:800;">リセット</span></button>
+      <button id="dft-reset-top" onclick="dftReset()" data-tip="dftResetTitle" style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0 14px;border:none;border-left:1px solid var(--border,#eee);background:transparent;color:#e53935;font-weight:900;font-size:16px;cursor:pointer;line-height:1;">↺<span id="lbl-dft-reset-top" data-dfti18n="reset" style="font-size:10px;font-weight:800;">リセット</span></button>
     </div>
     <!-- Top toolbar: edit + file tools -->
     <div class="draft-toolbar" id="dft-toolbar-top" style="border-top:none;border-bottom:1px solid var(--border,#eee);">
@@ -31815,7 +31852,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
         <button class="draft-tool-btn" id="dft-btn-delete" onclick="dftMode('delete')"        style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🗑<br><span style="font-size:10px;" data-dfti18n="del">削除</span></button>
         <button class="draft-tool-btn" id="dft-btn-rotate" onclick="dftMode('rotate')"        style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🔄<br><span style="font-size:10px;" data-dfti18n="rot">回転</span></button>
         <button class="draft-tool-btn" id="dft-btn-aim"    onclick="dftMode('aim')"           style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">🎯<br><span style="font-size:10px;" data-dfti18n="aim">狙い</span></button>
-        <button class="draft-tool-btn" onclick="dftDistVisMenu()" title="表示/非表示" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">👁<br><span style="font-size:10px;" data-dfti18n="show">表示</span></button>
+        <button class="draft-tool-btn" onclick="dftDistVisMenu()" data-tip="dvTitle" style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">👁<br><span style="font-size:10px;" data-dfti18n="show">表示</span></button>
         <button class="draft-tool-btn dft-undo-btn" onclick="dftUndo()" id="dft-btn-undo" disabled style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">↩<br><span style="font-size:10px;">Undo</span></button>
         <button class="draft-tool-btn dft-undo-btn" onclick="dftRedo()" id="dft-btn-redo" disabled style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">↪<br><span style="font-size:10px;">Redo</span></button>
         <button class="draft-tool-btn" onclick="dftCopy()"       style="flex:0 0 auto;padding:4px 6px;min-width:36px;text-align:center;">⎘<br><span style="font-size:10px;">Copy</span></button>
@@ -31857,7 +31894,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
         <button class="dpad-btn" ontouchstart="dftPanStart(0,-1,event)" ontouchend="dftPanStop()" ontouchcancel="dftPanStop()" onmousedown="dftPanStart(0,-1,event)" onmouseup="dftPanStop()" onmouseleave="dftPanStop()">↑</button>
         <div></div>
         <button class="dpad-btn" ontouchstart="dftPanStart(-1,0,event)" ontouchend="dftPanStop()" ontouchcancel="dftPanStop()" onmousedown="dftPanStart(-1,0,event)" onmouseup="dftPanStop()" onmouseleave="dftPanStop()">←</button>
-        <button class="dpad-center" onclick="dftResetView()" title="Reset view">⌂</button>
+        <button class="dpad-center" onclick="dftResetView()" data-tip="dftResetView">⌂</button>
         <button class="dpad-btn" ontouchstart="dftPanStart(1,0,event)" ontouchend="dftPanStop()" ontouchcancel="dftPanStop()" onmousedown="dftPanStart(1,0,event)" onmouseup="dftPanStop()" onmouseleave="dftPanStop()">→</button>
         <div></div>
         <button class="dpad-btn" ontouchstart="dftPanStart(0,1,event)" ontouchend="dftPanStop()" ontouchcancel="dftPanStop()" onmousedown="dftPanStart(0,1,event)" onmouseup="dftPanStop()" onmouseleave="dftPanStop()">↓</button>
@@ -31940,7 +31977,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                  border-radius:10px;color:var(--text,#fff);font-size:18px;font-weight:700;
                  padding:0 12px;font-family:var(--mono);outline:none;"
           oninput="cmPreview('height')">
-        <button class="cm-ar-row" onclick="cmARFor('height')" title="カメラで測る"
+        <button class="cm-ar-row" onclick="cmARFor('height')" data-tip="cmARMeasure"
           style="display:none;height:44px;width:44px;flex:0 0 44px;background:rgba(255,255,255,.12);
                  border:none;border-radius:10px;font-size:17px;cursor:pointer;">&#128247;</button>
         <button onclick="cmApply('height')"
@@ -31958,7 +31995,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                  border-radius:10px;color:var(--text,#fff);font-size:18px;font-weight:700;
                  padding:0 12px;font-family:var(--mono);outline:none;"
           oninput="cmPreview('horiz')">
-        <button class="cm-ar-row" onclick="cmARFor('horiz')" title="カメラで測る"
+        <button class="cm-ar-row" onclick="cmARFor('horiz')" data-tip="cmARMeasure"
           style="display:none;height:44px;width:44px;flex:0 0 44px;background:rgba(255,255,255,.12);
                  border:none;border-radius:10px;font-size:17px;cursor:pointer;">&#128247;</button>
         <button onclick="cmApply('horiz')"
@@ -31976,7 +32013,7 @@ document.addEventListener('DOMContentLoaded', _applyVersionLabels);
                  border-radius:10px;color:var(--text,#fff);font-size:18px;font-weight:700;
                  padding:0 12px;font-family:var(--mono);outline:none;"
           oninput="cmPreview('distance')">
-        <button class="cm-ar-row" onclick="cmARFor('distance')" title="カメラで測る"
+        <button class="cm-ar-row" onclick="cmARFor('distance')" data-tip="cmARMeasure"
           style="display:none;height:44px;width:44px;flex:0 0 44px;background:rgba(255,255,255,.12);
                  border:none;border-radius:10px;font-size:17px;cursor:pointer;">&#128247;</button>
         <button onclick="cmApply('distance')"
