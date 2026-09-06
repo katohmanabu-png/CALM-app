@@ -13060,15 +13060,9 @@ var FSTOPS13 = [0.125, 0.16, 0.2, 0.25, 0.32, 0.4, 0.5, 0.56, 0.63, 0.7, 0.8, 0.
 // ── Camera engine data ──────────────────────────────────────
 
 var STILL_SHUTTERS = [1,1.3,1.6,2,2.5,3.2,4,5,6,8,10,13,15,20,25,30,40,50,60,80,100,125,160,200,250,320,400,500,640,800,1000,1250,1600,2000,2500,3200,4000,5000,6400,8000]; // 37 values, 1/3-stop scale
-function onStillShutterSlider() {
-  var SS=[1,1.3,1.6,2,2.5,3,4,6,8,10,15,20,25,30,40,50,60,80,100,
-          125,160,200,250,320,400,500,640,800,1000,1250,1600,2000,
-          2500,3200,4000,5000,6400,8000];
-  var sl=el('still-shutter-sl'); if(!sl) return;
-  var v=SS[parseInt(sl.value)]||125;
-  setText('still-shutter-denom',v);
-  try { onCamChange(); } catch(e) {}
-}
+/* onStillShutterSlider が2つ定義されていた。どちらも参照している
+ * still-shutter-sl が HTML から無くなっていて（いまは still-ss-sl）
+ * 呼び出しも1つも無いため、両方消した。 */
 // Digital Shutter Speed スライダー値リスト
 var DIG_SS_VALS = [1,1.3,1.6,2,2.5,3.2,4,5,6,8,10,13,15,20,25,30,40,50,
                    60,80,100,125,160,200,250,320,400,500,640,800,1000,
@@ -21493,21 +21487,12 @@ function _renderSavedNames(prefix, type) {
       }).join('') +
     '</div>';
 }
-function _renderSavedNames(prefix) {
-  var saved = getFactorNamePresets();
-  var container = document.getElementById('factor-saved-names-' + prefix);
-  if (!container) return;
-  if (!saved.length) { container.innerHTML = ''; return; }
-  container.innerHTML =
-    '<div style="padding:4px 10px 6px;display:flex;flex-wrap:wrap;gap:4px;">' +
-      saved.map(function(n){
-        return '<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:10px;background:rgba(255,255,255,0.08);font-size:11px;font-weight:700;color:#888;">' +
-          n +
-          '<button onclick="window._factorDelName(\'' + n.replace(/'/g,"\\'") + '\',\'' + prefix + '\')" style="background:none;border:none;color:#f44;font-size:11px;cursor:pointer;padding:0 1px;line-height:1;">✕</button>' +
-        '</span>';
-      }).join('') +
-    '</div>';
-}
+/* ここに _renderSavedNames の古い版（引数が prefix だけ）があった。
+ * あとに書いてあるほうが勝つので、type を見ない古い版が使われていて
+ *   ・Bounce / Diffusion で保存した名前が一覧に出ない（常に 'none' を読む）
+ *   ・削除が _factorDelName(name, prefix) の2引数で、type に prefix が
+ *     入ってしまい消えない
+ * という状態だった。上の (prefix, type) 版が正しいので古い版を消した。 */
 function buildFactorSection(prefix) {
   var factors = getFactorArray(prefix);
   var total = getTotalFactorStops(factors);
@@ -21618,7 +21603,13 @@ function renderFactorSection(prefix) {
   var wrap = document.getElementById('factor-wrap-' + prefix);
   if (!wrap) return;
   wrap.innerHTML = buildFactorSection(prefix);
-  try { _renderSavedNames(prefix); } catch(e) {}
+  /* 保存した名前の一覧は Factor 全体で1か所しかないので、どの種類のものを
+   * 出すか決める必要がある。1行目の種類に合わせる（種類を触ったときは
+   * _factorSaveName / _factorDelName がその種類で描き直す）。 */
+  try {
+    var _f0 = getFactorArray(prefix)[0];
+    _renderSavedNames(prefix, (_f0 && _f0.type) || 'none');
+  } catch(e) {}
   var factors = getFactorArray(prefix);
   factors.forEach(function(f, fi) {
     makeSlValEditable(
@@ -23045,14 +23036,6 @@ function onFilmShutterAngleSlider() {
   try { saveCalcState(); } catch(e) {}
 }
 
-function onStillShutterSlider() {
-  var sl = el('still-shutter-sl'); if (!sl) return;
-  var SS=[1,2,4,8,15,30,60,90,125,180,250,350,500,750,1000,1500,2000,4000,8000];
-  var v = SS[parseInt(sl.value)] || 125;
-  setText('still-shutter-denom', v);
-  try { refreshAllTabs(); } catch(e) {}
-  try { saveCalcState(); } catch(e) {}
-}
 function onShutterAngleChange() {
   var SA=[360,270,180,172.8,144,90,45];
   var sl=el('shutter-angle-sl'); if(!sl) return;
@@ -26863,7 +26846,7 @@ function _dftUpdateInfoBar() {
   }
   if (o.type==='bounce'||o.type==='diffuser') {
     var bfStops = getTotalFactorStops(o.factors||[]);
-    var bfLabel = (o.factors&&o.factors.length) ? (bfStops>0?'-':'')+Math.abs(bfStops).toFixed(1)+'stop' : 'Factor';
+    var bfLabel = (o.factors&&o.factors.length) ? (bfStops>0?'-':'')+Math.abs(bfStops).toFixed(1)+' '+stopUnit() : 'Factor';
     info += ' <button onclick="dftBounceSettings(\''+oid+'\')" style="padding:2px 8px;background:#0288d1;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;">⚙ '+bfLabel+'</button>';
   }
   if (o.type==='light' && o.makerKey) {
@@ -28974,7 +28957,7 @@ function _dftExpElevHTML(useB) {
   function row(tag) {
     var val = (tag === 'B') ? (_dft._expElevB || 0) : (_dft._expElev || 0);
     var col = DFT_PROBE_COL[tag];
-    var presets = [[-45,'↓45'],[0,'水平'],[45,'↑45'],[90,'↑真上']].map(function(pv) {
+    var presets = [[-45],[0],[45],[90]].map(function(pv) {   // 表示は t('expElev…') で作る
       var act = Math.abs(val - pv[0]) < 0.5;
       return '<button onclick="window._dftExpSetElev(\''+tag+'\','+pv[0]+')" style="' +
         'padding:4px 7px;border-radius:7px;border:1px solid '+(act?col:'#ddd')+';' +
@@ -31459,7 +31442,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.9';
-var APP_BUILD = 20;
+var APP_BUILD = 21;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
