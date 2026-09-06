@@ -22004,7 +22004,7 @@ function _factorNameOptions(type) {
   // 保存した名前 → 定番 → 表の全件。図面側と同じ中身にして、
   // 「LEE」「Rosco」と打てば Calc / Mix でも候補が出るようにする
   saved.concat(defaults).concat(Object.keys(_fpickTable(key))).forEach(function(n) {
-    if (n && !seen[n]) { seen[n] = 1; all.push(n); }
+    if (n && !seen[n] && _factorNameShown(n)) { seen[n] = 1; all.push(n); }
   });
   return all.map(function(n){ return '<option value="' + n.replace(/"/g,'&quot;') + '">'; }).join('');
 }
@@ -28048,7 +28048,7 @@ function _dftNameDatalistHTML(cbPrefix, nameKey) {
   saved.concat(FACTOR_NAMES_BY_TYPE[nameKey] || []).forEach(function(n) {
     if (n && !seen[n]) { names.push(n); seen[n] = 1; }
   });
-  Object.keys(tbl).forEach(function(n) { if (!seen[n]) { names.push(n); seen[n] = 1; } });
+  Object.keys(tbl).forEach(function(n) { if (!seen[n] && _factorNameShown(n)) { names.push(n); seen[n] = 1; } });
   return '<datalist id="' + _dftNameDatalistId(cbPrefix, nameKey) + '">' +
     names.map(function(n) { return '<option value="' + _dftEsc(n) + '">'; }).join('') + '</datalist>';
 }
@@ -28063,6 +28063,16 @@ function _dftEsc(s) {
  * 両方から同じものを開く。 */
 var _FPICK = null;   // { type, apply(name), list:[{n,s}] }
 
+/* 日本のスタジオで使う布の名前（土間ビニール・グリットクロスなど 45件）。
+ * 固有名詞なので訳さず、日本語で使っているときだけ一覧に出す。
+ * 引き当て（factorPresetLookup）は言語に関係なく通すので、
+ * 日本語で作った図面を他の言語で開いても計算は壊れない。 */
+function _isJaFactorName(name) {
+  return /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]/.test('' + (name || ''));
+}
+function _factorNameShown(name) {
+  return LANG === 'ja' || !_isJaFactorName(name);
+}
 function _fpickTable(type) {
   return (type === 'bounce')  ? BOUNCE_FACTOR_STOPS
        : (type === 'diffuse') ? DIFF_FACTOR_STOPS : DFT_ND_STOPS;
@@ -28079,6 +28089,7 @@ function _fpickGroups(type) {
     var out = [];
     names.forEach(function(n) {
       if (!n || seen[n]) return;
+      if (!_factorNameShown(n)) return;   // 日本語の布は日本語のときだけ
       seen[n] = 1;
       out.push({ n:n, s:(n in tbl) ? tbl[n] : null });
     });
@@ -32029,7 +32040,7 @@ function dftResetView() {
  * APP_VER を上げたら APP_BUILD は 1 に戻す。同じ APP_VER の中では
  * アップロードごとに必ず増やす（App Store Connect の要件）。 */
 var APP_VER   = '1.1.9';
-var APP_BUILD = 30;
+var APP_BUILD = 31;
 var ver = 'v' + APP_VER + ' (' + APP_BUILD + ')';
 function _applyVersionLabels(){
   var el = document.getElementById('hdr-ver');
